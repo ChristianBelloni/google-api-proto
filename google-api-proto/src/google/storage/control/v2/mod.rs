@@ -779,3 +779,651 @@ pub mod storage_control_client {
         }
     }
 }
+/// Generated server implementations.
+pub mod storage_control_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with StorageControlServer.
+    #[async_trait]
+    pub trait StorageControl: std::marker::Send + std::marker::Sync + 'static {
+        /// Creates a new folder. This operation is only applicable to a hierarchical
+        /// namespace enabled bucket.
+        async fn create_folder(
+            &self,
+            request: tonic::Request<super::CreateFolderRequest>,
+        ) -> std::result::Result<tonic::Response<super::Folder>, tonic::Status>;
+        /// Permanently deletes an empty folder. This operation is only applicable to a
+        /// hierarchical namespace enabled bucket.
+        async fn delete_folder(
+            &self,
+            request: tonic::Request<super::DeleteFolderRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Returns metadata for the specified folder. This operation is only
+        /// applicable to a hierarchical namespace enabled bucket.
+        async fn get_folder(
+            &self,
+            request: tonic::Request<super::GetFolderRequest>,
+        ) -> std::result::Result<tonic::Response<super::Folder>, tonic::Status>;
+        /// Retrieves a list of folders. This operation is only applicable to a
+        /// hierarchical namespace enabled bucket.
+        async fn list_folders(
+            &self,
+            request: tonic::Request<super::ListFoldersRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListFoldersResponse>,
+            tonic::Status,
+        >;
+        /// Renames a source folder to a destination folder. This operation is only
+        /// applicable to a hierarchical namespace enabled bucket. During a rename, the
+        /// source and destination folders are locked until the long running operation
+        /// completes.
+        async fn rename_folder(
+            &self,
+            request: tonic::Request<super::RenameFolderRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Returns the storage layout configuration for a given bucket.
+        async fn get_storage_layout(
+            &self,
+            request: tonic::Request<super::GetStorageLayoutRequest>,
+        ) -> std::result::Result<tonic::Response<super::StorageLayout>, tonic::Status>;
+        /// Creates a new managed folder.
+        async fn create_managed_folder(
+            &self,
+            request: tonic::Request<super::CreateManagedFolderRequest>,
+        ) -> std::result::Result<tonic::Response<super::ManagedFolder>, tonic::Status>;
+        /// Permanently deletes an empty managed folder.
+        async fn delete_managed_folder(
+            &self,
+            request: tonic::Request<super::DeleteManagedFolderRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Returns metadata for the specified managed folder.
+        async fn get_managed_folder(
+            &self,
+            request: tonic::Request<super::GetManagedFolderRequest>,
+        ) -> std::result::Result<tonic::Response<super::ManagedFolder>, tonic::Status>;
+        /// Retrieves a list of managed folders for a given bucket.
+        async fn list_managed_folders(
+            &self,
+            request: tonic::Request<super::ListManagedFoldersRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListManagedFoldersResponse>,
+            tonic::Status,
+        >;
+    }
+    /// StorageControl service includes selected control plane operations.
+    #[derive(Debug)]
+    pub struct StorageControlServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> StorageControlServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for StorageControlServer<T>
+    where
+        T: StorageControl,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.storage.control.v2.StorageControl/CreateFolder" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateFolderSvc<T: StorageControl>(pub Arc<T>);
+                    impl<
+                        T: StorageControl,
+                    > tonic::server::UnaryService<super::CreateFolderRequest>
+                    for CreateFolderSvc<T> {
+                        type Response = super::Folder;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateFolderRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StorageControl>::create_folder(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateFolderSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.control.v2.StorageControl/DeleteFolder" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteFolderSvc<T: StorageControl>(pub Arc<T>);
+                    impl<
+                        T: StorageControl,
+                    > tonic::server::UnaryService<super::DeleteFolderRequest>
+                    for DeleteFolderSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteFolderRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StorageControl>::delete_folder(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteFolderSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.control.v2.StorageControl/GetFolder" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetFolderSvc<T: StorageControl>(pub Arc<T>);
+                    impl<
+                        T: StorageControl,
+                    > tonic::server::UnaryService<super::GetFolderRequest>
+                    for GetFolderSvc<T> {
+                        type Response = super::Folder;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetFolderRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StorageControl>::get_folder(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetFolderSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.control.v2.StorageControl/ListFolders" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListFoldersSvc<T: StorageControl>(pub Arc<T>);
+                    impl<
+                        T: StorageControl,
+                    > tonic::server::UnaryService<super::ListFoldersRequest>
+                    for ListFoldersSvc<T> {
+                        type Response = super::ListFoldersResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListFoldersRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StorageControl>::list_folders(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListFoldersSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.control.v2.StorageControl/RenameFolder" => {
+                    #[allow(non_camel_case_types)]
+                    struct RenameFolderSvc<T: StorageControl>(pub Arc<T>);
+                    impl<
+                        T: StorageControl,
+                    > tonic::server::UnaryService<super::RenameFolderRequest>
+                    for RenameFolderSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RenameFolderRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StorageControl>::rename_folder(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RenameFolderSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.control.v2.StorageControl/GetStorageLayout" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetStorageLayoutSvc<T: StorageControl>(pub Arc<T>);
+                    impl<
+                        T: StorageControl,
+                    > tonic::server::UnaryService<super::GetStorageLayoutRequest>
+                    for GetStorageLayoutSvc<T> {
+                        type Response = super::StorageLayout;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetStorageLayoutRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StorageControl>::get_storage_layout(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetStorageLayoutSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.control.v2.StorageControl/CreateManagedFolder" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateManagedFolderSvc<T: StorageControl>(pub Arc<T>);
+                    impl<
+                        T: StorageControl,
+                    > tonic::server::UnaryService<super::CreateManagedFolderRequest>
+                    for CreateManagedFolderSvc<T> {
+                        type Response = super::ManagedFolder;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateManagedFolderRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StorageControl>::create_managed_folder(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateManagedFolderSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.control.v2.StorageControl/DeleteManagedFolder" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteManagedFolderSvc<T: StorageControl>(pub Arc<T>);
+                    impl<
+                        T: StorageControl,
+                    > tonic::server::UnaryService<super::DeleteManagedFolderRequest>
+                    for DeleteManagedFolderSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteManagedFolderRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StorageControl>::delete_managed_folder(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteManagedFolderSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.control.v2.StorageControl/GetManagedFolder" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetManagedFolderSvc<T: StorageControl>(pub Arc<T>);
+                    impl<
+                        T: StorageControl,
+                    > tonic::server::UnaryService<super::GetManagedFolderRequest>
+                    for GetManagedFolderSvc<T> {
+                        type Response = super::ManagedFolder;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetManagedFolderRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StorageControl>::get_managed_folder(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetManagedFolderSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.control.v2.StorageControl/ListManagedFolders" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListManagedFoldersSvc<T: StorageControl>(pub Arc<T>);
+                    impl<
+                        T: StorageControl,
+                    > tonic::server::UnaryService<super::ListManagedFoldersRequest>
+                    for ListManagedFoldersSvc<T> {
+                        type Response = super::ListManagedFoldersResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListManagedFoldersRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StorageControl>::list_managed_folders(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListManagedFoldersSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for StorageControlServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.storage.control.v2.StorageControl";
+    impl<T> tonic::server::NamedService for StorageControlServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}

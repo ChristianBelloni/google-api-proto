@@ -208,9 +208,9 @@ impl VariableState {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            VariableState::Unspecified => "VARIABLE_STATE_UNSPECIFIED",
-            VariableState::Updated => "UPDATED",
-            VariableState::Deleted => "DELETED",
+            Self::Unspecified => "VARIABLE_STATE_UNSPECIFIED",
+            Self::Updated => "UPDATED",
+            Self::Deleted => "DELETED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1056,5 +1056,955 @@ pub mod runtime_config_manager_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod runtime_config_manager_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with RuntimeConfigManagerServer.
+    #[async_trait]
+    pub trait RuntimeConfigManager: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists all the RuntimeConfig resources within project.
+        async fn list_configs(
+            &self,
+            request: tonic::Request<super::ListConfigsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListConfigsResponse>,
+            tonic::Status,
+        >;
+        /// Gets information about a RuntimeConfig resource.
+        async fn get_config(
+            &self,
+            request: tonic::Request<super::GetConfigRequest>,
+        ) -> std::result::Result<tonic::Response<super::RuntimeConfig>, tonic::Status>;
+        /// Creates a new RuntimeConfig resource. The configuration name must be
+        /// unique within project.
+        async fn create_config(
+            &self,
+            request: tonic::Request<super::CreateConfigRequest>,
+        ) -> std::result::Result<tonic::Response<super::RuntimeConfig>, tonic::Status>;
+        /// Updates a RuntimeConfig resource. The configuration must exist beforehand.
+        async fn update_config(
+            &self,
+            request: tonic::Request<super::UpdateConfigRequest>,
+        ) -> std::result::Result<tonic::Response<super::RuntimeConfig>, tonic::Status>;
+        /// Deletes a RuntimeConfig resource.
+        async fn delete_config(
+            &self,
+            request: tonic::Request<super::DeleteConfigRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Lists variables within given a configuration, matching any provided
+        /// filters. This only lists variable names, not the values, unless
+        /// `return_values` is true, in which case only variables that user has IAM
+        /// permission to GetVariable will be returned.
+        async fn list_variables(
+            &self,
+            request: tonic::Request<super::ListVariablesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListVariablesResponse>,
+            tonic::Status,
+        >;
+        /// Gets information about a single variable.
+        async fn get_variable(
+            &self,
+            request: tonic::Request<super::GetVariableRequest>,
+        ) -> std::result::Result<tonic::Response<super::Variable>, tonic::Status>;
+        /// Watches a specific variable and waits for a change in the variable's value.
+        /// When there is a change, this method returns the new value or times out.
+        ///
+        /// If a variable is deleted while being watched, the `variableState` state is
+        /// set to `DELETED` and the method returns the last known variable `value`.
+        ///
+        /// If you set the deadline for watching to a larger value than internal
+        /// timeout (60 seconds), the current variable value is returned and the
+        /// `variableState` will be `VARIABLE_STATE_UNSPECIFIED`.
+        ///
+        /// To learn more about creating a watcher, read the
+        /// [Watching a Variable for
+        /// Changes](/deployment-manager/runtime-configurator/watching-a-variable)
+        /// documentation.
+        async fn watch_variable(
+            &self,
+            request: tonic::Request<super::WatchVariableRequest>,
+        ) -> std::result::Result<tonic::Response<super::Variable>, tonic::Status>;
+        /// Creates a variable within the given configuration. You cannot create
+        /// a variable with a name that is a prefix of an existing variable name, or a
+        /// name that has an existing variable name as a prefix.
+        ///
+        /// To learn more about creating a variable, read the
+        /// [Setting and Getting
+        /// Data](/deployment-manager/runtime-configurator/set-and-get-variables)
+        /// documentation.
+        async fn create_variable(
+            &self,
+            request: tonic::Request<super::CreateVariableRequest>,
+        ) -> std::result::Result<tonic::Response<super::Variable>, tonic::Status>;
+        /// Updates an existing variable with a new value.
+        async fn update_variable(
+            &self,
+            request: tonic::Request<super::UpdateVariableRequest>,
+        ) -> std::result::Result<tonic::Response<super::Variable>, tonic::Status>;
+        /// Deletes a variable or multiple variables.
+        ///
+        /// If you specify a variable name, then that variable is deleted. If you
+        /// specify a prefix and `recursive` is true, then all variables with that
+        /// prefix are deleted. You must set a `recursive` to true if you delete
+        /// variables by prefix.
+        async fn delete_variable(
+            &self,
+            request: tonic::Request<super::DeleteVariableRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// List waiters within the given configuration.
+        async fn list_waiters(
+            &self,
+            request: tonic::Request<super::ListWaitersRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListWaitersResponse>,
+            tonic::Status,
+        >;
+        /// Gets information about a single waiter.
+        async fn get_waiter(
+            &self,
+            request: tonic::Request<super::GetWaiterRequest>,
+        ) -> std::result::Result<tonic::Response<super::Waiter>, tonic::Status>;
+        /// Creates a Waiter resource. This operation returns a long-running Operation
+        /// resource which can be polled for completion. However, a waiter with the
+        /// given name will exist (and can be retrieved) prior to the operation
+        /// completing. If the operation fails, the failed Waiter resource will
+        /// still exist and must be deleted prior to subsequent creation attempts.
+        async fn create_waiter(
+            &self,
+            request: tonic::Request<super::CreateWaiterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes the waiter with the specified name.
+        async fn delete_waiter(
+            &self,
+            request: tonic::Request<super::DeleteWaiterRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+    }
+    /// RuntimeConfig API represents configuration objects and operations on those
+    /// configuration objects.
+    /// RuntimeConfig objects consist of Variables logically grouped in the those
+    /// objects.
+    /// Variables are simple key-value pairs. Variables can be watched for changes or
+    /// deletions. Variable key can be hieararchical, e.g. ports/serving_port,
+    /// ports/monitoring_port, etc. Variable names can be hierarchical. No variable
+    /// name can be prefix of another.
+    /// Config objects represent logical containers for variables, e.g. flags,
+    /// passwords, etc.
+    #[derive(Debug)]
+    pub struct RuntimeConfigManagerServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> RuntimeConfigManagerServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for RuntimeConfigManagerServer<T>
+    where
+        T: RuntimeConfigManager,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.runtimeconfig.v1beta1.RuntimeConfigManager/ListConfigs" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListConfigsSvc<T: RuntimeConfigManager>(pub Arc<T>);
+                    impl<
+                        T: RuntimeConfigManager,
+                    > tonic::server::UnaryService<super::ListConfigsRequest>
+                    for ListConfigsSvc<T> {
+                        type Response = super::ListConfigsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListConfigsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RuntimeConfigManager>::list_configs(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListConfigsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.runtimeconfig.v1beta1.RuntimeConfigManager/GetConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetConfigSvc<T: RuntimeConfigManager>(pub Arc<T>);
+                    impl<
+                        T: RuntimeConfigManager,
+                    > tonic::server::UnaryService<super::GetConfigRequest>
+                    for GetConfigSvc<T> {
+                        type Response = super::RuntimeConfig;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RuntimeConfigManager>::get_config(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.runtimeconfig.v1beta1.RuntimeConfigManager/CreateConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateConfigSvc<T: RuntimeConfigManager>(pub Arc<T>);
+                    impl<
+                        T: RuntimeConfigManager,
+                    > tonic::server::UnaryService<super::CreateConfigRequest>
+                    for CreateConfigSvc<T> {
+                        type Response = super::RuntimeConfig;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RuntimeConfigManager>::create_config(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.runtimeconfig.v1beta1.RuntimeConfigManager/UpdateConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateConfigSvc<T: RuntimeConfigManager>(pub Arc<T>);
+                    impl<
+                        T: RuntimeConfigManager,
+                    > tonic::server::UnaryService<super::UpdateConfigRequest>
+                    for UpdateConfigSvc<T> {
+                        type Response = super::RuntimeConfig;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RuntimeConfigManager>::update_config(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.runtimeconfig.v1beta1.RuntimeConfigManager/DeleteConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteConfigSvc<T: RuntimeConfigManager>(pub Arc<T>);
+                    impl<
+                        T: RuntimeConfigManager,
+                    > tonic::server::UnaryService<super::DeleteConfigRequest>
+                    for DeleteConfigSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RuntimeConfigManager>::delete_config(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.runtimeconfig.v1beta1.RuntimeConfigManager/ListVariables" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListVariablesSvc<T: RuntimeConfigManager>(pub Arc<T>);
+                    impl<
+                        T: RuntimeConfigManager,
+                    > tonic::server::UnaryService<super::ListVariablesRequest>
+                    for ListVariablesSvc<T> {
+                        type Response = super::ListVariablesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListVariablesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RuntimeConfigManager>::list_variables(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListVariablesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.runtimeconfig.v1beta1.RuntimeConfigManager/GetVariable" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetVariableSvc<T: RuntimeConfigManager>(pub Arc<T>);
+                    impl<
+                        T: RuntimeConfigManager,
+                    > tonic::server::UnaryService<super::GetVariableRequest>
+                    for GetVariableSvc<T> {
+                        type Response = super::Variable;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetVariableRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RuntimeConfigManager>::get_variable(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetVariableSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.runtimeconfig.v1beta1.RuntimeConfigManager/WatchVariable" => {
+                    #[allow(non_camel_case_types)]
+                    struct WatchVariableSvc<T: RuntimeConfigManager>(pub Arc<T>);
+                    impl<
+                        T: RuntimeConfigManager,
+                    > tonic::server::UnaryService<super::WatchVariableRequest>
+                    for WatchVariableSvc<T> {
+                        type Response = super::Variable;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::WatchVariableRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RuntimeConfigManager>::watch_variable(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = WatchVariableSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.runtimeconfig.v1beta1.RuntimeConfigManager/CreateVariable" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateVariableSvc<T: RuntimeConfigManager>(pub Arc<T>);
+                    impl<
+                        T: RuntimeConfigManager,
+                    > tonic::server::UnaryService<super::CreateVariableRequest>
+                    for CreateVariableSvc<T> {
+                        type Response = super::Variable;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateVariableRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RuntimeConfigManager>::create_variable(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateVariableSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.runtimeconfig.v1beta1.RuntimeConfigManager/UpdateVariable" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateVariableSvc<T: RuntimeConfigManager>(pub Arc<T>);
+                    impl<
+                        T: RuntimeConfigManager,
+                    > tonic::server::UnaryService<super::UpdateVariableRequest>
+                    for UpdateVariableSvc<T> {
+                        type Response = super::Variable;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateVariableRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RuntimeConfigManager>::update_variable(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateVariableSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.runtimeconfig.v1beta1.RuntimeConfigManager/DeleteVariable" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteVariableSvc<T: RuntimeConfigManager>(pub Arc<T>);
+                    impl<
+                        T: RuntimeConfigManager,
+                    > tonic::server::UnaryService<super::DeleteVariableRequest>
+                    for DeleteVariableSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteVariableRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RuntimeConfigManager>::delete_variable(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteVariableSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.runtimeconfig.v1beta1.RuntimeConfigManager/ListWaiters" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListWaitersSvc<T: RuntimeConfigManager>(pub Arc<T>);
+                    impl<
+                        T: RuntimeConfigManager,
+                    > tonic::server::UnaryService<super::ListWaitersRequest>
+                    for ListWaitersSvc<T> {
+                        type Response = super::ListWaitersResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListWaitersRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RuntimeConfigManager>::list_waiters(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListWaitersSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.runtimeconfig.v1beta1.RuntimeConfigManager/GetWaiter" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetWaiterSvc<T: RuntimeConfigManager>(pub Arc<T>);
+                    impl<
+                        T: RuntimeConfigManager,
+                    > tonic::server::UnaryService<super::GetWaiterRequest>
+                    for GetWaiterSvc<T> {
+                        type Response = super::Waiter;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetWaiterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RuntimeConfigManager>::get_waiter(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetWaiterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.runtimeconfig.v1beta1.RuntimeConfigManager/CreateWaiter" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateWaiterSvc<T: RuntimeConfigManager>(pub Arc<T>);
+                    impl<
+                        T: RuntimeConfigManager,
+                    > tonic::server::UnaryService<super::CreateWaiterRequest>
+                    for CreateWaiterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateWaiterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RuntimeConfigManager>::create_waiter(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateWaiterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.runtimeconfig.v1beta1.RuntimeConfigManager/DeleteWaiter" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteWaiterSvc<T: RuntimeConfigManager>(pub Arc<T>);
+                    impl<
+                        T: RuntimeConfigManager,
+                    > tonic::server::UnaryService<super::DeleteWaiterRequest>
+                    for DeleteWaiterSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteWaiterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RuntimeConfigManager>::delete_waiter(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteWaiterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for RuntimeConfigManagerServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.runtimeconfig.v1beta1.RuntimeConfigManager";
+    impl<T> tonic::server::NamedService for RuntimeConfigManagerServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

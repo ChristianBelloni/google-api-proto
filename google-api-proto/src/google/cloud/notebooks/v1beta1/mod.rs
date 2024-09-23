@@ -124,10 +124,10 @@ pub mod reservation_affinity {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::NoReservation => "NO_RESERVATION",
-                Type::AnyReservation => "ANY_RESERVATION",
-                Type::SpecificReservation => "SPECIFIC_RESERVATION",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::NoReservation => "NO_RESERVATION",
+                Self::AnyReservation => "ANY_RESERVATION",
+                Self::SpecificReservation => "SPECIFIC_RESERVATION",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -344,17 +344,17 @@ pub mod instance {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                AcceleratorType::Unspecified => "ACCELERATOR_TYPE_UNSPECIFIED",
-                AcceleratorType::NvidiaTeslaK80 => "NVIDIA_TESLA_K80",
-                AcceleratorType::NvidiaTeslaP100 => "NVIDIA_TESLA_P100",
-                AcceleratorType::NvidiaTeslaV100 => "NVIDIA_TESLA_V100",
-                AcceleratorType::NvidiaTeslaP4 => "NVIDIA_TESLA_P4",
-                AcceleratorType::NvidiaTeslaT4 => "NVIDIA_TESLA_T4",
-                AcceleratorType::NvidiaTeslaT4Vws => "NVIDIA_TESLA_T4_VWS",
-                AcceleratorType::NvidiaTeslaP100Vws => "NVIDIA_TESLA_P100_VWS",
-                AcceleratorType::NvidiaTeslaP4Vws => "NVIDIA_TESLA_P4_VWS",
-                AcceleratorType::TpuV2 => "TPU_V2",
-                AcceleratorType::TpuV3 => "TPU_V3",
+                Self::Unspecified => "ACCELERATOR_TYPE_UNSPECIFIED",
+                Self::NvidiaTeslaK80 => "NVIDIA_TESLA_K80",
+                Self::NvidiaTeslaP100 => "NVIDIA_TESLA_P100",
+                Self::NvidiaTeslaV100 => "NVIDIA_TESLA_V100",
+                Self::NvidiaTeslaP4 => "NVIDIA_TESLA_P4",
+                Self::NvidiaTeslaT4 => "NVIDIA_TESLA_T4",
+                Self::NvidiaTeslaT4Vws => "NVIDIA_TESLA_T4_VWS",
+                Self::NvidiaTeslaP100Vws => "NVIDIA_TESLA_P100_VWS",
+                Self::NvidiaTeslaP4Vws => "NVIDIA_TESLA_P4_VWS",
+                Self::TpuV2 => "TPU_V2",
+                Self::TpuV3 => "TPU_V3",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -422,18 +422,18 @@ pub mod instance {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Starting => "STARTING",
-                State::Provisioning => "PROVISIONING",
-                State::Active => "ACTIVE",
-                State::Stopping => "STOPPING",
-                State::Stopped => "STOPPED",
-                State::Deleted => "DELETED",
-                State::Upgrading => "UPGRADING",
-                State::Initializing => "INITIALIZING",
-                State::Registering => "REGISTERING",
-                State::Suspending => "SUSPENDING",
-                State::Suspended => "SUSPENDED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Starting => "STARTING",
+                Self::Provisioning => "PROVISIONING",
+                Self::Active => "ACTIVE",
+                Self::Stopping => "STOPPING",
+                Self::Stopped => "STOPPED",
+                Self::Deleted => "DELETED",
+                Self::Upgrading => "UPGRADING",
+                Self::Initializing => "INITIALIZING",
+                Self::Registering => "REGISTERING",
+                Self::Suspending => "SUSPENDING",
+                Self::Suspended => "SUSPENDED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -485,10 +485,10 @@ pub mod instance {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                DiskType::Unspecified => "DISK_TYPE_UNSPECIFIED",
-                DiskType::PdStandard => "PD_STANDARD",
-                DiskType::PdSsd => "PD_SSD",
-                DiskType::PdBalanced => "PD_BALANCED",
+                Self::Unspecified => "DISK_TYPE_UNSPECIFIED",
+                Self::PdStandard => "PD_STANDARD",
+                Self::PdSsd => "PD_SSD",
+                Self::PdBalanced => "PD_BALANCED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -530,9 +530,9 @@ pub mod instance {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                DiskEncryption::Unspecified => "DISK_ENCRYPTION_UNSPECIFIED",
-                DiskEncryption::Gmek => "GMEK",
-                DiskEncryption::Cmek => "CMEK",
+                Self::Unspecified => "DISK_ENCRYPTION_UNSPECIFIED",
+                Self::Gmek => "GMEK",
+                Self::Cmek => "CMEK",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -574,9 +574,9 @@ pub mod instance {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                NicType::UnspecifiedNicType => "UNSPECIFIED_NIC_TYPE",
-                NicType::VirtioNet => "VIRTIO_NET",
-                NicType::Gvnic => "GVNIC",
+                Self::UnspecifiedNicType => "UNSPECIFIED_NIC_TYPE",
+                Self::VirtioNet => "VIRTIO_NET",
+                Self::Gvnic => "GVNIC",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1568,5 +1568,1171 @@ pub mod notebook_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod notebook_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with NotebookServiceServer.
+    #[async_trait]
+    pub trait NotebookService: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists instances in a given project and location.
+        async fn list_instances(
+            &self,
+            request: tonic::Request<super::ListInstancesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListInstancesResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single Instance.
+        async fn get_instance(
+            &self,
+            request: tonic::Request<super::GetInstanceRequest>,
+        ) -> std::result::Result<tonic::Response<super::Instance>, tonic::Status>;
+        /// Creates a new Instance in a given project and location.
+        async fn create_instance(
+            &self,
+            request: tonic::Request<super::CreateInstanceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Registers an existing legacy notebook instance to the Notebooks API server.
+        /// Legacy instances are instances created with the legacy Compute Engine
+        /// calls. They are not manageable by the Notebooks API out of the box. This
+        /// call makes these instances manageable by the Notebooks API.
+        async fn register_instance(
+            &self,
+            request: tonic::Request<super::RegisterInstanceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the guest accelerators of a single Instance.
+        async fn set_instance_accelerator(
+            &self,
+            request: tonic::Request<super::SetInstanceAcceleratorRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the machine type of a single Instance.
+        async fn set_instance_machine_type(
+            &self,
+            request: tonic::Request<super::SetInstanceMachineTypeRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the labels of an Instance.
+        async fn set_instance_labels(
+            &self,
+            request: tonic::Request<super::SetInstanceLabelsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single Instance.
+        async fn delete_instance(
+            &self,
+            request: tonic::Request<super::DeleteInstanceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Starts a notebook instance.
+        async fn start_instance(
+            &self,
+            request: tonic::Request<super::StartInstanceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Stops a notebook instance.
+        async fn stop_instance(
+            &self,
+            request: tonic::Request<super::StopInstanceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Resets a notebook instance.
+        async fn reset_instance(
+            &self,
+            request: tonic::Request<super::ResetInstanceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Allows notebook instances to
+        /// report their latest instance information to the Notebooks
+        /// API server. The server will merge the reported information to
+        /// the instance metadata store. Do not use this method directly.
+        async fn report_instance_info(
+            &self,
+            request: tonic::Request<super::ReportInstanceInfoRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Check if a notebook instance is upgradable.
+        /// Deprecated. Please consider using v1.
+        async fn is_instance_upgradeable(
+            &self,
+            request: tonic::Request<super::IsInstanceUpgradeableRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::IsInstanceUpgradeableResponse>,
+            tonic::Status,
+        >;
+        /// Upgrades a notebook instance to the latest version.
+        /// Deprecated. Please consider using v1.
+        async fn upgrade_instance(
+            &self,
+            request: tonic::Request<super::UpgradeInstanceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Allows notebook instances to
+        /// call this endpoint to upgrade themselves. Do not use this method directly.
+        /// Deprecated. Please consider using v1.
+        async fn upgrade_instance_internal(
+            &self,
+            request: tonic::Request<super::UpgradeInstanceInternalRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists environments in a project.
+        async fn list_environments(
+            &self,
+            request: tonic::Request<super::ListEnvironmentsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListEnvironmentsResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single Environment.
+        async fn get_environment(
+            &self,
+            request: tonic::Request<super::GetEnvironmentRequest>,
+        ) -> std::result::Result<tonic::Response<super::Environment>, tonic::Status>;
+        /// Creates a new Environment.
+        async fn create_environment(
+            &self,
+            request: tonic::Request<super::CreateEnvironmentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single Environment.
+        async fn delete_environment(
+            &self,
+            request: tonic::Request<super::DeleteEnvironmentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// API v1beta1 service for Cloud AI Platform Notebooks.
+    #[derive(Debug)]
+    pub struct NotebookServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> NotebookServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for NotebookServiceServer<T>
+    where
+        T: NotebookService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.notebooks.v1beta1.NotebookService/ListInstances" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListInstancesSvc<T: NotebookService>(pub Arc<T>);
+                    impl<
+                        T: NotebookService,
+                    > tonic::server::UnaryService<super::ListInstancesRequest>
+                    for ListInstancesSvc<T> {
+                        type Response = super::ListInstancesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListInstancesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NotebookService>::list_instances(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListInstancesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.notebooks.v1beta1.NotebookService/GetInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetInstanceSvc<T: NotebookService>(pub Arc<T>);
+                    impl<
+                        T: NotebookService,
+                    > tonic::server::UnaryService<super::GetInstanceRequest>
+                    for GetInstanceSvc<T> {
+                        type Response = super::Instance;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetInstanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NotebookService>::get_instance(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.notebooks.v1beta1.NotebookService/CreateInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateInstanceSvc<T: NotebookService>(pub Arc<T>);
+                    impl<
+                        T: NotebookService,
+                    > tonic::server::UnaryService<super::CreateInstanceRequest>
+                    for CreateInstanceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateInstanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NotebookService>::create_instance(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.notebooks.v1beta1.NotebookService/RegisterInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct RegisterInstanceSvc<T: NotebookService>(pub Arc<T>);
+                    impl<
+                        T: NotebookService,
+                    > tonic::server::UnaryService<super::RegisterInstanceRequest>
+                    for RegisterInstanceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RegisterInstanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NotebookService>::register_instance(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RegisterInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.notebooks.v1beta1.NotebookService/SetInstanceAccelerator" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetInstanceAcceleratorSvc<T: NotebookService>(pub Arc<T>);
+                    impl<
+                        T: NotebookService,
+                    > tonic::server::UnaryService<super::SetInstanceAcceleratorRequest>
+                    for SetInstanceAcceleratorSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SetInstanceAcceleratorRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NotebookService>::set_instance_accelerator(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SetInstanceAcceleratorSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.notebooks.v1beta1.NotebookService/SetInstanceMachineType" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetInstanceMachineTypeSvc<T: NotebookService>(pub Arc<T>);
+                    impl<
+                        T: NotebookService,
+                    > tonic::server::UnaryService<super::SetInstanceMachineTypeRequest>
+                    for SetInstanceMachineTypeSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SetInstanceMachineTypeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NotebookService>::set_instance_machine_type(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SetInstanceMachineTypeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.notebooks.v1beta1.NotebookService/SetInstanceLabels" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetInstanceLabelsSvc<T: NotebookService>(pub Arc<T>);
+                    impl<
+                        T: NotebookService,
+                    > tonic::server::UnaryService<super::SetInstanceLabelsRequest>
+                    for SetInstanceLabelsSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SetInstanceLabelsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NotebookService>::set_instance_labels(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SetInstanceLabelsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.notebooks.v1beta1.NotebookService/DeleteInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteInstanceSvc<T: NotebookService>(pub Arc<T>);
+                    impl<
+                        T: NotebookService,
+                    > tonic::server::UnaryService<super::DeleteInstanceRequest>
+                    for DeleteInstanceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteInstanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NotebookService>::delete_instance(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.notebooks.v1beta1.NotebookService/StartInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct StartInstanceSvc<T: NotebookService>(pub Arc<T>);
+                    impl<
+                        T: NotebookService,
+                    > tonic::server::UnaryService<super::StartInstanceRequest>
+                    for StartInstanceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::StartInstanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NotebookService>::start_instance(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = StartInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.notebooks.v1beta1.NotebookService/StopInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct StopInstanceSvc<T: NotebookService>(pub Arc<T>);
+                    impl<
+                        T: NotebookService,
+                    > tonic::server::UnaryService<super::StopInstanceRequest>
+                    for StopInstanceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::StopInstanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NotebookService>::stop_instance(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = StopInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.notebooks.v1beta1.NotebookService/ResetInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct ResetInstanceSvc<T: NotebookService>(pub Arc<T>);
+                    impl<
+                        T: NotebookService,
+                    > tonic::server::UnaryService<super::ResetInstanceRequest>
+                    for ResetInstanceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ResetInstanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NotebookService>::reset_instance(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ResetInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.notebooks.v1beta1.NotebookService/ReportInstanceInfo" => {
+                    #[allow(non_camel_case_types)]
+                    struct ReportInstanceInfoSvc<T: NotebookService>(pub Arc<T>);
+                    impl<
+                        T: NotebookService,
+                    > tonic::server::UnaryService<super::ReportInstanceInfoRequest>
+                    for ReportInstanceInfoSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ReportInstanceInfoRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NotebookService>::report_instance_info(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ReportInstanceInfoSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.notebooks.v1beta1.NotebookService/IsInstanceUpgradeable" => {
+                    #[allow(non_camel_case_types)]
+                    struct IsInstanceUpgradeableSvc<T: NotebookService>(pub Arc<T>);
+                    impl<
+                        T: NotebookService,
+                    > tonic::server::UnaryService<super::IsInstanceUpgradeableRequest>
+                    for IsInstanceUpgradeableSvc<T> {
+                        type Response = super::IsInstanceUpgradeableResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::IsInstanceUpgradeableRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NotebookService>::is_instance_upgradeable(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = IsInstanceUpgradeableSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.notebooks.v1beta1.NotebookService/UpgradeInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpgradeInstanceSvc<T: NotebookService>(pub Arc<T>);
+                    impl<
+                        T: NotebookService,
+                    > tonic::server::UnaryService<super::UpgradeInstanceRequest>
+                    for UpgradeInstanceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpgradeInstanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NotebookService>::upgrade_instance(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpgradeInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.notebooks.v1beta1.NotebookService/UpgradeInstanceInternal" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpgradeInstanceInternalSvc<T: NotebookService>(pub Arc<T>);
+                    impl<
+                        T: NotebookService,
+                    > tonic::server::UnaryService<super::UpgradeInstanceInternalRequest>
+                    for UpgradeInstanceInternalSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::UpgradeInstanceInternalRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NotebookService>::upgrade_instance_internal(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpgradeInstanceInternalSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.notebooks.v1beta1.NotebookService/ListEnvironments" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListEnvironmentsSvc<T: NotebookService>(pub Arc<T>);
+                    impl<
+                        T: NotebookService,
+                    > tonic::server::UnaryService<super::ListEnvironmentsRequest>
+                    for ListEnvironmentsSvc<T> {
+                        type Response = super::ListEnvironmentsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListEnvironmentsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NotebookService>::list_environments(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListEnvironmentsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.notebooks.v1beta1.NotebookService/GetEnvironment" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetEnvironmentSvc<T: NotebookService>(pub Arc<T>);
+                    impl<
+                        T: NotebookService,
+                    > tonic::server::UnaryService<super::GetEnvironmentRequest>
+                    for GetEnvironmentSvc<T> {
+                        type Response = super::Environment;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetEnvironmentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NotebookService>::get_environment(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetEnvironmentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.notebooks.v1beta1.NotebookService/CreateEnvironment" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateEnvironmentSvc<T: NotebookService>(pub Arc<T>);
+                    impl<
+                        T: NotebookService,
+                    > tonic::server::UnaryService<super::CreateEnvironmentRequest>
+                    for CreateEnvironmentSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateEnvironmentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NotebookService>::create_environment(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateEnvironmentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.notebooks.v1beta1.NotebookService/DeleteEnvironment" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteEnvironmentSvc<T: NotebookService>(pub Arc<T>);
+                    impl<
+                        T: NotebookService,
+                    > tonic::server::UnaryService<super::DeleteEnvironmentRequest>
+                    for DeleteEnvironmentSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteEnvironmentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NotebookService>::delete_environment(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteEnvironmentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for NotebookServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.notebooks.v1beta1.NotebookService";
+    impl<T> tonic::server::NamedService for NotebookServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

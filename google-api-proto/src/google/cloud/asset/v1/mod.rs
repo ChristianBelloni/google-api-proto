@@ -54,11 +54,11 @@ pub mod temporal_asset {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                PriorAssetState::Unspecified => "PRIOR_ASSET_STATE_UNSPECIFIED",
-                PriorAssetState::Present => "PRESENT",
-                PriorAssetState::Invalid => "INVALID",
-                PriorAssetState::DoesNotExist => "DOES_NOT_EXIST",
-                PriorAssetState::Deleted => "DELETED",
+                Self::Unspecified => "PRIOR_ASSET_STATE_UNSPECIFIED",
+                Self::Present => "PRESENT",
+                Self::Invalid => "INVALID",
+                Self::DoesNotExist => "DOES_NOT_EXIST",
+                Self::Deleted => "DELETED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -947,10 +947,10 @@ pub mod condition_evaluation {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                EvaluationValue::Unspecified => "EVALUATION_VALUE_UNSPECIFIED",
-                EvaluationValue::True => "TRUE",
-                EvaluationValue::False => "FALSE",
-                EvaluationValue::Conditional => "CONDITIONAL",
+                Self::Unspecified => "EVALUATION_VALUE_UNSPECIFIED",
+                Self::True => "TRUE",
+                Self::False => "FALSE",
+                Self::Conditional => "CONDITIONAL",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1631,9 +1631,9 @@ pub mod partition_spec {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                PartitionKey::Unspecified => "PARTITION_KEY_UNSPECIFIED",
-                PartitionKey::ReadTime => "READ_TIME",
-                PartitionKey::RequestTime => "REQUEST_TIME",
+                Self::Unspecified => "PARTITION_KEY_UNSPECIFIED",
+                Self::ReadTime => "READ_TIME",
+                Self::RequestTime => "REQUEST_TIME",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2457,8 +2457,8 @@ pub mod iam_policy_analysis_output_config {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    PartitionKey::Unspecified => "PARTITION_KEY_UNSPECIFIED",
-                    PartitionKey::RequestTime => "REQUEST_TIME",
+                    Self::Unspecified => "PARTITION_KEY_UNSPECIFIED",
+                    Self::RequestTime => "REQUEST_TIME",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2740,9 +2740,9 @@ pub mod analyze_move_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                AnalysisView::Unspecified => "ANALYSIS_VIEW_UNSPECIFIED",
-                AnalysisView::Full => "FULL",
-                AnalysisView::Basic => "BASIC",
+                Self::Unspecified => "ANALYSIS_VIEW_UNSPECIFIED",
+                Self::Full => "FULL",
+                Self::Basic => "BASIC",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -3331,9 +3331,9 @@ pub mod analyzer_org_policy_constraint {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    ConstraintDefault::Unspecified => "CONSTRAINT_DEFAULT_UNSPECIFIED",
-                    ConstraintDefault::Allow => "ALLOW",
-                    ConstraintDefault::Deny => "DENY",
+                    Self::Unspecified => "CONSTRAINT_DEFAULT_UNSPECIFIED",
+                    Self::Allow => "ALLOW",
+                    Self::Deny => "DENY",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -3428,10 +3428,10 @@ pub mod analyzer_org_policy_constraint {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    MethodType::Unspecified => "METHOD_TYPE_UNSPECIFIED",
-                    MethodType::Create => "CREATE",
-                    MethodType::Update => "UPDATE",
-                    MethodType::Delete => "DELETE",
+                    Self::Unspecified => "METHOD_TYPE_UNSPECIFIED",
+                    Self::Create => "CREATE",
+                    Self::Update => "UPDATE",
+                    Self::Delete => "DELETE",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -3473,9 +3473,9 @@ pub mod analyzer_org_policy_constraint {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    ActionType::Unspecified => "ACTION_TYPE_UNSPECIFIED",
-                    ActionType::Allow => "ALLOW",
-                    ActionType::Deny => "DENY",
+                    Self::Unspecified => "ACTION_TYPE_UNSPECIFIED",
+                    Self::Allow => "ALLOW",
+                    Self::Deny => "DENY",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -3925,13 +3925,13 @@ impl ContentType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ContentType::Unspecified => "CONTENT_TYPE_UNSPECIFIED",
-            ContentType::Resource => "RESOURCE",
-            ContentType::IamPolicy => "IAM_POLICY",
-            ContentType::OrgPolicy => "ORG_POLICY",
-            ContentType::AccessPolicy => "ACCESS_POLICY",
-            ContentType::OsInventory => "OS_INVENTORY",
-            ContentType::Relationship => "RELATIONSHIP",
+            Self::Unspecified => "CONTENT_TYPE_UNSPECIFIED",
+            Self::Resource => "RESOURCE",
+            Self::IamPolicy => "IAM_POLICY",
+            Self::OrgPolicy => "ORG_POLICY",
+            Self::AccessPolicy => "ACCESS_POLICY",
+            Self::OsInventory => "OS_INVENTORY",
+            Self::Relationship => "RELATIONSHIP",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -4787,5 +4787,1466 @@ pub mod asset_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod asset_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with AssetServiceServer.
+    #[async_trait]
+    pub trait AssetService: std::marker::Send + std::marker::Sync + 'static {
+        /// Exports assets with time and resource types to a given Cloud Storage
+        /// location/BigQuery table. For Cloud Storage location destinations, the
+        /// output format is newline-delimited JSON. Each line represents a
+        /// [google.cloud.asset.v1.Asset][google.cloud.asset.v1.Asset] in the JSON
+        /// format; for BigQuery table destinations, the output table stores the fields
+        /// in asset Protobuf as columns. This API implements the
+        /// [google.longrunning.Operation][google.longrunning.Operation] API, which
+        /// allows you to keep track of the export. We recommend intervals of at least
+        /// 2 seconds with exponential retry to poll the export operation result. For
+        /// regular-size resource parent, the export operation usually finishes within
+        /// 5 minutes.
+        async fn export_assets(
+            &self,
+            request: tonic::Request<super::ExportAssetsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists assets with time and resource types and returns paged results in
+        /// response.
+        async fn list_assets(
+            &self,
+            request: tonic::Request<super::ListAssetsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAssetsResponse>,
+            tonic::Status,
+        >;
+        /// Batch gets the update history of assets that overlap a time window.
+        /// For IAM_POLICY content, this API outputs history when the asset and its
+        /// attached IAM POLICY both exist. This can create gaps in the output history.
+        /// Otherwise, this API outputs history with asset in both non-delete or
+        /// deleted status.
+        /// If a specified asset does not exist, this API returns an INVALID_ARGUMENT
+        /// error.
+        async fn batch_get_assets_history(
+            &self,
+            request: tonic::Request<super::BatchGetAssetsHistoryRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::BatchGetAssetsHistoryResponse>,
+            tonic::Status,
+        >;
+        /// Creates a feed in a parent project/folder/organization to listen to its
+        /// asset updates.
+        async fn create_feed(
+            &self,
+            request: tonic::Request<super::CreateFeedRequest>,
+        ) -> std::result::Result<tonic::Response<super::Feed>, tonic::Status>;
+        /// Gets details about an asset feed.
+        async fn get_feed(
+            &self,
+            request: tonic::Request<super::GetFeedRequest>,
+        ) -> std::result::Result<tonic::Response<super::Feed>, tonic::Status>;
+        /// Lists all asset feeds in a parent project/folder/organization.
+        async fn list_feeds(
+            &self,
+            request: tonic::Request<super::ListFeedsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListFeedsResponse>,
+            tonic::Status,
+        >;
+        /// Updates an asset feed configuration.
+        async fn update_feed(
+            &self,
+            request: tonic::Request<super::UpdateFeedRequest>,
+        ) -> std::result::Result<tonic::Response<super::Feed>, tonic::Status>;
+        /// Deletes an asset feed.
+        async fn delete_feed(
+            &self,
+            request: tonic::Request<super::DeleteFeedRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Searches all Google Cloud resources within the specified scope, such as a
+        /// project, folder, or organization. The caller must be granted the
+        /// `cloudasset.assets.searchAllResources` permission on the desired scope,
+        /// otherwise the request will be rejected.
+        async fn search_all_resources(
+            &self,
+            request: tonic::Request<super::SearchAllResourcesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SearchAllResourcesResponse>,
+            tonic::Status,
+        >;
+        /// Searches all IAM policies within the specified scope, such as a project,
+        /// folder, or organization. The caller must be granted the
+        /// `cloudasset.assets.searchAllIamPolicies` permission on the desired scope,
+        /// otherwise the request will be rejected.
+        async fn search_all_iam_policies(
+            &self,
+            request: tonic::Request<super::SearchAllIamPoliciesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SearchAllIamPoliciesResponse>,
+            tonic::Status,
+        >;
+        /// Analyzes IAM policies to answer which identities have what accesses on
+        /// which resources.
+        async fn analyze_iam_policy(
+            &self,
+            request: tonic::Request<super::AnalyzeIamPolicyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AnalyzeIamPolicyResponse>,
+            tonic::Status,
+        >;
+        /// Analyzes IAM policies asynchronously to answer which identities have what
+        /// accesses on which resources, and writes the analysis results to a Google
+        /// Cloud Storage or a BigQuery destination. For Cloud Storage destination, the
+        /// output format is the JSON format that represents a
+        /// [AnalyzeIamPolicyResponse][google.cloud.asset.v1.AnalyzeIamPolicyResponse].
+        /// This method implements the
+        /// [google.longrunning.Operation][google.longrunning.Operation], which allows
+        /// you to track the operation status. We recommend intervals of at least 2
+        /// seconds with exponential backoff retry to poll the operation result. The
+        /// metadata contains the metadata for the long-running operation.
+        async fn analyze_iam_policy_longrunning(
+            &self,
+            request: tonic::Request<super::AnalyzeIamPolicyLongrunningRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Analyze moving a resource to a specified destination without kicking off
+        /// the actual move. The analysis is best effort depending on the user's
+        /// permissions of viewing different hierarchical policies and configurations.
+        /// The policies and configuration are subject to change before the actual
+        /// resource migration takes place.
+        async fn analyze_move(
+            &self,
+            request: tonic::Request<super::AnalyzeMoveRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AnalyzeMoveResponse>,
+            tonic::Status,
+        >;
+        /// Issue a job that queries assets using a SQL statement compatible with
+        /// [BigQuery SQL](https://cloud.google.com/bigquery/docs/introduction-sql).
+        ///
+        /// If the query execution finishes within timeout and there's no pagination,
+        /// the full query results will be returned in the `QueryAssetsResponse`.
+        ///
+        /// Otherwise, full query results can be obtained by issuing extra requests
+        /// with the `job_reference` from the a previous `QueryAssets` call.
+        ///
+        /// Note, the query result has approximately 10 GB limitation enforced by
+        /// [BigQuery](https://cloud.google.com/bigquery/docs/best-practices-performance-output).
+        /// Queries return larger results will result in errors.
+        async fn query_assets(
+            &self,
+            request: tonic::Request<super::QueryAssetsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryAssetsResponse>,
+            tonic::Status,
+        >;
+        /// Creates a saved query in a parent project/folder/organization.
+        async fn create_saved_query(
+            &self,
+            request: tonic::Request<super::CreateSavedQueryRequest>,
+        ) -> std::result::Result<tonic::Response<super::SavedQuery>, tonic::Status>;
+        /// Gets details about a saved query.
+        async fn get_saved_query(
+            &self,
+            request: tonic::Request<super::GetSavedQueryRequest>,
+        ) -> std::result::Result<tonic::Response<super::SavedQuery>, tonic::Status>;
+        /// Lists all saved queries in a parent project/folder/organization.
+        async fn list_saved_queries(
+            &self,
+            request: tonic::Request<super::ListSavedQueriesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListSavedQueriesResponse>,
+            tonic::Status,
+        >;
+        /// Updates a saved query.
+        async fn update_saved_query(
+            &self,
+            request: tonic::Request<super::UpdateSavedQueryRequest>,
+        ) -> std::result::Result<tonic::Response<super::SavedQuery>, tonic::Status>;
+        /// Deletes a saved query.
+        async fn delete_saved_query(
+            &self,
+            request: tonic::Request<super::DeleteSavedQueryRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Gets effective IAM policies for a batch of resources.
+        async fn batch_get_effective_iam_policies(
+            &self,
+            request: tonic::Request<super::BatchGetEffectiveIamPoliciesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::BatchGetEffectiveIamPoliciesResponse>,
+            tonic::Status,
+        >;
+        /// Analyzes organization policies under a scope.
+        async fn analyze_org_policies(
+            &self,
+            request: tonic::Request<super::AnalyzeOrgPoliciesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AnalyzeOrgPoliciesResponse>,
+            tonic::Status,
+        >;
+        /// Analyzes organization policies governed containers (projects, folders or
+        /// organization) under a scope.
+        async fn analyze_org_policy_governed_containers(
+            &self,
+            request: tonic::Request<super::AnalyzeOrgPolicyGovernedContainersRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AnalyzeOrgPolicyGovernedContainersResponse>,
+            tonic::Status,
+        >;
+        /// Analyzes organization policies governed assets (Google Cloud resources or
+        /// policies) under a scope. This RPC supports custom constraints and the
+        /// following canned constraints:
+        ///
+        /// * constraints/ainotebooks.accessMode
+        /// * constraints/ainotebooks.disableFileDownloads
+        /// * constraints/ainotebooks.disableRootAccess
+        /// * constraints/ainotebooks.disableTerminal
+        /// * constraints/ainotebooks.environmentOptions
+        /// * constraints/ainotebooks.requireAutoUpgradeSchedule
+        /// * constraints/ainotebooks.restrictVpcNetworks
+        /// * constraints/compute.disableGuestAttributesAccess
+        /// * constraints/compute.disableInstanceDataAccessApis
+        /// * constraints/compute.disableNestedVirtualization
+        /// * constraints/compute.disableSerialPortAccess
+        /// * constraints/compute.disableSerialPortLogging
+        /// * constraints/compute.disableVpcExternalIpv6
+        /// * constraints/compute.requireOsLogin
+        /// * constraints/compute.requireShieldedVm
+        /// * constraints/compute.restrictLoadBalancerCreationForTypes
+        /// * constraints/compute.restrictProtocolForwardingCreationForTypes
+        /// * constraints/compute.restrictXpnProjectLienRemoval
+        /// * constraints/compute.setNewProjectDefaultToZonalDNSOnly
+        /// * constraints/compute.skipDefaultNetworkCreation
+        /// * constraints/compute.trustedImageProjects
+        /// * constraints/compute.vmCanIpForward
+        /// * constraints/compute.vmExternalIpAccess
+        /// * constraints/gcp.detailedAuditLoggingMode
+        /// * constraints/gcp.resourceLocations
+        /// * constraints/iam.allowedPolicyMemberDomains
+        /// * constraints/iam.automaticIamGrantsForDefaultServiceAccounts
+        /// * constraints/iam.disableServiceAccountCreation
+        /// * constraints/iam.disableServiceAccountKeyCreation
+        /// * constraints/iam.disableServiceAccountKeyUpload
+        /// * constraints/iam.restrictCrossProjectServiceAccountLienRemoval
+        /// * constraints/iam.serviceAccountKeyExpiryHours
+        /// * constraints/resourcemanager.accessBoundaries
+        /// * constraints/resourcemanager.allowedExportDestinations
+        /// * constraints/sql.restrictAuthorizedNetworks
+        /// * constraints/sql.restrictNoncompliantDiagnosticDataAccess
+        /// * constraints/sql.restrictNoncompliantResourceCreation
+        /// * constraints/sql.restrictPublicIp
+        /// * constraints/storage.publicAccessPrevention
+        /// * constraints/storage.restrictAuthTypes
+        /// * constraints/storage.uniformBucketLevelAccess
+        ///
+        /// This RPC only returns either resources of types [supported by search
+        /// APIs](https://cloud.google.com/asset-inventory/docs/supported-asset-types)
+        /// or IAM policies.
+        async fn analyze_org_policy_governed_assets(
+            &self,
+            request: tonic::Request<super::AnalyzeOrgPolicyGovernedAssetsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AnalyzeOrgPolicyGovernedAssetsResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Asset service definition.
+    #[derive(Debug)]
+    pub struct AssetServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> AssetServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for AssetServiceServer<T>
+    where
+        T: AssetService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.asset.v1.AssetService/ExportAssets" => {
+                    #[allow(non_camel_case_types)]
+                    struct ExportAssetsSvc<T: AssetService>(pub Arc<T>);
+                    impl<
+                        T: AssetService,
+                    > tonic::server::UnaryService<super::ExportAssetsRequest>
+                    for ExportAssetsSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ExportAssetsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AssetService>::export_assets(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ExportAssetsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.asset.v1.AssetService/ListAssets" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAssetsSvc<T: AssetService>(pub Arc<T>);
+                    impl<
+                        T: AssetService,
+                    > tonic::server::UnaryService<super::ListAssetsRequest>
+                    for ListAssetsSvc<T> {
+                        type Response = super::ListAssetsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListAssetsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AssetService>::list_assets(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAssetsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.asset.v1.AssetService/BatchGetAssetsHistory" => {
+                    #[allow(non_camel_case_types)]
+                    struct BatchGetAssetsHistorySvc<T: AssetService>(pub Arc<T>);
+                    impl<
+                        T: AssetService,
+                    > tonic::server::UnaryService<super::BatchGetAssetsHistoryRequest>
+                    for BatchGetAssetsHistorySvc<T> {
+                        type Response = super::BatchGetAssetsHistoryResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::BatchGetAssetsHistoryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AssetService>::batch_get_assets_history(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BatchGetAssetsHistorySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.asset.v1.AssetService/CreateFeed" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateFeedSvc<T: AssetService>(pub Arc<T>);
+                    impl<
+                        T: AssetService,
+                    > tonic::server::UnaryService<super::CreateFeedRequest>
+                    for CreateFeedSvc<T> {
+                        type Response = super::Feed;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateFeedRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AssetService>::create_feed(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateFeedSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.asset.v1.AssetService/GetFeed" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetFeedSvc<T: AssetService>(pub Arc<T>);
+                    impl<
+                        T: AssetService,
+                    > tonic::server::UnaryService<super::GetFeedRequest>
+                    for GetFeedSvc<T> {
+                        type Response = super::Feed;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetFeedRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AssetService>::get_feed(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetFeedSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.asset.v1.AssetService/ListFeeds" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListFeedsSvc<T: AssetService>(pub Arc<T>);
+                    impl<
+                        T: AssetService,
+                    > tonic::server::UnaryService<super::ListFeedsRequest>
+                    for ListFeedsSvc<T> {
+                        type Response = super::ListFeedsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListFeedsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AssetService>::list_feeds(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListFeedsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.asset.v1.AssetService/UpdateFeed" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateFeedSvc<T: AssetService>(pub Arc<T>);
+                    impl<
+                        T: AssetService,
+                    > tonic::server::UnaryService<super::UpdateFeedRequest>
+                    for UpdateFeedSvc<T> {
+                        type Response = super::Feed;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateFeedRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AssetService>::update_feed(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateFeedSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.asset.v1.AssetService/DeleteFeed" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteFeedSvc<T: AssetService>(pub Arc<T>);
+                    impl<
+                        T: AssetService,
+                    > tonic::server::UnaryService<super::DeleteFeedRequest>
+                    for DeleteFeedSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteFeedRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AssetService>::delete_feed(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteFeedSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.asset.v1.AssetService/SearchAllResources" => {
+                    #[allow(non_camel_case_types)]
+                    struct SearchAllResourcesSvc<T: AssetService>(pub Arc<T>);
+                    impl<
+                        T: AssetService,
+                    > tonic::server::UnaryService<super::SearchAllResourcesRequest>
+                    for SearchAllResourcesSvc<T> {
+                        type Response = super::SearchAllResourcesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SearchAllResourcesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AssetService>::search_all_resources(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SearchAllResourcesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.asset.v1.AssetService/SearchAllIamPolicies" => {
+                    #[allow(non_camel_case_types)]
+                    struct SearchAllIamPoliciesSvc<T: AssetService>(pub Arc<T>);
+                    impl<
+                        T: AssetService,
+                    > tonic::server::UnaryService<super::SearchAllIamPoliciesRequest>
+                    for SearchAllIamPoliciesSvc<T> {
+                        type Response = super::SearchAllIamPoliciesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SearchAllIamPoliciesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AssetService>::search_all_iam_policies(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SearchAllIamPoliciesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.asset.v1.AssetService/AnalyzeIamPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct AnalyzeIamPolicySvc<T: AssetService>(pub Arc<T>);
+                    impl<
+                        T: AssetService,
+                    > tonic::server::UnaryService<super::AnalyzeIamPolicyRequest>
+                    for AnalyzeIamPolicySvc<T> {
+                        type Response = super::AnalyzeIamPolicyResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::AnalyzeIamPolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AssetService>::analyze_iam_policy(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = AnalyzeIamPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.asset.v1.AssetService/AnalyzeIamPolicyLongrunning" => {
+                    #[allow(non_camel_case_types)]
+                    struct AnalyzeIamPolicyLongrunningSvc<T: AssetService>(pub Arc<T>);
+                    impl<
+                        T: AssetService,
+                    > tonic::server::UnaryService<
+                        super::AnalyzeIamPolicyLongrunningRequest,
+                    > for AnalyzeIamPolicyLongrunningSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::AnalyzeIamPolicyLongrunningRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AssetService>::analyze_iam_policy_longrunning(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = AnalyzeIamPolicyLongrunningSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.asset.v1.AssetService/AnalyzeMove" => {
+                    #[allow(non_camel_case_types)]
+                    struct AnalyzeMoveSvc<T: AssetService>(pub Arc<T>);
+                    impl<
+                        T: AssetService,
+                    > tonic::server::UnaryService<super::AnalyzeMoveRequest>
+                    for AnalyzeMoveSvc<T> {
+                        type Response = super::AnalyzeMoveResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::AnalyzeMoveRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AssetService>::analyze_move(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = AnalyzeMoveSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.asset.v1.AssetService/QueryAssets" => {
+                    #[allow(non_camel_case_types)]
+                    struct QueryAssetsSvc<T: AssetService>(pub Arc<T>);
+                    impl<
+                        T: AssetService,
+                    > tonic::server::UnaryService<super::QueryAssetsRequest>
+                    for QueryAssetsSvc<T> {
+                        type Response = super::QueryAssetsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QueryAssetsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AssetService>::query_assets(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = QueryAssetsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.asset.v1.AssetService/CreateSavedQuery" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateSavedQuerySvc<T: AssetService>(pub Arc<T>);
+                    impl<
+                        T: AssetService,
+                    > tonic::server::UnaryService<super::CreateSavedQueryRequest>
+                    for CreateSavedQuerySvc<T> {
+                        type Response = super::SavedQuery;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateSavedQueryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AssetService>::create_saved_query(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateSavedQuerySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.asset.v1.AssetService/GetSavedQuery" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetSavedQuerySvc<T: AssetService>(pub Arc<T>);
+                    impl<
+                        T: AssetService,
+                    > tonic::server::UnaryService<super::GetSavedQueryRequest>
+                    for GetSavedQuerySvc<T> {
+                        type Response = super::SavedQuery;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetSavedQueryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AssetService>::get_saved_query(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetSavedQuerySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.asset.v1.AssetService/ListSavedQueries" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListSavedQueriesSvc<T: AssetService>(pub Arc<T>);
+                    impl<
+                        T: AssetService,
+                    > tonic::server::UnaryService<super::ListSavedQueriesRequest>
+                    for ListSavedQueriesSvc<T> {
+                        type Response = super::ListSavedQueriesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListSavedQueriesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AssetService>::list_saved_queries(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListSavedQueriesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.asset.v1.AssetService/UpdateSavedQuery" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateSavedQuerySvc<T: AssetService>(pub Arc<T>);
+                    impl<
+                        T: AssetService,
+                    > tonic::server::UnaryService<super::UpdateSavedQueryRequest>
+                    for UpdateSavedQuerySvc<T> {
+                        type Response = super::SavedQuery;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateSavedQueryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AssetService>::update_saved_query(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateSavedQuerySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.asset.v1.AssetService/DeleteSavedQuery" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteSavedQuerySvc<T: AssetService>(pub Arc<T>);
+                    impl<
+                        T: AssetService,
+                    > tonic::server::UnaryService<super::DeleteSavedQueryRequest>
+                    for DeleteSavedQuerySvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteSavedQueryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AssetService>::delete_saved_query(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteSavedQuerySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.asset.v1.AssetService/BatchGetEffectiveIamPolicies" => {
+                    #[allow(non_camel_case_types)]
+                    struct BatchGetEffectiveIamPoliciesSvc<T: AssetService>(pub Arc<T>);
+                    impl<
+                        T: AssetService,
+                    > tonic::server::UnaryService<
+                        super::BatchGetEffectiveIamPoliciesRequest,
+                    > for BatchGetEffectiveIamPoliciesSvc<T> {
+                        type Response = super::BatchGetEffectiveIamPoliciesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::BatchGetEffectiveIamPoliciesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AssetService>::batch_get_effective_iam_policies(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BatchGetEffectiveIamPoliciesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.asset.v1.AssetService/AnalyzeOrgPolicies" => {
+                    #[allow(non_camel_case_types)]
+                    struct AnalyzeOrgPoliciesSvc<T: AssetService>(pub Arc<T>);
+                    impl<
+                        T: AssetService,
+                    > tonic::server::UnaryService<super::AnalyzeOrgPoliciesRequest>
+                    for AnalyzeOrgPoliciesSvc<T> {
+                        type Response = super::AnalyzeOrgPoliciesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::AnalyzeOrgPoliciesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AssetService>::analyze_org_policies(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = AnalyzeOrgPoliciesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.asset.v1.AssetService/AnalyzeOrgPolicyGovernedContainers" => {
+                    #[allow(non_camel_case_types)]
+                    struct AnalyzeOrgPolicyGovernedContainersSvc<T: AssetService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AssetService,
+                    > tonic::server::UnaryService<
+                        super::AnalyzeOrgPolicyGovernedContainersRequest,
+                    > for AnalyzeOrgPolicyGovernedContainersSvc<T> {
+                        type Response = super::AnalyzeOrgPolicyGovernedContainersResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::AnalyzeOrgPolicyGovernedContainersRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AssetService>::analyze_org_policy_governed_containers(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = AnalyzeOrgPolicyGovernedContainersSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.asset.v1.AssetService/AnalyzeOrgPolicyGovernedAssets" => {
+                    #[allow(non_camel_case_types)]
+                    struct AnalyzeOrgPolicyGovernedAssetsSvc<T: AssetService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AssetService,
+                    > tonic::server::UnaryService<
+                        super::AnalyzeOrgPolicyGovernedAssetsRequest,
+                    > for AnalyzeOrgPolicyGovernedAssetsSvc<T> {
+                        type Response = super::AnalyzeOrgPolicyGovernedAssetsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::AnalyzeOrgPolicyGovernedAssetsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AssetService>::analyze_org_policy_governed_assets(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = AnalyzeOrgPolicyGovernedAssetsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for AssetServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.asset.v1.AssetService";
+    impl<T> tonic::server::NamedService for AssetServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

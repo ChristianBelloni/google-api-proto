@@ -489,9 +489,9 @@ pub mod s3_compatible_metadata {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                AuthMethod::Unspecified => "AUTH_METHOD_UNSPECIFIED",
-                AuthMethod::AwsSignatureV4 => "AUTH_METHOD_AWS_SIGNATURE_V4",
-                AuthMethod::AwsSignatureV2 => "AUTH_METHOD_AWS_SIGNATURE_V2",
+                Self::Unspecified => "AUTH_METHOD_UNSPECIFIED",
+                Self::AwsSignatureV4 => "AUTH_METHOD_AWS_SIGNATURE_V4",
+                Self::AwsSignatureV2 => "AUTH_METHOD_AWS_SIGNATURE_V2",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -534,9 +534,9 @@ pub mod s3_compatible_metadata {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                RequestModel::Unspecified => "REQUEST_MODEL_UNSPECIFIED",
-                RequestModel::VirtualHostedStyle => "REQUEST_MODEL_VIRTUAL_HOSTED_STYLE",
-                RequestModel::PathStyle => "REQUEST_MODEL_PATH_STYLE",
+                Self::Unspecified => "REQUEST_MODEL_UNSPECIFIED",
+                Self::VirtualHostedStyle => "REQUEST_MODEL_VIRTUAL_HOSTED_STYLE",
+                Self::PathStyle => "REQUEST_MODEL_PATH_STYLE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -579,9 +579,9 @@ pub mod s3_compatible_metadata {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                NetworkProtocol::Unspecified => "NETWORK_PROTOCOL_UNSPECIFIED",
-                NetworkProtocol::Https => "NETWORK_PROTOCOL_HTTPS",
-                NetworkProtocol::Http => "NETWORK_PROTOCOL_HTTP",
+                Self::Unspecified => "NETWORK_PROTOCOL_UNSPECIFIED",
+                Self::Https => "NETWORK_PROTOCOL_HTTPS",
+                Self::Http => "NETWORK_PROTOCOL_HTTP",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -622,9 +622,9 @@ pub mod s3_compatible_metadata {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ListApi::Unspecified => "LIST_API_UNSPECIFIED",
-                ListApi::ListObjectsV2 => "LIST_OBJECTS_V2",
-                ListApi::ListObjects => "LIST_OBJECTS",
+                Self::Unspecified => "LIST_API_UNSPECIFIED",
+                Self::ListObjectsV2 => "LIST_OBJECTS_V2",
+                Self::ListObjects => "LIST_OBJECTS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -700,10 +700,10 @@ pub mod agent_pool {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Created => "CREATED",
-                State::Deleting => "DELETING",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Created => "CREATED",
+                Self::Deleting => "DELETING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -787,10 +787,10 @@ pub mod transfer_options {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                OverwriteWhen::Unspecified => "OVERWRITE_WHEN_UNSPECIFIED",
-                OverwriteWhen::Different => "DIFFERENT",
-                OverwriteWhen::Never => "NEVER",
-                OverwriteWhen::Always => "ALWAYS",
+                Self::Unspecified => "OVERWRITE_WHEN_UNSPECIFIED",
+                Self::Different => "DIFFERENT",
+                Self::Never => "NEVER",
+                Self::Always => "ALWAYS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -976,9 +976,9 @@ pub mod metadata_options {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Symlink::Unspecified => "SYMLINK_UNSPECIFIED",
-                Symlink::Skip => "SYMLINK_SKIP",
-                Symlink::Preserve => "SYMLINK_PRESERVE",
+                Self::Unspecified => "SYMLINK_UNSPECIFIED",
+                Self::Skip => "SYMLINK_SKIP",
+                Self::Preserve => "SYMLINK_PRESERVE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1019,9 +1019,9 @@ pub mod metadata_options {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Mode::Unspecified => "MODE_UNSPECIFIED",
-                Mode::Skip => "MODE_SKIP",
-                Mode::Preserve => "MODE_PRESERVE",
+                Self::Unspecified => "MODE_UNSPECIFIED",
+                Self::Skip => "MODE_SKIP",
+                Self::Preserve => "MODE_PRESERVE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1062,9 +1062,9 @@ pub mod metadata_options {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Gid::Unspecified => "GID_UNSPECIFIED",
-                Gid::Skip => "GID_SKIP",
-                Gid::Number => "GID_NUMBER",
+                Self::Unspecified => "GID_UNSPECIFIED",
+                Self::Skip => "GID_SKIP",
+                Self::Number => "GID_NUMBER",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1105,9 +1105,9 @@ pub mod metadata_options {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Uid::Unspecified => "UID_UNSPECIFIED",
-                Uid::Skip => "UID_SKIP",
-                Uid::Number => "UID_NUMBER",
+                Self::Unspecified => "UID_UNSPECIFIED",
+                Self::Skip => "UID_SKIP",
+                Self::Number => "UID_NUMBER",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1152,9 +1152,9 @@ pub mod metadata_options {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Acl::Unspecified => "ACL_UNSPECIFIED",
-                Acl::DestinationBucketDefault => "ACL_DESTINATION_BUCKET_DEFAULT",
-                Acl::Preserve => "ACL_PRESERVE",
+                Self::Unspecified => "ACL_UNSPECIFIED",
+                Self::DestinationBucketDefault => "ACL_DESTINATION_BUCKET_DEFAULT",
+                Self::Preserve => "ACL_PRESERVE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1206,15 +1206,15 @@ pub mod metadata_options {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                StorageClass::Unspecified => "STORAGE_CLASS_UNSPECIFIED",
-                StorageClass::DestinationBucketDefault => {
+                Self::Unspecified => "STORAGE_CLASS_UNSPECIFIED",
+                Self::DestinationBucketDefault => {
                     "STORAGE_CLASS_DESTINATION_BUCKET_DEFAULT"
                 }
-                StorageClass::Preserve => "STORAGE_CLASS_PRESERVE",
-                StorageClass::Standard => "STORAGE_CLASS_STANDARD",
-                StorageClass::Nearline => "STORAGE_CLASS_NEARLINE",
-                StorageClass::Coldline => "STORAGE_CLASS_COLDLINE",
-                StorageClass::Archive => "STORAGE_CLASS_ARCHIVE",
+                Self::Preserve => "STORAGE_CLASS_PRESERVE",
+                Self::Standard => "STORAGE_CLASS_STANDARD",
+                Self::Nearline => "STORAGE_CLASS_NEARLINE",
+                Self::Coldline => "STORAGE_CLASS_COLDLINE",
+                Self::Archive => "STORAGE_CLASS_ARCHIVE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1261,9 +1261,9 @@ pub mod metadata_options {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                TemporaryHold::Unspecified => "TEMPORARY_HOLD_UNSPECIFIED",
-                TemporaryHold::Skip => "TEMPORARY_HOLD_SKIP",
-                TemporaryHold::Preserve => "TEMPORARY_HOLD_PRESERVE",
+                Self::Unspecified => "TEMPORARY_HOLD_UNSPECIFIED",
+                Self::Skip => "TEMPORARY_HOLD_SKIP",
+                Self::Preserve => "TEMPORARY_HOLD_PRESERVE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1306,9 +1306,9 @@ pub mod metadata_options {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                KmsKey::Unspecified => "KMS_KEY_UNSPECIFIED",
-                KmsKey::DestinationBucketDefault => "KMS_KEY_DESTINATION_BUCKET_DEFAULT",
-                KmsKey::Preserve => "KMS_KEY_PRESERVE",
+                Self::Unspecified => "KMS_KEY_UNSPECIFIED",
+                Self::DestinationBucketDefault => "KMS_KEY_DESTINATION_BUCKET_DEFAULT",
+                Self::Preserve => "KMS_KEY_PRESERVE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1355,11 +1355,9 @@ pub mod metadata_options {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                TimeCreated::Unspecified => "TIME_CREATED_UNSPECIFIED",
-                TimeCreated::Skip => "TIME_CREATED_SKIP",
-                TimeCreated::PreserveAsCustomTime => {
-                    "TIME_CREATED_PRESERVE_AS_CUSTOM_TIME"
-                }
+                Self::Unspecified => "TIME_CREATED_UNSPECIFIED",
+                Self::Skip => "TIME_CREATED_SKIP",
+                Self::PreserveAsCustomTime => "TIME_CREATED_PRESERVE_AS_CUSTOM_TIME",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1598,10 +1596,10 @@ pub mod transfer_job {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Status::Unspecified => "STATUS_UNSPECIFIED",
-                Status::Enabled => "ENABLED",
-                Status::Disabled => "DISABLED",
-                Status::Deleted => "DELETED",
+                Self::Unspecified => "STATUS_UNSPECIFIED",
+                Self::Enabled => "ENABLED",
+                Self::Disabled => "DISABLED",
+                Self::Deleted => "DELETED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1809,10 +1807,10 @@ pub mod notification_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                EventType::Unspecified => "EVENT_TYPE_UNSPECIFIED",
-                EventType::TransferOperationSuccess => "TRANSFER_OPERATION_SUCCESS",
-                EventType::TransferOperationFailed => "TRANSFER_OPERATION_FAILED",
-                EventType::TransferOperationAborted => "TRANSFER_OPERATION_ABORTED",
+                Self::Unspecified => "EVENT_TYPE_UNSPECIFIED",
+                Self::TransferOperationSuccess => "TRANSFER_OPERATION_SUCCESS",
+                Self::TransferOperationFailed => "TRANSFER_OPERATION_FAILED",
+                Self::TransferOperationAborted => "TRANSFER_OPERATION_ABORTED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1856,9 +1854,9 @@ pub mod notification_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                PayloadFormat::Unspecified => "PAYLOAD_FORMAT_UNSPECIFIED",
-                PayloadFormat::None => "NONE",
-                PayloadFormat::Json => "JSON",
+                Self::Unspecified => "PAYLOAD_FORMAT_UNSPECIFIED",
+                Self::None => "NONE",
+                Self::Json => "JSON",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1928,10 +1926,10 @@ pub mod logging_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                LoggableAction::Unspecified => "LOGGABLE_ACTION_UNSPECIFIED",
-                LoggableAction::Find => "FIND",
-                LoggableAction::Delete => "DELETE",
-                LoggableAction::Copy => "COPY",
+                Self::Unspecified => "LOGGABLE_ACTION_UNSPECIFIED",
+                Self::Find => "FIND",
+                Self::Delete => "DELETE",
+                Self::Copy => "COPY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1975,9 +1973,9 @@ pub mod logging_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                LoggableActionState::Unspecified => "LOGGABLE_ACTION_STATE_UNSPECIFIED",
-                LoggableActionState::Succeeded => "SUCCEEDED",
-                LoggableActionState::Failed => "FAILED",
+                Self::Unspecified => "LOGGABLE_ACTION_STATE_UNSPECIFIED",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Failed => "FAILED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2068,14 +2066,14 @@ pub mod transfer_operation {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Status::Unspecified => "STATUS_UNSPECIFIED",
-                Status::InProgress => "IN_PROGRESS",
-                Status::Paused => "PAUSED",
-                Status::Success => "SUCCESS",
-                Status::Failed => "FAILED",
-                Status::Aborted => "ABORTED",
-                Status::Queued => "QUEUED",
-                Status::Suspending => "SUSPENDING",
+                Self::Unspecified => "STATUS_UNSPECIFIED",
+                Self::InProgress => "IN_PROGRESS",
+                Self::Paused => "PAUSED",
+                Self::Success => "SUCCESS",
+                Self::Failed => "FAILED",
+                Self::Aborted => "ABORTED",
+                Self::Queued => "QUEUED",
+                Self::Suspending => "SUSPENDING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2829,5 +2827,925 @@ pub mod storage_transfer_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod storage_transfer_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with StorageTransferServiceServer.
+    #[async_trait]
+    pub trait StorageTransferService: std::marker::Send + std::marker::Sync + 'static {
+        /// Returns the Google service account that is used by Storage Transfer
+        /// Service to access buckets in the project where transfers
+        /// run or in other projects. Each Google service account is associated
+        /// with one Google Cloud project. Users
+        /// should add this service account to the Google Cloud Storage bucket
+        /// ACLs to grant access to Storage Transfer Service. This service
+        /// account is created and owned by Storage Transfer Service and can
+        /// only be used by Storage Transfer Service.
+        async fn get_google_service_account(
+            &self,
+            request: tonic::Request<super::GetGoogleServiceAccountRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::GoogleServiceAccount>,
+            tonic::Status,
+        >;
+        /// Creates a transfer job that runs periodically.
+        async fn create_transfer_job(
+            &self,
+            request: tonic::Request<super::CreateTransferJobRequest>,
+        ) -> std::result::Result<tonic::Response<super::TransferJob>, tonic::Status>;
+        /// Updates a transfer job. Updating a job's transfer spec does not affect
+        /// transfer operations that are running already.
+        ///
+        /// **Note:** The job's [status][google.storagetransfer.v1.TransferJob.status]
+        /// field can be modified using this RPC (for example, to set a job's status to
+        /// [DELETED][google.storagetransfer.v1.TransferJob.Status.DELETED],
+        /// [DISABLED][google.storagetransfer.v1.TransferJob.Status.DISABLED], or
+        /// [ENABLED][google.storagetransfer.v1.TransferJob.Status.ENABLED]).
+        async fn update_transfer_job(
+            &self,
+            request: tonic::Request<super::UpdateTransferJobRequest>,
+        ) -> std::result::Result<tonic::Response<super::TransferJob>, tonic::Status>;
+        /// Gets a transfer job.
+        async fn get_transfer_job(
+            &self,
+            request: tonic::Request<super::GetTransferJobRequest>,
+        ) -> std::result::Result<tonic::Response<super::TransferJob>, tonic::Status>;
+        /// Lists transfer jobs.
+        async fn list_transfer_jobs(
+            &self,
+            request: tonic::Request<super::ListTransferJobsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListTransferJobsResponse>,
+            tonic::Status,
+        >;
+        /// Pauses a transfer operation.
+        async fn pause_transfer_operation(
+            &self,
+            request: tonic::Request<super::PauseTransferOperationRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Resumes a transfer operation that is paused.
+        async fn resume_transfer_operation(
+            &self,
+            request: tonic::Request<super::ResumeTransferOperationRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Starts a new operation for the specified transfer job.
+        /// A `TransferJob` has a maximum of one active `TransferOperation`. If this
+        /// method is called while a `TransferOperation` is active, an error is
+        /// returned.
+        async fn run_transfer_job(
+            &self,
+            request: tonic::Request<super::RunTransferJobRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a transfer job. Deleting a transfer job sets its status to
+        /// [DELETED][google.storagetransfer.v1.TransferJob.Status.DELETED].
+        async fn delete_transfer_job(
+            &self,
+            request: tonic::Request<super::DeleteTransferJobRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Creates an agent pool resource.
+        async fn create_agent_pool(
+            &self,
+            request: tonic::Request<super::CreateAgentPoolRequest>,
+        ) -> std::result::Result<tonic::Response<super::AgentPool>, tonic::Status>;
+        /// Updates an existing agent pool resource.
+        async fn update_agent_pool(
+            &self,
+            request: tonic::Request<super::UpdateAgentPoolRequest>,
+        ) -> std::result::Result<tonic::Response<super::AgentPool>, tonic::Status>;
+        /// Gets an agent pool.
+        async fn get_agent_pool(
+            &self,
+            request: tonic::Request<super::GetAgentPoolRequest>,
+        ) -> std::result::Result<tonic::Response<super::AgentPool>, tonic::Status>;
+        /// Lists agent pools.
+        async fn list_agent_pools(
+            &self,
+            request: tonic::Request<super::ListAgentPoolsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAgentPoolsResponse>,
+            tonic::Status,
+        >;
+        /// Deletes an agent pool.
+        async fn delete_agent_pool(
+            &self,
+            request: tonic::Request<super::DeleteAgentPoolRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+    }
+    /// Storage Transfer Service and its protos.
+    /// Transfers data between between Google Cloud Storage buckets or from a data
+    /// source external to Google to a Cloud Storage bucket.
+    #[derive(Debug)]
+    pub struct StorageTransferServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> StorageTransferServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for StorageTransferServiceServer<T>
+    where
+        T: StorageTransferService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.storagetransfer.v1.StorageTransferService/GetGoogleServiceAccount" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetGoogleServiceAccountSvc<T: StorageTransferService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: StorageTransferService,
+                    > tonic::server::UnaryService<super::GetGoogleServiceAccountRequest>
+                    for GetGoogleServiceAccountSvc<T> {
+                        type Response = super::GoogleServiceAccount;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetGoogleServiceAccountRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StorageTransferService>::get_google_service_account(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetGoogleServiceAccountSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storagetransfer.v1.StorageTransferService/CreateTransferJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateTransferJobSvc<T: StorageTransferService>(pub Arc<T>);
+                    impl<
+                        T: StorageTransferService,
+                    > tonic::server::UnaryService<super::CreateTransferJobRequest>
+                    for CreateTransferJobSvc<T> {
+                        type Response = super::TransferJob;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateTransferJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StorageTransferService>::create_transfer_job(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateTransferJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storagetransfer.v1.StorageTransferService/UpdateTransferJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateTransferJobSvc<T: StorageTransferService>(pub Arc<T>);
+                    impl<
+                        T: StorageTransferService,
+                    > tonic::server::UnaryService<super::UpdateTransferJobRequest>
+                    for UpdateTransferJobSvc<T> {
+                        type Response = super::TransferJob;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateTransferJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StorageTransferService>::update_transfer_job(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateTransferJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storagetransfer.v1.StorageTransferService/GetTransferJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetTransferJobSvc<T: StorageTransferService>(pub Arc<T>);
+                    impl<
+                        T: StorageTransferService,
+                    > tonic::server::UnaryService<super::GetTransferJobRequest>
+                    for GetTransferJobSvc<T> {
+                        type Response = super::TransferJob;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetTransferJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StorageTransferService>::get_transfer_job(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetTransferJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storagetransfer.v1.StorageTransferService/ListTransferJobs" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListTransferJobsSvc<T: StorageTransferService>(pub Arc<T>);
+                    impl<
+                        T: StorageTransferService,
+                    > tonic::server::UnaryService<super::ListTransferJobsRequest>
+                    for ListTransferJobsSvc<T> {
+                        type Response = super::ListTransferJobsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListTransferJobsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StorageTransferService>::list_transfer_jobs(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListTransferJobsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storagetransfer.v1.StorageTransferService/PauseTransferOperation" => {
+                    #[allow(non_camel_case_types)]
+                    struct PauseTransferOperationSvc<T: StorageTransferService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: StorageTransferService,
+                    > tonic::server::UnaryService<super::PauseTransferOperationRequest>
+                    for PauseTransferOperationSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::PauseTransferOperationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StorageTransferService>::pause_transfer_operation(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = PauseTransferOperationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storagetransfer.v1.StorageTransferService/ResumeTransferOperation" => {
+                    #[allow(non_camel_case_types)]
+                    struct ResumeTransferOperationSvc<T: StorageTransferService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: StorageTransferService,
+                    > tonic::server::UnaryService<super::ResumeTransferOperationRequest>
+                    for ResumeTransferOperationSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ResumeTransferOperationRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StorageTransferService>::resume_transfer_operation(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ResumeTransferOperationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storagetransfer.v1.StorageTransferService/RunTransferJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct RunTransferJobSvc<T: StorageTransferService>(pub Arc<T>);
+                    impl<
+                        T: StorageTransferService,
+                    > tonic::server::UnaryService<super::RunTransferJobRequest>
+                    for RunTransferJobSvc<T> {
+                        type Response = super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RunTransferJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StorageTransferService>::run_transfer_job(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RunTransferJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storagetransfer.v1.StorageTransferService/DeleteTransferJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteTransferJobSvc<T: StorageTransferService>(pub Arc<T>);
+                    impl<
+                        T: StorageTransferService,
+                    > tonic::server::UnaryService<super::DeleteTransferJobRequest>
+                    for DeleteTransferJobSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteTransferJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StorageTransferService>::delete_transfer_job(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteTransferJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storagetransfer.v1.StorageTransferService/CreateAgentPool" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateAgentPoolSvc<T: StorageTransferService>(pub Arc<T>);
+                    impl<
+                        T: StorageTransferService,
+                    > tonic::server::UnaryService<super::CreateAgentPoolRequest>
+                    for CreateAgentPoolSvc<T> {
+                        type Response = super::AgentPool;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateAgentPoolRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StorageTransferService>::create_agent_pool(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateAgentPoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storagetransfer.v1.StorageTransferService/UpdateAgentPool" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateAgentPoolSvc<T: StorageTransferService>(pub Arc<T>);
+                    impl<
+                        T: StorageTransferService,
+                    > tonic::server::UnaryService<super::UpdateAgentPoolRequest>
+                    for UpdateAgentPoolSvc<T> {
+                        type Response = super::AgentPool;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateAgentPoolRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StorageTransferService>::update_agent_pool(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateAgentPoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storagetransfer.v1.StorageTransferService/GetAgentPool" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAgentPoolSvc<T: StorageTransferService>(pub Arc<T>);
+                    impl<
+                        T: StorageTransferService,
+                    > tonic::server::UnaryService<super::GetAgentPoolRequest>
+                    for GetAgentPoolSvc<T> {
+                        type Response = super::AgentPool;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAgentPoolRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StorageTransferService>::get_agent_pool(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAgentPoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storagetransfer.v1.StorageTransferService/ListAgentPools" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAgentPoolsSvc<T: StorageTransferService>(pub Arc<T>);
+                    impl<
+                        T: StorageTransferService,
+                    > tonic::server::UnaryService<super::ListAgentPoolsRequest>
+                    for ListAgentPoolsSvc<T> {
+                        type Response = super::ListAgentPoolsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListAgentPoolsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StorageTransferService>::list_agent_pools(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAgentPoolsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storagetransfer.v1.StorageTransferService/DeleteAgentPool" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteAgentPoolSvc<T: StorageTransferService>(pub Arc<T>);
+                    impl<
+                        T: StorageTransferService,
+                    > tonic::server::UnaryService<super::DeleteAgentPoolRequest>
+                    for DeleteAgentPoolSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteAgentPoolRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StorageTransferService>::delete_agent_pool(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteAgentPoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for StorageTransferServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.storagetransfer.v1.StorageTransferService";
+    impl<T> tonic::server::NamedService for StorageTransferServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

@@ -302,14 +302,14 @@ pub mod patch_job {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Started => "STARTED",
-                State::InstanceLookup => "INSTANCE_LOOKUP",
-                State::Patching => "PATCHING",
-                State::Succeeded => "SUCCEEDED",
-                State::CompletedWithErrors => "COMPLETED_WITH_ERRORS",
-                State::Canceled => "CANCELED",
-                State::TimedOut => "TIMED_OUT",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Started => "STARTED",
+                Self::InstanceLookup => "INSTANCE_LOOKUP",
+                Self::Patching => "PATCHING",
+                Self::Succeeded => "SUCCEEDED",
+                Self::CompletedWithErrors => "COMPLETED_WITH_ERRORS",
+                Self::Canceled => "CANCELED",
+                Self::TimedOut => "TIMED_OUT",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -399,10 +399,10 @@ pub mod patch_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                RebootConfig::Unspecified => "REBOOT_CONFIG_UNSPECIFIED",
-                RebootConfig::Default => "DEFAULT",
-                RebootConfig::Always => "ALWAYS",
-                RebootConfig::Never => "NEVER",
+                Self::Unspecified => "REBOOT_CONFIG_UNSPECIFIED",
+                Self::Default => "DEFAULT",
+                Self::Always => "ALWAYS",
+                Self::Never => "NEVER",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -478,22 +478,22 @@ pub mod instance {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                PatchState::Unspecified => "PATCH_STATE_UNSPECIFIED",
-                PatchState::Pending => "PENDING",
-                PatchState::Inactive => "INACTIVE",
-                PatchState::Notified => "NOTIFIED",
-                PatchState::Started => "STARTED",
-                PatchState::DownloadingPatches => "DOWNLOADING_PATCHES",
-                PatchState::ApplyingPatches => "APPLYING_PATCHES",
-                PatchState::Rebooting => "REBOOTING",
-                PatchState::Succeeded => "SUCCEEDED",
-                PatchState::SucceededRebootRequired => "SUCCEEDED_REBOOT_REQUIRED",
-                PatchState::Failed => "FAILED",
-                PatchState::Acked => "ACKED",
-                PatchState::TimedOut => "TIMED_OUT",
-                PatchState::RunningPrePatchStep => "RUNNING_PRE_PATCH_STEP",
-                PatchState::RunningPostPatchStep => "RUNNING_POST_PATCH_STEP",
-                PatchState::NoAgentDetected => "NO_AGENT_DETECTED",
+                Self::Unspecified => "PATCH_STATE_UNSPECIFIED",
+                Self::Pending => "PENDING",
+                Self::Inactive => "INACTIVE",
+                Self::Notified => "NOTIFIED",
+                Self::Started => "STARTED",
+                Self::DownloadingPatches => "DOWNLOADING_PATCHES",
+                Self::ApplyingPatches => "APPLYING_PATCHES",
+                Self::Rebooting => "REBOOTING",
+                Self::Succeeded => "SUCCEEDED",
+                Self::SucceededRebootRequired => "SUCCEEDED_REBOOT_REQUIRED",
+                Self::Failed => "FAILED",
+                Self::Acked => "ACKED",
+                Self::TimedOut => "TIMED_OUT",
+                Self::RunningPrePatchStep => "RUNNING_PRE_PATCH_STEP",
+                Self::RunningPostPatchStep => "RUNNING_POST_PATCH_STEP",
+                Self::NoAgentDetected => "NO_AGENT_DETECTED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -575,9 +575,9 @@ pub mod apt_settings {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::Dist => "DIST",
-                Type::Upgrade => "UPGRADE",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::Dist => "DIST",
+                Self::Upgrade => "UPGRADE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -728,16 +728,16 @@ pub mod windows_update_settings {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Classification::Unspecified => "CLASSIFICATION_UNSPECIFIED",
-                Classification::Critical => "CRITICAL",
-                Classification::Security => "SECURITY",
-                Classification::Definition => "DEFINITION",
-                Classification::Driver => "DRIVER",
-                Classification::FeaturePack => "FEATURE_PACK",
-                Classification::ServicePack => "SERVICE_PACK",
-                Classification::Tool => "TOOL",
-                Classification::UpdateRollup => "UPDATE_ROLLUP",
-                Classification::Update => "UPDATE",
+                Self::Unspecified => "CLASSIFICATION_UNSPECIFIED",
+                Self::Critical => "CRITICAL",
+                Self::Security => "SECURITY",
+                Self::Definition => "DEFINITION",
+                Self::Driver => "DRIVER",
+                Self::FeaturePack => "FEATURE_PACK",
+                Self::ServicePack => "SERVICE_PACK",
+                Self::Tool => "TOOL",
+                Self::UpdateRollup => "UPDATE_ROLLUP",
+                Self::Update => "UPDATE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -819,9 +819,9 @@ pub mod exec_step_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Interpreter::Unspecified => "INTERPRETER_UNSPECIFIED",
-                Interpreter::Shell => "SHELL",
-                Interpreter::Powershell => "POWERSHELL",
+                Self::Unspecified => "INTERPRETER_UNSPECIFIED",
+                Self::Shell => "SHELL",
+                Self::Powershell => "POWERSHELL",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -972,9 +972,9 @@ pub mod patch_rollout {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Mode::Unspecified => "MODE_UNSPECIFIED",
-                Mode::ZoneByZone => "ZONE_BY_ZONE",
-                Mode::ConcurrentZones => "CONCURRENT_ZONES",
+                Self::Unspecified => "MODE_UNSPECIFIED",
+                Self::ZoneByZone => "ZONE_BY_ZONE",
+                Self::ConcurrentZones => "CONCURRENT_ZONES",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1198,12 +1198,12 @@ pub mod package {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Manager::Unspecified => "MANAGER_UNSPECIFIED",
-                Manager::Any => "ANY",
-                Manager::Apt => "APT",
-                Manager::Yum => "YUM",
-                Manager::Zypper => "ZYPPER",
-                Manager::Goo => "GOO",
+                Self::Unspecified => "MANAGER_UNSPECIFIED",
+                Self::Any => "ANY",
+                Self::Apt => "APT",
+                Self::Yum => "YUM",
+                Self::Zypper => "ZYPPER",
+                Self::Goo => "GOO",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1273,9 +1273,9 @@ pub mod apt_repository {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ArchiveType::Unspecified => "ARCHIVE_TYPE_UNSPECIFIED",
-                ArchiveType::Deb => "DEB",
-                ArchiveType::DebSrc => "DEB_SRC",
+                Self::Unspecified => "ARCHIVE_TYPE_UNSPECIFIED",
+                Self::Deb => "DEB",
+                Self::DebSrc => "DEB_SRC",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1594,13 +1594,13 @@ pub mod software_recipe {
                 /// (if the ProtoBuf definition does not change) and safe for programmatic use.
                 pub fn as_str_name(&self) -> &'static str {
                     match self {
-                        ArchiveType::Unspecified => "ARCHIVE_TYPE_UNSPECIFIED",
-                        ArchiveType::Tar => "TAR",
-                        ArchiveType::TarGzip => "TAR_GZIP",
-                        ArchiveType::TarBzip => "TAR_BZIP",
-                        ArchiveType::TarLzma => "TAR_LZMA",
-                        ArchiveType::TarXz => "TAR_XZ",
-                        ArchiveType::Zip => "ZIP",
+                        Self::Unspecified => "ARCHIVE_TYPE_UNSPECIFIED",
+                        Self::Tar => "TAR",
+                        Self::TarGzip => "TAR_GZIP",
+                        Self::TarBzip => "TAR_BZIP",
+                        Self::TarLzma => "TAR_LZMA",
+                        Self::TarXz => "TAR_XZ",
+                        Self::Zip => "ZIP",
                     }
                 }
                 /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1722,9 +1722,9 @@ pub mod software_recipe {
                 /// (if the ProtoBuf definition does not change) and safe for programmatic use.
                 pub fn as_str_name(&self) -> &'static str {
                     match self {
-                        Interpreter::Unspecified => "INTERPRETER_UNSPECIFIED",
-                        Interpreter::Shell => "SHELL",
-                        Interpreter::Powershell => "POWERSHELL",
+                        Self::Unspecified => "INTERPRETER_UNSPECIFIED",
+                        Self::Shell => "SHELL",
+                        Self::Powershell => "POWERSHELL",
                     }
                 }
                 /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1934,10 +1934,10 @@ impl DesiredState {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            DesiredState::Unspecified => "DESIRED_STATE_UNSPECIFIED",
-            DesiredState::Installed => "INSTALLED",
-            DesiredState::Updated => "UPDATED",
-            DesiredState::Removed => "REMOVED",
+            Self::Unspecified => "DESIRED_STATE_UNSPECIFIED",
+            Self::Installed => "INSTALLED",
+            Self::Updated => "UPDATED",
+            Self::Removed => "REMOVED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2031,9 +2031,9 @@ pub mod patch_deployment {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Active => "ACTIVE",
-                State::Paused => "PAUSED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Active => "ACTIVE",
+                Self::Paused => "PAUSED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2132,10 +2132,10 @@ pub mod recurring_schedule {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Frequency::Unspecified => "FREQUENCY_UNSPECIFIED",
-                Frequency::Weekly => "WEEKLY",
-                Frequency::Monthly => "MONTHLY",
-                Frequency::Daily => "DAILY",
+                Self::Unspecified => "FREQUENCY_UNSPECIFIED",
+                Self::Weekly => "WEEKLY",
+                Self::Monthly => "MONTHLY",
+                Self::Daily => "DAILY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2916,5 +2916,1101 @@ pub mod os_config_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod os_config_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with OsConfigServiceServer.
+    #[async_trait]
+    pub trait OsConfigService: std::marker::Send + std::marker::Sync + 'static {
+        /// Patch VM instances by creating and running a patch job.
+        async fn execute_patch_job(
+            &self,
+            request: tonic::Request<super::ExecutePatchJobRequest>,
+        ) -> std::result::Result<tonic::Response<super::PatchJob>, tonic::Status>;
+        /// Get the patch job. This can be used to track the progress of an
+        /// ongoing patch job or review the details of completed jobs.
+        async fn get_patch_job(
+            &self,
+            request: tonic::Request<super::GetPatchJobRequest>,
+        ) -> std::result::Result<tonic::Response<super::PatchJob>, tonic::Status>;
+        /// Cancel a patch job. The patch job must be active. Canceled patch jobs
+        /// cannot be restarted.
+        async fn cancel_patch_job(
+            &self,
+            request: tonic::Request<super::CancelPatchJobRequest>,
+        ) -> std::result::Result<tonic::Response<super::PatchJob>, tonic::Status>;
+        /// Get a list of patch jobs.
+        async fn list_patch_jobs(
+            &self,
+            request: tonic::Request<super::ListPatchJobsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListPatchJobsResponse>,
+            tonic::Status,
+        >;
+        /// Get a list of instance details for a given patch job.
+        async fn list_patch_job_instance_details(
+            &self,
+            request: tonic::Request<super::ListPatchJobInstanceDetailsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListPatchJobInstanceDetailsResponse>,
+            tonic::Status,
+        >;
+        /// Create an OS Config patch deployment.
+        async fn create_patch_deployment(
+            &self,
+            request: tonic::Request<super::CreatePatchDeploymentRequest>,
+        ) -> std::result::Result<tonic::Response<super::PatchDeployment>, tonic::Status>;
+        /// Get an OS Config patch deployment.
+        async fn get_patch_deployment(
+            &self,
+            request: tonic::Request<super::GetPatchDeploymentRequest>,
+        ) -> std::result::Result<tonic::Response<super::PatchDeployment>, tonic::Status>;
+        /// Get a page of OS Config patch deployments.
+        async fn list_patch_deployments(
+            &self,
+            request: tonic::Request<super::ListPatchDeploymentsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListPatchDeploymentsResponse>,
+            tonic::Status,
+        >;
+        /// Delete an OS Config patch deployment.
+        async fn delete_patch_deployment(
+            &self,
+            request: tonic::Request<super::DeletePatchDeploymentRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Update an OS Config patch deployment.
+        async fn update_patch_deployment(
+            &self,
+            request: tonic::Request<super::UpdatePatchDeploymentRequest>,
+        ) -> std::result::Result<tonic::Response<super::PatchDeployment>, tonic::Status>;
+        /// Change state of patch deployment to "PAUSED".
+        /// Patch deployment in paused state doesn't generate patch jobs.
+        async fn pause_patch_deployment(
+            &self,
+            request: tonic::Request<super::PausePatchDeploymentRequest>,
+        ) -> std::result::Result<tonic::Response<super::PatchDeployment>, tonic::Status>;
+        /// Change state of patch deployment back to "ACTIVE".
+        /// Patch deployment in active state continues to generate patch jobs.
+        async fn resume_patch_deployment(
+            &self,
+            request: tonic::Request<super::ResumePatchDeploymentRequest>,
+        ) -> std::result::Result<tonic::Response<super::PatchDeployment>, tonic::Status>;
+        /// Create an OS Config guest policy.
+        async fn create_guest_policy(
+            &self,
+            request: tonic::Request<super::CreateGuestPolicyRequest>,
+        ) -> std::result::Result<tonic::Response<super::GuestPolicy>, tonic::Status>;
+        /// Get an OS Config guest policy.
+        async fn get_guest_policy(
+            &self,
+            request: tonic::Request<super::GetGuestPolicyRequest>,
+        ) -> std::result::Result<tonic::Response<super::GuestPolicy>, tonic::Status>;
+        /// Get a page of OS Config guest policies.
+        async fn list_guest_policies(
+            &self,
+            request: tonic::Request<super::ListGuestPoliciesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListGuestPoliciesResponse>,
+            tonic::Status,
+        >;
+        /// Update an OS Config guest policy.
+        async fn update_guest_policy(
+            &self,
+            request: tonic::Request<super::UpdateGuestPolicyRequest>,
+        ) -> std::result::Result<tonic::Response<super::GuestPolicy>, tonic::Status>;
+        /// Delete an OS Config guest policy.
+        async fn delete_guest_policy(
+            &self,
+            request: tonic::Request<super::DeleteGuestPolicyRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Lookup the effective guest policy that applies to a VM instance. This
+        /// lookup merges all policies that are assigned to the instance ancestry.
+        async fn lookup_effective_guest_policy(
+            &self,
+            request: tonic::Request<super::LookupEffectiveGuestPolicyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::EffectiveGuestPolicy>,
+            tonic::Status,
+        >;
+    }
+    /// OS Config API
+    ///
+    /// The OS Config service is a server-side component that you can use to
+    /// manage package installations and patch jobs for virtual machine instances.
+    #[derive(Debug)]
+    pub struct OsConfigServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> OsConfigServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for OsConfigServiceServer<T>
+    where
+        T: OsConfigService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.osconfig.v1beta.OsConfigService/ExecutePatchJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct ExecutePatchJobSvc<T: OsConfigService>(pub Arc<T>);
+                    impl<
+                        T: OsConfigService,
+                    > tonic::server::UnaryService<super::ExecutePatchJobRequest>
+                    for ExecutePatchJobSvc<T> {
+                        type Response = super::PatchJob;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ExecutePatchJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OsConfigService>::execute_patch_job(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ExecutePatchJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.osconfig.v1beta.OsConfigService/GetPatchJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetPatchJobSvc<T: OsConfigService>(pub Arc<T>);
+                    impl<
+                        T: OsConfigService,
+                    > tonic::server::UnaryService<super::GetPatchJobRequest>
+                    for GetPatchJobSvc<T> {
+                        type Response = super::PatchJob;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetPatchJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OsConfigService>::get_patch_job(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetPatchJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.osconfig.v1beta.OsConfigService/CancelPatchJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct CancelPatchJobSvc<T: OsConfigService>(pub Arc<T>);
+                    impl<
+                        T: OsConfigService,
+                    > tonic::server::UnaryService<super::CancelPatchJobRequest>
+                    for CancelPatchJobSvc<T> {
+                        type Response = super::PatchJob;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CancelPatchJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OsConfigService>::cancel_patch_job(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CancelPatchJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.osconfig.v1beta.OsConfigService/ListPatchJobs" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListPatchJobsSvc<T: OsConfigService>(pub Arc<T>);
+                    impl<
+                        T: OsConfigService,
+                    > tonic::server::UnaryService<super::ListPatchJobsRequest>
+                    for ListPatchJobsSvc<T> {
+                        type Response = super::ListPatchJobsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListPatchJobsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OsConfigService>::list_patch_jobs(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListPatchJobsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.osconfig.v1beta.OsConfigService/ListPatchJobInstanceDetails" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListPatchJobInstanceDetailsSvc<T: OsConfigService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: OsConfigService,
+                    > tonic::server::UnaryService<
+                        super::ListPatchJobInstanceDetailsRequest,
+                    > for ListPatchJobInstanceDetailsSvc<T> {
+                        type Response = super::ListPatchJobInstanceDetailsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListPatchJobInstanceDetailsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OsConfigService>::list_patch_job_instance_details(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListPatchJobInstanceDetailsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.osconfig.v1beta.OsConfigService/CreatePatchDeployment" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreatePatchDeploymentSvc<T: OsConfigService>(pub Arc<T>);
+                    impl<
+                        T: OsConfigService,
+                    > tonic::server::UnaryService<super::CreatePatchDeploymentRequest>
+                    for CreatePatchDeploymentSvc<T> {
+                        type Response = super::PatchDeployment;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreatePatchDeploymentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OsConfigService>::create_patch_deployment(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreatePatchDeploymentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.osconfig.v1beta.OsConfigService/GetPatchDeployment" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetPatchDeploymentSvc<T: OsConfigService>(pub Arc<T>);
+                    impl<
+                        T: OsConfigService,
+                    > tonic::server::UnaryService<super::GetPatchDeploymentRequest>
+                    for GetPatchDeploymentSvc<T> {
+                        type Response = super::PatchDeployment;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetPatchDeploymentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OsConfigService>::get_patch_deployment(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetPatchDeploymentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.osconfig.v1beta.OsConfigService/ListPatchDeployments" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListPatchDeploymentsSvc<T: OsConfigService>(pub Arc<T>);
+                    impl<
+                        T: OsConfigService,
+                    > tonic::server::UnaryService<super::ListPatchDeploymentsRequest>
+                    for ListPatchDeploymentsSvc<T> {
+                        type Response = super::ListPatchDeploymentsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListPatchDeploymentsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OsConfigService>::list_patch_deployments(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListPatchDeploymentsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.osconfig.v1beta.OsConfigService/DeletePatchDeployment" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeletePatchDeploymentSvc<T: OsConfigService>(pub Arc<T>);
+                    impl<
+                        T: OsConfigService,
+                    > tonic::server::UnaryService<super::DeletePatchDeploymentRequest>
+                    for DeletePatchDeploymentSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeletePatchDeploymentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OsConfigService>::delete_patch_deployment(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeletePatchDeploymentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.osconfig.v1beta.OsConfigService/UpdatePatchDeployment" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdatePatchDeploymentSvc<T: OsConfigService>(pub Arc<T>);
+                    impl<
+                        T: OsConfigService,
+                    > tonic::server::UnaryService<super::UpdatePatchDeploymentRequest>
+                    for UpdatePatchDeploymentSvc<T> {
+                        type Response = super::PatchDeployment;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdatePatchDeploymentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OsConfigService>::update_patch_deployment(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdatePatchDeploymentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.osconfig.v1beta.OsConfigService/PausePatchDeployment" => {
+                    #[allow(non_camel_case_types)]
+                    struct PausePatchDeploymentSvc<T: OsConfigService>(pub Arc<T>);
+                    impl<
+                        T: OsConfigService,
+                    > tonic::server::UnaryService<super::PausePatchDeploymentRequest>
+                    for PausePatchDeploymentSvc<T> {
+                        type Response = super::PatchDeployment;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::PausePatchDeploymentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OsConfigService>::pause_patch_deployment(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = PausePatchDeploymentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.osconfig.v1beta.OsConfigService/ResumePatchDeployment" => {
+                    #[allow(non_camel_case_types)]
+                    struct ResumePatchDeploymentSvc<T: OsConfigService>(pub Arc<T>);
+                    impl<
+                        T: OsConfigService,
+                    > tonic::server::UnaryService<super::ResumePatchDeploymentRequest>
+                    for ResumePatchDeploymentSvc<T> {
+                        type Response = super::PatchDeployment;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ResumePatchDeploymentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OsConfigService>::resume_patch_deployment(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ResumePatchDeploymentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.osconfig.v1beta.OsConfigService/CreateGuestPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateGuestPolicySvc<T: OsConfigService>(pub Arc<T>);
+                    impl<
+                        T: OsConfigService,
+                    > tonic::server::UnaryService<super::CreateGuestPolicyRequest>
+                    for CreateGuestPolicySvc<T> {
+                        type Response = super::GuestPolicy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateGuestPolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OsConfigService>::create_guest_policy(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateGuestPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.osconfig.v1beta.OsConfigService/GetGuestPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetGuestPolicySvc<T: OsConfigService>(pub Arc<T>);
+                    impl<
+                        T: OsConfigService,
+                    > tonic::server::UnaryService<super::GetGuestPolicyRequest>
+                    for GetGuestPolicySvc<T> {
+                        type Response = super::GuestPolicy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetGuestPolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OsConfigService>::get_guest_policy(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetGuestPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.osconfig.v1beta.OsConfigService/ListGuestPolicies" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListGuestPoliciesSvc<T: OsConfigService>(pub Arc<T>);
+                    impl<
+                        T: OsConfigService,
+                    > tonic::server::UnaryService<super::ListGuestPoliciesRequest>
+                    for ListGuestPoliciesSvc<T> {
+                        type Response = super::ListGuestPoliciesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListGuestPoliciesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OsConfigService>::list_guest_policies(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListGuestPoliciesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.osconfig.v1beta.OsConfigService/UpdateGuestPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateGuestPolicySvc<T: OsConfigService>(pub Arc<T>);
+                    impl<
+                        T: OsConfigService,
+                    > tonic::server::UnaryService<super::UpdateGuestPolicyRequest>
+                    for UpdateGuestPolicySvc<T> {
+                        type Response = super::GuestPolicy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateGuestPolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OsConfigService>::update_guest_policy(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateGuestPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.osconfig.v1beta.OsConfigService/DeleteGuestPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteGuestPolicySvc<T: OsConfigService>(pub Arc<T>);
+                    impl<
+                        T: OsConfigService,
+                    > tonic::server::UnaryService<super::DeleteGuestPolicyRequest>
+                    for DeleteGuestPolicySvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteGuestPolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OsConfigService>::delete_guest_policy(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteGuestPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.osconfig.v1beta.OsConfigService/LookupEffectiveGuestPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct LookupEffectiveGuestPolicySvc<T: OsConfigService>(pub Arc<T>);
+                    impl<
+                        T: OsConfigService,
+                    > tonic::server::UnaryService<
+                        super::LookupEffectiveGuestPolicyRequest,
+                    > for LookupEffectiveGuestPolicySvc<T> {
+                        type Response = super::EffectiveGuestPolicy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::LookupEffectiveGuestPolicyRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OsConfigService>::lookup_effective_guest_policy(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = LookupEffectiveGuestPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for OsConfigServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.osconfig.v1beta.OsConfigService";
+    impl<T> tonic::server::NamedService for OsConfigServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

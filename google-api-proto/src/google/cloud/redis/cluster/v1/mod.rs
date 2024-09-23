@@ -256,11 +256,11 @@ pub mod cluster {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Active => "ACTIVE",
-                State::Updating => "UPDATING",
-                State::Deleting => "DELETING",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Active => "ACTIVE",
+                Self::Updating => "UPDATING",
+                Self::Deleting => "DELETING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -451,11 +451,11 @@ pub mod cluster_persistence_config {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    SnapshotPeriod::Unspecified => "SNAPSHOT_PERIOD_UNSPECIFIED",
-                    SnapshotPeriod::OneHour => "ONE_HOUR",
-                    SnapshotPeriod::SixHours => "SIX_HOURS",
-                    SnapshotPeriod::TwelveHours => "TWELVE_HOURS",
-                    SnapshotPeriod::TwentyFourHours => "TWENTY_FOUR_HOURS",
+                    Self::Unspecified => "SNAPSHOT_PERIOD_UNSPECIFIED",
+                    Self::OneHour => "ONE_HOUR",
+                    Self::SixHours => "SIX_HOURS",
+                    Self::TwelveHours => "TWELVE_HOURS",
+                    Self::TwentyFourHours => "TWENTY_FOUR_HOURS",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -513,10 +513,10 @@ pub mod cluster_persistence_config {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    AppendFsync::Unspecified => "APPEND_FSYNC_UNSPECIFIED",
-                    AppendFsync::No => "NO",
-                    AppendFsync::Everysec => "EVERYSEC",
-                    AppendFsync::Always => "ALWAYS",
+                    Self::Unspecified => "APPEND_FSYNC_UNSPECIFIED",
+                    Self::No => "NO",
+                    Self::Everysec => "EVERYSEC",
+                    Self::Always => "ALWAYS",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -561,10 +561,10 @@ pub mod cluster_persistence_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                PersistenceMode::Unspecified => "PERSISTENCE_MODE_UNSPECIFIED",
-                PersistenceMode::Disabled => "DISABLED",
-                PersistenceMode::Rdb => "RDB",
-                PersistenceMode::Aof => "AOF",
+                Self::Unspecified => "PERSISTENCE_MODE_UNSPECIFIED",
+                Self::Disabled => "DISABLED",
+                Self::Rdb => "RDB",
+                Self::Aof => "AOF",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -627,9 +627,9 @@ pub mod zone_distribution_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ZoneDistributionMode::Unspecified => "ZONE_DISTRIBUTION_MODE_UNSPECIFIED",
-                ZoneDistributionMode::MultiZone => "MULTI_ZONE",
-                ZoneDistributionMode::SingleZone => "SINGLE_ZONE",
+                Self::Unspecified => "ZONE_DISTRIBUTION_MODE_UNSPECIFIED",
+                Self::MultiZone => "MULTI_ZONE",
+                Self::SingleZone => "SINGLE_ZONE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -661,9 +661,9 @@ impl AuthorizationMode {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            AuthorizationMode::AuthModeUnspecified => "AUTH_MODE_UNSPECIFIED",
-            AuthorizationMode::AuthModeIamAuth => "AUTH_MODE_IAM_AUTH",
-            AuthorizationMode::AuthModeDisabled => "AUTH_MODE_DISABLED",
+            Self::AuthModeUnspecified => "AUTH_MODE_UNSPECIFIED",
+            Self::AuthModeIamAuth => "AUTH_MODE_IAM_AUTH",
+            Self::AuthModeDisabled => "AUTH_MODE_DISABLED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -697,11 +697,11 @@ impl NodeType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            NodeType::Unspecified => "NODE_TYPE_UNSPECIFIED",
-            NodeType::RedisSharedCoreNano => "REDIS_SHARED_CORE_NANO",
-            NodeType::RedisHighmemMedium => "REDIS_HIGHMEM_MEDIUM",
-            NodeType::RedisHighmemXlarge => "REDIS_HIGHMEM_XLARGE",
-            NodeType::RedisStandardSmall => "REDIS_STANDARD_SMALL",
+            Self::Unspecified => "NODE_TYPE_UNSPECIFIED",
+            Self::RedisSharedCoreNano => "REDIS_SHARED_CORE_NANO",
+            Self::RedisHighmemMedium => "REDIS_HIGHMEM_MEDIUM",
+            Self::RedisHighmemXlarge => "REDIS_HIGHMEM_XLARGE",
+            Self::RedisStandardSmall => "REDIS_STANDARD_SMALL",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -734,11 +734,9 @@ impl TransitEncryptionMode {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            TransitEncryptionMode::Unspecified => "TRANSIT_ENCRYPTION_MODE_UNSPECIFIED",
-            TransitEncryptionMode::Disabled => "TRANSIT_ENCRYPTION_MODE_DISABLED",
-            TransitEncryptionMode::ServerAuthentication => {
-                "TRANSIT_ENCRYPTION_MODE_SERVER_AUTHENTICATION"
-            }
+            Self::Unspecified => "TRANSIT_ENCRYPTION_MODE_UNSPECIFIED",
+            Self::Disabled => "TRANSIT_ENCRYPTION_MODE_DISABLED",
+            Self::ServerAuthentication => "TRANSIT_ENCRYPTION_MODE_SERVER_AUTHENTICATION",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1053,5 +1051,494 @@ pub mod cloud_redis_cluster_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod cloud_redis_cluster_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with CloudRedisClusterServer.
+    #[async_trait]
+    pub trait CloudRedisCluster: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists all Redis clusters owned by a project in either the specified
+        /// location (region) or all locations.
+        ///
+        /// The location should have the following format:
+        ///
+        /// * `projects/{project_id}/locations/{location_id}`
+        ///
+        /// If `location_id` is specified as `-` (wildcard), then all regions
+        /// available to the project are queried, and the results are aggregated.
+        async fn list_clusters(
+            &self,
+            request: tonic::Request<super::ListClustersRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListClustersResponse>,
+            tonic::Status,
+        >;
+        /// Gets the details of a specific Redis cluster.
+        async fn get_cluster(
+            &self,
+            request: tonic::Request<super::GetClusterRequest>,
+        ) -> std::result::Result<tonic::Response<super::Cluster>, tonic::Status>;
+        /// Updates the metadata and configuration of a specific Redis cluster.
+        ///
+        /// Completed longrunning.Operation will contain the new cluster object
+        /// in the response field. The returned operation is automatically deleted
+        /// after a few hours, so there is no need to call DeleteOperation.
+        async fn update_cluster(
+            &self,
+            request: tonic::Request<super::UpdateClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a specific Redis cluster. Cluster stops serving and data is
+        /// deleted.
+        async fn delete_cluster(
+            &self,
+            request: tonic::Request<super::DeleteClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Creates a Redis cluster based on the specified properties.
+        /// The creation is executed asynchronously and callers may check the returned
+        /// operation to track its progress. Once the operation is completed the Redis
+        /// cluster will be fully functional. The completed longrunning.Operation will
+        /// contain the new cluster object in the response field.
+        ///
+        /// The returned operation is automatically deleted after a few hours, so there
+        /// is no need to call DeleteOperation.
+        async fn create_cluster(
+            &self,
+            request: tonic::Request<super::CreateClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Gets the details of certificate authority information for Redis cluster.
+        async fn get_cluster_certificate_authority(
+            &self,
+            request: tonic::Request<super::GetClusterCertificateAuthorityRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::CertificateAuthority>,
+            tonic::Status,
+        >;
+    }
+    /// Configures and manages Cloud Memorystore for Redis clusters
+    ///
+    /// Google Cloud Memorystore for Redis Cluster
+    ///
+    /// The `redis.googleapis.com` service implements the Google Cloud Memorystore
+    /// for Redis API and defines the following resource model for managing Redis
+    /// clusters:
+    /// * The service works with a collection of cloud projects, named: `/projects/*`
+    /// * Each project has a collection of available locations, named: `/locations/*`
+    /// * Each location has a collection of Redis clusters, named: `/clusters/*`
+    /// * As such, Redis clusters are resources of the form:
+    ///   `/projects/{project_id}/locations/{location_id}/clusters/{instance_id}`
+    ///
+    /// Note that location_id must be a GCP `region`; for example:
+    /// * `projects/redpepper-1290/locations/us-central1/clusters/my-redis`
+    ///
+    /// We use API version selector for Flex APIs
+    /// * The versioning strategy is release-based versioning
+    /// * Our backend CLH only deals with the superset version (called v1main)
+    /// * Existing backend for Redis Gen1 and MRR is not touched.
+    /// * More details in go/redis-flex-api-versioning
+    #[derive(Debug)]
+    pub struct CloudRedisClusterServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> CloudRedisClusterServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for CloudRedisClusterServer<T>
+    where
+        T: CloudRedisCluster,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.redis.cluster.v1.CloudRedisCluster/ListClusters" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListClustersSvc<T: CloudRedisCluster>(pub Arc<T>);
+                    impl<
+                        T: CloudRedisCluster,
+                    > tonic::server::UnaryService<super::ListClustersRequest>
+                    for ListClustersSvc<T> {
+                        type Response = super::ListClustersResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListClustersRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudRedisCluster>::list_clusters(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListClustersSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.redis.cluster.v1.CloudRedisCluster/GetCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetClusterSvc<T: CloudRedisCluster>(pub Arc<T>);
+                    impl<
+                        T: CloudRedisCluster,
+                    > tonic::server::UnaryService<super::GetClusterRequest>
+                    for GetClusterSvc<T> {
+                        type Response = super::Cluster;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudRedisCluster>::get_cluster(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.redis.cluster.v1.CloudRedisCluster/UpdateCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateClusterSvc<T: CloudRedisCluster>(pub Arc<T>);
+                    impl<
+                        T: CloudRedisCluster,
+                    > tonic::server::UnaryService<super::UpdateClusterRequest>
+                    for UpdateClusterSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudRedisCluster>::update_cluster(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.redis.cluster.v1.CloudRedisCluster/DeleteCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteClusterSvc<T: CloudRedisCluster>(pub Arc<T>);
+                    impl<
+                        T: CloudRedisCluster,
+                    > tonic::server::UnaryService<super::DeleteClusterRequest>
+                    for DeleteClusterSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudRedisCluster>::delete_cluster(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.redis.cluster.v1.CloudRedisCluster/CreateCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateClusterSvc<T: CloudRedisCluster>(pub Arc<T>);
+                    impl<
+                        T: CloudRedisCluster,
+                    > tonic::server::UnaryService<super::CreateClusterRequest>
+                    for CreateClusterSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudRedisCluster>::create_cluster(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.redis.cluster.v1.CloudRedisCluster/GetClusterCertificateAuthority" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetClusterCertificateAuthoritySvc<T: CloudRedisCluster>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: CloudRedisCluster,
+                    > tonic::server::UnaryService<
+                        super::GetClusterCertificateAuthorityRequest,
+                    > for GetClusterCertificateAuthoritySvc<T> {
+                        type Response = super::CertificateAuthority;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetClusterCertificateAuthorityRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudRedisCluster>::get_cluster_certificate_authority(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetClusterCertificateAuthoritySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for CloudRedisClusterServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.redis.cluster.v1.CloudRedisCluster";
+    impl<T> tonic::server::NamedService for CloudRedisClusterServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

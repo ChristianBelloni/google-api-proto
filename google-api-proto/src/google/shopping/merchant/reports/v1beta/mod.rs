@@ -472,12 +472,10 @@ pub mod product_view {
                 /// (if the ProtoBuf definition does not change) and safe for programmatic use.
                 pub fn as_str_name(&self) -> &'static str {
                     match self {
-                        AggregatedIssueSeverity::Unspecified => {
-                            "AGGREGATED_ISSUE_SEVERITY_UNSPECIFIED"
-                        }
-                        AggregatedIssueSeverity::Disapproved => "DISAPPROVED",
-                        AggregatedIssueSeverity::Demoted => "DEMOTED",
-                        AggregatedIssueSeverity::Pending => "PENDING",
+                        Self::Unspecified => "AGGREGATED_ISSUE_SEVERITY_UNSPECIFIED",
+                        Self::Disapproved => "DISAPPROVED",
+                        Self::Demoted => "DEMOTED",
+                        Self::Pending => "PENDING",
                     }
                 }
                 /// Creates an enum from field names used in the ProtoBuf definition.
@@ -524,11 +522,9 @@ pub mod product_view {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    ItemIssueResolution::Unspecified => {
-                        "ITEM_ISSUE_RESOLUTION_UNSPECIFIED"
-                    }
-                    ItemIssueResolution::MerchantAction => "MERCHANT_ACTION",
-                    ItemIssueResolution::PendingProcessing => "PENDING_PROCESSING",
+                    Self::Unspecified => "ITEM_ISSUE_RESOLUTION_UNSPECIFIED",
+                    Self::MerchantAction => "MERCHANT_ACTION",
+                    Self::PendingProcessing => "PENDING_PROCESSING",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -586,15 +582,11 @@ pub mod product_view {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                AggregatedReportingContextStatus::Unspecified => {
-                    "AGGREGATED_REPORTING_CONTEXT_STATUS_UNSPECIFIED"
-                }
-                AggregatedReportingContextStatus::NotEligibleOrDisapproved => {
-                    "NOT_ELIGIBLE_OR_DISAPPROVED"
-                }
-                AggregatedReportingContextStatus::Pending => "PENDING",
-                AggregatedReportingContextStatus::EligibleLimited => "ELIGIBLE_LIMITED",
-                AggregatedReportingContextStatus::Eligible => "ELIGIBLE",
+                Self::Unspecified => "AGGREGATED_REPORTING_CONTEXT_STATUS_UNSPECIFIED",
+                Self::NotEligibleOrDisapproved => "NOT_ELIGIBLE_OR_DISAPPROVED",
+                Self::Pending => "PENDING",
+                Self::EligibleLimited => "ELIGIBLE_LIMITED",
+                Self::Eligible => "ELIGIBLE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -649,10 +641,10 @@ pub mod product_view {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ClickPotential::Unspecified => "CLICK_POTENTIAL_UNSPECIFIED",
-                ClickPotential::Low => "LOW",
-                ClickPotential::Medium => "MEDIUM",
-                ClickPotential::High => "HIGH",
+                Self::Unspecified => "CLICK_POTENTIAL_UNSPECIFIED",
+                Self::Low => "LOW",
+                Self::Medium => "MEDIUM",
+                Self::High => "HIGH",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -873,10 +865,10 @@ pub mod price_insights_product_view {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Effectiveness::Unspecified => "EFFECTIVENESS_UNSPECIFIED",
-                Effectiveness::Low => "LOW",
-                Effectiveness::Medium => "MEDIUM",
-                Effectiveness::High => "HIGH",
+                Self::Unspecified => "EFFECTIVENESS_UNSPECIFIED",
+                Self::Low => "LOW",
+                Self::Medium => "MEDIUM",
+                Self::High => "HIGH",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1053,10 +1045,10 @@ pub mod best_sellers_product_cluster_view {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                InventoryStatus::Unspecified => "INVENTORY_STATUS_UNSPECIFIED",
-                InventoryStatus::InStock => "IN_STOCK",
-                InventoryStatus::OutOfStock => "OUT_OF_STOCK",
-                InventoryStatus::NotInInventory => "NOT_IN_INVENTORY",
+                Self::Unspecified => "INVENTORY_STATUS_UNSPECIFIED",
+                Self::InStock => "IN_STOCK",
+                Self::OutOfStock => "OUT_OF_STOCK",
+                Self::NotInInventory => "NOT_IN_INVENTORY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1431,9 +1423,9 @@ pub mod marketing_method {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                MarketingMethodEnum::Unspecified => "MARKETING_METHOD_ENUM_UNSPECIFIED",
-                MarketingMethodEnum::Organic => "ORGANIC",
-                MarketingMethodEnum::Ads => "ADS",
+                Self::Unspecified => "MARKETING_METHOD_ENUM_UNSPECIFIED",
+                Self::Organic => "ORGANIC",
+                Self::Ads => "ADS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1481,11 +1473,9 @@ pub mod report_granularity {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ReportGranularityEnum::Unspecified => {
-                    "REPORT_GRANULARITY_ENUM_UNSPECIFIED"
-                }
-                ReportGranularityEnum::Weekly => "WEEKLY",
-                ReportGranularityEnum::Monthly => "MONTHLY",
+                Self::Unspecified => "REPORT_GRANULARITY_ENUM_UNSPECIFIED",
+                Self::Weekly => "WEEKLY",
+                Self::Monthly => "MONTHLY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1543,12 +1533,12 @@ pub mod relative_demand {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                RelativeDemandEnum::Unspecified => "RELATIVE_DEMAND_ENUM_UNSPECIFIED",
-                RelativeDemandEnum::VeryLow => "VERY_LOW",
-                RelativeDemandEnum::Low => "LOW",
-                RelativeDemandEnum::Medium => "MEDIUM",
-                RelativeDemandEnum::High => "HIGH",
-                RelativeDemandEnum::VeryHigh => "VERY_HIGH",
+                Self::Unspecified => "RELATIVE_DEMAND_ENUM_UNSPECIFIED",
+                Self::VeryLow => "VERY_LOW",
+                Self::Low => "LOW",
+                Self::Medium => "MEDIUM",
+                Self::High => "HIGH",
+                Self::VeryHigh => "VERY_HIGH",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1601,12 +1591,10 @@ pub mod relative_demand_change_type {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                RelativeDemandChangeTypeEnum::Unspecified => {
-                    "RELATIVE_DEMAND_CHANGE_TYPE_ENUM_UNSPECIFIED"
-                }
-                RelativeDemandChangeTypeEnum::Sinker => "SINKER",
-                RelativeDemandChangeTypeEnum::Flat => "FLAT",
-                RelativeDemandChangeTypeEnum::Riser => "RISER",
+                Self::Unspecified => "RELATIVE_DEMAND_CHANGE_TYPE_ENUM_UNSPECIFIED",
+                Self::Sinker => "SINKER",
+                Self::Flat => "FLAT",
+                Self::Riser => "RISER",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1656,10 +1644,10 @@ pub mod traffic_source {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                TrafficSourceEnum::Unspecified => "TRAFFIC_SOURCE_ENUM_UNSPECIFIED",
-                TrafficSourceEnum::Organic => "ORGANIC",
-                TrafficSourceEnum::Ads => "ADS",
-                TrafficSourceEnum::All => "ALL",
+                Self::Unspecified => "TRAFFIC_SOURCE_ENUM_UNSPECIFIED",
+                Self::Organic => "ORGANIC",
+                Self::Ads => "ADS",
+                Self::All => "ALL",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1780,5 +1768,179 @@ pub mod report_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod report_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with ReportServiceServer.
+    #[async_trait]
+    pub trait ReportService: std::marker::Send + std::marker::Sync + 'static {
+        /// Retrieves a report defined by a search query. The response might contain
+        /// fewer rows than specified by `page_size`. Rely on `next_page_token` to
+        /// determine if there are more rows to be requested.
+        async fn search(
+            &self,
+            request: tonic::Request<super::SearchRequest>,
+        ) -> std::result::Result<tonic::Response<super::SearchResponse>, tonic::Status>;
+    }
+    /// Service for retrieving reports and insights about your products, their
+    /// performance, and their competitive environment on Google.
+    #[derive(Debug)]
+    pub struct ReportServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> ReportServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for ReportServiceServer<T>
+    where
+        T: ReportService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.shopping.merchant.reports.v1beta.ReportService/Search" => {
+                    #[allow(non_camel_case_types)]
+                    struct SearchSvc<T: ReportService>(pub Arc<T>);
+                    impl<
+                        T: ReportService,
+                    > tonic::server::UnaryService<super::SearchRequest>
+                    for SearchSvc<T> {
+                        type Response = super::SearchResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SearchRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ReportService>::search(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SearchSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for ReportServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.shopping.merchant.reports.v1beta.ReportService";
+    impl<T> tonic::server::NamedService for ReportServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

@@ -869,3 +869,984 @@ pub mod publisher_client {
         }
     }
 }
+/// Generated server implementations.
+pub mod subscriber_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with SubscriberServer.
+    #[async_trait]
+    pub trait Subscriber: std::marker::Send + std::marker::Sync + 'static {
+        /// Creates a subscription to a given topic for a given subscriber.
+        /// If the subscription already exists, returns ALREADY_EXISTS.
+        /// If the corresponding topic doesn't exist, returns NOT_FOUND.
+        ///
+        /// If the name is not provided in the request, the server will assign a random
+        /// name for this subscription on the same project as the topic.
+        async fn create_subscription(
+            &self,
+            request: tonic::Request<super::Subscription>,
+        ) -> std::result::Result<tonic::Response<super::Subscription>, tonic::Status>;
+        /// Gets the configuration details of a subscription.
+        async fn get_subscription(
+            &self,
+            request: tonic::Request<super::GetSubscriptionRequest>,
+        ) -> std::result::Result<tonic::Response<super::Subscription>, tonic::Status>;
+        /// Lists matching subscriptions.
+        async fn list_subscriptions(
+            &self,
+            request: tonic::Request<super::ListSubscriptionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListSubscriptionsResponse>,
+            tonic::Status,
+        >;
+        /// Deletes an existing subscription. All pending messages in the subscription
+        /// are immediately dropped. Calls to Pull after deletion will return
+        /// NOT_FOUND. After a subscription is deleted, a new one may be created with
+        /// the same name, but the new one has no association with the old
+        /// subscription, or its topic unless the same topic is specified.
+        async fn delete_subscription(
+            &self,
+            request: tonic::Request<super::DeleteSubscriptionRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Modifies the ack deadline for a specific message. This method is useful to
+        /// indicate that more time is needed to process a message by the subscriber,
+        /// or to make the message available for redelivery if the processing was
+        /// interrupted.
+        async fn modify_ack_deadline(
+            &self,
+            request: tonic::Request<super::ModifyAckDeadlineRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Acknowledges the messages associated with the ack tokens in the
+        /// AcknowledgeRequest. The Pub/Sub system can remove the relevant messages
+        /// from the subscription.
+        ///
+        /// Acknowledging a message whose ack deadline has expired may succeed,
+        /// but such a message may be redelivered later. Acknowledging a message more
+        /// than once will not result in an error.
+        async fn acknowledge(
+            &self,
+            request: tonic::Request<super::AcknowledgeRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Pulls messages from the server. Returns an empty list if there are no
+        /// messages available in the backlog. The server may return UNAVAILABLE if
+        /// there are too many concurrent pull requests pending for the given
+        /// subscription.
+        async fn pull(
+            &self,
+            request: tonic::Request<super::PullRequest>,
+        ) -> std::result::Result<tonic::Response<super::PullResponse>, tonic::Status>;
+        /// Modifies the PushConfig for a specified subscription.
+        ///
+        /// This may be used to change a push subscription to a pull one (signified
+        /// by an empty PushConfig) or vice versa, or change the endpoint URL and other
+        /// attributes of a push subscription. Messages will accumulate for
+        /// delivery continuously through the call regardless of changes to the
+        /// PushConfig.
+        async fn modify_push_config(
+            &self,
+            request: tonic::Request<super::ModifyPushConfigRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+    }
+    /// The service that an application uses to manipulate subscriptions and to
+    /// consume messages from a subscription via the Pull method.
+    #[derive(Debug)]
+    pub struct SubscriberServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> SubscriberServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for SubscriberServer<T>
+    where
+        T: Subscriber,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.pubsub.v1beta2.Subscriber/CreateSubscription" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateSubscriptionSvc<T: Subscriber>(pub Arc<T>);
+                    impl<T: Subscriber> tonic::server::UnaryService<super::Subscription>
+                    for CreateSubscriptionSvc<T> {
+                        type Response = super::Subscription;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::Subscription>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Subscriber>::create_subscription(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateSubscriptionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.pubsub.v1beta2.Subscriber/GetSubscription" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetSubscriptionSvc<T: Subscriber>(pub Arc<T>);
+                    impl<
+                        T: Subscriber,
+                    > tonic::server::UnaryService<super::GetSubscriptionRequest>
+                    for GetSubscriptionSvc<T> {
+                        type Response = super::Subscription;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetSubscriptionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Subscriber>::get_subscription(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetSubscriptionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.pubsub.v1beta2.Subscriber/ListSubscriptions" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListSubscriptionsSvc<T: Subscriber>(pub Arc<T>);
+                    impl<
+                        T: Subscriber,
+                    > tonic::server::UnaryService<super::ListSubscriptionsRequest>
+                    for ListSubscriptionsSvc<T> {
+                        type Response = super::ListSubscriptionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListSubscriptionsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Subscriber>::list_subscriptions(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListSubscriptionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.pubsub.v1beta2.Subscriber/DeleteSubscription" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteSubscriptionSvc<T: Subscriber>(pub Arc<T>);
+                    impl<
+                        T: Subscriber,
+                    > tonic::server::UnaryService<super::DeleteSubscriptionRequest>
+                    for DeleteSubscriptionSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteSubscriptionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Subscriber>::delete_subscription(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteSubscriptionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.pubsub.v1beta2.Subscriber/ModifyAckDeadline" => {
+                    #[allow(non_camel_case_types)]
+                    struct ModifyAckDeadlineSvc<T: Subscriber>(pub Arc<T>);
+                    impl<
+                        T: Subscriber,
+                    > tonic::server::UnaryService<super::ModifyAckDeadlineRequest>
+                    for ModifyAckDeadlineSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ModifyAckDeadlineRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Subscriber>::modify_ack_deadline(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ModifyAckDeadlineSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.pubsub.v1beta2.Subscriber/Acknowledge" => {
+                    #[allow(non_camel_case_types)]
+                    struct AcknowledgeSvc<T: Subscriber>(pub Arc<T>);
+                    impl<
+                        T: Subscriber,
+                    > tonic::server::UnaryService<super::AcknowledgeRequest>
+                    for AcknowledgeSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::AcknowledgeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Subscriber>::acknowledge(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = AcknowledgeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.pubsub.v1beta2.Subscriber/Pull" => {
+                    #[allow(non_camel_case_types)]
+                    struct PullSvc<T: Subscriber>(pub Arc<T>);
+                    impl<T: Subscriber> tonic::server::UnaryService<super::PullRequest>
+                    for PullSvc<T> {
+                        type Response = super::PullResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::PullRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Subscriber>::pull(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = PullSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.pubsub.v1beta2.Subscriber/ModifyPushConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct ModifyPushConfigSvc<T: Subscriber>(pub Arc<T>);
+                    impl<
+                        T: Subscriber,
+                    > tonic::server::UnaryService<super::ModifyPushConfigRequest>
+                    for ModifyPushConfigSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ModifyPushConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Subscriber>::modify_push_config(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ModifyPushConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for SubscriberServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.pubsub.v1beta2.Subscriber";
+    impl<T> tonic::server::NamedService for SubscriberServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}
+/// Generated server implementations.
+pub mod publisher_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with PublisherServer.
+    #[async_trait]
+    pub trait Publisher: std::marker::Send + std::marker::Sync + 'static {
+        /// Creates the given topic with the given name.
+        async fn create_topic(
+            &self,
+            request: tonic::Request<super::Topic>,
+        ) -> std::result::Result<tonic::Response<super::Topic>, tonic::Status>;
+        /// Adds one or more messages to the topic. Returns NOT_FOUND if the topic does
+        /// not exist.
+        async fn publish(
+            &self,
+            request: tonic::Request<super::PublishRequest>,
+        ) -> std::result::Result<tonic::Response<super::PublishResponse>, tonic::Status>;
+        /// Gets the configuration of a topic.
+        async fn get_topic(
+            &self,
+            request: tonic::Request<super::GetTopicRequest>,
+        ) -> std::result::Result<tonic::Response<super::Topic>, tonic::Status>;
+        /// Lists matching topics.
+        async fn list_topics(
+            &self,
+            request: tonic::Request<super::ListTopicsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListTopicsResponse>,
+            tonic::Status,
+        >;
+        /// Lists the name of the subscriptions for this topic.
+        async fn list_topic_subscriptions(
+            &self,
+            request: tonic::Request<super::ListTopicSubscriptionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListTopicSubscriptionsResponse>,
+            tonic::Status,
+        >;
+        /// Deletes the topic with the given name. Returns NOT_FOUND if the topic does
+        /// not exist. After a topic is deleted, a new topic may be created with the
+        /// same name; this is an entirely new topic with none of the old
+        /// configuration or subscriptions. Existing subscriptions to this topic are
+        /// not deleted.
+        async fn delete_topic(
+            &self,
+            request: tonic::Request<super::DeleteTopicRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+    }
+    /// The service that an application uses to manipulate topics, and to send
+    /// messages to a topic.
+    #[derive(Debug)]
+    pub struct PublisherServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> PublisherServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for PublisherServer<T>
+    where
+        T: Publisher,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.pubsub.v1beta2.Publisher/CreateTopic" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateTopicSvc<T: Publisher>(pub Arc<T>);
+                    impl<T: Publisher> tonic::server::UnaryService<super::Topic>
+                    for CreateTopicSvc<T> {
+                        type Response = super::Topic;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::Topic>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Publisher>::create_topic(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateTopicSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.pubsub.v1beta2.Publisher/Publish" => {
+                    #[allow(non_camel_case_types)]
+                    struct PublishSvc<T: Publisher>(pub Arc<T>);
+                    impl<T: Publisher> tonic::server::UnaryService<super::PublishRequest>
+                    for PublishSvc<T> {
+                        type Response = super::PublishResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::PublishRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Publisher>::publish(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = PublishSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.pubsub.v1beta2.Publisher/GetTopic" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetTopicSvc<T: Publisher>(pub Arc<T>);
+                    impl<
+                        T: Publisher,
+                    > tonic::server::UnaryService<super::GetTopicRequest>
+                    for GetTopicSvc<T> {
+                        type Response = super::Topic;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetTopicRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Publisher>::get_topic(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetTopicSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.pubsub.v1beta2.Publisher/ListTopics" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListTopicsSvc<T: Publisher>(pub Arc<T>);
+                    impl<
+                        T: Publisher,
+                    > tonic::server::UnaryService<super::ListTopicsRequest>
+                    for ListTopicsSvc<T> {
+                        type Response = super::ListTopicsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListTopicsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Publisher>::list_topics(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListTopicsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.pubsub.v1beta2.Publisher/ListTopicSubscriptions" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListTopicSubscriptionsSvc<T: Publisher>(pub Arc<T>);
+                    impl<
+                        T: Publisher,
+                    > tonic::server::UnaryService<super::ListTopicSubscriptionsRequest>
+                    for ListTopicSubscriptionsSvc<T> {
+                        type Response = super::ListTopicSubscriptionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListTopicSubscriptionsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Publisher>::list_topic_subscriptions(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListTopicSubscriptionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.pubsub.v1beta2.Publisher/DeleteTopic" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteTopicSvc<T: Publisher>(pub Arc<T>);
+                    impl<
+                        T: Publisher,
+                    > tonic::server::UnaryService<super::DeleteTopicRequest>
+                    for DeleteTopicSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteTopicRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Publisher>::delete_topic(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteTopicSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for PublisherServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.pubsub.v1beta2.Publisher";
+    impl<T> tonic::server::NamedService for PublisherServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}

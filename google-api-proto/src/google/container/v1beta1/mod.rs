@@ -73,9 +73,9 @@ pub mod linux_node_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                CgroupMode::Unspecified => "CGROUP_MODE_UNSPECIFIED",
-                CgroupMode::V1 => "CGROUP_MODE_V1",
-                CgroupMode::V2 => "CGROUP_MODE_V2",
+                Self::Unspecified => "CGROUP_MODE_UNSPECIFIED",
+                Self::V1 => "CGROUP_MODE_V1",
+                Self::V2 => "CGROUP_MODE_V2",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -128,9 +128,9 @@ pub mod windows_node_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                OsVersion::Unspecified => "OS_VERSION_UNSPECIFIED",
-                OsVersion::Ltsc2019 => "OS_VERSION_LTSC2019",
-                OsVersion::Ltsc2022 => "OS_VERSION_LTSC2022",
+                Self::Unspecified => "OS_VERSION_UNSPECIFIED",
+                Self::Ltsc2019 => "OS_VERSION_LTSC2019",
+                Self::Ltsc2022 => "OS_VERSION_LTSC2022",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -583,8 +583,8 @@ pub mod node_network_config {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    Tier::Unspecified => "TIER_UNSPECIFIED",
-                    Tier::Tier1 => "TIER_1",
+                    Self::Unspecified => "TIER_UNSPECIFIED",
+                    Self::Tier1 => "TIER_1",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -682,8 +682,8 @@ pub mod sandbox_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "UNSPECIFIED",
-                Type::Gvisor => "GVISOR",
+                Self::Unspecified => "UNSPECIFIED",
+                Self::Gvisor => "GVISOR",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -826,10 +826,10 @@ pub mod reservation_affinity {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "UNSPECIFIED",
-                Type::NoReservation => "NO_RESERVATION",
-                Type::AnyReservation => "ANY_RESERVATION",
-                Type::SpecificReservation => "SPECIFIC_RESERVATION",
+                Self::Unspecified => "UNSPECIFIED",
+                Self::NoReservation => "NO_RESERVATION",
+                Self::AnyReservation => "ANY_RESERVATION",
+                Self::SpecificReservation => "SPECIFIC_RESERVATION",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -900,9 +900,9 @@ pub mod sole_tenant_config {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    Operator::Unspecified => "OPERATOR_UNSPECIFIED",
-                    Operator::In => "IN",
-                    Operator::NotIn => "NOT_IN",
+                    Self::Unspecified => "OPERATOR_UNSPECIFIED",
+                    Self::In => "IN",
+                    Self::NotIn => "NOT_IN",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1069,9 +1069,9 @@ pub mod host_maintenance_policy {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                MaintenanceInterval::Unspecified => "MAINTENANCE_INTERVAL_UNSPECIFIED",
-                MaintenanceInterval::AsNeeded => "AS_NEEDED",
-                MaintenanceInterval::Periodic => "PERIODIC",
+                Self::Unspecified => "MAINTENANCE_INTERVAL_UNSPECIFIED",
+                Self::AsNeeded => "AS_NEEDED",
+                Self::Periodic => "PERIODIC",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1145,10 +1145,10 @@ pub mod node_taint {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Effect::Unspecified => "EFFECT_UNSPECIFIED",
-                Effect::NoSchedule => "NO_SCHEDULE",
-                Effect::PreferNoSchedule => "PREFER_NO_SCHEDULE",
-                Effect::NoExecute => "NO_EXECUTE",
+                Self::Unspecified => "EFFECT_UNSPECIFIED",
+                Self::NoSchedule => "NO_SCHEDULE",
+                Self::PreferNoSchedule => "PREFER_NO_SCHEDULE",
+                Self::NoExecute => "NO_EXECUTE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1518,8 +1518,8 @@ pub mod istio_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                IstioAuthMode::AuthNone => "AUTH_NONE",
-                IstioAuthMode::AuthMutualTls => "AUTH_MUTUAL_TLS",
+                Self::AuthNone => "AUTH_NONE",
+                Self::AuthMutualTls => "AUTH_MUTUAL_TLS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1572,9 +1572,9 @@ pub mod cloud_run_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                LoadBalancerType::Unspecified => "LOAD_BALANCER_TYPE_UNSPECIFIED",
-                LoadBalancerType::External => "LOAD_BALANCER_TYPE_EXTERNAL",
-                LoadBalancerType::Internal => "LOAD_BALANCER_TYPE_INTERNAL",
+                Self::Unspecified => "LOAD_BALANCER_TYPE_UNSPECIFIED",
+                Self::External => "LOAD_BALANCER_TYPE_EXTERNAL",
+                Self::Internal => "LOAD_BALANCER_TYPE_INTERNAL",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1670,8 +1670,8 @@ pub mod network_policy {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Provider::Unspecified => "PROVIDER_UNSPECIFIED",
-                Provider::Calico => "CALICO",
+                Self::Unspecified => "PROVIDER_UNSPECIFIED",
+                Self::Calico => "CALICO",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1900,9 +1900,9 @@ pub mod ip_allocation_policy {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                StackType::Unspecified => "STACK_TYPE_UNSPECIFIED",
-                StackType::Ipv4 => "IPV4",
-                StackType::Ipv4Ipv6 => "IPV4_IPV6",
+                Self::Unspecified => "STACK_TYPE_UNSPECIFIED",
+                Self::Ipv4 => "IPV4",
+                Self::Ipv4Ipv6 => "IPV4_IPV6",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1943,11 +1943,9 @@ pub mod ip_allocation_policy {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                IPv6AccessType::Ipv6AccessTypeUnspecified => {
-                    "IPV6_ACCESS_TYPE_UNSPECIFIED"
-                }
-                IPv6AccessType::Internal => "INTERNAL",
-                IPv6AccessType::External => "EXTERNAL",
+                Self::Ipv6AccessTypeUnspecified => "IPV6_ACCESS_TYPE_UNSPECIFIED",
+                Self::Internal => "INTERNAL",
+                Self::External => "EXTERNAL",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2026,13 +2024,11 @@ pub mod binary_authorization {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                EvaluationMode::Unspecified => "EVALUATION_MODE_UNSPECIFIED",
-                EvaluationMode::Disabled => "DISABLED",
-                EvaluationMode::ProjectSingletonPolicyEnforce => {
-                    "PROJECT_SINGLETON_POLICY_ENFORCE"
-                }
-                EvaluationMode::PolicyBindings => "POLICY_BINDINGS",
-                EvaluationMode::PolicyBindingsAndProjectSingletonPolicyEnforce => {
+                Self::Unspecified => "EVALUATION_MODE_UNSPECIFIED",
+                Self::Disabled => "DISABLED",
+                Self::ProjectSingletonPolicyEnforce => "PROJECT_SINGLETON_POLICY_ENFORCE",
+                Self::PolicyBindings => "POLICY_BINDINGS",
+                Self::PolicyBindingsAndProjectSingletonPolicyEnforce => {
                     "POLICY_BINDINGS_AND_PROJECT_SINGLETON_POLICY_ENFORCE"
                 }
             }
@@ -2113,10 +2109,10 @@ pub mod cluster_telemetry {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "UNSPECIFIED",
-                Type::Disabled => "DISABLED",
-                Type::Enabled => "ENABLED",
-                Type::SystemOnly => "SYSTEM_ONLY",
+                Self::Unspecified => "UNSPECIFIED",
+                Self::Disabled => "DISABLED",
+                Self::Enabled => "ENABLED",
+                Self::SystemOnly => "SYSTEM_ONLY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2577,13 +2573,13 @@ pub mod cluster {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Status::Unspecified => "STATUS_UNSPECIFIED",
-                Status::Provisioning => "PROVISIONING",
-                Status::Running => "RUNNING",
-                Status::Reconciling => "RECONCILING",
-                Status::Stopping => "STOPPING",
-                Status::Error => "ERROR",
-                Status::Degraded => "DEGRADED",
+                Self::Unspecified => "STATUS_UNSPECIFIED",
+                Self::Provisioning => "PROVISIONING",
+                Self::Running => "RUNNING",
+                Self::Reconciling => "RECONCILING",
+                Self::Stopping => "STOPPING",
+                Self::Error => "ERROR",
+                Self::Degraded => "DEGRADED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2651,9 +2647,9 @@ pub mod compliance_posture_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Mode::Unspecified => "MODE_UNSPECIFIED",
-                Mode::Disabled => "DISABLED",
-                Mode::Enabled => "ENABLED",
+                Self::Unspecified => "MODE_UNSPECIFIED",
+                Self::Disabled => "DISABLED",
+                Self::Enabled => "ENABLED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2719,11 +2715,11 @@ pub mod workload_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Mode::Unspecified => "MODE_UNSPECIFIED",
-                Mode::Disabled => "DISABLED",
-                Mode::Basic => "BASIC",
-                Mode::Baseline => "BASELINE",
-                Mode::Restricted => "RESTRICTED",
+                Self::Unspecified => "MODE_UNSPECIFIED",
+                Self::Disabled => "DISABLED",
+                Self::Basic => "BASIC",
+                Self::Baseline => "BASELINE",
+                Self::Restricted => "RESTRICTED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2785,11 +2781,9 @@ pub mod protect_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                WorkloadVulnerabilityMode::Unspecified => {
-                    "WORKLOAD_VULNERABILITY_MODE_UNSPECIFIED"
-                }
-                WorkloadVulnerabilityMode::Disabled => "DISABLED",
-                WorkloadVulnerabilityMode::Basic => "BASIC",
+                Self::Unspecified => "WORKLOAD_VULNERABILITY_MODE_UNSPECIFIED",
+                Self::Disabled => "DISABLED",
+                Self::Basic => "BASIC",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2850,10 +2844,10 @@ pub mod security_posture_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Mode::Unspecified => "MODE_UNSPECIFIED",
-                Mode::Disabled => "DISABLED",
-                Mode::Basic => "BASIC",
-                Mode::Enterprise => "ENTERPRISE",
+                Self::Unspecified => "MODE_UNSPECIFIED",
+                Self::Disabled => "DISABLED",
+                Self::Basic => "BASIC",
+                Self::Enterprise => "ENTERPRISE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2898,10 +2892,10 @@ pub mod security_posture_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                VulnerabilityMode::Unspecified => "VULNERABILITY_MODE_UNSPECIFIED",
-                VulnerabilityMode::VulnerabilityDisabled => "VULNERABILITY_DISABLED",
-                VulnerabilityMode::VulnerabilityBasic => "VULNERABILITY_BASIC",
-                VulnerabilityMode::VulnerabilityEnterprise => "VULNERABILITY_ENTERPRISE",
+                Self::Unspecified => "VULNERABILITY_MODE_UNSPECIFIED",
+                Self::VulnerabilityDisabled => "VULNERABILITY_DISABLED",
+                Self::VulnerabilityBasic => "VULNERABILITY_BASIC",
+                Self::VulnerabilityEnterprise => "VULNERABILITY_ENTERPRISE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -3406,11 +3400,11 @@ pub mod operation {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Status::Unspecified => "STATUS_UNSPECIFIED",
-                Status::Pending => "PENDING",
-                Status::Running => "RUNNING",
-                Status::Done => "DONE",
-                Status::Aborting => "ABORTING",
+                Self::Unspecified => "STATUS_UNSPECIFIED",
+                Self::Pending => "PENDING",
+                Self::Running => "RUNNING",
+                Self::Done => "DONE",
+                Self::Aborting => "ABORTING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -3551,25 +3545,25 @@ pub mod operation {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::CreateCluster => "CREATE_CLUSTER",
-                Type::DeleteCluster => "DELETE_CLUSTER",
-                Type::UpgradeMaster => "UPGRADE_MASTER",
-                Type::UpgradeNodes => "UPGRADE_NODES",
-                Type::RepairCluster => "REPAIR_CLUSTER",
-                Type::UpdateCluster => "UPDATE_CLUSTER",
-                Type::CreateNodePool => "CREATE_NODE_POOL",
-                Type::DeleteNodePool => "DELETE_NODE_POOL",
-                Type::SetNodePoolManagement => "SET_NODE_POOL_MANAGEMENT",
-                Type::AutoRepairNodes => "AUTO_REPAIR_NODES",
-                Type::AutoUpgradeNodes => "AUTO_UPGRADE_NODES",
-                Type::SetLabels => "SET_LABELS",
-                Type::SetMasterAuth => "SET_MASTER_AUTH",
-                Type::SetNodePoolSize => "SET_NODE_POOL_SIZE",
-                Type::SetNetworkPolicy => "SET_NETWORK_POLICY",
-                Type::SetMaintenancePolicy => "SET_MAINTENANCE_POLICY",
-                Type::ResizeCluster => "RESIZE_CLUSTER",
-                Type::FleetFeatureUpgrade => "FLEET_FEATURE_UPGRADE",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::CreateCluster => "CREATE_CLUSTER",
+                Self::DeleteCluster => "DELETE_CLUSTER",
+                Self::UpgradeMaster => "UPGRADE_MASTER",
+                Self::UpgradeNodes => "UPGRADE_NODES",
+                Self::RepairCluster => "REPAIR_CLUSTER",
+                Self::UpdateCluster => "UPDATE_CLUSTER",
+                Self::CreateNodePool => "CREATE_NODE_POOL",
+                Self::DeleteNodePool => "DELETE_NODE_POOL",
+                Self::SetNodePoolManagement => "SET_NODE_POOL_MANAGEMENT",
+                Self::AutoRepairNodes => "AUTO_REPAIR_NODES",
+                Self::AutoUpgradeNodes => "AUTO_UPGRADE_NODES",
+                Self::SetLabels => "SET_LABELS",
+                Self::SetMasterAuth => "SET_MASTER_AUTH",
+                Self::SetNodePoolSize => "SET_NODE_POOL_SIZE",
+                Self::SetNetworkPolicy => "SET_NETWORK_POLICY",
+                Self::SetMaintenancePolicy => "SET_MAINTENANCE_POLICY",
+                Self::ResizeCluster => "RESIZE_CLUSTER",
+                Self::FleetFeatureUpgrade => "FLEET_FEATURE_UPGRADE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -4162,10 +4156,10 @@ pub mod set_master_auth_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Action::Unknown => "UNKNOWN",
-                Action::SetPassword => "SET_PASSWORD",
-                Action::GeneratePassword => "GENERATE_PASSWORD",
-                Action::SetUsername => "SET_USERNAME",
+                Self::Unknown => "UNKNOWN",
+                Self::SetPassword => "SET_PASSWORD",
+                Self::GeneratePassword => "GENERATE_PASSWORD",
+                Self::SetUsername => "SET_USERNAME",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -4867,15 +4861,15 @@ pub mod node_pool {
                 /// (if the ProtoBuf definition does not change) and safe for programmatic use.
                 pub fn as_str_name(&self) -> &'static str {
                     match self {
-                        Phase::Unspecified => "PHASE_UNSPECIFIED",
-                        Phase::UpdateStarted => "UPDATE_STARTED",
-                        Phase::CreatingGreenPool => "CREATING_GREEN_POOL",
-                        Phase::CordoningBluePool => "CORDONING_BLUE_POOL",
-                        Phase::WaitingToDrainBluePool => "WAITING_TO_DRAIN_BLUE_POOL",
-                        Phase::DrainingBluePool => "DRAINING_BLUE_POOL",
-                        Phase::NodePoolSoaking => "NODE_POOL_SOAKING",
-                        Phase::DeletingBluePool => "DELETING_BLUE_POOL",
-                        Phase::RollbackStarted => "ROLLBACK_STARTED",
+                        Self::Unspecified => "PHASE_UNSPECIFIED",
+                        Self::UpdateStarted => "UPDATE_STARTED",
+                        Self::CreatingGreenPool => "CREATING_GREEN_POOL",
+                        Self::CordoningBluePool => "CORDONING_BLUE_POOL",
+                        Self::WaitingToDrainBluePool => "WAITING_TO_DRAIN_BLUE_POOL",
+                        Self::DrainingBluePool => "DRAINING_BLUE_POOL",
+                        Self::NodePoolSoaking => "NODE_POOL_SOAKING",
+                        Self::DeletingBluePool => "DELETING_BLUE_POOL",
+                        Self::RollbackStarted => "ROLLBACK_STARTED",
                     }
                 }
                 /// Creates an enum from field names used in the ProtoBuf definition.
@@ -4944,8 +4938,8 @@ pub mod node_pool {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    Type::Unspecified => "TYPE_UNSPECIFIED",
-                    Type::Compact => "COMPACT",
+                    Self::Unspecified => "TYPE_UNSPECIFIED",
+                    Self::Compact => "COMPACT",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -5010,13 +5004,13 @@ pub mod node_pool {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Status::Unspecified => "STATUS_UNSPECIFIED",
-                Status::Provisioning => "PROVISIONING",
-                Status::Running => "RUNNING",
-                Status::RunningWithError => "RUNNING_WITH_ERROR",
-                Status::Reconciling => "RECONCILING",
-                Status::Stopping => "STOPPING",
-                Status::Error => "ERROR",
+                Self::Unspecified => "STATUS_UNSPECIFIED",
+                Self::Provisioning => "PROVISIONING",
+                Self::Running => "RUNNING",
+                Self::RunningWithError => "RUNNING_WITH_ERROR",
+                Self::Reconciling => "RECONCILING",
+                Self::Stopping => "STOPPING",
+                Self::Error => "ERROR",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -5173,9 +5167,9 @@ pub mod maintenance_exclusion_options {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Scope::NoUpgrades => "NO_UPGRADES",
-                Scope::NoMinorUpgrades => "NO_MINOR_UPGRADES",
-                Scope::NoMinorOrNodeUpgrades => "NO_MINOR_OR_NODE_UPGRADES",
+                Self::NoUpgrades => "NO_UPGRADES",
+                Self::NoMinorUpgrades => "NO_MINOR_UPGRADES",
+                Self::NoMinorOrNodeUpgrades => "NO_MINOR_OR_NODE_UPGRADES",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -5428,9 +5422,9 @@ pub mod cluster_autoscaling {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                AutoscalingProfile::ProfileUnspecified => "PROFILE_UNSPECIFIED",
-                AutoscalingProfile::OptimizeUtilization => "OPTIMIZE_UTILIZATION",
-                AutoscalingProfile::Balanced => "BALANCED",
+                Self::ProfileUnspecified => "PROFILE_UNSPECIFIED",
+                Self::OptimizeUtilization => "OPTIMIZE_UTILIZATION",
+                Self::Balanced => "BALANCED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -5603,9 +5597,9 @@ pub mod node_pool_autoscaling {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                LocationPolicy::Unspecified => "LOCATION_POLICY_UNSPECIFIED",
-                LocationPolicy::Balanced => "BALANCED",
-                LocationPolicy::Any => "ANY",
+                Self::Unspecified => "LOCATION_POLICY_UNSPECIFIED",
+                Self::Balanced => "BALANCED",
+                Self::Any => "ANY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -5816,9 +5810,9 @@ pub mod gpu_sharing_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                GpuSharingStrategy::Unspecified => "GPU_SHARING_STRATEGY_UNSPECIFIED",
-                GpuSharingStrategy::TimeSharing => "TIME_SHARING",
-                GpuSharingStrategy::Mps => "MPS",
+                Self::Unspecified => "GPU_SHARING_STRATEGY_UNSPECIFIED",
+                Self::TimeSharing => "TIME_SHARING",
+                Self::Mps => "MPS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -5876,10 +5870,10 @@ pub mod gpu_driver_installation_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                GpuDriverVersion::Unspecified => "GPU_DRIVER_VERSION_UNSPECIFIED",
-                GpuDriverVersion::InstallationDisabled => "INSTALLATION_DISABLED",
-                GpuDriverVersion::Default => "DEFAULT",
-                GpuDriverVersion::Latest => "LATEST",
+                Self::Unspecified => "GPU_DRIVER_VERSION_UNSPECIFIED",
+                Self::InstallationDisabled => "INSTALLATION_DISABLED",
+                Self::Default => "DEFAULT",
+                Self::Latest => "LATEST",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -5960,10 +5954,10 @@ pub mod workload_metadata_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                NodeMetadata::Unspecified => "UNSPECIFIED",
-                NodeMetadata::Secure => "SECURE",
-                NodeMetadata::Expose => "EXPOSE",
-                NodeMetadata::GkeMetadataServer => "GKE_METADATA_SERVER",
+                Self::Unspecified => "UNSPECIFIED",
+                Self::Secure => "SECURE",
+                Self::Expose => "EXPOSE",
+                Self::GkeMetadataServer => "GKE_METADATA_SERVER",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -6010,9 +6004,9 @@ pub mod workload_metadata_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Mode::Unspecified => "MODE_UNSPECIFIED",
-                Mode::GceMetadata => "GCE_METADATA",
-                Mode::GkeMetadata => "GKE_METADATA",
+                Self::Unspecified => "MODE_UNSPECIFIED",
+                Self::GceMetadata => "GCE_METADATA",
+                Self::GkeMetadata => "GKE_METADATA",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -6148,9 +6142,9 @@ pub mod location {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                LocationType::Unspecified => "LOCATION_TYPE_UNSPECIFIED",
-                LocationType::Zone => "ZONE",
-                LocationType::Region => "REGION",
+                Self::Unspecified => "LOCATION_TYPE_UNSPECIFIED",
+                Self::Zone => "ZONE",
+                Self::Region => "REGION",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -6222,13 +6216,13 @@ pub mod status_condition {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Code::Unknown => "UNKNOWN",
-                Code::GceStockout => "GCE_STOCKOUT",
-                Code::GkeServiceAccountDeleted => "GKE_SERVICE_ACCOUNT_DELETED",
-                Code::GceQuotaExceeded => "GCE_QUOTA_EXCEEDED",
-                Code::SetByOperator => "SET_BY_OPERATOR",
-                Code::CloudKmsKeyError => "CLOUD_KMS_KEY_ERROR",
-                Code::CaExpiring => "CA_EXPIRING",
+                Self::Unknown => "UNKNOWN",
+                Self::GceStockout => "GCE_STOCKOUT",
+                Self::GkeServiceAccountDeleted => "GKE_SERVICE_ACCOUNT_DELETED",
+                Self::GceQuotaExceeded => "GCE_QUOTA_EXCEEDED",
+                Self::SetByOperator => "SET_BY_OPERATOR",
+                Self::CloudKmsKeyError => "CLOUD_KMS_KEY_ERROR",
+                Self::CaExpiring => "CA_EXPIRING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -6353,8 +6347,8 @@ pub mod network_config {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    Tier::Unspecified => "TIER_UNSPECIFIED",
-                    Tier::Tier1 => "TIER_1",
+                    Self::Unspecified => "TIER_UNSPECIFIED",
+                    Self::Tier1 => "TIER_1",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -6409,10 +6403,10 @@ pub mod gateway_api_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Channel::Unspecified => "CHANNEL_UNSPECIFIED",
-                Channel::Disabled => "CHANNEL_DISABLED",
-                Channel::Experimental => "CHANNEL_EXPERIMENTAL",
-                Channel::Standard => "CHANNEL_STANDARD",
+                Self::Unspecified => "CHANNEL_UNSPECIFIED",
+                Self::Disabled => "CHANNEL_DISABLED",
+                Self::Experimental => "CHANNEL_EXPERIMENTAL",
+                Self::Standard => "CHANNEL_STANDARD",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -6525,11 +6519,11 @@ pub mod usable_subnetwork_secondary_range {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Status::Unknown => "UNKNOWN",
-                Status::Unused => "UNUSED",
-                Status::InUseService => "IN_USE_SERVICE",
-                Status::InUseShareablePod => "IN_USE_SHAREABLE_POD",
-                Status::InUseManagedPod => "IN_USE_MANAGED_POD",
+                Self::Unknown => "UNKNOWN",
+                Self::Unused => "UNUSED",
+                Self::InUseService => "IN_USE_SERVICE",
+                Self::InUseShareablePod => "IN_USE_SHAREABLE_POD",
+                Self::InUseManagedPod => "IN_USE_MANAGED_POD",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -6651,10 +6645,10 @@ pub mod dns_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Provider::Unspecified => "PROVIDER_UNSPECIFIED",
-                Provider::PlatformDefault => "PLATFORM_DEFAULT",
-                Provider::CloudDns => "CLOUD_DNS",
-                Provider::KubeDns => "KUBE_DNS",
+                Self::Unspecified => "PROVIDER_UNSPECIFIED",
+                Self::PlatformDefault => "PLATFORM_DEFAULT",
+                Self::CloudDns => "CLOUD_DNS",
+                Self::KubeDns => "KUBE_DNS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -6696,9 +6690,9 @@ pub mod dns_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                DnsScope::Unspecified => "DNS_SCOPE_UNSPECIFIED",
-                DnsScope::ClusterScope => "CLUSTER_SCOPE",
-                DnsScope::VpcScope => "VPC_SCOPE",
+                Self::Unspecified => "DNS_SCOPE_UNSPECIFIED",
+                Self::ClusterScope => "CLUSTER_SCOPE",
+                Self::VpcScope => "VPC_SCOPE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -6847,9 +6841,9 @@ pub mod database_encryption {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unknown => "UNKNOWN",
-                State::Encrypted => "ENCRYPTED",
-                State::Decrypted => "DECRYPTED",
+                Self::Unknown => "UNKNOWN",
+                Self::Encrypted => "ENCRYPTED",
+                Self::Decrypted => "DECRYPTED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -6901,13 +6895,13 @@ pub mod database_encryption {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                CurrentState::Unspecified => "CURRENT_STATE_UNSPECIFIED",
-                CurrentState::Encrypted => "CURRENT_STATE_ENCRYPTED",
-                CurrentState::Decrypted => "CURRENT_STATE_DECRYPTED",
-                CurrentState::EncryptionPending => "CURRENT_STATE_ENCRYPTION_PENDING",
-                CurrentState::EncryptionError => "CURRENT_STATE_ENCRYPTION_ERROR",
-                CurrentState::DecryptionPending => "CURRENT_STATE_DECRYPTION_PENDING",
-                CurrentState::DecryptionError => "CURRENT_STATE_DECRYPTION_ERROR",
+                Self::Unspecified => "CURRENT_STATE_UNSPECIFIED",
+                Self::Encrypted => "CURRENT_STATE_ENCRYPTED",
+                Self::Decrypted => "CURRENT_STATE_DECRYPTED",
+                Self::EncryptionPending => "CURRENT_STATE_ENCRYPTION_PENDING",
+                Self::EncryptionError => "CURRENT_STATE_ENCRYPTION_ERROR",
+                Self::DecryptionPending => "CURRENT_STATE_DECRYPTION_PENDING",
+                Self::DecryptionError => "CURRENT_STATE_DECRYPTION_ERROR",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -7142,10 +7136,10 @@ pub mod autopilot_compatibility_issue {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                IssueType::Unspecified => "UNSPECIFIED",
-                IssueType::Incompatibility => "INCOMPATIBILITY",
-                IssueType::AdditionalConfigRequired => "ADDITIONAL_CONFIG_REQUIRED",
-                IssueType::PassedWithOptionalConfig => "PASSED_WITH_OPTIONAL_CONFIG",
+                Self::Unspecified => "UNSPECIFIED",
+                Self::Incompatibility => "INCOMPATIBILITY",
+                Self::AdditionalConfigRequired => "ADDITIONAL_CONFIG_REQUIRED",
+                Self::PassedWithOptionalConfig => "PASSED_WITH_OPTIONAL_CONFIG",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -7225,11 +7219,11 @@ pub mod release_channel {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Channel::Unspecified => "UNSPECIFIED",
-                Channel::Rapid => "RAPID",
-                Channel::Regular => "REGULAR",
-                Channel::Stable => "STABLE",
-                Channel::Extended => "EXTENDED",
+                Self::Unspecified => "UNSPECIFIED",
+                Self::Rapid => "RAPID",
+                Self::Regular => "REGULAR",
+                Self::Stable => "STABLE",
+                Self::Extended => "EXTENDED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -7304,8 +7298,8 @@ pub mod autopilot_conversion_status {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Done => "DONE",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Done => "DONE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -7405,10 +7399,10 @@ pub mod notification_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                EventType::Unspecified => "EVENT_TYPE_UNSPECIFIED",
-                EventType::UpgradeAvailableEvent => "UPGRADE_AVAILABLE_EVENT",
-                EventType::UpgradeEvent => "UPGRADE_EVENT",
-                EventType::SecurityBulletinEvent => "SECURITY_BULLETIN_EVENT",
+                Self::Unspecified => "EVENT_TYPE_UNSPECIFIED",
+                Self::UpgradeAvailableEvent => "UPGRADE_AVAILABLE_EVENT",
+                Self::UpgradeEvent => "UPGRADE_EVENT",
+                Self::SecurityBulletinEvent => "SECURITY_BULLETIN_EVENT",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -7580,12 +7574,12 @@ pub mod logging_component_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Component::Unspecified => "COMPONENT_UNSPECIFIED",
-                Component::SystemComponents => "SYSTEM_COMPONENTS",
-                Component::Workloads => "WORKLOADS",
-                Component::Apiserver => "APISERVER",
-                Component::Scheduler => "SCHEDULER",
-                Component::ControllerManager => "CONTROLLER_MANAGER",
+                Self::Unspecified => "COMPONENT_UNSPECIFIED",
+                Self::SystemComponents => "SYSTEM_COMPONENTS",
+                Self::Workloads => "WORKLOADS",
+                Self::Apiserver => "APISERVER",
+                Self::Scheduler => "SCHEDULER",
+                Self::ControllerManager => "CONTROLLER_MANAGER",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -7674,10 +7668,10 @@ pub mod advanced_datapath_observability_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                RelayMode::Unspecified => "RELAY_MODE_UNSPECIFIED",
-                RelayMode::Disabled => "DISABLED",
-                RelayMode::InternalVpcLb => "INTERNAL_VPC_LB",
-                RelayMode::ExternalLb => "EXTERNAL_LB",
+                Self::Unspecified => "RELAY_MODE_UNSPECIFIED",
+                Self::Disabled => "DISABLED",
+                Self::InternalVpcLb => "INTERNAL_VPC_LB",
+                Self::ExternalLb => "EXTERNAL_LB",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -7744,9 +7738,9 @@ pub mod logging_variant_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Variant::Unspecified => "VARIANT_UNSPECIFIED",
-                Variant::Default => "DEFAULT",
-                Variant::MaxThroughput => "MAX_THROUGHPUT",
+                Self::Unspecified => "VARIANT_UNSPECIFIED",
+                Self::Default => "DEFAULT",
+                Self::MaxThroughput => "MAX_THROUGHPUT",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -7822,21 +7816,21 @@ pub mod monitoring_component_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Component::Unspecified => "COMPONENT_UNSPECIFIED",
-                Component::SystemComponents => "SYSTEM_COMPONENTS",
-                Component::Workloads => "WORKLOADS",
-                Component::Apiserver => "APISERVER",
-                Component::Scheduler => "SCHEDULER",
-                Component::ControllerManager => "CONTROLLER_MANAGER",
-                Component::Storage => "STORAGE",
-                Component::Hpa => "HPA",
-                Component::Pod => "POD",
-                Component::Daemonset => "DAEMONSET",
-                Component::Deployment => "DEPLOYMENT",
-                Component::Statefulset => "STATEFULSET",
-                Component::Cadvisor => "CADVISOR",
-                Component::Kubelet => "KUBELET",
-                Component::Dcgm => "DCGM",
+                Self::Unspecified => "COMPONENT_UNSPECIFIED",
+                Self::SystemComponents => "SYSTEM_COMPONENTS",
+                Self::Workloads => "WORKLOADS",
+                Self::Apiserver => "APISERVER",
+                Self::Scheduler => "SCHEDULER",
+                Self::ControllerManager => "CONTROLLER_MANAGER",
+                Self::Storage => "STORAGE",
+                Self::Hpa => "HPA",
+                Self::Pod => "POD",
+                Self::Daemonset => "DAEMONSET",
+                Self::Deployment => "DEPLOYMENT",
+                Self::Statefulset => "STATEFULSET",
+                Self::Cadvisor => "CADVISOR",
+                Self::Kubelet => "KUBELET",
+                Self::Dcgm => "DCGM",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -7935,9 +7929,9 @@ pub mod enterprise_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ClusterTier::Unspecified => "CLUSTER_TIER_UNSPECIFIED",
-                ClusterTier::Standard => "STANDARD",
-                ClusterTier::Enterprise => "ENTERPRISE",
+                Self::Unspecified => "CLUSTER_TIER_UNSPECIFIED",
+                Self::Standard => "STANDARD",
+                Self::Enterprise => "ENTERPRISE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -7999,8 +7993,8 @@ pub mod secondary_boot_disk {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Mode::Unspecified => "MODE_UNSPECIFIED",
-                Mode::ContainerImageCache => "CONTAINER_IMAGE_CACHE",
+                Self::Unspecified => "MODE_UNSPECIFIED",
+                Self::ContainerImageCache => "CONTAINER_IMAGE_CACHE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -8038,16 +8032,16 @@ impl PrivateIPv6GoogleAccess {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            PrivateIPv6GoogleAccess::PrivateIpv6GoogleAccessUnspecified => {
+            Self::PrivateIpv6GoogleAccessUnspecified => {
                 "PRIVATE_IPV6_GOOGLE_ACCESS_UNSPECIFIED"
             }
-            PrivateIPv6GoogleAccess::PrivateIpv6GoogleAccessDisabled => {
+            Self::PrivateIpv6GoogleAccessDisabled => {
                 "PRIVATE_IPV6_GOOGLE_ACCESS_DISABLED"
             }
-            PrivateIPv6GoogleAccess::PrivateIpv6GoogleAccessToGoogle => {
+            Self::PrivateIpv6GoogleAccessToGoogle => {
                 "PRIVATE_IPV6_GOOGLE_ACCESS_TO_GOOGLE"
             }
-            PrivateIPv6GoogleAccess::PrivateIpv6GoogleAccessBidirectional => {
+            Self::PrivateIpv6GoogleAccessBidirectional => {
                 "PRIVATE_IPV6_GOOGLE_ACCESS_BIDIRECTIONAL"
             }
         }
@@ -8090,9 +8084,9 @@ impl UpgradeResourceType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            UpgradeResourceType::Unspecified => "UPGRADE_RESOURCE_TYPE_UNSPECIFIED",
-            UpgradeResourceType::Master => "MASTER",
-            UpgradeResourceType::NodePool => "NODE_POOL",
+            Self::Unspecified => "UPGRADE_RESOURCE_TYPE_UNSPECIFIED",
+            Self::Master => "MASTER",
+            Self::NodePool => "NODE_POOL",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -8125,11 +8119,9 @@ impl NodePoolUpdateStrategy {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            NodePoolUpdateStrategy::Unspecified => {
-                "NODE_POOL_UPDATE_STRATEGY_UNSPECIFIED"
-            }
-            NodePoolUpdateStrategy::BlueGreen => "BLUE_GREEN",
-            NodePoolUpdateStrategy::Surge => "SURGE",
+            Self::Unspecified => "NODE_POOL_UPDATE_STRATEGY_UNSPECIFIED",
+            Self::BlueGreen => "BLUE_GREEN",
+            Self::Surge => "SURGE",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -8164,9 +8156,9 @@ impl DatapathProvider {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            DatapathProvider::Unspecified => "DATAPATH_PROVIDER_UNSPECIFIED",
-            DatapathProvider::LegacyDatapath => "LEGACY_DATAPATH",
-            DatapathProvider::AdvancedDatapath => "ADVANCED_DATAPATH",
+            Self::Unspecified => "DATAPATH_PROVIDER_UNSPECIFIED",
+            Self::LegacyDatapath => "LEGACY_DATAPATH",
+            Self::AdvancedDatapath => "ADVANCED_DATAPATH",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -8197,9 +8189,9 @@ impl StackType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            StackType::Unspecified => "STACK_TYPE_UNSPECIFIED",
-            StackType::Ipv4 => "IPV4",
-            StackType::Ipv4Ipv6 => "IPV4_IPV6",
+            Self::Unspecified => "STACK_TYPE_UNSPECIFIED",
+            Self::Ipv4 => "IPV4",
+            Self::Ipv4Ipv6 => "IPV4_IPV6",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -8231,13 +8223,9 @@ impl InTransitEncryptionConfig {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            InTransitEncryptionConfig::Unspecified => {
-                "IN_TRANSIT_ENCRYPTION_CONFIG_UNSPECIFIED"
-            }
-            InTransitEncryptionConfig::InTransitEncryptionDisabled => {
-                "IN_TRANSIT_ENCRYPTION_DISABLED"
-            }
-            InTransitEncryptionConfig::InTransitEncryptionInterNodeTransparent => {
+            Self::Unspecified => "IN_TRANSIT_ENCRYPTION_CONFIG_UNSPECIFIED",
+            Self::InTransitEncryptionDisabled => "IN_TRANSIT_ENCRYPTION_DISABLED",
+            Self::InTransitEncryptionInterNodeTransparent => {
                 "IN_TRANSIT_ENCRYPTION_INTER_NODE_TRANSPARENT"
             }
         }
@@ -9363,5 +9351,1985 @@ pub mod cluster_manager_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod cluster_manager_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with ClusterManagerServer.
+    #[async_trait]
+    pub trait ClusterManager: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists all clusters owned by a project in either the specified zone or all
+        /// zones.
+        async fn list_clusters(
+            &self,
+            request: tonic::Request<super::ListClustersRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListClustersResponse>,
+            tonic::Status,
+        >;
+        /// Gets the details for a specific cluster.
+        async fn get_cluster(
+            &self,
+            request: tonic::Request<super::GetClusterRequest>,
+        ) -> std::result::Result<tonic::Response<super::Cluster>, tonic::Status>;
+        /// Creates a cluster, consisting of the specified number and type of Google
+        /// Compute Engine instances.
+        ///
+        /// By default, the cluster is created in the project's
+        /// [default
+        /// network](https://cloud.google.com/compute/docs/networks-and-firewalls#networks).
+        ///
+        /// One firewall is added for the cluster. After cluster creation,
+        /// the Kubelet creates routes for each node to allow the containers
+        /// on that node to communicate with all other instances in the
+        /// cluster.
+        ///
+        /// Finally, an entry is added to the project's global metadata indicating
+        /// which CIDR range the cluster is using.
+        async fn create_cluster(
+            &self,
+            request: tonic::Request<super::CreateClusterRequest>,
+        ) -> std::result::Result<tonic::Response<super::Operation>, tonic::Status>;
+        /// Updates the settings for a specific cluster.
+        async fn update_cluster(
+            &self,
+            request: tonic::Request<super::UpdateClusterRequest>,
+        ) -> std::result::Result<tonic::Response<super::Operation>, tonic::Status>;
+        /// Updates the version and/or image type of a specific node pool.
+        async fn update_node_pool(
+            &self,
+            request: tonic::Request<super::UpdateNodePoolRequest>,
+        ) -> std::result::Result<tonic::Response<super::Operation>, tonic::Status>;
+        /// Sets the autoscaling settings of a specific node pool.
+        async fn set_node_pool_autoscaling(
+            &self,
+            request: tonic::Request<super::SetNodePoolAutoscalingRequest>,
+        ) -> std::result::Result<tonic::Response<super::Operation>, tonic::Status>;
+        /// Sets the logging service for a specific cluster.
+        async fn set_logging_service(
+            &self,
+            request: tonic::Request<super::SetLoggingServiceRequest>,
+        ) -> std::result::Result<tonic::Response<super::Operation>, tonic::Status>;
+        /// Sets the monitoring service for a specific cluster.
+        async fn set_monitoring_service(
+            &self,
+            request: tonic::Request<super::SetMonitoringServiceRequest>,
+        ) -> std::result::Result<tonic::Response<super::Operation>, tonic::Status>;
+        /// Sets the addons for a specific cluster.
+        async fn set_addons_config(
+            &self,
+            request: tonic::Request<super::SetAddonsConfigRequest>,
+        ) -> std::result::Result<tonic::Response<super::Operation>, tonic::Status>;
+        /// Sets the locations for a specific cluster.
+        /// Deprecated. Use
+        /// [projects.locations.clusters.update](https://cloud.google.com/kubernetes-engine/docs/reference/rest/v1beta1/projects.locations.clusters/update)
+        /// instead.
+        async fn set_locations(
+            &self,
+            request: tonic::Request<super::SetLocationsRequest>,
+        ) -> std::result::Result<tonic::Response<super::Operation>, tonic::Status>;
+        /// Updates the master for a specific cluster.
+        async fn update_master(
+            &self,
+            request: tonic::Request<super::UpdateMasterRequest>,
+        ) -> std::result::Result<tonic::Response<super::Operation>, tonic::Status>;
+        /// Sets master auth materials. Currently supports changing the admin password
+        /// or a specific cluster, either via password generation or explicitly setting
+        /// the password.
+        async fn set_master_auth(
+            &self,
+            request: tonic::Request<super::SetMasterAuthRequest>,
+        ) -> std::result::Result<tonic::Response<super::Operation>, tonic::Status>;
+        /// Deletes the cluster, including the Kubernetes endpoint and all worker
+        /// nodes.
+        ///
+        /// Firewalls and routes that were configured during cluster creation
+        /// are also deleted.
+        ///
+        /// Other Google Compute Engine resources that might be in use by the cluster,
+        /// such as load balancer resources, are not deleted if they weren't present
+        /// when the cluster was initially created.
+        async fn delete_cluster(
+            &self,
+            request: tonic::Request<super::DeleteClusterRequest>,
+        ) -> std::result::Result<tonic::Response<super::Operation>, tonic::Status>;
+        /// Lists all operations in a project in the specified zone or all zones.
+        async fn list_operations(
+            &self,
+            request: tonic::Request<super::ListOperationsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListOperationsResponse>,
+            tonic::Status,
+        >;
+        /// Gets the specified operation.
+        async fn get_operation(
+            &self,
+            request: tonic::Request<super::GetOperationRequest>,
+        ) -> std::result::Result<tonic::Response<super::Operation>, tonic::Status>;
+        /// Cancels the specified operation.
+        async fn cancel_operation(
+            &self,
+            request: tonic::Request<super::CancelOperationRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Returns configuration info about the Google Kubernetes Engine service.
+        async fn get_server_config(
+            &self,
+            request: tonic::Request<super::GetServerConfigRequest>,
+        ) -> std::result::Result<tonic::Response<super::ServerConfig>, tonic::Status>;
+        /// Gets the public component of the cluster signing keys in
+        /// JSON Web Key format.
+        async fn get_json_web_keys(
+            &self,
+            request: tonic::Request<super::GetJsonWebKeysRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::GetJsonWebKeysResponse>,
+            tonic::Status,
+        >;
+        /// Lists the node pools for a cluster.
+        async fn list_node_pools(
+            &self,
+            request: tonic::Request<super::ListNodePoolsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListNodePoolsResponse>,
+            tonic::Status,
+        >;
+        /// Retrieves the requested node pool.
+        async fn get_node_pool(
+            &self,
+            request: tonic::Request<super::GetNodePoolRequest>,
+        ) -> std::result::Result<tonic::Response<super::NodePool>, tonic::Status>;
+        /// Creates a node pool for a cluster.
+        async fn create_node_pool(
+            &self,
+            request: tonic::Request<super::CreateNodePoolRequest>,
+        ) -> std::result::Result<tonic::Response<super::Operation>, tonic::Status>;
+        /// Deletes a node pool from a cluster.
+        async fn delete_node_pool(
+            &self,
+            request: tonic::Request<super::DeleteNodePoolRequest>,
+        ) -> std::result::Result<tonic::Response<super::Operation>, tonic::Status>;
+        /// CompleteNodePoolUpgrade will signal an on-going node pool upgrade to
+        /// complete.
+        async fn complete_node_pool_upgrade(
+            &self,
+            request: tonic::Request<super::CompleteNodePoolUpgradeRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Rolls back a previously Aborted or Failed NodePool upgrade.
+        /// This makes no changes if the last upgrade successfully completed.
+        async fn rollback_node_pool_upgrade(
+            &self,
+            request: tonic::Request<super::RollbackNodePoolUpgradeRequest>,
+        ) -> std::result::Result<tonic::Response<super::Operation>, tonic::Status>;
+        /// Sets the NodeManagement options for a node pool.
+        async fn set_node_pool_management(
+            &self,
+            request: tonic::Request<super::SetNodePoolManagementRequest>,
+        ) -> std::result::Result<tonic::Response<super::Operation>, tonic::Status>;
+        /// Sets labels on a cluster.
+        async fn set_labels(
+            &self,
+            request: tonic::Request<super::SetLabelsRequest>,
+        ) -> std::result::Result<tonic::Response<super::Operation>, tonic::Status>;
+        /// Enables or disables the ABAC authorization mechanism on a cluster.
+        async fn set_legacy_abac(
+            &self,
+            request: tonic::Request<super::SetLegacyAbacRequest>,
+        ) -> std::result::Result<tonic::Response<super::Operation>, tonic::Status>;
+        /// Starts master IP rotation.
+        async fn start_ip_rotation(
+            &self,
+            request: tonic::Request<super::StartIpRotationRequest>,
+        ) -> std::result::Result<tonic::Response<super::Operation>, tonic::Status>;
+        /// Completes master IP rotation.
+        async fn complete_ip_rotation(
+            &self,
+            request: tonic::Request<super::CompleteIpRotationRequest>,
+        ) -> std::result::Result<tonic::Response<super::Operation>, tonic::Status>;
+        /// SetNodePoolSizeRequest sets the size of a node pool. The new size will be
+        /// used for all replicas, including future replicas created by modifying
+        /// [NodePool.locations][google.container.v1beta1.NodePool.locations].
+        async fn set_node_pool_size(
+            &self,
+            request: tonic::Request<super::SetNodePoolSizeRequest>,
+        ) -> std::result::Result<tonic::Response<super::Operation>, tonic::Status>;
+        /// Enables or disables Network Policy for a cluster.
+        async fn set_network_policy(
+            &self,
+            request: tonic::Request<super::SetNetworkPolicyRequest>,
+        ) -> std::result::Result<tonic::Response<super::Operation>, tonic::Status>;
+        /// Sets the maintenance policy for a cluster.
+        async fn set_maintenance_policy(
+            &self,
+            request: tonic::Request<super::SetMaintenancePolicyRequest>,
+        ) -> std::result::Result<tonic::Response<super::Operation>, tonic::Status>;
+        /// Lists subnetworks that can be used for creating clusters in a project.
+        async fn list_usable_subnetworks(
+            &self,
+            request: tonic::Request<super::ListUsableSubnetworksRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListUsableSubnetworksResponse>,
+            tonic::Status,
+        >;
+        /// Checks the cluster compatibility with Autopilot mode, and returns a list of
+        /// compatibility issues.
+        async fn check_autopilot_compatibility(
+            &self,
+            request: tonic::Request<super::CheckAutopilotCompatibilityRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::CheckAutopilotCompatibilityResponse>,
+            tonic::Status,
+        >;
+        /// Fetches locations that offer Google Kubernetes Engine.
+        async fn list_locations(
+            &self,
+            request: tonic::Request<super::ListLocationsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListLocationsResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Google Kubernetes Engine Cluster Manager v1beta1
+    #[derive(Debug)]
+    pub struct ClusterManagerServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> ClusterManagerServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for ClusterManagerServer<T>
+    where
+        T: ClusterManager,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.container.v1beta1.ClusterManager/ListClusters" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListClustersSvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<super::ListClustersRequest>
+                    for ListClustersSvc<T> {
+                        type Response = super::ListClustersResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListClustersRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::list_clusters(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListClustersSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.container.v1beta1.ClusterManager/GetCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetClusterSvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<super::GetClusterRequest>
+                    for GetClusterSvc<T> {
+                        type Response = super::Cluster;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::get_cluster(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.container.v1beta1.ClusterManager/CreateCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateClusterSvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<super::CreateClusterRequest>
+                    for CreateClusterSvc<T> {
+                        type Response = super::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::create_cluster(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.container.v1beta1.ClusterManager/UpdateCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateClusterSvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<super::UpdateClusterRequest>
+                    for UpdateClusterSvc<T> {
+                        type Response = super::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::update_cluster(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.container.v1beta1.ClusterManager/UpdateNodePool" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateNodePoolSvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<super::UpdateNodePoolRequest>
+                    for UpdateNodePoolSvc<T> {
+                        type Response = super::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateNodePoolRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::update_node_pool(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateNodePoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.container.v1beta1.ClusterManager/SetNodePoolAutoscaling" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetNodePoolAutoscalingSvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<super::SetNodePoolAutoscalingRequest>
+                    for SetNodePoolAutoscalingSvc<T> {
+                        type Response = super::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SetNodePoolAutoscalingRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::set_node_pool_autoscaling(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SetNodePoolAutoscalingSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.container.v1beta1.ClusterManager/SetLoggingService" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetLoggingServiceSvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<super::SetLoggingServiceRequest>
+                    for SetLoggingServiceSvc<T> {
+                        type Response = super::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SetLoggingServiceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::set_logging_service(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SetLoggingServiceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.container.v1beta1.ClusterManager/SetMonitoringService" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetMonitoringServiceSvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<super::SetMonitoringServiceRequest>
+                    for SetMonitoringServiceSvc<T> {
+                        type Response = super::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SetMonitoringServiceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::set_monitoring_service(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SetMonitoringServiceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.container.v1beta1.ClusterManager/SetAddonsConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetAddonsConfigSvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<super::SetAddonsConfigRequest>
+                    for SetAddonsConfigSvc<T> {
+                        type Response = super::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SetAddonsConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::set_addons_config(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SetAddonsConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.container.v1beta1.ClusterManager/SetLocations" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetLocationsSvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<super::SetLocationsRequest>
+                    for SetLocationsSvc<T> {
+                        type Response = super::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SetLocationsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::set_locations(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SetLocationsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.container.v1beta1.ClusterManager/UpdateMaster" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateMasterSvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<super::UpdateMasterRequest>
+                    for UpdateMasterSvc<T> {
+                        type Response = super::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateMasterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::update_master(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateMasterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.container.v1beta1.ClusterManager/SetMasterAuth" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetMasterAuthSvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<super::SetMasterAuthRequest>
+                    for SetMasterAuthSvc<T> {
+                        type Response = super::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SetMasterAuthRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::set_master_auth(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SetMasterAuthSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.container.v1beta1.ClusterManager/DeleteCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteClusterSvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<super::DeleteClusterRequest>
+                    for DeleteClusterSvc<T> {
+                        type Response = super::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::delete_cluster(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.container.v1beta1.ClusterManager/ListOperations" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListOperationsSvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<super::ListOperationsRequest>
+                    for ListOperationsSvc<T> {
+                        type Response = super::ListOperationsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListOperationsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::list_operations(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListOperationsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.container.v1beta1.ClusterManager/GetOperation" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetOperationSvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<super::GetOperationRequest>
+                    for GetOperationSvc<T> {
+                        type Response = super::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetOperationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::get_operation(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetOperationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.container.v1beta1.ClusterManager/CancelOperation" => {
+                    #[allow(non_camel_case_types)]
+                    struct CancelOperationSvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<super::CancelOperationRequest>
+                    for CancelOperationSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CancelOperationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::cancel_operation(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CancelOperationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.container.v1beta1.ClusterManager/GetServerConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetServerConfigSvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<super::GetServerConfigRequest>
+                    for GetServerConfigSvc<T> {
+                        type Response = super::ServerConfig;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetServerConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::get_server_config(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetServerConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.container.v1beta1.ClusterManager/GetJSONWebKeys" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetJSONWebKeysSvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<super::GetJsonWebKeysRequest>
+                    for GetJSONWebKeysSvc<T> {
+                        type Response = super::GetJsonWebKeysResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetJsonWebKeysRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::get_json_web_keys(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetJSONWebKeysSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.container.v1beta1.ClusterManager/ListNodePools" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListNodePoolsSvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<super::ListNodePoolsRequest>
+                    for ListNodePoolsSvc<T> {
+                        type Response = super::ListNodePoolsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListNodePoolsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::list_node_pools(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListNodePoolsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.container.v1beta1.ClusterManager/GetNodePool" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetNodePoolSvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<super::GetNodePoolRequest>
+                    for GetNodePoolSvc<T> {
+                        type Response = super::NodePool;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetNodePoolRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::get_node_pool(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetNodePoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.container.v1beta1.ClusterManager/CreateNodePool" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateNodePoolSvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<super::CreateNodePoolRequest>
+                    for CreateNodePoolSvc<T> {
+                        type Response = super::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateNodePoolRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::create_node_pool(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateNodePoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.container.v1beta1.ClusterManager/DeleteNodePool" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteNodePoolSvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<super::DeleteNodePoolRequest>
+                    for DeleteNodePoolSvc<T> {
+                        type Response = super::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteNodePoolRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::delete_node_pool(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteNodePoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.container.v1beta1.ClusterManager/CompleteNodePoolUpgrade" => {
+                    #[allow(non_camel_case_types)]
+                    struct CompleteNodePoolUpgradeSvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<super::CompleteNodePoolUpgradeRequest>
+                    for CompleteNodePoolUpgradeSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CompleteNodePoolUpgradeRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::complete_node_pool_upgrade(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CompleteNodePoolUpgradeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.container.v1beta1.ClusterManager/RollbackNodePoolUpgrade" => {
+                    #[allow(non_camel_case_types)]
+                    struct RollbackNodePoolUpgradeSvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<super::RollbackNodePoolUpgradeRequest>
+                    for RollbackNodePoolUpgradeSvc<T> {
+                        type Response = super::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::RollbackNodePoolUpgradeRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::rollback_node_pool_upgrade(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RollbackNodePoolUpgradeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.container.v1beta1.ClusterManager/SetNodePoolManagement" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetNodePoolManagementSvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<super::SetNodePoolManagementRequest>
+                    for SetNodePoolManagementSvc<T> {
+                        type Response = super::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SetNodePoolManagementRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::set_node_pool_management(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SetNodePoolManagementSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.container.v1beta1.ClusterManager/SetLabels" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetLabelsSvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<super::SetLabelsRequest>
+                    for SetLabelsSvc<T> {
+                        type Response = super::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SetLabelsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::set_labels(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SetLabelsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.container.v1beta1.ClusterManager/SetLegacyAbac" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetLegacyAbacSvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<super::SetLegacyAbacRequest>
+                    for SetLegacyAbacSvc<T> {
+                        type Response = super::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SetLegacyAbacRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::set_legacy_abac(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SetLegacyAbacSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.container.v1beta1.ClusterManager/StartIPRotation" => {
+                    #[allow(non_camel_case_types)]
+                    struct StartIPRotationSvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<super::StartIpRotationRequest>
+                    for StartIPRotationSvc<T> {
+                        type Response = super::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::StartIpRotationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::start_ip_rotation(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = StartIPRotationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.container.v1beta1.ClusterManager/CompleteIPRotation" => {
+                    #[allow(non_camel_case_types)]
+                    struct CompleteIPRotationSvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<super::CompleteIpRotationRequest>
+                    for CompleteIPRotationSvc<T> {
+                        type Response = super::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CompleteIpRotationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::complete_ip_rotation(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CompleteIPRotationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.container.v1beta1.ClusterManager/SetNodePoolSize" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetNodePoolSizeSvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<super::SetNodePoolSizeRequest>
+                    for SetNodePoolSizeSvc<T> {
+                        type Response = super::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SetNodePoolSizeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::set_node_pool_size(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SetNodePoolSizeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.container.v1beta1.ClusterManager/SetNetworkPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetNetworkPolicySvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<super::SetNetworkPolicyRequest>
+                    for SetNetworkPolicySvc<T> {
+                        type Response = super::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SetNetworkPolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::set_network_policy(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SetNetworkPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.container.v1beta1.ClusterManager/SetMaintenancePolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetMaintenancePolicySvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<super::SetMaintenancePolicyRequest>
+                    for SetMaintenancePolicySvc<T> {
+                        type Response = super::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SetMaintenancePolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::set_maintenance_policy(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SetMaintenancePolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.container.v1beta1.ClusterManager/ListUsableSubnetworks" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListUsableSubnetworksSvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<super::ListUsableSubnetworksRequest>
+                    for ListUsableSubnetworksSvc<T> {
+                        type Response = super::ListUsableSubnetworksResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListUsableSubnetworksRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::list_usable_subnetworks(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListUsableSubnetworksSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.container.v1beta1.ClusterManager/CheckAutopilotCompatibility" => {
+                    #[allow(non_camel_case_types)]
+                    struct CheckAutopilotCompatibilitySvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<
+                        super::CheckAutopilotCompatibilityRequest,
+                    > for CheckAutopilotCompatibilitySvc<T> {
+                        type Response = super::CheckAutopilotCompatibilityResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CheckAutopilotCompatibilityRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::check_autopilot_compatibility(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CheckAutopilotCompatibilitySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.container.v1beta1.ClusterManager/ListLocations" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListLocationsSvc<T: ClusterManager>(pub Arc<T>);
+                    impl<
+                        T: ClusterManager,
+                    > tonic::server::UnaryService<super::ListLocationsRequest>
+                    for ListLocationsSvc<T> {
+                        type Response = super::ListLocationsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListLocationsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ClusterManager>::list_locations(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListLocationsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for ClusterManagerServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.container.v1beta1.ClusterManager";
+    impl<T> tonic::server::NamedService for ClusterManagerServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

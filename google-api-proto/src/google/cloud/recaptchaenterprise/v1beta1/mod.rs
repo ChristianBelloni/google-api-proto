@@ -131,27 +131,25 @@ pub mod transaction_event {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                TransactionEventType::Unspecified => "TRANSACTION_EVENT_TYPE_UNSPECIFIED",
-                TransactionEventType::MerchantApprove => "MERCHANT_APPROVE",
-                TransactionEventType::MerchantDeny => "MERCHANT_DENY",
-                TransactionEventType::ManualReview => "MANUAL_REVIEW",
-                TransactionEventType::Authorization => "AUTHORIZATION",
-                TransactionEventType::AuthorizationDecline => "AUTHORIZATION_DECLINE",
-                TransactionEventType::PaymentCapture => "PAYMENT_CAPTURE",
-                TransactionEventType::PaymentCaptureDecline => "PAYMENT_CAPTURE_DECLINE",
-                TransactionEventType::Cancel => "CANCEL",
-                TransactionEventType::ChargebackInquiry => "CHARGEBACK_INQUIRY",
-                TransactionEventType::ChargebackAlert => "CHARGEBACK_ALERT",
-                TransactionEventType::FraudNotification => "FRAUD_NOTIFICATION",
-                TransactionEventType::Chargeback => "CHARGEBACK",
-                TransactionEventType::ChargebackRepresentment => {
-                    "CHARGEBACK_REPRESENTMENT"
-                }
-                TransactionEventType::ChargebackReverse => "CHARGEBACK_REVERSE",
-                TransactionEventType::RefundRequest => "REFUND_REQUEST",
-                TransactionEventType::RefundDecline => "REFUND_DECLINE",
-                TransactionEventType::Refund => "REFUND",
-                TransactionEventType::RefundReverse => "REFUND_REVERSE",
+                Self::Unspecified => "TRANSACTION_EVENT_TYPE_UNSPECIFIED",
+                Self::MerchantApprove => "MERCHANT_APPROVE",
+                Self::MerchantDeny => "MERCHANT_DENY",
+                Self::ManualReview => "MANUAL_REVIEW",
+                Self::Authorization => "AUTHORIZATION",
+                Self::AuthorizationDecline => "AUTHORIZATION_DECLINE",
+                Self::PaymentCapture => "PAYMENT_CAPTURE",
+                Self::PaymentCaptureDecline => "PAYMENT_CAPTURE_DECLINE",
+                Self::Cancel => "CANCEL",
+                Self::ChargebackInquiry => "CHARGEBACK_INQUIRY",
+                Self::ChargebackAlert => "CHARGEBACK_ALERT",
+                Self::FraudNotification => "FRAUD_NOTIFICATION",
+                Self::Chargeback => "CHARGEBACK",
+                Self::ChargebackRepresentment => "CHARGEBACK_REPRESENTMENT",
+                Self::ChargebackReverse => "CHARGEBACK_REVERSE",
+                Self::RefundRequest => "REFUND_REQUEST",
+                Self::RefundDecline => "REFUND_DECLINE",
+                Self::Refund => "REFUND",
+                Self::RefundReverse => "REFUND_REVERSE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -251,11 +249,11 @@ pub mod annotate_assessment_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Annotation::Unspecified => "ANNOTATION_UNSPECIFIED",
-                Annotation::Legitimate => "LEGITIMATE",
-                Annotation::Fraudulent => "FRAUDULENT",
-                Annotation::PasswordCorrect => "PASSWORD_CORRECT",
-                Annotation::PasswordIncorrect => "PASSWORD_INCORRECT",
+                Self::Unspecified => "ANNOTATION_UNSPECIFIED",
+                Self::Legitimate => "LEGITIMATE",
+                Self::Fraudulent => "FRAUDULENT",
+                Self::PasswordCorrect => "PASSWORD_CORRECT",
+                Self::PasswordIncorrect => "PASSWORD_INCORRECT",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -339,21 +337,21 @@ pub mod annotate_assessment_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Reason::Unspecified => "REASON_UNSPECIFIED",
-                Reason::Chargeback => "CHARGEBACK",
-                Reason::ChargebackFraud => "CHARGEBACK_FRAUD",
-                Reason::ChargebackDispute => "CHARGEBACK_DISPUTE",
-                Reason::Refund => "REFUND",
-                Reason::RefundFraud => "REFUND_FRAUD",
-                Reason::TransactionAccepted => "TRANSACTION_ACCEPTED",
-                Reason::TransactionDeclined => "TRANSACTION_DECLINED",
-                Reason::PaymentHeuristics => "PAYMENT_HEURISTICS",
-                Reason::InitiatedTwoFactor => "INITIATED_TWO_FACTOR",
-                Reason::PassedTwoFactor => "PASSED_TWO_FACTOR",
-                Reason::FailedTwoFactor => "FAILED_TWO_FACTOR",
-                Reason::CorrectPassword => "CORRECT_PASSWORD",
-                Reason::IncorrectPassword => "INCORRECT_PASSWORD",
-                Reason::SocialSpam => "SOCIAL_SPAM",
+                Self::Unspecified => "REASON_UNSPECIFIED",
+                Self::Chargeback => "CHARGEBACK",
+                Self::ChargebackFraud => "CHARGEBACK_FRAUD",
+                Self::ChargebackDispute => "CHARGEBACK_DISPUTE",
+                Self::Refund => "REFUND",
+                Self::RefundFraud => "REFUND_FRAUD",
+                Self::TransactionAccepted => "TRANSACTION_ACCEPTED",
+                Self::TransactionDeclined => "TRANSACTION_DECLINED",
+                Self::PaymentHeuristics => "PAYMENT_HEURISTICS",
+                Self::InitiatedTwoFactor => "INITIATED_TWO_FACTOR",
+                Self::PassedTwoFactor => "PASSED_TWO_FACTOR",
+                Self::FailedTwoFactor => "FAILED_TWO_FACTOR",
+                Self::CorrectPassword => "CORRECT_PASSWORD",
+                Self::IncorrectPassword => "INCORRECT_PASSWORD",
+                Self::SocialSpam => "SOCIAL_SPAM",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -481,16 +479,14 @@ pub mod assessment {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ClassificationReason::Unspecified => "CLASSIFICATION_REASON_UNSPECIFIED",
-                ClassificationReason::Automation => "AUTOMATION",
-                ClassificationReason::UnexpectedEnvironment => "UNEXPECTED_ENVIRONMENT",
-                ClassificationReason::TooMuchTraffic => "TOO_MUCH_TRAFFIC",
-                ClassificationReason::UnexpectedUsagePatterns => {
-                    "UNEXPECTED_USAGE_PATTERNS"
-                }
-                ClassificationReason::LowConfidenceScore => "LOW_CONFIDENCE_SCORE",
-                ClassificationReason::SuspectedCarding => "SUSPECTED_CARDING",
-                ClassificationReason::SuspectedChargeback => "SUSPECTED_CHARGEBACK",
+                Self::Unspecified => "CLASSIFICATION_REASON_UNSPECIFIED",
+                Self::Automation => "AUTOMATION",
+                Self::UnexpectedEnvironment => "UNEXPECTED_ENVIRONMENT",
+                Self::TooMuchTraffic => "TOO_MUCH_TRAFFIC",
+                Self::UnexpectedUsagePatterns => "UNEXPECTED_USAGE_PATTERNS",
+                Self::LowConfidenceScore => "LOW_CONFIDENCE_SCORE",
+                Self::SuspectedCarding => "SUSPECTED_CARDING",
+                Self::SuspectedChargeback => "SUSPECTED_CHARGEBACK",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -581,9 +577,9 @@ pub mod event {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                FraudPrevention::Unspecified => "FRAUD_PREVENTION_UNSPECIFIED",
-                FraudPrevention::Enabled => "ENABLED",
-                FraudPrevention::Disabled => "DISABLED",
+                Self::Unspecified => "FRAUD_PREVENTION_UNSPECIFIED",
+                Self::Enabled => "ENABLED",
+                Self::Disabled => "DISABLED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -807,14 +803,14 @@ pub mod token_properties {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                InvalidReason::Unspecified => "INVALID_REASON_UNSPECIFIED",
-                InvalidReason::UnknownInvalidReason => "UNKNOWN_INVALID_REASON",
-                InvalidReason::Malformed => "MALFORMED",
-                InvalidReason::Expired => "EXPIRED",
-                InvalidReason::Dupe => "DUPE",
-                InvalidReason::SiteMismatch => "SITE_MISMATCH",
-                InvalidReason::Missing => "MISSING",
-                InvalidReason::BrowserError => "BROWSER_ERROR",
+                Self::Unspecified => "INVALID_REASON_UNSPECIFIED",
+                Self::UnknownInvalidReason => "UNKNOWN_INVALID_REASON",
+                Self::Malformed => "MALFORMED",
+                Self::Expired => "EXPIRED",
+                Self::Dupe => "DUPE",
+                Self::SiteMismatch => "SITE_MISMATCH",
+                Self::Missing => "MISSING",
+                Self::BrowserError => "BROWSER_ERROR",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -935,17 +931,11 @@ pub mod account_defender_assessment {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                AccountDefenderLabel::Unspecified => "ACCOUNT_DEFENDER_LABEL_UNSPECIFIED",
-                AccountDefenderLabel::ProfileMatch => "PROFILE_MATCH",
-                AccountDefenderLabel::SuspiciousLoginActivity => {
-                    "SUSPICIOUS_LOGIN_ACTIVITY"
-                }
-                AccountDefenderLabel::SuspiciousAccountCreation => {
-                    "SUSPICIOUS_ACCOUNT_CREATION"
-                }
-                AccountDefenderLabel::RelatedAccountsNumberHigh => {
-                    "RELATED_ACCOUNTS_NUMBER_HIGH"
-                }
+                Self::Unspecified => "ACCOUNT_DEFENDER_LABEL_UNSPECIFIED",
+                Self::ProfileMatch => "PROFILE_MATCH",
+                Self::SuspiciousLoginActivity => "SUSPICIOUS_LOGIN_ACTIVITY",
+                Self::SuspiciousAccountCreation => "SUSPICIOUS_ACCOUNT_CREATION",
+                Self::RelatedAccountsNumberHigh => "RELATED_ACCOUNTS_NUMBER_HIGH",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1098,5 +1088,243 @@ pub mod recaptcha_enterprise_service_v1_beta1_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod recaptcha_enterprise_service_v1_beta1_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with RecaptchaEnterpriseServiceV1Beta1Server.
+    #[async_trait]
+    pub trait RecaptchaEnterpriseServiceV1Beta1: std::marker::Send + std::marker::Sync + 'static {
+        /// Creates an Assessment of the likelihood an event is legitimate.
+        async fn create_assessment(
+            &self,
+            request: tonic::Request<super::CreateAssessmentRequest>,
+        ) -> std::result::Result<tonic::Response<super::Assessment>, tonic::Status>;
+        /// Annotates a previously created Assessment to provide additional information
+        /// on whether the event turned out to be authentic or fradulent.
+        async fn annotate_assessment(
+            &self,
+            request: tonic::Request<super::AnnotateAssessmentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AnnotateAssessmentResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Service to determine the likelihood an event is legitimate.
+    #[derive(Debug)]
+    pub struct RecaptchaEnterpriseServiceV1Beta1Server<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> RecaptchaEnterpriseServiceV1Beta1Server<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for RecaptchaEnterpriseServiceV1Beta1Server<T>
+    where
+        T: RecaptchaEnterpriseServiceV1Beta1,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.recaptchaenterprise.v1beta1.RecaptchaEnterpriseServiceV1Beta1/CreateAssessment" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateAssessmentSvc<T: RecaptchaEnterpriseServiceV1Beta1>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: RecaptchaEnterpriseServiceV1Beta1,
+                    > tonic::server::UnaryService<super::CreateAssessmentRequest>
+                    for CreateAssessmentSvc<T> {
+                        type Response = super::Assessment;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateAssessmentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RecaptchaEnterpriseServiceV1Beta1>::create_assessment(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateAssessmentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.recaptchaenterprise.v1beta1.RecaptchaEnterpriseServiceV1Beta1/AnnotateAssessment" => {
+                    #[allow(non_camel_case_types)]
+                    struct AnnotateAssessmentSvc<T: RecaptchaEnterpriseServiceV1Beta1>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: RecaptchaEnterpriseServiceV1Beta1,
+                    > tonic::server::UnaryService<super::AnnotateAssessmentRequest>
+                    for AnnotateAssessmentSvc<T> {
+                        type Response = super::AnnotateAssessmentResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::AnnotateAssessmentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RecaptchaEnterpriseServiceV1Beta1>::annotate_assessment(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = AnnotateAssessmentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for RecaptchaEnterpriseServiceV1Beta1Server<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.recaptchaenterprise.v1beta1.RecaptchaEnterpriseServiceV1Beta1";
+    impl<T> tonic::server::NamedService for RecaptchaEnterpriseServiceV1Beta1Server<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

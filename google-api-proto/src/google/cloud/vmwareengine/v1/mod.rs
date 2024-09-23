@@ -190,13 +190,13 @@ pub mod private_cloud {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Active => "ACTIVE",
-                State::Creating => "CREATING",
-                State::Updating => "UPDATING",
-                State::Failed => "FAILED",
-                State::Deleted => "DELETED",
-                State::Purging => "PURGING",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Active => "ACTIVE",
+                Self::Creating => "CREATING",
+                Self::Updating => "UPDATING",
+                Self::Failed => "FAILED",
+                Self::Deleted => "DELETED",
+                Self::Purging => "PURGING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -245,9 +245,9 @@ pub mod private_cloud {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Standard => "STANDARD",
-                Type::TimeLimited => "TIME_LIMITED",
-                Type::Stretched => "STRETCHED",
+                Self::Standard => "STANDARD",
+                Self::TimeLimited => "TIME_LIMITED",
+                Self::Stretched => "STRETCHED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -341,12 +341,12 @@ pub mod cluster {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Active => "ACTIVE",
-                State::Creating => "CREATING",
-                State::Updating => "UPDATING",
-                State::Deleting => "DELETING",
-                State::Repairing => "REPAIRING",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Active => "ACTIVE",
+                Self::Creating => "CREATING",
+                Self::Updating => "UPDATING",
+                Self::Deleting => "DELETING",
+                Self::Repairing => "REPAIRING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -429,11 +429,11 @@ pub mod node {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Active => "ACTIVE",
-                State::Creating => "CREATING",
-                State::Failed => "FAILED",
-                State::Upgrading => "UPGRADING",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Active => "ACTIVE",
+                Self::Creating => "CREATING",
+                Self::Failed => "FAILED",
+                Self::Upgrading => "UPGRADING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -516,11 +516,11 @@ pub mod external_address {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Active => "ACTIVE",
-                State::Creating => "CREATING",
-                State::Updating => "UPDATING",
-                State::Deleting => "DELETING",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Active => "ACTIVE",
+                Self::Creating => "CREATING",
+                Self::Updating => "UPDATING",
+                Self::Deleting => "DELETING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -604,13 +604,13 @@ pub mod subnet {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Active => "ACTIVE",
-                State::Creating => "CREATING",
-                State::Updating => "UPDATING",
-                State::Deleting => "DELETING",
-                State::Reconciling => "RECONCILING",
-                State::Failed => "FAILED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Active => "ACTIVE",
+                Self::Creating => "CREATING",
+                Self::Updating => "UPDATING",
+                Self::Deleting => "DELETING",
+                Self::Reconciling => "RECONCILING",
+                Self::Failed => "FAILED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -760,9 +760,9 @@ pub mod external_access_rule {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Action::Unspecified => "ACTION_UNSPECIFIED",
-                Action::Allow => "ALLOW",
-                Action::Deny => "DENY",
+                Self::Unspecified => "ACTION_UNSPECIFIED",
+                Self::Allow => "ALLOW",
+                Self::Deny => "DENY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -807,11 +807,11 @@ pub mod external_access_rule {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Active => "ACTIVE",
-                State::Creating => "CREATING",
-                State::Updating => "UPDATING",
-                State::Deleting => "DELETING",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Active => "ACTIVE",
+                Self::Creating => "CREATING",
+                Self::Updating => "UPDATING",
+                Self::Deleting => "DELETING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -898,12 +898,12 @@ pub mod logging_server {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Protocol::Unspecified => "PROTOCOL_UNSPECIFIED",
-                Protocol::Udp => "UDP",
-                Protocol::Tcp => "TCP",
-                Protocol::Tls => "TLS",
-                Protocol::Ssl => "SSL",
-                Protocol::Relp => "RELP",
+                Self::Unspecified => "PROTOCOL_UNSPECIFIED",
+                Self::Udp => "UDP",
+                Self::Tcp => "TCP",
+                Self::Tls => "TLS",
+                Self::Ssl => "SSL",
+                Self::Relp => "RELP",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -947,9 +947,9 @@ pub mod logging_server {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                SourceType::Unspecified => "SOURCE_TYPE_UNSPECIFIED",
-                SourceType::Esxi => "ESXI",
-                SourceType::Vcsa => "VCSA",
+                Self::Unspecified => "SOURCE_TYPE_UNSPECIFIED",
+                Self::Esxi => "ESXI",
+                Self::Vcsa => "VCSA",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1043,9 +1043,9 @@ pub mod node_type {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Kind::Unspecified => "KIND_UNSPECIFIED",
-                Kind::Standard => "STANDARD",
-                Kind::StorageOnly => "STORAGE_ONLY",
+                Self::Unspecified => "KIND_UNSPECIFIED",
+                Self::Standard => "STANDARD",
+                Self::StorageOnly => "STORAGE_ONLY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1085,8 +1085,8 @@ pub mod node_type {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Capability::Unspecified => "CAPABILITY_UNSPECIFIED",
-                Capability::StretchedClusters => "STRETCHED_CLUSTERS",
+                Self::Unspecified => "CAPABILITY_UNSPECIFIED",
+                Self::StretchedClusters => "STRETCHED_CLUSTERS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1171,10 +1171,10 @@ pub mod hcx_activation_key {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Available => "AVAILABLE",
-                State::Consumed => "CONSUMED",
-                State::Creating => "CREATING",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Available => "AVAILABLE",
+                Self::Consumed => "CONSUMED",
+                Self::Creating => "CREATING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1237,10 +1237,10 @@ pub mod hcx {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Active => "ACTIVE",
-                State::Creating => "CREATING",
-                State::Activating => "ACTIVATING",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Active => "ACTIVE",
+                Self::Creating => "CREATING",
+                Self::Activating => "ACTIVATING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1301,9 +1301,9 @@ pub mod nsx {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Active => "ACTIVE",
-                State::Creating => "CREATING",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Active => "ACTIVE",
+                Self::Creating => "CREATING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1363,9 +1363,9 @@ pub mod vcenter {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Active => "ACTIVE",
-                State::Creating => "CREATING",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Active => "ACTIVE",
+                Self::Creating => "CREATING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1618,11 +1618,11 @@ pub mod network_peering {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Inactive => "INACTIVE",
-                State::Active => "ACTIVE",
-                State::Creating => "CREATING",
-                State::Deleting => "DELETING",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Inactive => "INACTIVE",
+                Self::Active => "ACTIVE",
+                Self::Creating => "CREATING",
+                Self::Deleting => "DELETING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1680,16 +1680,14 @@ pub mod network_peering {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                PeerNetworkType::Unspecified => "PEER_NETWORK_TYPE_UNSPECIFIED",
-                PeerNetworkType::Standard => "STANDARD",
-                PeerNetworkType::VmwareEngineNetwork => "VMWARE_ENGINE_NETWORK",
-                PeerNetworkType::PrivateServicesAccess => "PRIVATE_SERVICES_ACCESS",
-                PeerNetworkType::NetappCloudVolumes => "NETAPP_CLOUD_VOLUMES",
-                PeerNetworkType::ThirdPartyService => "THIRD_PARTY_SERVICE",
-                PeerNetworkType::DellPowerscale => "DELL_POWERSCALE",
-                PeerNetworkType::GoogleCloudNetappVolumes => {
-                    "GOOGLE_CLOUD_NETAPP_VOLUMES"
-                }
+                Self::Unspecified => "PEER_NETWORK_TYPE_UNSPECIFIED",
+                Self::Standard => "STANDARD",
+                Self::VmwareEngineNetwork => "VMWARE_ENGINE_NETWORK",
+                Self::PrivateServicesAccess => "PRIVATE_SERVICES_ACCESS",
+                Self::NetappCloudVolumes => "NETAPP_CLOUD_VOLUMES",
+                Self::ThirdPartyService => "THIRD_PARTY_SERVICE",
+                Self::DellPowerscale => "DELL_POWERSCALE",
+                Self::GoogleCloudNetappVolumes => "GOOGLE_CLOUD_NETAPP_VOLUMES",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1773,10 +1771,10 @@ pub mod peering_route {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::DynamicPeeringRoute => "DYNAMIC_PEERING_ROUTE",
-                Type::StaticPeeringRoute => "STATIC_PEERING_ROUTE",
-                Type::SubnetPeeringRoute => "SUBNET_PEERING_ROUTE",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::DynamicPeeringRoute => "DYNAMIC_PEERING_ROUTE",
+                Self::StaticPeeringRoute => "STATIC_PEERING_ROUTE",
+                Self::SubnetPeeringRoute => "SUBNET_PEERING_ROUTE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1818,9 +1816,9 @@ pub mod peering_route {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Direction::Unspecified => "DIRECTION_UNSPECIFIED",
-                Direction::Incoming => "INCOMING",
-                Direction::Outgoing => "OUTGOING",
+                Self::Unspecified => "DIRECTION_UNSPECIFIED",
+                Self::Incoming => "INCOMING",
+                Self::Outgoing => "OUTGOING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1936,10 +1934,10 @@ pub mod network_policy {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    State::Unspecified => "STATE_UNSPECIFIED",
-                    State::Unprovisioned => "UNPROVISIONED",
-                    State::Reconciling => "RECONCILING",
-                    State::Active => "ACTIVE",
+                    Self::Unspecified => "STATE_UNSPECIFIED",
+                    Self::Unprovisioned => "UNPROVISIONED",
+                    Self::Reconciling => "RECONCILING",
+                    Self::Active => "ACTIVE",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2027,12 +2025,12 @@ pub mod management_dns_zone_binding {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Active => "ACTIVE",
-                State::Creating => "CREATING",
-                State::Updating => "UPDATING",
-                State::Deleting => "DELETING",
-                State::Failed => "FAILED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Active => "ACTIVE",
+                Self::Creating => "CREATING",
+                Self::Updating => "UPDATING",
+                Self::Deleting => "DELETING",
+                Self::Failed => "FAILED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2161,10 +2159,10 @@ pub mod vmware_engine_network {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    Type::Unspecified => "TYPE_UNSPECIFIED",
-                    Type::Intranet => "INTRANET",
-                    Type::Internet => "INTERNET",
-                    Type::GoogleCloud => "GOOGLE_CLOUD",
+                    Self::Unspecified => "TYPE_UNSPECIFIED",
+                    Self::Intranet => "INTRANET",
+                    Self::Internet => "INTERNET",
+                    Self::GoogleCloud => "GOOGLE_CLOUD",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2211,11 +2209,11 @@ pub mod vmware_engine_network {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Active => "ACTIVE",
-                State::Updating => "UPDATING",
-                State::Deleting => "DELETING",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Active => "ACTIVE",
+                Self::Updating => "UPDATING",
+                Self::Deleting => "DELETING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2260,9 +2258,9 @@ pub mod vmware_engine_network {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::Legacy => "LEGACY",
-                Type::Standard => "STANDARD",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::Legacy => "LEGACY",
+                Self::Standard => "STANDARD",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2386,13 +2384,13 @@ pub mod private_connection {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Active => "ACTIVE",
-                State::Updating => "UPDATING",
-                State::Deleting => "DELETING",
-                State::Unprovisioned => "UNPROVISIONED",
-                State::Failed => "FAILED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Active => "ACTIVE",
+                Self::Updating => "UPDATING",
+                Self::Deleting => "DELETING",
+                Self::Unprovisioned => "UNPROVISIONED",
+                Self::Failed => "FAILED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2442,11 +2440,11 @@ pub mod private_connection {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::PrivateServiceAccess => "PRIVATE_SERVICE_ACCESS",
-                Type::NetappCloudVolumes => "NETAPP_CLOUD_VOLUMES",
-                Type::DellPowerscale => "DELL_POWERSCALE",
-                Type::ThirdPartyService => "THIRD_PARTY_SERVICE",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::PrivateServiceAccess => "PRIVATE_SERVICE_ACCESS",
+                Self::NetappCloudVolumes => "NETAPP_CLOUD_VOLUMES",
+                Self::DellPowerscale => "DELL_POWERSCALE",
+                Self::ThirdPartyService => "THIRD_PARTY_SERVICE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2489,9 +2487,9 @@ pub mod private_connection {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                RoutingMode::Unspecified => "ROUTING_MODE_UNSPECIFIED",
-                RoutingMode::Global => "GLOBAL",
-                RoutingMode::Regional => "REGIONAL",
+                Self::Unspecified => "ROUTING_MODE_UNSPECIFIED",
+                Self::Global => "GLOBAL",
+                Self::Regional => "REGIONAL",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2534,9 +2532,9 @@ pub mod private_connection {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                PeeringState::Unspecified => "PEERING_STATE_UNSPECIFIED",
-                PeeringState::PeeringActive => "PEERING_ACTIVE",
-                PeeringState::PeeringInactive => "PEERING_INACTIVE",
+                Self::Unspecified => "PEERING_STATE_UNSPECIFIED",
+                Self::PeeringActive => "PEERING_ACTIVE",
+                Self::PeeringInactive => "PEERING_INACTIVE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2593,8 +2591,8 @@ pub mod location_metadata {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Capability::Unspecified => "CAPABILITY_UNSPECIFIED",
-                Capability::StretchedClusters => "STRETCHED_CLUSTERS",
+                Self::Unspecified => "CAPABILITY_UNSPECIFIED",
+                Self::StretchedClusters => "STRETCHED_CLUSTERS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -7702,5 +7700,4360 @@ pub mod vmware_engine_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod vmware_engine_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with VmwareEngineServer.
+    #[async_trait]
+    pub trait VmwareEngine: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists `PrivateCloud` resources in a given project and location.
+        async fn list_private_clouds(
+            &self,
+            request: tonic::Request<super::ListPrivateCloudsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListPrivateCloudsResponse>,
+            tonic::Status,
+        >;
+        /// Retrieves a `PrivateCloud` resource by its resource name.
+        async fn get_private_cloud(
+            &self,
+            request: tonic::Request<super::GetPrivateCloudRequest>,
+        ) -> std::result::Result<tonic::Response<super::PrivateCloud>, tonic::Status>;
+        /// Creates a new `PrivateCloud` resource in a given project and location.
+        /// Private clouds of type `STANDARD` and
+        /// `TIME_LIMITED` are zonal resources, `STRETCHED` private clouds are
+        /// regional.
+        /// Creating a private cloud also creates a [management
+        /// cluster](https://cloud.google.com/vmware-engine/docs/concepts-vmware-components)
+        /// for that private cloud.
+        async fn create_private_cloud(
+            &self,
+            request: tonic::Request<super::CreatePrivateCloudRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Modifies a `PrivateCloud` resource. Only the following fields can be
+        /// updated: `description`.
+        /// Only fields specified in `updateMask` are applied.
+        ///
+        /// During operation processing, the resource is temporarily in the `ACTIVE`
+        /// state before the operation fully completes. For that period of time, you
+        /// can't update the resource. Use the operation status to determine when the
+        /// processing fully completes.
+        async fn update_private_cloud(
+            &self,
+            request: tonic::Request<super::UpdatePrivateCloudRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Schedules a `PrivateCloud` resource for deletion.
+        ///
+        /// A `PrivateCloud` resource scheduled for deletion has `PrivateCloud.state`
+        /// set to `DELETED` and `expireTime` set to the time when deletion is final
+        /// and can no longer be reversed. The delete operation is marked as done
+        /// as soon as the `PrivateCloud` is successfully scheduled for deletion
+        /// (this also applies when `delayHours` is set to zero), and the operation is
+        /// not kept in pending state until `PrivateCloud` is purged.
+        /// `PrivateCloud` can be restored using `UndeletePrivateCloud` method before
+        /// the `expireTime` elapses. When `expireTime` is reached, deletion is final
+        /// and all private cloud resources are irreversibly removed and billing stops.
+        /// During the final removal process, `PrivateCloud.state` is set to `PURGING`.
+        /// `PrivateCloud` can be polled using standard `GET` method for the whole
+        /// period of deletion and purging. It will not be returned only
+        /// when it is completely purged.
+        async fn delete_private_cloud(
+            &self,
+            request: tonic::Request<super::DeletePrivateCloudRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Restores a private cloud that was previously scheduled for deletion by
+        /// `DeletePrivateCloud`. A `PrivateCloud` resource scheduled for deletion has
+        /// `PrivateCloud.state` set to `DELETED` and `PrivateCloud.expireTime` set to
+        /// the time when deletion can no longer be reversed.
+        async fn undelete_private_cloud(
+            &self,
+            request: tonic::Request<super::UndeletePrivateCloudRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists `Cluster` resources in a given private cloud.
+        async fn list_clusters(
+            &self,
+            request: tonic::Request<super::ListClustersRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListClustersResponse>,
+            tonic::Status,
+        >;
+        /// Retrieves a `Cluster` resource by its resource name.
+        async fn get_cluster(
+            &self,
+            request: tonic::Request<super::GetClusterRequest>,
+        ) -> std::result::Result<tonic::Response<super::Cluster>, tonic::Status>;
+        /// Creates a new cluster in a given private cloud.
+        /// Creating a new cluster provides additional nodes for
+        /// use in the parent private cloud and requires sufficient [node
+        /// quota](https://cloud.google.com/vmware-engine/quotas).
+        async fn create_cluster(
+            &self,
+            request: tonic::Request<super::CreateClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Modifies a `Cluster` resource. Only fields specified in `updateMask` are
+        /// applied.
+        ///
+        /// During operation processing, the resource is temporarily in the `ACTIVE`
+        /// state before the operation fully completes. For that period of time, you
+        /// can't update the resource. Use the operation status to determine when the
+        /// processing fully completes.
+        async fn update_cluster(
+            &self,
+            request: tonic::Request<super::UpdateClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a `Cluster` resource. To avoid unintended data loss, migrate or
+        /// gracefully shut down any workloads running on the cluster before deletion.
+        /// You cannot delete the management cluster of a private cloud using this
+        /// method.
+        async fn delete_cluster(
+            &self,
+            request: tonic::Request<super::DeleteClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists nodes in a given cluster.
+        async fn list_nodes(
+            &self,
+            request: tonic::Request<super::ListNodesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListNodesResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single node.
+        async fn get_node(
+            &self,
+            request: tonic::Request<super::GetNodeRequest>,
+        ) -> std::result::Result<tonic::Response<super::Node>, tonic::Status>;
+        /// Lists external IP addresses assigned to VMware workload VMs in a given
+        /// private cloud.
+        async fn list_external_addresses(
+            &self,
+            request: tonic::Request<super::ListExternalAddressesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListExternalAddressesResponse>,
+            tonic::Status,
+        >;
+        /// Lists external IP addresses assigned to VMware workload VMs within the
+        /// scope of the given network policy.
+        async fn fetch_network_policy_external_addresses(
+            &self,
+            request: tonic::Request<super::FetchNetworkPolicyExternalAddressesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::FetchNetworkPolicyExternalAddressesResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single external IP address.
+        async fn get_external_address(
+            &self,
+            request: tonic::Request<super::GetExternalAddressRequest>,
+        ) -> std::result::Result<tonic::Response<super::ExternalAddress>, tonic::Status>;
+        /// Creates a new `ExternalAddress` resource in a given private cloud. The
+        /// network policy that corresponds to the private cloud must have the external
+        /// IP address network service enabled (`NetworkPolicy.external_ip`).
+        async fn create_external_address(
+            &self,
+            request: tonic::Request<super::CreateExternalAddressRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the parameters of a single external IP address.
+        /// Only fields specified in `update_mask` are applied.
+        ///
+        /// During operation processing, the resource is temporarily in the `ACTIVE`
+        /// state before the operation fully completes. For that period of time, you
+        /// can't update the resource. Use the operation status to determine when the
+        /// processing fully completes.
+        async fn update_external_address(
+            &self,
+            request: tonic::Request<super::UpdateExternalAddressRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single external IP address. When you delete an external IP
+        /// address, connectivity between the external IP address and the corresponding
+        /// internal IP address is lost.
+        async fn delete_external_address(
+            &self,
+            request: tonic::Request<super::DeleteExternalAddressRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists subnets in a given private cloud.
+        async fn list_subnets(
+            &self,
+            request: tonic::Request<super::ListSubnetsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListSubnetsResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single subnet.
+        async fn get_subnet(
+            &self,
+            request: tonic::Request<super::GetSubnetRequest>,
+        ) -> std::result::Result<tonic::Response<super::Subnet>, tonic::Status>;
+        /// Updates the parameters of a single subnet. Only fields specified in
+        /// `update_mask` are applied.
+        ///
+        /// *Note*: This API is synchronous and always returns a successful
+        /// `google.longrunning.Operation` (LRO). The returned LRO will only have
+        /// `done` and `response` fields.
+        async fn update_subnet(
+            &self,
+            request: tonic::Request<super::UpdateSubnetRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists `ExternalAccessRule` resources in the specified network policy.
+        async fn list_external_access_rules(
+            &self,
+            request: tonic::Request<super::ListExternalAccessRulesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListExternalAccessRulesResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single external access rule.
+        async fn get_external_access_rule(
+            &self,
+            request: tonic::Request<super::GetExternalAccessRuleRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ExternalAccessRule>,
+            tonic::Status,
+        >;
+        /// Creates a new external access rule in a given network policy.
+        async fn create_external_access_rule(
+            &self,
+            request: tonic::Request<super::CreateExternalAccessRuleRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the parameters of a single external access rule.
+        /// Only fields specified in `update_mask` are applied.
+        async fn update_external_access_rule(
+            &self,
+            request: tonic::Request<super::UpdateExternalAccessRuleRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single external access rule.
+        async fn delete_external_access_rule(
+            &self,
+            request: tonic::Request<super::DeleteExternalAccessRuleRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists logging servers configured for a given private
+        /// cloud.
+        async fn list_logging_servers(
+            &self,
+            request: tonic::Request<super::ListLoggingServersRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListLoggingServersResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a logging server.
+        async fn get_logging_server(
+            &self,
+            request: tonic::Request<super::GetLoggingServerRequest>,
+        ) -> std::result::Result<tonic::Response<super::LoggingServer>, tonic::Status>;
+        /// Create a new logging server for a given private cloud.
+        async fn create_logging_server(
+            &self,
+            request: tonic::Request<super::CreateLoggingServerRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the parameters of a single logging server.
+        /// Only fields specified in `update_mask` are applied.
+        async fn update_logging_server(
+            &self,
+            request: tonic::Request<super::UpdateLoggingServerRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single logging server.
+        async fn delete_logging_server(
+            &self,
+            request: tonic::Request<super::DeleteLoggingServerRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists node types
+        async fn list_node_types(
+            &self,
+            request: tonic::Request<super::ListNodeTypesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListNodeTypesResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single `NodeType`.
+        async fn get_node_type(
+            &self,
+            request: tonic::Request<super::GetNodeTypeRequest>,
+        ) -> std::result::Result<tonic::Response<super::NodeType>, tonic::Status>;
+        /// Gets details of credentials for NSX appliance.
+        async fn show_nsx_credentials(
+            &self,
+            request: tonic::Request<super::ShowNsxCredentialsRequest>,
+        ) -> std::result::Result<tonic::Response<super::Credentials>, tonic::Status>;
+        /// Gets details of credentials for Vcenter appliance.
+        async fn show_vcenter_credentials(
+            &self,
+            request: tonic::Request<super::ShowVcenterCredentialsRequest>,
+        ) -> std::result::Result<tonic::Response<super::Credentials>, tonic::Status>;
+        /// Resets credentials of the NSX appliance.
+        async fn reset_nsx_credentials(
+            &self,
+            request: tonic::Request<super::ResetNsxCredentialsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Resets credentials of the Vcenter appliance.
+        async fn reset_vcenter_credentials(
+            &self,
+            request: tonic::Request<super::ResetVcenterCredentialsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Gets details of the `DnsForwarding` config.
+        async fn get_dns_forwarding(
+            &self,
+            request: tonic::Request<super::GetDnsForwardingRequest>,
+        ) -> std::result::Result<tonic::Response<super::DnsForwarding>, tonic::Status>;
+        /// Updates the parameters of the `DnsForwarding` config, like associated
+        /// domains. Only fields specified in `update_mask` are applied.
+        async fn update_dns_forwarding(
+            &self,
+            request: tonic::Request<super::UpdateDnsForwardingRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Retrieves a `NetworkPeering` resource by its resource name. The resource
+        /// contains details of the network peering, such as peered
+        /// networks, import and export custom route configurations, and peering state.
+        /// NetworkPeering is a global resource and location can only be global.
+        async fn get_network_peering(
+            &self,
+            request: tonic::Request<super::GetNetworkPeeringRequest>,
+        ) -> std::result::Result<tonic::Response<super::NetworkPeering>, tonic::Status>;
+        /// Lists `NetworkPeering` resources in a given project. NetworkPeering is a
+        /// global resource and location can only be global.
+        async fn list_network_peerings(
+            &self,
+            request: tonic::Request<super::ListNetworkPeeringsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListNetworkPeeringsResponse>,
+            tonic::Status,
+        >;
+        /// Creates a new network peering between the peer network and VMware Engine
+        /// network provided in a `NetworkPeering` resource. NetworkPeering is a
+        /// global resource and location can only be global.
+        async fn create_network_peering(
+            &self,
+            request: tonic::Request<super::CreateNetworkPeeringRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a `NetworkPeering` resource. When a network peering is deleted for
+        /// a VMware Engine network, the peer network becomes inaccessible to that
+        /// VMware Engine network. NetworkPeering is a global resource and location can
+        /// only be global.
+        async fn delete_network_peering(
+            &self,
+            request: tonic::Request<super::DeleteNetworkPeeringRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Modifies a `NetworkPeering` resource. Only the `description` field can be
+        /// updated. Only fields specified in `updateMask` are applied. NetworkPeering
+        /// is a global resource and location can only be global.
+        async fn update_network_peering(
+            &self,
+            request: tonic::Request<super::UpdateNetworkPeeringRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists the network peering routes exchanged over a peering connection.
+        /// NetworkPeering is a global resource and location can only be global.
+        async fn list_peering_routes(
+            &self,
+            request: tonic::Request<super::ListPeeringRoutesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListPeeringRoutesResponse>,
+            tonic::Status,
+        >;
+        /// Creates a new HCX activation key in a given private cloud.
+        async fn create_hcx_activation_key(
+            &self,
+            request: tonic::Request<super::CreateHcxActivationKeyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists `HcxActivationKey` resources in a given private cloud.
+        async fn list_hcx_activation_keys(
+            &self,
+            request: tonic::Request<super::ListHcxActivationKeysRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListHcxActivationKeysResponse>,
+            tonic::Status,
+        >;
+        /// Retrieves a `HcxActivationKey` resource by its resource name.
+        async fn get_hcx_activation_key(
+            &self,
+            request: tonic::Request<super::GetHcxActivationKeyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::HcxActivationKey>,
+            tonic::Status,
+        >;
+        /// Retrieves a `NetworkPolicy` resource by its resource name.
+        async fn get_network_policy(
+            &self,
+            request: tonic::Request<super::GetNetworkPolicyRequest>,
+        ) -> std::result::Result<tonic::Response<super::NetworkPolicy>, tonic::Status>;
+        /// Lists `NetworkPolicy` resources in a specified project and location.
+        async fn list_network_policies(
+            &self,
+            request: tonic::Request<super::ListNetworkPoliciesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListNetworkPoliciesResponse>,
+            tonic::Status,
+        >;
+        /// Creates a new network policy in a given VMware Engine network of a
+        /// project and location (region). A new network policy cannot be created if
+        /// another network policy already exists in the same scope.
+        async fn create_network_policy(
+            &self,
+            request: tonic::Request<super::CreateNetworkPolicyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Modifies a `NetworkPolicy` resource. Only the following fields can be
+        /// updated: `internet_access`, `external_ip`, `edge_services_cidr`.
+        /// Only fields specified in `updateMask` are applied. When updating a network
+        /// policy, the external IP network service can only be disabled if there are
+        /// no external IP addresses present in the scope of the policy. Also, a
+        /// `NetworkService` cannot be updated when `NetworkService.state` is set
+        /// to `RECONCILING`.
+        ///
+        /// During operation processing, the resource is temporarily in the `ACTIVE`
+        /// state before the operation fully completes. For that period of time, you
+        /// can't update the resource. Use the operation status to determine when the
+        /// processing fully completes.
+        async fn update_network_policy(
+            &self,
+            request: tonic::Request<super::UpdateNetworkPolicyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a `NetworkPolicy` resource. A network policy cannot be deleted
+        /// when `NetworkService.state` is set to `RECONCILING` for either its external
+        /// IP or internet access service.
+        async fn delete_network_policy(
+            &self,
+            request: tonic::Request<super::DeleteNetworkPolicyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists Consumer VPCs bound to Management DNS Zone of a given private cloud.
+        async fn list_management_dns_zone_bindings(
+            &self,
+            request: tonic::Request<super::ListManagementDnsZoneBindingsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListManagementDnsZoneBindingsResponse>,
+            tonic::Status,
+        >;
+        /// Retrieves a 'ManagementDnsZoneBinding' resource by its resource name.
+        async fn get_management_dns_zone_binding(
+            &self,
+            request: tonic::Request<super::GetManagementDnsZoneBindingRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ManagementDnsZoneBinding>,
+            tonic::Status,
+        >;
+        /// Creates a new `ManagementDnsZoneBinding` resource in a private cloud.
+        /// This RPC creates the DNS binding and the resource that represents the
+        /// DNS binding of the consumer VPC network to the management DNS zone. A
+        /// management DNS zone is the Cloud DNS cross-project binding zone that
+        /// VMware Engine creates for each private cloud. It contains FQDNs and
+        /// corresponding IP addresses for the private cloud's ESXi hosts and
+        /// management VM appliances like vCenter and NSX Manager.
+        async fn create_management_dns_zone_binding(
+            &self,
+            request: tonic::Request<super::CreateManagementDnsZoneBindingRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates a `ManagementDnsZoneBinding` resource.
+        /// Only fields specified in `update_mask` are applied.
+        async fn update_management_dns_zone_binding(
+            &self,
+            request: tonic::Request<super::UpdateManagementDnsZoneBindingRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a `ManagementDnsZoneBinding` resource. When a management DNS zone
+        /// binding is deleted, the corresponding consumer VPC network is no longer
+        /// bound to the management DNS zone.
+        async fn delete_management_dns_zone_binding(
+            &self,
+            request: tonic::Request<super::DeleteManagementDnsZoneBindingRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Retries to create a `ManagementDnsZoneBinding` resource that is
+        /// in failed state.
+        async fn repair_management_dns_zone_binding(
+            &self,
+            request: tonic::Request<super::RepairManagementDnsZoneBindingRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Creates a new VMware Engine network that can be used by a private cloud.
+        async fn create_vmware_engine_network(
+            &self,
+            request: tonic::Request<super::CreateVmwareEngineNetworkRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Modifies a VMware Engine network resource. Only the following fields can be
+        /// updated: `description`. Only fields specified in `updateMask` are
+        /// applied.
+        async fn update_vmware_engine_network(
+            &self,
+            request: tonic::Request<super::UpdateVmwareEngineNetworkRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a `VmwareEngineNetwork` resource. You can only delete a VMware
+        /// Engine network after all resources that refer to it are deleted. For
+        /// example, a private cloud, a network peering, and a network policy can all
+        /// refer to the same VMware Engine network.
+        async fn delete_vmware_engine_network(
+            &self,
+            request: tonic::Request<super::DeleteVmwareEngineNetworkRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Retrieves a `VmwareEngineNetwork` resource by its resource name. The
+        /// resource contains details of the VMware Engine network, such as its VMware
+        /// Engine network type, peered networks in a service project, and state
+        /// (for example, `CREATING`, `ACTIVE`, `DELETING`).
+        async fn get_vmware_engine_network(
+            &self,
+            request: tonic::Request<super::GetVmwareEngineNetworkRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::VmwareEngineNetwork>,
+            tonic::Status,
+        >;
+        /// Lists `VmwareEngineNetwork` resources in a given project and location.
+        async fn list_vmware_engine_networks(
+            &self,
+            request: tonic::Request<super::ListVmwareEngineNetworksRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListVmwareEngineNetworksResponse>,
+            tonic::Status,
+        >;
+        /// Creates a new private connection that can be used for accessing private
+        /// Clouds.
+        async fn create_private_connection(
+            &self,
+            request: tonic::Request<super::CreatePrivateConnectionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Retrieves a `PrivateConnection` resource by its resource name. The resource
+        /// contains details of the private connection, such as connected
+        /// network, routing mode and state.
+        async fn get_private_connection(
+            &self,
+            request: tonic::Request<super::GetPrivateConnectionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::PrivateConnection>,
+            tonic::Status,
+        >;
+        /// Lists `PrivateConnection` resources in a given project and location.
+        async fn list_private_connections(
+            &self,
+            request: tonic::Request<super::ListPrivateConnectionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListPrivateConnectionsResponse>,
+            tonic::Status,
+        >;
+        /// Modifies a `PrivateConnection` resource. Only `description` and
+        /// `routing_mode` fields can be updated. Only fields specified in `updateMask`
+        /// are applied.
+        async fn update_private_connection(
+            &self,
+            request: tonic::Request<super::UpdatePrivateConnectionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a `PrivateConnection` resource. When a private connection is
+        /// deleted for a VMware Engine network, the connected network becomes
+        /// inaccessible to that VMware Engine network.
+        async fn delete_private_connection(
+            &self,
+            request: tonic::Request<super::DeletePrivateConnectionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists the private connection routes exchanged over a peering connection.
+        async fn list_private_connection_peering_routes(
+            &self,
+            request: tonic::Request<super::ListPrivateConnectionPeeringRoutesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListPrivateConnectionPeeringRoutesResponse>,
+            tonic::Status,
+        >;
+        /// Grants the bind permission to the customer provided principal(user /
+        /// service account) to bind their DNS zone with the intranet VPC associated
+        /// with the project. DnsBindPermission is a global resource and location can
+        /// only be global.
+        async fn grant_dns_bind_permission(
+            &self,
+            request: tonic::Request<super::GrantDnsBindPermissionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Gets all the principals having bind permission on the intranet VPC
+        /// associated with the consumer project granted by the Grant API.
+        /// DnsBindPermission is a global resource and location can only be global.
+        async fn get_dns_bind_permission(
+            &self,
+            request: tonic::Request<super::GetDnsBindPermissionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::DnsBindPermission>,
+            tonic::Status,
+        >;
+        /// Revokes the bind permission from the customer provided principal(user /
+        /// service account) on the intranet VPC associated with the consumer project.
+        /// DnsBindPermission is a global resource and location can only be global.
+        async fn revoke_dns_bind_permission(
+            &self,
+            request: tonic::Request<super::RevokeDnsBindPermissionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// VMwareEngine manages VMware's private clusters in the Cloud.
+    #[derive(Debug)]
+    pub struct VmwareEngineServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> VmwareEngineServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for VmwareEngineServer<T>
+    where
+        T: VmwareEngine,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.vmwareengine.v1.VmwareEngine/ListPrivateClouds" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListPrivateCloudsSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::ListPrivateCloudsRequest>
+                    for ListPrivateCloudsSvc<T> {
+                        type Response = super::ListPrivateCloudsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListPrivateCloudsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::list_private_clouds(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListPrivateCloudsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/GetPrivateCloud" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetPrivateCloudSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::GetPrivateCloudRequest>
+                    for GetPrivateCloudSvc<T> {
+                        type Response = super::PrivateCloud;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetPrivateCloudRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::get_private_cloud(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetPrivateCloudSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/CreatePrivateCloud" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreatePrivateCloudSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::CreatePrivateCloudRequest>
+                    for CreatePrivateCloudSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreatePrivateCloudRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::create_private_cloud(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreatePrivateCloudSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/UpdatePrivateCloud" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdatePrivateCloudSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::UpdatePrivateCloudRequest>
+                    for UpdatePrivateCloudSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdatePrivateCloudRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::update_private_cloud(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdatePrivateCloudSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/DeletePrivateCloud" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeletePrivateCloudSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::DeletePrivateCloudRequest>
+                    for DeletePrivateCloudSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeletePrivateCloudRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::delete_private_cloud(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeletePrivateCloudSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/UndeletePrivateCloud" => {
+                    #[allow(non_camel_case_types)]
+                    struct UndeletePrivateCloudSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::UndeletePrivateCloudRequest>
+                    for UndeletePrivateCloudSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UndeletePrivateCloudRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::undelete_private_cloud(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UndeletePrivateCloudSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/ListClusters" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListClustersSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::ListClustersRequest>
+                    for ListClustersSvc<T> {
+                        type Response = super::ListClustersResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListClustersRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::list_clusters(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListClustersSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/GetCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetClusterSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::GetClusterRequest>
+                    for GetClusterSvc<T> {
+                        type Response = super::Cluster;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::get_cluster(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/CreateCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateClusterSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::CreateClusterRequest>
+                    for CreateClusterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::create_cluster(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/UpdateCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateClusterSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::UpdateClusterRequest>
+                    for UpdateClusterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::update_cluster(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/DeleteCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteClusterSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::DeleteClusterRequest>
+                    for DeleteClusterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::delete_cluster(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/ListNodes" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListNodesSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::ListNodesRequest>
+                    for ListNodesSvc<T> {
+                        type Response = super::ListNodesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListNodesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::list_nodes(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListNodesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/GetNode" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetNodeSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::GetNodeRequest>
+                    for GetNodeSvc<T> {
+                        type Response = super::Node;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetNodeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::get_node(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetNodeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/ListExternalAddresses" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListExternalAddressesSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::ListExternalAddressesRequest>
+                    for ListExternalAddressesSvc<T> {
+                        type Response = super::ListExternalAddressesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListExternalAddressesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::list_external_addresses(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListExternalAddressesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/FetchNetworkPolicyExternalAddresses" => {
+                    #[allow(non_camel_case_types)]
+                    struct FetchNetworkPolicyExternalAddressesSvc<T: VmwareEngine>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<
+                        super::FetchNetworkPolicyExternalAddressesRequest,
+                    > for FetchNetworkPolicyExternalAddressesSvc<T> {
+                        type Response = super::FetchNetworkPolicyExternalAddressesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::FetchNetworkPolicyExternalAddressesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::fetch_network_policy_external_addresses(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = FetchNetworkPolicyExternalAddressesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/GetExternalAddress" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetExternalAddressSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::GetExternalAddressRequest>
+                    for GetExternalAddressSvc<T> {
+                        type Response = super::ExternalAddress;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetExternalAddressRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::get_external_address(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetExternalAddressSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/CreateExternalAddress" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateExternalAddressSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::CreateExternalAddressRequest>
+                    for CreateExternalAddressSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateExternalAddressRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::create_external_address(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateExternalAddressSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/UpdateExternalAddress" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateExternalAddressSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::UpdateExternalAddressRequest>
+                    for UpdateExternalAddressSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateExternalAddressRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::update_external_address(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateExternalAddressSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/DeleteExternalAddress" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteExternalAddressSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::DeleteExternalAddressRequest>
+                    for DeleteExternalAddressSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteExternalAddressRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::delete_external_address(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteExternalAddressSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/ListSubnets" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListSubnetsSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::ListSubnetsRequest>
+                    for ListSubnetsSvc<T> {
+                        type Response = super::ListSubnetsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListSubnetsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::list_subnets(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListSubnetsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/GetSubnet" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetSubnetSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::GetSubnetRequest>
+                    for GetSubnetSvc<T> {
+                        type Response = super::Subnet;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetSubnetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::get_subnet(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetSubnetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/UpdateSubnet" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateSubnetSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::UpdateSubnetRequest>
+                    for UpdateSubnetSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateSubnetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::update_subnet(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateSubnetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/ListExternalAccessRules" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListExternalAccessRulesSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::ListExternalAccessRulesRequest>
+                    for ListExternalAccessRulesSvc<T> {
+                        type Response = super::ListExternalAccessRulesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListExternalAccessRulesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::list_external_access_rules(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListExternalAccessRulesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/GetExternalAccessRule" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetExternalAccessRuleSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::GetExternalAccessRuleRequest>
+                    for GetExternalAccessRuleSvc<T> {
+                        type Response = super::ExternalAccessRule;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetExternalAccessRuleRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::get_external_access_rule(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetExternalAccessRuleSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/CreateExternalAccessRule" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateExternalAccessRuleSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::CreateExternalAccessRuleRequest>
+                    for CreateExternalAccessRuleSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateExternalAccessRuleRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::create_external_access_rule(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateExternalAccessRuleSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/UpdateExternalAccessRule" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateExternalAccessRuleSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::UpdateExternalAccessRuleRequest>
+                    for UpdateExternalAccessRuleSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::UpdateExternalAccessRuleRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::update_external_access_rule(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateExternalAccessRuleSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/DeleteExternalAccessRule" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteExternalAccessRuleSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::DeleteExternalAccessRuleRequest>
+                    for DeleteExternalAccessRuleSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteExternalAccessRuleRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::delete_external_access_rule(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteExternalAccessRuleSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/ListLoggingServers" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListLoggingServersSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::ListLoggingServersRequest>
+                    for ListLoggingServersSvc<T> {
+                        type Response = super::ListLoggingServersResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListLoggingServersRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::list_logging_servers(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListLoggingServersSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/GetLoggingServer" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetLoggingServerSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::GetLoggingServerRequest>
+                    for GetLoggingServerSvc<T> {
+                        type Response = super::LoggingServer;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetLoggingServerRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::get_logging_server(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetLoggingServerSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/CreateLoggingServer" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateLoggingServerSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::CreateLoggingServerRequest>
+                    for CreateLoggingServerSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateLoggingServerRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::create_logging_server(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateLoggingServerSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/UpdateLoggingServer" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateLoggingServerSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::UpdateLoggingServerRequest>
+                    for UpdateLoggingServerSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateLoggingServerRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::update_logging_server(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateLoggingServerSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/DeleteLoggingServer" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteLoggingServerSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::DeleteLoggingServerRequest>
+                    for DeleteLoggingServerSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteLoggingServerRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::delete_logging_server(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteLoggingServerSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/ListNodeTypes" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListNodeTypesSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::ListNodeTypesRequest>
+                    for ListNodeTypesSvc<T> {
+                        type Response = super::ListNodeTypesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListNodeTypesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::list_node_types(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListNodeTypesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/GetNodeType" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetNodeTypeSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::GetNodeTypeRequest>
+                    for GetNodeTypeSvc<T> {
+                        type Response = super::NodeType;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetNodeTypeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::get_node_type(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetNodeTypeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/ShowNsxCredentials" => {
+                    #[allow(non_camel_case_types)]
+                    struct ShowNsxCredentialsSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::ShowNsxCredentialsRequest>
+                    for ShowNsxCredentialsSvc<T> {
+                        type Response = super::Credentials;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ShowNsxCredentialsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::show_nsx_credentials(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ShowNsxCredentialsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/ShowVcenterCredentials" => {
+                    #[allow(non_camel_case_types)]
+                    struct ShowVcenterCredentialsSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::ShowVcenterCredentialsRequest>
+                    for ShowVcenterCredentialsSvc<T> {
+                        type Response = super::Credentials;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ShowVcenterCredentialsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::show_vcenter_credentials(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ShowVcenterCredentialsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/ResetNsxCredentials" => {
+                    #[allow(non_camel_case_types)]
+                    struct ResetNsxCredentialsSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::ResetNsxCredentialsRequest>
+                    for ResetNsxCredentialsSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ResetNsxCredentialsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::reset_nsx_credentials(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ResetNsxCredentialsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/ResetVcenterCredentials" => {
+                    #[allow(non_camel_case_types)]
+                    struct ResetVcenterCredentialsSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::ResetVcenterCredentialsRequest>
+                    for ResetVcenterCredentialsSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ResetVcenterCredentialsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::reset_vcenter_credentials(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ResetVcenterCredentialsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/GetDnsForwarding" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetDnsForwardingSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::GetDnsForwardingRequest>
+                    for GetDnsForwardingSvc<T> {
+                        type Response = super::DnsForwarding;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetDnsForwardingRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::get_dns_forwarding(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetDnsForwardingSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/UpdateDnsForwarding" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateDnsForwardingSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::UpdateDnsForwardingRequest>
+                    for UpdateDnsForwardingSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateDnsForwardingRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::update_dns_forwarding(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateDnsForwardingSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/GetNetworkPeering" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetNetworkPeeringSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::GetNetworkPeeringRequest>
+                    for GetNetworkPeeringSvc<T> {
+                        type Response = super::NetworkPeering;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetNetworkPeeringRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::get_network_peering(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetNetworkPeeringSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/ListNetworkPeerings" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListNetworkPeeringsSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::ListNetworkPeeringsRequest>
+                    for ListNetworkPeeringsSvc<T> {
+                        type Response = super::ListNetworkPeeringsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListNetworkPeeringsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::list_network_peerings(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListNetworkPeeringsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/CreateNetworkPeering" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateNetworkPeeringSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::CreateNetworkPeeringRequest>
+                    for CreateNetworkPeeringSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateNetworkPeeringRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::create_network_peering(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateNetworkPeeringSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/DeleteNetworkPeering" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteNetworkPeeringSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::DeleteNetworkPeeringRequest>
+                    for DeleteNetworkPeeringSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteNetworkPeeringRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::delete_network_peering(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteNetworkPeeringSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/UpdateNetworkPeering" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateNetworkPeeringSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::UpdateNetworkPeeringRequest>
+                    for UpdateNetworkPeeringSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateNetworkPeeringRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::update_network_peering(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateNetworkPeeringSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/ListPeeringRoutes" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListPeeringRoutesSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::ListPeeringRoutesRequest>
+                    for ListPeeringRoutesSvc<T> {
+                        type Response = super::ListPeeringRoutesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListPeeringRoutesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::list_peering_routes(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListPeeringRoutesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/CreateHcxActivationKey" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateHcxActivationKeySvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::CreateHcxActivationKeyRequest>
+                    for CreateHcxActivationKeySvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateHcxActivationKeyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::create_hcx_activation_key(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateHcxActivationKeySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/ListHcxActivationKeys" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListHcxActivationKeysSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::ListHcxActivationKeysRequest>
+                    for ListHcxActivationKeysSvc<T> {
+                        type Response = super::ListHcxActivationKeysResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListHcxActivationKeysRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::list_hcx_activation_keys(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListHcxActivationKeysSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/GetHcxActivationKey" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetHcxActivationKeySvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::GetHcxActivationKeyRequest>
+                    for GetHcxActivationKeySvc<T> {
+                        type Response = super::HcxActivationKey;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetHcxActivationKeyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::get_hcx_activation_key(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetHcxActivationKeySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/GetNetworkPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetNetworkPolicySvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::GetNetworkPolicyRequest>
+                    for GetNetworkPolicySvc<T> {
+                        type Response = super::NetworkPolicy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetNetworkPolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::get_network_policy(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetNetworkPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/ListNetworkPolicies" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListNetworkPoliciesSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::ListNetworkPoliciesRequest>
+                    for ListNetworkPoliciesSvc<T> {
+                        type Response = super::ListNetworkPoliciesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListNetworkPoliciesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::list_network_policies(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListNetworkPoliciesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/CreateNetworkPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateNetworkPolicySvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::CreateNetworkPolicyRequest>
+                    for CreateNetworkPolicySvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateNetworkPolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::create_network_policy(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateNetworkPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/UpdateNetworkPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateNetworkPolicySvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::UpdateNetworkPolicyRequest>
+                    for UpdateNetworkPolicySvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateNetworkPolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::update_network_policy(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateNetworkPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/DeleteNetworkPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteNetworkPolicySvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::DeleteNetworkPolicyRequest>
+                    for DeleteNetworkPolicySvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteNetworkPolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::delete_network_policy(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteNetworkPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/ListManagementDnsZoneBindings" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListManagementDnsZoneBindingsSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<
+                        super::ListManagementDnsZoneBindingsRequest,
+                    > for ListManagementDnsZoneBindingsSvc<T> {
+                        type Response = super::ListManagementDnsZoneBindingsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListManagementDnsZoneBindingsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::list_management_dns_zone_bindings(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListManagementDnsZoneBindingsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/GetManagementDnsZoneBinding" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetManagementDnsZoneBindingSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<
+                        super::GetManagementDnsZoneBindingRequest,
+                    > for GetManagementDnsZoneBindingSvc<T> {
+                        type Response = super::ManagementDnsZoneBinding;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetManagementDnsZoneBindingRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::get_management_dns_zone_binding(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetManagementDnsZoneBindingSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/CreateManagementDnsZoneBinding" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateManagementDnsZoneBindingSvc<T: VmwareEngine>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<
+                        super::CreateManagementDnsZoneBindingRequest,
+                    > for CreateManagementDnsZoneBindingSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateManagementDnsZoneBindingRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::create_management_dns_zone_binding(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateManagementDnsZoneBindingSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/UpdateManagementDnsZoneBinding" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateManagementDnsZoneBindingSvc<T: VmwareEngine>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<
+                        super::UpdateManagementDnsZoneBindingRequest,
+                    > for UpdateManagementDnsZoneBindingSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::UpdateManagementDnsZoneBindingRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::update_management_dns_zone_binding(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateManagementDnsZoneBindingSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/DeleteManagementDnsZoneBinding" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteManagementDnsZoneBindingSvc<T: VmwareEngine>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<
+                        super::DeleteManagementDnsZoneBindingRequest,
+                    > for DeleteManagementDnsZoneBindingSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteManagementDnsZoneBindingRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::delete_management_dns_zone_binding(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteManagementDnsZoneBindingSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/RepairManagementDnsZoneBinding" => {
+                    #[allow(non_camel_case_types)]
+                    struct RepairManagementDnsZoneBindingSvc<T: VmwareEngine>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<
+                        super::RepairManagementDnsZoneBindingRequest,
+                    > for RepairManagementDnsZoneBindingSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::RepairManagementDnsZoneBindingRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::repair_management_dns_zone_binding(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RepairManagementDnsZoneBindingSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/CreateVmwareEngineNetwork" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateVmwareEngineNetworkSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<
+                        super::CreateVmwareEngineNetworkRequest,
+                    > for CreateVmwareEngineNetworkSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateVmwareEngineNetworkRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::create_vmware_engine_network(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateVmwareEngineNetworkSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/UpdateVmwareEngineNetwork" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateVmwareEngineNetworkSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<
+                        super::UpdateVmwareEngineNetworkRequest,
+                    > for UpdateVmwareEngineNetworkSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::UpdateVmwareEngineNetworkRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::update_vmware_engine_network(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateVmwareEngineNetworkSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/DeleteVmwareEngineNetwork" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteVmwareEngineNetworkSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<
+                        super::DeleteVmwareEngineNetworkRequest,
+                    > for DeleteVmwareEngineNetworkSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteVmwareEngineNetworkRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::delete_vmware_engine_network(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteVmwareEngineNetworkSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/GetVmwareEngineNetwork" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetVmwareEngineNetworkSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::GetVmwareEngineNetworkRequest>
+                    for GetVmwareEngineNetworkSvc<T> {
+                        type Response = super::VmwareEngineNetwork;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetVmwareEngineNetworkRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::get_vmware_engine_network(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetVmwareEngineNetworkSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/ListVmwareEngineNetworks" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListVmwareEngineNetworksSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::ListVmwareEngineNetworksRequest>
+                    for ListVmwareEngineNetworksSvc<T> {
+                        type Response = super::ListVmwareEngineNetworksResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListVmwareEngineNetworksRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::list_vmware_engine_networks(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListVmwareEngineNetworksSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/CreatePrivateConnection" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreatePrivateConnectionSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::CreatePrivateConnectionRequest>
+                    for CreatePrivateConnectionSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreatePrivateConnectionRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::create_private_connection(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreatePrivateConnectionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/GetPrivateConnection" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetPrivateConnectionSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::GetPrivateConnectionRequest>
+                    for GetPrivateConnectionSvc<T> {
+                        type Response = super::PrivateConnection;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetPrivateConnectionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::get_private_connection(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetPrivateConnectionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/ListPrivateConnections" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListPrivateConnectionsSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::ListPrivateConnectionsRequest>
+                    for ListPrivateConnectionsSvc<T> {
+                        type Response = super::ListPrivateConnectionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListPrivateConnectionsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::list_private_connections(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListPrivateConnectionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/UpdatePrivateConnection" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdatePrivateConnectionSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::UpdatePrivateConnectionRequest>
+                    for UpdatePrivateConnectionSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::UpdatePrivateConnectionRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::update_private_connection(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdatePrivateConnectionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/DeletePrivateConnection" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeletePrivateConnectionSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::DeletePrivateConnectionRequest>
+                    for DeletePrivateConnectionSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeletePrivateConnectionRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::delete_private_connection(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeletePrivateConnectionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/ListPrivateConnectionPeeringRoutes" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListPrivateConnectionPeeringRoutesSvc<T: VmwareEngine>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<
+                        super::ListPrivateConnectionPeeringRoutesRequest,
+                    > for ListPrivateConnectionPeeringRoutesSvc<T> {
+                        type Response = super::ListPrivateConnectionPeeringRoutesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListPrivateConnectionPeeringRoutesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::list_private_connection_peering_routes(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListPrivateConnectionPeeringRoutesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/GrantDnsBindPermission" => {
+                    #[allow(non_camel_case_types)]
+                    struct GrantDnsBindPermissionSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::GrantDnsBindPermissionRequest>
+                    for GrantDnsBindPermissionSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GrantDnsBindPermissionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::grant_dns_bind_permission(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GrantDnsBindPermissionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/GetDnsBindPermission" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetDnsBindPermissionSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::GetDnsBindPermissionRequest>
+                    for GetDnsBindPermissionSvc<T> {
+                        type Response = super::DnsBindPermission;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetDnsBindPermissionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::get_dns_bind_permission(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetDnsBindPermissionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmwareengine.v1.VmwareEngine/RevokeDnsBindPermission" => {
+                    #[allow(non_camel_case_types)]
+                    struct RevokeDnsBindPermissionSvc<T: VmwareEngine>(pub Arc<T>);
+                    impl<
+                        T: VmwareEngine,
+                    > tonic::server::UnaryService<super::RevokeDnsBindPermissionRequest>
+                    for RevokeDnsBindPermissionSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::RevokeDnsBindPermissionRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmwareEngine>::revoke_dns_bind_permission(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RevokeDnsBindPermissionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for VmwareEngineServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.vmwareengine.v1.VmwareEngine";
+    impl<T> tonic::server::NamedService for VmwareEngineServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

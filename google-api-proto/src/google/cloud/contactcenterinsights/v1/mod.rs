@@ -237,9 +237,9 @@ pub mod conversation {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Medium::Unspecified => "MEDIUM_UNSPECIFIED",
-                Medium::PhoneCall => "PHONE_CALL",
-                Medium::Chat => "CHAT",
+                Self::Unspecified => "MEDIUM_UNSPECIFIED",
+                Self::PhoneCall => "PHONE_CALL",
+                Self::Chat => "CHAT",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -621,19 +621,19 @@ pub mod entity {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::Person => "PERSON",
-                Type::Location => "LOCATION",
-                Type::Organization => "ORGANIZATION",
-                Type::Event => "EVENT",
-                Type::WorkOfArt => "WORK_OF_ART",
-                Type::ConsumerGood => "CONSUMER_GOOD",
-                Type::Other => "OTHER",
-                Type::PhoneNumber => "PHONE_NUMBER",
-                Type::Address => "ADDRESS",
-                Type::Date => "DATE",
-                Type::Number => "NUMBER",
-                Type::Price => "PRICE",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::Person => "PERSON",
+                Self::Location => "LOCATION",
+                Self::Organization => "ORGANIZATION",
+                Self::Event => "EVENT",
+                Self::WorkOfArt => "WORK_OF_ART",
+                Self::ConsumerGood => "CONSUMER_GOOD",
+                Self::Other => "OTHER",
+                Self::PhoneNumber => "PHONE_NUMBER",
+                Self::Address => "ADDRESS",
+                Self::Date => "DATE",
+                Self::Number => "NUMBER",
+                Self::Price => "PRICE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -741,9 +741,9 @@ pub mod entity_mention_data {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                MentionType::Unspecified => "MENTION_TYPE_UNSPECIFIED",
-                MentionType::Proper => "PROPER",
-                MentionType::Common => "COMMON",
+                Self::Unspecified => "MENTION_TYPE_UNSPECIFIED",
+                Self::Proper => "PROPER",
+                Self::Common => "COMMON",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -877,12 +877,12 @@ pub mod issue_model {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Undeployed => "UNDEPLOYED",
-                State::Deploying => "DEPLOYING",
-                State::Deployed => "DEPLOYED",
-                State::Undeploying => "UNDEPLOYING",
-                State::Deleting => "DELETING",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Undeployed => "UNDEPLOYED",
+                Self::Deploying => "DEPLOYING",
+                Self::Deployed => "DEPLOYED",
+                Self::Undeploying => "UNDEPLOYING",
+                Self::Deleting => "DELETING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -926,9 +926,9 @@ pub mod issue_model {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ModelType::Unspecified => "MODEL_TYPE_UNSPECIFIED",
-                ModelType::TypeV1 => "TYPE_V1",
-                ModelType::TypeV2 => "TYPE_V2",
+                Self::Unspecified => "MODEL_TYPE_UNSPECIFIED",
+                Self::TypeV1 => "TYPE_V1",
+                Self::TypeV2 => "TYPE_V2",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1077,9 +1077,9 @@ pub mod phrase_matcher {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                PhraseMatcherType::Unspecified => "PHRASE_MATCHER_TYPE_UNSPECIFIED",
-                PhraseMatcherType::AllOf => "ALL_OF",
-                PhraseMatcherType::AnyOf => "ANY_OF",
+                Self::Unspecified => "PHRASE_MATCHER_TYPE_UNSPECIFIED",
+                Self::AllOf => "ALL_OF",
+                Self::AnyOf => "ANY_OF",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1137,11 +1137,9 @@ pub mod phrase_match_rule_group {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                PhraseMatchRuleGroupType::Unspecified => {
-                    "PHRASE_MATCH_RULE_GROUP_TYPE_UNSPECIFIED"
-                }
-                PhraseMatchRuleGroupType::AllOf => "ALL_OF",
-                PhraseMatchRuleGroupType::AnyOf => "ANY_OF",
+                Self::Unspecified => "PHRASE_MATCH_RULE_GROUP_TYPE_UNSPECIFIED",
+                Self::AllOf => "ALL_OF",
+                Self::AnyOf => "ANY_OF",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1391,10 +1389,10 @@ pub mod answer_feedback {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                CorrectnessLevel::Unspecified => "CORRECTNESS_LEVEL_UNSPECIFIED",
-                CorrectnessLevel::NotCorrect => "NOT_CORRECT",
-                CorrectnessLevel::PartiallyCorrect => "PARTIALLY_CORRECT",
-                CorrectnessLevel::FullyCorrect => "FULLY_CORRECT",
+                Self::Unspecified => "CORRECTNESS_LEVEL_UNSPECIFIED",
+                Self::NotCorrect => "NOT_CORRECT",
+                Self::PartiallyCorrect => "PARTIALLY_CORRECT",
+                Self::FullyCorrect => "FULLY_CORRECT",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1620,11 +1618,11 @@ pub mod conversation_participant {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Role::Unspecified => "ROLE_UNSPECIFIED",
-                Role::HumanAgent => "HUMAN_AGENT",
-                Role::AutomatedAgent => "AUTOMATED_AGENT",
-                Role::EndUser => "END_USER",
-                Role::AnyAgent => "ANY_AGENT",
+                Self::Unspecified => "ROLE_UNSPECIFIED",
+                Self::HumanAgent => "HUMAN_AGENT",
+                Self::AutomatedAgent => "AUTOMATED_AGENT",
+                Self::EndUser => "END_USER",
+                Self::AnyAgent => "ANY_AGENT",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1757,8 +1755,8 @@ pub mod annotator_selector {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    SummarizationModel::Unspecified => "SUMMARIZATION_MODEL_UNSPECIFIED",
-                    SummarizationModel::BaselineModel => "BASELINE_MODEL",
+                    Self::Unspecified => "SUMMARIZATION_MODEL_UNSPECIFIED",
+                    Self::BaselineModel => "BASELINE_MODEL",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2094,9 +2092,9 @@ pub mod ingest_conversations_request {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    BucketObjectType::Unspecified => "BUCKET_OBJECT_TYPE_UNSPECIFIED",
-                    BucketObjectType::Transcript => "TRANSCRIPT",
-                    BucketObjectType::Audio => "AUDIO",
+                    Self::Unspecified => "BUCKET_OBJECT_TYPE_UNSPECIFIED",
+                    Self::Transcript => "TRANSCRIPT",
+                    Self::Audio => "AUDIO",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2423,9 +2421,9 @@ pub mod export_insights_data_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                WriteDisposition::Unspecified => "WRITE_DISPOSITION_UNSPECIFIED",
-                WriteDisposition::WriteTruncate => "WRITE_TRUNCATE",
-                WriteDisposition::WriteAppend => "WRITE_APPEND",
+                Self::Unspecified => "WRITE_DISPOSITION_UNSPECIFIED",
+                Self::WriteTruncate => "WRITE_TRUNCATE",
+                Self::WriteAppend => "WRITE_APPEND",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2813,9 +2811,9 @@ impl ConversationView {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ConversationView::Unspecified => "CONVERSATION_VIEW_UNSPECIFIED",
-            ConversationView::Full => "FULL",
-            ConversationView::Basic => "BASIC",
+            Self::Unspecified => "CONVERSATION_VIEW_UNSPECIFIED",
+            Self::Full => "FULL",
+            Self::Basic => "BASIC",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -4055,5 +4053,2269 @@ pub mod contact_center_insights_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod contact_center_insights_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with ContactCenterInsightsServer.
+    #[async_trait]
+    pub trait ContactCenterInsights: std::marker::Send + std::marker::Sync + 'static {
+        /// Creates a conversation.
+        async fn create_conversation(
+            &self,
+            request: tonic::Request<super::CreateConversationRequest>,
+        ) -> std::result::Result<tonic::Response<super::Conversation>, tonic::Status>;
+        /// Create a longrunning conversation upload operation. This method differs
+        /// from CreateConversation by allowing audio transcription and optional DLP
+        /// redaction.
+        async fn upload_conversation(
+            &self,
+            request: tonic::Request<super::UploadConversationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates a conversation.
+        async fn update_conversation(
+            &self,
+            request: tonic::Request<super::UpdateConversationRequest>,
+        ) -> std::result::Result<tonic::Response<super::Conversation>, tonic::Status>;
+        /// Gets a conversation.
+        async fn get_conversation(
+            &self,
+            request: tonic::Request<super::GetConversationRequest>,
+        ) -> std::result::Result<tonic::Response<super::Conversation>, tonic::Status>;
+        /// Lists conversations.
+        async fn list_conversations(
+            &self,
+            request: tonic::Request<super::ListConversationsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListConversationsResponse>,
+            tonic::Status,
+        >;
+        /// Deletes a conversation.
+        async fn delete_conversation(
+            &self,
+            request: tonic::Request<super::DeleteConversationRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Creates an analysis. The long running operation is done when the analysis
+        /// has completed.
+        async fn create_analysis(
+            &self,
+            request: tonic::Request<super::CreateAnalysisRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Gets an analysis.
+        async fn get_analysis(
+            &self,
+            request: tonic::Request<super::GetAnalysisRequest>,
+        ) -> std::result::Result<tonic::Response<super::Analysis>, tonic::Status>;
+        /// Lists analyses.
+        async fn list_analyses(
+            &self,
+            request: tonic::Request<super::ListAnalysesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAnalysesResponse>,
+            tonic::Status,
+        >;
+        /// Deletes an analysis.
+        async fn delete_analysis(
+            &self,
+            request: tonic::Request<super::DeleteAnalysisRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Analyzes multiple conversations in a single request.
+        async fn bulk_analyze_conversations(
+            &self,
+            request: tonic::Request<super::BulkAnalyzeConversationsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes multiple conversations in a single request.
+        async fn bulk_delete_conversations(
+            &self,
+            request: tonic::Request<super::BulkDeleteConversationsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Imports conversations and processes them according to the user's
+        /// configuration.
+        async fn ingest_conversations(
+            &self,
+            request: tonic::Request<super::IngestConversationsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Export insights data to a destination defined in the request body.
+        async fn export_insights_data(
+            &self,
+            request: tonic::Request<super::ExportInsightsDataRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Creates an issue model.
+        async fn create_issue_model(
+            &self,
+            request: tonic::Request<super::CreateIssueModelRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates an issue model.
+        async fn update_issue_model(
+            &self,
+            request: tonic::Request<super::UpdateIssueModelRequest>,
+        ) -> std::result::Result<tonic::Response<super::IssueModel>, tonic::Status>;
+        /// Gets an issue model.
+        async fn get_issue_model(
+            &self,
+            request: tonic::Request<super::GetIssueModelRequest>,
+        ) -> std::result::Result<tonic::Response<super::IssueModel>, tonic::Status>;
+        /// Lists issue models.
+        async fn list_issue_models(
+            &self,
+            request: tonic::Request<super::ListIssueModelsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListIssueModelsResponse>,
+            tonic::Status,
+        >;
+        /// Deletes an issue model.
+        async fn delete_issue_model(
+            &self,
+            request: tonic::Request<super::DeleteIssueModelRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deploys an issue model. Returns an error if a model is already deployed.
+        /// An issue model can only be used in analysis after it has been deployed.
+        async fn deploy_issue_model(
+            &self,
+            request: tonic::Request<super::DeployIssueModelRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Undeploys an issue model.
+        /// An issue model can not be used in analysis after it has been undeployed.
+        async fn undeploy_issue_model(
+            &self,
+            request: tonic::Request<super::UndeployIssueModelRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Gets an issue.
+        async fn get_issue(
+            &self,
+            request: tonic::Request<super::GetIssueRequest>,
+        ) -> std::result::Result<tonic::Response<super::Issue>, tonic::Status>;
+        /// Lists issues.
+        async fn list_issues(
+            &self,
+            request: tonic::Request<super::ListIssuesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListIssuesResponse>,
+            tonic::Status,
+        >;
+        /// Updates an issue.
+        async fn update_issue(
+            &self,
+            request: tonic::Request<super::UpdateIssueRequest>,
+        ) -> std::result::Result<tonic::Response<super::Issue>, tonic::Status>;
+        /// Deletes an issue.
+        async fn delete_issue(
+            &self,
+            request: tonic::Request<super::DeleteIssueRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Gets an issue model's statistics.
+        async fn calculate_issue_model_stats(
+            &self,
+            request: tonic::Request<super::CalculateIssueModelStatsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::CalculateIssueModelStatsResponse>,
+            tonic::Status,
+        >;
+        /// Creates a phrase matcher.
+        async fn create_phrase_matcher(
+            &self,
+            request: tonic::Request<super::CreatePhraseMatcherRequest>,
+        ) -> std::result::Result<tonic::Response<super::PhraseMatcher>, tonic::Status>;
+        /// Gets a phrase matcher.
+        async fn get_phrase_matcher(
+            &self,
+            request: tonic::Request<super::GetPhraseMatcherRequest>,
+        ) -> std::result::Result<tonic::Response<super::PhraseMatcher>, tonic::Status>;
+        /// Lists phrase matchers.
+        async fn list_phrase_matchers(
+            &self,
+            request: tonic::Request<super::ListPhraseMatchersRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListPhraseMatchersResponse>,
+            tonic::Status,
+        >;
+        /// Deletes a phrase matcher.
+        async fn delete_phrase_matcher(
+            &self,
+            request: tonic::Request<super::DeletePhraseMatcherRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Updates a phrase matcher.
+        async fn update_phrase_matcher(
+            &self,
+            request: tonic::Request<super::UpdatePhraseMatcherRequest>,
+        ) -> std::result::Result<tonic::Response<super::PhraseMatcher>, tonic::Status>;
+        /// Gets conversation statistics.
+        async fn calculate_stats(
+            &self,
+            request: tonic::Request<super::CalculateStatsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::CalculateStatsResponse>,
+            tonic::Status,
+        >;
+        /// Gets project-level settings.
+        async fn get_settings(
+            &self,
+            request: tonic::Request<super::GetSettingsRequest>,
+        ) -> std::result::Result<tonic::Response<super::Settings>, tonic::Status>;
+        /// Updates project-level settings.
+        async fn update_settings(
+            &self,
+            request: tonic::Request<super::UpdateSettingsRequest>,
+        ) -> std::result::Result<tonic::Response<super::Settings>, tonic::Status>;
+        /// Creates a view.
+        async fn create_view(
+            &self,
+            request: tonic::Request<super::CreateViewRequest>,
+        ) -> std::result::Result<tonic::Response<super::View>, tonic::Status>;
+        /// Gets a view.
+        async fn get_view(
+            &self,
+            request: tonic::Request<super::GetViewRequest>,
+        ) -> std::result::Result<tonic::Response<super::View>, tonic::Status>;
+        /// Lists views.
+        async fn list_views(
+            &self,
+            request: tonic::Request<super::ListViewsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListViewsResponse>,
+            tonic::Status,
+        >;
+        /// Updates a view.
+        async fn update_view(
+            &self,
+            request: tonic::Request<super::UpdateViewRequest>,
+        ) -> std::result::Result<tonic::Response<super::View>, tonic::Status>;
+        /// Deletes a view.
+        async fn delete_view(
+            &self,
+            request: tonic::Request<super::DeleteViewRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+    }
+    /// An API that lets users analyze and explore their business conversation data.
+    #[derive(Debug)]
+    pub struct ContactCenterInsightsServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> ContactCenterInsightsServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for ContactCenterInsightsServer<T>
+    where
+        T: ContactCenterInsights,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/CreateConversation" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateConversationSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::CreateConversationRequest>
+                    for CreateConversationSvc<T> {
+                        type Response = super::Conversation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateConversationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::create_conversation(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateConversationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/UploadConversation" => {
+                    #[allow(non_camel_case_types)]
+                    struct UploadConversationSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::UploadConversationRequest>
+                    for UploadConversationSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UploadConversationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::upload_conversation(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UploadConversationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/UpdateConversation" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateConversationSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::UpdateConversationRequest>
+                    for UpdateConversationSvc<T> {
+                        type Response = super::Conversation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateConversationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::update_conversation(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateConversationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/GetConversation" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetConversationSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::GetConversationRequest>
+                    for GetConversationSvc<T> {
+                        type Response = super::Conversation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetConversationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::get_conversation(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetConversationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/ListConversations" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListConversationsSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::ListConversationsRequest>
+                    for ListConversationsSvc<T> {
+                        type Response = super::ListConversationsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListConversationsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::list_conversations(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListConversationsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/DeleteConversation" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteConversationSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::DeleteConversationRequest>
+                    for DeleteConversationSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteConversationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::delete_conversation(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteConversationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/CreateAnalysis" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateAnalysisSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::CreateAnalysisRequest>
+                    for CreateAnalysisSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateAnalysisRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::create_analysis(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateAnalysisSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/GetAnalysis" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAnalysisSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::GetAnalysisRequest>
+                    for GetAnalysisSvc<T> {
+                        type Response = super::Analysis;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAnalysisRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::get_analysis(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAnalysisSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/ListAnalyses" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAnalysesSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::ListAnalysesRequest>
+                    for ListAnalysesSvc<T> {
+                        type Response = super::ListAnalysesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListAnalysesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::list_analyses(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAnalysesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/DeleteAnalysis" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteAnalysisSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::DeleteAnalysisRequest>
+                    for DeleteAnalysisSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteAnalysisRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::delete_analysis(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteAnalysisSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/BulkAnalyzeConversations" => {
+                    #[allow(non_camel_case_types)]
+                    struct BulkAnalyzeConversationsSvc<T: ContactCenterInsights>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::BulkAnalyzeConversationsRequest>
+                    for BulkAnalyzeConversationsSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::BulkAnalyzeConversationsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::bulk_analyze_conversations(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BulkAnalyzeConversationsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/BulkDeleteConversations" => {
+                    #[allow(non_camel_case_types)]
+                    struct BulkDeleteConversationsSvc<T: ContactCenterInsights>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::BulkDeleteConversationsRequest>
+                    for BulkDeleteConversationsSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::BulkDeleteConversationsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::bulk_delete_conversations(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BulkDeleteConversationsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/IngestConversations" => {
+                    #[allow(non_camel_case_types)]
+                    struct IngestConversationsSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::IngestConversationsRequest>
+                    for IngestConversationsSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::IngestConversationsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::ingest_conversations(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = IngestConversationsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/ExportInsightsData" => {
+                    #[allow(non_camel_case_types)]
+                    struct ExportInsightsDataSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::ExportInsightsDataRequest>
+                    for ExportInsightsDataSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ExportInsightsDataRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::export_insights_data(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ExportInsightsDataSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/CreateIssueModel" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateIssueModelSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::CreateIssueModelRequest>
+                    for CreateIssueModelSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateIssueModelRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::create_issue_model(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateIssueModelSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/UpdateIssueModel" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateIssueModelSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::UpdateIssueModelRequest>
+                    for UpdateIssueModelSvc<T> {
+                        type Response = super::IssueModel;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateIssueModelRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::update_issue_model(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateIssueModelSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/GetIssueModel" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetIssueModelSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::GetIssueModelRequest>
+                    for GetIssueModelSvc<T> {
+                        type Response = super::IssueModel;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetIssueModelRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::get_issue_model(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetIssueModelSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/ListIssueModels" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListIssueModelsSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::ListIssueModelsRequest>
+                    for ListIssueModelsSvc<T> {
+                        type Response = super::ListIssueModelsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListIssueModelsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::list_issue_models(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListIssueModelsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/DeleteIssueModel" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteIssueModelSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::DeleteIssueModelRequest>
+                    for DeleteIssueModelSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteIssueModelRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::delete_issue_model(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteIssueModelSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/DeployIssueModel" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeployIssueModelSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::DeployIssueModelRequest>
+                    for DeployIssueModelSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeployIssueModelRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::deploy_issue_model(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeployIssueModelSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/UndeployIssueModel" => {
+                    #[allow(non_camel_case_types)]
+                    struct UndeployIssueModelSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::UndeployIssueModelRequest>
+                    for UndeployIssueModelSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UndeployIssueModelRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::undeploy_issue_model(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UndeployIssueModelSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/GetIssue" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetIssueSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::GetIssueRequest>
+                    for GetIssueSvc<T> {
+                        type Response = super::Issue;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetIssueRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::get_issue(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetIssueSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/ListIssues" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListIssuesSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::ListIssuesRequest>
+                    for ListIssuesSvc<T> {
+                        type Response = super::ListIssuesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListIssuesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::list_issues(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListIssuesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/UpdateIssue" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateIssueSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::UpdateIssueRequest>
+                    for UpdateIssueSvc<T> {
+                        type Response = super::Issue;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateIssueRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::update_issue(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateIssueSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/DeleteIssue" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteIssueSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::DeleteIssueRequest>
+                    for DeleteIssueSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteIssueRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::delete_issue(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteIssueSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/CalculateIssueModelStats" => {
+                    #[allow(non_camel_case_types)]
+                    struct CalculateIssueModelStatsSvc<T: ContactCenterInsights>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::CalculateIssueModelStatsRequest>
+                    for CalculateIssueModelStatsSvc<T> {
+                        type Response = super::CalculateIssueModelStatsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CalculateIssueModelStatsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::calculate_issue_model_stats(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CalculateIssueModelStatsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/CreatePhraseMatcher" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreatePhraseMatcherSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::CreatePhraseMatcherRequest>
+                    for CreatePhraseMatcherSvc<T> {
+                        type Response = super::PhraseMatcher;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreatePhraseMatcherRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::create_phrase_matcher(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreatePhraseMatcherSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/GetPhraseMatcher" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetPhraseMatcherSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::GetPhraseMatcherRequest>
+                    for GetPhraseMatcherSvc<T> {
+                        type Response = super::PhraseMatcher;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetPhraseMatcherRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::get_phrase_matcher(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetPhraseMatcherSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/ListPhraseMatchers" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListPhraseMatchersSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::ListPhraseMatchersRequest>
+                    for ListPhraseMatchersSvc<T> {
+                        type Response = super::ListPhraseMatchersResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListPhraseMatchersRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::list_phrase_matchers(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListPhraseMatchersSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/DeletePhraseMatcher" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeletePhraseMatcherSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::DeletePhraseMatcherRequest>
+                    for DeletePhraseMatcherSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeletePhraseMatcherRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::delete_phrase_matcher(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeletePhraseMatcherSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/UpdatePhraseMatcher" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdatePhraseMatcherSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::UpdatePhraseMatcherRequest>
+                    for UpdatePhraseMatcherSvc<T> {
+                        type Response = super::PhraseMatcher;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdatePhraseMatcherRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::update_phrase_matcher(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdatePhraseMatcherSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/CalculateStats" => {
+                    #[allow(non_camel_case_types)]
+                    struct CalculateStatsSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::CalculateStatsRequest>
+                    for CalculateStatsSvc<T> {
+                        type Response = super::CalculateStatsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CalculateStatsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::calculate_stats(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CalculateStatsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/GetSettings" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetSettingsSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::GetSettingsRequest>
+                    for GetSettingsSvc<T> {
+                        type Response = super::Settings;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetSettingsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::get_settings(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetSettingsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/UpdateSettings" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateSettingsSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::UpdateSettingsRequest>
+                    for UpdateSettingsSvc<T> {
+                        type Response = super::Settings;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateSettingsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::update_settings(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateSettingsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/CreateView" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateViewSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::CreateViewRequest>
+                    for CreateViewSvc<T> {
+                        type Response = super::View;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateViewRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::create_view(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateViewSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/GetView" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetViewSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::GetViewRequest>
+                    for GetViewSvc<T> {
+                        type Response = super::View;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetViewRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::get_view(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetViewSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/ListViews" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListViewsSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::ListViewsRequest>
+                    for ListViewsSvc<T> {
+                        type Response = super::ListViewsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListViewsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::list_views(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListViewsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/UpdateView" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateViewSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::UpdateViewRequest>
+                    for UpdateViewSvc<T> {
+                        type Response = super::View;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateViewRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::update_view(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateViewSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.contactcenterinsights.v1.ContactCenterInsights/DeleteView" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteViewSvc<T: ContactCenterInsights>(pub Arc<T>);
+                    impl<
+                        T: ContactCenterInsights,
+                    > tonic::server::UnaryService<super::DeleteViewRequest>
+                    for DeleteViewSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteViewRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContactCenterInsights>::delete_view(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteViewSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for ContactCenterInsightsServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.contactcenterinsights.v1.ContactCenterInsights";
+    impl<T> tonic::server::NamedService for ContactCenterInsightsServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

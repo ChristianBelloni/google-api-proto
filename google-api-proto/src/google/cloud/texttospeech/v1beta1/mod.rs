@@ -86,8 +86,8 @@ pub mod synthesize_speech_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                TimepointType::Unspecified => "TIMEPOINT_TYPE_UNSPECIFIED",
-                TimepointType::SsmlMark => "SSML_MARK",
+                Self::Unspecified => "TIMEPOINT_TYPE_UNSPECIFIED",
+                Self::SsmlMark => "SSML_MARK",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -251,9 +251,9 @@ pub mod custom_voice_params {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ReportedUsage::Unspecified => "REPORTED_USAGE_UNSPECIFIED",
-                ReportedUsage::Realtime => "REALTIME",
-                ReportedUsage::Offline => "OFFLINE",
+                Self::Unspecified => "REPORTED_USAGE_UNSPECIFIED",
+                Self::Realtime => "REALTIME",
+                Self::Offline => "OFFLINE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -386,10 +386,10 @@ impl SsmlVoiceGender {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            SsmlVoiceGender::Unspecified => "SSML_VOICE_GENDER_UNSPECIFIED",
-            SsmlVoiceGender::Male => "MALE",
-            SsmlVoiceGender::Female => "FEMALE",
-            SsmlVoiceGender::Neutral => "NEUTRAL",
+            Self::Unspecified => "SSML_VOICE_GENDER_UNSPECIFIED",
+            Self::Male => "MALE",
+            Self::Female => "FEMALE",
+            Self::Neutral => "NEUTRAL",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -437,13 +437,13 @@ impl AudioEncoding {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            AudioEncoding::Unspecified => "AUDIO_ENCODING_UNSPECIFIED",
-            AudioEncoding::Linear16 => "LINEAR16",
-            AudioEncoding::Mp3 => "MP3",
-            AudioEncoding::Mp364Kbps => "MP3_64_KBPS",
-            AudioEncoding::OggOpus => "OGG_OPUS",
-            AudioEncoding::Mulaw => "MULAW",
-            AudioEncoding::Alaw => "ALAW",
+            Self::Unspecified => "AUDIO_ENCODING_UNSPECIFIED",
+            Self::Linear16 => "LINEAR16",
+            Self::Mp3 => "MP3",
+            Self::Mp364Kbps => "MP3_64_KBPS",
+            Self::OggOpus => "OGG_OPUS",
+            Self::Mulaw => "MULAW",
+            Self::Alaw => "ALAW",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -634,6 +634,302 @@ pub mod text_to_speech_client {
         }
     }
 }
+/// Generated server implementations.
+pub mod text_to_speech_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with TextToSpeechServer.
+    #[async_trait]
+    pub trait TextToSpeech: std::marker::Send + std::marker::Sync + 'static {
+        /// Returns a list of Voice supported for synthesis.
+        async fn list_voices(
+            &self,
+            request: tonic::Request<super::ListVoicesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListVoicesResponse>,
+            tonic::Status,
+        >;
+        /// Synthesizes speech synchronously: receive results after all text input
+        /// has been processed.
+        async fn synthesize_speech(
+            &self,
+            request: tonic::Request<super::SynthesizeSpeechRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SynthesizeSpeechResponse>,
+            tonic::Status,
+        >;
+        /// Server streaming response type for the StreamingSynthesize method.
+        type StreamingSynthesizeStream: tonic::codegen::tokio_stream::Stream<
+                Item = std::result::Result<
+                    super::StreamingSynthesizeResponse,
+                    tonic::Status,
+                >,
+            >
+            + std::marker::Send
+            + 'static;
+        /// Performs bidirectional streaming speech synthesis: receive audio while
+        /// sending text.
+        async fn streaming_synthesize(
+            &self,
+            request: tonic::Request<tonic::Streaming<super::StreamingSynthesizeRequest>>,
+        ) -> std::result::Result<
+            tonic::Response<Self::StreamingSynthesizeStream>,
+            tonic::Status,
+        >;
+    }
+    /// Service that implements Google Cloud Text-to-Speech API.
+    #[derive(Debug)]
+    pub struct TextToSpeechServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> TextToSpeechServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for TextToSpeechServer<T>
+    where
+        T: TextToSpeech,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.texttospeech.v1beta1.TextToSpeech/ListVoices" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListVoicesSvc<T: TextToSpeech>(pub Arc<T>);
+                    impl<
+                        T: TextToSpeech,
+                    > tonic::server::UnaryService<super::ListVoicesRequest>
+                    for ListVoicesSvc<T> {
+                        type Response = super::ListVoicesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListVoicesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TextToSpeech>::list_voices(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListVoicesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.texttospeech.v1beta1.TextToSpeech/SynthesizeSpeech" => {
+                    #[allow(non_camel_case_types)]
+                    struct SynthesizeSpeechSvc<T: TextToSpeech>(pub Arc<T>);
+                    impl<
+                        T: TextToSpeech,
+                    > tonic::server::UnaryService<super::SynthesizeSpeechRequest>
+                    for SynthesizeSpeechSvc<T> {
+                        type Response = super::SynthesizeSpeechResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SynthesizeSpeechRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TextToSpeech>::synthesize_speech(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SynthesizeSpeechSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.texttospeech.v1beta1.TextToSpeech/StreamingSynthesize" => {
+                    #[allow(non_camel_case_types)]
+                    struct StreamingSynthesizeSvc<T: TextToSpeech>(pub Arc<T>);
+                    impl<
+                        T: TextToSpeech,
+                    > tonic::server::StreamingService<super::StreamingSynthesizeRequest>
+                    for StreamingSynthesizeSvc<T> {
+                        type Response = super::StreamingSynthesizeResponse;
+                        type ResponseStream = T::StreamingSynthesizeStream;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::ResponseStream>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                tonic::Streaming<super::StreamingSynthesizeRequest>,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TextToSpeech>::streaming_synthesize(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = StreamingSynthesizeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.streaming(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for TextToSpeechServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.texttospeech.v1beta1.TextToSpeech";
+    impl<T> tonic::server::NamedService for TextToSpeechServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}
 /// The top-level message sent by the client for the
 /// `SynthesizeLongAudio` method.
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -782,5 +1078,186 @@ pub mod text_to_speech_long_audio_synthesize_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod text_to_speech_long_audio_synthesize_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with TextToSpeechLongAudioSynthesizeServer.
+    #[async_trait]
+    pub trait TextToSpeechLongAudioSynthesize: std::marker::Send + std::marker::Sync + 'static {
+        /// Synthesizes long form text asynchronously.
+        async fn synthesize_long_audio(
+            &self,
+            request: tonic::Request<super::SynthesizeLongAudioRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// Service that implements Google Cloud Text-to-Speech API.
+    #[derive(Debug)]
+    pub struct TextToSpeechLongAudioSynthesizeServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> TextToSpeechLongAudioSynthesizeServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for TextToSpeechLongAudioSynthesizeServer<T>
+    where
+        T: TextToSpeechLongAudioSynthesize,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.texttospeech.v1beta1.TextToSpeechLongAudioSynthesize/SynthesizeLongAudio" => {
+                    #[allow(non_camel_case_types)]
+                    struct SynthesizeLongAudioSvc<T: TextToSpeechLongAudioSynthesize>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: TextToSpeechLongAudioSynthesize,
+                    > tonic::server::UnaryService<super::SynthesizeLongAudioRequest>
+                    for SynthesizeLongAudioSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SynthesizeLongAudioRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TextToSpeechLongAudioSynthesize>::synthesize_long_audio(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SynthesizeLongAudioSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for TextToSpeechLongAudioSynthesizeServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.texttospeech.v1beta1.TextToSpeechLongAudioSynthesize";
+    impl<T> tonic::server::NamedService for TextToSpeechLongAudioSynthesizeServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

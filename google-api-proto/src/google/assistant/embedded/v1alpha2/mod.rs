@@ -99,8 +99,8 @@ pub mod assist_response {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                EventType::Unspecified => "EVENT_TYPE_UNSPECIFIED",
-                EventType::EndOfUtterance => "END_OF_UTTERANCE",
+                Self::Unspecified => "EVENT_TYPE_UNSPECIFIED",
+                Self::EndOfUtterance => "END_OF_UTTERANCE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -217,9 +217,9 @@ pub mod audio_in_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Encoding::Unspecified => "ENCODING_UNSPECIFIED",
-                Encoding::Linear16 => "LINEAR16",
-                Encoding::Flac => "FLAC",
+                Self::Unspecified => "ENCODING_UNSPECIFIED",
+                Self::Linear16 => "LINEAR16",
+                Self::Flac => "FLAC",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -286,10 +286,10 @@ pub mod audio_out_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Encoding::Unspecified => "ENCODING_UNSPECIFIED",
-                Encoding::Linear16 => "LINEAR16",
-                Encoding::Mp3 => "MP3",
-                Encoding::OpusInOgg => "OPUS_IN_OGG",
+                Self::Unspecified => "ENCODING_UNSPECIFIED",
+                Self::Linear16 => "LINEAR16",
+                Self::Mp3 => "MP3",
+                Self::OpusInOgg => "OPUS_IN_OGG",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -346,9 +346,9 @@ pub mod screen_out_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ScreenMode::Unspecified => "SCREEN_MODE_UNSPECIFIED",
-                ScreenMode::Off => "OFF",
-                ScreenMode::Playing => "PLAYING",
+                Self::Unspecified => "SCREEN_MODE_UNSPECIFIED",
+                Self::Off => "OFF",
+                Self::Playing => "PLAYING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -474,8 +474,8 @@ pub mod screen_out {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Format::Unspecified => "FORMAT_UNSPECIFIED",
-                Format::Html => "HTML",
+                Self::Unspecified => "FORMAT_UNSPECIFIED",
+                Self::Html => "HTML",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -582,9 +582,9 @@ pub mod dialog_state_out {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                MicrophoneMode::Unspecified => "MICROPHONE_MODE_UNSPECIFIED",
-                MicrophoneMode::CloseMicrophone => "CLOSE_MICROPHONE",
-                MicrophoneMode::DialogFollowOn => "DIALOG_FOLLOW_ON",
+                Self::Unspecified => "MICROPHONE_MODE_UNSPECIFIED",
+                Self::CloseMicrophone => "CLOSE_MICROPHONE",
+                Self::DialogFollowOn => "DIALOG_FOLLOW_ON",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -777,5 +777,227 @@ pub mod embedded_assistant_client {
                 );
             self.inner.streaming(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod embedded_assistant_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with EmbeddedAssistantServer.
+    #[async_trait]
+    pub trait EmbeddedAssistant: std::marker::Send + std::marker::Sync + 'static {
+        /// Server streaming response type for the Assist method.
+        type AssistStream: tonic::codegen::tokio_stream::Stream<
+                Item = std::result::Result<super::AssistResponse, tonic::Status>,
+            >
+            + std::marker::Send
+            + 'static;
+        /// Initiates or continues a conversation with the embedded Assistant Service.
+        /// Each call performs one round-trip, sending an audio request to the service
+        /// and receiving the audio response. Uses bidirectional streaming to receive
+        /// results, such as the `END_OF_UTTERANCE` event, while sending audio.
+        ///
+        /// A conversation is one or more gRPC connections, each consisting of several
+        /// streamed requests and responses.
+        /// For example, the user says *Add to my shopping list* and the Assistant
+        /// responds *What do you want to add?*. The sequence of streamed requests and
+        /// responses in the first gRPC message could be:
+        ///
+        /// *   AssistRequest.config
+        /// *   AssistRequest.audio_in
+        /// *   AssistRequest.audio_in
+        /// *   AssistRequest.audio_in
+        /// *   AssistRequest.audio_in
+        /// *   AssistResponse.event_type.END_OF_UTTERANCE
+        /// *   AssistResponse.speech_results.transcript "add to my shopping list"
+        /// *   AssistResponse.dialog_state_out.microphone_mode.DIALOG_FOLLOW_ON
+        /// *   AssistResponse.audio_out
+        /// *   AssistResponse.audio_out
+        /// *   AssistResponse.audio_out
+        ///
+        ///
+        /// The user then says *bagels* and the Assistant responds
+        /// *OK, I've added bagels to your shopping list*. This is sent as another gRPC
+        /// connection call to the `Assist` method, again with streamed requests and
+        /// responses, such as:
+        ///
+        /// *   AssistRequest.config
+        /// *   AssistRequest.audio_in
+        /// *   AssistRequest.audio_in
+        /// *   AssistRequest.audio_in
+        /// *   AssistResponse.event_type.END_OF_UTTERANCE
+        /// *   AssistResponse.dialog_state_out.microphone_mode.CLOSE_MICROPHONE
+        /// *   AssistResponse.audio_out
+        /// *   AssistResponse.audio_out
+        /// *   AssistResponse.audio_out
+        /// *   AssistResponse.audio_out
+        ///
+        /// Although the precise order of responses is not guaranteed, sequential
+        /// `AssistResponse.audio_out` messages will always contain sequential portions
+        /// of audio.
+        async fn assist(
+            &self,
+            request: tonic::Request<tonic::Streaming<super::AssistRequest>>,
+        ) -> std::result::Result<tonic::Response<Self::AssistStream>, tonic::Status>;
+    }
+    /// Service that implements the Google Assistant API.
+    #[derive(Debug)]
+    pub struct EmbeddedAssistantServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> EmbeddedAssistantServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for EmbeddedAssistantServer<T>
+    where
+        T: EmbeddedAssistant,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.assistant.embedded.v1alpha2.EmbeddedAssistant/Assist" => {
+                    #[allow(non_camel_case_types)]
+                    struct AssistSvc<T: EmbeddedAssistant>(pub Arc<T>);
+                    impl<
+                        T: EmbeddedAssistant,
+                    > tonic::server::StreamingService<super::AssistRequest>
+                    for AssistSvc<T> {
+                        type Response = super::AssistResponse;
+                        type ResponseStream = T::AssistStream;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::ResponseStream>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                tonic::Streaming<super::AssistRequest>,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EmbeddedAssistant>::assist(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = AssistSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.streaming(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for EmbeddedAssistantServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.assistant.embedded.v1alpha2.EmbeddedAssistant";
+    impl<T> tonic::server::NamedService for EmbeddedAssistantServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

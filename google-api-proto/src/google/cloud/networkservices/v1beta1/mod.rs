@@ -135,11 +135,9 @@ pub mod endpoint_matcher {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    MetadataLabelMatchCriteria::Unspecified => {
-                        "METADATA_LABEL_MATCH_CRITERIA_UNSPECIFIED"
-                    }
-                    MetadataLabelMatchCriteria::MatchAny => "MATCH_ANY",
-                    MetadataLabelMatchCriteria::MatchAll => "MATCH_ALL",
+                    Self::Unspecified => "METADATA_LABEL_MATCH_CRITERIA_UNSPECIFIED",
+                    Self::MatchAny => "MATCH_ANY",
+                    Self::MatchAll => "MATCH_ALL",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -161,417 +159,6 @@ pub mod endpoint_matcher {
         /// The matcher is based on node metadata presented by xDS clients.
         #[prost(message, tag = "1")]
         MetadataLabelMatcher(MetadataLabelMatcher),
-    }
-}
-/// EndpointPolicy is a resource that helps apply desired configuration
-/// on the endpoints that match specific criteria.
-/// For example, this resource can be used to apply "authentication config"
-/// an all endpoints that serve on port 8080.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EndpointPolicy {
-    /// Required. Name of the EndpointPolicy resource. It matches pattern
-    /// `projects/{project}/locations/global/endpointPolicies/{endpoint_policy}`.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// Output only. The timestamp when the resource was created.
-    #[prost(message, optional, tag = "2")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. The timestamp when the resource was updated.
-    #[prost(message, optional, tag = "3")]
-    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Optional. Set of label tags associated with the EndpointPolicy resource.
-    #[prost(btree_map = "string, string", tag = "4")]
-    pub labels: ::prost::alloc::collections::BTreeMap<
-        ::prost::alloc::string::String,
-        ::prost::alloc::string::String,
-    >,
-    /// Required. The type of endpoint policy. This is primarily used to validate
-    /// the configuration.
-    #[prost(enumeration = "endpoint_policy::EndpointPolicyType", tag = "5")]
-    pub r#type: i32,
-    /// Optional. This field specifies the URL of AuthorizationPolicy resource that
-    /// applies authorization policies to the inbound traffic at the
-    /// matched endpoints. Refer to Authorization. If this field is not
-    /// specified, authorization is disabled(no authz checks) for this
-    /// endpoint.
-    #[prost(string, tag = "7")]
-    pub authorization_policy: ::prost::alloc::string::String,
-    /// Required. A matcher that selects endpoints to which the policies should be
-    /// applied.
-    #[prost(message, optional, tag = "9")]
-    pub endpoint_matcher: ::core::option::Option<EndpointMatcher>,
-    /// Optional. Port selector for the (matched) endpoints. If no port selector is
-    /// provided, the matched config is applied to all ports.
-    #[prost(message, optional, tag = "10")]
-    pub traffic_port_selector: ::core::option::Option<TrafficPortSelector>,
-    /// Optional. A free-text description of the resource. Max length 1024
-    /// characters.
-    #[prost(string, tag = "11")]
-    pub description: ::prost::alloc::string::String,
-    /// Optional. A URL referring to ServerTlsPolicy resource. ServerTlsPolicy is
-    /// used to determine the authentication policy to be applied to terminate the
-    /// inbound traffic at the identified backends. If this field is not set,
-    /// authentication is disabled(open) for this endpoint.
-    #[prost(string, tag = "12")]
-    pub server_tls_policy: ::prost::alloc::string::String,
-    /// Optional. A URL referring to a ClientTlsPolicy resource. ClientTlsPolicy
-    /// can be set to specify the authentication for traffic from the proxy to the
-    /// actual endpoints. More specifically, it is applied to the outgoing traffic
-    /// from the proxy to the endpoint. This is typically used for sidecar model
-    /// where the proxy identifies itself as endpoint to the control plane, with
-    /// the connection between sidecar and endpoint requiring authentication. If
-    /// this field is not set, authentication is disabled(open). Applicable only
-    /// when EndpointPolicyType is SIDECAR_PROXY.
-    #[prost(string, tag = "13")]
-    pub client_tls_policy: ::prost::alloc::string::String,
-}
-/// Nested message and enum types in `EndpointPolicy`.
-pub mod endpoint_policy {
-    /// The type of endpoint policy.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum EndpointPolicyType {
-        /// Default value. Must not be used.
-        Unspecified = 0,
-        /// Represents a proxy deployed as a sidecar.
-        SidecarProxy = 1,
-        /// Represents a proxyless gRPC backend.
-        GrpcServer = 2,
-    }
-    impl EndpointPolicyType {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                EndpointPolicyType::Unspecified => "ENDPOINT_POLICY_TYPE_UNSPECIFIED",
-                EndpointPolicyType::SidecarProxy => "SIDECAR_PROXY",
-                EndpointPolicyType::GrpcServer => "GRPC_SERVER",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "ENDPOINT_POLICY_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
-                "SIDECAR_PROXY" => Some(Self::SidecarProxy),
-                "GRPC_SERVER" => Some(Self::GrpcServer),
-                _ => None,
-            }
-        }
-    }
-}
-/// Request used with the ListEndpointPolicies method.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListEndpointPoliciesRequest {
-    /// Required. The project and location from which the EndpointPolicies should
-    /// be listed, specified in the format `projects/*/locations/global`.
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// Maximum number of EndpointPolicies to return per call.
-    #[prost(int32, tag = "2")]
-    pub page_size: i32,
-    /// The value returned by the last `ListEndpointPoliciesResponse`
-    /// Indicates that this is a continuation of a prior
-    /// `ListEndpointPolicies` call, and that the system should return the
-    /// next page of data.
-    #[prost(string, tag = "3")]
-    pub page_token: ::prost::alloc::string::String,
-}
-/// Response returned by the ListEndpointPolicies method.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListEndpointPoliciesResponse {
-    /// List of EndpointPolicy resources.
-    #[prost(message, repeated, tag = "1")]
-    pub endpoint_policies: ::prost::alloc::vec::Vec<EndpointPolicy>,
-    /// If there might be more results than those appearing in this response, then
-    /// `next_page_token` is included. To get the next set of results, call this
-    /// method again using the value of `next_page_token` as `page_token`.
-    #[prost(string, tag = "2")]
-    pub next_page_token: ::prost::alloc::string::String,
-}
-/// Request used with the GetEndpointPolicy method.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetEndpointPolicyRequest {
-    /// Required. A name of the EndpointPolicy to get. Must be in the format
-    /// `projects/*/locations/global/endpointPolicies/*`.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// Request used with the CreateEndpointPolicy method.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CreateEndpointPolicyRequest {
-    /// Required. The parent resource of the EndpointPolicy. Must be in the
-    /// format `projects/*/locations/global`.
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// Required. Short name of the EndpointPolicy resource to be created.
-    /// E.g. "CustomECS".
-    #[prost(string, tag = "2")]
-    pub endpoint_policy_id: ::prost::alloc::string::String,
-    /// Required. EndpointPolicy resource to be created.
-    #[prost(message, optional, tag = "3")]
-    pub endpoint_policy: ::core::option::Option<EndpointPolicy>,
-}
-/// Request used with the UpdateEndpointPolicy method.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UpdateEndpointPolicyRequest {
-    /// Optional. Field mask is used to specify the fields to be overwritten in the
-    /// EndpointPolicy resource by the update.
-    /// The fields specified in the update_mask are relative to the resource, not
-    /// the full request. A field will be overwritten if it is in the mask. If the
-    /// user does not provide a mask then all fields will be overwritten.
-    #[prost(message, optional, tag = "1")]
-    pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
-    /// Required. Updated EndpointPolicy resource.
-    #[prost(message, optional, tag = "2")]
-    pub endpoint_policy: ::core::option::Option<EndpointPolicy>,
-}
-/// Request used with the DeleteEndpointPolicy method.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DeleteEndpointPolicyRequest {
-    /// Required. A name of the EndpointPolicy to delete. Must be in the format
-    /// `projects/*/locations/global/endpointPolicies/*`.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// Generated client implementations.
-pub mod network_services_client {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
-    use tonic::codegen::*;
-    use tonic::codegen::http::Uri;
-    /// Service describing handlers for resources.
-    #[derive(Debug, Clone)]
-    pub struct NetworkServicesClient<T> {
-        inner: tonic::client::Grpc<T>,
-    }
-    impl<T> NetworkServicesClient<T>
-    where
-        T: tonic::client::GrpcService<tonic::body::BoxBody>,
-        T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
-    {
-        pub fn new(inner: T) -> Self {
-            let inner = tonic::client::Grpc::new(inner);
-            Self { inner }
-        }
-        pub fn with_origin(inner: T, origin: Uri) -> Self {
-            let inner = tonic::client::Grpc::with_origin(inner, origin);
-            Self { inner }
-        }
-        pub fn with_interceptor<F>(
-            inner: T,
-            interceptor: F,
-        ) -> NetworkServicesClient<InterceptedService<T, F>>
-        where
-            F: tonic::service::Interceptor,
-            T::ResponseBody: Default,
-            T: tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-                Response = http::Response<
-                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
-                >,
-            >,
-            <T as tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-            >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
-        {
-            NetworkServicesClient::new(InterceptedService::new(inner, interceptor))
-        }
-        /// Compress requests with the given encoding.
-        ///
-        /// This requires the server to support it otherwise it might respond with an
-        /// error.
-        #[must_use]
-        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.send_compressed(encoding);
-            self
-        }
-        /// Enable decompressing responses.
-        #[must_use]
-        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.accept_compressed(encoding);
-            self
-        }
-        /// Limits the maximum size of a decoded message.
-        ///
-        /// Default: `4MB`
-        #[must_use]
-        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_decoding_message_size(limit);
-            self
-        }
-        /// Limits the maximum size of an encoded message.
-        ///
-        /// Default: `usize::MAX`
-        #[must_use]
-        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_encoding_message_size(limit);
-            self
-        }
-        /// Lists EndpointPolicies in a given project and location.
-        pub async fn list_endpoint_policies(
-            &mut self,
-            request: impl tonic::IntoRequest<super::ListEndpointPoliciesRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::ListEndpointPoliciesResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.networkservices.v1beta1.NetworkServices/ListEndpointPolicies",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.networkservices.v1beta1.NetworkServices",
-                        "ListEndpointPolicies",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Gets details of a single EndpointPolicy.
-        pub async fn get_endpoint_policy(
-            &mut self,
-            request: impl tonic::IntoRequest<super::GetEndpointPolicyRequest>,
-        ) -> std::result::Result<tonic::Response<super::EndpointPolicy>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.networkservices.v1beta1.NetworkServices/GetEndpointPolicy",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.networkservices.v1beta1.NetworkServices",
-                        "GetEndpointPolicy",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Creates a new EndpointPolicy in a given project and location.
-        pub async fn create_endpoint_policy(
-            &mut self,
-            request: impl tonic::IntoRequest<super::CreateEndpointPolicyRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::super::super::super::longrunning::Operation>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.networkservices.v1beta1.NetworkServices/CreateEndpointPolicy",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.networkservices.v1beta1.NetworkServices",
-                        "CreateEndpointPolicy",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Updates the parameters of a single EndpointPolicy.
-        pub async fn update_endpoint_policy(
-            &mut self,
-            request: impl tonic::IntoRequest<super::UpdateEndpointPolicyRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::super::super::super::longrunning::Operation>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.networkservices.v1beta1.NetworkServices/UpdateEndpointPolicy",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.networkservices.v1beta1.NetworkServices",
-                        "UpdateEndpointPolicy",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Deletes a single EndpointPolicy.
-        pub async fn delete_endpoint_policy(
-            &mut self,
-            request: impl tonic::IntoRequest<super::DeleteEndpointPolicyRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::super::super::super::longrunning::Operation>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.networkservices.v1beta1.NetworkServices/DeleteEndpointPolicy",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.networkservices.v1beta1.NetworkServices",
-                        "DeleteEndpointPolicy",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
     }
 }
 /// A single extension chain wrapper that contains the match conditions and
@@ -1059,13 +646,13 @@ impl EventType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            EventType::Unspecified => "EVENT_TYPE_UNSPECIFIED",
-            EventType::RequestHeaders => "REQUEST_HEADERS",
-            EventType::RequestBody => "REQUEST_BODY",
-            EventType::ResponseHeaders => "RESPONSE_HEADERS",
-            EventType::ResponseBody => "RESPONSE_BODY",
-            EventType::RequestTrailers => "REQUEST_TRAILERS",
-            EventType::ResponseTrailers => "RESPONSE_TRAILERS",
+            Self::Unspecified => "EVENT_TYPE_UNSPECIFIED",
+            Self::RequestHeaders => "REQUEST_HEADERS",
+            Self::RequestBody => "REQUEST_BODY",
+            Self::ResponseHeaders => "RESPONSE_HEADERS",
+            Self::ResponseBody => "RESPONSE_BODY",
+            Self::RequestTrailers => "REQUEST_TRAILERS",
+            Self::ResponseTrailers => "RESPONSE_TRAILERS",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1104,9 +691,9 @@ impl LoadBalancingScheme {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            LoadBalancingScheme::Unspecified => "LOAD_BALANCING_SCHEME_UNSPECIFIED",
-            LoadBalancingScheme::InternalManaged => "INTERNAL_MANAGED",
-            LoadBalancingScheme::ExternalManaged => "EXTERNAL_MANAGED",
+            Self::Unspecified => "LOAD_BALANCING_SCHEME_UNSPECIFIED",
+            Self::InternalManaged => "INTERNAL_MANAGED",
+            Self::ExternalManaged => "EXTERNAL_MANAGED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1505,5 +1092,1507 @@ pub mod dep_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod dep_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with DepServiceServer.
+    #[async_trait]
+    pub trait DepService: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists `LbTrafficExtension` resources in a given project and location.
+        async fn list_lb_traffic_extensions(
+            &self,
+            request: tonic::Request<super::ListLbTrafficExtensionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListLbTrafficExtensionsResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of the specified `LbTrafficExtension` resource.
+        async fn get_lb_traffic_extension(
+            &self,
+            request: tonic::Request<super::GetLbTrafficExtensionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::LbTrafficExtension>,
+            tonic::Status,
+        >;
+        /// Creates a new `LbTrafficExtension` resource in a given project and
+        /// location.
+        async fn create_lb_traffic_extension(
+            &self,
+            request: tonic::Request<super::CreateLbTrafficExtensionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the parameters of the specified `LbTrafficExtension` resource.
+        async fn update_lb_traffic_extension(
+            &self,
+            request: tonic::Request<super::UpdateLbTrafficExtensionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes the specified `LbTrafficExtension` resource.
+        async fn delete_lb_traffic_extension(
+            &self,
+            request: tonic::Request<super::DeleteLbTrafficExtensionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists `LbRouteExtension` resources in a given project and location.
+        async fn list_lb_route_extensions(
+            &self,
+            request: tonic::Request<super::ListLbRouteExtensionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListLbRouteExtensionsResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of the specified `LbRouteExtension` resource.
+        async fn get_lb_route_extension(
+            &self,
+            request: tonic::Request<super::GetLbRouteExtensionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::LbRouteExtension>,
+            tonic::Status,
+        >;
+        /// Creates a new `LbRouteExtension` resource in a given project and location.
+        async fn create_lb_route_extension(
+            &self,
+            request: tonic::Request<super::CreateLbRouteExtensionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the parameters of the specified `LbRouteExtension` resource.
+        async fn update_lb_route_extension(
+            &self,
+            request: tonic::Request<super::UpdateLbRouteExtensionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes the specified `LbRouteExtension` resource.
+        async fn delete_lb_route_extension(
+            &self,
+            request: tonic::Request<super::DeleteLbRouteExtensionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// Service describing handlers for resources.
+    #[derive(Debug)]
+    pub struct DepServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> DepServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for DepServiceServer<T>
+    where
+        T: DepService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.networkservices.v1beta1.DepService/ListLbTrafficExtensions" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListLbTrafficExtensionsSvc<T: DepService>(pub Arc<T>);
+                    impl<
+                        T: DepService,
+                    > tonic::server::UnaryService<super::ListLbTrafficExtensionsRequest>
+                    for ListLbTrafficExtensionsSvc<T> {
+                        type Response = super::ListLbTrafficExtensionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListLbTrafficExtensionsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DepService>::list_lb_traffic_extensions(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListLbTrafficExtensionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.networkservices.v1beta1.DepService/GetLbTrafficExtension" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetLbTrafficExtensionSvc<T: DepService>(pub Arc<T>);
+                    impl<
+                        T: DepService,
+                    > tonic::server::UnaryService<super::GetLbTrafficExtensionRequest>
+                    for GetLbTrafficExtensionSvc<T> {
+                        type Response = super::LbTrafficExtension;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetLbTrafficExtensionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DepService>::get_lb_traffic_extension(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetLbTrafficExtensionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.networkservices.v1beta1.DepService/CreateLbTrafficExtension" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateLbTrafficExtensionSvc<T: DepService>(pub Arc<T>);
+                    impl<
+                        T: DepService,
+                    > tonic::server::UnaryService<super::CreateLbTrafficExtensionRequest>
+                    for CreateLbTrafficExtensionSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateLbTrafficExtensionRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DepService>::create_lb_traffic_extension(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateLbTrafficExtensionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.networkservices.v1beta1.DepService/UpdateLbTrafficExtension" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateLbTrafficExtensionSvc<T: DepService>(pub Arc<T>);
+                    impl<
+                        T: DepService,
+                    > tonic::server::UnaryService<super::UpdateLbTrafficExtensionRequest>
+                    for UpdateLbTrafficExtensionSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::UpdateLbTrafficExtensionRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DepService>::update_lb_traffic_extension(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateLbTrafficExtensionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.networkservices.v1beta1.DepService/DeleteLbTrafficExtension" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteLbTrafficExtensionSvc<T: DepService>(pub Arc<T>);
+                    impl<
+                        T: DepService,
+                    > tonic::server::UnaryService<super::DeleteLbTrafficExtensionRequest>
+                    for DeleteLbTrafficExtensionSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteLbTrafficExtensionRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DepService>::delete_lb_traffic_extension(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteLbTrafficExtensionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.networkservices.v1beta1.DepService/ListLbRouteExtensions" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListLbRouteExtensionsSvc<T: DepService>(pub Arc<T>);
+                    impl<
+                        T: DepService,
+                    > tonic::server::UnaryService<super::ListLbRouteExtensionsRequest>
+                    for ListLbRouteExtensionsSvc<T> {
+                        type Response = super::ListLbRouteExtensionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListLbRouteExtensionsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DepService>::list_lb_route_extensions(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListLbRouteExtensionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.networkservices.v1beta1.DepService/GetLbRouteExtension" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetLbRouteExtensionSvc<T: DepService>(pub Arc<T>);
+                    impl<
+                        T: DepService,
+                    > tonic::server::UnaryService<super::GetLbRouteExtensionRequest>
+                    for GetLbRouteExtensionSvc<T> {
+                        type Response = super::LbRouteExtension;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetLbRouteExtensionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DepService>::get_lb_route_extension(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetLbRouteExtensionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.networkservices.v1beta1.DepService/CreateLbRouteExtension" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateLbRouteExtensionSvc<T: DepService>(pub Arc<T>);
+                    impl<
+                        T: DepService,
+                    > tonic::server::UnaryService<super::CreateLbRouteExtensionRequest>
+                    for CreateLbRouteExtensionSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateLbRouteExtensionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DepService>::create_lb_route_extension(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateLbRouteExtensionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.networkservices.v1beta1.DepService/UpdateLbRouteExtension" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateLbRouteExtensionSvc<T: DepService>(pub Arc<T>);
+                    impl<
+                        T: DepService,
+                    > tonic::server::UnaryService<super::UpdateLbRouteExtensionRequest>
+                    for UpdateLbRouteExtensionSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateLbRouteExtensionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DepService>::update_lb_route_extension(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateLbRouteExtensionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.networkservices.v1beta1.DepService/DeleteLbRouteExtension" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteLbRouteExtensionSvc<T: DepService>(pub Arc<T>);
+                    impl<
+                        T: DepService,
+                    > tonic::server::UnaryService<super::DeleteLbRouteExtensionRequest>
+                    for DeleteLbRouteExtensionSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteLbRouteExtensionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DepService>::delete_lb_route_extension(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteLbRouteExtensionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for DepServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.networkservices.v1beta1.DepService";
+    impl<T> tonic::server::NamedService for DepServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}
+/// EndpointPolicy is a resource that helps apply desired configuration
+/// on the endpoints that match specific criteria.
+/// For example, this resource can be used to apply "authentication config"
+/// an all endpoints that serve on port 8080.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EndpointPolicy {
+    /// Required. Name of the EndpointPolicy resource. It matches pattern
+    /// `projects/{project}/locations/global/endpointPolicies/{endpoint_policy}`.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// Output only. The timestamp when the resource was created.
+    #[prost(message, optional, tag = "2")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. The timestamp when the resource was updated.
+    #[prost(message, optional, tag = "3")]
+    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Optional. Set of label tags associated with the EndpointPolicy resource.
+    #[prost(btree_map = "string, string", tag = "4")]
+    pub labels: ::prost::alloc::collections::BTreeMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+    /// Required. The type of endpoint policy. This is primarily used to validate
+    /// the configuration.
+    #[prost(enumeration = "endpoint_policy::EndpointPolicyType", tag = "5")]
+    pub r#type: i32,
+    /// Optional. This field specifies the URL of AuthorizationPolicy resource that
+    /// applies authorization policies to the inbound traffic at the
+    /// matched endpoints. Refer to Authorization. If this field is not
+    /// specified, authorization is disabled(no authz checks) for this
+    /// endpoint.
+    #[prost(string, tag = "7")]
+    pub authorization_policy: ::prost::alloc::string::String,
+    /// Required. A matcher that selects endpoints to which the policies should be
+    /// applied.
+    #[prost(message, optional, tag = "9")]
+    pub endpoint_matcher: ::core::option::Option<EndpointMatcher>,
+    /// Optional. Port selector for the (matched) endpoints. If no port selector is
+    /// provided, the matched config is applied to all ports.
+    #[prost(message, optional, tag = "10")]
+    pub traffic_port_selector: ::core::option::Option<TrafficPortSelector>,
+    /// Optional. A free-text description of the resource. Max length 1024
+    /// characters.
+    #[prost(string, tag = "11")]
+    pub description: ::prost::alloc::string::String,
+    /// Optional. A URL referring to ServerTlsPolicy resource. ServerTlsPolicy is
+    /// used to determine the authentication policy to be applied to terminate the
+    /// inbound traffic at the identified backends. If this field is not set,
+    /// authentication is disabled(open) for this endpoint.
+    #[prost(string, tag = "12")]
+    pub server_tls_policy: ::prost::alloc::string::String,
+    /// Optional. A URL referring to a ClientTlsPolicy resource. ClientTlsPolicy
+    /// can be set to specify the authentication for traffic from the proxy to the
+    /// actual endpoints. More specifically, it is applied to the outgoing traffic
+    /// from the proxy to the endpoint. This is typically used for sidecar model
+    /// where the proxy identifies itself as endpoint to the control plane, with
+    /// the connection between sidecar and endpoint requiring authentication. If
+    /// this field is not set, authentication is disabled(open). Applicable only
+    /// when EndpointPolicyType is SIDECAR_PROXY.
+    #[prost(string, tag = "13")]
+    pub client_tls_policy: ::prost::alloc::string::String,
+}
+/// Nested message and enum types in `EndpointPolicy`.
+pub mod endpoint_policy {
+    /// The type of endpoint policy.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum EndpointPolicyType {
+        /// Default value. Must not be used.
+        Unspecified = 0,
+        /// Represents a proxy deployed as a sidecar.
+        SidecarProxy = 1,
+        /// Represents a proxyless gRPC backend.
+        GrpcServer = 2,
+    }
+    impl EndpointPolicyType {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "ENDPOINT_POLICY_TYPE_UNSPECIFIED",
+                Self::SidecarProxy => "SIDECAR_PROXY",
+                Self::GrpcServer => "GRPC_SERVER",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "ENDPOINT_POLICY_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "SIDECAR_PROXY" => Some(Self::SidecarProxy),
+                "GRPC_SERVER" => Some(Self::GrpcServer),
+                _ => None,
+            }
+        }
+    }
+}
+/// Request used with the ListEndpointPolicies method.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListEndpointPoliciesRequest {
+    /// Required. The project and location from which the EndpointPolicies should
+    /// be listed, specified in the format `projects/*/locations/global`.
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// Maximum number of EndpointPolicies to return per call.
+    #[prost(int32, tag = "2")]
+    pub page_size: i32,
+    /// The value returned by the last `ListEndpointPoliciesResponse`
+    /// Indicates that this is a continuation of a prior
+    /// `ListEndpointPolicies` call, and that the system should return the
+    /// next page of data.
+    #[prost(string, tag = "3")]
+    pub page_token: ::prost::alloc::string::String,
+}
+/// Response returned by the ListEndpointPolicies method.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListEndpointPoliciesResponse {
+    /// List of EndpointPolicy resources.
+    #[prost(message, repeated, tag = "1")]
+    pub endpoint_policies: ::prost::alloc::vec::Vec<EndpointPolicy>,
+    /// If there might be more results than those appearing in this response, then
+    /// `next_page_token` is included. To get the next set of results, call this
+    /// method again using the value of `next_page_token` as `page_token`.
+    #[prost(string, tag = "2")]
+    pub next_page_token: ::prost::alloc::string::String,
+}
+/// Request used with the GetEndpointPolicy method.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetEndpointPolicyRequest {
+    /// Required. A name of the EndpointPolicy to get. Must be in the format
+    /// `projects/*/locations/global/endpointPolicies/*`.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// Request used with the CreateEndpointPolicy method.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateEndpointPolicyRequest {
+    /// Required. The parent resource of the EndpointPolicy. Must be in the
+    /// format `projects/*/locations/global`.
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// Required. Short name of the EndpointPolicy resource to be created.
+    /// E.g. "CustomECS".
+    #[prost(string, tag = "2")]
+    pub endpoint_policy_id: ::prost::alloc::string::String,
+    /// Required. EndpointPolicy resource to be created.
+    #[prost(message, optional, tag = "3")]
+    pub endpoint_policy: ::core::option::Option<EndpointPolicy>,
+}
+/// Request used with the UpdateEndpointPolicy method.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateEndpointPolicyRequest {
+    /// Optional. Field mask is used to specify the fields to be overwritten in the
+    /// EndpointPolicy resource by the update.
+    /// The fields specified in the update_mask are relative to the resource, not
+    /// the full request. A field will be overwritten if it is in the mask. If the
+    /// user does not provide a mask then all fields will be overwritten.
+    #[prost(message, optional, tag = "1")]
+    pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
+    /// Required. Updated EndpointPolicy resource.
+    #[prost(message, optional, tag = "2")]
+    pub endpoint_policy: ::core::option::Option<EndpointPolicy>,
+}
+/// Request used with the DeleteEndpointPolicy method.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteEndpointPolicyRequest {
+    /// Required. A name of the EndpointPolicy to delete. Must be in the format
+    /// `projects/*/locations/global/endpointPolicies/*`.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// Generated client implementations.
+pub mod network_services_client {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    use tonic::codegen::http::Uri;
+    /// Service describing handlers for resources.
+    #[derive(Debug, Clone)]
+    pub struct NetworkServicesClient<T> {
+        inner: tonic::client::Grpc<T>,
+    }
+    impl<T> NetworkServicesClient<T>
+    where
+        T: tonic::client::GrpcService<tonic::body::BoxBody>,
+        T::Error: Into<StdError>,
+        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
+    {
+        pub fn new(inner: T) -> Self {
+            let inner = tonic::client::Grpc::new(inner);
+            Self { inner }
+        }
+        pub fn with_origin(inner: T, origin: Uri) -> Self {
+            let inner = tonic::client::Grpc::with_origin(inner, origin);
+            Self { inner }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> NetworkServicesClient<InterceptedService<T, F>>
+        where
+            F: tonic::service::Interceptor,
+            T::ResponseBody: Default,
+            T: tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+                Response = http::Response<
+                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
+                >,
+            >,
+            <T as tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+            >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
+        {
+            NetworkServicesClient::new(InterceptedService::new(inner, interceptor))
+        }
+        /// Compress requests with the given encoding.
+        ///
+        /// This requires the server to support it otherwise it might respond with an
+        /// error.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.send_compressed(encoding);
+            self
+        }
+        /// Enable decompressing responses.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.accept_compressed(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
+        /// Lists EndpointPolicies in a given project and location.
+        pub async fn list_endpoint_policies(
+            &mut self,
+            request: impl tonic::IntoRequest<super::ListEndpointPoliciesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListEndpointPoliciesResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.networkservices.v1beta1.NetworkServices/ListEndpointPolicies",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.networkservices.v1beta1.NetworkServices",
+                        "ListEndpointPolicies",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Gets details of a single EndpointPolicy.
+        pub async fn get_endpoint_policy(
+            &mut self,
+            request: impl tonic::IntoRequest<super::GetEndpointPolicyRequest>,
+        ) -> std::result::Result<tonic::Response<super::EndpointPolicy>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.networkservices.v1beta1.NetworkServices/GetEndpointPolicy",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.networkservices.v1beta1.NetworkServices",
+                        "GetEndpointPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Creates a new EndpointPolicy in a given project and location.
+        pub async fn create_endpoint_policy(
+            &mut self,
+            request: impl tonic::IntoRequest<super::CreateEndpointPolicyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.networkservices.v1beta1.NetworkServices/CreateEndpointPolicy",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.networkservices.v1beta1.NetworkServices",
+                        "CreateEndpointPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Updates the parameters of a single EndpointPolicy.
+        pub async fn update_endpoint_policy(
+            &mut self,
+            request: impl tonic::IntoRequest<super::UpdateEndpointPolicyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.networkservices.v1beta1.NetworkServices/UpdateEndpointPolicy",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.networkservices.v1beta1.NetworkServices",
+                        "UpdateEndpointPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Deletes a single EndpointPolicy.
+        pub async fn delete_endpoint_policy(
+            &mut self,
+            request: impl tonic::IntoRequest<super::DeleteEndpointPolicyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.networkservices.v1beta1.NetworkServices/DeleteEndpointPolicy",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.networkservices.v1beta1.NetworkServices",
+                        "DeleteEndpointPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+    }
+}
+/// Generated server implementations.
+pub mod network_services_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with NetworkServicesServer.
+    #[async_trait]
+    pub trait NetworkServices: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists EndpointPolicies in a given project and location.
+        async fn list_endpoint_policies(
+            &self,
+            request: tonic::Request<super::ListEndpointPoliciesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListEndpointPoliciesResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single EndpointPolicy.
+        async fn get_endpoint_policy(
+            &self,
+            request: tonic::Request<super::GetEndpointPolicyRequest>,
+        ) -> std::result::Result<tonic::Response<super::EndpointPolicy>, tonic::Status>;
+        /// Creates a new EndpointPolicy in a given project and location.
+        async fn create_endpoint_policy(
+            &self,
+            request: tonic::Request<super::CreateEndpointPolicyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the parameters of a single EndpointPolicy.
+        async fn update_endpoint_policy(
+            &self,
+            request: tonic::Request<super::UpdateEndpointPolicyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single EndpointPolicy.
+        async fn delete_endpoint_policy(
+            &self,
+            request: tonic::Request<super::DeleteEndpointPolicyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// Service describing handlers for resources.
+    #[derive(Debug)]
+    pub struct NetworkServicesServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> NetworkServicesServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for NetworkServicesServer<T>
+    where
+        T: NetworkServices,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.networkservices.v1beta1.NetworkServices/ListEndpointPolicies" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListEndpointPoliciesSvc<T: NetworkServices>(pub Arc<T>);
+                    impl<
+                        T: NetworkServices,
+                    > tonic::server::UnaryService<super::ListEndpointPoliciesRequest>
+                    for ListEndpointPoliciesSvc<T> {
+                        type Response = super::ListEndpointPoliciesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListEndpointPoliciesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetworkServices>::list_endpoint_policies(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListEndpointPoliciesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.networkservices.v1beta1.NetworkServices/GetEndpointPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetEndpointPolicySvc<T: NetworkServices>(pub Arc<T>);
+                    impl<
+                        T: NetworkServices,
+                    > tonic::server::UnaryService<super::GetEndpointPolicyRequest>
+                    for GetEndpointPolicySvc<T> {
+                        type Response = super::EndpointPolicy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetEndpointPolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetworkServices>::get_endpoint_policy(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetEndpointPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.networkservices.v1beta1.NetworkServices/CreateEndpointPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateEndpointPolicySvc<T: NetworkServices>(pub Arc<T>);
+                    impl<
+                        T: NetworkServices,
+                    > tonic::server::UnaryService<super::CreateEndpointPolicyRequest>
+                    for CreateEndpointPolicySvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateEndpointPolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetworkServices>::create_endpoint_policy(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateEndpointPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.networkservices.v1beta1.NetworkServices/UpdateEndpointPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateEndpointPolicySvc<T: NetworkServices>(pub Arc<T>);
+                    impl<
+                        T: NetworkServices,
+                    > tonic::server::UnaryService<super::UpdateEndpointPolicyRequest>
+                    for UpdateEndpointPolicySvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateEndpointPolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetworkServices>::update_endpoint_policy(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateEndpointPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.networkservices.v1beta1.NetworkServices/DeleteEndpointPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteEndpointPolicySvc<T: NetworkServices>(pub Arc<T>);
+                    impl<
+                        T: NetworkServices,
+                    > tonic::server::UnaryService<super::DeleteEndpointPolicyRequest>
+                    for DeleteEndpointPolicySvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteEndpointPolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetworkServices>::delete_endpoint_policy(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteEndpointPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for NetworkServicesServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.networkservices.v1beta1.NetworkServices";
+    impl<T> tonic::server::NamedService for NetworkServicesServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

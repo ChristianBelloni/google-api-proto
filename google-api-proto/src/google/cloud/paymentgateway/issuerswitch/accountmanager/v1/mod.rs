@@ -117,9 +117,9 @@ pub mod account_manager_transaction_info {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Succeeded => "SUCCEEDED",
-                State::Failed => "FAILED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Failed => "FAILED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -190,9 +190,9 @@ pub mod account_manager_participant {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Persona::Unspecified => "PERSONA_UNSPECIFIED",
-                Persona::Entity => "ENTITY",
-                Persona::Person => "PERSON",
+                Self::Unspecified => "PERSONA_UNSPECIFIED",
+                Self::Entity => "ENTITY",
+                Self::Person => "PERSON",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -260,9 +260,9 @@ pub mod account_manager_transaction_reconciliation_info {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ReconciliationState::Unspecified => "RECONCILIATION_STATE_UNSPECIFIED",
-                ReconciliationState::Succeeded => "SUCCEEDED",
-                ReconciliationState::Failed => "FAILED",
+                Self::Unspecified => "RECONCILIATION_STATE_UNSPECIFIED",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Failed => "FAILED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -433,13 +433,11 @@ impl AccountManagerTransactionType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            AccountManagerTransactionType::Unspecified => {
-                "ACCOUNT_MANAGER_TRANSACTION_TYPE_UNSPECIFIED"
-            }
-            AccountManagerTransactionType::Credit => "CREDIT",
-            AccountManagerTransactionType::CreditReversal => "CREDIT_REVERSAL",
-            AccountManagerTransactionType::Debit => "DEBIT",
-            AccountManagerTransactionType::DebitReversal => "DEBIT_REVERSAL",
+            Self::Unspecified => "ACCOUNT_MANAGER_TRANSACTION_TYPE_UNSPECIFIED",
+            Self::Credit => "CREDIT",
+            Self::CreditReversal => "CREDIT_REVERSAL",
+            Self::Debit => "DEBIT",
+            Self::DebitReversal => "DEBIT_REVERSAL",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -733,6 +731,423 @@ pub mod account_manager_transactions_client {
         }
     }
 }
+/// Generated server implementations.
+pub mod account_manager_transactions_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with AccountManagerTransactionsServer.
+    #[async_trait]
+    pub trait AccountManagerTransactions: std::marker::Send + std::marker::Sync + 'static {
+        /// Export transactions received within the specified time range as a
+        /// file into a configured target location. The returned `Operation` type has
+        /// the following method-specific fields:
+        ///
+        /// - `metadata`:
+        /// [ExportAccountManagerTransactionsMetadata][google.cloud.paymentgateway.issuerswitch.accountmanager.v1.ExportAccountManagerTransactionsMetadata]
+        /// - `response`:
+        /// [ExportAccountManagerTransactionsResponse][google.cloud.paymentgateway.issuerswitch.accountmanager.v1.ExportAccountManagerTransactionsResponse]
+        ///
+        /// The exported file will be in the standard CSV format where each row in the
+        /// file represents a transaction. The file has the following fields in order:
+        ///
+        /// 1. `TransactionID`
+        ///     * **Min Length** - 35 characters
+        ///     * **Max Length** - 35 characters
+        ///     * **Description** - Account manager transaction ID.
+        /// 1. `TransactionType`
+        ///     * **Min Length** - 22 characters
+        ///     * **Max Length** - 25 characters
+        ///     * **Description** - Type of the transaction. This will be one of
+        ///     `TRANSACTION_TYPE_CREDIT`, `TRANSACTION_TYPE_CREDIT_REVERSAL`,
+        ///     `TRANSACTION_TYPE_DEBIT` or `TRANSACTION_TYPE_DEBIT_REVERSAL`. When
+        ///     account manager is used for managing UPI Lite transactions, the CREDIT
+        ///     transactions would be for Lite account top-ups and DEBIT transactions
+        ///     could be either for a Lite account disablement where balance is
+        ///     transferred back the underlying bank account or for a Lite account
+        ///     financial transaction which happened offline.
+        /// 1. `AccountID`
+        ///     * **Min Length** - 35 characters
+        ///     * **Max Length** - 35 characters
+        ///     * **Description** - Account ID. When account manager is used for
+        ///     managing UPI Lite transactions, this column will contain the Lite
+        ///     Reference Number (LRN) of the UPI Lite account.
+        /// 1. `State`
+        ///     * **Min Length** - 6 characters
+        ///     * **Max Length** - 12 characters
+        ///     * **Description** - State of the transaction. This will be one of
+        ///     `SUCCEEDED` or `FAILED`.
+        /// 1. `RRN`
+        ///     * **Min Length** - 12 characters
+        ///     * **Max Length** - 12 characters
+        ///     * **Description** - Retrieval reference number associated with the
+        ///     transaction.
+        /// 1. `PayerVPA`
+        ///     * **Min Length** - 3 characters
+        ///     * **Max Length** - 255 characters
+        ///     * **Description** - Virtual Payment Address (VPA) of the payer.
+        /// 1. `PayerIFSC`
+        ///     * **Min Length** - 11 characters
+        ///     * **Max Length** - 11 characters
+        ///     * **Description** - IFSC of the payer's bank account.
+        /// 1. `PayerAccountNumber`
+        ///     * **Min Length** - 1 characters
+        ///     * **Max Length** - 30 characters
+        ///     * **Description** - Payer's bank account number.
+        /// 1. `PayeeVPA`
+        ///     * **Min Length** - 3 characters
+        ///     * **Max Length** - 255 characters
+        ///     * **Description** - Virtual Payment Address (VPA) of the payee.
+        /// 1. `PayeeIFSC`
+        ///     * **Min Length** - 11 characters
+        ///     * **Max Length** - 11 characters
+        ///     * **Description** - IFSC of the payee's bank account.
+        /// 1. `PayeeAccountNumber`
+        ///     * **Min Length** - 1 characters
+        ///     * **Max Length** - 30 characters
+        ///     * **Description** - Payee's bank account number.
+        /// 1. `PayeeMCC`
+        ///     * **Min Length** - 4 characters
+        ///     * **Max Length** - 4 characters
+        ///     * **Description** - Payee's Merchant Category Code (MCC), only if the
+        ///     payee is a merchant.
+        /// 1. `PayeeMerchantID`
+        ///     * **Min Length** - 4 characters
+        ///     * **Max Length** - 4 characters
+        ///     * **Description** - Payee's merchant ID, only if the payee is a
+        ///     merchant.
+        /// 1. `Currency`
+        ///     * **Min Length** - 3 characters
+        ///     * **Max Length** - 3 characters
+        ///     * **Description** - Currency of the amount involved in the transaction.
+        ///     The currency codes are defined in ISO 4217.
+        /// 1. `Amount`
+        ///     * **Description** - Amount involved in the transaction.
+        /// 1. `Purpose`
+        ///     * **Min Length** - 1 characters
+        ///     * **Max Length** - 4 characters
+        ///     * **Description** - Purpose code associated with the transaction. When
+        ///     account manager is used for managing UPI Lite transactions, this column
+        ///     will contain one of the values from `41` (Lite account creation with
+        ///     initial topup), `42` (Lite account topup), `43` (Lite account
+        ///     disablement with balance transfer) or `44` (Lite account online
+        ///     transaction).
+        /// 1. `TransactionTime`
+        ///     * **Min Length** - 20 characters
+        ///     * **Max Length** - 20 characters
+        ///     * **Description** - Timestamp (in UTC) indicating the timestamp at
+        ///     which the transaction took place. The format will be as per RFC-3339.
+        ///     Example : 2022-11-22T23:00:05Z
+        async fn export_account_manager_transactions(
+            &self,
+            request: tonic::Request<super::ExportAccountManagerTransactionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<
+                super::super::super::super::super::super::longrunning::Operation,
+            >,
+            tonic::Status,
+        >;
+        /// List account manager transactions that satisfy specified filter criteria.
+        async fn list_account_manager_transactions(
+            &self,
+            request: tonic::Request<super::ListAccountManagerTransactionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAccountManagerTransactionsResponse>,
+            tonic::Status,
+        >;
+        /// Batch reconcile account manager transactions and return status for each
+        /// transaction.
+        async fn batch_reconcile_account_manager_transactions(
+            &self,
+            request: tonic::Request<
+                super::BatchReconcileAccountManagerTransactionsRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::BatchReconcileAccountManagerTransactionsResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Lists and exports transactions processed by the account manager.
+    #[derive(Debug)]
+    pub struct AccountManagerTransactionsServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> AccountManagerTransactionsServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for AccountManagerTransactionsServer<T>
+    where
+        T: AccountManagerTransactions,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.paymentgateway.issuerswitch.accountmanager.v1.AccountManagerTransactions/ExportAccountManagerTransactions" => {
+                    #[allow(non_camel_case_types)]
+                    struct ExportAccountManagerTransactionsSvc<
+                        T: AccountManagerTransactions,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AccountManagerTransactions,
+                    > tonic::server::UnaryService<
+                        super::ExportAccountManagerTransactionsRequest,
+                    > for ExportAccountManagerTransactionsSvc<T> {
+                        type Response = super::super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ExportAccountManagerTransactionsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccountManagerTransactions>::export_account_manager_transactions(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ExportAccountManagerTransactionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.paymentgateway.issuerswitch.accountmanager.v1.AccountManagerTransactions/ListAccountManagerTransactions" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAccountManagerTransactionsSvc<
+                        T: AccountManagerTransactions,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AccountManagerTransactions,
+                    > tonic::server::UnaryService<
+                        super::ListAccountManagerTransactionsRequest,
+                    > for ListAccountManagerTransactionsSvc<T> {
+                        type Response = super::ListAccountManagerTransactionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListAccountManagerTransactionsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccountManagerTransactions>::list_account_manager_transactions(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAccountManagerTransactionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.paymentgateway.issuerswitch.accountmanager.v1.AccountManagerTransactions/BatchReconcileAccountManagerTransactions" => {
+                    #[allow(non_camel_case_types)]
+                    struct BatchReconcileAccountManagerTransactionsSvc<
+                        T: AccountManagerTransactions,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AccountManagerTransactions,
+                    > tonic::server::UnaryService<
+                        super::BatchReconcileAccountManagerTransactionsRequest,
+                    > for BatchReconcileAccountManagerTransactionsSvc<T> {
+                        type Response = super::BatchReconcileAccountManagerTransactionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::BatchReconcileAccountManagerTransactionsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccountManagerTransactions>::batch_reconcile_account_manager_transactions(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BatchReconcileAccountManagerTransactionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for AccountManagerTransactionsServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.paymentgateway.issuerswitch.accountmanager.v1.AccountManagerTransactions";
+    impl<T> tonic::server::NamedService for AccountManagerTransactionsServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}
 /// Entity representing an account managed by the account manager.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct ManagedAccount {
@@ -799,9 +1214,9 @@ pub mod managed_account {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Active => "ACTIVE",
-                State::Deactivated => "DEACTIVATED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Active => "ACTIVE",
+                Self::Deactivated => "DEACTIVATED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -842,11 +1257,9 @@ pub mod managed_account {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                AccountReconciliationState::Unspecified => {
-                    "ACCOUNT_RECONCILIATION_STATE_UNSPECIFIED"
-                }
-                AccountReconciliationState::Succeeded => "SUCCEEDED",
-                AccountReconciliationState::Failed => "FAILED",
+                Self::Unspecified => "ACCOUNT_RECONCILIATION_STATE_UNSPECIFIED",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Failed => "FAILED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1043,5 +1456,240 @@ pub mod managed_accounts_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod managed_accounts_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with ManagedAccountsServer.
+    #[async_trait]
+    pub trait ManagedAccounts: std::marker::Send + std::marker::Sync + 'static {
+        /// Batch reconcile account balance and return status for each account.
+        async fn batch_reconcile_managed_account_balance(
+            &self,
+            request: tonic::Request<super::BatchReconcileManagedAccountBalanceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::BatchReconcileManagedAccountBalanceResponse>,
+            tonic::Status,
+        >;
+        /// Get information on the account managed by account manager.
+        async fn get_managed_account(
+            &self,
+            request: tonic::Request<super::GetManagedAccountRequest>,
+        ) -> std::result::Result<tonic::Response<super::ManagedAccount>, tonic::Status>;
+    }
+    /// Reconciles and provide balance information for an account within the account
+    /// manager.
+    #[derive(Debug)]
+    pub struct ManagedAccountsServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> ManagedAccountsServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for ManagedAccountsServer<T>
+    where
+        T: ManagedAccounts,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.paymentgateway.issuerswitch.accountmanager.v1.ManagedAccounts/BatchReconcileManagedAccountBalance" => {
+                    #[allow(non_camel_case_types)]
+                    struct BatchReconcileManagedAccountBalanceSvc<T: ManagedAccounts>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: ManagedAccounts,
+                    > tonic::server::UnaryService<
+                        super::BatchReconcileManagedAccountBalanceRequest,
+                    > for BatchReconcileManagedAccountBalanceSvc<T> {
+                        type Response = super::BatchReconcileManagedAccountBalanceResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::BatchReconcileManagedAccountBalanceRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ManagedAccounts>::batch_reconcile_managed_account_balance(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BatchReconcileManagedAccountBalanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.paymentgateway.issuerswitch.accountmanager.v1.ManagedAccounts/GetManagedAccount" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetManagedAccountSvc<T: ManagedAccounts>(pub Arc<T>);
+                    impl<
+                        T: ManagedAccounts,
+                    > tonic::server::UnaryService<super::GetManagedAccountRequest>
+                    for GetManagedAccountSvc<T> {
+                        type Response = super::ManagedAccount;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetManagedAccountRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ManagedAccounts>::get_managed_account(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetManagedAccountSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for ManagedAccountsServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.paymentgateway.issuerswitch.accountmanager.v1.ManagedAccounts";
+    impl<T> tonic::server::NamedService for ManagedAccountsServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

@@ -281,10 +281,10 @@ pub mod transfer_message {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                MessageSeverity::Unspecified => "MESSAGE_SEVERITY_UNSPECIFIED",
-                MessageSeverity::Info => "INFO",
-                MessageSeverity::Warning => "WARNING",
-                MessageSeverity::Error => "ERROR",
+                Self::Unspecified => "MESSAGE_SEVERITY_UNSPECIFIED",
+                Self::Info => "INFO",
+                Self::Warning => "WARNING",
+                Self::Error => "ERROR",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -318,9 +318,9 @@ impl TransferType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            TransferType::Unspecified => "TRANSFER_TYPE_UNSPECIFIED",
-            TransferType::Batch => "BATCH",
-            TransferType::Streaming => "STREAMING",
+            Self::Unspecified => "TRANSFER_TYPE_UNSPECIFIED",
+            Self::Batch => "BATCH",
+            Self::Streaming => "STREAMING",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -358,12 +358,12 @@ impl TransferState {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            TransferState::Unspecified => "TRANSFER_STATE_UNSPECIFIED",
-            TransferState::Pending => "PENDING",
-            TransferState::Running => "RUNNING",
-            TransferState::Succeeded => "SUCCEEDED",
-            TransferState::Failed => "FAILED",
-            TransferState::Cancelled => "CANCELLED",
+            Self::Unspecified => "TRANSFER_STATE_UNSPECIFIED",
+            Self::Pending => "PENDING",
+            Self::Running => "RUNNING",
+            Self::Succeeded => "SUCCEEDED",
+            Self::Failed => "FAILED",
+            Self::Cancelled => "CANCELLED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -474,14 +474,14 @@ pub mod data_source_parameter {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::String => "STRING",
-                Type::Integer => "INTEGER",
-                Type::Double => "DOUBLE",
-                Type::Boolean => "BOOLEAN",
-                Type::Record => "RECORD",
-                Type::PlusPage => "PLUS_PAGE",
-                Type::List => "LIST",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::String => "STRING",
+                Self::Integer => "INTEGER",
+                Self::Double => "DOUBLE",
+                Self::Boolean => "BOOLEAN",
+                Self::Record => "RECORD",
+                Self::PlusPage => "PLUS_PAGE",
+                Self::List => "LIST",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -608,12 +608,10 @@ pub mod data_source {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                AuthorizationType::Unspecified => "AUTHORIZATION_TYPE_UNSPECIFIED",
-                AuthorizationType::AuthorizationCode => "AUTHORIZATION_CODE",
-                AuthorizationType::GooglePlusAuthorizationCode => {
-                    "GOOGLE_PLUS_AUTHORIZATION_CODE"
-                }
-                AuthorizationType::FirstPartyOauth => "FIRST_PARTY_OAUTH",
+                Self::Unspecified => "AUTHORIZATION_TYPE_UNSPECIFIED",
+                Self::AuthorizationCode => "AUTHORIZATION_CODE",
+                Self::GooglePlusAuthorizationCode => "GOOGLE_PLUS_AUTHORIZATION_CODE",
+                Self::FirstPartyOauth => "FIRST_PARTY_OAUTH",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -661,9 +659,9 @@ pub mod data_source {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                DataRefreshType::Unspecified => "DATA_REFRESH_TYPE_UNSPECIFIED",
-                DataRefreshType::SlidingWindow => "SLIDING_WINDOW",
-                DataRefreshType::CustomSlidingWindow => "CUSTOM_SLIDING_WINDOW",
+                Self::Unspecified => "DATA_REFRESH_TYPE_UNSPECIFIED",
+                Self::SlidingWindow => "SLIDING_WINDOW",
+                Self::CustomSlidingWindow => "CUSTOM_SLIDING_WINDOW",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -974,8 +972,8 @@ pub mod list_transfer_runs_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                RunAttempt::Unspecified => "RUN_ATTEMPT_UNSPECIFIED",
-                RunAttempt::Latest => "LATEST",
+                Self::Unspecified => "RUN_ATTEMPT_UNSPECIFIED",
+                Self::Latest => "LATEST",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1731,5 +1729,1034 @@ pub mod data_transfer_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod data_transfer_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with DataTransferServiceServer.
+    #[async_trait]
+    pub trait DataTransferService: std::marker::Send + std::marker::Sync + 'static {
+        /// Retrieves a supported data source and returns its settings.
+        async fn get_data_source(
+            &self,
+            request: tonic::Request<super::GetDataSourceRequest>,
+        ) -> std::result::Result<tonic::Response<super::DataSource>, tonic::Status>;
+        /// Lists supported data sources and returns their settings.
+        async fn list_data_sources(
+            &self,
+            request: tonic::Request<super::ListDataSourcesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDataSourcesResponse>,
+            tonic::Status,
+        >;
+        /// Creates a new data transfer configuration.
+        async fn create_transfer_config(
+            &self,
+            request: tonic::Request<super::CreateTransferConfigRequest>,
+        ) -> std::result::Result<tonic::Response<super::TransferConfig>, tonic::Status>;
+        /// Updates a data transfer configuration.
+        /// All fields must be set, even if they are not updated.
+        async fn update_transfer_config(
+            &self,
+            request: tonic::Request<super::UpdateTransferConfigRequest>,
+        ) -> std::result::Result<tonic::Response<super::TransferConfig>, tonic::Status>;
+        /// Deletes a data transfer configuration, including any associated transfer
+        /// runs and logs.
+        async fn delete_transfer_config(
+            &self,
+            request: tonic::Request<super::DeleteTransferConfigRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Returns information about a data transfer config.
+        async fn get_transfer_config(
+            &self,
+            request: tonic::Request<super::GetTransferConfigRequest>,
+        ) -> std::result::Result<tonic::Response<super::TransferConfig>, tonic::Status>;
+        /// Returns information about all transfer configs owned by a project in the
+        /// specified location.
+        async fn list_transfer_configs(
+            &self,
+            request: tonic::Request<super::ListTransferConfigsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListTransferConfigsResponse>,
+            tonic::Status,
+        >;
+        /// Creates transfer runs for a time range [start_time, end_time].
+        /// For each date - or whatever granularity the data source supports - in the
+        /// range, one transfer run is created.
+        /// Note that runs are created per UTC time in the time range.
+        /// DEPRECATED: use StartManualTransferRuns instead.
+        async fn schedule_transfer_runs(
+            &self,
+            request: tonic::Request<super::ScheduleTransferRunsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ScheduleTransferRunsResponse>,
+            tonic::Status,
+        >;
+        /// Start manual transfer runs to be executed now with schedule_time equal to
+        /// current time. The transfer runs can be created for a time range where the
+        /// run_time is between start_time (inclusive) and end_time (exclusive), or for
+        /// a specific run_time.
+        async fn start_manual_transfer_runs(
+            &self,
+            request: tonic::Request<super::StartManualTransferRunsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::StartManualTransferRunsResponse>,
+            tonic::Status,
+        >;
+        /// Returns information about the particular transfer run.
+        async fn get_transfer_run(
+            &self,
+            request: tonic::Request<super::GetTransferRunRequest>,
+        ) -> std::result::Result<tonic::Response<super::TransferRun>, tonic::Status>;
+        /// Deletes the specified transfer run.
+        async fn delete_transfer_run(
+            &self,
+            request: tonic::Request<super::DeleteTransferRunRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Returns information about running and completed transfer runs.
+        async fn list_transfer_runs(
+            &self,
+            request: tonic::Request<super::ListTransferRunsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListTransferRunsResponse>,
+            tonic::Status,
+        >;
+        /// Returns log messages for the transfer run.
+        async fn list_transfer_logs(
+            &self,
+            request: tonic::Request<super::ListTransferLogsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListTransferLogsResponse>,
+            tonic::Status,
+        >;
+        /// Returns true if valid credentials exist for the given data source and
+        /// requesting user.
+        async fn check_valid_creds(
+            &self,
+            request: tonic::Request<super::CheckValidCredsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::CheckValidCredsResponse>,
+            tonic::Status,
+        >;
+        /// Enroll data sources in a user project. This allows users to create transfer
+        /// configurations for these data sources. They will also appear in the
+        /// ListDataSources RPC and as such, will appear in the
+        /// [BigQuery UI](https://console.cloud.google.com/bigquery), and the documents
+        /// can be found in the public guide for
+        /// [BigQuery Web UI](https://cloud.google.com/bigquery/bigquery-web-ui) and
+        /// [Data Transfer
+        /// Service](https://cloud.google.com/bigquery/docs/working-with-transfers).
+        async fn enroll_data_sources(
+            &self,
+            request: tonic::Request<super::EnrollDataSourcesRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Unenroll data sources in a user project. This allows users to remove
+        /// transfer configurations for these data sources. They will no longer appear
+        /// in the ListDataSources RPC and will also no longer appear in the [BigQuery
+        /// UI](https://console.cloud.google.com/bigquery). Data transfers
+        /// configurations of unenrolled data sources will not be scheduled.
+        async fn unenroll_data_sources(
+            &self,
+            request: tonic::Request<super::UnenrollDataSourcesRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+    }
+    /// This API allows users to manage their data transfers into BigQuery.
+    #[derive(Debug)]
+    pub struct DataTransferServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> DataTransferServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for DataTransferServiceServer<T>
+    where
+        T: DataTransferService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.bigquery.datatransfer.v1.DataTransferService/GetDataSource" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetDataSourceSvc<T: DataTransferService>(pub Arc<T>);
+                    impl<
+                        T: DataTransferService,
+                    > tonic::server::UnaryService<super::GetDataSourceRequest>
+                    for GetDataSourceSvc<T> {
+                        type Response = super::DataSource;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetDataSourceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataTransferService>::get_data_source(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetDataSourceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.datatransfer.v1.DataTransferService/ListDataSources" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDataSourcesSvc<T: DataTransferService>(pub Arc<T>);
+                    impl<
+                        T: DataTransferService,
+                    > tonic::server::UnaryService<super::ListDataSourcesRequest>
+                    for ListDataSourcesSvc<T> {
+                        type Response = super::ListDataSourcesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListDataSourcesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataTransferService>::list_data_sources(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDataSourcesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.datatransfer.v1.DataTransferService/CreateTransferConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateTransferConfigSvc<T: DataTransferService>(pub Arc<T>);
+                    impl<
+                        T: DataTransferService,
+                    > tonic::server::UnaryService<super::CreateTransferConfigRequest>
+                    for CreateTransferConfigSvc<T> {
+                        type Response = super::TransferConfig;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateTransferConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataTransferService>::create_transfer_config(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateTransferConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.datatransfer.v1.DataTransferService/UpdateTransferConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateTransferConfigSvc<T: DataTransferService>(pub Arc<T>);
+                    impl<
+                        T: DataTransferService,
+                    > tonic::server::UnaryService<super::UpdateTransferConfigRequest>
+                    for UpdateTransferConfigSvc<T> {
+                        type Response = super::TransferConfig;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateTransferConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataTransferService>::update_transfer_config(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateTransferConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.datatransfer.v1.DataTransferService/DeleteTransferConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteTransferConfigSvc<T: DataTransferService>(pub Arc<T>);
+                    impl<
+                        T: DataTransferService,
+                    > tonic::server::UnaryService<super::DeleteTransferConfigRequest>
+                    for DeleteTransferConfigSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteTransferConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataTransferService>::delete_transfer_config(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteTransferConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.datatransfer.v1.DataTransferService/GetTransferConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetTransferConfigSvc<T: DataTransferService>(pub Arc<T>);
+                    impl<
+                        T: DataTransferService,
+                    > tonic::server::UnaryService<super::GetTransferConfigRequest>
+                    for GetTransferConfigSvc<T> {
+                        type Response = super::TransferConfig;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetTransferConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataTransferService>::get_transfer_config(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetTransferConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.datatransfer.v1.DataTransferService/ListTransferConfigs" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListTransferConfigsSvc<T: DataTransferService>(pub Arc<T>);
+                    impl<
+                        T: DataTransferService,
+                    > tonic::server::UnaryService<super::ListTransferConfigsRequest>
+                    for ListTransferConfigsSvc<T> {
+                        type Response = super::ListTransferConfigsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListTransferConfigsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataTransferService>::list_transfer_configs(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListTransferConfigsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.datatransfer.v1.DataTransferService/ScheduleTransferRuns" => {
+                    #[allow(non_camel_case_types)]
+                    struct ScheduleTransferRunsSvc<T: DataTransferService>(pub Arc<T>);
+                    impl<
+                        T: DataTransferService,
+                    > tonic::server::UnaryService<super::ScheduleTransferRunsRequest>
+                    for ScheduleTransferRunsSvc<T> {
+                        type Response = super::ScheduleTransferRunsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ScheduleTransferRunsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataTransferService>::schedule_transfer_runs(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ScheduleTransferRunsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.datatransfer.v1.DataTransferService/StartManualTransferRuns" => {
+                    #[allow(non_camel_case_types)]
+                    struct StartManualTransferRunsSvc<T: DataTransferService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: DataTransferService,
+                    > tonic::server::UnaryService<super::StartManualTransferRunsRequest>
+                    for StartManualTransferRunsSvc<T> {
+                        type Response = super::StartManualTransferRunsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::StartManualTransferRunsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataTransferService>::start_manual_transfer_runs(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = StartManualTransferRunsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.datatransfer.v1.DataTransferService/GetTransferRun" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetTransferRunSvc<T: DataTransferService>(pub Arc<T>);
+                    impl<
+                        T: DataTransferService,
+                    > tonic::server::UnaryService<super::GetTransferRunRequest>
+                    for GetTransferRunSvc<T> {
+                        type Response = super::TransferRun;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetTransferRunRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataTransferService>::get_transfer_run(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetTransferRunSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.datatransfer.v1.DataTransferService/DeleteTransferRun" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteTransferRunSvc<T: DataTransferService>(pub Arc<T>);
+                    impl<
+                        T: DataTransferService,
+                    > tonic::server::UnaryService<super::DeleteTransferRunRequest>
+                    for DeleteTransferRunSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteTransferRunRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataTransferService>::delete_transfer_run(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteTransferRunSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.datatransfer.v1.DataTransferService/ListTransferRuns" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListTransferRunsSvc<T: DataTransferService>(pub Arc<T>);
+                    impl<
+                        T: DataTransferService,
+                    > tonic::server::UnaryService<super::ListTransferRunsRequest>
+                    for ListTransferRunsSvc<T> {
+                        type Response = super::ListTransferRunsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListTransferRunsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataTransferService>::list_transfer_runs(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListTransferRunsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.datatransfer.v1.DataTransferService/ListTransferLogs" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListTransferLogsSvc<T: DataTransferService>(pub Arc<T>);
+                    impl<
+                        T: DataTransferService,
+                    > tonic::server::UnaryService<super::ListTransferLogsRequest>
+                    for ListTransferLogsSvc<T> {
+                        type Response = super::ListTransferLogsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListTransferLogsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataTransferService>::list_transfer_logs(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListTransferLogsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.datatransfer.v1.DataTransferService/CheckValidCreds" => {
+                    #[allow(non_camel_case_types)]
+                    struct CheckValidCredsSvc<T: DataTransferService>(pub Arc<T>);
+                    impl<
+                        T: DataTransferService,
+                    > tonic::server::UnaryService<super::CheckValidCredsRequest>
+                    for CheckValidCredsSvc<T> {
+                        type Response = super::CheckValidCredsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CheckValidCredsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataTransferService>::check_valid_creds(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CheckValidCredsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.datatransfer.v1.DataTransferService/EnrollDataSources" => {
+                    #[allow(non_camel_case_types)]
+                    struct EnrollDataSourcesSvc<T: DataTransferService>(pub Arc<T>);
+                    impl<
+                        T: DataTransferService,
+                    > tonic::server::UnaryService<super::EnrollDataSourcesRequest>
+                    for EnrollDataSourcesSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::EnrollDataSourcesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataTransferService>::enroll_data_sources(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = EnrollDataSourcesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.datatransfer.v1.DataTransferService/UnenrollDataSources" => {
+                    #[allow(non_camel_case_types)]
+                    struct UnenrollDataSourcesSvc<T: DataTransferService>(pub Arc<T>);
+                    impl<
+                        T: DataTransferService,
+                    > tonic::server::UnaryService<super::UnenrollDataSourcesRequest>
+                    for UnenrollDataSourcesSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UnenrollDataSourcesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataTransferService>::unenroll_data_sources(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UnenrollDataSourcesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for DataTransferServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.bigquery.datatransfer.v1.DataTransferService";
+    impl<T> tonic::server::NamedService for DataTransferServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

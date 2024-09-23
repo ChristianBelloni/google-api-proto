@@ -117,18 +117,18 @@ pub mod order {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Draft => "DRAFT",
-                State::Submitted => "SUBMITTED",
-                State::Accepted => "ACCEPTED",
-                State::AdditionalInfoNeeded => "ADDITIONAL_INFO_NEEDED",
-                State::Building => "BUILDING",
-                State::Shipping => "SHIPPING",
-                State::Installing => "INSTALLING",
-                State::Failed => "FAILED",
-                State::PartiallyCompleted => "PARTIALLY_COMPLETED",
-                State::Completed => "COMPLETED",
-                State::Cancelled => "CANCELLED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Draft => "DRAFT",
+                Self::Submitted => "SUBMITTED",
+                Self::Accepted => "ACCEPTED",
+                Self::AdditionalInfoNeeded => "ADDITIONAL_INFO_NEEDED",
+                Self::Building => "BUILDING",
+                Self::Shipping => "SHIPPING",
+                Self::Installing => "INSTALLING",
+                Self::Failed => "FAILED",
+                Self::PartiallyCompleted => "PARTIALLY_COMPLETED",
+                Self::Completed => "COMPLETED",
+                Self::Cancelled => "CANCELLED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -178,9 +178,9 @@ pub mod order {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::Paid => "PAID",
-                Type::Poc => "POC",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::Paid => "PAID",
+                Self::Poc => "POC",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -329,14 +329,14 @@ pub mod hardware_group {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::AdditionalInfoNeeded => "ADDITIONAL_INFO_NEEDED",
-                State::Building => "BUILDING",
-                State::Shipping => "SHIPPING",
-                State::Installing => "INSTALLING",
-                State::PartiallyInstalled => "PARTIALLY_INSTALLED",
-                State::Installed => "INSTALLED",
-                State::Failed => "FAILED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::AdditionalInfoNeeded => "ADDITIONAL_INFO_NEEDED",
+                Self::Building => "BUILDING",
+                Self::Shipping => "SHIPPING",
+                Self::Installing => "INSTALLING",
+                Self::PartiallyInstalled => "PARTIALLY_INSTALLED",
+                Self::Installed => "INSTALLED",
+                Self::Failed => "FAILED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -469,13 +469,13 @@ pub mod hardware {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::AdditionalInfoNeeded => "ADDITIONAL_INFO_NEEDED",
-                State::Building => "BUILDING",
-                State::Shipping => "SHIPPING",
-                State::Installing => "INSTALLING",
-                State::Installed => "INSTALLED",
-                State::Failed => "FAILED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::AdditionalInfoNeeded => "ADDITIONAL_INFO_NEEDED",
+                Self::Building => "BUILDING",
+                Self::Shipping => "SHIPPING",
+                Self::Installing => "INSTALLING",
+                Self::Installed => "INSTALLED",
+                Self::Failed => "FAILED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -616,9 +616,9 @@ pub mod sku {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::Rack => "RACK",
-                Type::Server => "SERVER",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::Rack => "RACK",
+                Self::Server => "SERVER",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -713,18 +713,18 @@ pub mod zone {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::AdditionalInfoNeeded => "ADDITIONAL_INFO_NEEDED",
-                State::Preparing => "PREPARING",
-                State::ReadyForCustomerFactoryTurnupChecks => {
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::AdditionalInfoNeeded => "ADDITIONAL_INFO_NEEDED",
+                Self::Preparing => "PREPARING",
+                Self::ReadyForCustomerFactoryTurnupChecks => {
                     "READY_FOR_CUSTOMER_FACTORY_TURNUP_CHECKS"
                 }
-                State::ReadyForSiteTurnup => "READY_FOR_SITE_TURNUP",
-                State::CustomerFactoryTurnupChecksFailed => {
+                Self::ReadyForSiteTurnup => "READY_FOR_SITE_TURNUP",
+                Self::CustomerFactoryTurnupChecksFailed => {
                     "CUSTOMER_FACTORY_TURNUP_CHECKS_FAILED"
                 }
-                State::Active => "ACTIVE",
-                State::Cancelled => "CANCELLED",
+                Self::Active => "ACTIVE",
+                Self::Cancelled => "CANCELLED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -891,10 +891,10 @@ pub mod hardware_physical_info {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                PowerReceptacleType::Unspecified => "POWER_RECEPTACLE_TYPE_UNSPECIFIED",
-                PowerReceptacleType::Nema515 => "NEMA_5_15",
-                PowerReceptacleType::C13 => "C_13",
-                PowerReceptacleType::StandardEu => "STANDARD_EU",
+                Self::Unspecified => "POWER_RECEPTACLE_TYPE_UNSPECIFIED",
+                Self::Nema515 => "NEMA_5_15",
+                Self::C13 => "C_13",
+                Self::StandardEu => "STANDARD_EU",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -934,8 +934,8 @@ pub mod hardware_physical_info {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                NetworkUplinkType::Unspecified => "NETWORK_UPLINK_TYPE_UNSPECIFIED",
-                NetworkUplinkType::Rj45 => "RJ_45",
+                Self::Unspecified => "NETWORK_UPLINK_TYPE_UNSPECIFIED",
+                Self::Rj45 => "RJ_45",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -975,9 +975,9 @@ pub mod hardware_physical_info {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Voltage::Unspecified => "VOLTAGE_UNSPECIFIED",
-                Voltage::Voltage110 => "VOLTAGE_110",
-                Voltage::Voltage220 => "VOLTAGE_220",
+                Self::Unspecified => "VOLTAGE_UNSPECIFIED",
+                Self::Voltage110 => "VOLTAGE_110",
+                Self::Voltage220 => "VOLTAGE_220",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1016,8 +1016,8 @@ pub mod hardware_physical_info {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Amperes::Unspecified => "AMPERES_UNSPECIFIED",
-                Amperes::Amperes15 => "AMPERES_15",
+                Self::Unspecified => "AMPERES_UNSPECIFIED",
+                Self::Amperes15 => "AMPERES_15",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1083,9 +1083,9 @@ pub mod hardware_installation_info {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                RackType::Unspecified => "RACK_TYPE_UNSPECIFIED",
-                RackType::TwoPost => "TWO_POST",
-                RackType::FourPost => "FOUR_POST",
+                Self::Unspecified => "RACK_TYPE_UNSPECIFIED",
+                Self::TwoPost => "TWO_POST",
+                Self::FourPost => "FOUR_POST",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1217,9 +1217,9 @@ impl PowerSupply {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            PowerSupply::Unspecified => "POWER_SUPPLY_UNSPECIFIED",
-            PowerSupply::Ac => "POWER_SUPPLY_AC",
-            PowerSupply::Dc => "POWER_SUPPLY_DC",
+            Self::Unspecified => "POWER_SUPPLY_UNSPECIFIED",
+            Self::Ac => "POWER_SUPPLY_AC",
+            Self::Dc => "POWER_SUPPLY_DC",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1914,9 +1914,9 @@ pub mod signal_zone_state_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                StateSignal::Unspecified => "STATE_SIGNAL_UNSPECIFIED",
-                StateSignal::ReadyForSiteTurnup => "READY_FOR_SITE_TURNUP",
-                StateSignal::FactoryTurnupChecksFailed => "FACTORY_TURNUP_CHECKS_FAILED",
+                Self::Unspecified => "STATE_SIGNAL_UNSPECIFIED",
+                Self::ReadyForSiteTurnup => "READY_FOR_SITE_TURNUP",
+                Self::FactoryTurnupChecksFailed => "FACTORY_TURNUP_CHECKS_FAILED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -3033,5 +3033,1920 @@ pub mod gdc_hardware_management_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod gdc_hardware_management_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with GdcHardwareManagementServer.
+    #[async_trait]
+    pub trait GdcHardwareManagement: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists orders in a given project and location.
+        async fn list_orders(
+            &self,
+            request: tonic::Request<super::ListOrdersRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListOrdersResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of an order.
+        async fn get_order(
+            &self,
+            request: tonic::Request<super::GetOrderRequest>,
+        ) -> std::result::Result<tonic::Response<super::Order>, tonic::Status>;
+        /// Creates a new order in a given project and location.
+        async fn create_order(
+            &self,
+            request: tonic::Request<super::CreateOrderRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the parameters of an order.
+        async fn update_order(
+            &self,
+            request: tonic::Request<super::UpdateOrderRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes an order.
+        async fn delete_order(
+            &self,
+            request: tonic::Request<super::DeleteOrderRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Submits an order.
+        async fn submit_order(
+            &self,
+            request: tonic::Request<super::SubmitOrderRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists sites in a given project and location.
+        async fn list_sites(
+            &self,
+            request: tonic::Request<super::ListSitesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListSitesResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a site.
+        async fn get_site(
+            &self,
+            request: tonic::Request<super::GetSiteRequest>,
+        ) -> std::result::Result<tonic::Response<super::Site>, tonic::Status>;
+        /// Creates a new site in a given project and location.
+        async fn create_site(
+            &self,
+            request: tonic::Request<super::CreateSiteRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the parameters of a site.
+        async fn update_site(
+            &self,
+            request: tonic::Request<super::UpdateSiteRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists hardware groups in a given order.
+        async fn list_hardware_groups(
+            &self,
+            request: tonic::Request<super::ListHardwareGroupsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListHardwareGroupsResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a hardware group.
+        async fn get_hardware_group(
+            &self,
+            request: tonic::Request<super::GetHardwareGroupRequest>,
+        ) -> std::result::Result<tonic::Response<super::HardwareGroup>, tonic::Status>;
+        /// Creates a new hardware group in a given order.
+        async fn create_hardware_group(
+            &self,
+            request: tonic::Request<super::CreateHardwareGroupRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the parameters of a hardware group.
+        async fn update_hardware_group(
+            &self,
+            request: tonic::Request<super::UpdateHardwareGroupRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a hardware group.
+        async fn delete_hardware_group(
+            &self,
+            request: tonic::Request<super::DeleteHardwareGroupRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists hardware in a given project and location.
+        async fn list_hardware(
+            &self,
+            request: tonic::Request<super::ListHardwareRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListHardwareResponse>,
+            tonic::Status,
+        >;
+        /// Gets hardware details.
+        async fn get_hardware(
+            &self,
+            request: tonic::Request<super::GetHardwareRequest>,
+        ) -> std::result::Result<tonic::Response<super::Hardware>, tonic::Status>;
+        /// Creates new hardware in a given project and location.
+        async fn create_hardware(
+            &self,
+            request: tonic::Request<super::CreateHardwareRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates hardware parameters.
+        async fn update_hardware(
+            &self,
+            request: tonic::Request<super::UpdateHardwareRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes hardware.
+        async fn delete_hardware(
+            &self,
+            request: tonic::Request<super::DeleteHardwareRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists the comments on an order.
+        async fn list_comments(
+            &self,
+            request: tonic::Request<super::ListCommentsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListCommentsResponse>,
+            tonic::Status,
+        >;
+        /// Gets the content of a comment.
+        async fn get_comment(
+            &self,
+            request: tonic::Request<super::GetCommentRequest>,
+        ) -> std::result::Result<tonic::Response<super::Comment>, tonic::Status>;
+        /// Creates a new comment on an order.
+        async fn create_comment(
+            &self,
+            request: tonic::Request<super::CreateCommentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists the changes made to an order.
+        async fn list_change_log_entries(
+            &self,
+            request: tonic::Request<super::ListChangeLogEntriesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListChangeLogEntriesResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a change to an order.
+        async fn get_change_log_entry(
+            &self,
+            request: tonic::Request<super::GetChangeLogEntryRequest>,
+        ) -> std::result::Result<tonic::Response<super::ChangeLogEntry>, tonic::Status>;
+        /// Lists SKUs for a given project and location.
+        async fn list_skus(
+            &self,
+            request: tonic::Request<super::ListSkusRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListSkusResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of an SKU.
+        async fn get_sku(
+            &self,
+            request: tonic::Request<super::GetSkuRequest>,
+        ) -> std::result::Result<tonic::Response<super::Sku>, tonic::Status>;
+        /// Lists zones in a given project and location.
+        async fn list_zones(
+            &self,
+            request: tonic::Request<super::ListZonesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListZonesResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a zone.
+        async fn get_zone(
+            &self,
+            request: tonic::Request<super::GetZoneRequest>,
+        ) -> std::result::Result<tonic::Response<super::Zone>, tonic::Status>;
+        /// Creates a new zone in a given project and location.
+        async fn create_zone(
+            &self,
+            request: tonic::Request<super::CreateZoneRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the parameters of a zone.
+        async fn update_zone(
+            &self,
+            request: tonic::Request<super::UpdateZoneRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a zone.
+        async fn delete_zone(
+            &self,
+            request: tonic::Request<super::DeleteZoneRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Signals the state of a zone.
+        async fn signal_zone_state(
+            &self,
+            request: tonic::Request<super::SignalZoneStateRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// The GDC Hardware Management service.
+    #[derive(Debug)]
+    pub struct GdcHardwareManagementServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> GdcHardwareManagementServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for GdcHardwareManagementServer<T>
+    where
+        T: GdcHardwareManagement,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.gdchardwaremanagement.v1alpha.GDCHardwareManagement/ListOrders" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListOrdersSvc<T: GdcHardwareManagement>(pub Arc<T>);
+                    impl<
+                        T: GdcHardwareManagement,
+                    > tonic::server::UnaryService<super::ListOrdersRequest>
+                    for ListOrdersSvc<T> {
+                        type Response = super::ListOrdersResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListOrdersRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GdcHardwareManagement>::list_orders(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListOrdersSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gdchardwaremanagement.v1alpha.GDCHardwareManagement/GetOrder" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetOrderSvc<T: GdcHardwareManagement>(pub Arc<T>);
+                    impl<
+                        T: GdcHardwareManagement,
+                    > tonic::server::UnaryService<super::GetOrderRequest>
+                    for GetOrderSvc<T> {
+                        type Response = super::Order;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetOrderRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GdcHardwareManagement>::get_order(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetOrderSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gdchardwaremanagement.v1alpha.GDCHardwareManagement/CreateOrder" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateOrderSvc<T: GdcHardwareManagement>(pub Arc<T>);
+                    impl<
+                        T: GdcHardwareManagement,
+                    > tonic::server::UnaryService<super::CreateOrderRequest>
+                    for CreateOrderSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateOrderRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GdcHardwareManagement>::create_order(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateOrderSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gdchardwaremanagement.v1alpha.GDCHardwareManagement/UpdateOrder" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateOrderSvc<T: GdcHardwareManagement>(pub Arc<T>);
+                    impl<
+                        T: GdcHardwareManagement,
+                    > tonic::server::UnaryService<super::UpdateOrderRequest>
+                    for UpdateOrderSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateOrderRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GdcHardwareManagement>::update_order(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateOrderSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gdchardwaremanagement.v1alpha.GDCHardwareManagement/DeleteOrder" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteOrderSvc<T: GdcHardwareManagement>(pub Arc<T>);
+                    impl<
+                        T: GdcHardwareManagement,
+                    > tonic::server::UnaryService<super::DeleteOrderRequest>
+                    for DeleteOrderSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteOrderRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GdcHardwareManagement>::delete_order(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteOrderSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gdchardwaremanagement.v1alpha.GDCHardwareManagement/SubmitOrder" => {
+                    #[allow(non_camel_case_types)]
+                    struct SubmitOrderSvc<T: GdcHardwareManagement>(pub Arc<T>);
+                    impl<
+                        T: GdcHardwareManagement,
+                    > tonic::server::UnaryService<super::SubmitOrderRequest>
+                    for SubmitOrderSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SubmitOrderRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GdcHardwareManagement>::submit_order(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SubmitOrderSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gdchardwaremanagement.v1alpha.GDCHardwareManagement/ListSites" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListSitesSvc<T: GdcHardwareManagement>(pub Arc<T>);
+                    impl<
+                        T: GdcHardwareManagement,
+                    > tonic::server::UnaryService<super::ListSitesRequest>
+                    for ListSitesSvc<T> {
+                        type Response = super::ListSitesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListSitesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GdcHardwareManagement>::list_sites(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListSitesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gdchardwaremanagement.v1alpha.GDCHardwareManagement/GetSite" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetSiteSvc<T: GdcHardwareManagement>(pub Arc<T>);
+                    impl<
+                        T: GdcHardwareManagement,
+                    > tonic::server::UnaryService<super::GetSiteRequest>
+                    for GetSiteSvc<T> {
+                        type Response = super::Site;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetSiteRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GdcHardwareManagement>::get_site(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetSiteSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gdchardwaremanagement.v1alpha.GDCHardwareManagement/CreateSite" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateSiteSvc<T: GdcHardwareManagement>(pub Arc<T>);
+                    impl<
+                        T: GdcHardwareManagement,
+                    > tonic::server::UnaryService<super::CreateSiteRequest>
+                    for CreateSiteSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateSiteRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GdcHardwareManagement>::create_site(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateSiteSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gdchardwaremanagement.v1alpha.GDCHardwareManagement/UpdateSite" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateSiteSvc<T: GdcHardwareManagement>(pub Arc<T>);
+                    impl<
+                        T: GdcHardwareManagement,
+                    > tonic::server::UnaryService<super::UpdateSiteRequest>
+                    for UpdateSiteSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateSiteRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GdcHardwareManagement>::update_site(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateSiteSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gdchardwaremanagement.v1alpha.GDCHardwareManagement/ListHardwareGroups" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListHardwareGroupsSvc<T: GdcHardwareManagement>(pub Arc<T>);
+                    impl<
+                        T: GdcHardwareManagement,
+                    > tonic::server::UnaryService<super::ListHardwareGroupsRequest>
+                    for ListHardwareGroupsSvc<T> {
+                        type Response = super::ListHardwareGroupsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListHardwareGroupsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GdcHardwareManagement>::list_hardware_groups(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListHardwareGroupsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gdchardwaremanagement.v1alpha.GDCHardwareManagement/GetHardwareGroup" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetHardwareGroupSvc<T: GdcHardwareManagement>(pub Arc<T>);
+                    impl<
+                        T: GdcHardwareManagement,
+                    > tonic::server::UnaryService<super::GetHardwareGroupRequest>
+                    for GetHardwareGroupSvc<T> {
+                        type Response = super::HardwareGroup;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetHardwareGroupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GdcHardwareManagement>::get_hardware_group(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetHardwareGroupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gdchardwaremanagement.v1alpha.GDCHardwareManagement/CreateHardwareGroup" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateHardwareGroupSvc<T: GdcHardwareManagement>(pub Arc<T>);
+                    impl<
+                        T: GdcHardwareManagement,
+                    > tonic::server::UnaryService<super::CreateHardwareGroupRequest>
+                    for CreateHardwareGroupSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateHardwareGroupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GdcHardwareManagement>::create_hardware_group(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateHardwareGroupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gdchardwaremanagement.v1alpha.GDCHardwareManagement/UpdateHardwareGroup" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateHardwareGroupSvc<T: GdcHardwareManagement>(pub Arc<T>);
+                    impl<
+                        T: GdcHardwareManagement,
+                    > tonic::server::UnaryService<super::UpdateHardwareGroupRequest>
+                    for UpdateHardwareGroupSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateHardwareGroupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GdcHardwareManagement>::update_hardware_group(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateHardwareGroupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gdchardwaremanagement.v1alpha.GDCHardwareManagement/DeleteHardwareGroup" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteHardwareGroupSvc<T: GdcHardwareManagement>(pub Arc<T>);
+                    impl<
+                        T: GdcHardwareManagement,
+                    > tonic::server::UnaryService<super::DeleteHardwareGroupRequest>
+                    for DeleteHardwareGroupSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteHardwareGroupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GdcHardwareManagement>::delete_hardware_group(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteHardwareGroupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gdchardwaremanagement.v1alpha.GDCHardwareManagement/ListHardware" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListHardwareSvc<T: GdcHardwareManagement>(pub Arc<T>);
+                    impl<
+                        T: GdcHardwareManagement,
+                    > tonic::server::UnaryService<super::ListHardwareRequest>
+                    for ListHardwareSvc<T> {
+                        type Response = super::ListHardwareResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListHardwareRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GdcHardwareManagement>::list_hardware(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListHardwareSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gdchardwaremanagement.v1alpha.GDCHardwareManagement/GetHardware" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetHardwareSvc<T: GdcHardwareManagement>(pub Arc<T>);
+                    impl<
+                        T: GdcHardwareManagement,
+                    > tonic::server::UnaryService<super::GetHardwareRequest>
+                    for GetHardwareSvc<T> {
+                        type Response = super::Hardware;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetHardwareRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GdcHardwareManagement>::get_hardware(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetHardwareSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gdchardwaremanagement.v1alpha.GDCHardwareManagement/CreateHardware" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateHardwareSvc<T: GdcHardwareManagement>(pub Arc<T>);
+                    impl<
+                        T: GdcHardwareManagement,
+                    > tonic::server::UnaryService<super::CreateHardwareRequest>
+                    for CreateHardwareSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateHardwareRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GdcHardwareManagement>::create_hardware(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateHardwareSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gdchardwaremanagement.v1alpha.GDCHardwareManagement/UpdateHardware" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateHardwareSvc<T: GdcHardwareManagement>(pub Arc<T>);
+                    impl<
+                        T: GdcHardwareManagement,
+                    > tonic::server::UnaryService<super::UpdateHardwareRequest>
+                    for UpdateHardwareSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateHardwareRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GdcHardwareManagement>::update_hardware(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateHardwareSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gdchardwaremanagement.v1alpha.GDCHardwareManagement/DeleteHardware" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteHardwareSvc<T: GdcHardwareManagement>(pub Arc<T>);
+                    impl<
+                        T: GdcHardwareManagement,
+                    > tonic::server::UnaryService<super::DeleteHardwareRequest>
+                    for DeleteHardwareSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteHardwareRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GdcHardwareManagement>::delete_hardware(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteHardwareSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gdchardwaremanagement.v1alpha.GDCHardwareManagement/ListComments" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListCommentsSvc<T: GdcHardwareManagement>(pub Arc<T>);
+                    impl<
+                        T: GdcHardwareManagement,
+                    > tonic::server::UnaryService<super::ListCommentsRequest>
+                    for ListCommentsSvc<T> {
+                        type Response = super::ListCommentsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListCommentsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GdcHardwareManagement>::list_comments(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListCommentsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gdchardwaremanagement.v1alpha.GDCHardwareManagement/GetComment" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetCommentSvc<T: GdcHardwareManagement>(pub Arc<T>);
+                    impl<
+                        T: GdcHardwareManagement,
+                    > tonic::server::UnaryService<super::GetCommentRequest>
+                    for GetCommentSvc<T> {
+                        type Response = super::Comment;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetCommentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GdcHardwareManagement>::get_comment(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetCommentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gdchardwaremanagement.v1alpha.GDCHardwareManagement/CreateComment" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateCommentSvc<T: GdcHardwareManagement>(pub Arc<T>);
+                    impl<
+                        T: GdcHardwareManagement,
+                    > tonic::server::UnaryService<super::CreateCommentRequest>
+                    for CreateCommentSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateCommentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GdcHardwareManagement>::create_comment(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateCommentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gdchardwaremanagement.v1alpha.GDCHardwareManagement/ListChangeLogEntries" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListChangeLogEntriesSvc<T: GdcHardwareManagement>(pub Arc<T>);
+                    impl<
+                        T: GdcHardwareManagement,
+                    > tonic::server::UnaryService<super::ListChangeLogEntriesRequest>
+                    for ListChangeLogEntriesSvc<T> {
+                        type Response = super::ListChangeLogEntriesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListChangeLogEntriesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GdcHardwareManagement>::list_change_log_entries(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListChangeLogEntriesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gdchardwaremanagement.v1alpha.GDCHardwareManagement/GetChangeLogEntry" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetChangeLogEntrySvc<T: GdcHardwareManagement>(pub Arc<T>);
+                    impl<
+                        T: GdcHardwareManagement,
+                    > tonic::server::UnaryService<super::GetChangeLogEntryRequest>
+                    for GetChangeLogEntrySvc<T> {
+                        type Response = super::ChangeLogEntry;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetChangeLogEntryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GdcHardwareManagement>::get_change_log_entry(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetChangeLogEntrySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gdchardwaremanagement.v1alpha.GDCHardwareManagement/ListSkus" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListSkusSvc<T: GdcHardwareManagement>(pub Arc<T>);
+                    impl<
+                        T: GdcHardwareManagement,
+                    > tonic::server::UnaryService<super::ListSkusRequest>
+                    for ListSkusSvc<T> {
+                        type Response = super::ListSkusResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListSkusRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GdcHardwareManagement>::list_skus(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListSkusSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gdchardwaremanagement.v1alpha.GDCHardwareManagement/GetSku" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetSkuSvc<T: GdcHardwareManagement>(pub Arc<T>);
+                    impl<
+                        T: GdcHardwareManagement,
+                    > tonic::server::UnaryService<super::GetSkuRequest>
+                    for GetSkuSvc<T> {
+                        type Response = super::Sku;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetSkuRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GdcHardwareManagement>::get_sku(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetSkuSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gdchardwaremanagement.v1alpha.GDCHardwareManagement/ListZones" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListZonesSvc<T: GdcHardwareManagement>(pub Arc<T>);
+                    impl<
+                        T: GdcHardwareManagement,
+                    > tonic::server::UnaryService<super::ListZonesRequest>
+                    for ListZonesSvc<T> {
+                        type Response = super::ListZonesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListZonesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GdcHardwareManagement>::list_zones(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListZonesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gdchardwaremanagement.v1alpha.GDCHardwareManagement/GetZone" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetZoneSvc<T: GdcHardwareManagement>(pub Arc<T>);
+                    impl<
+                        T: GdcHardwareManagement,
+                    > tonic::server::UnaryService<super::GetZoneRequest>
+                    for GetZoneSvc<T> {
+                        type Response = super::Zone;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetZoneRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GdcHardwareManagement>::get_zone(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetZoneSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gdchardwaremanagement.v1alpha.GDCHardwareManagement/CreateZone" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateZoneSvc<T: GdcHardwareManagement>(pub Arc<T>);
+                    impl<
+                        T: GdcHardwareManagement,
+                    > tonic::server::UnaryService<super::CreateZoneRequest>
+                    for CreateZoneSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateZoneRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GdcHardwareManagement>::create_zone(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateZoneSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gdchardwaremanagement.v1alpha.GDCHardwareManagement/UpdateZone" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateZoneSvc<T: GdcHardwareManagement>(pub Arc<T>);
+                    impl<
+                        T: GdcHardwareManagement,
+                    > tonic::server::UnaryService<super::UpdateZoneRequest>
+                    for UpdateZoneSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateZoneRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GdcHardwareManagement>::update_zone(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateZoneSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gdchardwaremanagement.v1alpha.GDCHardwareManagement/DeleteZone" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteZoneSvc<T: GdcHardwareManagement>(pub Arc<T>);
+                    impl<
+                        T: GdcHardwareManagement,
+                    > tonic::server::UnaryService<super::DeleteZoneRequest>
+                    for DeleteZoneSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteZoneRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GdcHardwareManagement>::delete_zone(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteZoneSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gdchardwaremanagement.v1alpha.GDCHardwareManagement/SignalZoneState" => {
+                    #[allow(non_camel_case_types)]
+                    struct SignalZoneStateSvc<T: GdcHardwareManagement>(pub Arc<T>);
+                    impl<
+                        T: GdcHardwareManagement,
+                    > tonic::server::UnaryService<super::SignalZoneStateRequest>
+                    for SignalZoneStateSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SignalZoneStateRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GdcHardwareManagement>::signal_zone_state(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SignalZoneStateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for GdcHardwareManagementServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.gdchardwaremanagement.v1alpha.GDCHardwareManagement";
+    impl<T> tonic::server::NamedService for GdcHardwareManagementServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

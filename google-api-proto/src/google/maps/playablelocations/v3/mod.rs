@@ -67,12 +67,12 @@ pub mod player_report {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                BadLocationReason::Unspecified => "BAD_LOCATION_REASON_UNSPECIFIED",
-                BadLocationReason::Other => "OTHER",
-                BadLocationReason::NotPedestrianAccessible => "NOT_PEDESTRIAN_ACCESSIBLE",
-                BadLocationReason::NotOpenToPublic => "NOT_OPEN_TO_PUBLIC",
-                BadLocationReason::PermanentlyClosed => "PERMANENTLY_CLOSED",
-                BadLocationReason::TemporarilyInaccessible => "TEMPORARILY_INACCESSIBLE",
+                Self::Unspecified => "BAD_LOCATION_REASON_UNSPECIFIED",
+                Self::Other => "OTHER",
+                Self::NotPedestrianAccessible => "NOT_PEDESTRIAN_ACCESSIBLE",
+                Self::NotOpenToPublic => "NOT_OPEN_TO_PUBLIC",
+                Self::PermanentlyClosed => "PERMANENTLY_CLOSED",
+                Self::TemporarilyInaccessible => "TEMPORARILY_INACCESSIBLE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -141,9 +141,9 @@ pub mod impression {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ImpressionType::Unspecified => "IMPRESSION_TYPE_UNSPECIFIED",
-                ImpressionType::Presented => "PRESENTED",
-                ImpressionType::Interacted => "INTERACTED",
+                Self::Unspecified => "IMPRESSION_TYPE_UNSPECIFIED",
+                Self::Presented => "PRESENTED",
+                Self::Interacted => "INTERACTED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -448,5 +448,307 @@ pub mod playable_locations_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod playable_locations_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with PlayableLocationsServer.
+    #[async_trait]
+    pub trait PlayableLocations: std::marker::Send + std::marker::Sync + 'static {
+        /// Returns a set of playable locations that lie within a specified area,
+        /// that satisfy optional filter criteria.
+        ///
+        /// Note: Identical `SamplePlayableLocations` requests can return different
+        /// results as the state of the world changes over time.
+        async fn sample_playable_locations(
+            &self,
+            request: tonic::Request<super::SamplePlayableLocationsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SamplePlayableLocationsResponse>,
+            tonic::Status,
+        >;
+        /// Logs bad playable location reports submitted by players.
+        ///
+        /// Reports are not partially saved; either all reports are saved and this
+        /// request succeeds, or no reports are saved, and this request fails.
+        async fn log_player_reports(
+            &self,
+            request: tonic::Request<super::LogPlayerReportsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::LogPlayerReportsResponse>,
+            tonic::Status,
+        >;
+        /// Logs new events when playable locations are displayed, and when they are
+        /// interacted with.
+        ///
+        /// Impressions are not partially saved; either all impressions are saved and
+        /// this request succeeds, or no impressions are saved, and this request fails.
+        async fn log_impressions(
+            &self,
+            request: tonic::Request<super::LogImpressionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::LogImpressionsResponse>,
+            tonic::Status,
+        >;
+    }
+    /// The Playable Locations API for v3.
+    #[derive(Debug)]
+    pub struct PlayableLocationsServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> PlayableLocationsServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for PlayableLocationsServer<T>
+    where
+        T: PlayableLocations,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.maps.playablelocations.v3.PlayableLocations/SamplePlayableLocations" => {
+                    #[allow(non_camel_case_types)]
+                    struct SamplePlayableLocationsSvc<T: PlayableLocations>(pub Arc<T>);
+                    impl<
+                        T: PlayableLocations,
+                    > tonic::server::UnaryService<super::SamplePlayableLocationsRequest>
+                    for SamplePlayableLocationsSvc<T> {
+                        type Response = super::SamplePlayableLocationsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::SamplePlayableLocationsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as PlayableLocations>::sample_playable_locations(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SamplePlayableLocationsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.maps.playablelocations.v3.PlayableLocations/LogPlayerReports" => {
+                    #[allow(non_camel_case_types)]
+                    struct LogPlayerReportsSvc<T: PlayableLocations>(pub Arc<T>);
+                    impl<
+                        T: PlayableLocations,
+                    > tonic::server::UnaryService<super::LogPlayerReportsRequest>
+                    for LogPlayerReportsSvc<T> {
+                        type Response = super::LogPlayerReportsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::LogPlayerReportsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as PlayableLocations>::log_player_reports(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = LogPlayerReportsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.maps.playablelocations.v3.PlayableLocations/LogImpressions" => {
+                    #[allow(non_camel_case_types)]
+                    struct LogImpressionsSvc<T: PlayableLocations>(pub Arc<T>);
+                    impl<
+                        T: PlayableLocations,
+                    > tonic::server::UnaryService<super::LogImpressionsRequest>
+                    for LogImpressionsSvc<T> {
+                        type Response = super::LogImpressionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::LogImpressionsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as PlayableLocations>::log_impressions(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = LogImpressionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for PlayableLocationsServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.maps.playablelocations.v3.PlayableLocations";
+    impl<T> tonic::server::NamedService for PlayableLocationsServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

@@ -115,12 +115,12 @@ pub mod instance {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    LivenessState::Unspecified => "LIVENESS_STATE_UNSPECIFIED",
-                    LivenessState::Unknown => "UNKNOWN",
-                    LivenessState::Healthy => "HEALTHY",
-                    LivenessState::Unhealthy => "UNHEALTHY",
-                    LivenessState::Draining => "DRAINING",
-                    LivenessState::Timeout => "TIMEOUT",
+                    Self::Unspecified => "LIVENESS_STATE_UNSPECIFIED",
+                    Self::Unknown => "UNKNOWN",
+                    Self::Healthy => "HEALTHY",
+                    Self::Unhealthy => "UNHEALTHY",
+                    Self::Draining => "DRAINING",
+                    Self::Timeout => "TIMEOUT",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -162,9 +162,9 @@ pub mod instance {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Availability::Unspecified => "UNSPECIFIED",
-                Availability::Resident => "RESIDENT",
-                Availability::Dynamic => "DYNAMIC",
+                Self::Unspecified => "UNSPECIFIED",
+                Self::Resident => "RESIDENT",
+                Self::Dynamic => "DYNAMIC",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -173,342 +173,6 @@ pub mod instance {
                 "UNSPECIFIED" => Some(Self::Unspecified),
                 "RESIDENT" => Some(Self::Resident),
                 "DYNAMIC" => Some(Self::Dynamic),
-                _ => None,
-            }
-        }
-    }
-}
-/// Code and application artifacts used to deploy a version to App Engine.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Deployment {
-    /// Manifest of the files stored in Google Cloud Storage that are included
-    /// as part of this version. All files must be readable using the
-    /// credentials supplied with this call.
-    #[prost(btree_map = "string, message", tag = "1")]
-    pub files: ::prost::alloc::collections::BTreeMap<
-        ::prost::alloc::string::String,
-        FileInfo,
-    >,
-    /// The Docker image for the container that runs the version.
-    /// Only applicable for instances running in the App Engine flexible environment.
-    #[prost(message, optional, tag = "2")]
-    pub container: ::core::option::Option<ContainerInfo>,
-    /// The zip file for this deployment, if this is a zip deployment.
-    #[prost(message, optional, tag = "3")]
-    pub zip: ::core::option::Option<ZipInfo>,
-    /// Options for any Google Cloud Build builds created as a part of this
-    /// deployment.
-    ///
-    /// These options will only be used if a new build is created, such as when
-    /// deploying to the App Engine flexible environment using files or zip.
-    #[prost(message, optional, tag = "6")]
-    pub cloud_build_options: ::core::option::Option<CloudBuildOptions>,
-}
-/// Single source file that is part of the version to be deployed. Each source
-/// file that is deployed must be specified separately.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct FileInfo {
-    /// URL source to use to fetch this file. Must be a URL to a resource in
-    /// Google Cloud Storage in the form
-    /// 'http(s)://storage.googleapis.com/\<bucket\>/\<object\>'.
-    #[prost(string, tag = "1")]
-    pub source_url: ::prost::alloc::string::String,
-    /// The SHA1 hash of the file, in hex.
-    #[prost(string, tag = "2")]
-    pub sha1_sum: ::prost::alloc::string::String,
-    /// The MIME type of the file.
-    ///
-    /// Defaults to the value from Google Cloud Storage.
-    #[prost(string, tag = "3")]
-    pub mime_type: ::prost::alloc::string::String,
-}
-/// Docker image that is used to create a container and start a VM instance for
-/// the version that you deploy. Only applicable for instances running in the App
-/// Engine flexible environment.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ContainerInfo {
-    /// URI to the hosted container image in Google Container Registry. The URI
-    /// must be fully qualified and include a tag or digest.
-    /// Examples: "gcr.io/my-project/image:tag" or "gcr.io/my-project/image@digest"
-    #[prost(string, tag = "1")]
-    pub image: ::prost::alloc::string::String,
-}
-/// Options for the build operations performed as a part of the version
-/// deployment. Only applicable for App Engine flexible environment when creating
-/// a version using source code directly.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CloudBuildOptions {
-    /// Path to the yaml file used in deployment, used to determine runtime
-    /// configuration details.
-    ///
-    /// Required for flexible environment builds.
-    ///
-    /// See <https://cloud.google.com/appengine/docs/standard/python/config/appref>
-    /// for more details.
-    #[prost(string, tag = "1")]
-    pub app_yaml_path: ::prost::alloc::string::String,
-    /// The Cloud Build timeout used as part of any dependent builds performed by
-    /// version creation. Defaults to 10 minutes.
-    #[prost(message, optional, tag = "2")]
-    pub cloud_build_timeout: ::core::option::Option<::prost_types::Duration>,
-}
-/// The zip file information for a zip deployment.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ZipInfo {
-    /// URL of the zip file to deploy from. Must be a URL to a resource in
-    /// Google Cloud Storage in the form
-    /// 'http(s)://storage.googleapis.com/\<bucket\>/\<object\>'.
-    #[prost(string, tag = "3")]
-    pub source_url: ::prost::alloc::string::String,
-    /// An estimate of the number of files in a zip for a zip deployment.
-    /// If set, must be greater than or equal to the actual number of files.
-    /// Used for optimizing performance; if not provided, deployment may be slow.
-    #[prost(int32, tag = "4")]
-    pub files_count: i32,
-}
-/// A single firewall rule that is evaluated against incoming traffic
-/// and provides an action to take on matched requests.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct FirewallRule {
-    /// A positive integer between \[1, Int32.MaxValue-1\] that defines the order of
-    /// rule evaluation. Rules with the lowest priority are evaluated first.
-    ///
-    /// A default rule at priority Int32.MaxValue matches all IPv4 and IPv6 traffic
-    /// when no previous rule matches. Only the action of this rule can be modified
-    /// by the user.
-    #[prost(int32, tag = "1")]
-    pub priority: i32,
-    /// The action to take on matched requests.
-    #[prost(enumeration = "firewall_rule::Action", tag = "2")]
-    pub action: i32,
-    /// IP address or range, defined using CIDR notation, of requests that this
-    /// rule applies to. You can use the wildcard character "*" to match all IPs
-    /// equivalent to "0/0" and "::/0" together.
-    /// Examples: `192.168.1.1` or `192.168.0.0/16` or `2001:db8::/32`
-    ///            or `2001:0db8:0000:0042:0000:8a2e:0370:7334`.
-    ///
-    ///
-    /// <p>Truncation will be silently performed on addresses which are not
-    /// properly truncated. For example, `1.2.3.4/24` is accepted as the same
-    /// address as `1.2.3.0/24`. Similarly, for IPv6, `2001:db8::1/32` is accepted
-    /// as the same address as `2001:db8::/32`.
-    #[prost(string, tag = "3")]
-    pub source_range: ::prost::alloc::string::String,
-    /// An optional string description of this rule.
-    /// This field has a maximum length of 100 characters.
-    #[prost(string, tag = "4")]
-    pub description: ::prost::alloc::string::String,
-}
-/// Nested message and enum types in `FirewallRule`.
-pub mod firewall_rule {
-    /// Available actions to take on matching requests.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum Action {
-        UnspecifiedAction = 0,
-        /// Matching requests are allowed.
-        Allow = 1,
-        /// Matching requests are denied.
-        Deny = 2,
-    }
-    impl Action {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                Action::UnspecifiedAction => "UNSPECIFIED_ACTION",
-                Action::Allow => "ALLOW",
-                Action::Deny => "DENY",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "UNSPECIFIED_ACTION" => Some(Self::UnspecifiedAction),
-                "ALLOW" => Some(Self::Allow),
-                "DENY" => Some(Self::Deny),
-                _ => None,
-            }
-        }
-    }
-}
-/// A domain serving an App Engine application.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DomainMapping {
-    /// Full path to the `DomainMapping` resource in the API. Example:
-    /// `apps/myapp/domainMapping/example.com`.
-    ///
-    /// @OutputOnly
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// Relative name of the domain serving the application. Example:
-    /// `example.com`.
-    #[prost(string, tag = "2")]
-    pub id: ::prost::alloc::string::String,
-    /// SSL configuration for this domain. If unconfigured, this domain will not
-    /// serve with SSL.
-    #[prost(message, optional, tag = "3")]
-    pub ssl_settings: ::core::option::Option<SslSettings>,
-    /// The resource records required to configure this domain mapping. These
-    /// records must be added to the domain's DNS configuration in order to
-    /// serve the application via this domain mapping.
-    ///
-    /// @OutputOnly
-    #[prost(message, repeated, tag = "4")]
-    pub resource_records: ::prost::alloc::vec::Vec<ResourceRecord>,
-}
-/// SSL configuration for a `DomainMapping` resource.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SslSettings {
-    /// ID of the `AuthorizedCertificate` resource configuring SSL for the
-    /// application. Clearing this field will remove SSL support.
-    ///
-    /// By default, a managed certificate is automatically created for every
-    /// domain mapping. To omit SSL support or to configure SSL manually, specify
-    /// `SslManagementType.MANUAL` on a `CREATE` or `UPDATE` request. You must
-    /// be authorized to administer the `AuthorizedCertificate` resource to
-    /// manually map it to a `DomainMapping` resource.
-    /// Example: `12345`.
-    #[prost(string, tag = "1")]
-    pub certificate_id: ::prost::alloc::string::String,
-    /// SSL management type for this domain. If `AUTOMATIC`, a managed certificate
-    /// is automatically provisioned. If `MANUAL`, `certificate_id` must be
-    /// manually specified in order to configure SSL for this domain.
-    #[prost(enumeration = "ssl_settings::SslManagementType", tag = "3")]
-    pub ssl_management_type: i32,
-    /// ID of the managed `AuthorizedCertificate` resource currently being
-    /// provisioned, if applicable. Until the new managed certificate has been
-    /// successfully provisioned, the previous SSL state will be preserved. Once
-    /// the provisioning process completes, the `certificate_id` field will reflect
-    /// the new managed certificate and this field will be left empty. To remove
-    /// SSL support while there is still a pending managed certificate, clear the
-    /// `certificate_id` field with an `UpdateDomainMappingRequest`.
-    ///
-    /// @OutputOnly
-    #[prost(string, tag = "4")]
-    pub pending_managed_certificate_id: ::prost::alloc::string::String,
-}
-/// Nested message and enum types in `SslSettings`.
-pub mod ssl_settings {
-    /// The SSL management type for this domain.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum SslManagementType {
-        /// Defaults to `AUTOMATIC`.
-        Unspecified = 0,
-        /// SSL support for this domain is configured automatically. The mapped SSL
-        /// certificate will be automatically renewed.
-        Automatic = 1,
-        /// SSL support for this domain is configured manually by the user. Either
-        /// the domain has no SSL support or a user-obtained SSL certificate has been
-        /// explictly mapped to this domain.
-        Manual = 2,
-    }
-    impl SslManagementType {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                SslManagementType::Unspecified => "SSL_MANAGEMENT_TYPE_UNSPECIFIED",
-                SslManagementType::Automatic => "AUTOMATIC",
-                SslManagementType::Manual => "MANUAL",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "SSL_MANAGEMENT_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
-                "AUTOMATIC" => Some(Self::Automatic),
-                "MANUAL" => Some(Self::Manual),
-                _ => None,
-            }
-        }
-    }
-}
-/// A DNS resource record.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ResourceRecord {
-    /// Relative name of the object affected by this record. Only applicable for
-    /// `CNAME` records. Example: 'www'.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// Data for this record. Values vary by record type, as defined in RFC 1035
-    /// (section 5) and RFC 1034 (section 3.6.1).
-    #[prost(string, tag = "2")]
-    pub rrdata: ::prost::alloc::string::String,
-    /// Resource record type. Example: `AAAA`.
-    #[prost(enumeration = "resource_record::RecordType", tag = "3")]
-    pub r#type: i32,
-}
-/// Nested message and enum types in `ResourceRecord`.
-pub mod resource_record {
-    /// A resource record type.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum RecordType {
-        /// An unknown resource record.
-        Unspecified = 0,
-        /// An A resource record. Data is an IPv4 address.
-        A = 1,
-        /// An AAAA resource record. Data is an IPv6 address.
-        Aaaa = 2,
-        /// A CNAME resource record. Data is a domain name to be aliased.
-        Cname = 3,
-    }
-    impl RecordType {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                RecordType::Unspecified => "RECORD_TYPE_UNSPECIFIED",
-                RecordType::A => "A",
-                RecordType::Aaaa => "AAAA",
-                RecordType::Cname => "CNAME",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "RECORD_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
-                "A" => Some(Self::A),
-                "AAAA" => Some(Self::Aaaa),
-                "CNAME" => Some(Self::Cname),
                 _ => None,
             }
         }
@@ -670,10 +334,10 @@ pub mod application {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ServingStatus::Unspecified => "UNSPECIFIED",
-                ServingStatus::Serving => "SERVING",
-                ServingStatus::UserDisabled => "USER_DISABLED",
-                ServingStatus::SystemDisabled => "SYSTEM_DISABLED",
+                Self::Unspecified => "UNSPECIFIED",
+                Self::Serving => "SERVING",
+                Self::UserDisabled => "USER_DISABLED",
+                Self::SystemDisabled => "SYSTEM_DISABLED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -716,12 +380,10 @@ pub mod application {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                DatabaseType::Unspecified => "DATABASE_TYPE_UNSPECIFIED",
-                DatabaseType::CloudDatastore => "CLOUD_DATASTORE",
-                DatabaseType::CloudFirestore => "CLOUD_FIRESTORE",
-                DatabaseType::CloudDatastoreCompatibility => {
-                    "CLOUD_DATASTORE_COMPATIBILITY"
-                }
+                Self::Unspecified => "DATABASE_TYPE_UNSPECIFIED",
+                Self::CloudDatastore => "CLOUD_DATASTORE",
+                Self::CloudFirestore => "CLOUD_FIRESTORE",
+                Self::CloudDatastoreCompatibility => "CLOUD_DATASTORE_COMPATIBILITY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -912,15 +574,13 @@ impl ManagementStatus {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ManagementStatus::Unspecified => "MANAGEMENT_STATUS_UNSPECIFIED",
-            ManagementStatus::Ok => "OK",
-            ManagementStatus::Pending => "PENDING",
-            ManagementStatus::FailedRetryingNotVisible => "FAILED_RETRYING_NOT_VISIBLE",
-            ManagementStatus::FailedPermanent => "FAILED_PERMANENT",
-            ManagementStatus::FailedRetryingCaaForbidden => {
-                "FAILED_RETRYING_CAA_FORBIDDEN"
-            }
-            ManagementStatus::FailedRetryingCaaChecking => "FAILED_RETRYING_CAA_CHECKING",
+            Self::Unspecified => "MANAGEMENT_STATUS_UNSPECIFIED",
+            Self::Ok => "OK",
+            Self::Pending => "PENDING",
+            Self::FailedRetryingNotVisible => "FAILED_RETRYING_NOT_VISIBLE",
+            Self::FailedPermanent => "FAILED_PERMANENT",
+            Self::FailedRetryingCaaForbidden => "FAILED_RETRYING_CAA_FORBIDDEN",
+            Self::FailedRetryingCaaChecking => "FAILED_RETRYING_CAA_CHECKING",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -952,6 +612,254 @@ pub struct AuthorizedDomain {
     /// `example.com`.
     #[prost(string, tag = "2")]
     pub id: ::prost::alloc::string::String,
+}
+/// A domain serving an App Engine application.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DomainMapping {
+    /// Full path to the `DomainMapping` resource in the API. Example:
+    /// `apps/myapp/domainMapping/example.com`.
+    ///
+    /// @OutputOnly
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// Relative name of the domain serving the application. Example:
+    /// `example.com`.
+    #[prost(string, tag = "2")]
+    pub id: ::prost::alloc::string::String,
+    /// SSL configuration for this domain. If unconfigured, this domain will not
+    /// serve with SSL.
+    #[prost(message, optional, tag = "3")]
+    pub ssl_settings: ::core::option::Option<SslSettings>,
+    /// The resource records required to configure this domain mapping. These
+    /// records must be added to the domain's DNS configuration in order to
+    /// serve the application via this domain mapping.
+    ///
+    /// @OutputOnly
+    #[prost(message, repeated, tag = "4")]
+    pub resource_records: ::prost::alloc::vec::Vec<ResourceRecord>,
+}
+/// SSL configuration for a `DomainMapping` resource.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SslSettings {
+    /// ID of the `AuthorizedCertificate` resource configuring SSL for the
+    /// application. Clearing this field will remove SSL support.
+    ///
+    /// By default, a managed certificate is automatically created for every
+    /// domain mapping. To omit SSL support or to configure SSL manually, specify
+    /// `SslManagementType.MANUAL` on a `CREATE` or `UPDATE` request. You must
+    /// be authorized to administer the `AuthorizedCertificate` resource to
+    /// manually map it to a `DomainMapping` resource.
+    /// Example: `12345`.
+    #[prost(string, tag = "1")]
+    pub certificate_id: ::prost::alloc::string::String,
+    /// SSL management type for this domain. If `AUTOMATIC`, a managed certificate
+    /// is automatically provisioned. If `MANUAL`, `certificate_id` must be
+    /// manually specified in order to configure SSL for this domain.
+    #[prost(enumeration = "ssl_settings::SslManagementType", tag = "3")]
+    pub ssl_management_type: i32,
+    /// ID of the managed `AuthorizedCertificate` resource currently being
+    /// provisioned, if applicable. Until the new managed certificate has been
+    /// successfully provisioned, the previous SSL state will be preserved. Once
+    /// the provisioning process completes, the `certificate_id` field will reflect
+    /// the new managed certificate and this field will be left empty. To remove
+    /// SSL support while there is still a pending managed certificate, clear the
+    /// `certificate_id` field with an `UpdateDomainMappingRequest`.
+    ///
+    /// @OutputOnly
+    #[prost(string, tag = "4")]
+    pub pending_managed_certificate_id: ::prost::alloc::string::String,
+}
+/// Nested message and enum types in `SslSettings`.
+pub mod ssl_settings {
+    /// The SSL management type for this domain.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum SslManagementType {
+        /// Defaults to `AUTOMATIC`.
+        Unspecified = 0,
+        /// SSL support for this domain is configured automatically. The mapped SSL
+        /// certificate will be automatically renewed.
+        Automatic = 1,
+        /// SSL support for this domain is configured manually by the user. Either
+        /// the domain has no SSL support or a user-obtained SSL certificate has been
+        /// explictly mapped to this domain.
+        Manual = 2,
+    }
+    impl SslManagementType {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "SSL_MANAGEMENT_TYPE_UNSPECIFIED",
+                Self::Automatic => "AUTOMATIC",
+                Self::Manual => "MANUAL",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "SSL_MANAGEMENT_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "AUTOMATIC" => Some(Self::Automatic),
+                "MANUAL" => Some(Self::Manual),
+                _ => None,
+            }
+        }
+    }
+}
+/// A DNS resource record.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ResourceRecord {
+    /// Relative name of the object affected by this record. Only applicable for
+    /// `CNAME` records. Example: 'www'.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// Data for this record. Values vary by record type, as defined in RFC 1035
+    /// (section 5) and RFC 1034 (section 3.6.1).
+    #[prost(string, tag = "2")]
+    pub rrdata: ::prost::alloc::string::String,
+    /// Resource record type. Example: `AAAA`.
+    #[prost(enumeration = "resource_record::RecordType", tag = "3")]
+    pub r#type: i32,
+}
+/// Nested message and enum types in `ResourceRecord`.
+pub mod resource_record {
+    /// A resource record type.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum RecordType {
+        /// An unknown resource record.
+        Unspecified = 0,
+        /// An A resource record. Data is an IPv4 address.
+        A = 1,
+        /// An AAAA resource record. Data is an IPv6 address.
+        Aaaa = 2,
+        /// A CNAME resource record. Data is a domain name to be aliased.
+        Cname = 3,
+    }
+    impl RecordType {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "RECORD_TYPE_UNSPECIFIED",
+                Self::A => "A",
+                Self::Aaaa => "AAAA",
+                Self::Cname => "CNAME",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "RECORD_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "A" => Some(Self::A),
+                "AAAA" => Some(Self::Aaaa),
+                "CNAME" => Some(Self::Cname),
+                _ => None,
+            }
+        }
+    }
+}
+/// A single firewall rule that is evaluated against incoming traffic
+/// and provides an action to take on matched requests.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct FirewallRule {
+    /// A positive integer between \[1, Int32.MaxValue-1\] that defines the order of
+    /// rule evaluation. Rules with the lowest priority are evaluated first.
+    ///
+    /// A default rule at priority Int32.MaxValue matches all IPv4 and IPv6 traffic
+    /// when no previous rule matches. Only the action of this rule can be modified
+    /// by the user.
+    #[prost(int32, tag = "1")]
+    pub priority: i32,
+    /// The action to take on matched requests.
+    #[prost(enumeration = "firewall_rule::Action", tag = "2")]
+    pub action: i32,
+    /// IP address or range, defined using CIDR notation, of requests that this
+    /// rule applies to. You can use the wildcard character "*" to match all IPs
+    /// equivalent to "0/0" and "::/0" together.
+    /// Examples: `192.168.1.1` or `192.168.0.0/16` or `2001:db8::/32`
+    ///            or `2001:0db8:0000:0042:0000:8a2e:0370:7334`.
+    ///
+    ///
+    /// <p>Truncation will be silently performed on addresses which are not
+    /// properly truncated. For example, `1.2.3.4/24` is accepted as the same
+    /// address as `1.2.3.0/24`. Similarly, for IPv6, `2001:db8::1/32` is accepted
+    /// as the same address as `2001:db8::/32`.
+    #[prost(string, tag = "3")]
+    pub source_range: ::prost::alloc::string::String,
+    /// An optional string description of this rule.
+    /// This field has a maximum length of 100 characters.
+    #[prost(string, tag = "4")]
+    pub description: ::prost::alloc::string::String,
+}
+/// Nested message and enum types in `FirewallRule`.
+pub mod firewall_rule {
+    /// Available actions to take on matching requests.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum Action {
+        UnspecifiedAction = 0,
+        /// Matching requests are allowed.
+        Allow = 1,
+        /// Matching requests are denied.
+        Deny = 2,
+    }
+    impl Action {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::UnspecifiedAction => "UNSPECIFIED_ACTION",
+                Self::Allow => "ALLOW",
+                Self::Deny => "DENY",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "UNSPECIFIED_ACTION" => Some(Self::UnspecifiedAction),
+                "ALLOW" => Some(Self::Allow),
+                "DENY" => Some(Self::Deny),
+                _ => None,
+            }
+        }
+    }
 }
 /// A NetworkSettings resource is a container for ingress settings for a version
 /// or service.
@@ -993,16 +901,10 @@ pub mod network_settings {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                IngressTrafficAllowed::Unspecified => {
-                    "INGRESS_TRAFFIC_ALLOWED_UNSPECIFIED"
-                }
-                IngressTrafficAllowed::All => "INGRESS_TRAFFIC_ALLOWED_ALL",
-                IngressTrafficAllowed::InternalOnly => {
-                    "INGRESS_TRAFFIC_ALLOWED_INTERNAL_ONLY"
-                }
-                IngressTrafficAllowed::InternalAndLb => {
-                    "INGRESS_TRAFFIC_ALLOWED_INTERNAL_AND_LB"
-                }
+                Self::Unspecified => "INGRESS_TRAFFIC_ALLOWED_UNSPECIFIED",
+                Self::All => "INGRESS_TRAFFIC_ALLOWED_ALL",
+                Self::InternalOnly => "INGRESS_TRAFFIC_ALLOWED_INTERNAL_ONLY",
+                Self::InternalAndLb => "INGRESS_TRAFFIC_ALLOWED_INTERNAL_AND_LB",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1121,10 +1023,10 @@ pub mod traffic_split {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ShardBy::Unspecified => "UNSPECIFIED",
-                ShardBy::Cookie => "COOKIE",
-                ShardBy::Ip => "IP",
-                ShardBy::Random => "RANDOM",
+                Self::Unspecified => "UNSPECIFIED",
+                Self::Cookie => "COOKIE",
+                Self::Ip => "IP",
+                Self::Random => "RANDOM",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1207,10 +1109,10 @@ pub mod error_handler {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ErrorCode::Unspecified => "ERROR_CODE_UNSPECIFIED",
-                ErrorCode::OverQuota => "ERROR_CODE_OVER_QUOTA",
-                ErrorCode::DosApiDenial => "ERROR_CODE_DOS_API_DENIAL",
-                ErrorCode::Timeout => "ERROR_CODE_TIMEOUT",
+                Self::Unspecified => "ERROR_CODE_UNSPECIFIED",
+                Self::OverQuota => "ERROR_CODE_OVER_QUOTA",
+                Self::DosApiDenial => "ERROR_CODE_DOS_API_DENIAL",
+                Self::Timeout => "ERROR_CODE_TIMEOUT",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1289,21 +1191,11 @@ pub mod url_map {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                RedirectHttpResponseCode::Unspecified => {
-                    "REDIRECT_HTTP_RESPONSE_CODE_UNSPECIFIED"
-                }
-                RedirectHttpResponseCode::RedirectHttpResponseCode301 => {
-                    "REDIRECT_HTTP_RESPONSE_CODE_301"
-                }
-                RedirectHttpResponseCode::RedirectHttpResponseCode302 => {
-                    "REDIRECT_HTTP_RESPONSE_CODE_302"
-                }
-                RedirectHttpResponseCode::RedirectHttpResponseCode303 => {
-                    "REDIRECT_HTTP_RESPONSE_CODE_303"
-                }
-                RedirectHttpResponseCode::RedirectHttpResponseCode307 => {
-                    "REDIRECT_HTTP_RESPONSE_CODE_307"
-                }
+                Self::Unspecified => "REDIRECT_HTTP_RESPONSE_CODE_UNSPECIFIED",
+                Self::RedirectHttpResponseCode301 => "REDIRECT_HTTP_RESPONSE_CODE_301",
+                Self::RedirectHttpResponseCode302 => "REDIRECT_HTTP_RESPONSE_CODE_302",
+                Self::RedirectHttpResponseCode303 => "REDIRECT_HTTP_RESPONSE_CODE_303",
+                Self::RedirectHttpResponseCode307 => "REDIRECT_HTTP_RESPONSE_CODE_307",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1520,9 +1412,9 @@ impl AuthFailAction {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            AuthFailAction::Unspecified => "AUTH_FAIL_ACTION_UNSPECIFIED",
-            AuthFailAction::Redirect => "AUTH_FAIL_ACTION_REDIRECT",
-            AuthFailAction::Unauthorized => "AUTH_FAIL_ACTION_UNAUTHORIZED",
+            Self::Unspecified => "AUTH_FAIL_ACTION_UNSPECIFIED",
+            Self::Redirect => "AUTH_FAIL_ACTION_REDIRECT",
+            Self::Unauthorized => "AUTH_FAIL_ACTION_UNAUTHORIZED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1560,10 +1452,10 @@ impl LoginRequirement {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            LoginRequirement::LoginUnspecified => "LOGIN_UNSPECIFIED",
-            LoginRequirement::LoginOptional => "LOGIN_OPTIONAL",
-            LoginRequirement::LoginAdmin => "LOGIN_ADMIN",
-            LoginRequirement::LoginRequired => "LOGIN_REQUIRED",
+            Self::LoginUnspecified => "LOGIN_UNSPECIFIED",
+            Self::LoginOptional => "LOGIN_OPTIONAL",
+            Self::LoginAdmin => "LOGIN_ADMIN",
+            Self::LoginRequired => "LOGIN_REQUIRED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1602,10 +1494,10 @@ impl SecurityLevel {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            SecurityLevel::SecureUnspecified => "SECURE_UNSPECIFIED",
-            SecurityLevel::SecureNever => "SECURE_NEVER",
-            SecurityLevel::SecureOptional => "SECURE_OPTIONAL",
-            SecurityLevel::SecureAlways => "SECURE_ALWAYS",
+            Self::SecureUnspecified => "SECURE_UNSPECIFIED",
+            Self::SecureNever => "SECURE_NEVER",
+            Self::SecureOptional => "SECURE_OPTIONAL",
+            Self::SecureAlways => "SECURE_ALWAYS",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1618,6 +1510,94 @@ impl SecurityLevel {
             _ => None,
         }
     }
+}
+/// Code and application artifacts used to deploy a version to App Engine.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Deployment {
+    /// Manifest of the files stored in Google Cloud Storage that are included
+    /// as part of this version. All files must be readable using the
+    /// credentials supplied with this call.
+    #[prost(btree_map = "string, message", tag = "1")]
+    pub files: ::prost::alloc::collections::BTreeMap<
+        ::prost::alloc::string::String,
+        FileInfo,
+    >,
+    /// The Docker image for the container that runs the version.
+    /// Only applicable for instances running in the App Engine flexible environment.
+    #[prost(message, optional, tag = "2")]
+    pub container: ::core::option::Option<ContainerInfo>,
+    /// The zip file for this deployment, if this is a zip deployment.
+    #[prost(message, optional, tag = "3")]
+    pub zip: ::core::option::Option<ZipInfo>,
+    /// Options for any Google Cloud Build builds created as a part of this
+    /// deployment.
+    ///
+    /// These options will only be used if a new build is created, such as when
+    /// deploying to the App Engine flexible environment using files or zip.
+    #[prost(message, optional, tag = "6")]
+    pub cloud_build_options: ::core::option::Option<CloudBuildOptions>,
+}
+/// Single source file that is part of the version to be deployed. Each source
+/// file that is deployed must be specified separately.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct FileInfo {
+    /// URL source to use to fetch this file. Must be a URL to a resource in
+    /// Google Cloud Storage in the form
+    /// 'http(s)://storage.googleapis.com/\<bucket\>/\<object\>'.
+    #[prost(string, tag = "1")]
+    pub source_url: ::prost::alloc::string::String,
+    /// The SHA1 hash of the file, in hex.
+    #[prost(string, tag = "2")]
+    pub sha1_sum: ::prost::alloc::string::String,
+    /// The MIME type of the file.
+    ///
+    /// Defaults to the value from Google Cloud Storage.
+    #[prost(string, tag = "3")]
+    pub mime_type: ::prost::alloc::string::String,
+}
+/// Docker image that is used to create a container and start a VM instance for
+/// the version that you deploy. Only applicable for instances running in the App
+/// Engine flexible environment.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ContainerInfo {
+    /// URI to the hosted container image in Google Container Registry. The URI
+    /// must be fully qualified and include a tag or digest.
+    /// Examples: "gcr.io/my-project/image:tag" or "gcr.io/my-project/image@digest"
+    #[prost(string, tag = "1")]
+    pub image: ::prost::alloc::string::String,
+}
+/// Options for the build operations performed as a part of the version
+/// deployment. Only applicable for App Engine flexible environment when creating
+/// a version using source code directly.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CloudBuildOptions {
+    /// Path to the yaml file used in deployment, used to determine runtime
+    /// configuration details.
+    ///
+    /// Required for flexible environment builds.
+    ///
+    /// See <https://cloud.google.com/appengine/docs/standard/python/config/appref>
+    /// for more details.
+    #[prost(string, tag = "1")]
+    pub app_yaml_path: ::prost::alloc::string::String,
+    /// The Cloud Build timeout used as part of any dependent builds performed by
+    /// version creation. Defaults to 10 minutes.
+    #[prost(message, optional, tag = "2")]
+    pub cloud_build_timeout: ::core::option::Option<::prost_types::Duration>,
+}
+/// The zip file information for a zip deployment.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ZipInfo {
+    /// URL of the zip file to deploy from. Must be a URL to a resource in
+    /// Google Cloud Storage in the form
+    /// 'http(s)://storage.googleapis.com/\<bucket\>/\<object\>'.
+    #[prost(string, tag = "3")]
+    pub source_url: ::prost::alloc::string::String,
+    /// An estimate of the number of files in a zip for a zip deployment.
+    /// If set, must be greater than or equal to the actual number of files.
+    /// Used for optimizing performance; if not provided, deployment may be slow.
+    #[prost(int32, tag = "4")]
+    pub files_count: i32,
 }
 /// A Version resource is a specific set of source code and configuration files
 /// that are deployed into a service.
@@ -1917,11 +1897,9 @@ pub mod endpoints_api_service {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                RolloutStrategy::UnspecifiedRolloutStrategy => {
-                    "UNSPECIFIED_ROLLOUT_STRATEGY"
-                }
-                RolloutStrategy::Fixed => "FIXED",
-                RolloutStrategy::Managed => "MANAGED",
+                Self::UnspecifiedRolloutStrategy => "UNSPECIFIED_ROLLOUT_STRATEGY",
+                Self::Fixed => "FIXED",
+                Self::Managed => "MANAGED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2214,9 +2192,9 @@ pub mod vpc_access_connector {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                EgressSetting::Unspecified => "EGRESS_SETTING_UNSPECIFIED",
-                EgressSetting::AllTraffic => "ALL_TRAFFIC",
-                EgressSetting::PrivateIpRanges => "PRIVATE_IP_RANGES",
+                Self::Unspecified => "EGRESS_SETTING_UNSPECIFIED",
+                Self::AllTraffic => "ALL_TRAFFIC",
+                Self::PrivateIpRanges => "PRIVATE_IP_RANGES",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2278,25 +2256,15 @@ impl InboundServiceType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            InboundServiceType::InboundServiceUnspecified => {
-                "INBOUND_SERVICE_UNSPECIFIED"
-            }
-            InboundServiceType::InboundServiceMail => "INBOUND_SERVICE_MAIL",
-            InboundServiceType::InboundServiceMailBounce => "INBOUND_SERVICE_MAIL_BOUNCE",
-            InboundServiceType::InboundServiceXmppError => "INBOUND_SERVICE_XMPP_ERROR",
-            InboundServiceType::InboundServiceXmppMessage => {
-                "INBOUND_SERVICE_XMPP_MESSAGE"
-            }
-            InboundServiceType::InboundServiceXmppSubscribe => {
-                "INBOUND_SERVICE_XMPP_SUBSCRIBE"
-            }
-            InboundServiceType::InboundServiceXmppPresence => {
-                "INBOUND_SERVICE_XMPP_PRESENCE"
-            }
-            InboundServiceType::InboundServiceChannelPresence => {
-                "INBOUND_SERVICE_CHANNEL_PRESENCE"
-            }
-            InboundServiceType::InboundServiceWarmup => "INBOUND_SERVICE_WARMUP",
+            Self::InboundServiceUnspecified => "INBOUND_SERVICE_UNSPECIFIED",
+            Self::InboundServiceMail => "INBOUND_SERVICE_MAIL",
+            Self::InboundServiceMailBounce => "INBOUND_SERVICE_MAIL_BOUNCE",
+            Self::InboundServiceXmppError => "INBOUND_SERVICE_XMPP_ERROR",
+            Self::InboundServiceXmppMessage => "INBOUND_SERVICE_XMPP_MESSAGE",
+            Self::InboundServiceXmppSubscribe => "INBOUND_SERVICE_XMPP_SUBSCRIBE",
+            Self::InboundServiceXmppPresence => "INBOUND_SERVICE_XMPP_PRESENCE",
+            Self::InboundServiceChannelPresence => "INBOUND_SERVICE_CHANNEL_PRESENCE",
+            Self::InboundServiceWarmup => "INBOUND_SERVICE_WARMUP",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2338,9 +2306,9 @@ impl ServingStatus {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ServingStatus::Unspecified => "SERVING_STATUS_UNSPECIFIED",
-            ServingStatus::Serving => "SERVING",
-            ServingStatus::Stopped => "STOPPED",
+            Self::Unspecified => "SERVING_STATUS_UNSPECIFIED",
+            Self::Serving => "SERVING",
+            Self::Stopped => "STOPPED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2860,8 +2828,8 @@ impl VersionView {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            VersionView::Basic => "BASIC",
-            VersionView::Full => "FULL",
+            Self::Basic => "BASIC",
+            Self::Full => "FULL",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2892,8 +2860,8 @@ impl AuthorizedCertificateView {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            AuthorizedCertificateView::BasicCertificate => "BASIC_CERTIFICATE",
-            AuthorizedCertificateView::FullCertificate => "FULL_CERTIFICATE",
+            Self::BasicCertificate => "BASIC_CERTIFICATE",
+            Self::FullCertificate => "FULL_CERTIFICATE",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2928,11 +2896,11 @@ impl DomainOverrideStrategy {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            DomainOverrideStrategy::UnspecifiedDomainOverrideStrategy => {
+            Self::UnspecifiedDomainOverrideStrategy => {
                 "UNSPECIFIED_DOMAIN_OVERRIDE_STRATEGY"
             }
-            DomainOverrideStrategy::Strict => "STRICT",
-            DomainOverrideStrategy::Override => "OVERRIDE",
+            Self::Strict => "STRICT",
+            Self::Override => "OVERRIDE",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -4625,6 +4593,2920 @@ pub mod domain_mappings_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod applications_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with ApplicationsServer.
+    #[async_trait]
+    pub trait Applications: std::marker::Send + std::marker::Sync + 'static {
+        /// Gets information about an application.
+        async fn get_application(
+            &self,
+            request: tonic::Request<super::GetApplicationRequest>,
+        ) -> std::result::Result<tonic::Response<super::Application>, tonic::Status>;
+        /// Creates an App Engine application for a Google Cloud Platform project.
+        /// Required fields:
+        ///
+        /// * `id` - The ID of the target Cloud Platform project.
+        /// * *location* - The [region](https://cloud.google.com/appengine/docs/locations) where you want the App Engine application located.
+        ///
+        /// For more information about App Engine applications, see [Managing Projects, Applications, and Billing](https://cloud.google.com/appengine/docs/standard/python/console/).
+        async fn create_application(
+            &self,
+            request: tonic::Request<super::CreateApplicationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the specified Application resource.
+        /// You can update the following fields:
+        ///
+        /// * `auth_domain` - Google authentication domain for controlling user access to the application.
+        /// * `default_cookie_expiration` - Cookie expiration policy for the application.
+        /// * `iap` - Identity-Aware Proxy properties for the application.
+        async fn update_application(
+            &self,
+            request: tonic::Request<super::UpdateApplicationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Recreates the required App Engine features for the specified App Engine
+        /// application, for example a Cloud Storage bucket or App Engine service
+        /// account.
+        /// Use this method if you receive an error message about a missing feature,
+        /// for example, *Error retrieving the App Engine service account*.
+        /// If you have deleted your App Engine service account, this will
+        /// not be able to recreate it. Instead, you should attempt to use the
+        /// IAM undelete API if possible at https://cloud.google.com/iam/reference/rest/v1/projects.serviceAccounts/undelete?apix_params=%7B"name"%3A"projects%2F-%2FserviceAccounts%2Funique_id"%2C"resource"%3A%7B%7D%7D .
+        /// If the deletion was recent, the numeric ID can be found in the Cloud
+        /// Console Activity Log.
+        async fn repair_application(
+            &self,
+            request: tonic::Request<super::RepairApplicationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// Manages App Engine applications.
+    #[derive(Debug)]
+    pub struct ApplicationsServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> ApplicationsServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for ApplicationsServer<T>
+    where
+        T: Applications,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.appengine.v1.Applications/GetApplication" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetApplicationSvc<T: Applications>(pub Arc<T>);
+                    impl<
+                        T: Applications,
+                    > tonic::server::UnaryService<super::GetApplicationRequest>
+                    for GetApplicationSvc<T> {
+                        type Response = super::Application;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetApplicationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Applications>::get_application(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetApplicationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.appengine.v1.Applications/CreateApplication" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateApplicationSvc<T: Applications>(pub Arc<T>);
+                    impl<
+                        T: Applications,
+                    > tonic::server::UnaryService<super::CreateApplicationRequest>
+                    for CreateApplicationSvc<T> {
+                        type Response = super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateApplicationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Applications>::create_application(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateApplicationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.appengine.v1.Applications/UpdateApplication" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateApplicationSvc<T: Applications>(pub Arc<T>);
+                    impl<
+                        T: Applications,
+                    > tonic::server::UnaryService<super::UpdateApplicationRequest>
+                    for UpdateApplicationSvc<T> {
+                        type Response = super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateApplicationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Applications>::update_application(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateApplicationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.appengine.v1.Applications/RepairApplication" => {
+                    #[allow(non_camel_case_types)]
+                    struct RepairApplicationSvc<T: Applications>(pub Arc<T>);
+                    impl<
+                        T: Applications,
+                    > tonic::server::UnaryService<super::RepairApplicationRequest>
+                    for RepairApplicationSvc<T> {
+                        type Response = super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RepairApplicationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Applications>::repair_application(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RepairApplicationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for ApplicationsServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.appengine.v1.Applications";
+    impl<T> tonic::server::NamedService for ApplicationsServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}
+/// Generated server implementations.
+pub mod services_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with ServicesServer.
+    #[async_trait]
+    pub trait Services: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists all the services in the application.
+        async fn list_services(
+            &self,
+            request: tonic::Request<super::ListServicesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListServicesResponse>,
+            tonic::Status,
+        >;
+        /// Gets the current configuration of the specified service.
+        async fn get_service(
+            &self,
+            request: tonic::Request<super::GetServiceRequest>,
+        ) -> std::result::Result<tonic::Response<super::Service>, tonic::Status>;
+        /// Updates the configuration of the specified service.
+        async fn update_service(
+            &self,
+            request: tonic::Request<super::UpdateServiceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes the specified service and all enclosed versions.
+        async fn delete_service(
+            &self,
+            request: tonic::Request<super::DeleteServiceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// Manages services of an application.
+    #[derive(Debug)]
+    pub struct ServicesServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> ServicesServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for ServicesServer<T>
+    where
+        T: Services,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.appengine.v1.Services/ListServices" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListServicesSvc<T: Services>(pub Arc<T>);
+                    impl<
+                        T: Services,
+                    > tonic::server::UnaryService<super::ListServicesRequest>
+                    for ListServicesSvc<T> {
+                        type Response = super::ListServicesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListServicesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Services>::list_services(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListServicesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.appengine.v1.Services/GetService" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetServiceSvc<T: Services>(pub Arc<T>);
+                    impl<
+                        T: Services,
+                    > tonic::server::UnaryService<super::GetServiceRequest>
+                    for GetServiceSvc<T> {
+                        type Response = super::Service;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetServiceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Services>::get_service(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetServiceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.appengine.v1.Services/UpdateService" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateServiceSvc<T: Services>(pub Arc<T>);
+                    impl<
+                        T: Services,
+                    > tonic::server::UnaryService<super::UpdateServiceRequest>
+                    for UpdateServiceSvc<T> {
+                        type Response = super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateServiceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Services>::update_service(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateServiceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.appengine.v1.Services/DeleteService" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteServiceSvc<T: Services>(pub Arc<T>);
+                    impl<
+                        T: Services,
+                    > tonic::server::UnaryService<super::DeleteServiceRequest>
+                    for DeleteServiceSvc<T> {
+                        type Response = super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteServiceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Services>::delete_service(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteServiceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for ServicesServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.appengine.v1.Services";
+    impl<T> tonic::server::NamedService for ServicesServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}
+/// Generated server implementations.
+pub mod versions_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with VersionsServer.
+    #[async_trait]
+    pub trait Versions: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists the versions of a service.
+        async fn list_versions(
+            &self,
+            request: tonic::Request<super::ListVersionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListVersionsResponse>,
+            tonic::Status,
+        >;
+        /// Gets the specified Version resource.
+        /// By default, only a `BASIC_VIEW` will be returned.
+        /// Specify the `FULL_VIEW` parameter to get the full resource.
+        async fn get_version(
+            &self,
+            request: tonic::Request<super::GetVersionRequest>,
+        ) -> std::result::Result<tonic::Response<super::Version>, tonic::Status>;
+        /// Deploys code and resource files to a new version.
+        async fn create_version(
+            &self,
+            request: tonic::Request<super::CreateVersionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the specified Version resource.
+        /// You can specify the following fields depending on the App Engine
+        /// environment and type of scaling that the version resource uses:
+        ///
+        /// **Standard environment**
+        ///
+        /// * [`instance_class`](https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1/apps.services.versions#Version.FIELDS.instance_class)
+        ///
+        /// *automatic scaling* in the standard environment:
+        ///
+        /// * [`automatic_scaling.min_idle_instances`](https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1/apps.services.versions#Version.FIELDS.automatic_scaling)
+        /// * [`automatic_scaling.max_idle_instances`](https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1/apps.services.versions#Version.FIELDS.automatic_scaling)
+        /// * [`automaticScaling.standard_scheduler_settings.max_instances`](https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1/apps.services.versions#StandardSchedulerSettings)
+        /// * [`automaticScaling.standard_scheduler_settings.min_instances`](https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1/apps.services.versions#StandardSchedulerSettings)
+        /// * [`automaticScaling.standard_scheduler_settings.target_cpu_utilization`](https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1/apps.services.versions#StandardSchedulerSettings)
+        /// * [`automaticScaling.standard_scheduler_settings.target_throughput_utilization`](https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1/apps.services.versions#StandardSchedulerSettings)
+        ///
+        /// *basic scaling* or *manual scaling* in the standard environment:
+        ///
+        /// * [`serving_status`](https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1/apps.services.versions#Version.FIELDS.serving_status)
+        /// * [`manual_scaling.instances`](https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1/apps.services.versions#manualscaling)
+        ///
+        /// **Flexible environment**
+        ///
+        /// * [`serving_status`](https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1/apps.services.versions#Version.FIELDS.serving_status)
+        ///
+        /// *automatic scaling* in the flexible environment:
+        ///
+        /// * [`automatic_scaling.min_total_instances`](https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1/apps.services.versions#Version.FIELDS.automatic_scaling)
+        /// * [`automatic_scaling.max_total_instances`](https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1/apps.services.versions#Version.FIELDS.automatic_scaling)
+        /// * [`automatic_scaling.cool_down_period_sec`](https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1/apps.services.versions#Version.FIELDS.automatic_scaling)
+        /// * [`automatic_scaling.cpu_utilization.target_utilization`](https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1/apps.services.versions#Version.FIELDS.automatic_scaling)
+        ///
+        /// *manual scaling* in the flexible environment:
+        ///
+        /// * [`manual_scaling.instances`](https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1/apps.services.versions#manualscaling)
+        async fn update_version(
+            &self,
+            request: tonic::Request<super::UpdateVersionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes an existing Version resource.
+        async fn delete_version(
+            &self,
+            request: tonic::Request<super::DeleteVersionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// Manages versions of a service.
+    #[derive(Debug)]
+    pub struct VersionsServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> VersionsServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for VersionsServer<T>
+    where
+        T: Versions,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.appengine.v1.Versions/ListVersions" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListVersionsSvc<T: Versions>(pub Arc<T>);
+                    impl<
+                        T: Versions,
+                    > tonic::server::UnaryService<super::ListVersionsRequest>
+                    for ListVersionsSvc<T> {
+                        type Response = super::ListVersionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListVersionsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Versions>::list_versions(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListVersionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.appengine.v1.Versions/GetVersion" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetVersionSvc<T: Versions>(pub Arc<T>);
+                    impl<
+                        T: Versions,
+                    > tonic::server::UnaryService<super::GetVersionRequest>
+                    for GetVersionSvc<T> {
+                        type Response = super::Version;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetVersionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Versions>::get_version(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetVersionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.appengine.v1.Versions/CreateVersion" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateVersionSvc<T: Versions>(pub Arc<T>);
+                    impl<
+                        T: Versions,
+                    > tonic::server::UnaryService<super::CreateVersionRequest>
+                    for CreateVersionSvc<T> {
+                        type Response = super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateVersionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Versions>::create_version(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateVersionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.appengine.v1.Versions/UpdateVersion" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateVersionSvc<T: Versions>(pub Arc<T>);
+                    impl<
+                        T: Versions,
+                    > tonic::server::UnaryService<super::UpdateVersionRequest>
+                    for UpdateVersionSvc<T> {
+                        type Response = super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateVersionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Versions>::update_version(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateVersionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.appengine.v1.Versions/DeleteVersion" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteVersionSvc<T: Versions>(pub Arc<T>);
+                    impl<
+                        T: Versions,
+                    > tonic::server::UnaryService<super::DeleteVersionRequest>
+                    for DeleteVersionSvc<T> {
+                        type Response = super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteVersionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Versions>::delete_version(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteVersionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for VersionsServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.appengine.v1.Versions";
+    impl<T> tonic::server::NamedService for VersionsServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}
+/// Generated server implementations.
+pub mod instances_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with InstancesServer.
+    #[async_trait]
+    pub trait Instances: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists the instances of a version.
+        ///
+        /// Tip: To aggregate details about instances over time, see the
+        /// [Stackdriver Monitoring API](https://cloud.google.com/monitoring/api/ref_v3/rest/v3/projects.timeSeries/list).
+        async fn list_instances(
+            &self,
+            request: tonic::Request<super::ListInstancesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListInstancesResponse>,
+            tonic::Status,
+        >;
+        /// Gets instance information.
+        async fn get_instance(
+            &self,
+            request: tonic::Request<super::GetInstanceRequest>,
+        ) -> std::result::Result<tonic::Response<super::Instance>, tonic::Status>;
+        /// Stops a running instance.
+        ///
+        /// The instance might be automatically recreated based on the scaling settings
+        /// of the version. For more information, see "How Instances are Managed"
+        /// ([standard environment](https://cloud.google.com/appengine/docs/standard/python/how-instances-are-managed) |
+        /// [flexible environment](https://cloud.google.com/appengine/docs/flexible/python/how-instances-are-managed)).
+        ///
+        /// To ensure that instances are not re-created and avoid getting billed, you
+        /// can stop all instances within the target version by changing the serving
+        /// status of the version to `STOPPED` with the
+        /// [`apps.services.versions.patch`](https://cloud.google.com/appengine/docs/admin-api/reference/rest/v1/apps.services.versions/patch)
+        /// method.
+        async fn delete_instance(
+            &self,
+            request: tonic::Request<super::DeleteInstanceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Enables debugging on a VM instance. This allows you to use the SSH
+        /// command to connect to the virtual machine where the instance lives.
+        /// While in "debug mode", the instance continues to serve live traffic.
+        /// You should delete the instance when you are done debugging and then
+        /// allow the system to take over and determine if another instance
+        /// should be started.
+        ///
+        /// Only applicable for instances in App Engine flexible environment.
+        async fn debug_instance(
+            &self,
+            request: tonic::Request<super::DebugInstanceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// Manages instances of a version.
+    #[derive(Debug)]
+    pub struct InstancesServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> InstancesServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for InstancesServer<T>
+    where
+        T: Instances,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.appengine.v1.Instances/ListInstances" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListInstancesSvc<T: Instances>(pub Arc<T>);
+                    impl<
+                        T: Instances,
+                    > tonic::server::UnaryService<super::ListInstancesRequest>
+                    for ListInstancesSvc<T> {
+                        type Response = super::ListInstancesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListInstancesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Instances>::list_instances(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListInstancesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.appengine.v1.Instances/GetInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetInstanceSvc<T: Instances>(pub Arc<T>);
+                    impl<
+                        T: Instances,
+                    > tonic::server::UnaryService<super::GetInstanceRequest>
+                    for GetInstanceSvc<T> {
+                        type Response = super::Instance;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetInstanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Instances>::get_instance(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.appengine.v1.Instances/DeleteInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteInstanceSvc<T: Instances>(pub Arc<T>);
+                    impl<
+                        T: Instances,
+                    > tonic::server::UnaryService<super::DeleteInstanceRequest>
+                    for DeleteInstanceSvc<T> {
+                        type Response = super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteInstanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Instances>::delete_instance(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.appengine.v1.Instances/DebugInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct DebugInstanceSvc<T: Instances>(pub Arc<T>);
+                    impl<
+                        T: Instances,
+                    > tonic::server::UnaryService<super::DebugInstanceRequest>
+                    for DebugInstanceSvc<T> {
+                        type Response = super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DebugInstanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Instances>::debug_instance(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DebugInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for InstancesServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.appengine.v1.Instances";
+    impl<T> tonic::server::NamedService for InstancesServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}
+/// Generated server implementations.
+pub mod firewall_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with FirewallServer.
+    #[async_trait]
+    pub trait Firewall: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists the firewall rules of an application.
+        async fn list_ingress_rules(
+            &self,
+            request: tonic::Request<super::ListIngressRulesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListIngressRulesResponse>,
+            tonic::Status,
+        >;
+        /// Replaces the entire firewall ruleset in one bulk operation. This overrides
+        /// and replaces the rules of an existing firewall with the new rules.
+        ///
+        /// If the final rule does not match traffic with the '*' wildcard IP range,
+        /// then an "allow all" rule is explicitly added to the end of the list.
+        async fn batch_update_ingress_rules(
+            &self,
+            request: tonic::Request<super::BatchUpdateIngressRulesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::BatchUpdateIngressRulesResponse>,
+            tonic::Status,
+        >;
+        /// Creates a firewall rule for the application.
+        async fn create_ingress_rule(
+            &self,
+            request: tonic::Request<super::CreateIngressRuleRequest>,
+        ) -> std::result::Result<tonic::Response<super::FirewallRule>, tonic::Status>;
+        /// Gets the specified firewall rule.
+        async fn get_ingress_rule(
+            &self,
+            request: tonic::Request<super::GetIngressRuleRequest>,
+        ) -> std::result::Result<tonic::Response<super::FirewallRule>, tonic::Status>;
+        /// Updates the specified firewall rule.
+        async fn update_ingress_rule(
+            &self,
+            request: tonic::Request<super::UpdateIngressRuleRequest>,
+        ) -> std::result::Result<tonic::Response<super::FirewallRule>, tonic::Status>;
+        /// Deletes the specified firewall rule.
+        async fn delete_ingress_rule(
+            &self,
+            request: tonic::Request<super::DeleteIngressRuleRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+    }
+    /// Firewall resources are used to define a collection of access control rules
+    /// for an Application. Each rule is defined with a position which specifies
+    /// the rule's order in the sequence of rules, an IP range to be matched against
+    /// requests, and an action to take upon matching requests.
+    ///
+    /// Every request is evaluated against the Firewall rules in priority order.
+    /// Processesing stops at the first rule which matches the request's IP address.
+    /// A final rule always specifies an action that applies to all remaining
+    /// IP addresses. The default final rule for a newly-created application will be
+    /// set to "allow" if not otherwise specified by the user.
+    #[derive(Debug)]
+    pub struct FirewallServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> FirewallServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for FirewallServer<T>
+    where
+        T: Firewall,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.appengine.v1.Firewall/ListIngressRules" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListIngressRulesSvc<T: Firewall>(pub Arc<T>);
+                    impl<
+                        T: Firewall,
+                    > tonic::server::UnaryService<super::ListIngressRulesRequest>
+                    for ListIngressRulesSvc<T> {
+                        type Response = super::ListIngressRulesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListIngressRulesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Firewall>::list_ingress_rules(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListIngressRulesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.appengine.v1.Firewall/BatchUpdateIngressRules" => {
+                    #[allow(non_camel_case_types)]
+                    struct BatchUpdateIngressRulesSvc<T: Firewall>(pub Arc<T>);
+                    impl<
+                        T: Firewall,
+                    > tonic::server::UnaryService<super::BatchUpdateIngressRulesRequest>
+                    for BatchUpdateIngressRulesSvc<T> {
+                        type Response = super::BatchUpdateIngressRulesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::BatchUpdateIngressRulesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Firewall>::batch_update_ingress_rules(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BatchUpdateIngressRulesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.appengine.v1.Firewall/CreateIngressRule" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateIngressRuleSvc<T: Firewall>(pub Arc<T>);
+                    impl<
+                        T: Firewall,
+                    > tonic::server::UnaryService<super::CreateIngressRuleRequest>
+                    for CreateIngressRuleSvc<T> {
+                        type Response = super::FirewallRule;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateIngressRuleRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Firewall>::create_ingress_rule(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateIngressRuleSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.appengine.v1.Firewall/GetIngressRule" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetIngressRuleSvc<T: Firewall>(pub Arc<T>);
+                    impl<
+                        T: Firewall,
+                    > tonic::server::UnaryService<super::GetIngressRuleRequest>
+                    for GetIngressRuleSvc<T> {
+                        type Response = super::FirewallRule;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetIngressRuleRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Firewall>::get_ingress_rule(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetIngressRuleSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.appengine.v1.Firewall/UpdateIngressRule" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateIngressRuleSvc<T: Firewall>(pub Arc<T>);
+                    impl<
+                        T: Firewall,
+                    > tonic::server::UnaryService<super::UpdateIngressRuleRequest>
+                    for UpdateIngressRuleSvc<T> {
+                        type Response = super::FirewallRule;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateIngressRuleRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Firewall>::update_ingress_rule(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateIngressRuleSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.appengine.v1.Firewall/DeleteIngressRule" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteIngressRuleSvc<T: Firewall>(pub Arc<T>);
+                    impl<
+                        T: Firewall,
+                    > tonic::server::UnaryService<super::DeleteIngressRuleRequest>
+                    for DeleteIngressRuleSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteIngressRuleRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Firewall>::delete_ingress_rule(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteIngressRuleSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for FirewallServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.appengine.v1.Firewall";
+    impl<T> tonic::server::NamedService for FirewallServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}
+/// Generated server implementations.
+pub mod authorized_domains_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with AuthorizedDomainsServer.
+    #[async_trait]
+    pub trait AuthorizedDomains: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists all domains the user is authorized to administer.
+        async fn list_authorized_domains(
+            &self,
+            request: tonic::Request<super::ListAuthorizedDomainsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAuthorizedDomainsResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Manages domains a user is authorized to administer. To authorize use of a
+    /// domain, verify ownership via
+    /// [Webmaster Central](https://www.google.com/webmasters/verification/home).
+    #[derive(Debug)]
+    pub struct AuthorizedDomainsServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> AuthorizedDomainsServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for AuthorizedDomainsServer<T>
+    where
+        T: AuthorizedDomains,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.appengine.v1.AuthorizedDomains/ListAuthorizedDomains" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAuthorizedDomainsSvc<T: AuthorizedDomains>(pub Arc<T>);
+                    impl<
+                        T: AuthorizedDomains,
+                    > tonic::server::UnaryService<super::ListAuthorizedDomainsRequest>
+                    for ListAuthorizedDomainsSvc<T> {
+                        type Response = super::ListAuthorizedDomainsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListAuthorizedDomainsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AuthorizedDomains>::list_authorized_domains(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAuthorizedDomainsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for AuthorizedDomainsServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.appengine.v1.AuthorizedDomains";
+    impl<T> tonic::server::NamedService for AuthorizedDomainsServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}
+/// Generated server implementations.
+pub mod authorized_certificates_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with AuthorizedCertificatesServer.
+    #[async_trait]
+    pub trait AuthorizedCertificates: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists all SSL certificates the user is authorized to administer.
+        async fn list_authorized_certificates(
+            &self,
+            request: tonic::Request<super::ListAuthorizedCertificatesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAuthorizedCertificatesResponse>,
+            tonic::Status,
+        >;
+        /// Gets the specified SSL certificate.
+        async fn get_authorized_certificate(
+            &self,
+            request: tonic::Request<super::GetAuthorizedCertificateRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AuthorizedCertificate>,
+            tonic::Status,
+        >;
+        /// Uploads the specified SSL certificate.
+        async fn create_authorized_certificate(
+            &self,
+            request: tonic::Request<super::CreateAuthorizedCertificateRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AuthorizedCertificate>,
+            tonic::Status,
+        >;
+        /// Updates the specified SSL certificate. To renew a certificate and maintain
+        /// its existing domain mappings, update `certificate_data` with a new
+        /// certificate. The new certificate must be applicable to the same domains as
+        /// the original certificate. The certificate `display_name` may also be
+        /// updated.
+        async fn update_authorized_certificate(
+            &self,
+            request: tonic::Request<super::UpdateAuthorizedCertificateRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AuthorizedCertificate>,
+            tonic::Status,
+        >;
+        /// Deletes the specified SSL certificate.
+        async fn delete_authorized_certificate(
+            &self,
+            request: tonic::Request<super::DeleteAuthorizedCertificateRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+    }
+    /// Manages SSL certificates a user is authorized to administer. A user can
+    /// administer any SSL certificates applicable to their authorized domains.
+    #[derive(Debug)]
+    pub struct AuthorizedCertificatesServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> AuthorizedCertificatesServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for AuthorizedCertificatesServer<T>
+    where
+        T: AuthorizedCertificates,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.appengine.v1.AuthorizedCertificates/ListAuthorizedCertificates" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAuthorizedCertificatesSvc<T: AuthorizedCertificates>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AuthorizedCertificates,
+                    > tonic::server::UnaryService<
+                        super::ListAuthorizedCertificatesRequest,
+                    > for ListAuthorizedCertificatesSvc<T> {
+                        type Response = super::ListAuthorizedCertificatesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListAuthorizedCertificatesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AuthorizedCertificates>::list_authorized_certificates(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAuthorizedCertificatesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.appengine.v1.AuthorizedCertificates/GetAuthorizedCertificate" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAuthorizedCertificateSvc<T: AuthorizedCertificates>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AuthorizedCertificates,
+                    > tonic::server::UnaryService<super::GetAuthorizedCertificateRequest>
+                    for GetAuthorizedCertificateSvc<T> {
+                        type Response = super::AuthorizedCertificate;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetAuthorizedCertificateRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AuthorizedCertificates>::get_authorized_certificate(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAuthorizedCertificateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.appengine.v1.AuthorizedCertificates/CreateAuthorizedCertificate" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateAuthorizedCertificateSvc<T: AuthorizedCertificates>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AuthorizedCertificates,
+                    > tonic::server::UnaryService<
+                        super::CreateAuthorizedCertificateRequest,
+                    > for CreateAuthorizedCertificateSvc<T> {
+                        type Response = super::AuthorizedCertificate;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateAuthorizedCertificateRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AuthorizedCertificates>::create_authorized_certificate(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateAuthorizedCertificateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.appengine.v1.AuthorizedCertificates/UpdateAuthorizedCertificate" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateAuthorizedCertificateSvc<T: AuthorizedCertificates>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AuthorizedCertificates,
+                    > tonic::server::UnaryService<
+                        super::UpdateAuthorizedCertificateRequest,
+                    > for UpdateAuthorizedCertificateSvc<T> {
+                        type Response = super::AuthorizedCertificate;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::UpdateAuthorizedCertificateRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AuthorizedCertificates>::update_authorized_certificate(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateAuthorizedCertificateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.appengine.v1.AuthorizedCertificates/DeleteAuthorizedCertificate" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteAuthorizedCertificateSvc<T: AuthorizedCertificates>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AuthorizedCertificates,
+                    > tonic::server::UnaryService<
+                        super::DeleteAuthorizedCertificateRequest,
+                    > for DeleteAuthorizedCertificateSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteAuthorizedCertificateRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AuthorizedCertificates>::delete_authorized_certificate(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteAuthorizedCertificateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for AuthorizedCertificatesServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.appengine.v1.AuthorizedCertificates";
+    impl<T> tonic::server::NamedService for AuthorizedCertificatesServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}
+/// Generated server implementations.
+pub mod domain_mappings_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with DomainMappingsServer.
+    #[async_trait]
+    pub trait DomainMappings: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists the domain mappings on an application.
+        async fn list_domain_mappings(
+            &self,
+            request: tonic::Request<super::ListDomainMappingsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDomainMappingsResponse>,
+            tonic::Status,
+        >;
+        /// Gets the specified domain mapping.
+        async fn get_domain_mapping(
+            &self,
+            request: tonic::Request<super::GetDomainMappingRequest>,
+        ) -> std::result::Result<tonic::Response<super::DomainMapping>, tonic::Status>;
+        /// Maps a domain to an application. A user must be authorized to administer a
+        /// domain in order to map it to an application. For a list of available
+        /// authorized domains, see [`AuthorizedDomains.ListAuthorizedDomains`]().
+        async fn create_domain_mapping(
+            &self,
+            request: tonic::Request<super::CreateDomainMappingRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the specified domain mapping. To map an SSL certificate to a
+        /// domain mapping, update `certificate_id` to point to an `AuthorizedCertificate`
+        /// resource. A user must be authorized to administer the associated domain
+        /// in order to update a `DomainMapping` resource.
+        async fn update_domain_mapping(
+            &self,
+            request: tonic::Request<super::UpdateDomainMappingRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes the specified domain mapping. A user must be authorized to
+        /// administer the associated domain in order to delete a `DomainMapping`
+        /// resource.
+        async fn delete_domain_mapping(
+            &self,
+            request: tonic::Request<super::DeleteDomainMappingRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// Manages domains serving an application.
+    #[derive(Debug)]
+    pub struct DomainMappingsServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> DomainMappingsServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for DomainMappingsServer<T>
+    where
+        T: DomainMappings,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.appengine.v1.DomainMappings/ListDomainMappings" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDomainMappingsSvc<T: DomainMappings>(pub Arc<T>);
+                    impl<
+                        T: DomainMappings,
+                    > tonic::server::UnaryService<super::ListDomainMappingsRequest>
+                    for ListDomainMappingsSvc<T> {
+                        type Response = super::ListDomainMappingsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListDomainMappingsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DomainMappings>::list_domain_mappings(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDomainMappingsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.appengine.v1.DomainMappings/GetDomainMapping" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetDomainMappingSvc<T: DomainMappings>(pub Arc<T>);
+                    impl<
+                        T: DomainMappings,
+                    > tonic::server::UnaryService<super::GetDomainMappingRequest>
+                    for GetDomainMappingSvc<T> {
+                        type Response = super::DomainMapping;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetDomainMappingRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DomainMappings>::get_domain_mapping(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetDomainMappingSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.appengine.v1.DomainMappings/CreateDomainMapping" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateDomainMappingSvc<T: DomainMappings>(pub Arc<T>);
+                    impl<
+                        T: DomainMappings,
+                    > tonic::server::UnaryService<super::CreateDomainMappingRequest>
+                    for CreateDomainMappingSvc<T> {
+                        type Response = super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateDomainMappingRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DomainMappings>::create_domain_mapping(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateDomainMappingSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.appengine.v1.DomainMappings/UpdateDomainMapping" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateDomainMappingSvc<T: DomainMappings>(pub Arc<T>);
+                    impl<
+                        T: DomainMappings,
+                    > tonic::server::UnaryService<super::UpdateDomainMappingRequest>
+                    for UpdateDomainMappingSvc<T> {
+                        type Response = super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateDomainMappingRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DomainMappings>::update_domain_mapping(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateDomainMappingSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.appengine.v1.DomainMappings/DeleteDomainMapping" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteDomainMappingSvc<T: DomainMappings>(pub Arc<T>);
+                    impl<
+                        T: DomainMappings,
+                    > tonic::server::UnaryService<super::DeleteDomainMappingRequest>
+                    for DeleteDomainMappingSvc<T> {
+                        type Response = super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteDomainMappingRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DomainMappings>::delete_domain_mapping(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteDomainMappingSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for DomainMappingsServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.appengine.v1.DomainMappings";
+    impl<T> tonic::server::NamedService for DomainMappingsServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }
 /// App Engine admin service audit log.

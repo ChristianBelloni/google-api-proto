@@ -95,12 +95,12 @@ pub mod access_reason {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::CustomerInitiatedSupport => "CUSTOMER_INITIATED_SUPPORT",
-                Type::GoogleInitiatedService => "GOOGLE_INITIATED_SERVICE",
-                Type::GoogleInitiatedReview => "GOOGLE_INITIATED_REVIEW",
-                Type::ThirdPartyDataRequest => "THIRD_PARTY_DATA_REQUEST",
-                Type::GoogleResponseToProductionAlert => {
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::CustomerInitiatedSupport => "CUSTOMER_INITIATED_SUPPORT",
+                Self::GoogleInitiatedService => "GOOGLE_INITIATED_SERVICE",
+                Self::GoogleInitiatedReview => "GOOGLE_INITIATED_REVIEW",
+                Self::ThirdPartyDataRequest => "THIRD_PARTY_DATA_REQUEST",
+                Self::GoogleResponseToProductionAlert => {
                     "GOOGLE_RESPONSE_TO_PRODUCTION_ALERT"
                 }
             }
@@ -505,8 +505,8 @@ impl EnrollmentLevel {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            EnrollmentLevel::Unspecified => "ENROLLMENT_LEVEL_UNSPECIFIED",
-            EnrollmentLevel::BlockAll => "BLOCK_ALL",
+            Self::Unspecified => "ENROLLMENT_LEVEL_UNSPECIFIED",
+            Self::BlockAll => "BLOCK_ALL",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -931,5 +931,702 @@ pub mod access_approval_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod access_approval_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with AccessApprovalServer.
+    #[async_trait]
+    pub trait AccessApproval: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists approval requests associated with a project, folder, or organization.
+        /// Approval requests can be filtered by state (pending, active, dismissed).
+        /// The order is reverse chronological.
+        async fn list_approval_requests(
+            &self,
+            request: tonic::Request<super::ListApprovalRequestsMessage>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListApprovalRequestsResponse>,
+            tonic::Status,
+        >;
+        /// Gets an approval request. Returns NOT_FOUND if the request does not exist.
+        async fn get_approval_request(
+            &self,
+            request: tonic::Request<super::GetApprovalRequestMessage>,
+        ) -> std::result::Result<tonic::Response<super::ApprovalRequest>, tonic::Status>;
+        /// Approves a request and returns the updated ApprovalRequest.
+        ///
+        /// Returns NOT_FOUND if the request does not exist. Returns
+        /// FAILED_PRECONDITION if the request exists but is not in a pending state.
+        async fn approve_approval_request(
+            &self,
+            request: tonic::Request<super::ApproveApprovalRequestMessage>,
+        ) -> std::result::Result<tonic::Response<super::ApprovalRequest>, tonic::Status>;
+        /// Dismisses a request. Returns the updated ApprovalRequest.
+        ///
+        /// NOTE: This does not deny access to the resource if another request has been
+        /// made and approved. It is equivalent in effect to ignoring the request
+        /// altogether.
+        ///
+        /// Returns NOT_FOUND if the request does not exist.
+        ///
+        /// Returns FAILED_PRECONDITION if the request exists but is not in a pending
+        /// state.
+        async fn dismiss_approval_request(
+            &self,
+            request: tonic::Request<super::DismissApprovalRequestMessage>,
+        ) -> std::result::Result<tonic::Response<super::ApprovalRequest>, tonic::Status>;
+        /// Invalidates an existing ApprovalRequest. Returns the updated
+        /// ApprovalRequest.
+        ///
+        /// NOTE: This does not deny access to the resource if another request has been
+        /// made and approved. It only invalidates a single approval.
+        ///
+        /// Returns FAILED_PRECONDITION if the request exists but is not in an approved
+        /// state.
+        async fn invalidate_approval_request(
+            &self,
+            request: tonic::Request<super::InvalidateApprovalRequestMessage>,
+        ) -> std::result::Result<tonic::Response<super::ApprovalRequest>, tonic::Status>;
+        /// Gets the settings associated with a project, folder, or organization.
+        async fn get_access_approval_settings(
+            &self,
+            request: tonic::Request<super::GetAccessApprovalSettingsMessage>,
+        ) -> std::result::Result<
+            tonic::Response<super::AccessApprovalSettings>,
+            tonic::Status,
+        >;
+        /// Updates the settings associated with a project, folder, or organization.
+        /// Settings to update are determined by the value of field_mask.
+        async fn update_access_approval_settings(
+            &self,
+            request: tonic::Request<super::UpdateAccessApprovalSettingsMessage>,
+        ) -> std::result::Result<
+            tonic::Response<super::AccessApprovalSettings>,
+            tonic::Status,
+        >;
+        /// Deletes the settings associated with a project, folder, or organization.
+        /// This will have the effect of disabling Access Approval for the project,
+        /// folder, or organization, but only if all ancestors also have Access
+        /// Approval disabled. If Access Approval is enabled at a higher level of the
+        /// hierarchy, then Access Approval will still be enabled at this level as
+        /// the settings are inherited.
+        async fn delete_access_approval_settings(
+            &self,
+            request: tonic::Request<super::DeleteAccessApprovalSettingsMessage>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Retrieves the service account that is used by Access Approval to access KMS
+        /// keys for signing approved approval requests.
+        async fn get_access_approval_service_account(
+            &self,
+            request: tonic::Request<super::GetAccessApprovalServiceAccountMessage>,
+        ) -> std::result::Result<
+            tonic::Response<super::AccessApprovalServiceAccount>,
+            tonic::Status,
+        >;
+    }
+    /// This API allows a customer to manage accesses to cloud resources by
+    /// Google personnel. It defines the following resource model:
+    ///
+    /// - The API has a collection of
+    ///   [ApprovalRequest][google.cloud.accessapproval.v1.ApprovalRequest]
+    ///   resources, named `approvalRequests/{approval_request}`
+    /// - The API has top-level settings per Project/Folder/Organization, named
+    ///   `accessApprovalSettings`
+    ///
+    /// The service also periodically emails a list of recipients, defined at the
+    /// Project/Folder/Organization level in the accessApprovalSettings, when there
+    /// is a pending ApprovalRequest for them to act on. The ApprovalRequests can
+    /// also optionally be published to a Pub/Sub topic owned by the customer
+    /// (contact support if you would like to enable Pub/Sub notifications).
+    ///
+    /// ApprovalRequests can be approved or dismissed. Google personnel can only
+    /// access the indicated resource or resources if the request is approved
+    /// (subject to some exclusions:
+    /// https://cloud.google.com/access-approval/docs/overview#exclusions).
+    ///
+    /// Note: Using Access Approval functionality will mean that Google may not be
+    /// able to meet the SLAs for your chosen products, as any support response times
+    /// may be dramatically increased. As such the SLAs do not apply to any service
+    /// disruption to the extent impacted by Customer's use of Access Approval. Do
+    /// not enable Access Approval for projects where you may require high service
+    /// availability and rapid response by Google Cloud Support.
+    ///
+    /// After a request is approved or dismissed, no further action may be taken on
+    /// it. Requests with the requested_expiration in the past or with no activity
+    /// for 14 days are considered dismissed. When an approval expires, the request
+    /// is considered dismissed.
+    ///
+    /// If a request is not approved or dismissed, we call it pending.
+    #[derive(Debug)]
+    pub struct AccessApprovalServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> AccessApprovalServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for AccessApprovalServer<T>
+    where
+        T: AccessApproval,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.accessapproval.v1.AccessApproval/ListApprovalRequests" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListApprovalRequestsSvc<T: AccessApproval>(pub Arc<T>);
+                    impl<
+                        T: AccessApproval,
+                    > tonic::server::UnaryService<super::ListApprovalRequestsMessage>
+                    for ListApprovalRequestsSvc<T> {
+                        type Response = super::ListApprovalRequestsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListApprovalRequestsMessage>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessApproval>::list_approval_requests(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListApprovalRequestsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.accessapproval.v1.AccessApproval/GetApprovalRequest" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetApprovalRequestSvc<T: AccessApproval>(pub Arc<T>);
+                    impl<
+                        T: AccessApproval,
+                    > tonic::server::UnaryService<super::GetApprovalRequestMessage>
+                    for GetApprovalRequestSvc<T> {
+                        type Response = super::ApprovalRequest;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetApprovalRequestMessage>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessApproval>::get_approval_request(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetApprovalRequestSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.accessapproval.v1.AccessApproval/ApproveApprovalRequest" => {
+                    #[allow(non_camel_case_types)]
+                    struct ApproveApprovalRequestSvc<T: AccessApproval>(pub Arc<T>);
+                    impl<
+                        T: AccessApproval,
+                    > tonic::server::UnaryService<super::ApproveApprovalRequestMessage>
+                    for ApproveApprovalRequestSvc<T> {
+                        type Response = super::ApprovalRequest;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ApproveApprovalRequestMessage>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessApproval>::approve_approval_request(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ApproveApprovalRequestSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.accessapproval.v1.AccessApproval/DismissApprovalRequest" => {
+                    #[allow(non_camel_case_types)]
+                    struct DismissApprovalRequestSvc<T: AccessApproval>(pub Arc<T>);
+                    impl<
+                        T: AccessApproval,
+                    > tonic::server::UnaryService<super::DismissApprovalRequestMessage>
+                    for DismissApprovalRequestSvc<T> {
+                        type Response = super::ApprovalRequest;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DismissApprovalRequestMessage>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessApproval>::dismiss_approval_request(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DismissApprovalRequestSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.accessapproval.v1.AccessApproval/InvalidateApprovalRequest" => {
+                    #[allow(non_camel_case_types)]
+                    struct InvalidateApprovalRequestSvc<T: AccessApproval>(pub Arc<T>);
+                    impl<
+                        T: AccessApproval,
+                    > tonic::server::UnaryService<
+                        super::InvalidateApprovalRequestMessage,
+                    > for InvalidateApprovalRequestSvc<T> {
+                        type Response = super::ApprovalRequest;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::InvalidateApprovalRequestMessage,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessApproval>::invalidate_approval_request(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = InvalidateApprovalRequestSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.accessapproval.v1.AccessApproval/GetAccessApprovalSettings" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAccessApprovalSettingsSvc<T: AccessApproval>(pub Arc<T>);
+                    impl<
+                        T: AccessApproval,
+                    > tonic::server::UnaryService<
+                        super::GetAccessApprovalSettingsMessage,
+                    > for GetAccessApprovalSettingsSvc<T> {
+                        type Response = super::AccessApprovalSettings;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetAccessApprovalSettingsMessage,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessApproval>::get_access_approval_settings(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAccessApprovalSettingsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.accessapproval.v1.AccessApproval/UpdateAccessApprovalSettings" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateAccessApprovalSettingsSvc<T: AccessApproval>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AccessApproval,
+                    > tonic::server::UnaryService<
+                        super::UpdateAccessApprovalSettingsMessage,
+                    > for UpdateAccessApprovalSettingsSvc<T> {
+                        type Response = super::AccessApprovalSettings;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::UpdateAccessApprovalSettingsMessage,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessApproval>::update_access_approval_settings(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateAccessApprovalSettingsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.accessapproval.v1.AccessApproval/DeleteAccessApprovalSettings" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteAccessApprovalSettingsSvc<T: AccessApproval>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AccessApproval,
+                    > tonic::server::UnaryService<
+                        super::DeleteAccessApprovalSettingsMessage,
+                    > for DeleteAccessApprovalSettingsSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteAccessApprovalSettingsMessage,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessApproval>::delete_access_approval_settings(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteAccessApprovalSettingsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.accessapproval.v1.AccessApproval/GetAccessApprovalServiceAccount" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAccessApprovalServiceAccountSvc<T: AccessApproval>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AccessApproval,
+                    > tonic::server::UnaryService<
+                        super::GetAccessApprovalServiceAccountMessage,
+                    > for GetAccessApprovalServiceAccountSvc<T> {
+                        type Response = super::AccessApprovalServiceAccount;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetAccessApprovalServiceAccountMessage,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessApproval>::get_access_approval_service_account(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAccessApprovalServiceAccountSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for AccessApprovalServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.accessapproval.v1.AccessApproval";
+    impl<T> tonic::server::NamedService for AccessApprovalServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

@@ -33,9 +33,9 @@ impl StorageType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            StorageType::Unspecified => "STORAGE_TYPE_UNSPECIFIED",
-            StorageType::Ssd => "SSD",
-            StorageType::Hdd => "HDD",
+            Self::Unspecified => "STORAGE_TYPE_UNSPECIFIED",
+            Self::Ssd => "SSD",
+            Self::Hdd => "HDD",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -127,9 +127,9 @@ pub mod instance {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::NotKnown => "STATE_NOT_KNOWN",
-                State::Ready => "READY",
-                State::Creating => "CREATING",
+                Self::NotKnown => "STATE_NOT_KNOWN",
+                Self::Ready => "READY",
+                Self::Creating => "CREATING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -174,9 +174,9 @@ pub mod instance {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::Production => "PRODUCTION",
-                Type::Development => "DEVELOPMENT",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::Production => "PRODUCTION",
+                Self::Development => "DEVELOPMENT",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -325,11 +325,11 @@ pub mod cluster {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::NotKnown => "STATE_NOT_KNOWN",
-                State::Ready => "READY",
-                State::Creating => "CREATING",
-                State::Resizing => "RESIZING",
-                State::Disabled => "DISABLED",
+                Self::NotKnown => "STATE_NOT_KNOWN",
+                Self::Ready => "READY",
+                Self::Creating => "CREATING",
+                Self::Resizing => "RESIZING",
+                Self::Disabled => "DISABLED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -469,10 +469,8 @@ pub mod app_profile {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    ComputeBillingOwner::Unspecified => {
-                        "COMPUTE_BILLING_OWNER_UNSPECIFIED"
-                    }
-                    ComputeBillingOwner::HostPays => "HOST_PAYS",
+                    Self::Unspecified => "COMPUTE_BILLING_OWNER_UNSPECIFIED",
+                    Self::HostPays => "HOST_PAYS",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -514,10 +512,10 @@ pub mod app_profile {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Priority::Unspecified => "PRIORITY_UNSPECIFIED",
-                Priority::Low => "PRIORITY_LOW",
-                Priority::Medium => "PRIORITY_MEDIUM",
-                Priority::High => "PRIORITY_HIGH",
+                Self::Unspecified => "PRIORITY_UNSPECIFIED",
+                Self::Low => "PRIORITY_LOW",
+                Self::Medium => "PRIORITY_MEDIUM",
+                Self::High => "PRIORITY_HIGH",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -594,6 +592,2550 @@ pub struct HotTablet {
     /// to 100% (the node spent all cycles serving the hot tablet).
     #[prost(float, tag = "7")]
     pub node_cpu_usage_percent: f32,
+}
+/// Request message for BigtableInstanceAdmin.CreateInstance.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateInstanceRequest {
+    /// Required. The unique name of the project in which to create the new
+    /// instance. Values are of the form `projects/{project}`.
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// Required. The ID to be used when referring to the new instance within its
+    /// project, e.g., just `myinstance` rather than
+    /// `projects/myproject/instances/myinstance`.
+    #[prost(string, tag = "2")]
+    pub instance_id: ::prost::alloc::string::String,
+    /// Required. The instance to create.
+    /// Fields marked `OutputOnly` must be left blank.
+    #[prost(message, optional, tag = "3")]
+    pub instance: ::core::option::Option<Instance>,
+    /// Required. The clusters to be created within the instance, mapped by desired
+    /// cluster ID, e.g., just `mycluster` rather than
+    /// `projects/myproject/instances/myinstance/clusters/mycluster`.
+    /// Fields marked `OutputOnly` must be left blank.
+    /// Currently, at most four clusters can be specified.
+    #[prost(btree_map = "string, message", tag = "4")]
+    pub clusters: ::prost::alloc::collections::BTreeMap<
+        ::prost::alloc::string::String,
+        Cluster,
+    >,
+}
+/// Request message for BigtableInstanceAdmin.GetInstance.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetInstanceRequest {
+    /// Required. The unique name of the requested instance. Values are of the form
+    /// `projects/{project}/instances/{instance}`.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// Request message for BigtableInstanceAdmin.ListInstances.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListInstancesRequest {
+    /// Required. The unique name of the project for which a list of instances is
+    /// requested. Values are of the form `projects/{project}`.
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// DEPRECATED: This field is unused and ignored.
+    #[prost(string, tag = "2")]
+    pub page_token: ::prost::alloc::string::String,
+}
+/// Response message for BigtableInstanceAdmin.ListInstances.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListInstancesResponse {
+    /// The list of requested instances.
+    #[prost(message, repeated, tag = "1")]
+    pub instances: ::prost::alloc::vec::Vec<Instance>,
+    /// Locations from which Instance information could not be retrieved,
+    /// due to an outage or some other transient condition.
+    /// Instances whose Clusters are all in one of the failed locations
+    /// may be missing from `instances`, and Instances with at least one
+    /// Cluster in a failed location may only have partial information returned.
+    /// Values are of the form `projects/<project>/locations/<zone_id>`
+    #[prost(string, repeated, tag = "2")]
+    pub failed_locations: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// DEPRECATED: This field is unused and ignored.
+    #[prost(string, tag = "3")]
+    pub next_page_token: ::prost::alloc::string::String,
+}
+/// Request message for BigtableInstanceAdmin.PartialUpdateInstance.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct PartialUpdateInstanceRequest {
+    /// Required. The Instance which will (partially) replace the current value.
+    #[prost(message, optional, tag = "1")]
+    pub instance: ::core::option::Option<Instance>,
+    /// Required. The subset of Instance fields which should be replaced.
+    /// Must be explicitly set.
+    #[prost(message, optional, tag = "2")]
+    pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
+}
+/// Request message for BigtableInstanceAdmin.DeleteInstance.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteInstanceRequest {
+    /// Required. The unique name of the instance to be deleted.
+    /// Values are of the form `projects/{project}/instances/{instance}`.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// Request message for BigtableInstanceAdmin.CreateCluster.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateClusterRequest {
+    /// Required. The unique name of the instance in which to create the new
+    /// cluster. Values are of the form `projects/{project}/instances/{instance}`.
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// Required. The ID to be used when referring to the new cluster within its
+    /// instance, e.g., just `mycluster` rather than
+    /// `projects/myproject/instances/myinstance/clusters/mycluster`.
+    #[prost(string, tag = "2")]
+    pub cluster_id: ::prost::alloc::string::String,
+    /// Required. The cluster to be created.
+    /// Fields marked `OutputOnly` must be left blank.
+    #[prost(message, optional, tag = "3")]
+    pub cluster: ::core::option::Option<Cluster>,
+}
+/// Request message for BigtableInstanceAdmin.GetCluster.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetClusterRequest {
+    /// Required. The unique name of the requested cluster. Values are of the form
+    /// `projects/{project}/instances/{instance}/clusters/{cluster}`.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// Request message for BigtableInstanceAdmin.ListClusters.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListClustersRequest {
+    /// Required. The unique name of the instance for which a list of clusters is
+    /// requested. Values are of the form
+    /// `projects/{project}/instances/{instance}`. Use `{instance} = '-'` to list
+    /// Clusters for all Instances in a project, e.g.,
+    /// `projects/myproject/instances/-`.
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// DEPRECATED: This field is unused and ignored.
+    #[prost(string, tag = "2")]
+    pub page_token: ::prost::alloc::string::String,
+}
+/// Response message for BigtableInstanceAdmin.ListClusters.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListClustersResponse {
+    /// The list of requested clusters.
+    #[prost(message, repeated, tag = "1")]
+    pub clusters: ::prost::alloc::vec::Vec<Cluster>,
+    /// Locations from which Cluster information could not be retrieved,
+    /// due to an outage or some other transient condition.
+    /// Clusters from these locations may be missing from `clusters`,
+    /// or may only have partial information returned.
+    /// Values are of the form `projects/<project>/locations/<zone_id>`
+    #[prost(string, repeated, tag = "2")]
+    pub failed_locations: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// DEPRECATED: This field is unused and ignored.
+    #[prost(string, tag = "3")]
+    pub next_page_token: ::prost::alloc::string::String,
+}
+/// Request message for BigtableInstanceAdmin.DeleteCluster.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteClusterRequest {
+    /// Required. The unique name of the cluster to be deleted. Values are of the
+    /// form `projects/{project}/instances/{instance}/clusters/{cluster}`.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// The metadata for the Operation returned by CreateInstance.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateInstanceMetadata {
+    /// The request that prompted the initiation of this CreateInstance operation.
+    #[prost(message, optional, tag = "1")]
+    pub original_request: ::core::option::Option<CreateInstanceRequest>,
+    /// The time at which the original request was received.
+    #[prost(message, optional, tag = "2")]
+    pub request_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// The time at which the operation failed or was completed successfully.
+    #[prost(message, optional, tag = "3")]
+    pub finish_time: ::core::option::Option<::prost_types::Timestamp>,
+}
+/// The metadata for the Operation returned by UpdateInstance.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateInstanceMetadata {
+    /// The request that prompted the initiation of this UpdateInstance operation.
+    #[prost(message, optional, tag = "1")]
+    pub original_request: ::core::option::Option<PartialUpdateInstanceRequest>,
+    /// The time at which the original request was received.
+    #[prost(message, optional, tag = "2")]
+    pub request_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// The time at which the operation failed or was completed successfully.
+    #[prost(message, optional, tag = "3")]
+    pub finish_time: ::core::option::Option<::prost_types::Timestamp>,
+}
+/// The metadata for the Operation returned by CreateCluster.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateClusterMetadata {
+    /// The request that prompted the initiation of this CreateCluster operation.
+    #[prost(message, optional, tag = "1")]
+    pub original_request: ::core::option::Option<CreateClusterRequest>,
+    /// The time at which the original request was received.
+    #[prost(message, optional, tag = "2")]
+    pub request_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// The time at which the operation failed or was completed successfully.
+    #[prost(message, optional, tag = "3")]
+    pub finish_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Keys: the full `name` of each table that existed in the instance when
+    /// CreateCluster was first called, i.e.
+    /// `projects/<project>/instances/<instance>/tables/<table>`. Any table added
+    /// to the instance by a later API call will be created in the new cluster by
+    /// that API call, not this one.
+    ///
+    /// Values: information on how much of a table's data has been copied to the
+    /// newly-created cluster so far.
+    #[prost(btree_map = "string, message", tag = "4")]
+    pub tables: ::prost::alloc::collections::BTreeMap<
+        ::prost::alloc::string::String,
+        create_cluster_metadata::TableProgress,
+    >,
+}
+/// Nested message and enum types in `CreateClusterMetadata`.
+pub mod create_cluster_metadata {
+    /// Progress info for copying a table's data to the new cluster.
+    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+    pub struct TableProgress {
+        /// Estimate of the size of the table to be copied.
+        #[prost(int64, tag = "2")]
+        pub estimated_size_bytes: i64,
+        /// Estimate of the number of bytes copied so far for this table.
+        /// This will eventually reach 'estimated_size_bytes' unless the table copy
+        /// is CANCELLED.
+        #[prost(int64, tag = "3")]
+        pub estimated_copied_bytes: i64,
+        #[prost(enumeration = "table_progress::State", tag = "4")]
+        pub state: i32,
+    }
+    /// Nested message and enum types in `TableProgress`.
+    pub mod table_progress {
+        #[derive(
+            Clone,
+            Copy,
+            Debug,
+            PartialEq,
+            Eq,
+            Hash,
+            PartialOrd,
+            Ord,
+            ::prost::Enumeration
+        )]
+        #[repr(i32)]
+        pub enum State {
+            Unspecified = 0,
+            /// The table has not yet begun copying to the new cluster.
+            Pending = 1,
+            /// The table is actively being copied to the new cluster.
+            Copying = 2,
+            /// The table has been fully copied to the new cluster.
+            Completed = 3,
+            /// The table was deleted before it finished copying to the new cluster.
+            /// Note that tables deleted after completion will stay marked as
+            /// COMPLETED, not CANCELLED.
+            Cancelled = 4,
+        }
+        impl State {
+            /// String value of the enum field names used in the ProtoBuf definition.
+            ///
+            /// The values are not transformed in any way and thus are considered stable
+            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+            pub fn as_str_name(&self) -> &'static str {
+                match self {
+                    Self::Unspecified => "STATE_UNSPECIFIED",
+                    Self::Pending => "PENDING",
+                    Self::Copying => "COPYING",
+                    Self::Completed => "COMPLETED",
+                    Self::Cancelled => "CANCELLED",
+                }
+            }
+            /// Creates an enum from field names used in the ProtoBuf definition.
+            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                match value {
+                    "STATE_UNSPECIFIED" => Some(Self::Unspecified),
+                    "PENDING" => Some(Self::Pending),
+                    "COPYING" => Some(Self::Copying),
+                    "COMPLETED" => Some(Self::Completed),
+                    "CANCELLED" => Some(Self::Cancelled),
+                    _ => None,
+                }
+            }
+        }
+    }
+}
+/// The metadata for the Operation returned by UpdateCluster.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateClusterMetadata {
+    /// The request that prompted the initiation of this UpdateCluster operation.
+    #[prost(message, optional, tag = "1")]
+    pub original_request: ::core::option::Option<Cluster>,
+    /// The time at which the original request was received.
+    #[prost(message, optional, tag = "2")]
+    pub request_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// The time at which the operation failed or was completed successfully.
+    #[prost(message, optional, tag = "3")]
+    pub finish_time: ::core::option::Option<::prost_types::Timestamp>,
+}
+/// The metadata for the Operation returned by PartialUpdateCluster.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct PartialUpdateClusterMetadata {
+    /// The time at which the original request was received.
+    #[prost(message, optional, tag = "1")]
+    pub request_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// The time at which the operation failed or was completed successfully.
+    #[prost(message, optional, tag = "2")]
+    pub finish_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// The original request for PartialUpdateCluster.
+    #[prost(message, optional, tag = "3")]
+    pub original_request: ::core::option::Option<PartialUpdateClusterRequest>,
+}
+/// Request message for BigtableInstanceAdmin.PartialUpdateCluster.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct PartialUpdateClusterRequest {
+    /// Required. The Cluster which contains the partial updates to be applied,
+    /// subject to the update_mask.
+    #[prost(message, optional, tag = "1")]
+    pub cluster: ::core::option::Option<Cluster>,
+    /// Required. The subset of Cluster fields which should be replaced.
+    #[prost(message, optional, tag = "2")]
+    pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
+}
+/// Request message for BigtableInstanceAdmin.CreateAppProfile.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateAppProfileRequest {
+    /// Required. The unique name of the instance in which to create the new app
+    /// profile. Values are of the form `projects/{project}/instances/{instance}`.
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// Required. The ID to be used when referring to the new app profile within
+    /// its instance, e.g., just `myprofile` rather than
+    /// `projects/myproject/instances/myinstance/appProfiles/myprofile`.
+    #[prost(string, tag = "2")]
+    pub app_profile_id: ::prost::alloc::string::String,
+    /// Required. The app profile to be created.
+    /// Fields marked `OutputOnly` will be ignored.
+    #[prost(message, optional, tag = "3")]
+    pub app_profile: ::core::option::Option<AppProfile>,
+    /// If true, ignore safety checks when creating the app profile.
+    #[prost(bool, tag = "4")]
+    pub ignore_warnings: bool,
+}
+/// Request message for BigtableInstanceAdmin.GetAppProfile.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetAppProfileRequest {
+    /// Required. The unique name of the requested app profile. Values are of the
+    /// form `projects/{project}/instances/{instance}/appProfiles/{app_profile}`.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// Request message for BigtableInstanceAdmin.ListAppProfiles.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListAppProfilesRequest {
+    /// Required. The unique name of the instance for which a list of app profiles
+    /// is requested. Values are of the form
+    /// `projects/{project}/instances/{instance}`.
+    /// Use `{instance} = '-'` to list AppProfiles for all Instances in a project,
+    /// e.g., `projects/myproject/instances/-`.
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// Maximum number of results per page.
+    ///
+    /// A page_size of zero lets the server choose the number of items to return.
+    /// A page_size which is strictly positive will return at most that many items.
+    /// A negative page_size will cause an error.
+    ///
+    /// Following the first request, subsequent paginated calls are not required
+    /// to pass a page_size. If a page_size is set in subsequent calls, it must
+    /// match the page_size given in the first request.
+    #[prost(int32, tag = "3")]
+    pub page_size: i32,
+    /// The value of `next_page_token` returned by a previous call.
+    #[prost(string, tag = "2")]
+    pub page_token: ::prost::alloc::string::String,
+}
+/// Response message for BigtableInstanceAdmin.ListAppProfiles.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListAppProfilesResponse {
+    /// The list of requested app profiles.
+    #[prost(message, repeated, tag = "1")]
+    pub app_profiles: ::prost::alloc::vec::Vec<AppProfile>,
+    /// Set if not all app profiles could be returned in a single response.
+    /// Pass this value to `page_token` in another request to get the next
+    /// page of results.
+    #[prost(string, tag = "2")]
+    pub next_page_token: ::prost::alloc::string::String,
+    /// Locations from which AppProfile information could not be retrieved,
+    /// due to an outage or some other transient condition.
+    /// AppProfiles from these locations may be missing from `app_profiles`.
+    /// Values are of the form `projects/<project>/locations/<zone_id>`
+    #[prost(string, repeated, tag = "3")]
+    pub failed_locations: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+/// Request message for BigtableInstanceAdmin.UpdateAppProfile.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateAppProfileRequest {
+    /// Required. The app profile which will (partially) replace the current value.
+    #[prost(message, optional, tag = "1")]
+    pub app_profile: ::core::option::Option<AppProfile>,
+    /// Required. The subset of app profile fields which should be replaced.
+    /// If unset, all fields will be replaced.
+    #[prost(message, optional, tag = "2")]
+    pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
+    /// If true, ignore safety checks when updating the app profile.
+    #[prost(bool, tag = "3")]
+    pub ignore_warnings: bool,
+}
+/// Request message for BigtableInstanceAdmin.DeleteAppProfile.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteAppProfileRequest {
+    /// Required. The unique name of the app profile to be deleted. Values are of
+    /// the form
+    /// `projects/{project}/instances/{instance}/appProfiles/{app_profile}`.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// Required. If true, ignore safety checks when deleting the app profile.
+    #[prost(bool, tag = "2")]
+    pub ignore_warnings: bool,
+}
+/// The metadata for the Operation returned by UpdateAppProfile.
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct UpdateAppProfileMetadata {}
+/// Request message for BigtableInstanceAdmin.ListHotTablets.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListHotTabletsRequest {
+    /// Required. The cluster name to list hot tablets.
+    /// Value is in the following form:
+    /// `projects/{project}/instances/{instance}/clusters/{cluster}`.
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// The start time to list hot tablets. The hot tablets in the response will
+    /// have start times between the requested start time and end time. Start time
+    /// defaults to Now if it is unset, and end time defaults to Now - 24 hours if
+    /// it is unset. The start time should be less than the end time, and the
+    /// maximum allowed time range between start time and end time is 48 hours.
+    /// Start time and end time should have values between Now and Now - 14 days.
+    #[prost(message, optional, tag = "2")]
+    pub start_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// The end time to list hot tablets.
+    #[prost(message, optional, tag = "3")]
+    pub end_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Maximum number of results per page.
+    ///
+    /// A page_size that is empty or zero lets the server choose the number of
+    /// items to return. A page_size which is strictly positive will return at most
+    /// that many items. A negative page_size will cause an error.
+    ///
+    /// Following the first request, subsequent paginated calls do not need a
+    /// page_size field. If a page_size is set in subsequent calls, it must match
+    /// the page_size given in the first request.
+    #[prost(int32, tag = "4")]
+    pub page_size: i32,
+    /// The value of `next_page_token` returned by a previous call.
+    #[prost(string, tag = "5")]
+    pub page_token: ::prost::alloc::string::String,
+}
+/// Response message for BigtableInstanceAdmin.ListHotTablets.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListHotTabletsResponse {
+    /// List of hot tablets in the tables of the requested cluster that fall
+    /// within the requested time range. Hot tablets are ordered by node cpu usage
+    /// percent. If there are multiple hot tablets that correspond to the same
+    /// tablet within a 15-minute interval, only the hot tablet with the highest
+    /// node cpu usage will be included in the response.
+    #[prost(message, repeated, tag = "1")]
+    pub hot_tablets: ::prost::alloc::vec::Vec<HotTablet>,
+    /// Set if not all hot tablets could be returned in a single response.
+    /// Pass this value to `page_token` in another request to get the next
+    /// page of results.
+    #[prost(string, tag = "2")]
+    pub next_page_token: ::prost::alloc::string::String,
+}
+/// Generated client implementations.
+pub mod bigtable_instance_admin_client {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    use tonic::codegen::http::Uri;
+    /// Service for creating, configuring, and deleting Cloud Bigtable Instances and
+    /// Clusters. Provides access to the Instance and Cluster schemas only, not the
+    /// tables' metadata or data stored in those tables.
+    #[derive(Debug, Clone)]
+    pub struct BigtableInstanceAdminClient<T> {
+        inner: tonic::client::Grpc<T>,
+    }
+    impl<T> BigtableInstanceAdminClient<T>
+    where
+        T: tonic::client::GrpcService<tonic::body::BoxBody>,
+        T::Error: Into<StdError>,
+        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
+    {
+        pub fn new(inner: T) -> Self {
+            let inner = tonic::client::Grpc::new(inner);
+            Self { inner }
+        }
+        pub fn with_origin(inner: T, origin: Uri) -> Self {
+            let inner = tonic::client::Grpc::with_origin(inner, origin);
+            Self { inner }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> BigtableInstanceAdminClient<InterceptedService<T, F>>
+        where
+            F: tonic::service::Interceptor,
+            T::ResponseBody: Default,
+            T: tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+                Response = http::Response<
+                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
+                >,
+            >,
+            <T as tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+            >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
+        {
+            BigtableInstanceAdminClient::new(InterceptedService::new(inner, interceptor))
+        }
+        /// Compress requests with the given encoding.
+        ///
+        /// This requires the server to support it otherwise it might respond with an
+        /// error.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.send_compressed(encoding);
+            self
+        }
+        /// Enable decompressing responses.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.accept_compressed(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
+        /// Create an instance within a project.
+        ///
+        /// Note that exactly one of Cluster.serve_nodes and
+        /// Cluster.cluster_config.cluster_autoscaling_config can be set. If
+        /// serve_nodes is set to non-zero, then the cluster is manually scaled. If
+        /// cluster_config.cluster_autoscaling_config is non-empty, then autoscaling is
+        /// enabled.
+        pub async fn create_instance(
+            &mut self,
+            request: impl tonic::IntoRequest<super::CreateInstanceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/CreateInstance",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "CreateInstance",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Gets information about an instance.
+        pub async fn get_instance(
+            &mut self,
+            request: impl tonic::IntoRequest<super::GetInstanceRequest>,
+        ) -> std::result::Result<tonic::Response<super::Instance>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/GetInstance",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "GetInstance",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Lists information about instances in a project.
+        pub async fn list_instances(
+            &mut self,
+            request: impl tonic::IntoRequest<super::ListInstancesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListInstancesResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/ListInstances",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "ListInstances",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Updates an instance within a project. This method updates only the display
+        /// name and type for an Instance. To update other Instance properties, such as
+        /// labels, use PartialUpdateInstance.
+        pub async fn update_instance(
+            &mut self,
+            request: impl tonic::IntoRequest<super::Instance>,
+        ) -> std::result::Result<tonic::Response<super::Instance>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/UpdateInstance",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "UpdateInstance",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Partially updates an instance within a project. This method can modify all
+        /// fields of an Instance and is the preferred way to update an Instance.
+        pub async fn partial_update_instance(
+            &mut self,
+            request: impl tonic::IntoRequest<super::PartialUpdateInstanceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/PartialUpdateInstance",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "PartialUpdateInstance",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Delete an instance from a project.
+        pub async fn delete_instance(
+            &mut self,
+            request: impl tonic::IntoRequest<super::DeleteInstanceRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/DeleteInstance",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "DeleteInstance",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Creates a cluster within an instance.
+        ///
+        /// Note that exactly one of Cluster.serve_nodes and
+        /// Cluster.cluster_config.cluster_autoscaling_config can be set. If
+        /// serve_nodes is set to non-zero, then the cluster is manually scaled. If
+        /// cluster_config.cluster_autoscaling_config is non-empty, then autoscaling is
+        /// enabled.
+        pub async fn create_cluster(
+            &mut self,
+            request: impl tonic::IntoRequest<super::CreateClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/CreateCluster",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "CreateCluster",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Gets information about a cluster.
+        pub async fn get_cluster(
+            &mut self,
+            request: impl tonic::IntoRequest<super::GetClusterRequest>,
+        ) -> std::result::Result<tonic::Response<super::Cluster>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/GetCluster",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "GetCluster",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Lists information about clusters in an instance.
+        pub async fn list_clusters(
+            &mut self,
+            request: impl tonic::IntoRequest<super::ListClustersRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListClustersResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/ListClusters",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "ListClusters",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Updates a cluster within an instance.
+        ///
+        /// Note that UpdateCluster does not support updating
+        /// cluster_config.cluster_autoscaling_config. In order to update it, you
+        /// must use PartialUpdateCluster.
+        pub async fn update_cluster(
+            &mut self,
+            request: impl tonic::IntoRequest<super::Cluster>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/UpdateCluster",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "UpdateCluster",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Partially updates a cluster within a project. This method is the preferred
+        /// way to update a Cluster.
+        ///
+        /// To enable and update autoscaling, set
+        /// cluster_config.cluster_autoscaling_config. When autoscaling is enabled,
+        /// serve_nodes is treated as an OUTPUT_ONLY field, meaning that updates to it
+        /// are ignored. Note that an update cannot simultaneously set serve_nodes to
+        /// non-zero and cluster_config.cluster_autoscaling_config to non-empty, and
+        /// also specify both in the update_mask.
+        ///
+        /// To disable autoscaling, clear cluster_config.cluster_autoscaling_config,
+        /// and explicitly set a serve_node count via the update_mask.
+        pub async fn partial_update_cluster(
+            &mut self,
+            request: impl tonic::IntoRequest<super::PartialUpdateClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/PartialUpdateCluster",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "PartialUpdateCluster",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Deletes a cluster from an instance.
+        pub async fn delete_cluster(
+            &mut self,
+            request: impl tonic::IntoRequest<super::DeleteClusterRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/DeleteCluster",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "DeleteCluster",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Creates an app profile within an instance.
+        pub async fn create_app_profile(
+            &mut self,
+            request: impl tonic::IntoRequest<super::CreateAppProfileRequest>,
+        ) -> std::result::Result<tonic::Response<super::AppProfile>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/CreateAppProfile",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "CreateAppProfile",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Gets information about an app profile.
+        pub async fn get_app_profile(
+            &mut self,
+            request: impl tonic::IntoRequest<super::GetAppProfileRequest>,
+        ) -> std::result::Result<tonic::Response<super::AppProfile>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/GetAppProfile",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "GetAppProfile",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Lists information about app profiles in an instance.
+        pub async fn list_app_profiles(
+            &mut self,
+            request: impl tonic::IntoRequest<super::ListAppProfilesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAppProfilesResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/ListAppProfiles",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "ListAppProfiles",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Updates an app profile within an instance.
+        pub async fn update_app_profile(
+            &mut self,
+            request: impl tonic::IntoRequest<super::UpdateAppProfileRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/UpdateAppProfile",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "UpdateAppProfile",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Deletes an app profile from an instance.
+        pub async fn delete_app_profile(
+            &mut self,
+            request: impl tonic::IntoRequest<super::DeleteAppProfileRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/DeleteAppProfile",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "DeleteAppProfile",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Gets the access control policy for an instance resource. Returns an empty
+        /// policy if an instance exists but does not have a policy set.
+        pub async fn get_iam_policy(
+            &mut self,
+            request: impl tonic::IntoRequest<
+                super::super::super::super::iam::v1::GetIamPolicyRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::iam::v1::Policy>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/GetIamPolicy",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "GetIamPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Sets the access control policy on an instance resource. Replaces any
+        /// existing policy.
+        pub async fn set_iam_policy(
+            &mut self,
+            request: impl tonic::IntoRequest<
+                super::super::super::super::iam::v1::SetIamPolicyRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::iam::v1::Policy>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/SetIamPolicy",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "SetIamPolicy",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Returns permissions that the caller has on the specified instance resource.
+        pub async fn test_iam_permissions(
+            &mut self,
+            request: impl tonic::IntoRequest<
+                super::super::super::super::iam::v1::TestIamPermissionsRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<
+                super::super::super::super::iam::v1::TestIamPermissionsResponse,
+            >,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/TestIamPermissions",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "TestIamPermissions",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Lists hot tablets in a cluster, within the time range provided. Hot
+        /// tablets are ordered based on CPU usage.
+        pub async fn list_hot_tablets(
+            &mut self,
+            request: impl tonic::IntoRequest<super::ListHotTabletsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListHotTabletsResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/ListHotTablets",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
+                        "ListHotTablets",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+    }
+}
+/// Generated server implementations.
+pub mod bigtable_instance_admin_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with BigtableInstanceAdminServer.
+    #[async_trait]
+    pub trait BigtableInstanceAdmin: std::marker::Send + std::marker::Sync + 'static {
+        /// Create an instance within a project.
+        ///
+        /// Note that exactly one of Cluster.serve_nodes and
+        /// Cluster.cluster_config.cluster_autoscaling_config can be set. If
+        /// serve_nodes is set to non-zero, then the cluster is manually scaled. If
+        /// cluster_config.cluster_autoscaling_config is non-empty, then autoscaling is
+        /// enabled.
+        async fn create_instance(
+            &self,
+            request: tonic::Request<super::CreateInstanceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Gets information about an instance.
+        async fn get_instance(
+            &self,
+            request: tonic::Request<super::GetInstanceRequest>,
+        ) -> std::result::Result<tonic::Response<super::Instance>, tonic::Status>;
+        /// Lists information about instances in a project.
+        async fn list_instances(
+            &self,
+            request: tonic::Request<super::ListInstancesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListInstancesResponse>,
+            tonic::Status,
+        >;
+        /// Updates an instance within a project. This method updates only the display
+        /// name and type for an Instance. To update other Instance properties, such as
+        /// labels, use PartialUpdateInstance.
+        async fn update_instance(
+            &self,
+            request: tonic::Request<super::Instance>,
+        ) -> std::result::Result<tonic::Response<super::Instance>, tonic::Status>;
+        /// Partially updates an instance within a project. This method can modify all
+        /// fields of an Instance and is the preferred way to update an Instance.
+        async fn partial_update_instance(
+            &self,
+            request: tonic::Request<super::PartialUpdateInstanceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Delete an instance from a project.
+        async fn delete_instance(
+            &self,
+            request: tonic::Request<super::DeleteInstanceRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Creates a cluster within an instance.
+        ///
+        /// Note that exactly one of Cluster.serve_nodes and
+        /// Cluster.cluster_config.cluster_autoscaling_config can be set. If
+        /// serve_nodes is set to non-zero, then the cluster is manually scaled. If
+        /// cluster_config.cluster_autoscaling_config is non-empty, then autoscaling is
+        /// enabled.
+        async fn create_cluster(
+            &self,
+            request: tonic::Request<super::CreateClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Gets information about a cluster.
+        async fn get_cluster(
+            &self,
+            request: tonic::Request<super::GetClusterRequest>,
+        ) -> std::result::Result<tonic::Response<super::Cluster>, tonic::Status>;
+        /// Lists information about clusters in an instance.
+        async fn list_clusters(
+            &self,
+            request: tonic::Request<super::ListClustersRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListClustersResponse>,
+            tonic::Status,
+        >;
+        /// Updates a cluster within an instance.
+        ///
+        /// Note that UpdateCluster does not support updating
+        /// cluster_config.cluster_autoscaling_config. In order to update it, you
+        /// must use PartialUpdateCluster.
+        async fn update_cluster(
+            &self,
+            request: tonic::Request<super::Cluster>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Partially updates a cluster within a project. This method is the preferred
+        /// way to update a Cluster.
+        ///
+        /// To enable and update autoscaling, set
+        /// cluster_config.cluster_autoscaling_config. When autoscaling is enabled,
+        /// serve_nodes is treated as an OUTPUT_ONLY field, meaning that updates to it
+        /// are ignored. Note that an update cannot simultaneously set serve_nodes to
+        /// non-zero and cluster_config.cluster_autoscaling_config to non-empty, and
+        /// also specify both in the update_mask.
+        ///
+        /// To disable autoscaling, clear cluster_config.cluster_autoscaling_config,
+        /// and explicitly set a serve_node count via the update_mask.
+        async fn partial_update_cluster(
+            &self,
+            request: tonic::Request<super::PartialUpdateClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a cluster from an instance.
+        async fn delete_cluster(
+            &self,
+            request: tonic::Request<super::DeleteClusterRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Creates an app profile within an instance.
+        async fn create_app_profile(
+            &self,
+            request: tonic::Request<super::CreateAppProfileRequest>,
+        ) -> std::result::Result<tonic::Response<super::AppProfile>, tonic::Status>;
+        /// Gets information about an app profile.
+        async fn get_app_profile(
+            &self,
+            request: tonic::Request<super::GetAppProfileRequest>,
+        ) -> std::result::Result<tonic::Response<super::AppProfile>, tonic::Status>;
+        /// Lists information about app profiles in an instance.
+        async fn list_app_profiles(
+            &self,
+            request: tonic::Request<super::ListAppProfilesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAppProfilesResponse>,
+            tonic::Status,
+        >;
+        /// Updates an app profile within an instance.
+        async fn update_app_profile(
+            &self,
+            request: tonic::Request<super::UpdateAppProfileRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes an app profile from an instance.
+        async fn delete_app_profile(
+            &self,
+            request: tonic::Request<super::DeleteAppProfileRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Gets the access control policy for an instance resource. Returns an empty
+        /// policy if an instance exists but does not have a policy set.
+        async fn get_iam_policy(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::iam::v1::GetIamPolicyRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::iam::v1::Policy>,
+            tonic::Status,
+        >;
+        /// Sets the access control policy on an instance resource. Replaces any
+        /// existing policy.
+        async fn set_iam_policy(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::iam::v1::SetIamPolicyRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::iam::v1::Policy>,
+            tonic::Status,
+        >;
+        /// Returns permissions that the caller has on the specified instance resource.
+        async fn test_iam_permissions(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::iam::v1::TestIamPermissionsRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<
+                super::super::super::super::iam::v1::TestIamPermissionsResponse,
+            >,
+            tonic::Status,
+        >;
+        /// Lists hot tablets in a cluster, within the time range provided. Hot
+        /// tablets are ordered based on CPU usage.
+        async fn list_hot_tablets(
+            &self,
+            request: tonic::Request<super::ListHotTabletsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListHotTabletsResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Service for creating, configuring, and deleting Cloud Bigtable Instances and
+    /// Clusters. Provides access to the Instance and Cluster schemas only, not the
+    /// tables' metadata or data stored in those tables.
+    #[derive(Debug)]
+    pub struct BigtableInstanceAdminServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> BigtableInstanceAdminServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for BigtableInstanceAdminServer<T>
+    where
+        T: BigtableInstanceAdmin,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/CreateInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateInstanceSvc<T: BigtableInstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableInstanceAdmin,
+                    > tonic::server::UnaryService<super::CreateInstanceRequest>
+                    for CreateInstanceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateInstanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableInstanceAdmin>::create_instance(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/GetInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetInstanceSvc<T: BigtableInstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableInstanceAdmin,
+                    > tonic::server::UnaryService<super::GetInstanceRequest>
+                    for GetInstanceSvc<T> {
+                        type Response = super::Instance;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetInstanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableInstanceAdmin>::get_instance(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/ListInstances" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListInstancesSvc<T: BigtableInstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableInstanceAdmin,
+                    > tonic::server::UnaryService<super::ListInstancesRequest>
+                    for ListInstancesSvc<T> {
+                        type Response = super::ListInstancesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListInstancesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableInstanceAdmin>::list_instances(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListInstancesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/UpdateInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateInstanceSvc<T: BigtableInstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableInstanceAdmin,
+                    > tonic::server::UnaryService<super::Instance>
+                    for UpdateInstanceSvc<T> {
+                        type Response = super::Instance;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::Instance>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableInstanceAdmin>::update_instance(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/PartialUpdateInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct PartialUpdateInstanceSvc<T: BigtableInstanceAdmin>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: BigtableInstanceAdmin,
+                    > tonic::server::UnaryService<super::PartialUpdateInstanceRequest>
+                    for PartialUpdateInstanceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::PartialUpdateInstanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableInstanceAdmin>::partial_update_instance(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = PartialUpdateInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/DeleteInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteInstanceSvc<T: BigtableInstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableInstanceAdmin,
+                    > tonic::server::UnaryService<super::DeleteInstanceRequest>
+                    for DeleteInstanceSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteInstanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableInstanceAdmin>::delete_instance(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/CreateCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateClusterSvc<T: BigtableInstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableInstanceAdmin,
+                    > tonic::server::UnaryService<super::CreateClusterRequest>
+                    for CreateClusterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableInstanceAdmin>::create_cluster(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/GetCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetClusterSvc<T: BigtableInstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableInstanceAdmin,
+                    > tonic::server::UnaryService<super::GetClusterRequest>
+                    for GetClusterSvc<T> {
+                        type Response = super::Cluster;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableInstanceAdmin>::get_cluster(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/ListClusters" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListClustersSvc<T: BigtableInstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableInstanceAdmin,
+                    > tonic::server::UnaryService<super::ListClustersRequest>
+                    for ListClustersSvc<T> {
+                        type Response = super::ListClustersResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListClustersRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableInstanceAdmin>::list_clusters(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListClustersSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/UpdateCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateClusterSvc<T: BigtableInstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableInstanceAdmin,
+                    > tonic::server::UnaryService<super::Cluster>
+                    for UpdateClusterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::Cluster>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableInstanceAdmin>::update_cluster(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/PartialUpdateCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct PartialUpdateClusterSvc<T: BigtableInstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableInstanceAdmin,
+                    > tonic::server::UnaryService<super::PartialUpdateClusterRequest>
+                    for PartialUpdateClusterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::PartialUpdateClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableInstanceAdmin>::partial_update_cluster(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = PartialUpdateClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/DeleteCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteClusterSvc<T: BigtableInstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableInstanceAdmin,
+                    > tonic::server::UnaryService<super::DeleteClusterRequest>
+                    for DeleteClusterSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableInstanceAdmin>::delete_cluster(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/CreateAppProfile" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateAppProfileSvc<T: BigtableInstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableInstanceAdmin,
+                    > tonic::server::UnaryService<super::CreateAppProfileRequest>
+                    for CreateAppProfileSvc<T> {
+                        type Response = super::AppProfile;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateAppProfileRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableInstanceAdmin>::create_app_profile(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateAppProfileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/GetAppProfile" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAppProfileSvc<T: BigtableInstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableInstanceAdmin,
+                    > tonic::server::UnaryService<super::GetAppProfileRequest>
+                    for GetAppProfileSvc<T> {
+                        type Response = super::AppProfile;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAppProfileRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableInstanceAdmin>::get_app_profile(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAppProfileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/ListAppProfiles" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAppProfilesSvc<T: BigtableInstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableInstanceAdmin,
+                    > tonic::server::UnaryService<super::ListAppProfilesRequest>
+                    for ListAppProfilesSvc<T> {
+                        type Response = super::ListAppProfilesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListAppProfilesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableInstanceAdmin>::list_app_profiles(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAppProfilesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/UpdateAppProfile" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateAppProfileSvc<T: BigtableInstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableInstanceAdmin,
+                    > tonic::server::UnaryService<super::UpdateAppProfileRequest>
+                    for UpdateAppProfileSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateAppProfileRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableInstanceAdmin>::update_app_profile(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateAppProfileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/DeleteAppProfile" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteAppProfileSvc<T: BigtableInstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableInstanceAdmin,
+                    > tonic::server::UnaryService<super::DeleteAppProfileRequest>
+                    for DeleteAppProfileSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteAppProfileRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableInstanceAdmin>::delete_app_profile(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteAppProfileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/GetIamPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetIamPolicySvc<T: BigtableInstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableInstanceAdmin,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::iam::v1::GetIamPolicyRequest,
+                    > for GetIamPolicySvc<T> {
+                        type Response = super::super::super::super::iam::v1::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::iam::v1::GetIamPolicyRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableInstanceAdmin>::get_iam_policy(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetIamPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/SetIamPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetIamPolicySvc<T: BigtableInstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableInstanceAdmin,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::iam::v1::SetIamPolicyRequest,
+                    > for SetIamPolicySvc<T> {
+                        type Response = super::super::super::super::iam::v1::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::iam::v1::SetIamPolicyRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableInstanceAdmin>::set_iam_policy(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SetIamPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/TestIamPermissions" => {
+                    #[allow(non_camel_case_types)]
+                    struct TestIamPermissionsSvc<T: BigtableInstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableInstanceAdmin,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::iam::v1::TestIamPermissionsRequest,
+                    > for TestIamPermissionsSvc<T> {
+                        type Response = super::super::super::super::iam::v1::TestIamPermissionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::iam::v1::TestIamPermissionsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableInstanceAdmin>::test_iam_permissions(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = TestIamPermissionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableInstanceAdmin/ListHotTablets" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListHotTabletsSvc<T: BigtableInstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableInstanceAdmin,
+                    > tonic::server::UnaryService<super::ListHotTabletsRequest>
+                    for ListHotTabletsSvc<T> {
+                        type Response = super::ListHotTabletsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListHotTabletsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableInstanceAdmin>::list_hot_tablets(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListHotTabletsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for BigtableInstanceAdminServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.bigtable.admin.v2.BigtableInstanceAdmin";
+    impl<T> tonic::server::NamedService for BigtableInstanceAdminServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
 }
 /// `Type` represents the type of data that is written to, read from, or stored
 /// in Bigtable. It is heavily based on the GoogleSQL standard to help maintain
@@ -1068,12 +3610,12 @@ pub mod table {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    ReplicationState::StateNotKnown => "STATE_NOT_KNOWN",
-                    ReplicationState::Initializing => "INITIALIZING",
-                    ReplicationState::PlannedMaintenance => "PLANNED_MAINTENANCE",
-                    ReplicationState::UnplannedMaintenance => "UNPLANNED_MAINTENANCE",
-                    ReplicationState::Ready => "READY",
-                    ReplicationState::ReadyOptimizing => "READY_OPTIMIZING",
+                    Self::StateNotKnown => "STATE_NOT_KNOWN",
+                    Self::Initializing => "INITIALIZING",
+                    Self::PlannedMaintenance => "PLANNED_MAINTENANCE",
+                    Self::UnplannedMaintenance => "UNPLANNED_MAINTENANCE",
+                    Self::Ready => "READY",
+                    Self::ReadyOptimizing => "READY_OPTIMIZING",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1130,8 +3672,8 @@ pub mod table {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                TimestampGranularity::Unspecified => "TIMESTAMP_GRANULARITY_UNSPECIFIED",
-                TimestampGranularity::Millis => "MILLIS",
+                Self::Unspecified => "TIMESTAMP_GRANULARITY_UNSPECIFIED",
+                Self::Millis => "MILLIS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1178,12 +3720,12 @@ pub mod table {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                View::Unspecified => "VIEW_UNSPECIFIED",
-                View::NameOnly => "NAME_ONLY",
-                View::SchemaView => "SCHEMA_VIEW",
-                View::ReplicationView => "REPLICATION_VIEW",
-                View::EncryptionView => "ENCRYPTION_VIEW",
-                View::Full => "FULL",
+                Self::Unspecified => "VIEW_UNSPECIFIED",
+                Self::NameOnly => "NAME_ONLY",
+                Self::SchemaView => "SCHEMA_VIEW",
+                Self::ReplicationView => "REPLICATION_VIEW",
+                Self::EncryptionView => "ENCRYPTION_VIEW",
+                Self::Full => "FULL",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1293,10 +3835,10 @@ pub mod authorized_view {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ResponseView::Unspecified => "RESPONSE_VIEW_UNSPECIFIED",
-                ResponseView::NameOnly => "NAME_ONLY",
-                ResponseView::Basic => "BASIC",
-                ResponseView::Full => "FULL",
+                Self::Unspecified => "RESPONSE_VIEW_UNSPECIFIED",
+                Self::NameOnly => "NAME_ONLY",
+                Self::Basic => "BASIC",
+                Self::Full => "FULL",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1441,11 +3983,9 @@ pub mod encryption_info {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                EncryptionType::Unspecified => "ENCRYPTION_TYPE_UNSPECIFIED",
-                EncryptionType::GoogleDefaultEncryption => "GOOGLE_DEFAULT_ENCRYPTION",
-                EncryptionType::CustomerManagedEncryption => {
-                    "CUSTOMER_MANAGED_ENCRYPTION"
-                }
+                Self::Unspecified => "ENCRYPTION_TYPE_UNSPECIFIED",
+                Self::GoogleDefaultEncryption => "GOOGLE_DEFAULT_ENCRYPTION",
+                Self::CustomerManagedEncryption => "CUSTOMER_MANAGED_ENCRYPTION",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1529,9 +4069,9 @@ pub mod snapshot {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::NotKnown => "STATE_NOT_KNOWN",
-                State::Ready => "READY",
-                State::Creating => "CREATING",
+                Self::NotKnown => "STATE_NOT_KNOWN",
+                Self::Ready => "READY",
+                Self::Creating => "CREATING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1645,9 +4185,9 @@ pub mod backup {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Ready => "READY",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Ready => "READY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1693,9 +4233,9 @@ pub mod backup {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                BackupType::Unspecified => "BACKUP_TYPE_UNSPECIFIED",
-                BackupType::Standard => "STANDARD",
-                BackupType::Hot => "HOT",
+                Self::Unspecified => "BACKUP_TYPE_UNSPECIFIED",
+                Self::Standard => "STANDARD",
+                Self::Hot => "HOT",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1749,8 +4289,8 @@ impl RestoreSourceType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            RestoreSourceType::Unspecified => "RESTORE_SOURCE_TYPE_UNSPECIFIED",
-            RestoreSourceType::Backup => "BACKUP",
+            Self::Unspecified => "RESTORE_SOURCE_TYPE_UNSPECIFIED",
+            Self::Backup => "BACKUP",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -3751,1145 +6291,280 @@ pub mod bigtable_table_admin_client {
         }
     }
 }
-/// Request message for BigtableInstanceAdmin.CreateInstance.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CreateInstanceRequest {
-    /// Required. The unique name of the project in which to create the new
-    /// instance. Values are of the form `projects/{project}`.
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// Required. The ID to be used when referring to the new instance within its
-    /// project, e.g., just `myinstance` rather than
-    /// `projects/myproject/instances/myinstance`.
-    #[prost(string, tag = "2")]
-    pub instance_id: ::prost::alloc::string::String,
-    /// Required. The instance to create.
-    /// Fields marked `OutputOnly` must be left blank.
-    #[prost(message, optional, tag = "3")]
-    pub instance: ::core::option::Option<Instance>,
-    /// Required. The clusters to be created within the instance, mapped by desired
-    /// cluster ID, e.g., just `mycluster` rather than
-    /// `projects/myproject/instances/myinstance/clusters/mycluster`.
-    /// Fields marked `OutputOnly` must be left blank.
-    /// Currently, at most four clusters can be specified.
-    #[prost(btree_map = "string, message", tag = "4")]
-    pub clusters: ::prost::alloc::collections::BTreeMap<
-        ::prost::alloc::string::String,
-        Cluster,
-    >,
-}
-/// Request message for BigtableInstanceAdmin.GetInstance.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetInstanceRequest {
-    /// Required. The unique name of the requested instance. Values are of the form
-    /// `projects/{project}/instances/{instance}`.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// Request message for BigtableInstanceAdmin.ListInstances.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListInstancesRequest {
-    /// Required. The unique name of the project for which a list of instances is
-    /// requested. Values are of the form `projects/{project}`.
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// DEPRECATED: This field is unused and ignored.
-    #[prost(string, tag = "2")]
-    pub page_token: ::prost::alloc::string::String,
-}
-/// Response message for BigtableInstanceAdmin.ListInstances.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListInstancesResponse {
-    /// The list of requested instances.
-    #[prost(message, repeated, tag = "1")]
-    pub instances: ::prost::alloc::vec::Vec<Instance>,
-    /// Locations from which Instance information could not be retrieved,
-    /// due to an outage or some other transient condition.
-    /// Instances whose Clusters are all in one of the failed locations
-    /// may be missing from `instances`, and Instances with at least one
-    /// Cluster in a failed location may only have partial information returned.
-    /// Values are of the form `projects/<project>/locations/<zone_id>`
-    #[prost(string, repeated, tag = "2")]
-    pub failed_locations: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    /// DEPRECATED: This field is unused and ignored.
-    #[prost(string, tag = "3")]
-    pub next_page_token: ::prost::alloc::string::String,
-}
-/// Request message for BigtableInstanceAdmin.PartialUpdateInstance.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct PartialUpdateInstanceRequest {
-    /// Required. The Instance which will (partially) replace the current value.
-    #[prost(message, optional, tag = "1")]
-    pub instance: ::core::option::Option<Instance>,
-    /// Required. The subset of Instance fields which should be replaced.
-    /// Must be explicitly set.
-    #[prost(message, optional, tag = "2")]
-    pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
-}
-/// Request message for BigtableInstanceAdmin.DeleteInstance.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DeleteInstanceRequest {
-    /// Required. The unique name of the instance to be deleted.
-    /// Values are of the form `projects/{project}/instances/{instance}`.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// Request message for BigtableInstanceAdmin.CreateCluster.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CreateClusterRequest {
-    /// Required. The unique name of the instance in which to create the new
-    /// cluster. Values are of the form `projects/{project}/instances/{instance}`.
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// Required. The ID to be used when referring to the new cluster within its
-    /// instance, e.g., just `mycluster` rather than
-    /// `projects/myproject/instances/myinstance/clusters/mycluster`.
-    #[prost(string, tag = "2")]
-    pub cluster_id: ::prost::alloc::string::String,
-    /// Required. The cluster to be created.
-    /// Fields marked `OutputOnly` must be left blank.
-    #[prost(message, optional, tag = "3")]
-    pub cluster: ::core::option::Option<Cluster>,
-}
-/// Request message for BigtableInstanceAdmin.GetCluster.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetClusterRequest {
-    /// Required. The unique name of the requested cluster. Values are of the form
-    /// `projects/{project}/instances/{instance}/clusters/{cluster}`.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// Request message for BigtableInstanceAdmin.ListClusters.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListClustersRequest {
-    /// Required. The unique name of the instance for which a list of clusters is
-    /// requested. Values are of the form
-    /// `projects/{project}/instances/{instance}`. Use `{instance} = '-'` to list
-    /// Clusters for all Instances in a project, e.g.,
-    /// `projects/myproject/instances/-`.
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// DEPRECATED: This field is unused and ignored.
-    #[prost(string, tag = "2")]
-    pub page_token: ::prost::alloc::string::String,
-}
-/// Response message for BigtableInstanceAdmin.ListClusters.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListClustersResponse {
-    /// The list of requested clusters.
-    #[prost(message, repeated, tag = "1")]
-    pub clusters: ::prost::alloc::vec::Vec<Cluster>,
-    /// Locations from which Cluster information could not be retrieved,
-    /// due to an outage or some other transient condition.
-    /// Clusters from these locations may be missing from `clusters`,
-    /// or may only have partial information returned.
-    /// Values are of the form `projects/<project>/locations/<zone_id>`
-    #[prost(string, repeated, tag = "2")]
-    pub failed_locations: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    /// DEPRECATED: This field is unused and ignored.
-    #[prost(string, tag = "3")]
-    pub next_page_token: ::prost::alloc::string::String,
-}
-/// Request message for BigtableInstanceAdmin.DeleteCluster.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DeleteClusterRequest {
-    /// Required. The unique name of the cluster to be deleted. Values are of the
-    /// form `projects/{project}/instances/{instance}/clusters/{cluster}`.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// The metadata for the Operation returned by CreateInstance.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CreateInstanceMetadata {
-    /// The request that prompted the initiation of this CreateInstance operation.
-    #[prost(message, optional, tag = "1")]
-    pub original_request: ::core::option::Option<CreateInstanceRequest>,
-    /// The time at which the original request was received.
-    #[prost(message, optional, tag = "2")]
-    pub request_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// The time at which the operation failed or was completed successfully.
-    #[prost(message, optional, tag = "3")]
-    pub finish_time: ::core::option::Option<::prost_types::Timestamp>,
-}
-/// The metadata for the Operation returned by UpdateInstance.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UpdateInstanceMetadata {
-    /// The request that prompted the initiation of this UpdateInstance operation.
-    #[prost(message, optional, tag = "1")]
-    pub original_request: ::core::option::Option<PartialUpdateInstanceRequest>,
-    /// The time at which the original request was received.
-    #[prost(message, optional, tag = "2")]
-    pub request_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// The time at which the operation failed or was completed successfully.
-    #[prost(message, optional, tag = "3")]
-    pub finish_time: ::core::option::Option<::prost_types::Timestamp>,
-}
-/// The metadata for the Operation returned by CreateCluster.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CreateClusterMetadata {
-    /// The request that prompted the initiation of this CreateCluster operation.
-    #[prost(message, optional, tag = "1")]
-    pub original_request: ::core::option::Option<CreateClusterRequest>,
-    /// The time at which the original request was received.
-    #[prost(message, optional, tag = "2")]
-    pub request_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// The time at which the operation failed or was completed successfully.
-    #[prost(message, optional, tag = "3")]
-    pub finish_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Keys: the full `name` of each table that existed in the instance when
-    /// CreateCluster was first called, i.e.
-    /// `projects/<project>/instances/<instance>/tables/<table>`. Any table added
-    /// to the instance by a later API call will be created in the new cluster by
-    /// that API call, not this one.
-    ///
-    /// Values: information on how much of a table's data has been copied to the
-    /// newly-created cluster so far.
-    #[prost(btree_map = "string, message", tag = "4")]
-    pub tables: ::prost::alloc::collections::BTreeMap<
-        ::prost::alloc::string::String,
-        create_cluster_metadata::TableProgress,
-    >,
-}
-/// Nested message and enum types in `CreateClusterMetadata`.
-pub mod create_cluster_metadata {
-    /// Progress info for copying a table's data to the new cluster.
-    #[derive(Clone, Copy, PartialEq, ::prost::Message)]
-    pub struct TableProgress {
-        /// Estimate of the size of the table to be copied.
-        #[prost(int64, tag = "2")]
-        pub estimated_size_bytes: i64,
-        /// Estimate of the number of bytes copied so far for this table.
-        /// This will eventually reach 'estimated_size_bytes' unless the table copy
-        /// is CANCELLED.
-        #[prost(int64, tag = "3")]
-        pub estimated_copied_bytes: i64,
-        #[prost(enumeration = "table_progress::State", tag = "4")]
-        pub state: i32,
-    }
-    /// Nested message and enum types in `TableProgress`.
-    pub mod table_progress {
-        #[derive(
-            Clone,
-            Copy,
-            Debug,
-            PartialEq,
-            Eq,
-            Hash,
-            PartialOrd,
-            Ord,
-            ::prost::Enumeration
-        )]
-        #[repr(i32)]
-        pub enum State {
-            Unspecified = 0,
-            /// The table has not yet begun copying to the new cluster.
-            Pending = 1,
-            /// The table is actively being copied to the new cluster.
-            Copying = 2,
-            /// The table has been fully copied to the new cluster.
-            Completed = 3,
-            /// The table was deleted before it finished copying to the new cluster.
-            /// Note that tables deleted after completion will stay marked as
-            /// COMPLETED, not CANCELLED.
-            Cancelled = 4,
-        }
-        impl State {
-            /// String value of the enum field names used in the ProtoBuf definition.
-            ///
-            /// The values are not transformed in any way and thus are considered stable
-            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-            pub fn as_str_name(&self) -> &'static str {
-                match self {
-                    State::Unspecified => "STATE_UNSPECIFIED",
-                    State::Pending => "PENDING",
-                    State::Copying => "COPYING",
-                    State::Completed => "COMPLETED",
-                    State::Cancelled => "CANCELLED",
-                }
-            }
-            /// Creates an enum from field names used in the ProtoBuf definition.
-            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-                match value {
-                    "STATE_UNSPECIFIED" => Some(Self::Unspecified),
-                    "PENDING" => Some(Self::Pending),
-                    "COPYING" => Some(Self::Copying),
-                    "COMPLETED" => Some(Self::Completed),
-                    "CANCELLED" => Some(Self::Cancelled),
-                    _ => None,
-                }
-            }
-        }
-    }
-}
-/// The metadata for the Operation returned by UpdateCluster.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UpdateClusterMetadata {
-    /// The request that prompted the initiation of this UpdateCluster operation.
-    #[prost(message, optional, tag = "1")]
-    pub original_request: ::core::option::Option<Cluster>,
-    /// The time at which the original request was received.
-    #[prost(message, optional, tag = "2")]
-    pub request_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// The time at which the operation failed or was completed successfully.
-    #[prost(message, optional, tag = "3")]
-    pub finish_time: ::core::option::Option<::prost_types::Timestamp>,
-}
-/// The metadata for the Operation returned by PartialUpdateCluster.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct PartialUpdateClusterMetadata {
-    /// The time at which the original request was received.
-    #[prost(message, optional, tag = "1")]
-    pub request_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// The time at which the operation failed or was completed successfully.
-    #[prost(message, optional, tag = "2")]
-    pub finish_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// The original request for PartialUpdateCluster.
-    #[prost(message, optional, tag = "3")]
-    pub original_request: ::core::option::Option<PartialUpdateClusterRequest>,
-}
-/// Request message for BigtableInstanceAdmin.PartialUpdateCluster.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct PartialUpdateClusterRequest {
-    /// Required. The Cluster which contains the partial updates to be applied,
-    /// subject to the update_mask.
-    #[prost(message, optional, tag = "1")]
-    pub cluster: ::core::option::Option<Cluster>,
-    /// Required. The subset of Cluster fields which should be replaced.
-    #[prost(message, optional, tag = "2")]
-    pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
-}
-/// Request message for BigtableInstanceAdmin.CreateAppProfile.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CreateAppProfileRequest {
-    /// Required. The unique name of the instance in which to create the new app
-    /// profile. Values are of the form `projects/{project}/instances/{instance}`.
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// Required. The ID to be used when referring to the new app profile within
-    /// its instance, e.g., just `myprofile` rather than
-    /// `projects/myproject/instances/myinstance/appProfiles/myprofile`.
-    #[prost(string, tag = "2")]
-    pub app_profile_id: ::prost::alloc::string::String,
-    /// Required. The app profile to be created.
-    /// Fields marked `OutputOnly` will be ignored.
-    #[prost(message, optional, tag = "3")]
-    pub app_profile: ::core::option::Option<AppProfile>,
-    /// If true, ignore safety checks when creating the app profile.
-    #[prost(bool, tag = "4")]
-    pub ignore_warnings: bool,
-}
-/// Request message for BigtableInstanceAdmin.GetAppProfile.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetAppProfileRequest {
-    /// Required. The unique name of the requested app profile. Values are of the
-    /// form `projects/{project}/instances/{instance}/appProfiles/{app_profile}`.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// Request message for BigtableInstanceAdmin.ListAppProfiles.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListAppProfilesRequest {
-    /// Required. The unique name of the instance for which a list of app profiles
-    /// is requested. Values are of the form
-    /// `projects/{project}/instances/{instance}`.
-    /// Use `{instance} = '-'` to list AppProfiles for all Instances in a project,
-    /// e.g., `projects/myproject/instances/-`.
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// Maximum number of results per page.
-    ///
-    /// A page_size of zero lets the server choose the number of items to return.
-    /// A page_size which is strictly positive will return at most that many items.
-    /// A negative page_size will cause an error.
-    ///
-    /// Following the first request, subsequent paginated calls are not required
-    /// to pass a page_size. If a page_size is set in subsequent calls, it must
-    /// match the page_size given in the first request.
-    #[prost(int32, tag = "3")]
-    pub page_size: i32,
-    /// The value of `next_page_token` returned by a previous call.
-    #[prost(string, tag = "2")]
-    pub page_token: ::prost::alloc::string::String,
-}
-/// Response message for BigtableInstanceAdmin.ListAppProfiles.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListAppProfilesResponse {
-    /// The list of requested app profiles.
-    #[prost(message, repeated, tag = "1")]
-    pub app_profiles: ::prost::alloc::vec::Vec<AppProfile>,
-    /// Set if not all app profiles could be returned in a single response.
-    /// Pass this value to `page_token` in another request to get the next
-    /// page of results.
-    #[prost(string, tag = "2")]
-    pub next_page_token: ::prost::alloc::string::String,
-    /// Locations from which AppProfile information could not be retrieved,
-    /// due to an outage or some other transient condition.
-    /// AppProfiles from these locations may be missing from `app_profiles`.
-    /// Values are of the form `projects/<project>/locations/<zone_id>`
-    #[prost(string, repeated, tag = "3")]
-    pub failed_locations: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-}
-/// Request message for BigtableInstanceAdmin.UpdateAppProfile.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UpdateAppProfileRequest {
-    /// Required. The app profile which will (partially) replace the current value.
-    #[prost(message, optional, tag = "1")]
-    pub app_profile: ::core::option::Option<AppProfile>,
-    /// Required. The subset of app profile fields which should be replaced.
-    /// If unset, all fields will be replaced.
-    #[prost(message, optional, tag = "2")]
-    pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
-    /// If true, ignore safety checks when updating the app profile.
-    #[prost(bool, tag = "3")]
-    pub ignore_warnings: bool,
-}
-/// Request message for BigtableInstanceAdmin.DeleteAppProfile.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DeleteAppProfileRequest {
-    /// Required. The unique name of the app profile to be deleted. Values are of
-    /// the form
-    /// `projects/{project}/instances/{instance}/appProfiles/{app_profile}`.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// Required. If true, ignore safety checks when deleting the app profile.
-    #[prost(bool, tag = "2")]
-    pub ignore_warnings: bool,
-}
-/// The metadata for the Operation returned by UpdateAppProfile.
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
-pub struct UpdateAppProfileMetadata {}
-/// Request message for BigtableInstanceAdmin.ListHotTablets.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListHotTabletsRequest {
-    /// Required. The cluster name to list hot tablets.
-    /// Value is in the following form:
-    /// `projects/{project}/instances/{instance}/clusters/{cluster}`.
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// The start time to list hot tablets. The hot tablets in the response will
-    /// have start times between the requested start time and end time. Start time
-    /// defaults to Now if it is unset, and end time defaults to Now - 24 hours if
-    /// it is unset. The start time should be less than the end time, and the
-    /// maximum allowed time range between start time and end time is 48 hours.
-    /// Start time and end time should have values between Now and Now - 14 days.
-    #[prost(message, optional, tag = "2")]
-    pub start_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// The end time to list hot tablets.
-    #[prost(message, optional, tag = "3")]
-    pub end_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Maximum number of results per page.
-    ///
-    /// A page_size that is empty or zero lets the server choose the number of
-    /// items to return. A page_size which is strictly positive will return at most
-    /// that many items. A negative page_size will cause an error.
-    ///
-    /// Following the first request, subsequent paginated calls do not need a
-    /// page_size field. If a page_size is set in subsequent calls, it must match
-    /// the page_size given in the first request.
-    #[prost(int32, tag = "4")]
-    pub page_size: i32,
-    /// The value of `next_page_token` returned by a previous call.
-    #[prost(string, tag = "5")]
-    pub page_token: ::prost::alloc::string::String,
-}
-/// Response message for BigtableInstanceAdmin.ListHotTablets.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListHotTabletsResponse {
-    /// List of hot tablets in the tables of the requested cluster that fall
-    /// within the requested time range. Hot tablets are ordered by node cpu usage
-    /// percent. If there are multiple hot tablets that correspond to the same
-    /// tablet within a 15-minute interval, only the hot tablet with the highest
-    /// node cpu usage will be included in the response.
-    #[prost(message, repeated, tag = "1")]
-    pub hot_tablets: ::prost::alloc::vec::Vec<HotTablet>,
-    /// Set if not all hot tablets could be returned in a single response.
-    /// Pass this value to `page_token` in another request to get the next
-    /// page of results.
-    #[prost(string, tag = "2")]
-    pub next_page_token: ::prost::alloc::string::String,
-}
-/// Generated client implementations.
-pub mod bigtable_instance_admin_client {
+/// Generated server implementations.
+pub mod bigtable_table_admin_server {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
-    use tonic::codegen::http::Uri;
-    /// Service for creating, configuring, and deleting Cloud Bigtable Instances and
-    /// Clusters. Provides access to the Instance and Cluster schemas only, not the
-    /// tables' metadata or data stored in those tables.
-    #[derive(Debug, Clone)]
-    pub struct BigtableInstanceAdminClient<T> {
-        inner: tonic::client::Grpc<T>,
-    }
-    impl<T> BigtableInstanceAdminClient<T>
-    where
-        T: tonic::client::GrpcService<tonic::body::BoxBody>,
-        T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
-    {
-        pub fn new(inner: T) -> Self {
-            let inner = tonic::client::Grpc::new(inner);
-            Self { inner }
-        }
-        pub fn with_origin(inner: T, origin: Uri) -> Self {
-            let inner = tonic::client::Grpc::with_origin(inner, origin);
-            Self { inner }
-        }
-        pub fn with_interceptor<F>(
-            inner: T,
-            interceptor: F,
-        ) -> BigtableInstanceAdminClient<InterceptedService<T, F>>
-        where
-            F: tonic::service::Interceptor,
-            T::ResponseBody: Default,
-            T: tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-                Response = http::Response<
-                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
-                >,
-            >,
-            <T as tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-            >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
-        {
-            BigtableInstanceAdminClient::new(InterceptedService::new(inner, interceptor))
-        }
-        /// Compress requests with the given encoding.
+    /// Generated trait containing gRPC methods that should be implemented for use with BigtableTableAdminServer.
+    #[async_trait]
+    pub trait BigtableTableAdmin: std::marker::Send + std::marker::Sync + 'static {
+        /// Creates a new table in the specified instance.
+        /// The table can be created with a full set of initial column families,
+        /// specified in the request.
+        async fn create_table(
+            &self,
+            request: tonic::Request<super::CreateTableRequest>,
+        ) -> std::result::Result<tonic::Response<super::Table>, tonic::Status>;
+        /// Creates a new table from the specified snapshot. The target table must
+        /// not exist. The snapshot and the table must be in the same instance.
         ///
-        /// This requires the server to support it otherwise it might respond with an
-        /// error.
-        #[must_use]
-        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.send_compressed(encoding);
-            self
-        }
-        /// Enable decompressing responses.
-        #[must_use]
-        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.accept_compressed(encoding);
-            self
-        }
-        /// Limits the maximum size of a decoded message.
-        ///
-        /// Default: `4MB`
-        #[must_use]
-        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_decoding_message_size(limit);
-            self
-        }
-        /// Limits the maximum size of an encoded message.
-        ///
-        /// Default: `usize::MAX`
-        #[must_use]
-        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_encoding_message_size(limit);
-            self
-        }
-        /// Create an instance within a project.
-        ///
-        /// Note that exactly one of Cluster.serve_nodes and
-        /// Cluster.cluster_config.cluster_autoscaling_config can be set. If
-        /// serve_nodes is set to non-zero, then the cluster is manually scaled. If
-        /// cluster_config.cluster_autoscaling_config is non-empty, then autoscaling is
-        /// enabled.
-        pub async fn create_instance(
-            &mut self,
-            request: impl tonic::IntoRequest<super::CreateInstanceRequest>,
+        /// Note: This is a private alpha release of Cloud Bigtable snapshots. This
+        /// feature is not currently available to most Cloud Bigtable customers. This
+        /// feature might be changed in backward-incompatible ways and is not
+        /// recommended for production use. It is not subject to any SLA or deprecation
+        /// policy.
+        async fn create_table_from_snapshot(
+            &self,
+            request: tonic::Request<super::CreateTableFromSnapshotRequest>,
         ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.bigtable.admin.v2.BigtableInstanceAdmin/CreateInstance",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
-                        "CreateInstance",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Gets information about an instance.
-        pub async fn get_instance(
-            &mut self,
-            request: impl tonic::IntoRequest<super::GetInstanceRequest>,
-        ) -> std::result::Result<tonic::Response<super::Instance>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.bigtable.admin.v2.BigtableInstanceAdmin/GetInstance",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
-                        "GetInstance",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Lists information about instances in a project.
-        pub async fn list_instances(
-            &mut self,
-            request: impl tonic::IntoRequest<super::ListInstancesRequest>,
+        >;
+        /// Lists all tables served from a specified instance.
+        async fn list_tables(
+            &self,
+            request: tonic::Request<super::ListTablesRequest>,
         ) -> std::result::Result<
-            tonic::Response<super::ListInstancesResponse>,
+            tonic::Response<super::ListTablesResponse>,
             tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.bigtable.admin.v2.BigtableInstanceAdmin/ListInstances",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
-                        "ListInstances",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Updates an instance within a project. This method updates only the display
-        /// name and type for an Instance. To update other Instance properties, such as
-        /// labels, use PartialUpdateInstance.
-        pub async fn update_instance(
-            &mut self,
-            request: impl tonic::IntoRequest<super::Instance>,
-        ) -> std::result::Result<tonic::Response<super::Instance>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.bigtable.admin.v2.BigtableInstanceAdmin/UpdateInstance",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
-                        "UpdateInstance",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Partially updates an instance within a project. This method can modify all
-        /// fields of an Instance and is the preferred way to update an Instance.
-        pub async fn partial_update_instance(
-            &mut self,
-            request: impl tonic::IntoRequest<super::PartialUpdateInstanceRequest>,
+        >;
+        /// Gets metadata information about the specified table.
+        async fn get_table(
+            &self,
+            request: tonic::Request<super::GetTableRequest>,
+        ) -> std::result::Result<tonic::Response<super::Table>, tonic::Status>;
+        /// Updates a specified table.
+        async fn update_table(
+            &self,
+            request: tonic::Request<super::UpdateTableRequest>,
         ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.bigtable.admin.v2.BigtableInstanceAdmin/PartialUpdateInstance",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
-                        "PartialUpdateInstance",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Delete an instance from a project.
-        pub async fn delete_instance(
-            &mut self,
-            request: impl tonic::IntoRequest<super::DeleteInstanceRequest>,
-        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.bigtable.admin.v2.BigtableInstanceAdmin/DeleteInstance",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
-                        "DeleteInstance",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Creates a cluster within an instance.
+        >;
+        /// Permanently deletes a specified table and all of its data.
+        async fn delete_table(
+            &self,
+            request: tonic::Request<super::DeleteTableRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Restores a specified table which was accidentally deleted.
+        async fn undelete_table(
+            &self,
+            request: tonic::Request<super::UndeleteTableRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Creates a new AuthorizedView in a table.
+        async fn create_authorized_view(
+            &self,
+            request: tonic::Request<super::CreateAuthorizedViewRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists all AuthorizedViews from a specific table.
+        async fn list_authorized_views(
+            &self,
+            request: tonic::Request<super::ListAuthorizedViewsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAuthorizedViewsResponse>,
+            tonic::Status,
+        >;
+        /// Gets information from a specified AuthorizedView.
+        async fn get_authorized_view(
+            &self,
+            request: tonic::Request<super::GetAuthorizedViewRequest>,
+        ) -> std::result::Result<tonic::Response<super::AuthorizedView>, tonic::Status>;
+        /// Updates an AuthorizedView in a table.
+        async fn update_authorized_view(
+            &self,
+            request: tonic::Request<super::UpdateAuthorizedViewRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Permanently deletes a specified AuthorizedView.
+        async fn delete_authorized_view(
+            &self,
+            request: tonic::Request<super::DeleteAuthorizedViewRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Performs a series of column family modifications on the specified table.
+        /// Either all or none of the modifications will occur before this method
+        /// returns, but data requests received prior to that point may see a table
+        /// where only some modifications have taken effect.
+        async fn modify_column_families(
+            &self,
+            request: tonic::Request<super::ModifyColumnFamiliesRequest>,
+        ) -> std::result::Result<tonic::Response<super::Table>, tonic::Status>;
+        /// Permanently drop/delete a row range from a specified table. The request can
+        /// specify whether to delete all rows in a table, or only those that match a
+        /// particular prefix.
+        async fn drop_row_range(
+            &self,
+            request: tonic::Request<super::DropRowRangeRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Generates a consistency token for a Table, which can be used in
+        /// CheckConsistency to check whether mutations to the table that finished
+        /// before this call started have been replicated. The tokens will be available
+        /// for 90 days.
+        async fn generate_consistency_token(
+            &self,
+            request: tonic::Request<super::GenerateConsistencyTokenRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::GenerateConsistencyTokenResponse>,
+            tonic::Status,
+        >;
+        /// Checks replication consistency based on a consistency token, that is, if
+        /// replication has caught up based on the conditions specified in the token
+        /// and the check request.
+        async fn check_consistency(
+            &self,
+            request: tonic::Request<super::CheckConsistencyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::CheckConsistencyResponse>,
+            tonic::Status,
+        >;
+        /// Creates a new snapshot in the specified cluster from the specified
+        /// source table. The cluster and the table must be in the same instance.
         ///
-        /// Note that exactly one of Cluster.serve_nodes and
-        /// Cluster.cluster_config.cluster_autoscaling_config can be set. If
-        /// serve_nodes is set to non-zero, then the cluster is manually scaled. If
-        /// cluster_config.cluster_autoscaling_config is non-empty, then autoscaling is
-        /// enabled.
-        pub async fn create_cluster(
-            &mut self,
-            request: impl tonic::IntoRequest<super::CreateClusterRequest>,
+        /// Note: This is a private alpha release of Cloud Bigtable snapshots. This
+        /// feature is not currently available to most Cloud Bigtable customers. This
+        /// feature might be changed in backward-incompatible ways and is not
+        /// recommended for production use. It is not subject to any SLA or deprecation
+        /// policy.
+        async fn snapshot_table(
+            &self,
+            request: tonic::Request<super::SnapshotTableRequest>,
         ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.bigtable.admin.v2.BigtableInstanceAdmin/CreateCluster",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
-                        "CreateCluster",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Gets information about a cluster.
-        pub async fn get_cluster(
-            &mut self,
-            request: impl tonic::IntoRequest<super::GetClusterRequest>,
-        ) -> std::result::Result<tonic::Response<super::Cluster>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.bigtable.admin.v2.BigtableInstanceAdmin/GetCluster",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
-                        "GetCluster",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Lists information about clusters in an instance.
-        pub async fn list_clusters(
-            &mut self,
-            request: impl tonic::IntoRequest<super::ListClustersRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::ListClustersResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.bigtable.admin.v2.BigtableInstanceAdmin/ListClusters",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
-                        "ListClusters",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Updates a cluster within an instance.
+        >;
+        /// Gets metadata information about the specified snapshot.
         ///
-        /// Note that UpdateCluster does not support updating
-        /// cluster_config.cluster_autoscaling_config. In order to update it, you
-        /// must use PartialUpdateCluster.
-        pub async fn update_cluster(
-            &mut self,
-            request: impl tonic::IntoRequest<super::Cluster>,
-        ) -> std::result::Result<
-            tonic::Response<super::super::super::super::longrunning::Operation>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.bigtable.admin.v2.BigtableInstanceAdmin/UpdateCluster",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
-                        "UpdateCluster",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Partially updates a cluster within a project. This method is the preferred
-        /// way to update a Cluster.
+        /// Note: This is a private alpha release of Cloud Bigtable snapshots. This
+        /// feature is not currently available to most Cloud Bigtable customers. This
+        /// feature might be changed in backward-incompatible ways and is not
+        /// recommended for production use. It is not subject to any SLA or deprecation
+        /// policy.
+        async fn get_snapshot(
+            &self,
+            request: tonic::Request<super::GetSnapshotRequest>,
+        ) -> std::result::Result<tonic::Response<super::Snapshot>, tonic::Status>;
+        /// Lists all snapshots associated with the specified cluster.
         ///
-        /// To enable and update autoscaling, set
-        /// cluster_config.cluster_autoscaling_config. When autoscaling is enabled,
-        /// serve_nodes is treated as an OUTPUT_ONLY field, meaning that updates to it
-        /// are ignored. Note that an update cannot simultaneously set serve_nodes to
-        /// non-zero and cluster_config.cluster_autoscaling_config to non-empty, and
-        /// also specify both in the update_mask.
+        /// Note: This is a private alpha release of Cloud Bigtable snapshots. This
+        /// feature is not currently available to most Cloud Bigtable customers. This
+        /// feature might be changed in backward-incompatible ways and is not
+        /// recommended for production use. It is not subject to any SLA or deprecation
+        /// policy.
+        async fn list_snapshots(
+            &self,
+            request: tonic::Request<super::ListSnapshotsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListSnapshotsResponse>,
+            tonic::Status,
+        >;
+        /// Permanently deletes the specified snapshot.
         ///
-        /// To disable autoscaling, clear cluster_config.cluster_autoscaling_config,
-        /// and explicitly set a serve_node count via the update_mask.
-        pub async fn partial_update_cluster(
-            &mut self,
-            request: impl tonic::IntoRequest<super::PartialUpdateClusterRequest>,
+        /// Note: This is a private alpha release of Cloud Bigtable snapshots. This
+        /// feature is not currently available to most Cloud Bigtable customers. This
+        /// feature might be changed in backward-incompatible ways and is not
+        /// recommended for production use. It is not subject to any SLA or deprecation
+        /// policy.
+        async fn delete_snapshot(
+            &self,
+            request: tonic::Request<super::DeleteSnapshotRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Starts creating a new Cloud Bigtable Backup.  The returned backup
+        /// [long-running operation][google.longrunning.Operation] can be used to
+        /// track creation of the backup. The
+        /// [metadata][google.longrunning.Operation.metadata] field type is
+        /// [CreateBackupMetadata][google.bigtable.admin.v2.CreateBackupMetadata]. The
+        /// [response][google.longrunning.Operation.response] field type is
+        /// [Backup][google.bigtable.admin.v2.Backup], if successful. Cancelling the
+        /// returned operation will stop the creation and delete the backup.
+        async fn create_backup(
+            &self,
+            request: tonic::Request<super::CreateBackupRequest>,
         ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.bigtable.admin.v2.BigtableInstanceAdmin/PartialUpdateCluster",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
-                        "PartialUpdateCluster",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Deletes a cluster from an instance.
-        pub async fn delete_cluster(
-            &mut self,
-            request: impl tonic::IntoRequest<super::DeleteClusterRequest>,
-        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.bigtable.admin.v2.BigtableInstanceAdmin/DeleteCluster",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
-                        "DeleteCluster",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Creates an app profile within an instance.
-        pub async fn create_app_profile(
-            &mut self,
-            request: impl tonic::IntoRequest<super::CreateAppProfileRequest>,
-        ) -> std::result::Result<tonic::Response<super::AppProfile>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.bigtable.admin.v2.BigtableInstanceAdmin/CreateAppProfile",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
-                        "CreateAppProfile",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Gets information about an app profile.
-        pub async fn get_app_profile(
-            &mut self,
-            request: impl tonic::IntoRequest<super::GetAppProfileRequest>,
-        ) -> std::result::Result<tonic::Response<super::AppProfile>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.bigtable.admin.v2.BigtableInstanceAdmin/GetAppProfile",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
-                        "GetAppProfile",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Lists information about app profiles in an instance.
-        pub async fn list_app_profiles(
-            &mut self,
-            request: impl tonic::IntoRequest<super::ListAppProfilesRequest>,
+        >;
+        /// Gets metadata on a pending or completed Cloud Bigtable Backup.
+        async fn get_backup(
+            &self,
+            request: tonic::Request<super::GetBackupRequest>,
+        ) -> std::result::Result<tonic::Response<super::Backup>, tonic::Status>;
+        /// Updates a pending or completed Cloud Bigtable Backup.
+        async fn update_backup(
+            &self,
+            request: tonic::Request<super::UpdateBackupRequest>,
+        ) -> std::result::Result<tonic::Response<super::Backup>, tonic::Status>;
+        /// Deletes a pending or completed Cloud Bigtable backup.
+        async fn delete_backup(
+            &self,
+            request: tonic::Request<super::DeleteBackupRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Lists Cloud Bigtable backups. Returns both completed and pending
+        /// backups.
+        async fn list_backups(
+            &self,
+            request: tonic::Request<super::ListBackupsRequest>,
         ) -> std::result::Result<
-            tonic::Response<super::ListAppProfilesResponse>,
+            tonic::Response<super::ListBackupsResponse>,
             tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.bigtable.admin.v2.BigtableInstanceAdmin/ListAppProfiles",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
-                        "ListAppProfiles",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Updates an app profile within an instance.
-        pub async fn update_app_profile(
-            &mut self,
-            request: impl tonic::IntoRequest<super::UpdateAppProfileRequest>,
+        >;
+        /// Create a new table by restoring from a completed backup.  The
+        /// returned table [long-running operation][google.longrunning.Operation] can
+        /// be used to track the progress of the operation, and to cancel it.  The
+        /// [metadata][google.longrunning.Operation.metadata] field type is
+        /// [RestoreTableMetadata][google.bigtable.admin.v2.RestoreTableMetadata].  The
+        /// [response][google.longrunning.Operation.response] type is
+        /// [Table][google.bigtable.admin.v2.Table], if successful.
+        async fn restore_table(
+            &self,
+            request: tonic::Request<super::RestoreTableRequest>,
         ) -> std::result::Result<
             tonic::Response<super::super::super::super::longrunning::Operation>,
             tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.bigtable.admin.v2.BigtableInstanceAdmin/UpdateAppProfile",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
-                        "UpdateAppProfile",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Deletes an app profile from an instance.
-        pub async fn delete_app_profile(
-            &mut self,
-            request: impl tonic::IntoRequest<super::DeleteAppProfileRequest>,
-        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.bigtable.admin.v2.BigtableInstanceAdmin/DeleteAppProfile",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
-                        "DeleteAppProfile",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Gets the access control policy for an instance resource. Returns an empty
-        /// policy if an instance exists but does not have a policy set.
-        pub async fn get_iam_policy(
-            &mut self,
-            request: impl tonic::IntoRequest<
+        >;
+        /// Copy a Cloud Bigtable backup to a new backup in the destination cluster
+        /// located in the destination instance and project.
+        async fn copy_backup(
+            &self,
+            request: tonic::Request<super::CopyBackupRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Gets the access control policy for a Table or Backup resource.
+        /// Returns an empty policy if the resource exists but does not have a policy
+        /// set.
+        async fn get_iam_policy(
+            &self,
+            request: tonic::Request<
                 super::super::super::super::iam::v1::GetIamPolicyRequest,
             >,
         ) -> std::result::Result<
             tonic::Response<super::super::super::super::iam::v1::Policy>,
             tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.bigtable.admin.v2.BigtableInstanceAdmin/GetIamPolicy",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
-                        "GetIamPolicy",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Sets the access control policy on an instance resource. Replaces any
-        /// existing policy.
-        pub async fn set_iam_policy(
-            &mut self,
-            request: impl tonic::IntoRequest<
+        >;
+        /// Sets the access control policy on a Table or Backup resource.
+        /// Replaces any existing policy.
+        async fn set_iam_policy(
+            &self,
+            request: tonic::Request<
                 super::super::super::super::iam::v1::SetIamPolicyRequest,
             >,
         ) -> std::result::Result<
             tonic::Response<super::super::super::super::iam::v1::Policy>,
             tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.bigtable.admin.v2.BigtableInstanceAdmin/SetIamPolicy",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
-                        "SetIamPolicy",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Returns permissions that the caller has on the specified instance resource.
-        pub async fn test_iam_permissions(
-            &mut self,
-            request: impl tonic::IntoRequest<
+        >;
+        /// Returns permissions that the caller has on the specified Table or Backup
+        /// resource.
+        async fn test_iam_permissions(
+            &self,
+            request: tonic::Request<
                 super::super::super::super::iam::v1::TestIamPermissionsRequest,
             >,
         ) -> std::result::Result<
@@ -4897,61 +6572,1545 @@ pub mod bigtable_instance_admin_client {
                 super::super::super::super::iam::v1::TestIamPermissionsResponse,
             >,
             tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.bigtable.admin.v2.BigtableInstanceAdmin/TestIamPermissions",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
-                        "TestIamPermissions",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
+        >;
+    }
+    /// Service for creating, configuring, and deleting Cloud Bigtable tables.
+    ///
+    ///
+    /// Provides access to the table schemas only, not the data stored within
+    /// the tables.
+    #[derive(Debug)]
+    pub struct BigtableTableAdminServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> BigtableTableAdminServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
         }
-        /// Lists hot tablets in a cluster, within the time range provided. Hot
-        /// tablets are ordered based on CPU usage.
-        pub async fn list_hot_tablets(
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for BigtableTableAdminServer<T>
+    where
+        T: BigtableTableAdmin,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
             &mut self,
-            request: impl tonic::IntoRequest<super::ListHotTabletsRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::ListHotTabletsResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.bigtable.admin.v2.BigtableInstanceAdmin/ListHotTablets",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.bigtable.admin.v2.BigtableInstanceAdmin",
-                        "ListHotTablets",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
         }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.bigtable.admin.v2.BigtableTableAdmin/CreateTable" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateTableSvc<T: BigtableTableAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableTableAdmin,
+                    > tonic::server::UnaryService<super::CreateTableRequest>
+                    for CreateTableSvc<T> {
+                        type Response = super::Table;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateTableRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableTableAdmin>::create_table(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateTableSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableTableAdmin/CreateTableFromSnapshot" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateTableFromSnapshotSvc<T: BigtableTableAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableTableAdmin,
+                    > tonic::server::UnaryService<super::CreateTableFromSnapshotRequest>
+                    for CreateTableFromSnapshotSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateTableFromSnapshotRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableTableAdmin>::create_table_from_snapshot(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateTableFromSnapshotSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableTableAdmin/ListTables" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListTablesSvc<T: BigtableTableAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableTableAdmin,
+                    > tonic::server::UnaryService<super::ListTablesRequest>
+                    for ListTablesSvc<T> {
+                        type Response = super::ListTablesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListTablesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableTableAdmin>::list_tables(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListTablesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableTableAdmin/GetTable" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetTableSvc<T: BigtableTableAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableTableAdmin,
+                    > tonic::server::UnaryService<super::GetTableRequest>
+                    for GetTableSvc<T> {
+                        type Response = super::Table;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetTableRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableTableAdmin>::get_table(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetTableSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableTableAdmin/UpdateTable" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateTableSvc<T: BigtableTableAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableTableAdmin,
+                    > tonic::server::UnaryService<super::UpdateTableRequest>
+                    for UpdateTableSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateTableRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableTableAdmin>::update_table(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateTableSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableTableAdmin/DeleteTable" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteTableSvc<T: BigtableTableAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableTableAdmin,
+                    > tonic::server::UnaryService<super::DeleteTableRequest>
+                    for DeleteTableSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteTableRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableTableAdmin>::delete_table(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteTableSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableTableAdmin/UndeleteTable" => {
+                    #[allow(non_camel_case_types)]
+                    struct UndeleteTableSvc<T: BigtableTableAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableTableAdmin,
+                    > tonic::server::UnaryService<super::UndeleteTableRequest>
+                    for UndeleteTableSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UndeleteTableRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableTableAdmin>::undelete_table(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UndeleteTableSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableTableAdmin/CreateAuthorizedView" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateAuthorizedViewSvc<T: BigtableTableAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableTableAdmin,
+                    > tonic::server::UnaryService<super::CreateAuthorizedViewRequest>
+                    for CreateAuthorizedViewSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateAuthorizedViewRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableTableAdmin>::create_authorized_view(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateAuthorizedViewSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableTableAdmin/ListAuthorizedViews" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAuthorizedViewsSvc<T: BigtableTableAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableTableAdmin,
+                    > tonic::server::UnaryService<super::ListAuthorizedViewsRequest>
+                    for ListAuthorizedViewsSvc<T> {
+                        type Response = super::ListAuthorizedViewsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListAuthorizedViewsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableTableAdmin>::list_authorized_views(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAuthorizedViewsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableTableAdmin/GetAuthorizedView" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAuthorizedViewSvc<T: BigtableTableAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableTableAdmin,
+                    > tonic::server::UnaryService<super::GetAuthorizedViewRequest>
+                    for GetAuthorizedViewSvc<T> {
+                        type Response = super::AuthorizedView;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAuthorizedViewRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableTableAdmin>::get_authorized_view(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAuthorizedViewSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableTableAdmin/UpdateAuthorizedView" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateAuthorizedViewSvc<T: BigtableTableAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableTableAdmin,
+                    > tonic::server::UnaryService<super::UpdateAuthorizedViewRequest>
+                    for UpdateAuthorizedViewSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateAuthorizedViewRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableTableAdmin>::update_authorized_view(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateAuthorizedViewSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableTableAdmin/DeleteAuthorizedView" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteAuthorizedViewSvc<T: BigtableTableAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableTableAdmin,
+                    > tonic::server::UnaryService<super::DeleteAuthorizedViewRequest>
+                    for DeleteAuthorizedViewSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteAuthorizedViewRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableTableAdmin>::delete_authorized_view(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteAuthorizedViewSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableTableAdmin/ModifyColumnFamilies" => {
+                    #[allow(non_camel_case_types)]
+                    struct ModifyColumnFamiliesSvc<T: BigtableTableAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableTableAdmin,
+                    > tonic::server::UnaryService<super::ModifyColumnFamiliesRequest>
+                    for ModifyColumnFamiliesSvc<T> {
+                        type Response = super::Table;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ModifyColumnFamiliesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableTableAdmin>::modify_column_families(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ModifyColumnFamiliesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableTableAdmin/DropRowRange" => {
+                    #[allow(non_camel_case_types)]
+                    struct DropRowRangeSvc<T: BigtableTableAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableTableAdmin,
+                    > tonic::server::UnaryService<super::DropRowRangeRequest>
+                    for DropRowRangeSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DropRowRangeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableTableAdmin>::drop_row_range(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DropRowRangeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableTableAdmin/GenerateConsistencyToken" => {
+                    #[allow(non_camel_case_types)]
+                    struct GenerateConsistencyTokenSvc<T: BigtableTableAdmin>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: BigtableTableAdmin,
+                    > tonic::server::UnaryService<super::GenerateConsistencyTokenRequest>
+                    for GenerateConsistencyTokenSvc<T> {
+                        type Response = super::GenerateConsistencyTokenResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GenerateConsistencyTokenRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableTableAdmin>::generate_consistency_token(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GenerateConsistencyTokenSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableTableAdmin/CheckConsistency" => {
+                    #[allow(non_camel_case_types)]
+                    struct CheckConsistencySvc<T: BigtableTableAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableTableAdmin,
+                    > tonic::server::UnaryService<super::CheckConsistencyRequest>
+                    for CheckConsistencySvc<T> {
+                        type Response = super::CheckConsistencyResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CheckConsistencyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableTableAdmin>::check_consistency(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CheckConsistencySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableTableAdmin/SnapshotTable" => {
+                    #[allow(non_camel_case_types)]
+                    struct SnapshotTableSvc<T: BigtableTableAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableTableAdmin,
+                    > tonic::server::UnaryService<super::SnapshotTableRequest>
+                    for SnapshotTableSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SnapshotTableRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableTableAdmin>::snapshot_table(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SnapshotTableSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableTableAdmin/GetSnapshot" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetSnapshotSvc<T: BigtableTableAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableTableAdmin,
+                    > tonic::server::UnaryService<super::GetSnapshotRequest>
+                    for GetSnapshotSvc<T> {
+                        type Response = super::Snapshot;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetSnapshotRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableTableAdmin>::get_snapshot(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetSnapshotSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableTableAdmin/ListSnapshots" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListSnapshotsSvc<T: BigtableTableAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableTableAdmin,
+                    > tonic::server::UnaryService<super::ListSnapshotsRequest>
+                    for ListSnapshotsSvc<T> {
+                        type Response = super::ListSnapshotsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListSnapshotsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableTableAdmin>::list_snapshots(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListSnapshotsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableTableAdmin/DeleteSnapshot" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteSnapshotSvc<T: BigtableTableAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableTableAdmin,
+                    > tonic::server::UnaryService<super::DeleteSnapshotRequest>
+                    for DeleteSnapshotSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteSnapshotRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableTableAdmin>::delete_snapshot(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteSnapshotSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableTableAdmin/CreateBackup" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateBackupSvc<T: BigtableTableAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableTableAdmin,
+                    > tonic::server::UnaryService<super::CreateBackupRequest>
+                    for CreateBackupSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateBackupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableTableAdmin>::create_backup(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateBackupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableTableAdmin/GetBackup" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetBackupSvc<T: BigtableTableAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableTableAdmin,
+                    > tonic::server::UnaryService<super::GetBackupRequest>
+                    for GetBackupSvc<T> {
+                        type Response = super::Backup;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetBackupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableTableAdmin>::get_backup(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetBackupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableTableAdmin/UpdateBackup" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateBackupSvc<T: BigtableTableAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableTableAdmin,
+                    > tonic::server::UnaryService<super::UpdateBackupRequest>
+                    for UpdateBackupSvc<T> {
+                        type Response = super::Backup;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateBackupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableTableAdmin>::update_backup(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateBackupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableTableAdmin/DeleteBackup" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteBackupSvc<T: BigtableTableAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableTableAdmin,
+                    > tonic::server::UnaryService<super::DeleteBackupRequest>
+                    for DeleteBackupSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteBackupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableTableAdmin>::delete_backup(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteBackupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableTableAdmin/ListBackups" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListBackupsSvc<T: BigtableTableAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableTableAdmin,
+                    > tonic::server::UnaryService<super::ListBackupsRequest>
+                    for ListBackupsSvc<T> {
+                        type Response = super::ListBackupsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListBackupsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableTableAdmin>::list_backups(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListBackupsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableTableAdmin/RestoreTable" => {
+                    #[allow(non_camel_case_types)]
+                    struct RestoreTableSvc<T: BigtableTableAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableTableAdmin,
+                    > tonic::server::UnaryService<super::RestoreTableRequest>
+                    for RestoreTableSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RestoreTableRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableTableAdmin>::restore_table(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RestoreTableSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableTableAdmin/CopyBackup" => {
+                    #[allow(non_camel_case_types)]
+                    struct CopyBackupSvc<T: BigtableTableAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableTableAdmin,
+                    > tonic::server::UnaryService<super::CopyBackupRequest>
+                    for CopyBackupSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CopyBackupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableTableAdmin>::copy_backup(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CopyBackupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableTableAdmin/GetIamPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetIamPolicySvc<T: BigtableTableAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableTableAdmin,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::iam::v1::GetIamPolicyRequest,
+                    > for GetIamPolicySvc<T> {
+                        type Response = super::super::super::super::iam::v1::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::iam::v1::GetIamPolicyRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableTableAdmin>::get_iam_policy(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetIamPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableTableAdmin/SetIamPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetIamPolicySvc<T: BigtableTableAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableTableAdmin,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::iam::v1::SetIamPolicyRequest,
+                    > for SetIamPolicySvc<T> {
+                        type Response = super::super::super::super::iam::v1::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::iam::v1::SetIamPolicyRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableTableAdmin>::set_iam_policy(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SetIamPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.admin.v2.BigtableTableAdmin/TestIamPermissions" => {
+                    #[allow(non_camel_case_types)]
+                    struct TestIamPermissionsSvc<T: BigtableTableAdmin>(pub Arc<T>);
+                    impl<
+                        T: BigtableTableAdmin,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::iam::v1::TestIamPermissionsRequest,
+                    > for TestIamPermissionsSvc<T> {
+                        type Response = super::super::super::super::iam::v1::TestIamPermissionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::iam::v1::TestIamPermissionsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigtableTableAdmin>::test_iam_permissions(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = TestIamPermissionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for BigtableTableAdminServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.bigtable.admin.v2.BigtableTableAdmin";
+    impl<T> tonic::server::NamedService for BigtableTableAdminServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

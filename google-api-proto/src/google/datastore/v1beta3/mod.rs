@@ -259,10 +259,10 @@ pub mod entity_result {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ResultType::Unspecified => "RESULT_TYPE_UNSPECIFIED",
-                ResultType::Full => "FULL",
-                ResultType::Projection => "PROJECTION",
-                ResultType::KeyOnly => "KEY_ONLY",
+                Self::Unspecified => "RESULT_TYPE_UNSPECIFIED",
+                Self::Full => "FULL",
+                Self::Projection => "PROJECTION",
+                Self::KeyOnly => "KEY_ONLY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -383,9 +383,9 @@ pub mod property_order {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Direction::Unspecified => "DIRECTION_UNSPECIFIED",
-                Direction::Ascending => "ASCENDING",
-                Direction::Descending => "DESCENDING",
+                Self::Unspecified => "DIRECTION_UNSPECIFIED",
+                Self::Ascending => "ASCENDING",
+                Self::Descending => "DESCENDING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -458,8 +458,8 @@ pub mod composite_filter {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Operator::Unspecified => "OPERATOR_UNSPECIFIED",
-                Operator::And => "AND",
+                Self::Unspecified => "OPERATOR_UNSPECIFIED",
+                Self::And => "AND",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -523,13 +523,13 @@ pub mod property_filter {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Operator::Unspecified => "OPERATOR_UNSPECIFIED",
-                Operator::LessThan => "LESS_THAN",
-                Operator::LessThanOrEqual => "LESS_THAN_OR_EQUAL",
-                Operator::GreaterThan => "GREATER_THAN",
-                Operator::GreaterThanOrEqual => "GREATER_THAN_OR_EQUAL",
-                Operator::Equal => "EQUAL",
-                Operator::HasAncestor => "HAS_ANCESTOR",
+                Self::Unspecified => "OPERATOR_UNSPECIFIED",
+                Self::LessThan => "LESS_THAN",
+                Self::LessThanOrEqual => "LESS_THAN_OR_EQUAL",
+                Self::GreaterThan => "GREATER_THAN",
+                Self::GreaterThanOrEqual => "GREATER_THAN_OR_EQUAL",
+                Self::Equal => "EQUAL",
+                Self::HasAncestor => "HAS_ANCESTOR",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -669,11 +669,11 @@ pub mod query_result_batch {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                MoreResultsType::Unspecified => "MORE_RESULTS_TYPE_UNSPECIFIED",
-                MoreResultsType::NotFinished => "NOT_FINISHED",
-                MoreResultsType::MoreResultsAfterLimit => "MORE_RESULTS_AFTER_LIMIT",
-                MoreResultsType::MoreResultsAfterCursor => "MORE_RESULTS_AFTER_CURSOR",
-                MoreResultsType::NoMoreResults => "NO_MORE_RESULTS",
+                Self::Unspecified => "MORE_RESULTS_TYPE_UNSPECIFIED",
+                Self::NotFinished => "NOT_FINISHED",
+                Self::MoreResultsAfterLimit => "MORE_RESULTS_AFTER_LIMIT",
+                Self::MoreResultsAfterCursor => "MORE_RESULTS_AFTER_CURSOR",
+                Self::NoMoreResults => "NO_MORE_RESULTS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -866,9 +866,9 @@ pub mod commit_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Mode::Unspecified => "MODE_UNSPECIFIED",
-                Mode::Transactional => "TRANSACTIONAL",
-                Mode::NonTransactional => "NON_TRANSACTIONAL",
+                Self::Unspecified => "MODE_UNSPECIFIED",
+                Self::Transactional => "TRANSACTIONAL",
+                Self::NonTransactional => "NON_TRANSACTIONAL",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1063,9 +1063,9 @@ pub mod read_options {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ReadConsistency::Unspecified => "READ_CONSISTENCY_UNSPECIFIED",
-                ReadConsistency::Strong => "STRONG",
-                ReadConsistency::Eventual => "EVENTUAL",
+                Self::Unspecified => "READ_CONSISTENCY_UNSPECIFIED",
+                Self::Strong => "STRONG",
+                Self::Eventual => "EVENTUAL",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1405,5 +1405,496 @@ pub mod datastore_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod datastore_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with DatastoreServer.
+    #[async_trait]
+    pub trait Datastore: std::marker::Send + std::marker::Sync + 'static {
+        /// Looks up entities by key.
+        async fn lookup(
+            &self,
+            request: tonic::Request<super::LookupRequest>,
+        ) -> std::result::Result<tonic::Response<super::LookupResponse>, tonic::Status>;
+        /// Queries for entities.
+        async fn run_query(
+            &self,
+            request: tonic::Request<super::RunQueryRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::RunQueryResponse>,
+            tonic::Status,
+        >;
+        /// Begins a new transaction.
+        async fn begin_transaction(
+            &self,
+            request: tonic::Request<super::BeginTransactionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::BeginTransactionResponse>,
+            tonic::Status,
+        >;
+        /// Commits a transaction, optionally creating, deleting or modifying some
+        /// entities.
+        async fn commit(
+            &self,
+            request: tonic::Request<super::CommitRequest>,
+        ) -> std::result::Result<tonic::Response<super::CommitResponse>, tonic::Status>;
+        /// Rolls back a transaction.
+        async fn rollback(
+            &self,
+            request: tonic::Request<super::RollbackRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::RollbackResponse>,
+            tonic::Status,
+        >;
+        /// Allocates IDs for the given keys, which is useful for referencing an entity
+        /// before it is inserted.
+        async fn allocate_ids(
+            &self,
+            request: tonic::Request<super::AllocateIdsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AllocateIdsResponse>,
+            tonic::Status,
+        >;
+        /// Prevents the supplied keys' IDs from being auto-allocated by Cloud
+        /// Datastore.
+        async fn reserve_ids(
+            &self,
+            request: tonic::Request<super::ReserveIdsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ReserveIdsResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Each RPC normalizes the partition IDs of the keys in its input entities,
+    /// and always returns entities with keys with normalized partition IDs.
+    /// This applies to all keys and entities, including those in values, except keys
+    /// with both an empty path and an empty or unset partition ID. Normalization of
+    /// input keys sets the project ID (if not already set) to the project ID from
+    /// the request.
+    ///
+    #[derive(Debug)]
+    pub struct DatastoreServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> DatastoreServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for DatastoreServer<T>
+    where
+        T: Datastore,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.datastore.v1beta3.Datastore/Lookup" => {
+                    #[allow(non_camel_case_types)]
+                    struct LookupSvc<T: Datastore>(pub Arc<T>);
+                    impl<T: Datastore> tonic::server::UnaryService<super::LookupRequest>
+                    for LookupSvc<T> {
+                        type Response = super::LookupResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::LookupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Datastore>::lookup(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = LookupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.datastore.v1beta3.Datastore/RunQuery" => {
+                    #[allow(non_camel_case_types)]
+                    struct RunQuerySvc<T: Datastore>(pub Arc<T>);
+                    impl<
+                        T: Datastore,
+                    > tonic::server::UnaryService<super::RunQueryRequest>
+                    for RunQuerySvc<T> {
+                        type Response = super::RunQueryResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RunQueryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Datastore>::run_query(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RunQuerySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.datastore.v1beta3.Datastore/BeginTransaction" => {
+                    #[allow(non_camel_case_types)]
+                    struct BeginTransactionSvc<T: Datastore>(pub Arc<T>);
+                    impl<
+                        T: Datastore,
+                    > tonic::server::UnaryService<super::BeginTransactionRequest>
+                    for BeginTransactionSvc<T> {
+                        type Response = super::BeginTransactionResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::BeginTransactionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Datastore>::begin_transaction(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BeginTransactionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.datastore.v1beta3.Datastore/Commit" => {
+                    #[allow(non_camel_case_types)]
+                    struct CommitSvc<T: Datastore>(pub Arc<T>);
+                    impl<T: Datastore> tonic::server::UnaryService<super::CommitRequest>
+                    for CommitSvc<T> {
+                        type Response = super::CommitResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CommitRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Datastore>::commit(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CommitSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.datastore.v1beta3.Datastore/Rollback" => {
+                    #[allow(non_camel_case_types)]
+                    struct RollbackSvc<T: Datastore>(pub Arc<T>);
+                    impl<
+                        T: Datastore,
+                    > tonic::server::UnaryService<super::RollbackRequest>
+                    for RollbackSvc<T> {
+                        type Response = super::RollbackResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RollbackRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Datastore>::rollback(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RollbackSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.datastore.v1beta3.Datastore/AllocateIds" => {
+                    #[allow(non_camel_case_types)]
+                    struct AllocateIdsSvc<T: Datastore>(pub Arc<T>);
+                    impl<
+                        T: Datastore,
+                    > tonic::server::UnaryService<super::AllocateIdsRequest>
+                    for AllocateIdsSvc<T> {
+                        type Response = super::AllocateIdsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::AllocateIdsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Datastore>::allocate_ids(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = AllocateIdsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.datastore.v1beta3.Datastore/ReserveIds" => {
+                    #[allow(non_camel_case_types)]
+                    struct ReserveIdsSvc<T: Datastore>(pub Arc<T>);
+                    impl<
+                        T: Datastore,
+                    > tonic::server::UnaryService<super::ReserveIdsRequest>
+                    for ReserveIdsSvc<T> {
+                        type Response = super::ReserveIdsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ReserveIdsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Datastore>::reserve_ids(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ReserveIdsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for DatastoreServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.datastore.v1beta3.Datastore";
+    impl<T> tonic::server::NamedService for DatastoreServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

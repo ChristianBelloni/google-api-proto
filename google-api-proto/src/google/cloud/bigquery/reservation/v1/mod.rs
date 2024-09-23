@@ -204,16 +204,16 @@ pub mod capacity_commitment {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                CommitmentPlan::Unspecified => "COMMITMENT_PLAN_UNSPECIFIED",
-                CommitmentPlan::Flex => "FLEX",
-                CommitmentPlan::FlexFlatRate => "FLEX_FLAT_RATE",
-                CommitmentPlan::Trial => "TRIAL",
-                CommitmentPlan::Monthly => "MONTHLY",
-                CommitmentPlan::MonthlyFlatRate => "MONTHLY_FLAT_RATE",
-                CommitmentPlan::Annual => "ANNUAL",
-                CommitmentPlan::AnnualFlatRate => "ANNUAL_FLAT_RATE",
-                CommitmentPlan::ThreeYear => "THREE_YEAR",
-                CommitmentPlan::None => "NONE",
+                Self::Unspecified => "COMMITMENT_PLAN_UNSPECIFIED",
+                Self::Flex => "FLEX",
+                Self::FlexFlatRate => "FLEX_FLAT_RATE",
+                Self::Trial => "TRIAL",
+                Self::Monthly => "MONTHLY",
+                Self::MonthlyFlatRate => "MONTHLY_FLAT_RATE",
+                Self::Annual => "ANNUAL",
+                Self::AnnualFlatRate => "ANNUAL_FLAT_RATE",
+                Self::ThreeYear => "THREE_YEAR",
+                Self::None => "NONE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -266,10 +266,10 @@ pub mod capacity_commitment {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Pending => "PENDING",
-                State::Active => "ACTIVE",
-                State::Failed => "FAILED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Pending => "PENDING",
+                Self::Active => "ACTIVE",
+                Self::Failed => "FAILED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -539,11 +539,11 @@ pub mod assignment {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                JobType::Unspecified => "JOB_TYPE_UNSPECIFIED",
-                JobType::Pipeline => "PIPELINE",
-                JobType::Query => "QUERY",
-                JobType::MlExternal => "ML_EXTERNAL",
-                JobType::Background => "BACKGROUND",
+                Self::Unspecified => "JOB_TYPE_UNSPECIFIED",
+                Self::Pipeline => "PIPELINE",
+                Self::Query => "QUERY",
+                Self::MlExternal => "ML_EXTERNAL",
+                Self::Background => "BACKGROUND",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -589,9 +589,9 @@ pub mod assignment {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Pending => "PENDING",
-                State::Active => "ACTIVE",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Pending => "PENDING",
+                Self::Active => "ACTIVE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -857,10 +857,10 @@ impl Edition {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            Edition::Unspecified => "EDITION_UNSPECIFIED",
-            Edition::Standard => "STANDARD",
-            Edition::Enterprise => "ENTERPRISE",
-            Edition::EnterprisePlus => "ENTERPRISE_PLUS",
+            Self::Unspecified => "EDITION_UNSPECIFIED",
+            Self::Standard => "STANDARD",
+            Self::Enterprise => "ENTERPRISE",
+            Self::EnterprisePlus => "ENTERPRISE_PLUS",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1726,5 +1726,1460 @@ pub mod reservation_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod reservation_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with ReservationServiceServer.
+    #[async_trait]
+    pub trait ReservationService: std::marker::Send + std::marker::Sync + 'static {
+        /// Creates a new reservation resource.
+        async fn create_reservation(
+            &self,
+            request: tonic::Request<super::CreateReservationRequest>,
+        ) -> std::result::Result<tonic::Response<super::Reservation>, tonic::Status>;
+        /// Lists all the reservations for the project in the specified location.
+        async fn list_reservations(
+            &self,
+            request: tonic::Request<super::ListReservationsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListReservationsResponse>,
+            tonic::Status,
+        >;
+        /// Returns information about the reservation.
+        async fn get_reservation(
+            &self,
+            request: tonic::Request<super::GetReservationRequest>,
+        ) -> std::result::Result<tonic::Response<super::Reservation>, tonic::Status>;
+        /// Deletes a reservation.
+        /// Returns `google.rpc.Code.FAILED_PRECONDITION` when reservation has
+        /// assignments.
+        async fn delete_reservation(
+            &self,
+            request: tonic::Request<super::DeleteReservationRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Updates an existing reservation resource.
+        async fn update_reservation(
+            &self,
+            request: tonic::Request<super::UpdateReservationRequest>,
+        ) -> std::result::Result<tonic::Response<super::Reservation>, tonic::Status>;
+        /// Creates a new capacity commitment resource.
+        async fn create_capacity_commitment(
+            &self,
+            request: tonic::Request<super::CreateCapacityCommitmentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::CapacityCommitment>,
+            tonic::Status,
+        >;
+        /// Lists all the capacity commitments for the admin project.
+        async fn list_capacity_commitments(
+            &self,
+            request: tonic::Request<super::ListCapacityCommitmentsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListCapacityCommitmentsResponse>,
+            tonic::Status,
+        >;
+        /// Returns information about the capacity commitment.
+        async fn get_capacity_commitment(
+            &self,
+            request: tonic::Request<super::GetCapacityCommitmentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::CapacityCommitment>,
+            tonic::Status,
+        >;
+        /// Deletes a capacity commitment. Attempting to delete capacity commitment
+        /// before its commitment_end_time will fail with the error code
+        /// `google.rpc.Code.FAILED_PRECONDITION`.
+        async fn delete_capacity_commitment(
+            &self,
+            request: tonic::Request<super::DeleteCapacityCommitmentRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Updates an existing capacity commitment.
+        ///
+        /// Only `plan` and `renewal_plan` fields can be updated.
+        ///
+        /// Plan can only be changed to a plan of a longer commitment period.
+        /// Attempting to change to a plan with shorter commitment period will fail
+        /// with the error code `google.rpc.Code.FAILED_PRECONDITION`.
+        async fn update_capacity_commitment(
+            &self,
+            request: tonic::Request<super::UpdateCapacityCommitmentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::CapacityCommitment>,
+            tonic::Status,
+        >;
+        /// Splits capacity commitment to two commitments of the same plan and
+        /// `commitment_end_time`.
+        ///
+        /// A common use case is to enable downgrading commitments.
+        ///
+        /// For example, in order to downgrade from 10000 slots to 8000, you might
+        /// split a 10000 capacity commitment into commitments of 2000 and 8000. Then,
+        /// you delete the first one after the commitment end time passes.
+        async fn split_capacity_commitment(
+            &self,
+            request: tonic::Request<super::SplitCapacityCommitmentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SplitCapacityCommitmentResponse>,
+            tonic::Status,
+        >;
+        /// Merges capacity commitments of the same plan into a single commitment.
+        ///
+        /// The resulting capacity commitment has the greater commitment_end_time
+        /// out of the to-be-merged capacity commitments.
+        ///
+        /// Attempting to merge capacity commitments of different plan will fail
+        /// with the error code `google.rpc.Code.FAILED_PRECONDITION`.
+        async fn merge_capacity_commitments(
+            &self,
+            request: tonic::Request<super::MergeCapacityCommitmentsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::CapacityCommitment>,
+            tonic::Status,
+        >;
+        /// Creates an assignment object which allows the given project to submit jobs
+        /// of a certain type using slots from the specified reservation.
+        ///
+        /// Currently a
+        /// resource (project, folder, organization) can only have one assignment per
+        /// each (job_type, location) combination, and that reservation will be used
+        /// for all jobs of the matching type.
+        ///
+        /// Different assignments can be created on different levels of the
+        /// projects, folders or organization hierarchy.  During query execution,
+        /// the assignment is looked up at the project, folder and organization levels
+        /// in that order. The first assignment found is applied to the query.
+        ///
+        /// When creating assignments, it does not matter if other assignments exist at
+        /// higher levels.
+        ///
+        /// Example:
+        ///
+        /// * The organization `organizationA` contains two projects, `project1`
+        ///   and `project2`.
+        /// * Assignments for all three entities (`organizationA`, `project1`, and
+        ///   `project2`) could all be created and mapped to the same or different
+        ///   reservations.
+        ///
+        /// "None" assignments represent an absence of the assignment. Projects
+        /// assigned to None use on-demand pricing. To create a "None" assignment, use
+        /// "none" as a reservation_id in the parent. Example parent:
+        /// `projects/myproject/locations/US/reservations/none`.
+        ///
+        /// Returns `google.rpc.Code.PERMISSION_DENIED` if user does not have
+        /// 'bigquery.admin' permissions on the project using the reservation
+        /// and the project that owns this reservation.
+        ///
+        /// Returns `google.rpc.Code.INVALID_ARGUMENT` when location of the assignment
+        /// does not match location of the reservation.
+        async fn create_assignment(
+            &self,
+            request: tonic::Request<super::CreateAssignmentRequest>,
+        ) -> std::result::Result<tonic::Response<super::Assignment>, tonic::Status>;
+        /// Lists assignments.
+        ///
+        /// Only explicitly created assignments will be returned.
+        ///
+        /// Example:
+        ///
+        /// * Organization `organizationA` contains two projects, `project1` and
+        ///   `project2`.
+        /// * Reservation `res1` exists and was created previously.
+        /// * CreateAssignment was used previously to define the following
+        ///   associations between entities and reservations: `<organizationA, res1>`
+        ///   and `<project1, res1>`
+        ///
+        /// In this example, ListAssignments will just return the above two assignments
+        /// for reservation `res1`, and no expansion/merge will happen.
+        ///
+        /// The wildcard "-" can be used for
+        /// reservations in the request. In that case all assignments belongs to the
+        /// specified project and location will be listed.
+        ///
+        /// **Note** "-" cannot be used for projects nor locations.
+        async fn list_assignments(
+            &self,
+            request: tonic::Request<super::ListAssignmentsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAssignmentsResponse>,
+            tonic::Status,
+        >;
+        /// Deletes a assignment. No expansion will happen.
+        ///
+        /// Example:
+        ///
+        /// * Organization `organizationA` contains two projects, `project1` and
+        ///   `project2`.
+        /// * Reservation `res1` exists and was created previously.
+        /// * CreateAssignment was used previously to define the following
+        ///   associations between entities and reservations: `<organizationA, res1>`
+        ///   and `<project1, res1>`
+        ///
+        /// In this example, deletion of the `<organizationA, res1>` assignment won't
+        /// affect the other assignment `<project1, res1>`. After said deletion,
+        /// queries from `project1` will still use `res1` while queries from
+        /// `project2` will switch to use on-demand mode.
+        async fn delete_assignment(
+            &self,
+            request: tonic::Request<super::DeleteAssignmentRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Deprecated: Looks up assignments for a specified resource for a particular
+        /// region. If the request is about a project:
+        ///
+        /// 1. Assignments created on the project will be returned if they exist.
+        /// 2. Otherwise assignments created on the closest ancestor will be
+        ///    returned.
+        /// 3. Assignments for different JobTypes will all be returned.
+        ///
+        /// The same logic applies if the request is about a folder.
+        ///
+        /// If the request is about an organization, then assignments created on the
+        /// organization will be returned (organization doesn't have ancestors).
+        ///
+        /// Comparing to ListAssignments, there are some behavior
+        /// differences:
+        ///
+        /// 1. permission on the assignee will be verified in this API.
+        /// 2. Hierarchy lookup (project->folder->organization) happens in this API.
+        /// 3. Parent here is `projects/*/locations/*`, instead of
+        ///    `projects/*/locations/*reservations/*`.
+        ///
+        /// **Note** "-" cannot be used for projects
+        /// nor locations.
+        async fn search_assignments(
+            &self,
+            request: tonic::Request<super::SearchAssignmentsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SearchAssignmentsResponse>,
+            tonic::Status,
+        >;
+        /// Looks up assignments for a specified resource for a particular region.
+        /// If the request is about a project:
+        ///
+        /// 1. Assignments created on the project will be returned if they exist.
+        /// 2. Otherwise assignments created on the closest ancestor will be
+        ///    returned.
+        /// 3. Assignments for different JobTypes will all be returned.
+        ///
+        /// The same logic applies if the request is about a folder.
+        ///
+        /// If the request is about an organization, then assignments created on the
+        /// organization will be returned (organization doesn't have ancestors).
+        ///
+        /// Comparing to ListAssignments, there are some behavior
+        /// differences:
+        ///
+        /// 1. permission on the assignee will be verified in this API.
+        /// 2. Hierarchy lookup (project->folder->organization) happens in this API.
+        /// 3. Parent here is `projects/*/locations/*`, instead of
+        ///    `projects/*/locations/*reservations/*`.
+        async fn search_all_assignments(
+            &self,
+            request: tonic::Request<super::SearchAllAssignmentsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SearchAllAssignmentsResponse>,
+            tonic::Status,
+        >;
+        /// Moves an assignment under a new reservation.
+        ///
+        /// This differs from removing an existing assignment and recreating a new one
+        /// by providing a transactional change that ensures an assignee always has an
+        /// associated reservation.
+        async fn move_assignment(
+            &self,
+            request: tonic::Request<super::MoveAssignmentRequest>,
+        ) -> std::result::Result<tonic::Response<super::Assignment>, tonic::Status>;
+        /// Updates an existing assignment.
+        ///
+        /// Only the `priority` field can be updated.
+        async fn update_assignment(
+            &self,
+            request: tonic::Request<super::UpdateAssignmentRequest>,
+        ) -> std::result::Result<tonic::Response<super::Assignment>, tonic::Status>;
+        /// Retrieves a BI reservation.
+        async fn get_bi_reservation(
+            &self,
+            request: tonic::Request<super::GetBiReservationRequest>,
+        ) -> std::result::Result<tonic::Response<super::BiReservation>, tonic::Status>;
+        /// Updates a BI reservation.
+        ///
+        /// Only fields specified in the `field_mask` are updated.
+        ///
+        /// A singleton BI reservation always exists with default size 0.
+        /// In order to reserve BI capacity it needs to be updated to an amount
+        /// greater than 0. In order to release BI capacity reservation size
+        /// must be set to 0.
+        async fn update_bi_reservation(
+            &self,
+            request: tonic::Request<super::UpdateBiReservationRequest>,
+        ) -> std::result::Result<tonic::Response<super::BiReservation>, tonic::Status>;
+    }
+    /// This API allows users to manage their BigQuery reservations.
+    ///
+    /// A reservation provides computational resource guarantees, in the form of
+    /// [slots](https://cloud.google.com/bigquery/docs/slots), to users. A slot is a
+    /// unit of computational power in BigQuery, and serves as the basic unit of
+    /// parallelism. In a scan of a multi-partitioned table, a single slot operates
+    /// on a single partition of the table. A reservation resource exists as a child
+    /// resource of the admin project and location, e.g.:
+    ///   `projects/myproject/locations/US/reservations/reservationName`.
+    ///
+    /// A capacity commitment is a way to purchase compute capacity for BigQuery jobs
+    /// (in the form of slots) with some committed period of usage. A capacity
+    /// commitment resource exists as a child resource of the admin project and
+    /// location, e.g.:
+    ///   `projects/myproject/locations/US/capacityCommitments/id`.
+    #[derive(Debug)]
+    pub struct ReservationServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> ReservationServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for ReservationServiceServer<T>
+    where
+        T: ReservationService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.bigquery.reservation.v1.ReservationService/CreateReservation" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateReservationSvc<T: ReservationService>(pub Arc<T>);
+                    impl<
+                        T: ReservationService,
+                    > tonic::server::UnaryService<super::CreateReservationRequest>
+                    for CreateReservationSvc<T> {
+                        type Response = super::Reservation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateReservationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ReservationService>::create_reservation(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateReservationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.reservation.v1.ReservationService/ListReservations" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListReservationsSvc<T: ReservationService>(pub Arc<T>);
+                    impl<
+                        T: ReservationService,
+                    > tonic::server::UnaryService<super::ListReservationsRequest>
+                    for ListReservationsSvc<T> {
+                        type Response = super::ListReservationsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListReservationsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ReservationService>::list_reservations(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListReservationsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.reservation.v1.ReservationService/GetReservation" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetReservationSvc<T: ReservationService>(pub Arc<T>);
+                    impl<
+                        T: ReservationService,
+                    > tonic::server::UnaryService<super::GetReservationRequest>
+                    for GetReservationSvc<T> {
+                        type Response = super::Reservation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetReservationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ReservationService>::get_reservation(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetReservationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.reservation.v1.ReservationService/DeleteReservation" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteReservationSvc<T: ReservationService>(pub Arc<T>);
+                    impl<
+                        T: ReservationService,
+                    > tonic::server::UnaryService<super::DeleteReservationRequest>
+                    for DeleteReservationSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteReservationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ReservationService>::delete_reservation(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteReservationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.reservation.v1.ReservationService/UpdateReservation" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateReservationSvc<T: ReservationService>(pub Arc<T>);
+                    impl<
+                        T: ReservationService,
+                    > tonic::server::UnaryService<super::UpdateReservationRequest>
+                    for UpdateReservationSvc<T> {
+                        type Response = super::Reservation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateReservationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ReservationService>::update_reservation(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateReservationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.reservation.v1.ReservationService/CreateCapacityCommitment" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateCapacityCommitmentSvc<T: ReservationService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: ReservationService,
+                    > tonic::server::UnaryService<super::CreateCapacityCommitmentRequest>
+                    for CreateCapacityCommitmentSvc<T> {
+                        type Response = super::CapacityCommitment;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateCapacityCommitmentRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ReservationService>::create_capacity_commitment(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateCapacityCommitmentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.reservation.v1.ReservationService/ListCapacityCommitments" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListCapacityCommitmentsSvc<T: ReservationService>(pub Arc<T>);
+                    impl<
+                        T: ReservationService,
+                    > tonic::server::UnaryService<super::ListCapacityCommitmentsRequest>
+                    for ListCapacityCommitmentsSvc<T> {
+                        type Response = super::ListCapacityCommitmentsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListCapacityCommitmentsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ReservationService>::list_capacity_commitments(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListCapacityCommitmentsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.reservation.v1.ReservationService/GetCapacityCommitment" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetCapacityCommitmentSvc<T: ReservationService>(pub Arc<T>);
+                    impl<
+                        T: ReservationService,
+                    > tonic::server::UnaryService<super::GetCapacityCommitmentRequest>
+                    for GetCapacityCommitmentSvc<T> {
+                        type Response = super::CapacityCommitment;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetCapacityCommitmentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ReservationService>::get_capacity_commitment(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetCapacityCommitmentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.reservation.v1.ReservationService/DeleteCapacityCommitment" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteCapacityCommitmentSvc<T: ReservationService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: ReservationService,
+                    > tonic::server::UnaryService<super::DeleteCapacityCommitmentRequest>
+                    for DeleteCapacityCommitmentSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteCapacityCommitmentRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ReservationService>::delete_capacity_commitment(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteCapacityCommitmentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.reservation.v1.ReservationService/UpdateCapacityCommitment" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateCapacityCommitmentSvc<T: ReservationService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: ReservationService,
+                    > tonic::server::UnaryService<super::UpdateCapacityCommitmentRequest>
+                    for UpdateCapacityCommitmentSvc<T> {
+                        type Response = super::CapacityCommitment;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::UpdateCapacityCommitmentRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ReservationService>::update_capacity_commitment(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateCapacityCommitmentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.reservation.v1.ReservationService/SplitCapacityCommitment" => {
+                    #[allow(non_camel_case_types)]
+                    struct SplitCapacityCommitmentSvc<T: ReservationService>(pub Arc<T>);
+                    impl<
+                        T: ReservationService,
+                    > tonic::server::UnaryService<super::SplitCapacityCommitmentRequest>
+                    for SplitCapacityCommitmentSvc<T> {
+                        type Response = super::SplitCapacityCommitmentResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::SplitCapacityCommitmentRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ReservationService>::split_capacity_commitment(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SplitCapacityCommitmentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.reservation.v1.ReservationService/MergeCapacityCommitments" => {
+                    #[allow(non_camel_case_types)]
+                    struct MergeCapacityCommitmentsSvc<T: ReservationService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: ReservationService,
+                    > tonic::server::UnaryService<super::MergeCapacityCommitmentsRequest>
+                    for MergeCapacityCommitmentsSvc<T> {
+                        type Response = super::CapacityCommitment;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::MergeCapacityCommitmentsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ReservationService>::merge_capacity_commitments(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = MergeCapacityCommitmentsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.reservation.v1.ReservationService/CreateAssignment" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateAssignmentSvc<T: ReservationService>(pub Arc<T>);
+                    impl<
+                        T: ReservationService,
+                    > tonic::server::UnaryService<super::CreateAssignmentRequest>
+                    for CreateAssignmentSvc<T> {
+                        type Response = super::Assignment;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateAssignmentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ReservationService>::create_assignment(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateAssignmentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.reservation.v1.ReservationService/ListAssignments" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAssignmentsSvc<T: ReservationService>(pub Arc<T>);
+                    impl<
+                        T: ReservationService,
+                    > tonic::server::UnaryService<super::ListAssignmentsRequest>
+                    for ListAssignmentsSvc<T> {
+                        type Response = super::ListAssignmentsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListAssignmentsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ReservationService>::list_assignments(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAssignmentsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.reservation.v1.ReservationService/DeleteAssignment" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteAssignmentSvc<T: ReservationService>(pub Arc<T>);
+                    impl<
+                        T: ReservationService,
+                    > tonic::server::UnaryService<super::DeleteAssignmentRequest>
+                    for DeleteAssignmentSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteAssignmentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ReservationService>::delete_assignment(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteAssignmentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.reservation.v1.ReservationService/SearchAssignments" => {
+                    #[allow(non_camel_case_types)]
+                    struct SearchAssignmentsSvc<T: ReservationService>(pub Arc<T>);
+                    impl<
+                        T: ReservationService,
+                    > tonic::server::UnaryService<super::SearchAssignmentsRequest>
+                    for SearchAssignmentsSvc<T> {
+                        type Response = super::SearchAssignmentsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SearchAssignmentsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ReservationService>::search_assignments(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SearchAssignmentsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.reservation.v1.ReservationService/SearchAllAssignments" => {
+                    #[allow(non_camel_case_types)]
+                    struct SearchAllAssignmentsSvc<T: ReservationService>(pub Arc<T>);
+                    impl<
+                        T: ReservationService,
+                    > tonic::server::UnaryService<super::SearchAllAssignmentsRequest>
+                    for SearchAllAssignmentsSvc<T> {
+                        type Response = super::SearchAllAssignmentsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SearchAllAssignmentsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ReservationService>::search_all_assignments(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SearchAllAssignmentsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.reservation.v1.ReservationService/MoveAssignment" => {
+                    #[allow(non_camel_case_types)]
+                    struct MoveAssignmentSvc<T: ReservationService>(pub Arc<T>);
+                    impl<
+                        T: ReservationService,
+                    > tonic::server::UnaryService<super::MoveAssignmentRequest>
+                    for MoveAssignmentSvc<T> {
+                        type Response = super::Assignment;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MoveAssignmentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ReservationService>::move_assignment(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = MoveAssignmentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.reservation.v1.ReservationService/UpdateAssignment" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateAssignmentSvc<T: ReservationService>(pub Arc<T>);
+                    impl<
+                        T: ReservationService,
+                    > tonic::server::UnaryService<super::UpdateAssignmentRequest>
+                    for UpdateAssignmentSvc<T> {
+                        type Response = super::Assignment;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateAssignmentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ReservationService>::update_assignment(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateAssignmentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.reservation.v1.ReservationService/GetBiReservation" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetBiReservationSvc<T: ReservationService>(pub Arc<T>);
+                    impl<
+                        T: ReservationService,
+                    > tonic::server::UnaryService<super::GetBiReservationRequest>
+                    for GetBiReservationSvc<T> {
+                        type Response = super::BiReservation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetBiReservationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ReservationService>::get_bi_reservation(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetBiReservationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.reservation.v1.ReservationService/UpdateBiReservation" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateBiReservationSvc<T: ReservationService>(pub Arc<T>);
+                    impl<
+                        T: ReservationService,
+                    > tonic::server::UnaryService<super::UpdateBiReservationRequest>
+                    for UpdateBiReservationSvc<T> {
+                        type Response = super::BiReservation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateBiReservationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ReservationService>::update_bi_reservation(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateBiReservationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for ReservationServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.bigquery.reservation.v1.ReservationService";
+    impl<T> tonic::server::NamedService for ReservationServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

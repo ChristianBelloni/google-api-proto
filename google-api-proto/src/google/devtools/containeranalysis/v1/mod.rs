@@ -286,3 +286,400 @@ pub mod container_analysis_client {
         }
     }
 }
+/// Generated server implementations.
+pub mod container_analysis_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with ContainerAnalysisServer.
+    #[async_trait]
+    pub trait ContainerAnalysis: std::marker::Send + std::marker::Sync + 'static {
+        /// Sets the access control policy on the specified note or occurrence.
+        /// Requires `containeranalysis.notes.setIamPolicy` or
+        /// `containeranalysis.occurrences.setIamPolicy` permission if the resource is
+        /// a note or an occurrence, respectively.
+        ///
+        /// The resource takes the format `projects/[PROJECT_ID]/notes/[NOTE_ID]` for
+        /// notes and `projects/[PROJECT_ID]/occurrences/[OCCURRENCE_ID]` for
+        /// occurrences.
+        async fn set_iam_policy(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::iam::v1::SetIamPolicyRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::iam::v1::Policy>,
+            tonic::Status,
+        >;
+        /// Gets the access control policy for a note or an occurrence resource.
+        /// Requires `containeranalysis.notes.setIamPolicy` or
+        /// `containeranalysis.occurrences.setIamPolicy` permission if the resource is
+        /// a note or occurrence, respectively.
+        ///
+        /// The resource takes the format `projects/[PROJECT_ID]/notes/[NOTE_ID]` for
+        /// notes and `projects/[PROJECT_ID]/occurrences/[OCCURRENCE_ID]` for
+        /// occurrences.
+        async fn get_iam_policy(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::iam::v1::GetIamPolicyRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::iam::v1::Policy>,
+            tonic::Status,
+        >;
+        /// Returns the permissions that a caller has on the specified note or
+        /// occurrence. Requires list permission on the project (for example,
+        /// `containeranalysis.notes.list`).
+        ///
+        /// The resource takes the format `projects/[PROJECT_ID]/notes/[NOTE_ID]` for
+        /// notes and `projects/[PROJECT_ID]/occurrences/[OCCURRENCE_ID]` for
+        /// occurrences.
+        async fn test_iam_permissions(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::iam::v1::TestIamPermissionsRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<
+                super::super::super::super::iam::v1::TestIamPermissionsResponse,
+            >,
+            tonic::Status,
+        >;
+        /// Gets a summary of the number and severity of occurrences.
+        async fn get_vulnerability_occurrences_summary(
+            &self,
+            request: tonic::Request<super::GetVulnerabilityOccurrencesSummaryRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::VulnerabilityOccurrencesSummary>,
+            tonic::Status,
+        >;
+    }
+    /// Retrieves analysis results of Cloud components such as Docker container
+    /// images. The Container Analysis API is an implementation of the
+    /// [Grafeas](https://grafeas.io) API.
+    ///
+    /// Analysis results are stored as a series of occurrences. An `Occurrence`
+    /// contains information about a specific analysis instance on a resource. An
+    /// occurrence refers to a `Note`. A note contains details describing the
+    /// analysis and is generally stored in a separate project, called a `Provider`.
+    /// Multiple occurrences can refer to the same note.
+    ///
+    /// For example, an SSL vulnerability could affect multiple images. In this case,
+    /// there would be one note for the vulnerability and an occurrence for each
+    /// image with the vulnerability referring to that note.
+    #[derive(Debug)]
+    pub struct ContainerAnalysisServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> ContainerAnalysisServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for ContainerAnalysisServer<T>
+    where
+        T: ContainerAnalysis,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.devtools.containeranalysis.v1.ContainerAnalysis/SetIamPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetIamPolicySvc<T: ContainerAnalysis>(pub Arc<T>);
+                    impl<
+                        T: ContainerAnalysis,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::iam::v1::SetIamPolicyRequest,
+                    > for SetIamPolicySvc<T> {
+                        type Response = super::super::super::super::iam::v1::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::iam::v1::SetIamPolicyRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContainerAnalysis>::set_iam_policy(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SetIamPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.containeranalysis.v1.ContainerAnalysis/GetIamPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetIamPolicySvc<T: ContainerAnalysis>(pub Arc<T>);
+                    impl<
+                        T: ContainerAnalysis,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::iam::v1::GetIamPolicyRequest,
+                    > for GetIamPolicySvc<T> {
+                        type Response = super::super::super::super::iam::v1::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::iam::v1::GetIamPolicyRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContainerAnalysis>::get_iam_policy(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetIamPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.containeranalysis.v1.ContainerAnalysis/TestIamPermissions" => {
+                    #[allow(non_camel_case_types)]
+                    struct TestIamPermissionsSvc<T: ContainerAnalysis>(pub Arc<T>);
+                    impl<
+                        T: ContainerAnalysis,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::iam::v1::TestIamPermissionsRequest,
+                    > for TestIamPermissionsSvc<T> {
+                        type Response = super::super::super::super::iam::v1::TestIamPermissionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::iam::v1::TestIamPermissionsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContainerAnalysis>::test_iam_permissions(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = TestIamPermissionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.containeranalysis.v1.ContainerAnalysis/GetVulnerabilityOccurrencesSummary" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetVulnerabilityOccurrencesSummarySvc<T: ContainerAnalysis>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: ContainerAnalysis,
+                    > tonic::server::UnaryService<
+                        super::GetVulnerabilityOccurrencesSummaryRequest,
+                    > for GetVulnerabilityOccurrencesSummarySvc<T> {
+                        type Response = super::VulnerabilityOccurrencesSummary;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetVulnerabilityOccurrencesSummaryRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ContainerAnalysis>::get_vulnerability_occurrences_summary(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetVulnerabilityOccurrencesSummarySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for ContainerAnalysisServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.devtools.containeranalysis.v1.ContainerAnalysis";
+    impl<T> tonic::server::NamedService for ContainerAnalysisServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}

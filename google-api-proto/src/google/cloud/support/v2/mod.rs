@@ -122,12 +122,12 @@ pub mod case {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::New => "NEW",
-                State::InProgressGoogleSupport => "IN_PROGRESS_GOOGLE_SUPPORT",
-                State::ActionRequired => "ACTION_REQUIRED",
-                State::SolutionProvided => "SOLUTION_PROVIDED",
-                State::Closed => "CLOSED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::New => "NEW",
+                Self::InProgressGoogleSupport => "IN_PROGRESS_GOOGLE_SUPPORT",
+                Self::ActionRequired => "ACTION_REQUIRED",
+                Self::SolutionProvided => "SOLUTION_PROVIDED",
+                Self::Closed => "CLOSED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -180,12 +180,12 @@ pub mod case {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Priority::Unspecified => "PRIORITY_UNSPECIFIED",
-                Priority::P0 => "P0",
-                Priority::P1 => "P1",
-                Priority::P2 => "P2",
-                Priority::P3 => "P3",
-                Priority::P4 => "P4",
+                Self::Unspecified => "PRIORITY_UNSPECIFIED",
+                Self::P0 => "P0",
+                Self::P1 => "P1",
+                Self::P2 => "P2",
+                Self::P3 => "P3",
+                Self::P4 => "P4",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -214,166 +214,6 @@ pub struct CaseClassification {
     /// The display name of the classification.
     #[prost(string, tag = "4")]
     pub display_name: ::prost::alloc::string::String,
-}
-/// Represents a file attached to a support case.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Attachment {
-    /// Output only. The resource name of the attachment.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// Output only. The time at which the attachment was created.
-    #[prost(message, optional, tag = "2")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. The user who uploaded the attachment. Note, the name and email
-    /// will be obfuscated if the attachment was uploaded by Google support.
-    #[prost(message, optional, tag = "3")]
-    pub creator: ::core::option::Option<Actor>,
-    /// The filename of the attachment (e.g. `"graph.jpg"`).
-    #[prost(string, tag = "4")]
-    pub filename: ::prost::alloc::string::String,
-    /// Output only. The MIME type of the attachment (e.g. text/plain).
-    #[prost(string, tag = "5")]
-    pub mime_type: ::prost::alloc::string::String,
-    /// Output only. The size of the attachment in bytes.
-    #[prost(int64, tag = "6")]
-    pub size_bytes: i64,
-}
-/// The request message for the ListAttachments endpoint.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListAttachmentsRequest {
-    /// Required. The resource name of Case object for which attachments should be
-    /// listed.
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// The maximum number of attachments fetched with each request. If not
-    /// provided, the default is 10. The maximum page size that will be returned is
-    /// 100.
-    #[prost(int32, tag = "2")]
-    pub page_size: i32,
-    /// A token identifying the page of results to return. If unspecified, the
-    /// first page is retrieved.
-    #[prost(string, tag = "3")]
-    pub page_token: ::prost::alloc::string::String,
-}
-/// The response message for the ListAttachments endpoint.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListAttachmentsResponse {
-    /// The list of attachments associated with the given case.
-    #[prost(message, repeated, tag = "1")]
-    pub attachments: ::prost::alloc::vec::Vec<Attachment>,
-    /// A token to retrieve the next page of results. This should be set in the
-    /// `page_token` field of subsequent `cases.attachments.list` requests. If
-    /// unspecified, there are no more results to retrieve.
-    #[prost(string, tag = "2")]
-    pub next_page_token: ::prost::alloc::string::String,
-}
-/// Generated client implementations.
-pub mod case_attachment_service_client {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
-    use tonic::codegen::*;
-    use tonic::codegen::http::Uri;
-    /// A service to manage file attachment for Google Cloud support cases.
-    #[derive(Debug, Clone)]
-    pub struct CaseAttachmentServiceClient<T> {
-        inner: tonic::client::Grpc<T>,
-    }
-    impl<T> CaseAttachmentServiceClient<T>
-    where
-        T: tonic::client::GrpcService<tonic::body::BoxBody>,
-        T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
-    {
-        pub fn new(inner: T) -> Self {
-            let inner = tonic::client::Grpc::new(inner);
-            Self { inner }
-        }
-        pub fn with_origin(inner: T, origin: Uri) -> Self {
-            let inner = tonic::client::Grpc::with_origin(inner, origin);
-            Self { inner }
-        }
-        pub fn with_interceptor<F>(
-            inner: T,
-            interceptor: F,
-        ) -> CaseAttachmentServiceClient<InterceptedService<T, F>>
-        where
-            F: tonic::service::Interceptor,
-            T::ResponseBody: Default,
-            T: tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-                Response = http::Response<
-                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
-                >,
-            >,
-            <T as tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-            >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
-        {
-            CaseAttachmentServiceClient::new(InterceptedService::new(inner, interceptor))
-        }
-        /// Compress requests with the given encoding.
-        ///
-        /// This requires the server to support it otherwise it might respond with an
-        /// error.
-        #[must_use]
-        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.send_compressed(encoding);
-            self
-        }
-        /// Enable decompressing responses.
-        #[must_use]
-        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.accept_compressed(encoding);
-            self
-        }
-        /// Limits the maximum size of a decoded message.
-        ///
-        /// Default: `4MB`
-        #[must_use]
-        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_decoding_message_size(limit);
-            self
-        }
-        /// Limits the maximum size of an encoded message.
-        ///
-        /// Default: `usize::MAX`
-        #[must_use]
-        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_encoding_message_size(limit);
-            self
-        }
-        /// Retrieve all attachments associated with a support case.
-        pub async fn list_attachments(
-            &mut self,
-            request: impl tonic::IntoRequest<super::ListAttachmentsRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::ListAttachmentsResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.support.v2.CaseAttachmentService/ListAttachments",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.support.v2.CaseAttachmentService",
-                        "ListAttachments",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-    }
 }
 /// An escalation of a support case.
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -419,10 +259,10 @@ pub mod escalation {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Reason::Unspecified => "REASON_UNSPECIFIED",
-                Reason::ResolutionTime => "RESOLUTION_TIME",
-                Reason::TechnicalExpertise => "TECHNICAL_EXPERTISE",
-                Reason::BusinessImpact => "BUSINESS_IMPACT",
+                Self::Unspecified => "REASON_UNSPECIFIED",
+                Self::ResolutionTime => "RESOLUTION_TIME",
+                Self::TechnicalExpertise => "TECHNICAL_EXPERTISE",
+                Self::BusinessImpact => "BUSINESS_IMPACT",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -434,201 +274,6 @@ pub mod escalation {
                 "BUSINESS_IMPACT" => Some(Self::BusinessImpact),
                 _ => None,
             }
-        }
-    }
-}
-/// A comment associated with a support case.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Comment {
-    /// Output only. The resource name for the comment.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// Output only. The time when this comment was created.
-    #[prost(message, optional, tag = "2")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. The user or Google Support agent created this comment.
-    #[prost(message, optional, tag = "3")]
-    pub creator: ::core::option::Option<Actor>,
-    /// The full comment body. Maximum of 12800 characters. This can contain rich
-    /// text syntax.
-    #[prost(string, tag = "4")]
-    pub body: ::prost::alloc::string::String,
-    /// Output only. DEPRECATED. An automatically generated plain text version of
-    /// body with all rich text syntax stripped.
-    #[prost(string, tag = "5")]
-    pub plain_text_body: ::prost::alloc::string::String,
-}
-/// The request message for the ListComments endpoint.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListCommentsRequest {
-    /// Required. The resource name of Case object for which comments should be
-    /// listed.
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// The maximum number of comments fetched with each request. Defaults to 10.
-    #[prost(int32, tag = "4")]
-    pub page_size: i32,
-    /// A token identifying the page of results to return. If unspecified, the
-    /// first page is retrieved.
-    #[prost(string, tag = "5")]
-    pub page_token: ::prost::alloc::string::String,
-}
-/// The response message for the ListComments endpoint.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListCommentsResponse {
-    /// The list of Comments associated with the given Case.
-    #[prost(message, repeated, tag = "1")]
-    pub comments: ::prost::alloc::vec::Vec<Comment>,
-    /// A token to retrieve the next page of results. This should be set in the
-    /// `page_token` field of subsequent `ListCommentsRequest` message that is
-    /// issued. If unspecified, there are no more results to retrieve.
-    #[prost(string, tag = "2")]
-    pub next_page_token: ::prost::alloc::string::String,
-}
-/// The request message for CreateComment endpoint.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CreateCommentRequest {
-    /// Required. The resource name of Case to which this comment should be added.
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// Required. The Comment object to be added to this Case.
-    #[prost(message, optional, tag = "2")]
-    pub comment: ::core::option::Option<Comment>,
-}
-/// Generated client implementations.
-pub mod comment_service_client {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
-    use tonic::codegen::*;
-    use tonic::codegen::http::Uri;
-    /// A service to manage comments on cases.
-    #[derive(Debug, Clone)]
-    pub struct CommentServiceClient<T> {
-        inner: tonic::client::Grpc<T>,
-    }
-    impl<T> CommentServiceClient<T>
-    where
-        T: tonic::client::GrpcService<tonic::body::BoxBody>,
-        T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
-    {
-        pub fn new(inner: T) -> Self {
-            let inner = tonic::client::Grpc::new(inner);
-            Self { inner }
-        }
-        pub fn with_origin(inner: T, origin: Uri) -> Self {
-            let inner = tonic::client::Grpc::with_origin(inner, origin);
-            Self { inner }
-        }
-        pub fn with_interceptor<F>(
-            inner: T,
-            interceptor: F,
-        ) -> CommentServiceClient<InterceptedService<T, F>>
-        where
-            F: tonic::service::Interceptor,
-            T::ResponseBody: Default,
-            T: tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-                Response = http::Response<
-                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
-                >,
-            >,
-            <T as tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-            >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
-        {
-            CommentServiceClient::new(InterceptedService::new(inner, interceptor))
-        }
-        /// Compress requests with the given encoding.
-        ///
-        /// This requires the server to support it otherwise it might respond with an
-        /// error.
-        #[must_use]
-        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.send_compressed(encoding);
-            self
-        }
-        /// Enable decompressing responses.
-        #[must_use]
-        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.accept_compressed(encoding);
-            self
-        }
-        /// Limits the maximum size of a decoded message.
-        ///
-        /// Default: `4MB`
-        #[must_use]
-        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_decoding_message_size(limit);
-            self
-        }
-        /// Limits the maximum size of an encoded message.
-        ///
-        /// Default: `usize::MAX`
-        #[must_use]
-        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_encoding_message_size(limit);
-            self
-        }
-        /// Retrieve all Comments associated with the Case object.
-        pub async fn list_comments(
-            &mut self,
-            request: impl tonic::IntoRequest<super::ListCommentsRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::ListCommentsResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.support.v2.CommentService/ListComments",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.support.v2.CommentService",
-                        "ListComments",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Add a new comment to the specified Case.
-        /// The comment object must have the following fields set: body.
-        pub async fn create_comment(
-            &mut self,
-            request: impl tonic::IntoRequest<super::CreateCommentRequest>,
-        ) -> std::result::Result<tonic::Response<super::Comment>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.support.v2.CommentService/CreateComment",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.support.v2.CommentService",
-                        "CreateComment",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -1130,5 +775,1317 @@ pub mod case_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod case_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with CaseServiceServer.
+    #[async_trait]
+    pub trait CaseService: std::marker::Send + std::marker::Sync + 'static {
+        /// Retrieve the specified case.
+        async fn get_case(
+            &self,
+            request: tonic::Request<super::GetCaseRequest>,
+        ) -> std::result::Result<tonic::Response<super::Case>, tonic::Status>;
+        /// Retrieve all cases under the specified parent.
+        ///
+        /// Note: Listing cases under an Organization returns only the cases directly
+        /// parented by that organization. To retrieve all cases under an organization,
+        /// including cases parented by projects under that organization, use
+        /// `cases.search`.
+        async fn list_cases(
+            &self,
+            request: tonic::Request<super::ListCasesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListCasesResponse>,
+            tonic::Status,
+        >;
+        /// Search cases using the specified query.
+        async fn search_cases(
+            &self,
+            request: tonic::Request<super::SearchCasesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SearchCasesResponse>,
+            tonic::Status,
+        >;
+        /// Create a new case and associate it with the given Google Cloud Resource.
+        /// The case object must have the following fields set: `display_name`,
+        /// `description`, `classification`, and `priority`.
+        async fn create_case(
+            &self,
+            request: tonic::Request<super::CreateCaseRequest>,
+        ) -> std::result::Result<tonic::Response<super::Case>, tonic::Status>;
+        /// Update the specified case. Only a subset of fields can be updated.
+        async fn update_case(
+            &self,
+            request: tonic::Request<super::UpdateCaseRequest>,
+        ) -> std::result::Result<tonic::Response<super::Case>, tonic::Status>;
+        /// Escalate a case. Escalating a case will initiate the Google Cloud Support
+        /// escalation management process.
+        ///
+        /// This operation is only available to certain Customer Care tiers. Go to
+        /// https://cloud.google.com/support and look for 'Technical support
+        /// escalations' in the feature list to find out which tiers are able to
+        /// perform escalations.
+        async fn escalate_case(
+            &self,
+            request: tonic::Request<super::EscalateCaseRequest>,
+        ) -> std::result::Result<tonic::Response<super::Case>, tonic::Status>;
+        /// Close the specified case.
+        async fn close_case(
+            &self,
+            request: tonic::Request<super::CloseCaseRequest>,
+        ) -> std::result::Result<tonic::Response<super::Case>, tonic::Status>;
+        /// Retrieve valid classifications to be used when creating a support case.
+        /// The classications are hierarchical, with each classification containing
+        /// all levels of the hierarchy, separated by " > ". For example "Technical
+        /// Issue > Compute > Compute Engine".
+        async fn search_case_classifications(
+            &self,
+            request: tonic::Request<super::SearchCaseClassificationsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SearchCaseClassificationsResponse>,
+            tonic::Status,
+        >;
+    }
+    /// A service to manage Google Cloud support cases.
+    #[derive(Debug)]
+    pub struct CaseServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> CaseServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for CaseServiceServer<T>
+    where
+        T: CaseService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.support.v2.CaseService/GetCase" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetCaseSvc<T: CaseService>(pub Arc<T>);
+                    impl<
+                        T: CaseService,
+                    > tonic::server::UnaryService<super::GetCaseRequest>
+                    for GetCaseSvc<T> {
+                        type Response = super::Case;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetCaseRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CaseService>::get_case(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetCaseSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.support.v2.CaseService/ListCases" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListCasesSvc<T: CaseService>(pub Arc<T>);
+                    impl<
+                        T: CaseService,
+                    > tonic::server::UnaryService<super::ListCasesRequest>
+                    for ListCasesSvc<T> {
+                        type Response = super::ListCasesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListCasesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CaseService>::list_cases(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListCasesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.support.v2.CaseService/SearchCases" => {
+                    #[allow(non_camel_case_types)]
+                    struct SearchCasesSvc<T: CaseService>(pub Arc<T>);
+                    impl<
+                        T: CaseService,
+                    > tonic::server::UnaryService<super::SearchCasesRequest>
+                    for SearchCasesSvc<T> {
+                        type Response = super::SearchCasesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SearchCasesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CaseService>::search_cases(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SearchCasesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.support.v2.CaseService/CreateCase" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateCaseSvc<T: CaseService>(pub Arc<T>);
+                    impl<
+                        T: CaseService,
+                    > tonic::server::UnaryService<super::CreateCaseRequest>
+                    for CreateCaseSvc<T> {
+                        type Response = super::Case;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateCaseRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CaseService>::create_case(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateCaseSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.support.v2.CaseService/UpdateCase" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateCaseSvc<T: CaseService>(pub Arc<T>);
+                    impl<
+                        T: CaseService,
+                    > tonic::server::UnaryService<super::UpdateCaseRequest>
+                    for UpdateCaseSvc<T> {
+                        type Response = super::Case;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateCaseRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CaseService>::update_case(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateCaseSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.support.v2.CaseService/EscalateCase" => {
+                    #[allow(non_camel_case_types)]
+                    struct EscalateCaseSvc<T: CaseService>(pub Arc<T>);
+                    impl<
+                        T: CaseService,
+                    > tonic::server::UnaryService<super::EscalateCaseRequest>
+                    for EscalateCaseSvc<T> {
+                        type Response = super::Case;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::EscalateCaseRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CaseService>::escalate_case(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = EscalateCaseSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.support.v2.CaseService/CloseCase" => {
+                    #[allow(non_camel_case_types)]
+                    struct CloseCaseSvc<T: CaseService>(pub Arc<T>);
+                    impl<
+                        T: CaseService,
+                    > tonic::server::UnaryService<super::CloseCaseRequest>
+                    for CloseCaseSvc<T> {
+                        type Response = super::Case;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CloseCaseRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CaseService>::close_case(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CloseCaseSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.support.v2.CaseService/SearchCaseClassifications" => {
+                    #[allow(non_camel_case_types)]
+                    struct SearchCaseClassificationsSvc<T: CaseService>(pub Arc<T>);
+                    impl<
+                        T: CaseService,
+                    > tonic::server::UnaryService<
+                        super::SearchCaseClassificationsRequest,
+                    > for SearchCaseClassificationsSvc<T> {
+                        type Response = super::SearchCaseClassificationsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::SearchCaseClassificationsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CaseService>::search_case_classifications(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SearchCaseClassificationsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for CaseServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.support.v2.CaseService";
+    impl<T> tonic::server::NamedService for CaseServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}
+/// Represents a file attached to a support case.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Attachment {
+    /// Output only. The resource name of the attachment.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// Output only. The time at which the attachment was created.
+    #[prost(message, optional, tag = "2")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. The user who uploaded the attachment. Note, the name and email
+    /// will be obfuscated if the attachment was uploaded by Google support.
+    #[prost(message, optional, tag = "3")]
+    pub creator: ::core::option::Option<Actor>,
+    /// The filename of the attachment (e.g. `"graph.jpg"`).
+    #[prost(string, tag = "4")]
+    pub filename: ::prost::alloc::string::String,
+    /// Output only. The MIME type of the attachment (e.g. text/plain).
+    #[prost(string, tag = "5")]
+    pub mime_type: ::prost::alloc::string::String,
+    /// Output only. The size of the attachment in bytes.
+    #[prost(int64, tag = "6")]
+    pub size_bytes: i64,
+}
+/// The request message for the ListAttachments endpoint.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListAttachmentsRequest {
+    /// Required. The resource name of Case object for which attachments should be
+    /// listed.
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// The maximum number of attachments fetched with each request. If not
+    /// provided, the default is 10. The maximum page size that will be returned is
+    /// 100.
+    #[prost(int32, tag = "2")]
+    pub page_size: i32,
+    /// A token identifying the page of results to return. If unspecified, the
+    /// first page is retrieved.
+    #[prost(string, tag = "3")]
+    pub page_token: ::prost::alloc::string::String,
+}
+/// The response message for the ListAttachments endpoint.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListAttachmentsResponse {
+    /// The list of attachments associated with the given case.
+    #[prost(message, repeated, tag = "1")]
+    pub attachments: ::prost::alloc::vec::Vec<Attachment>,
+    /// A token to retrieve the next page of results. This should be set in the
+    /// `page_token` field of subsequent `cases.attachments.list` requests. If
+    /// unspecified, there are no more results to retrieve.
+    #[prost(string, tag = "2")]
+    pub next_page_token: ::prost::alloc::string::String,
+}
+/// Generated client implementations.
+pub mod case_attachment_service_client {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    use tonic::codegen::http::Uri;
+    /// A service to manage file attachment for Google Cloud support cases.
+    #[derive(Debug, Clone)]
+    pub struct CaseAttachmentServiceClient<T> {
+        inner: tonic::client::Grpc<T>,
+    }
+    impl<T> CaseAttachmentServiceClient<T>
+    where
+        T: tonic::client::GrpcService<tonic::body::BoxBody>,
+        T::Error: Into<StdError>,
+        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
+    {
+        pub fn new(inner: T) -> Self {
+            let inner = tonic::client::Grpc::new(inner);
+            Self { inner }
+        }
+        pub fn with_origin(inner: T, origin: Uri) -> Self {
+            let inner = tonic::client::Grpc::with_origin(inner, origin);
+            Self { inner }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> CaseAttachmentServiceClient<InterceptedService<T, F>>
+        where
+            F: tonic::service::Interceptor,
+            T::ResponseBody: Default,
+            T: tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+                Response = http::Response<
+                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
+                >,
+            >,
+            <T as tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+            >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
+        {
+            CaseAttachmentServiceClient::new(InterceptedService::new(inner, interceptor))
+        }
+        /// Compress requests with the given encoding.
+        ///
+        /// This requires the server to support it otherwise it might respond with an
+        /// error.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.send_compressed(encoding);
+            self
+        }
+        /// Enable decompressing responses.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.accept_compressed(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
+        /// Retrieve all attachments associated with a support case.
+        pub async fn list_attachments(
+            &mut self,
+            request: impl tonic::IntoRequest<super::ListAttachmentsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAttachmentsResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.support.v2.CaseAttachmentService/ListAttachments",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.support.v2.CaseAttachmentService",
+                        "ListAttachments",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+    }
+}
+/// Generated server implementations.
+pub mod case_attachment_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with CaseAttachmentServiceServer.
+    #[async_trait]
+    pub trait CaseAttachmentService: std::marker::Send + std::marker::Sync + 'static {
+        /// Retrieve all attachments associated with a support case.
+        async fn list_attachments(
+            &self,
+            request: tonic::Request<super::ListAttachmentsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAttachmentsResponse>,
+            tonic::Status,
+        >;
+    }
+    /// A service to manage file attachment for Google Cloud support cases.
+    #[derive(Debug)]
+    pub struct CaseAttachmentServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> CaseAttachmentServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for CaseAttachmentServiceServer<T>
+    where
+        T: CaseAttachmentService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.support.v2.CaseAttachmentService/ListAttachments" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAttachmentsSvc<T: CaseAttachmentService>(pub Arc<T>);
+                    impl<
+                        T: CaseAttachmentService,
+                    > tonic::server::UnaryService<super::ListAttachmentsRequest>
+                    for ListAttachmentsSvc<T> {
+                        type Response = super::ListAttachmentsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListAttachmentsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CaseAttachmentService>::list_attachments(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAttachmentsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for CaseAttachmentServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.support.v2.CaseAttachmentService";
+    impl<T> tonic::server::NamedService for CaseAttachmentServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}
+/// A comment associated with a support case.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Comment {
+    /// Output only. The resource name for the comment.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// Output only. The time when this comment was created.
+    #[prost(message, optional, tag = "2")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. The user or Google Support agent created this comment.
+    #[prost(message, optional, tag = "3")]
+    pub creator: ::core::option::Option<Actor>,
+    /// The full comment body. Maximum of 12800 characters. This can contain rich
+    /// text syntax.
+    #[prost(string, tag = "4")]
+    pub body: ::prost::alloc::string::String,
+    /// Output only. DEPRECATED. An automatically generated plain text version of
+    /// body with all rich text syntax stripped.
+    #[prost(string, tag = "5")]
+    pub plain_text_body: ::prost::alloc::string::String,
+}
+/// The request message for the ListComments endpoint.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListCommentsRequest {
+    /// Required. The resource name of Case object for which comments should be
+    /// listed.
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// The maximum number of comments fetched with each request. Defaults to 10.
+    #[prost(int32, tag = "4")]
+    pub page_size: i32,
+    /// A token identifying the page of results to return. If unspecified, the
+    /// first page is retrieved.
+    #[prost(string, tag = "5")]
+    pub page_token: ::prost::alloc::string::String,
+}
+/// The response message for the ListComments endpoint.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListCommentsResponse {
+    /// The list of Comments associated with the given Case.
+    #[prost(message, repeated, tag = "1")]
+    pub comments: ::prost::alloc::vec::Vec<Comment>,
+    /// A token to retrieve the next page of results. This should be set in the
+    /// `page_token` field of subsequent `ListCommentsRequest` message that is
+    /// issued. If unspecified, there are no more results to retrieve.
+    #[prost(string, tag = "2")]
+    pub next_page_token: ::prost::alloc::string::String,
+}
+/// The request message for CreateComment endpoint.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateCommentRequest {
+    /// Required. The resource name of Case to which this comment should be added.
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// Required. The Comment object to be added to this Case.
+    #[prost(message, optional, tag = "2")]
+    pub comment: ::core::option::Option<Comment>,
+}
+/// Generated client implementations.
+pub mod comment_service_client {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    use tonic::codegen::http::Uri;
+    /// A service to manage comments on cases.
+    #[derive(Debug, Clone)]
+    pub struct CommentServiceClient<T> {
+        inner: tonic::client::Grpc<T>,
+    }
+    impl<T> CommentServiceClient<T>
+    where
+        T: tonic::client::GrpcService<tonic::body::BoxBody>,
+        T::Error: Into<StdError>,
+        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
+    {
+        pub fn new(inner: T) -> Self {
+            let inner = tonic::client::Grpc::new(inner);
+            Self { inner }
+        }
+        pub fn with_origin(inner: T, origin: Uri) -> Self {
+            let inner = tonic::client::Grpc::with_origin(inner, origin);
+            Self { inner }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> CommentServiceClient<InterceptedService<T, F>>
+        where
+            F: tonic::service::Interceptor,
+            T::ResponseBody: Default,
+            T: tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+                Response = http::Response<
+                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
+                >,
+            >,
+            <T as tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+            >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
+        {
+            CommentServiceClient::new(InterceptedService::new(inner, interceptor))
+        }
+        /// Compress requests with the given encoding.
+        ///
+        /// This requires the server to support it otherwise it might respond with an
+        /// error.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.send_compressed(encoding);
+            self
+        }
+        /// Enable decompressing responses.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.accept_compressed(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
+        /// Retrieve all Comments associated with the Case object.
+        pub async fn list_comments(
+            &mut self,
+            request: impl tonic::IntoRequest<super::ListCommentsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListCommentsResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.support.v2.CommentService/ListComments",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.support.v2.CommentService",
+                        "ListComments",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Add a new comment to the specified Case.
+        /// The comment object must have the following fields set: body.
+        pub async fn create_comment(
+            &mut self,
+            request: impl tonic::IntoRequest<super::CreateCommentRequest>,
+        ) -> std::result::Result<tonic::Response<super::Comment>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.support.v2.CommentService/CreateComment",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.support.v2.CommentService",
+                        "CreateComment",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+    }
+}
+/// Generated server implementations.
+pub mod comment_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with CommentServiceServer.
+    #[async_trait]
+    pub trait CommentService: std::marker::Send + std::marker::Sync + 'static {
+        /// Retrieve all Comments associated with the Case object.
+        async fn list_comments(
+            &self,
+            request: tonic::Request<super::ListCommentsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListCommentsResponse>,
+            tonic::Status,
+        >;
+        /// Add a new comment to the specified Case.
+        /// The comment object must have the following fields set: body.
+        async fn create_comment(
+            &self,
+            request: tonic::Request<super::CreateCommentRequest>,
+        ) -> std::result::Result<tonic::Response<super::Comment>, tonic::Status>;
+    }
+    /// A service to manage comments on cases.
+    #[derive(Debug)]
+    pub struct CommentServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> CommentServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for CommentServiceServer<T>
+    where
+        T: CommentService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.support.v2.CommentService/ListComments" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListCommentsSvc<T: CommentService>(pub Arc<T>);
+                    impl<
+                        T: CommentService,
+                    > tonic::server::UnaryService<super::ListCommentsRequest>
+                    for ListCommentsSvc<T> {
+                        type Response = super::ListCommentsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListCommentsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CommentService>::list_comments(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListCommentsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.support.v2.CommentService/CreateComment" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateCommentSvc<T: CommentService>(pub Arc<T>);
+                    impl<
+                        T: CommentService,
+                    > tonic::server::UnaryService<super::CreateCommentRequest>
+                    for CreateCommentSvc<T> {
+                        type Response = super::Comment;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateCommentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CommentService>::create_comment(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateCommentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for CommentServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.support.v2.CommentService";
+    impl<T> tonic::server::NamedService for CommentServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

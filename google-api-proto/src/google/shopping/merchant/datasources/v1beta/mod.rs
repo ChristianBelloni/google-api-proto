@@ -75,10 +75,10 @@ pub mod primary_product_data_source {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Channel::Unspecified => "CHANNEL_UNSPECIFIED",
-                Channel::OnlineProducts => "ONLINE_PRODUCTS",
-                Channel::LocalProducts => "LOCAL_PRODUCTS",
-                Channel::Products => "PRODUCTS",
+                Self::Unspecified => "CHANNEL_UNSPECIFIED",
+                Self::OnlineProducts => "ONLINE_PRODUCTS",
+                Self::LocalProducts => "LOCAL_PRODUCTS",
+                Self::Products => "PRODUCTS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -293,10 +293,10 @@ pub mod file_input {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    Frequency::Unspecified => "FREQUENCY_UNSPECIFIED",
-                    Frequency::Daily => "FREQUENCY_DAILY",
-                    Frequency::Weekly => "FREQUENCY_WEEKLY",
-                    Frequency::Monthly => "FREQUENCY_MONTHLY",
+                    Self::Unspecified => "FREQUENCY_UNSPECIFIED",
+                    Self::Daily => "FREQUENCY_DAILY",
+                    Self::Weekly => "FREQUENCY_WEEKLY",
+                    Self::Monthly => "FREQUENCY_MONTHLY",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -344,10 +344,10 @@ pub mod file_input {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                FileInputType::Unspecified => "FILE_INPUT_TYPE_UNSPECIFIED",
-                FileInputType::Upload => "UPLOAD",
-                FileInputType::Fetch => "FETCH",
-                FileInputType::GoogleSheets => "GOOGLE_SHEETS",
+                Self::Unspecified => "FILE_INPUT_TYPE_UNSPECIFIED",
+                Self::Upload => "UPLOAD",
+                Self::Fetch => "FETCH",
+                Self::GoogleSheets => "GOOGLE_SHEETS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -434,11 +434,11 @@ pub mod data_source {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Input::Unspecified => "INPUT_UNSPECIFIED",
-                Input::Api => "API",
-                Input::File => "FILE",
-                Input::Ui => "UI",
-                Input::Autofeed => "AUTOFEED",
+                Self::Unspecified => "INPUT_UNSPECIFIED",
+                Self::Api => "API",
+                Self::File => "FILE",
+                Self::Ui => "UI",
+                Self::Autofeed => "AUTOFEED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -819,5 +819,457 @@ pub mod data_sources_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod data_sources_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with DataSourcesServiceServer.
+    #[async_trait]
+    pub trait DataSourcesService: std::marker::Send + std::marker::Sync + 'static {
+        /// Retrieves the data source configuration for the given account.
+        async fn get_data_source(
+            &self,
+            request: tonic::Request<super::GetDataSourceRequest>,
+        ) -> std::result::Result<tonic::Response<super::DataSource>, tonic::Status>;
+        /// Lists the configurations for data sources for the given account.
+        async fn list_data_sources(
+            &self,
+            request: tonic::Request<super::ListDataSourcesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDataSourcesResponse>,
+            tonic::Status,
+        >;
+        /// Creates the new data source configuration for the given account.
+        async fn create_data_source(
+            &self,
+            request: tonic::Request<super::CreateDataSourceRequest>,
+        ) -> std::result::Result<tonic::Response<super::DataSource>, tonic::Status>;
+        /// Updates the existing data source configuration. The fields that are
+        /// set in the update mask but not provided in the resource will be deleted.
+        async fn update_data_source(
+            &self,
+            request: tonic::Request<super::UpdateDataSourceRequest>,
+        ) -> std::result::Result<tonic::Response<super::DataSource>, tonic::Status>;
+        /// Deletes a data source from your Merchant Center account.
+        async fn delete_data_source(
+            &self,
+            request: tonic::Request<super::DeleteDataSourceRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Performs the data fetch immediately (even outside fetch schedule) on a
+        /// data source from your Merchant Center Account. If you need to call
+        /// this method more than once per day, you should use the Products service to
+        /// update your product data instead.
+        /// This method only works on data sources with a file input set.
+        async fn fetch_data_source(
+            &self,
+            request: tonic::Request<super::FetchDataSourceRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+    }
+    /// Service to manage primary, supplemental, inventory and other data sources.
+    /// See more in the [Merchant
+    /// Center](https://support.google.com/merchants/answer/7439058) help article.
+    #[derive(Debug)]
+    pub struct DataSourcesServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> DataSourcesServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for DataSourcesServiceServer<T>
+    where
+        T: DataSourcesService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.shopping.merchant.datasources.v1beta.DataSourcesService/GetDataSource" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetDataSourceSvc<T: DataSourcesService>(pub Arc<T>);
+                    impl<
+                        T: DataSourcesService,
+                    > tonic::server::UnaryService<super::GetDataSourceRequest>
+                    for GetDataSourceSvc<T> {
+                        type Response = super::DataSource;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetDataSourceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataSourcesService>::get_data_source(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetDataSourceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.shopping.merchant.datasources.v1beta.DataSourcesService/ListDataSources" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDataSourcesSvc<T: DataSourcesService>(pub Arc<T>);
+                    impl<
+                        T: DataSourcesService,
+                    > tonic::server::UnaryService<super::ListDataSourcesRequest>
+                    for ListDataSourcesSvc<T> {
+                        type Response = super::ListDataSourcesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListDataSourcesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataSourcesService>::list_data_sources(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDataSourcesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.shopping.merchant.datasources.v1beta.DataSourcesService/CreateDataSource" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateDataSourceSvc<T: DataSourcesService>(pub Arc<T>);
+                    impl<
+                        T: DataSourcesService,
+                    > tonic::server::UnaryService<super::CreateDataSourceRequest>
+                    for CreateDataSourceSvc<T> {
+                        type Response = super::DataSource;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateDataSourceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataSourcesService>::create_data_source(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateDataSourceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.shopping.merchant.datasources.v1beta.DataSourcesService/UpdateDataSource" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateDataSourceSvc<T: DataSourcesService>(pub Arc<T>);
+                    impl<
+                        T: DataSourcesService,
+                    > tonic::server::UnaryService<super::UpdateDataSourceRequest>
+                    for UpdateDataSourceSvc<T> {
+                        type Response = super::DataSource;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateDataSourceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataSourcesService>::update_data_source(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateDataSourceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.shopping.merchant.datasources.v1beta.DataSourcesService/DeleteDataSource" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteDataSourceSvc<T: DataSourcesService>(pub Arc<T>);
+                    impl<
+                        T: DataSourcesService,
+                    > tonic::server::UnaryService<super::DeleteDataSourceRequest>
+                    for DeleteDataSourceSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteDataSourceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataSourcesService>::delete_data_source(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteDataSourceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.shopping.merchant.datasources.v1beta.DataSourcesService/FetchDataSource" => {
+                    #[allow(non_camel_case_types)]
+                    struct FetchDataSourceSvc<T: DataSourcesService>(pub Arc<T>);
+                    impl<
+                        T: DataSourcesService,
+                    > tonic::server::UnaryService<super::FetchDataSourceRequest>
+                    for FetchDataSourceSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::FetchDataSourceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataSourcesService>::fetch_data_source(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = FetchDataSourceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for DataSourcesServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.shopping.merchant.datasources.v1beta.DataSourcesService";
+    impl<T> tonic::server::NamedService for DataSourcesServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

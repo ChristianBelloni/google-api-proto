@@ -95,11 +95,11 @@ pub mod build {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                BuildStatus::Unspecified => "BUILD_STATUS_UNSPECIFIED",
-                BuildStatus::Pass => "PASS",
-                BuildStatus::Fail => "FAIL",
-                BuildStatus::Running => "RUNNING",
-                BuildStatus::Aborted => "ABORTED",
+                Self::Unspecified => "BUILD_STATUS_UNSPECIFIED",
+                Self::Pass => "PASS",
+                Self::Fail => "FAIL",
+                Self::Running => "RUNNING",
+                Self::Aborted => "ABORTED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -142,9 +142,9 @@ pub mod build {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                BuildType::Unspecified => "BUILD_TYPE_UNSPECIFIED",
-                BuildType::Release => "RELEASE",
-                BuildType::Firmware => "FIRMWARE",
+                Self::Unspecified => "BUILD_TYPE_UNSPECIFIED",
+                Self::Release => "RELEASE",
+                Self::Firmware => "FIRMWARE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -656,5 +656,469 @@ pub mod build_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod build_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with BuildServiceServer.
+    #[async_trait]
+    pub trait BuildService: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists all build targets that a user has access to.
+        async fn list_build_targets(
+            &self,
+            request: tonic::Request<super::ListBuildTargetsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListBuildTargetsResponse>,
+            tonic::Status,
+        >;
+        /// Lists all models for the given build target.
+        async fn list_models(
+            &self,
+            request: tonic::Request<super::ListModelsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListModelsResponse>,
+            tonic::Status,
+        >;
+        /// Lists all builds for the given build target and model in descending order
+        /// for the milestones and build versions.
+        async fn list_builds(
+            &self,
+            request: tonic::Request<super::ListBuildsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListBuildsResponse>,
+            tonic::Status,
+        >;
+        /// Checks the stage status for a given build artifact in a partner Google
+        /// Cloud Storage bucket.
+        async fn check_build_stage_status(
+            &self,
+            request: tonic::Request<super::CheckBuildStageStatusRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::CheckBuildStageStatusResponse>,
+            tonic::Status,
+        >;
+        /// Stages a given build artifact from a internal Google Cloud Storage bucket
+        /// to a partner Google Cloud Storage bucket. The stage will be skipped if all
+        /// the objects in the partner bucket are the same as in the internal bucket.
+        /// Operation
+        /// <response:[StageBuildResponse][google.chromeos.moblab.v1beta1.StageBuildResponse],
+        ///            metadata:
+        ///           [StageBuildMetadata][google.chromeos.moblab.v1beta1.StageBuildMetadata]>
+        async fn stage_build(
+            &self,
+            request: tonic::Request<super::StageBuildRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Finds the most stable build for the given build target. The definition of
+        /// the most stable build is determined by evaluating the following rule in
+        /// order until one is true. If none are true, then there is no stable build
+        /// and it will return an empty response.
+        ///
+        /// Evaluation rules:
+        ///   1. Stable channel build with label “Live”
+        ///   2. Beta channel build with label “Live”
+        ///   3. Dev channel build with label “Live”
+        ///   4. Most recent stable channel build with build status Pass
+        ///   5. Most recent beta channel build with build status Pass
+        ///   6. Most recent dev channel build with build status Pass
+        async fn find_most_stable_build(
+            &self,
+            request: tonic::Request<super::FindMostStableBuildRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::FindMostStableBuildResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Manages Chrome OS build services.
+    #[derive(Debug)]
+    pub struct BuildServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> BuildServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for BuildServiceServer<T>
+    where
+        T: BuildService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.chromeos.moblab.v1beta1.BuildService/ListBuildTargets" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListBuildTargetsSvc<T: BuildService>(pub Arc<T>);
+                    impl<
+                        T: BuildService,
+                    > tonic::server::UnaryService<super::ListBuildTargetsRequest>
+                    for ListBuildTargetsSvc<T> {
+                        type Response = super::ListBuildTargetsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListBuildTargetsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BuildService>::list_build_targets(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListBuildTargetsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.chromeos.moblab.v1beta1.BuildService/ListModels" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListModelsSvc<T: BuildService>(pub Arc<T>);
+                    impl<
+                        T: BuildService,
+                    > tonic::server::UnaryService<super::ListModelsRequest>
+                    for ListModelsSvc<T> {
+                        type Response = super::ListModelsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListModelsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BuildService>::list_models(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListModelsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.chromeos.moblab.v1beta1.BuildService/ListBuilds" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListBuildsSvc<T: BuildService>(pub Arc<T>);
+                    impl<
+                        T: BuildService,
+                    > tonic::server::UnaryService<super::ListBuildsRequest>
+                    for ListBuildsSvc<T> {
+                        type Response = super::ListBuildsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListBuildsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BuildService>::list_builds(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListBuildsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.chromeos.moblab.v1beta1.BuildService/CheckBuildStageStatus" => {
+                    #[allow(non_camel_case_types)]
+                    struct CheckBuildStageStatusSvc<T: BuildService>(pub Arc<T>);
+                    impl<
+                        T: BuildService,
+                    > tonic::server::UnaryService<super::CheckBuildStageStatusRequest>
+                    for CheckBuildStageStatusSvc<T> {
+                        type Response = super::CheckBuildStageStatusResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CheckBuildStageStatusRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BuildService>::check_build_stage_status(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CheckBuildStageStatusSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.chromeos.moblab.v1beta1.BuildService/StageBuild" => {
+                    #[allow(non_camel_case_types)]
+                    struct StageBuildSvc<T: BuildService>(pub Arc<T>);
+                    impl<
+                        T: BuildService,
+                    > tonic::server::UnaryService<super::StageBuildRequest>
+                    for StageBuildSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::StageBuildRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BuildService>::stage_build(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = StageBuildSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.chromeos.moblab.v1beta1.BuildService/FindMostStableBuild" => {
+                    #[allow(non_camel_case_types)]
+                    struct FindMostStableBuildSvc<T: BuildService>(pub Arc<T>);
+                    impl<
+                        T: BuildService,
+                    > tonic::server::UnaryService<super::FindMostStableBuildRequest>
+                    for FindMostStableBuildSvc<T> {
+                        type Response = super::FindMostStableBuildResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::FindMostStableBuildRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BuildService>::find_most_stable_build(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = FindMostStableBuildSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for BuildServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.chromeos.moblab.v1beta1.BuildService";
+    impl<T> tonic::server::NamedService for BuildServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

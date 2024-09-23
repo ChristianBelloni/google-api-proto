@@ -310,6 +310,310 @@ pub mod local_inventory_service_client {
         }
     }
 }
+/// Generated server implementations.
+pub mod local_inventory_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with LocalInventoryServiceServer.
+    #[async_trait]
+    pub trait LocalInventoryService: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists the `LocalInventory` resources for the given product in your merchant
+        /// account. The response might contain fewer items than specified by
+        /// `pageSize`. If `pageToken` was returned in previous request, it can be used
+        /// to obtain additional results.
+        ///
+        /// `LocalInventory` resources are listed per product for a given account.
+        async fn list_local_inventories(
+            &self,
+            request: tonic::Request<super::ListLocalInventoriesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListLocalInventoriesResponse>,
+            tonic::Status,
+        >;
+        /// Inserts a `LocalInventory` resource to a product in your merchant
+        /// account.
+        ///
+        /// Replaces the full `LocalInventory` resource if an entry with the same
+        /// [`storeCode`][google.shopping.merchant.inventories.v1beta.LocalInventory.store_code]
+        /// already exists for the product.
+        ///
+        /// It might take up to 30 minutes for the new or updated `LocalInventory`
+        /// resource to appear in products.
+        async fn insert_local_inventory(
+            &self,
+            request: tonic::Request<super::InsertLocalInventoryRequest>,
+        ) -> std::result::Result<tonic::Response<super::LocalInventory>, tonic::Status>;
+        /// Deletes the specified `LocalInventory` from the given product in your
+        /// merchant account. It might take a up to an hour for the
+        /// `LocalInventory` to be deleted from the specific product.
+        /// Once you have received a successful delete response, wait for that
+        /// period before attempting a delete again.
+        async fn delete_local_inventory(
+            &self,
+            request: tonic::Request<super::DeleteLocalInventoryRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+    }
+    /// Service to manage local inventory for products
+    #[derive(Debug)]
+    pub struct LocalInventoryServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> LocalInventoryServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for LocalInventoryServiceServer<T>
+    where
+        T: LocalInventoryService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.shopping.merchant.inventories.v1beta.LocalInventoryService/ListLocalInventories" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListLocalInventoriesSvc<T: LocalInventoryService>(pub Arc<T>);
+                    impl<
+                        T: LocalInventoryService,
+                    > tonic::server::UnaryService<super::ListLocalInventoriesRequest>
+                    for ListLocalInventoriesSvc<T> {
+                        type Response = super::ListLocalInventoriesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListLocalInventoriesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LocalInventoryService>::list_local_inventories(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListLocalInventoriesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.shopping.merchant.inventories.v1beta.LocalInventoryService/InsertLocalInventory" => {
+                    #[allow(non_camel_case_types)]
+                    struct InsertLocalInventorySvc<T: LocalInventoryService>(pub Arc<T>);
+                    impl<
+                        T: LocalInventoryService,
+                    > tonic::server::UnaryService<super::InsertLocalInventoryRequest>
+                    for InsertLocalInventorySvc<T> {
+                        type Response = super::LocalInventory;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::InsertLocalInventoryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LocalInventoryService>::insert_local_inventory(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = InsertLocalInventorySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.shopping.merchant.inventories.v1beta.LocalInventoryService/DeleteLocalInventory" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteLocalInventorySvc<T: LocalInventoryService>(pub Arc<T>);
+                    impl<
+                        T: LocalInventoryService,
+                    > tonic::server::UnaryService<super::DeleteLocalInventoryRequest>
+                    for DeleteLocalInventorySvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteLocalInventoryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LocalInventoryService>::delete_local_inventory(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteLocalInventorySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for LocalInventoryServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.shopping.merchant.inventories.v1beta.LocalInventoryService";
+    impl<T> tonic::server::NamedService for LocalInventoryServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}
 /// Regional inventory information for the product. Represents specific
 /// information like price and availability for a given product in a specific
 /// [`region`][google.shopping.merchant.inventories.v1beta.RegionalInventory.region].
@@ -603,5 +907,325 @@ pub mod regional_inventory_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod regional_inventory_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with RegionalInventoryServiceServer.
+    #[async_trait]
+    pub trait RegionalInventoryService: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists the `RegionalInventory` resources for the given product in your
+        /// merchant account. The response might contain fewer items than specified by
+        /// `pageSize`.  If `pageToken` was returned in previous request, it can be
+        /// used to obtain additional results.
+        ///
+        /// `RegionalInventory` resources are listed per product for a given account.
+        async fn list_regional_inventories(
+            &self,
+            request: tonic::Request<super::ListRegionalInventoriesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListRegionalInventoriesResponse>,
+            tonic::Status,
+        >;
+        /// Inserts a `RegionalInventory` to a given product in your
+        /// merchant account.
+        ///
+        /// Replaces the full `RegionalInventory` resource if an entry with the same
+        /// [`region`][google.shopping.merchant.inventories.v1beta.RegionalInventory.region]
+        /// already exists for the product.
+        ///
+        /// It might take up to 30 minutes for the new or updated `RegionalInventory`
+        /// resource to appear in products.
+        async fn insert_regional_inventory(
+            &self,
+            request: tonic::Request<super::InsertRegionalInventoryRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::RegionalInventory>,
+            tonic::Status,
+        >;
+        /// Deletes the specified `RegionalInventory` resource from the given product
+        /// in your merchant account.  It might take up to an hour for the
+        /// `RegionalInventory` to be deleted from the specific product.
+        /// Once you have received a successful delete response, wait for that
+        /// period before attempting a delete again.
+        async fn delete_regional_inventory(
+            &self,
+            request: tonic::Request<super::DeleteRegionalInventoryRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+    }
+    /// Service to manage regional inventory for products. There is also separate
+    /// `regions` resource and API to manage regions definitions.
+    #[derive(Debug)]
+    pub struct RegionalInventoryServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> RegionalInventoryServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for RegionalInventoryServiceServer<T>
+    where
+        T: RegionalInventoryService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.shopping.merchant.inventories.v1beta.RegionalInventoryService/ListRegionalInventories" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListRegionalInventoriesSvc<T: RegionalInventoryService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: RegionalInventoryService,
+                    > tonic::server::UnaryService<super::ListRegionalInventoriesRequest>
+                    for ListRegionalInventoriesSvc<T> {
+                        type Response = super::ListRegionalInventoriesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListRegionalInventoriesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RegionalInventoryService>::list_regional_inventories(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListRegionalInventoriesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.shopping.merchant.inventories.v1beta.RegionalInventoryService/InsertRegionalInventory" => {
+                    #[allow(non_camel_case_types)]
+                    struct InsertRegionalInventorySvc<T: RegionalInventoryService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: RegionalInventoryService,
+                    > tonic::server::UnaryService<super::InsertRegionalInventoryRequest>
+                    for InsertRegionalInventorySvc<T> {
+                        type Response = super::RegionalInventory;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::InsertRegionalInventoryRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RegionalInventoryService>::insert_regional_inventory(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = InsertRegionalInventorySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.shopping.merchant.inventories.v1beta.RegionalInventoryService/DeleteRegionalInventory" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteRegionalInventorySvc<T: RegionalInventoryService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: RegionalInventoryService,
+                    > tonic::server::UnaryService<super::DeleteRegionalInventoryRequest>
+                    for DeleteRegionalInventorySvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteRegionalInventoryRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RegionalInventoryService>::delete_regional_inventory(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteRegionalInventorySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for RegionalInventoryServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.shopping.merchant.inventories.v1beta.RegionalInventoryService";
+    impl<T> tonic::server::NamedService for RegionalInventoryServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

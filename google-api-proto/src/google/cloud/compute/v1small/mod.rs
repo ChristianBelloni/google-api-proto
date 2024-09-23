@@ -111,10 +111,10 @@ pub mod address {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                AddressType::UndefinedAddressType => "UNDEFINED_ADDRESS_TYPE",
-                AddressType::External => "EXTERNAL",
-                AddressType::Internal => "INTERNAL",
-                AddressType::UnspecifiedType => "UNSPECIFIED_TYPE",
+                Self::UndefinedAddressType => "UNDEFINED_ADDRESS_TYPE",
+                Self::External => "EXTERNAL",
+                Self::Internal => "INTERNAL",
+                Self::UnspecifiedType => "UNSPECIFIED_TYPE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -155,10 +155,10 @@ pub mod address {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                IpVersion::UndefinedIpVersion => "UNDEFINED_IP_VERSION",
-                IpVersion::Ipv4 => "IPV4",
-                IpVersion::Ipv6 => "IPV6",
-                IpVersion::UnspecifiedVersion => "UNSPECIFIED_VERSION",
+                Self::UndefinedIpVersion => "UNDEFINED_IP_VERSION",
+                Self::Ipv4 => "IPV4",
+                Self::Ipv6 => "IPV6",
+                Self::UnspecifiedVersion => "UNSPECIFIED_VERSION",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -200,9 +200,9 @@ pub mod address {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                NetworkTier::UndefinedNetworkTier => "UNDEFINED_NETWORK_TIER",
-                NetworkTier::Premium => "PREMIUM",
-                NetworkTier::Standard => "STANDARD",
+                Self::UndefinedNetworkTier => "UNDEFINED_NETWORK_TIER",
+                Self::Premium => "PREMIUM",
+                Self::Standard => "STANDARD",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -247,11 +247,11 @@ pub mod address {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Purpose::UndefinedPurpose => "UNDEFINED_PURPOSE",
-                Purpose::DnsResolver => "DNS_RESOLVER",
-                Purpose::GceEndpoint => "GCE_ENDPOINT",
-                Purpose::NatAuto => "NAT_AUTO",
-                Purpose::VpcPeering => "VPC_PEERING",
+                Self::UndefinedPurpose => "UNDEFINED_PURPOSE",
+                Self::DnsResolver => "DNS_RESOLVER",
+                Self::GceEndpoint => "GCE_ENDPOINT",
+                Self::NatAuto => "NAT_AUTO",
+                Self::VpcPeering => "VPC_PEERING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -293,10 +293,10 @@ pub mod address {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Status::UndefinedStatus => "UNDEFINED_STATUS",
-                Status::InUse => "IN_USE",
-                Status::Reserved => "RESERVED",
-                Status::Reserving => "RESERVING",
+                Self::UndefinedStatus => "UNDEFINED_STATUS",
+                Self::InUse => "IN_USE",
+                Self::Reserved => "RESERVED",
+                Self::Reserving => "RESERVING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -630,10 +630,10 @@ pub mod operation {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Status::UndefinedStatus => "UNDEFINED_STATUS",
-                Status::Done => "DONE",
-                Status::Pending => "PENDING",
-                Status::Running => "RUNNING",
+                Self::UndefinedStatus => "UNDEFINED_STATUS",
+                Self::Done => "DONE",
+                Self::Pending => "PENDING",
+                Self::Running => "RUNNING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -725,34 +725,34 @@ pub mod warning {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Code::UndefinedCode => "UNDEFINED_CODE",
-                Code::CleanupFailed => "CLEANUP_FAILED",
-                Code::DeprecatedResourceUsed => "DEPRECATED_RESOURCE_USED",
-                Code::DeprecatedTypeUsed => "DEPRECATED_TYPE_USED",
-                Code::DiskSizeLargerThanImageSize => "DISK_SIZE_LARGER_THAN_IMAGE_SIZE",
-                Code::ExperimentalTypeUsed => "EXPERIMENTAL_TYPE_USED",
-                Code::ExternalApiWarning => "EXTERNAL_API_WARNING",
-                Code::FieldValueOverriden => "FIELD_VALUE_OVERRIDEN",
-                Code::InjectedKernelsDeprecated => "INJECTED_KERNELS_DEPRECATED",
-                Code::MissingTypeDependency => "MISSING_TYPE_DEPENDENCY",
-                Code::NextHopAddressNotAssigned => "NEXT_HOP_ADDRESS_NOT_ASSIGNED",
-                Code::NextHopCannotIpForward => "NEXT_HOP_CANNOT_IP_FORWARD",
-                Code::NextHopInstanceNotFound => "NEXT_HOP_INSTANCE_NOT_FOUND",
-                Code::NextHopInstanceNotOnNetwork => "NEXT_HOP_INSTANCE_NOT_ON_NETWORK",
-                Code::NextHopNotRunning => "NEXT_HOP_NOT_RUNNING",
-                Code::NotCriticalError => "NOT_CRITICAL_ERROR",
-                Code::NoResultsOnPage => "NO_RESULTS_ON_PAGE",
-                Code::RequiredTosAgreement => "REQUIRED_TOS_AGREEMENT",
-                Code::ResourceInUseByOtherResourceWarning => {
+                Self::UndefinedCode => "UNDEFINED_CODE",
+                Self::CleanupFailed => "CLEANUP_FAILED",
+                Self::DeprecatedResourceUsed => "DEPRECATED_RESOURCE_USED",
+                Self::DeprecatedTypeUsed => "DEPRECATED_TYPE_USED",
+                Self::DiskSizeLargerThanImageSize => "DISK_SIZE_LARGER_THAN_IMAGE_SIZE",
+                Self::ExperimentalTypeUsed => "EXPERIMENTAL_TYPE_USED",
+                Self::ExternalApiWarning => "EXTERNAL_API_WARNING",
+                Self::FieldValueOverriden => "FIELD_VALUE_OVERRIDEN",
+                Self::InjectedKernelsDeprecated => "INJECTED_KERNELS_DEPRECATED",
+                Self::MissingTypeDependency => "MISSING_TYPE_DEPENDENCY",
+                Self::NextHopAddressNotAssigned => "NEXT_HOP_ADDRESS_NOT_ASSIGNED",
+                Self::NextHopCannotIpForward => "NEXT_HOP_CANNOT_IP_FORWARD",
+                Self::NextHopInstanceNotFound => "NEXT_HOP_INSTANCE_NOT_FOUND",
+                Self::NextHopInstanceNotOnNetwork => "NEXT_HOP_INSTANCE_NOT_ON_NETWORK",
+                Self::NextHopNotRunning => "NEXT_HOP_NOT_RUNNING",
+                Self::NotCriticalError => "NOT_CRITICAL_ERROR",
+                Self::NoResultsOnPage => "NO_RESULTS_ON_PAGE",
+                Self::RequiredTosAgreement => "REQUIRED_TOS_AGREEMENT",
+                Self::ResourceInUseByOtherResourceWarning => {
                     "RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING"
                 }
-                Code::ResourceNotDeleted => "RESOURCE_NOT_DELETED",
-                Code::SchemaValidationIgnored => "SCHEMA_VALIDATION_IGNORED",
-                Code::SingleInstancePropertyTemplate => {
+                Self::ResourceNotDeleted => "RESOURCE_NOT_DELETED",
+                Self::SchemaValidationIgnored => "SCHEMA_VALIDATION_IGNORED",
+                Self::SingleInstancePropertyTemplate => {
                     "SINGLE_INSTANCE_PROPERTY_TEMPLATE"
                 }
-                Code::UndeclaredProperties => "UNDECLARED_PROPERTIES",
-                Code::Unreachable => "UNREACHABLE",
+                Self::UndeclaredProperties => "UNDECLARED_PROPERTIES",
+                Self::Unreachable => "UNREACHABLE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -859,34 +859,34 @@ pub mod warnings {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Code::UndefinedCode => "UNDEFINED_CODE",
-                Code::CleanupFailed => "CLEANUP_FAILED",
-                Code::DeprecatedResourceUsed => "DEPRECATED_RESOURCE_USED",
-                Code::DeprecatedTypeUsed => "DEPRECATED_TYPE_USED",
-                Code::DiskSizeLargerThanImageSize => "DISK_SIZE_LARGER_THAN_IMAGE_SIZE",
-                Code::ExperimentalTypeUsed => "EXPERIMENTAL_TYPE_USED",
-                Code::ExternalApiWarning => "EXTERNAL_API_WARNING",
-                Code::FieldValueOverriden => "FIELD_VALUE_OVERRIDEN",
-                Code::InjectedKernelsDeprecated => "INJECTED_KERNELS_DEPRECATED",
-                Code::MissingTypeDependency => "MISSING_TYPE_DEPENDENCY",
-                Code::NextHopAddressNotAssigned => "NEXT_HOP_ADDRESS_NOT_ASSIGNED",
-                Code::NextHopCannotIpForward => "NEXT_HOP_CANNOT_IP_FORWARD",
-                Code::NextHopInstanceNotFound => "NEXT_HOP_INSTANCE_NOT_FOUND",
-                Code::NextHopInstanceNotOnNetwork => "NEXT_HOP_INSTANCE_NOT_ON_NETWORK",
-                Code::NextHopNotRunning => "NEXT_HOP_NOT_RUNNING",
-                Code::NotCriticalError => "NOT_CRITICAL_ERROR",
-                Code::NoResultsOnPage => "NO_RESULTS_ON_PAGE",
-                Code::RequiredTosAgreement => "REQUIRED_TOS_AGREEMENT",
-                Code::ResourceInUseByOtherResourceWarning => {
+                Self::UndefinedCode => "UNDEFINED_CODE",
+                Self::CleanupFailed => "CLEANUP_FAILED",
+                Self::DeprecatedResourceUsed => "DEPRECATED_RESOURCE_USED",
+                Self::DeprecatedTypeUsed => "DEPRECATED_TYPE_USED",
+                Self::DiskSizeLargerThanImageSize => "DISK_SIZE_LARGER_THAN_IMAGE_SIZE",
+                Self::ExperimentalTypeUsed => "EXPERIMENTAL_TYPE_USED",
+                Self::ExternalApiWarning => "EXTERNAL_API_WARNING",
+                Self::FieldValueOverriden => "FIELD_VALUE_OVERRIDEN",
+                Self::InjectedKernelsDeprecated => "INJECTED_KERNELS_DEPRECATED",
+                Self::MissingTypeDependency => "MISSING_TYPE_DEPENDENCY",
+                Self::NextHopAddressNotAssigned => "NEXT_HOP_ADDRESS_NOT_ASSIGNED",
+                Self::NextHopCannotIpForward => "NEXT_HOP_CANNOT_IP_FORWARD",
+                Self::NextHopInstanceNotFound => "NEXT_HOP_INSTANCE_NOT_FOUND",
+                Self::NextHopInstanceNotOnNetwork => "NEXT_HOP_INSTANCE_NOT_ON_NETWORK",
+                Self::NextHopNotRunning => "NEXT_HOP_NOT_RUNNING",
+                Self::NotCriticalError => "NOT_CRITICAL_ERROR",
+                Self::NoResultsOnPage => "NO_RESULTS_ON_PAGE",
+                Self::RequiredTosAgreement => "REQUIRED_TOS_AGREEMENT",
+                Self::ResourceInUseByOtherResourceWarning => {
                     "RESOURCE_IN_USE_BY_OTHER_RESOURCE_WARNING"
                 }
-                Code::ResourceNotDeleted => "RESOURCE_NOT_DELETED",
-                Code::SchemaValidationIgnored => "SCHEMA_VALIDATION_IGNORED",
-                Code::SingleInstancePropertyTemplate => {
+                Self::ResourceNotDeleted => "RESOURCE_NOT_DELETED",
+                Self::SchemaValidationIgnored => "SCHEMA_VALIDATION_IGNORED",
+                Self::SingleInstancePropertyTemplate => {
                     "SINGLE_INSTANCE_PROPERTY_TEMPLATE"
                 }
-                Code::UndeclaredProperties => "UNDECLARED_PROPERTIES",
-                Code::Unreachable => "UNREACHABLE",
+                Self::UndeclaredProperties => "UNDECLARED_PROPERTIES",
+                Self::Unreachable => "UNREACHABLE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1250,5 +1250,559 @@ pub mod region_operations_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod addresses_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with AddressesServer.
+    #[async_trait]
+    pub trait Addresses: std::marker::Send + std::marker::Sync + 'static {
+        /// Retrieves an aggregated list of addresses.
+        async fn aggregated_list(
+            &self,
+            request: tonic::Request<super::AggregatedListAddressesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AddressAggregatedList>,
+            tonic::Status,
+        >;
+        /// Deletes the specified address resource.
+        async fn delete(
+            &self,
+            request: tonic::Request<super::DeleteAddressRequest>,
+        ) -> std::result::Result<tonic::Response<super::Operation>, tonic::Status>;
+        /// Creates an address resource in the specified project by using the data included in the request.
+        async fn insert(
+            &self,
+            request: tonic::Request<super::InsertAddressRequest>,
+        ) -> std::result::Result<tonic::Response<super::Operation>, tonic::Status>;
+        /// Retrieves a list of addresses contained within the specified region.
+        async fn list(
+            &self,
+            request: tonic::Request<super::ListAddressesRequest>,
+        ) -> std::result::Result<tonic::Response<super::AddressList>, tonic::Status>;
+    }
+    ///
+    /// Services
+    ///
+    /// The Addresses API.
+    #[derive(Debug)]
+    pub struct AddressesServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> AddressesServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for AddressesServer<T>
+    where
+        T: Addresses,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.compute.v1small.Addresses/AggregatedList" => {
+                    #[allow(non_camel_case_types)]
+                    struct AggregatedListSvc<T: Addresses>(pub Arc<T>);
+                    impl<
+                        T: Addresses,
+                    > tonic::server::UnaryService<super::AggregatedListAddressesRequest>
+                    for AggregatedListSvc<T> {
+                        type Response = super::AddressAggregatedList;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::AggregatedListAddressesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Addresses>::aggregated_list(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = AggregatedListSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.compute.v1small.Addresses/Delete" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteSvc<T: Addresses>(pub Arc<T>);
+                    impl<
+                        T: Addresses,
+                    > tonic::server::UnaryService<super::DeleteAddressRequest>
+                    for DeleteSvc<T> {
+                        type Response = super::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteAddressRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Addresses>::delete(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.compute.v1small.Addresses/Insert" => {
+                    #[allow(non_camel_case_types)]
+                    struct InsertSvc<T: Addresses>(pub Arc<T>);
+                    impl<
+                        T: Addresses,
+                    > tonic::server::UnaryService<super::InsertAddressRequest>
+                    for InsertSvc<T> {
+                        type Response = super::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::InsertAddressRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Addresses>::insert(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = InsertSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.compute.v1small.Addresses/List" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListSvc<T: Addresses>(pub Arc<T>);
+                    impl<
+                        T: Addresses,
+                    > tonic::server::UnaryService<super::ListAddressesRequest>
+                    for ListSvc<T> {
+                        type Response = super::AddressList;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListAddressesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Addresses>::list(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for AddressesServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.compute.v1small.Addresses";
+    impl<T> tonic::server::NamedService for AddressesServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}
+/// Generated server implementations.
+pub mod region_operations_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with RegionOperationsServer.
+    #[async_trait]
+    pub trait RegionOperations: std::marker::Send + std::marker::Sync + 'static {
+        /// Retrieves the specified region-specific Operations resource.
+        async fn get(
+            &self,
+            request: tonic::Request<super::GetRegionOperationRequest>,
+        ) -> std::result::Result<tonic::Response<super::Operation>, tonic::Status>;
+        /// Waits for the specified Operation resource to return as `DONE` or for the request to approach the 2 minute deadline, and retrieves the specified Operation resource. This method differs from the `GET` method in that it waits for no more than the default deadline (2 minutes) and then returns the current state of the operation, which might be `DONE` or still in progress.
+        ///
+        /// This method is called on a best-effort basis. Specifically:
+        /// - In uncommon cases, when the server is overloaded, the request might return before the default deadline is reached, or might return after zero seconds.
+        /// - If the default deadline is reached, there is no guarantee that the operation is actually done when the method returns. Be prepared to retry if the operation is not `DONE`.
+        async fn wait(
+            &self,
+            request: tonic::Request<super::WaitRegionOperationRequest>,
+        ) -> std::result::Result<tonic::Response<super::Operation>, tonic::Status>;
+    }
+    /// The RegionOperations API.
+    #[derive(Debug)]
+    pub struct RegionOperationsServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> RegionOperationsServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for RegionOperationsServer<T>
+    where
+        T: RegionOperations,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.compute.v1small.RegionOperations/Get" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetSvc<T: RegionOperations>(pub Arc<T>);
+                    impl<
+                        T: RegionOperations,
+                    > tonic::server::UnaryService<super::GetRegionOperationRequest>
+                    for GetSvc<T> {
+                        type Response = super::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetRegionOperationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RegionOperations>::get(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.compute.v1small.RegionOperations/Wait" => {
+                    #[allow(non_camel_case_types)]
+                    struct WaitSvc<T: RegionOperations>(pub Arc<T>);
+                    impl<
+                        T: RegionOperations,
+                    > tonic::server::UnaryService<super::WaitRegionOperationRequest>
+                    for WaitSvc<T> {
+                        type Response = super::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::WaitRegionOperationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RegionOperations>::wait(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = WaitSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for RegionOperationsServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.compute.v1small.RegionOperations";
+    impl<T> tonic::server::NamedService for RegionOperationsServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

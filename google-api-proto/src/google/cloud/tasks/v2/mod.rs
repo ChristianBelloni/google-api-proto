@@ -432,14 +432,14 @@ impl HttpMethod {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            HttpMethod::Unspecified => "HTTP_METHOD_UNSPECIFIED",
-            HttpMethod::Post => "POST",
-            HttpMethod::Get => "GET",
-            HttpMethod::Head => "HEAD",
-            HttpMethod::Put => "PUT",
-            HttpMethod::Delete => "DELETE",
-            HttpMethod::Patch => "PATCH",
-            HttpMethod::Options => "OPTIONS",
+            Self::Unspecified => "HTTP_METHOD_UNSPECIFIED",
+            Self::Post => "POST",
+            Self::Get => "GET",
+            Self::Head => "HEAD",
+            Self::Put => "PUT",
+            Self::Delete => "DELETE",
+            Self::Patch => "PATCH",
+            Self::Options => "OPTIONS",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -623,10 +623,10 @@ pub mod queue {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Running => "RUNNING",
-                State::Paused => "PAUSED",
-                State::Disabled => "DISABLED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Running => "RUNNING",
+                Self::Paused => "PAUSED",
+                Self::Disabled => "DISABLED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -981,9 +981,9 @@ pub mod task {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                View::Unspecified => "VIEW_UNSPECIFIED",
-                View::Basic => "BASIC",
-                View::Full => "FULL",
+                Self::Unspecified => "VIEW_UNSPECIFIED",
+                Self::Basic => "BASIC",
+                Self::Full => "FULL",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1983,5 +1983,1090 @@ pub mod cloud_tasks_client {
                 .insert(GrpcMethod::new("google.cloud.tasks.v2.CloudTasks", "RunTask"));
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod cloud_tasks_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with CloudTasksServer.
+    #[async_trait]
+    pub trait CloudTasks: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists queues.
+        ///
+        /// Queues are returned in lexicographical order.
+        async fn list_queues(
+            &self,
+            request: tonic::Request<super::ListQueuesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListQueuesResponse>,
+            tonic::Status,
+        >;
+        /// Gets a queue.
+        async fn get_queue(
+            &self,
+            request: tonic::Request<super::GetQueueRequest>,
+        ) -> std::result::Result<tonic::Response<super::Queue>, tonic::Status>;
+        /// Creates a queue.
+        ///
+        /// Queues created with this method allow tasks to live for a maximum of 31
+        /// days. After a task is 31 days old, the task will be deleted regardless of
+        /// whether it was dispatched or not.
+        ///
+        /// WARNING: Using this method may have unintended side effects if you are
+        /// using an App Engine `queue.yaml` or `queue.xml` file to manage your queues.
+        /// Read
+        /// [Overview of Queue Management and
+        /// queue.yaml](https://cloud.google.com/tasks/docs/queue-yaml) before using
+        /// this method.
+        async fn create_queue(
+            &self,
+            request: tonic::Request<super::CreateQueueRequest>,
+        ) -> std::result::Result<tonic::Response<super::Queue>, tonic::Status>;
+        /// Updates a queue.
+        ///
+        /// This method creates the queue if it does not exist and updates
+        /// the queue if it does exist.
+        ///
+        /// Queues created with this method allow tasks to live for a maximum of 31
+        /// days. After a task is 31 days old, the task will be deleted regardless of
+        /// whether it was dispatched or not.
+        ///
+        /// WARNING: Using this method may have unintended side effects if you are
+        /// using an App Engine `queue.yaml` or `queue.xml` file to manage your queues.
+        /// Read
+        /// [Overview of Queue Management and
+        /// queue.yaml](https://cloud.google.com/tasks/docs/queue-yaml) before using
+        /// this method.
+        async fn update_queue(
+            &self,
+            request: tonic::Request<super::UpdateQueueRequest>,
+        ) -> std::result::Result<tonic::Response<super::Queue>, tonic::Status>;
+        /// Deletes a queue.
+        ///
+        /// This command will delete the queue even if it has tasks in it.
+        ///
+        /// Note: If you delete a queue, a queue with the same name can't be created
+        /// for 7 days.
+        ///
+        /// WARNING: Using this method may have unintended side effects if you are
+        /// using an App Engine `queue.yaml` or `queue.xml` file to manage your queues.
+        /// Read
+        /// [Overview of Queue Management and
+        /// queue.yaml](https://cloud.google.com/tasks/docs/queue-yaml) before using
+        /// this method.
+        async fn delete_queue(
+            &self,
+            request: tonic::Request<super::DeleteQueueRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Purges a queue by deleting all of its tasks.
+        ///
+        /// All tasks created before this method is called are permanently deleted.
+        ///
+        /// Purge operations can take up to one minute to take effect. Tasks
+        /// might be dispatched before the purge takes effect. A purge is irreversible.
+        async fn purge_queue(
+            &self,
+            request: tonic::Request<super::PurgeQueueRequest>,
+        ) -> std::result::Result<tonic::Response<super::Queue>, tonic::Status>;
+        /// Pauses the queue.
+        ///
+        /// If a queue is paused then the system will stop dispatching tasks
+        /// until the queue is resumed via
+        /// [ResumeQueue][google.cloud.tasks.v2.CloudTasks.ResumeQueue]. Tasks can
+        /// still be added when the queue is paused. A queue is paused if its
+        /// [state][google.cloud.tasks.v2.Queue.state] is
+        /// [PAUSED][google.cloud.tasks.v2.Queue.State.PAUSED].
+        async fn pause_queue(
+            &self,
+            request: tonic::Request<super::PauseQueueRequest>,
+        ) -> std::result::Result<tonic::Response<super::Queue>, tonic::Status>;
+        /// Resume a queue.
+        ///
+        /// This method resumes a queue after it has been
+        /// [PAUSED][google.cloud.tasks.v2.Queue.State.PAUSED] or
+        /// [DISABLED][google.cloud.tasks.v2.Queue.State.DISABLED]. The state of a
+        /// queue is stored in the queue's [state][google.cloud.tasks.v2.Queue.state];
+        /// after calling this method it will be set to
+        /// [RUNNING][google.cloud.tasks.v2.Queue.State.RUNNING].
+        ///
+        /// WARNING: Resuming many high-QPS queues at the same time can
+        /// lead to target overloading. If you are resuming high-QPS
+        /// queues, follow the 500/50/5 pattern described in
+        /// [Managing Cloud Tasks Scaling
+        /// Risks](https://cloud.google.com/tasks/docs/manage-cloud-task-scaling).
+        async fn resume_queue(
+            &self,
+            request: tonic::Request<super::ResumeQueueRequest>,
+        ) -> std::result::Result<tonic::Response<super::Queue>, tonic::Status>;
+        /// Gets the access control policy for a [Queue][google.cloud.tasks.v2.Queue].
+        /// Returns an empty policy if the resource exists and does not have a policy
+        /// set.
+        ///
+        /// Authorization requires the following
+        /// [Google IAM](https://cloud.google.com/iam) permission on the specified
+        /// resource parent:
+        ///
+        /// * `cloudtasks.queues.getIamPolicy`
+        async fn get_iam_policy(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::iam::v1::GetIamPolicyRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::iam::v1::Policy>,
+            tonic::Status,
+        >;
+        /// Sets the access control policy for a [Queue][google.cloud.tasks.v2.Queue].
+        /// Replaces any existing policy.
+        ///
+        /// Note: The Cloud Console does not check queue-level IAM permissions yet.
+        /// Project-level permissions are required to use the Cloud Console.
+        ///
+        /// Authorization requires the following
+        /// [Google IAM](https://cloud.google.com/iam) permission on the specified
+        /// resource parent:
+        ///
+        /// * `cloudtasks.queues.setIamPolicy`
+        async fn set_iam_policy(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::iam::v1::SetIamPolicyRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::iam::v1::Policy>,
+            tonic::Status,
+        >;
+        /// Returns permissions that a caller has on a
+        /// [Queue][google.cloud.tasks.v2.Queue]. If the resource does not exist, this
+        /// will return an empty set of permissions, not a
+        /// [NOT_FOUND][google.rpc.Code.NOT_FOUND] error.
+        ///
+        /// Note: This operation is designed to be used for building permission-aware
+        /// UIs and command-line tools, not for authorization checking. This operation
+        /// may "fail open" without warning.
+        async fn test_iam_permissions(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::iam::v1::TestIamPermissionsRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<
+                super::super::super::super::iam::v1::TestIamPermissionsResponse,
+            >,
+            tonic::Status,
+        >;
+        /// Lists the tasks in a queue.
+        ///
+        /// By default, only the [BASIC][google.cloud.tasks.v2.Task.View.BASIC] view is
+        /// retrieved due to performance considerations;
+        /// [response_view][google.cloud.tasks.v2.ListTasksRequest.response_view]
+        /// controls the subset of information which is returned.
+        ///
+        /// The tasks may be returned in any order. The ordering may change at any
+        /// time.
+        async fn list_tasks(
+            &self,
+            request: tonic::Request<super::ListTasksRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListTasksResponse>,
+            tonic::Status,
+        >;
+        /// Gets a task.
+        async fn get_task(
+            &self,
+            request: tonic::Request<super::GetTaskRequest>,
+        ) -> std::result::Result<tonic::Response<super::Task>, tonic::Status>;
+        /// Creates a task and adds it to a queue.
+        ///
+        /// Tasks cannot be updated after creation; there is no UpdateTask command.
+        ///
+        /// * The maximum task size is 100KB.
+        async fn create_task(
+            &self,
+            request: tonic::Request<super::CreateTaskRequest>,
+        ) -> std::result::Result<tonic::Response<super::Task>, tonic::Status>;
+        /// Deletes a task.
+        ///
+        /// A task can be deleted if it is scheduled or dispatched. A task
+        /// cannot be deleted if it has executed successfully or permanently
+        /// failed.
+        async fn delete_task(
+            &self,
+            request: tonic::Request<super::DeleteTaskRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Forces a task to run now.
+        ///
+        /// When this method is called, Cloud Tasks will dispatch the task, even if
+        /// the task is already running, the queue has reached its
+        /// [RateLimits][google.cloud.tasks.v2.RateLimits] or is
+        /// [PAUSED][google.cloud.tasks.v2.Queue.State.PAUSED].
+        ///
+        /// This command is meant to be used for manual debugging. For
+        /// example, [RunTask][google.cloud.tasks.v2.CloudTasks.RunTask] can be used to
+        /// retry a failed task after a fix has been made or to manually force a task
+        /// to be dispatched now.
+        ///
+        /// The dispatched task is returned. That is, the task that is returned
+        /// contains the [status][Task.status] after the task is dispatched but
+        /// before the task is received by its target.
+        ///
+        /// If Cloud Tasks receives a successful response from the task's
+        /// target, then the task will be deleted; otherwise the task's
+        /// [schedule_time][google.cloud.tasks.v2.Task.schedule_time] will be reset to
+        /// the time that [RunTask][google.cloud.tasks.v2.CloudTasks.RunTask] was
+        /// called plus the retry delay specified in the queue's
+        /// [RetryConfig][google.cloud.tasks.v2.RetryConfig].
+        ///
+        /// [RunTask][google.cloud.tasks.v2.CloudTasks.RunTask] returns
+        /// [NOT_FOUND][google.rpc.Code.NOT_FOUND] when it is called on a
+        /// task that has already succeeded or permanently failed.
+        async fn run_task(
+            &self,
+            request: tonic::Request<super::RunTaskRequest>,
+        ) -> std::result::Result<tonic::Response<super::Task>, tonic::Status>;
+    }
+    /// Cloud Tasks allows developers to manage the execution of background
+    /// work in their applications.
+    #[derive(Debug)]
+    pub struct CloudTasksServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> CloudTasksServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for CloudTasksServer<T>
+    where
+        T: CloudTasks,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.tasks.v2.CloudTasks/ListQueues" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListQueuesSvc<T: CloudTasks>(pub Arc<T>);
+                    impl<
+                        T: CloudTasks,
+                    > tonic::server::UnaryService<super::ListQueuesRequest>
+                    for ListQueuesSvc<T> {
+                        type Response = super::ListQueuesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListQueuesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudTasks>::list_queues(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListQueuesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.tasks.v2.CloudTasks/GetQueue" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetQueueSvc<T: CloudTasks>(pub Arc<T>);
+                    impl<
+                        T: CloudTasks,
+                    > tonic::server::UnaryService<super::GetQueueRequest>
+                    for GetQueueSvc<T> {
+                        type Response = super::Queue;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetQueueRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudTasks>::get_queue(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetQueueSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.tasks.v2.CloudTasks/CreateQueue" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateQueueSvc<T: CloudTasks>(pub Arc<T>);
+                    impl<
+                        T: CloudTasks,
+                    > tonic::server::UnaryService<super::CreateQueueRequest>
+                    for CreateQueueSvc<T> {
+                        type Response = super::Queue;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateQueueRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudTasks>::create_queue(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateQueueSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.tasks.v2.CloudTasks/UpdateQueue" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateQueueSvc<T: CloudTasks>(pub Arc<T>);
+                    impl<
+                        T: CloudTasks,
+                    > tonic::server::UnaryService<super::UpdateQueueRequest>
+                    for UpdateQueueSvc<T> {
+                        type Response = super::Queue;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateQueueRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudTasks>::update_queue(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateQueueSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.tasks.v2.CloudTasks/DeleteQueue" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteQueueSvc<T: CloudTasks>(pub Arc<T>);
+                    impl<
+                        T: CloudTasks,
+                    > tonic::server::UnaryService<super::DeleteQueueRequest>
+                    for DeleteQueueSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteQueueRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudTasks>::delete_queue(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteQueueSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.tasks.v2.CloudTasks/PurgeQueue" => {
+                    #[allow(non_camel_case_types)]
+                    struct PurgeQueueSvc<T: CloudTasks>(pub Arc<T>);
+                    impl<
+                        T: CloudTasks,
+                    > tonic::server::UnaryService<super::PurgeQueueRequest>
+                    for PurgeQueueSvc<T> {
+                        type Response = super::Queue;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::PurgeQueueRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudTasks>::purge_queue(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = PurgeQueueSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.tasks.v2.CloudTasks/PauseQueue" => {
+                    #[allow(non_camel_case_types)]
+                    struct PauseQueueSvc<T: CloudTasks>(pub Arc<T>);
+                    impl<
+                        T: CloudTasks,
+                    > tonic::server::UnaryService<super::PauseQueueRequest>
+                    for PauseQueueSvc<T> {
+                        type Response = super::Queue;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::PauseQueueRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudTasks>::pause_queue(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = PauseQueueSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.tasks.v2.CloudTasks/ResumeQueue" => {
+                    #[allow(non_camel_case_types)]
+                    struct ResumeQueueSvc<T: CloudTasks>(pub Arc<T>);
+                    impl<
+                        T: CloudTasks,
+                    > tonic::server::UnaryService<super::ResumeQueueRequest>
+                    for ResumeQueueSvc<T> {
+                        type Response = super::Queue;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ResumeQueueRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudTasks>::resume_queue(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ResumeQueueSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.tasks.v2.CloudTasks/GetIamPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetIamPolicySvc<T: CloudTasks>(pub Arc<T>);
+                    impl<
+                        T: CloudTasks,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::iam::v1::GetIamPolicyRequest,
+                    > for GetIamPolicySvc<T> {
+                        type Response = super::super::super::super::iam::v1::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::iam::v1::GetIamPolicyRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudTasks>::get_iam_policy(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetIamPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.tasks.v2.CloudTasks/SetIamPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetIamPolicySvc<T: CloudTasks>(pub Arc<T>);
+                    impl<
+                        T: CloudTasks,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::iam::v1::SetIamPolicyRequest,
+                    > for SetIamPolicySvc<T> {
+                        type Response = super::super::super::super::iam::v1::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::iam::v1::SetIamPolicyRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudTasks>::set_iam_policy(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SetIamPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.tasks.v2.CloudTasks/TestIamPermissions" => {
+                    #[allow(non_camel_case_types)]
+                    struct TestIamPermissionsSvc<T: CloudTasks>(pub Arc<T>);
+                    impl<
+                        T: CloudTasks,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::iam::v1::TestIamPermissionsRequest,
+                    > for TestIamPermissionsSvc<T> {
+                        type Response = super::super::super::super::iam::v1::TestIamPermissionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::iam::v1::TestIamPermissionsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudTasks>::test_iam_permissions(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = TestIamPermissionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.tasks.v2.CloudTasks/ListTasks" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListTasksSvc<T: CloudTasks>(pub Arc<T>);
+                    impl<
+                        T: CloudTasks,
+                    > tonic::server::UnaryService<super::ListTasksRequest>
+                    for ListTasksSvc<T> {
+                        type Response = super::ListTasksResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListTasksRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudTasks>::list_tasks(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListTasksSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.tasks.v2.CloudTasks/GetTask" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetTaskSvc<T: CloudTasks>(pub Arc<T>);
+                    impl<
+                        T: CloudTasks,
+                    > tonic::server::UnaryService<super::GetTaskRequest>
+                    for GetTaskSvc<T> {
+                        type Response = super::Task;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetTaskRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudTasks>::get_task(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetTaskSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.tasks.v2.CloudTasks/CreateTask" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateTaskSvc<T: CloudTasks>(pub Arc<T>);
+                    impl<
+                        T: CloudTasks,
+                    > tonic::server::UnaryService<super::CreateTaskRequest>
+                    for CreateTaskSvc<T> {
+                        type Response = super::Task;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateTaskRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudTasks>::create_task(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateTaskSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.tasks.v2.CloudTasks/DeleteTask" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteTaskSvc<T: CloudTasks>(pub Arc<T>);
+                    impl<
+                        T: CloudTasks,
+                    > tonic::server::UnaryService<super::DeleteTaskRequest>
+                    for DeleteTaskSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteTaskRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudTasks>::delete_task(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteTaskSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.tasks.v2.CloudTasks/RunTask" => {
+                    #[allow(non_camel_case_types)]
+                    struct RunTaskSvc<T: CloudTasks>(pub Arc<T>);
+                    impl<
+                        T: CloudTasks,
+                    > tonic::server::UnaryService<super::RunTaskRequest>
+                    for RunTaskSvc<T> {
+                        type Response = super::Task;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RunTaskRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudTasks>::run_task(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RunTaskSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for CloudTasksServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.tasks.v2.CloudTasks";
+    impl<T> tonic::server::NamedService for CloudTasksServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

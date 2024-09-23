@@ -569,3 +569,615 @@ pub mod g_suite_add_ons_client {
         }
     }
 }
+/// Generated server implementations.
+pub mod g_suite_add_ons_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with GSuiteAddOnsServer.
+    #[async_trait]
+    pub trait GSuiteAddOns: std::marker::Send + std::marker::Sync + 'static {
+        /// Gets the authorization information for deployments in a given project.
+        async fn get_authorization(
+            &self,
+            request: tonic::Request<super::GetAuthorizationRequest>,
+        ) -> std::result::Result<tonic::Response<super::Authorization>, tonic::Status>;
+        /// Creates a deployment with the specified name and configuration.
+        async fn create_deployment(
+            &self,
+            request: tonic::Request<super::CreateDeploymentRequest>,
+        ) -> std::result::Result<tonic::Response<super::Deployment>, tonic::Status>;
+        /// Creates or replaces a deployment with the specified name.
+        async fn replace_deployment(
+            &self,
+            request: tonic::Request<super::ReplaceDeploymentRequest>,
+        ) -> std::result::Result<tonic::Response<super::Deployment>, tonic::Status>;
+        /// Gets the deployment with the specified name.
+        async fn get_deployment(
+            &self,
+            request: tonic::Request<super::GetDeploymentRequest>,
+        ) -> std::result::Result<tonic::Response<super::Deployment>, tonic::Status>;
+        /// Lists all deployments in a particular project.
+        async fn list_deployments(
+            &self,
+            request: tonic::Request<super::ListDeploymentsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDeploymentsResponse>,
+            tonic::Status,
+        >;
+        /// Deletes the deployment with the given name.
+        async fn delete_deployment(
+            &self,
+            request: tonic::Request<super::DeleteDeploymentRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Installs a deployment in developer mode.
+        /// See:
+        /// https://developers.google.com/gsuite/add-ons/how-tos/testing-gsuite-addons.
+        async fn install_deployment(
+            &self,
+            request: tonic::Request<super::InstallDeploymentRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Uninstalls a developer mode deployment.
+        /// See:
+        /// https://developers.google.com/gsuite/add-ons/how-tos/testing-gsuite-addons.
+        async fn uninstall_deployment(
+            &self,
+            request: tonic::Request<super::UninstallDeploymentRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Fetches the install status of a developer mode deployment.
+        async fn get_install_status(
+            &self,
+            request: tonic::Request<super::GetInstallStatusRequest>,
+        ) -> std::result::Result<tonic::Response<super::InstallStatus>, tonic::Status>;
+    }
+    /// A service for managing Google Workspace Add-ons deployments.
+    ///
+    /// A Google Workspace Add-on is a third-party embedded component that can be
+    /// installed in Google Workspace Applications like Gmail, Calendar, Drive, and
+    /// the Google Docs, Sheets, and Slides editors. Google Workspace Add-ons can
+    /// display UI cards, receive contextual information from the host application,
+    /// and perform actions in the host application (See:
+    /// https://developers.google.com/gsuite/add-ons/overview for more information).
+    ///
+    /// A Google Workspace Add-on deployment resource specifies metadata about the
+    /// add-on, including a specification of the entry points in the host application
+    /// that trigger add-on executions (see:
+    /// https://developers.google.com/gsuite/add-ons/concepts/gsuite-manifests).
+    /// Add-on deployments defined via the Google Workspace Add-ons API define their
+    /// entrypoints using HTTPS URLs (See:
+    /// https://developers.google.com/gsuite/add-ons/guides/alternate-runtimes),
+    ///
+    /// A Google Workspace Add-on deployment can be installed in developer mode,
+    /// which allows an add-on developer to test the experience an end-user would see
+    /// when installing and running the add-on in their G Suite applications.  When
+    /// running in developer mode, more detailed error messages are exposed in the
+    /// add-on UI to aid in debugging.
+    ///
+    /// A Google Workspace Add-on deployment can be published to Google Workspace
+    /// Marketplace, which allows other Google Workspace users to discover and
+    /// install the add-on.  See:
+    /// https://developers.google.com/gsuite/add-ons/how-tos/publish-add-on-overview
+    /// for details.
+    #[derive(Debug)]
+    pub struct GSuiteAddOnsServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> GSuiteAddOnsServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for GSuiteAddOnsServer<T>
+    where
+        T: GSuiteAddOns,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.gsuiteaddons.v1.GSuiteAddOns/GetAuthorization" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAuthorizationSvc<T: GSuiteAddOns>(pub Arc<T>);
+                    impl<
+                        T: GSuiteAddOns,
+                    > tonic::server::UnaryService<super::GetAuthorizationRequest>
+                    for GetAuthorizationSvc<T> {
+                        type Response = super::Authorization;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAuthorizationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GSuiteAddOns>::get_authorization(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAuthorizationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gsuiteaddons.v1.GSuiteAddOns/CreateDeployment" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateDeploymentSvc<T: GSuiteAddOns>(pub Arc<T>);
+                    impl<
+                        T: GSuiteAddOns,
+                    > tonic::server::UnaryService<super::CreateDeploymentRequest>
+                    for CreateDeploymentSvc<T> {
+                        type Response = super::Deployment;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateDeploymentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GSuiteAddOns>::create_deployment(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateDeploymentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gsuiteaddons.v1.GSuiteAddOns/ReplaceDeployment" => {
+                    #[allow(non_camel_case_types)]
+                    struct ReplaceDeploymentSvc<T: GSuiteAddOns>(pub Arc<T>);
+                    impl<
+                        T: GSuiteAddOns,
+                    > tonic::server::UnaryService<super::ReplaceDeploymentRequest>
+                    for ReplaceDeploymentSvc<T> {
+                        type Response = super::Deployment;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ReplaceDeploymentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GSuiteAddOns>::replace_deployment(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ReplaceDeploymentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gsuiteaddons.v1.GSuiteAddOns/GetDeployment" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetDeploymentSvc<T: GSuiteAddOns>(pub Arc<T>);
+                    impl<
+                        T: GSuiteAddOns,
+                    > tonic::server::UnaryService<super::GetDeploymentRequest>
+                    for GetDeploymentSvc<T> {
+                        type Response = super::Deployment;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetDeploymentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GSuiteAddOns>::get_deployment(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetDeploymentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gsuiteaddons.v1.GSuiteAddOns/ListDeployments" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDeploymentsSvc<T: GSuiteAddOns>(pub Arc<T>);
+                    impl<
+                        T: GSuiteAddOns,
+                    > tonic::server::UnaryService<super::ListDeploymentsRequest>
+                    for ListDeploymentsSvc<T> {
+                        type Response = super::ListDeploymentsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListDeploymentsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GSuiteAddOns>::list_deployments(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDeploymentsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gsuiteaddons.v1.GSuiteAddOns/DeleteDeployment" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteDeploymentSvc<T: GSuiteAddOns>(pub Arc<T>);
+                    impl<
+                        T: GSuiteAddOns,
+                    > tonic::server::UnaryService<super::DeleteDeploymentRequest>
+                    for DeleteDeploymentSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteDeploymentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GSuiteAddOns>::delete_deployment(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteDeploymentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gsuiteaddons.v1.GSuiteAddOns/InstallDeployment" => {
+                    #[allow(non_camel_case_types)]
+                    struct InstallDeploymentSvc<T: GSuiteAddOns>(pub Arc<T>);
+                    impl<
+                        T: GSuiteAddOns,
+                    > tonic::server::UnaryService<super::InstallDeploymentRequest>
+                    for InstallDeploymentSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::InstallDeploymentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GSuiteAddOns>::install_deployment(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = InstallDeploymentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gsuiteaddons.v1.GSuiteAddOns/UninstallDeployment" => {
+                    #[allow(non_camel_case_types)]
+                    struct UninstallDeploymentSvc<T: GSuiteAddOns>(pub Arc<T>);
+                    impl<
+                        T: GSuiteAddOns,
+                    > tonic::server::UnaryService<super::UninstallDeploymentRequest>
+                    for UninstallDeploymentSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UninstallDeploymentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GSuiteAddOns>::uninstall_deployment(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UninstallDeploymentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gsuiteaddons.v1.GSuiteAddOns/GetInstallStatus" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetInstallStatusSvc<T: GSuiteAddOns>(pub Arc<T>);
+                    impl<
+                        T: GSuiteAddOns,
+                    > tonic::server::UnaryService<super::GetInstallStatusRequest>
+                    for GetInstallStatusSvc<T> {
+                        type Response = super::InstallStatus;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetInstallStatusRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GSuiteAddOns>::get_install_status(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetInstallStatusSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for GSuiteAddOnsServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.gsuiteaddons.v1.GSuiteAddOns";
+    impl<T> tonic::server::NamedService for GSuiteAddOnsServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}

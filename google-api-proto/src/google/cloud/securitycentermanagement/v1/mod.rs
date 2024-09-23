@@ -107,11 +107,11 @@ pub mod security_center_service {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                EnablementState::Unspecified => "ENABLEMENT_STATE_UNSPECIFIED",
-                EnablementState::Inherited => "INHERITED",
-                EnablementState::Enabled => "ENABLED",
-                EnablementState::Disabled => "DISABLED",
-                EnablementState::IngestOnly => "INGEST_ONLY",
+                Self::Unspecified => "ENABLEMENT_STATE_UNSPECIFIED",
+                Self::Inherited => "INHERITED",
+                Self::Enabled => "ENABLED",
+                Self::Disabled => "DISABLED",
+                Self::IngestOnly => "INGEST_ONLY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -192,9 +192,9 @@ pub mod effective_security_health_analytics_custom_module {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                EnablementState::Unspecified => "ENABLEMENT_STATE_UNSPECIFIED",
-                EnablementState::Enabled => "ENABLED",
-                EnablementState::Disabled => "DISABLED",
+                Self::Unspecified => "ENABLEMENT_STATE_UNSPECIFIED",
+                Self::Enabled => "ENABLED",
+                Self::Disabled => "DISABLED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -332,10 +332,10 @@ pub mod security_health_analytics_custom_module {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                EnablementState::Unspecified => "ENABLEMENT_STATE_UNSPECIFIED",
-                EnablementState::Enabled => "ENABLED",
-                EnablementState::Disabled => "DISABLED",
-                EnablementState::Inherited => "INHERITED",
+                Self::Unspecified => "ENABLEMENT_STATE_UNSPECIFIED",
+                Self::Enabled => "ENABLED",
+                Self::Disabled => "DISABLED",
+                Self::Inherited => "INHERITED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -452,11 +452,11 @@ pub mod custom_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Severity::Unspecified => "SEVERITY_UNSPECIFIED",
-                Severity::Critical => "CRITICAL",
-                Severity::High => "HIGH",
-                Severity::Medium => "MEDIUM",
-                Severity::Low => "LOW",
+                Self::Unspecified => "SEVERITY_UNSPECIFIED",
+                Self::Critical => "CRITICAL",
+                Self::High => "HIGH",
+                Self::Medium => "MEDIUM",
+                Self::Low => "LOW",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -750,9 +750,9 @@ pub mod simulated_finding {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Active => "ACTIVE",
-                State::Inactive => "INACTIVE",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Active => "ACTIVE",
+                Self::Inactive => "INACTIVE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -839,11 +839,11 @@ pub mod simulated_finding {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Severity::Unspecified => "SEVERITY_UNSPECIFIED",
-                Severity::Critical => "CRITICAL",
-                Severity::High => "HIGH",
-                Severity::Medium => "MEDIUM",
-                Severity::Low => "LOW",
+                Self::Unspecified => "SEVERITY_UNSPECIFIED",
+                Self::Critical => "CRITICAL",
+                Self::High => "HIGH",
+                Self::Medium => "MEDIUM",
+                Self::Low => "LOW",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -900,14 +900,14 @@ pub mod simulated_finding {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                FindingClass::Unspecified => "FINDING_CLASS_UNSPECIFIED",
-                FindingClass::Threat => "THREAT",
-                FindingClass::Vulnerability => "VULNERABILITY",
-                FindingClass::Misconfiguration => "MISCONFIGURATION",
-                FindingClass::Observation => "OBSERVATION",
-                FindingClass::SccError => "SCC_ERROR",
-                FindingClass::PostureViolation => "POSTURE_VIOLATION",
-                FindingClass::ToxicCombination => "TOXIC_COMBINATION",
+                Self::Unspecified => "FINDING_CLASS_UNSPECIFIED",
+                Self::Threat => "THREAT",
+                Self::Vulnerability => "VULNERABILITY",
+                Self::Misconfiguration => "MISCONFIGURATION",
+                Self::Observation => "OBSERVATION",
+                Self::SccError => "SCC_ERROR",
+                Self::PostureViolation => "POSTURE_VIOLATION",
+                Self::ToxicCombination => "TOXIC_COMBINATION",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1029,9 +1029,9 @@ pub mod effective_event_threat_detection_custom_module {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                EnablementState::Unspecified => "ENABLEMENT_STATE_UNSPECIFIED",
-                EnablementState::Enabled => "ENABLED",
-                EnablementState::Disabled => "DISABLED",
+                Self::Unspecified => "ENABLEMENT_STATE_UNSPECIFIED",
+                Self::Enabled => "ENABLED",
+                Self::Disabled => "DISABLED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1174,10 +1174,10 @@ pub mod event_threat_detection_custom_module {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                EnablementState::Unspecified => "ENABLEMENT_STATE_UNSPECIFIED",
-                EnablementState::Enabled => "ENABLED",
-                EnablementState::Disabled => "DISABLED",
-                EnablementState::Inherited => "INHERITED",
+                Self::Unspecified => "ENABLEMENT_STATE_UNSPECIFIED",
+                Self::Enabled => "ENABLED",
+                Self::Disabled => "DISABLED",
+                Self::Inherited => "INHERITED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2296,5 +2296,1541 @@ pub mod security_center_management_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod security_center_management_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with SecurityCenterManagementServer.
+    #[async_trait]
+    pub trait SecurityCenterManagement: std::marker::Send + std::marker::Sync + 'static {
+        /// Returns a list of all EffectiveSecurityHealthAnalyticsCustomModules for the
+        /// given parent. This includes resident modules defined at the scope of the
+        /// parent, and inherited modules, inherited from CRM ancestors (no
+        /// descendants).
+        async fn list_effective_security_health_analytics_custom_modules(
+            &self,
+            request: tonic::Request<
+                super::ListEffectiveSecurityHealthAnalyticsCustomModulesRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<
+                super::ListEffectiveSecurityHealthAnalyticsCustomModulesResponse,
+            >,
+            tonic::Status,
+        >;
+        /// Gets details of a single EffectiveSecurityHealthAnalyticsCustomModule.
+        async fn get_effective_security_health_analytics_custom_module(
+            &self,
+            request: tonic::Request<
+                super::GetEffectiveSecurityHealthAnalyticsCustomModuleRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::EffectiveSecurityHealthAnalyticsCustomModule>,
+            tonic::Status,
+        >;
+        /// Returns a list of all SecurityHealthAnalyticsCustomModules for the given
+        /// parent. This includes resident modules defined at the scope of the parent,
+        /// and inherited modules, inherited from CRM ancestors (no descendants).
+        async fn list_security_health_analytics_custom_modules(
+            &self,
+            request: tonic::Request<
+                super::ListSecurityHealthAnalyticsCustomModulesRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::ListSecurityHealthAnalyticsCustomModulesResponse>,
+            tonic::Status,
+        >;
+        /// Returns a list of all resident SecurityHealthAnalyticsCustomModules under
+        /// the given CRM parent and all of the parent's CRM descendants.
+        async fn list_descendant_security_health_analytics_custom_modules(
+            &self,
+            request: tonic::Request<
+                super::ListDescendantSecurityHealthAnalyticsCustomModulesRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<
+                super::ListDescendantSecurityHealthAnalyticsCustomModulesResponse,
+            >,
+            tonic::Status,
+        >;
+        /// Retrieves a SecurityHealthAnalyticsCustomModule.
+        async fn get_security_health_analytics_custom_module(
+            &self,
+            request: tonic::Request<super::GetSecurityHealthAnalyticsCustomModuleRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SecurityHealthAnalyticsCustomModule>,
+            tonic::Status,
+        >;
+        /// Creates a resident SecurityHealthAnalyticsCustomModule at the scope of the
+        /// given CRM parent, and also creates inherited
+        /// SecurityHealthAnalyticsCustomModules for all CRM descendants of the given
+        /// parent. These modules are enabled by default.
+        async fn create_security_health_analytics_custom_module(
+            &self,
+            request: tonic::Request<
+                super::CreateSecurityHealthAnalyticsCustomModuleRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::SecurityHealthAnalyticsCustomModule>,
+            tonic::Status,
+        >;
+        /// Updates the SecurityHealthAnalyticsCustomModule under the given name based
+        /// on the given update mask. Updating the enablement state is supported on
+        /// both resident and inherited modules (though resident modules cannot have an
+        /// enablement state of "inherited"). Updating the display name and custom
+        /// config of a module is supported on resident modules only.
+        async fn update_security_health_analytics_custom_module(
+            &self,
+            request: tonic::Request<
+                super::UpdateSecurityHealthAnalyticsCustomModuleRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::SecurityHealthAnalyticsCustomModule>,
+            tonic::Status,
+        >;
+        /// Deletes the specified SecurityHealthAnalyticsCustomModule and all of its
+        /// descendants in the CRM hierarchy. This method is only supported for
+        /// resident custom modules.
+        async fn delete_security_health_analytics_custom_module(
+            &self,
+            request: tonic::Request<
+                super::DeleteSecurityHealthAnalyticsCustomModuleRequest,
+            >,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Simulates a given SecurityHealthAnalyticsCustomModule and Resource.
+        async fn simulate_security_health_analytics_custom_module(
+            &self,
+            request: tonic::Request<
+                super::SimulateSecurityHealthAnalyticsCustomModuleRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::SimulateSecurityHealthAnalyticsCustomModuleResponse>,
+            tonic::Status,
+        >;
+        /// Lists all effective Event Threat Detection custom modules for the
+        /// given parent. This includes resident modules defined at the scope of the
+        /// parent along with modules inherited from its ancestors.
+        async fn list_effective_event_threat_detection_custom_modules(
+            &self,
+            request: tonic::Request<
+                super::ListEffectiveEventThreatDetectionCustomModulesRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<
+                super::ListEffectiveEventThreatDetectionCustomModulesResponse,
+            >,
+            tonic::Status,
+        >;
+        /// Gets an effective ETD custom module. Retrieves the effective module at the
+        /// given level. The difference between an EffectiveCustomModule and a
+        /// CustomModule is that the fields for an EffectiveCustomModule are computed
+        /// from ancestors if needed. For example, the enablement_state for a
+        /// CustomModule can be either ENABLED, DISABLED, or INHERITED. Where as the
+        /// enablement_state for an EffectiveCustomModule is always computed to ENABLED
+        /// or DISABLED (the effective enablement_state).
+        async fn get_effective_event_threat_detection_custom_module(
+            &self,
+            request: tonic::Request<
+                super::GetEffectiveEventThreatDetectionCustomModuleRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::EffectiveEventThreatDetectionCustomModule>,
+            tonic::Status,
+        >;
+        /// Lists all Event Threat Detection custom modules for the given
+        /// Resource Manager parent. This includes resident modules defined at the
+        /// scope of the parent along with modules inherited from ancestors.
+        async fn list_event_threat_detection_custom_modules(
+            &self,
+            request: tonic::Request<super::ListEventThreatDetectionCustomModulesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListEventThreatDetectionCustomModulesResponse>,
+            tonic::Status,
+        >;
+        /// Lists all resident Event Threat Detection custom modules under the
+        /// given Resource Manager parent and its descendants.
+        async fn list_descendant_event_threat_detection_custom_modules(
+            &self,
+            request: tonic::Request<
+                super::ListDescendantEventThreatDetectionCustomModulesRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<
+                super::ListDescendantEventThreatDetectionCustomModulesResponse,
+            >,
+            tonic::Status,
+        >;
+        /// Gets an Event Threat Detection custom module.
+        async fn get_event_threat_detection_custom_module(
+            &self,
+            request: tonic::Request<super::GetEventThreatDetectionCustomModuleRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::EventThreatDetectionCustomModule>,
+            tonic::Status,
+        >;
+        /// Creates a resident Event Threat Detection custom module at the scope of the
+        /// given Resource Manager parent, and also creates inherited custom modules
+        /// for all descendants of the given parent. These modules are enabled by
+        /// default.
+        async fn create_event_threat_detection_custom_module(
+            &self,
+            request: tonic::Request<super::CreateEventThreatDetectionCustomModuleRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::EventThreatDetectionCustomModule>,
+            tonic::Status,
+        >;
+        /// Updates the Event Threat Detection custom module with the given name based
+        /// on the given update mask. Updating the enablement state is supported for
+        /// both resident and inherited modules (though resident modules cannot have an
+        /// enablement state of "inherited"). Updating the display name or
+        /// configuration of a module is supported for resident modules only. The type
+        /// of a module cannot be changed.
+        async fn update_event_threat_detection_custom_module(
+            &self,
+            request: tonic::Request<super::UpdateEventThreatDetectionCustomModuleRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::EventThreatDetectionCustomModule>,
+            tonic::Status,
+        >;
+        /// Deletes the specified Event Threat Detection custom module and all of its
+        /// descendants in the Resource Manager hierarchy. This method is only
+        /// supported for resident custom modules.
+        async fn delete_event_threat_detection_custom_module(
+            &self,
+            request: tonic::Request<super::DeleteEventThreatDetectionCustomModuleRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Validates the given Event Threat Detection custom module.
+        async fn validate_event_threat_detection_custom_module(
+            &self,
+            request: tonic::Request<
+                super::ValidateEventThreatDetectionCustomModuleRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::ValidateEventThreatDetectionCustomModuleResponse>,
+            tonic::Status,
+        >;
+        /// Gets service settings for the specified Security Command Center service.
+        async fn get_security_center_service(
+            &self,
+            request: tonic::Request<super::GetSecurityCenterServiceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SecurityCenterService>,
+            tonic::Status,
+        >;
+        /// Returns a list of all Security Command Center services for the given
+        /// parent.
+        async fn list_security_center_services(
+            &self,
+            request: tonic::Request<super::ListSecurityCenterServicesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListSecurityCenterServicesResponse>,
+            tonic::Status,
+        >;
+        /// Updates a Security Command Center service using the given update mask.
+        async fn update_security_center_service(
+            &self,
+            request: tonic::Request<super::UpdateSecurityCenterServiceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SecurityCenterService>,
+            tonic::Status,
+        >;
+    }
+    /// Service describing handlers for resources
+    #[derive(Debug)]
+    pub struct SecurityCenterManagementServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> SecurityCenterManagementServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for SecurityCenterManagementServer<T>
+    where
+        T: SecurityCenterManagement,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.securitycentermanagement.v1.SecurityCenterManagement/ListEffectiveSecurityHealthAnalyticsCustomModules" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListEffectiveSecurityHealthAnalyticsCustomModulesSvc<
+                        T: SecurityCenterManagement,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: SecurityCenterManagement,
+                    > tonic::server::UnaryService<
+                        super::ListEffectiveSecurityHealthAnalyticsCustomModulesRequest,
+                    > for ListEffectiveSecurityHealthAnalyticsCustomModulesSvc<T> {
+                        type Response = super::ListEffectiveSecurityHealthAnalyticsCustomModulesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListEffectiveSecurityHealthAnalyticsCustomModulesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecurityCenterManagement>::list_effective_security_health_analytics_custom_modules(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListEffectiveSecurityHealthAnalyticsCustomModulesSvc(
+                            inner,
+                        );
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.securitycentermanagement.v1.SecurityCenterManagement/GetEffectiveSecurityHealthAnalyticsCustomModule" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetEffectiveSecurityHealthAnalyticsCustomModuleSvc<
+                        T: SecurityCenterManagement,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: SecurityCenterManagement,
+                    > tonic::server::UnaryService<
+                        super::GetEffectiveSecurityHealthAnalyticsCustomModuleRequest,
+                    > for GetEffectiveSecurityHealthAnalyticsCustomModuleSvc<T> {
+                        type Response = super::EffectiveSecurityHealthAnalyticsCustomModule;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetEffectiveSecurityHealthAnalyticsCustomModuleRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecurityCenterManagement>::get_effective_security_health_analytics_custom_module(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetEffectiveSecurityHealthAnalyticsCustomModuleSvc(
+                            inner,
+                        );
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.securitycentermanagement.v1.SecurityCenterManagement/ListSecurityHealthAnalyticsCustomModules" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListSecurityHealthAnalyticsCustomModulesSvc<
+                        T: SecurityCenterManagement,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: SecurityCenterManagement,
+                    > tonic::server::UnaryService<
+                        super::ListSecurityHealthAnalyticsCustomModulesRequest,
+                    > for ListSecurityHealthAnalyticsCustomModulesSvc<T> {
+                        type Response = super::ListSecurityHealthAnalyticsCustomModulesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListSecurityHealthAnalyticsCustomModulesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecurityCenterManagement>::list_security_health_analytics_custom_modules(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListSecurityHealthAnalyticsCustomModulesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.securitycentermanagement.v1.SecurityCenterManagement/ListDescendantSecurityHealthAnalyticsCustomModules" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDescendantSecurityHealthAnalyticsCustomModulesSvc<
+                        T: SecurityCenterManagement,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: SecurityCenterManagement,
+                    > tonic::server::UnaryService<
+                        super::ListDescendantSecurityHealthAnalyticsCustomModulesRequest,
+                    > for ListDescendantSecurityHealthAnalyticsCustomModulesSvc<T> {
+                        type Response = super::ListDescendantSecurityHealthAnalyticsCustomModulesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListDescendantSecurityHealthAnalyticsCustomModulesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecurityCenterManagement>::list_descendant_security_health_analytics_custom_modules(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDescendantSecurityHealthAnalyticsCustomModulesSvc(
+                            inner,
+                        );
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.securitycentermanagement.v1.SecurityCenterManagement/GetSecurityHealthAnalyticsCustomModule" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetSecurityHealthAnalyticsCustomModuleSvc<
+                        T: SecurityCenterManagement,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: SecurityCenterManagement,
+                    > tonic::server::UnaryService<
+                        super::GetSecurityHealthAnalyticsCustomModuleRequest,
+                    > for GetSecurityHealthAnalyticsCustomModuleSvc<T> {
+                        type Response = super::SecurityHealthAnalyticsCustomModule;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetSecurityHealthAnalyticsCustomModuleRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecurityCenterManagement>::get_security_health_analytics_custom_module(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetSecurityHealthAnalyticsCustomModuleSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.securitycentermanagement.v1.SecurityCenterManagement/CreateSecurityHealthAnalyticsCustomModule" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateSecurityHealthAnalyticsCustomModuleSvc<
+                        T: SecurityCenterManagement,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: SecurityCenterManagement,
+                    > tonic::server::UnaryService<
+                        super::CreateSecurityHealthAnalyticsCustomModuleRequest,
+                    > for CreateSecurityHealthAnalyticsCustomModuleSvc<T> {
+                        type Response = super::SecurityHealthAnalyticsCustomModule;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateSecurityHealthAnalyticsCustomModuleRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecurityCenterManagement>::create_security_health_analytics_custom_module(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateSecurityHealthAnalyticsCustomModuleSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.securitycentermanagement.v1.SecurityCenterManagement/UpdateSecurityHealthAnalyticsCustomModule" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateSecurityHealthAnalyticsCustomModuleSvc<
+                        T: SecurityCenterManagement,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: SecurityCenterManagement,
+                    > tonic::server::UnaryService<
+                        super::UpdateSecurityHealthAnalyticsCustomModuleRequest,
+                    > for UpdateSecurityHealthAnalyticsCustomModuleSvc<T> {
+                        type Response = super::SecurityHealthAnalyticsCustomModule;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::UpdateSecurityHealthAnalyticsCustomModuleRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecurityCenterManagement>::update_security_health_analytics_custom_module(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateSecurityHealthAnalyticsCustomModuleSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.securitycentermanagement.v1.SecurityCenterManagement/DeleteSecurityHealthAnalyticsCustomModule" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteSecurityHealthAnalyticsCustomModuleSvc<
+                        T: SecurityCenterManagement,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: SecurityCenterManagement,
+                    > tonic::server::UnaryService<
+                        super::DeleteSecurityHealthAnalyticsCustomModuleRequest,
+                    > for DeleteSecurityHealthAnalyticsCustomModuleSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteSecurityHealthAnalyticsCustomModuleRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecurityCenterManagement>::delete_security_health_analytics_custom_module(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteSecurityHealthAnalyticsCustomModuleSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.securitycentermanagement.v1.SecurityCenterManagement/SimulateSecurityHealthAnalyticsCustomModule" => {
+                    #[allow(non_camel_case_types)]
+                    struct SimulateSecurityHealthAnalyticsCustomModuleSvc<
+                        T: SecurityCenterManagement,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: SecurityCenterManagement,
+                    > tonic::server::UnaryService<
+                        super::SimulateSecurityHealthAnalyticsCustomModuleRequest,
+                    > for SimulateSecurityHealthAnalyticsCustomModuleSvc<T> {
+                        type Response = super::SimulateSecurityHealthAnalyticsCustomModuleResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::SimulateSecurityHealthAnalyticsCustomModuleRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecurityCenterManagement>::simulate_security_health_analytics_custom_module(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SimulateSecurityHealthAnalyticsCustomModuleSvc(
+                            inner,
+                        );
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.securitycentermanagement.v1.SecurityCenterManagement/ListEffectiveEventThreatDetectionCustomModules" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListEffectiveEventThreatDetectionCustomModulesSvc<
+                        T: SecurityCenterManagement,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: SecurityCenterManagement,
+                    > tonic::server::UnaryService<
+                        super::ListEffectiveEventThreatDetectionCustomModulesRequest,
+                    > for ListEffectiveEventThreatDetectionCustomModulesSvc<T> {
+                        type Response = super::ListEffectiveEventThreatDetectionCustomModulesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListEffectiveEventThreatDetectionCustomModulesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecurityCenterManagement>::list_effective_event_threat_detection_custom_modules(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListEffectiveEventThreatDetectionCustomModulesSvc(
+                            inner,
+                        );
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.securitycentermanagement.v1.SecurityCenterManagement/GetEffectiveEventThreatDetectionCustomModule" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetEffectiveEventThreatDetectionCustomModuleSvc<
+                        T: SecurityCenterManagement,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: SecurityCenterManagement,
+                    > tonic::server::UnaryService<
+                        super::GetEffectiveEventThreatDetectionCustomModuleRequest,
+                    > for GetEffectiveEventThreatDetectionCustomModuleSvc<T> {
+                        type Response = super::EffectiveEventThreatDetectionCustomModule;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetEffectiveEventThreatDetectionCustomModuleRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecurityCenterManagement>::get_effective_event_threat_detection_custom_module(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetEffectiveEventThreatDetectionCustomModuleSvc(
+                            inner,
+                        );
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.securitycentermanagement.v1.SecurityCenterManagement/ListEventThreatDetectionCustomModules" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListEventThreatDetectionCustomModulesSvc<
+                        T: SecurityCenterManagement,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: SecurityCenterManagement,
+                    > tonic::server::UnaryService<
+                        super::ListEventThreatDetectionCustomModulesRequest,
+                    > for ListEventThreatDetectionCustomModulesSvc<T> {
+                        type Response = super::ListEventThreatDetectionCustomModulesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListEventThreatDetectionCustomModulesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecurityCenterManagement>::list_event_threat_detection_custom_modules(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListEventThreatDetectionCustomModulesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.securitycentermanagement.v1.SecurityCenterManagement/ListDescendantEventThreatDetectionCustomModules" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDescendantEventThreatDetectionCustomModulesSvc<
+                        T: SecurityCenterManagement,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: SecurityCenterManagement,
+                    > tonic::server::UnaryService<
+                        super::ListDescendantEventThreatDetectionCustomModulesRequest,
+                    > for ListDescendantEventThreatDetectionCustomModulesSvc<T> {
+                        type Response = super::ListDescendantEventThreatDetectionCustomModulesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListDescendantEventThreatDetectionCustomModulesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecurityCenterManagement>::list_descendant_event_threat_detection_custom_modules(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDescendantEventThreatDetectionCustomModulesSvc(
+                            inner,
+                        );
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.securitycentermanagement.v1.SecurityCenterManagement/GetEventThreatDetectionCustomModule" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetEventThreatDetectionCustomModuleSvc<
+                        T: SecurityCenterManagement,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: SecurityCenterManagement,
+                    > tonic::server::UnaryService<
+                        super::GetEventThreatDetectionCustomModuleRequest,
+                    > for GetEventThreatDetectionCustomModuleSvc<T> {
+                        type Response = super::EventThreatDetectionCustomModule;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetEventThreatDetectionCustomModuleRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecurityCenterManagement>::get_event_threat_detection_custom_module(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetEventThreatDetectionCustomModuleSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.securitycentermanagement.v1.SecurityCenterManagement/CreateEventThreatDetectionCustomModule" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateEventThreatDetectionCustomModuleSvc<
+                        T: SecurityCenterManagement,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: SecurityCenterManagement,
+                    > tonic::server::UnaryService<
+                        super::CreateEventThreatDetectionCustomModuleRequest,
+                    > for CreateEventThreatDetectionCustomModuleSvc<T> {
+                        type Response = super::EventThreatDetectionCustomModule;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateEventThreatDetectionCustomModuleRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecurityCenterManagement>::create_event_threat_detection_custom_module(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateEventThreatDetectionCustomModuleSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.securitycentermanagement.v1.SecurityCenterManagement/UpdateEventThreatDetectionCustomModule" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateEventThreatDetectionCustomModuleSvc<
+                        T: SecurityCenterManagement,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: SecurityCenterManagement,
+                    > tonic::server::UnaryService<
+                        super::UpdateEventThreatDetectionCustomModuleRequest,
+                    > for UpdateEventThreatDetectionCustomModuleSvc<T> {
+                        type Response = super::EventThreatDetectionCustomModule;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::UpdateEventThreatDetectionCustomModuleRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecurityCenterManagement>::update_event_threat_detection_custom_module(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateEventThreatDetectionCustomModuleSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.securitycentermanagement.v1.SecurityCenterManagement/DeleteEventThreatDetectionCustomModule" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteEventThreatDetectionCustomModuleSvc<
+                        T: SecurityCenterManagement,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: SecurityCenterManagement,
+                    > tonic::server::UnaryService<
+                        super::DeleteEventThreatDetectionCustomModuleRequest,
+                    > for DeleteEventThreatDetectionCustomModuleSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteEventThreatDetectionCustomModuleRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecurityCenterManagement>::delete_event_threat_detection_custom_module(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteEventThreatDetectionCustomModuleSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.securitycentermanagement.v1.SecurityCenterManagement/ValidateEventThreatDetectionCustomModule" => {
+                    #[allow(non_camel_case_types)]
+                    struct ValidateEventThreatDetectionCustomModuleSvc<
+                        T: SecurityCenterManagement,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: SecurityCenterManagement,
+                    > tonic::server::UnaryService<
+                        super::ValidateEventThreatDetectionCustomModuleRequest,
+                    > for ValidateEventThreatDetectionCustomModuleSvc<T> {
+                        type Response = super::ValidateEventThreatDetectionCustomModuleResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ValidateEventThreatDetectionCustomModuleRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecurityCenterManagement>::validate_event_threat_detection_custom_module(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ValidateEventThreatDetectionCustomModuleSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.securitycentermanagement.v1.SecurityCenterManagement/GetSecurityCenterService" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetSecurityCenterServiceSvc<T: SecurityCenterManagement>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: SecurityCenterManagement,
+                    > tonic::server::UnaryService<super::GetSecurityCenterServiceRequest>
+                    for GetSecurityCenterServiceSvc<T> {
+                        type Response = super::SecurityCenterService;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetSecurityCenterServiceRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecurityCenterManagement>::get_security_center_service(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetSecurityCenterServiceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.securitycentermanagement.v1.SecurityCenterManagement/ListSecurityCenterServices" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListSecurityCenterServicesSvc<T: SecurityCenterManagement>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: SecurityCenterManagement,
+                    > tonic::server::UnaryService<
+                        super::ListSecurityCenterServicesRequest,
+                    > for ListSecurityCenterServicesSvc<T> {
+                        type Response = super::ListSecurityCenterServicesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListSecurityCenterServicesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecurityCenterManagement>::list_security_center_services(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListSecurityCenterServicesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.securitycentermanagement.v1.SecurityCenterManagement/UpdateSecurityCenterService" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateSecurityCenterServiceSvc<T: SecurityCenterManagement>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: SecurityCenterManagement,
+                    > tonic::server::UnaryService<
+                        super::UpdateSecurityCenterServiceRequest,
+                    > for UpdateSecurityCenterServiceSvc<T> {
+                        type Response = super::SecurityCenterService;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::UpdateSecurityCenterServiceRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecurityCenterManagement>::update_security_center_service(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateSecurityCenterServiceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for SecurityCenterManagementServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.securitycentermanagement.v1.SecurityCenterManagement";
+    impl<T> tonic::server::NamedService for SecurityCenterManagementServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

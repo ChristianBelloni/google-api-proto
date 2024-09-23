@@ -82,8 +82,8 @@ pub mod basic_level {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ConditionCombiningFunction::And => "AND",
-                ConditionCombiningFunction::Or => "OR",
+                Self::And => "AND",
+                Self::Or => "OR",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -249,6 +249,33 @@ pub struct AccessPolicy {
     #[prost(string, tag = "6")]
     pub etag: ::prost::alloc::string::String,
 }
+/// Restricts access to Cloud Console and Google Cloud APIs for a set of users
+/// using Context-Aware Access.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GcpUserAccessBinding {
+    /// Immutable. Assigned by the server during creation. The last segment has an arbitrary
+    /// length and has only URI unreserved characters (as defined by
+    /// [RFC 3986 Section 2.3](<https://tools.ietf.org/html/rfc3986#section-2.3>)).
+    /// Should not be specified by the client during creation.
+    /// Example: "organizations/256/gcpUserAccessBindings/b3-BhcX_Ud5N"
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// Required. Immutable. Google Group id whose members are subject to this binding's restrictions.
+    /// See "id" in the \[G Suite Directory API's Groups resource\]
+    /// (<https://developers.google.com/admin-sdk/directory/v1/reference/groups#resource>).
+    /// If a group's email address/alias is changed, this resource will continue
+    /// to point at the changed group. This field does not accept group email
+    /// addresses or aliases.
+    /// Example: "01d520gv4vjcrht"
+    #[prost(string, tag = "2")]
+    pub group_key: ::prost::alloc::string::String,
+    /// Required. Access level that a user must have to be granted access. Only one access
+    /// level is supported, not multiple. This repeated field must have exactly
+    /// one element.
+    /// Example: "accessPolicies/9522/accessLevels/device_trusted"
+    #[prost(string, repeated, tag = "3")]
+    pub access_levels: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
 /// `ServicePerimeter` describes a set of Google Cloud resources which can freely
 /// import and export data amongst themselves, but not export outside of the
 /// `ServicePerimeter`. If a request with a source within this `ServicePerimeter`
@@ -354,8 +381,8 @@ pub mod service_perimeter {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                PerimeterType::Regular => "PERIMETER_TYPE_REGULAR",
-                PerimeterType::Bridge => "PERIMETER_TYPE_BRIDGE",
+                Self::Regular => "PERIMETER_TYPE_REGULAR",
+                Self::Bridge => "PERIMETER_TYPE_BRIDGE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -771,10 +798,10 @@ pub mod service_perimeter_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                IdentityType::Unspecified => "IDENTITY_TYPE_UNSPECIFIED",
-                IdentityType::AnyIdentity => "ANY_IDENTITY",
-                IdentityType::AnyUserAccount => "ANY_USER_ACCOUNT",
-                IdentityType::AnyServiceAccount => "ANY_SERVICE_ACCOUNT",
+                Self::Unspecified => "IDENTITY_TYPE_UNSPECIFIED",
+                Self::AnyIdentity => "ANY_IDENTITY",
+                Self::AnyUserAccount => "ANY_USER_ACCOUNT",
+                Self::AnyServiceAccount => "ANY_SERVICE_ACCOUNT",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -788,33 +815,6 @@ pub mod service_perimeter_config {
             }
         }
     }
-}
-/// Restricts access to Cloud Console and Google Cloud APIs for a set of users
-/// using Context-Aware Access.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GcpUserAccessBinding {
-    /// Immutable. Assigned by the server during creation. The last segment has an arbitrary
-    /// length and has only URI unreserved characters (as defined by
-    /// [RFC 3986 Section 2.3](<https://tools.ietf.org/html/rfc3986#section-2.3>)).
-    /// Should not be specified by the client during creation.
-    /// Example: "organizations/256/gcpUserAccessBindings/b3-BhcX_Ud5N"
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// Required. Immutable. Google Group id whose members are subject to this binding's restrictions.
-    /// See "id" in the \[G Suite Directory API's Groups resource\]
-    /// (<https://developers.google.com/admin-sdk/directory/v1/reference/groups#resource>).
-    /// If a group's email address/alias is changed, this resource will continue
-    /// to point at the changed group. This field does not accept group email
-    /// addresses or aliases.
-    /// Example: "01d520gv4vjcrht"
-    #[prost(string, tag = "2")]
-    pub group_key: ::prost::alloc::string::String,
-    /// Required. Access level that a user must have to be granted access. Only one access
-    /// level is supported, not multiple. This repeated field must have exactly
-    /// one element.
-    /// Example: "accessPolicies/9522/accessLevels/device_trusted"
-    #[prost(string, repeated, tag = "3")]
-    pub access_levels: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// A request to list all `AccessPolicies` for a container.
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1271,9 +1271,9 @@ impl LevelFormat {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            LevelFormat::Unspecified => "LEVEL_FORMAT_UNSPECIFIED",
-            LevelFormat::AsDefined => "AS_DEFINED",
-            LevelFormat::Cel => "CEL",
+            Self::Unspecified => "LEVEL_FORMAT_UNSPECIFIED",
+            Self::AsDefined => "AS_DEFINED",
+            Self::Cel => "CEL",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2314,5 +2314,1797 @@ pub mod access_context_manager_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod access_context_manager_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with AccessContextManagerServer.
+    #[async_trait]
+    pub trait AccessContextManager: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists all [access policies]
+        /// [google.identity.accesscontextmanager.v1.AccessPolicy] in an
+        /// organization.
+        async fn list_access_policies(
+            &self,
+            request: tonic::Request<super::ListAccessPoliciesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAccessPoliciesResponse>,
+            tonic::Status,
+        >;
+        /// Returns an [access policy]
+        /// [google.identity.accesscontextmanager.v1.AccessPolicy] based on the name.
+        async fn get_access_policy(
+            &self,
+            request: tonic::Request<super::GetAccessPolicyRequest>,
+        ) -> std::result::Result<tonic::Response<super::AccessPolicy>, tonic::Status>;
+        /// Creates an access policy. This method fails if the organization already has
+        /// an access policy. The long-running operation has a successful status
+        /// after the access policy propagates to long-lasting storage.
+        /// Syntactic and basic semantic errors are returned in `metadata` as a
+        /// BadRequest proto.
+        async fn create_access_policy(
+            &self,
+            request: tonic::Request<super::AccessPolicy>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates an [access policy]
+        /// [google.identity.accesscontextmanager.v1.AccessPolicy]. The
+        /// long-running operation from this RPC has a successful status after the
+        /// changes to the [access policy]
+        /// [google.identity.accesscontextmanager.v1.AccessPolicy] propagate
+        /// to long-lasting storage.
+        async fn update_access_policy(
+            &self,
+            request: tonic::Request<super::UpdateAccessPolicyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes an [access policy]
+        /// [google.identity.accesscontextmanager.v1.AccessPolicy] based on the
+        /// resource name. The long-running operation has a successful status after the
+        /// [access policy] [google.identity.accesscontextmanager.v1.AccessPolicy]
+        /// is removed from long-lasting storage.
+        async fn delete_access_policy(
+            &self,
+            request: tonic::Request<super::DeleteAccessPolicyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists all [access levels]
+        /// [google.identity.accesscontextmanager.v1.AccessLevel] for an access
+        /// policy.
+        async fn list_access_levels(
+            &self,
+            request: tonic::Request<super::ListAccessLevelsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAccessLevelsResponse>,
+            tonic::Status,
+        >;
+        /// Gets an [access level]
+        /// [google.identity.accesscontextmanager.v1.AccessLevel] based on the resource
+        /// name.
+        async fn get_access_level(
+            &self,
+            request: tonic::Request<super::GetAccessLevelRequest>,
+        ) -> std::result::Result<tonic::Response<super::AccessLevel>, tonic::Status>;
+        /// Creates an [access level]
+        /// [google.identity.accesscontextmanager.v1.AccessLevel]. The long-running
+        /// operation from this RPC has a successful status after the [access
+        /// level] [google.identity.accesscontextmanager.v1.AccessLevel]
+        /// propagates to long-lasting storage. If [access levels]
+        /// [google.identity.accesscontextmanager.v1.AccessLevel] contain
+        /// errors, an error response is returned for the first error encountered.
+        async fn create_access_level(
+            &self,
+            request: tonic::Request<super::CreateAccessLevelRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates an [access level]
+        /// [google.identity.accesscontextmanager.v1.AccessLevel]. The long-running
+        /// operation from this RPC has a successful status after the changes to
+        /// the [access level]
+        /// [google.identity.accesscontextmanager.v1.AccessLevel] propagate
+        /// to long-lasting storage. If [access levels]
+        /// [google.identity.accesscontextmanager.v1.AccessLevel] contain
+        /// errors, an error response is returned for the first error encountered.
+        async fn update_access_level(
+            &self,
+            request: tonic::Request<super::UpdateAccessLevelRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes an [access level]
+        /// [google.identity.accesscontextmanager.v1.AccessLevel] based on the resource
+        /// name. The long-running operation from this RPC has a successful status
+        /// after the [access level]
+        /// [google.identity.accesscontextmanager.v1.AccessLevel] has been removed
+        /// from long-lasting storage.
+        async fn delete_access_level(
+            &self,
+            request: tonic::Request<super::DeleteAccessLevelRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Replaces all existing [access levels]
+        /// [google.identity.accesscontextmanager.v1.AccessLevel] in an [access
+        /// policy] [google.identity.accesscontextmanager.v1.AccessPolicy] with
+        /// the [access levels]
+        /// [google.identity.accesscontextmanager.v1.AccessLevel] provided. This
+        /// is done atomically. The long-running operation from this RPC has a
+        /// successful status after all replacements propagate to long-lasting
+        /// storage. If the replacement contains errors, an error response is returned
+        /// for the first error encountered.  Upon error, the replacement is cancelled,
+        /// and existing [access levels]
+        /// [google.identity.accesscontextmanager.v1.AccessLevel] are not
+        /// affected. The Operation.response field contains
+        /// ReplaceAccessLevelsResponse. Removing [access levels]
+        /// [google.identity.accesscontextmanager.v1.AccessLevel] contained in existing
+        /// [service perimeters]
+        /// [google.identity.accesscontextmanager.v1.ServicePerimeter] result in an
+        /// error.
+        async fn replace_access_levels(
+            &self,
+            request: tonic::Request<super::ReplaceAccessLevelsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists all [service perimeters]
+        /// [google.identity.accesscontextmanager.v1.ServicePerimeter] for an
+        /// access policy.
+        async fn list_service_perimeters(
+            &self,
+            request: tonic::Request<super::ListServicePerimetersRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListServicePerimetersResponse>,
+            tonic::Status,
+        >;
+        /// Gets a [service perimeter]
+        /// [google.identity.accesscontextmanager.v1.ServicePerimeter] based on the
+        /// resource name.
+        async fn get_service_perimeter(
+            &self,
+            request: tonic::Request<super::GetServicePerimeterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ServicePerimeter>,
+            tonic::Status,
+        >;
+        /// Creates a [service perimeter]
+        /// [google.identity.accesscontextmanager.v1.ServicePerimeter]. The
+        /// long-running operation from this RPC has a successful status after the
+        /// [service perimeter]
+        /// [google.identity.accesscontextmanager.v1.ServicePerimeter]
+        /// propagates to long-lasting storage. If a [service perimeter]
+        /// [google.identity.accesscontextmanager.v1.ServicePerimeter] contains
+        /// errors, an error response is returned for the first error encountered.
+        async fn create_service_perimeter(
+            &self,
+            request: tonic::Request<super::CreateServicePerimeterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates a [service perimeter]
+        /// [google.identity.accesscontextmanager.v1.ServicePerimeter]. The
+        /// long-running operation from this RPC has a successful status after the
+        /// [service perimeter]
+        /// [google.identity.accesscontextmanager.v1.ServicePerimeter]
+        /// propagates to long-lasting storage. If a [service perimeter]
+        /// [google.identity.accesscontextmanager.v1.ServicePerimeter] contains
+        /// errors, an error response is returned for the first error encountered.
+        async fn update_service_perimeter(
+            &self,
+            request: tonic::Request<super::UpdateServicePerimeterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a [service perimeter]
+        /// [google.identity.accesscontextmanager.v1.ServicePerimeter] based on the
+        /// resource name. The long-running operation from this RPC has a successful
+        /// status after the [service perimeter]
+        /// [google.identity.accesscontextmanager.v1.ServicePerimeter] is removed from
+        /// long-lasting storage.
+        async fn delete_service_perimeter(
+            &self,
+            request: tonic::Request<super::DeleteServicePerimeterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Replace all existing [service perimeters]
+        /// [google.identity.accesscontextmanager.v1.ServicePerimeter] in an [access
+        /// policy] [google.identity.accesscontextmanager.v1.AccessPolicy] with the
+        /// [service perimeters]
+        /// [google.identity.accesscontextmanager.v1.ServicePerimeter] provided. This
+        /// is done atomically. The long-running operation from this RPC has a
+        /// successful status after all replacements propagate to long-lasting storage.
+        /// Replacements containing errors result in an error response for the first
+        /// error encountered. Upon an error, replacement are cancelled and existing
+        /// [service perimeters]
+        /// [google.identity.accesscontextmanager.v1.ServicePerimeter] are not
+        /// affected. The Operation.response field contains
+        /// ReplaceServicePerimetersResponse.
+        async fn replace_service_perimeters(
+            &self,
+            request: tonic::Request<super::ReplaceServicePerimetersRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Commits the dry-run specification for all the [service perimeters]
+        /// [google.identity.accesscontextmanager.v1.ServicePerimeter] in an
+        /// [access policy][google.identity.accesscontextmanager.v1.AccessPolicy].
+        /// A commit operation on a service perimeter involves copying its `spec` field
+        /// to the `status` field of the service perimeter. Only [service perimeters]
+        /// [google.identity.accesscontextmanager.v1.ServicePerimeter] with
+        /// `use_explicit_dry_run_spec` field set to true are affected by a commit
+        /// operation. The long-running operation from this RPC has a successful
+        /// status after the dry-run specifications for all the [service perimeters]
+        /// [google.identity.accesscontextmanager.v1.ServicePerimeter] have been
+        /// committed. If a commit fails, it causes the long-running operation to
+        /// return an error response and the entire commit operation is cancelled.
+        /// When successful, the Operation.response field contains
+        /// CommitServicePerimetersResponse. The `dry_run` and the `spec` fields are
+        /// cleared after a successful commit operation.
+        async fn commit_service_perimeters(
+            &self,
+            request: tonic::Request<super::CommitServicePerimetersRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists all [GcpUserAccessBindings]
+        /// [google.identity.accesscontextmanager.v1.GcpUserAccessBinding] for a
+        /// Google Cloud organization.
+        async fn list_gcp_user_access_bindings(
+            &self,
+            request: tonic::Request<super::ListGcpUserAccessBindingsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListGcpUserAccessBindingsResponse>,
+            tonic::Status,
+        >;
+        /// Gets the [GcpUserAccessBinding]
+        /// [google.identity.accesscontextmanager.v1.GcpUserAccessBinding] with
+        /// the given name.
+        async fn get_gcp_user_access_binding(
+            &self,
+            request: tonic::Request<super::GetGcpUserAccessBindingRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::GcpUserAccessBinding>,
+            tonic::Status,
+        >;
+        /// Creates a [GcpUserAccessBinding]
+        /// [google.identity.accesscontextmanager.v1.GcpUserAccessBinding]. If the
+        /// client specifies a [name]
+        /// [google.identity.accesscontextmanager.v1.GcpUserAccessBinding.name],
+        /// the server ignores it. Fails if a resource already exists with the same
+        /// [group_key]
+        /// [google.identity.accesscontextmanager.v1.GcpUserAccessBinding.group_key].
+        /// Completion of this long-running operation does not necessarily signify that
+        /// the new binding is deployed onto all affected users, which may take more
+        /// time.
+        async fn create_gcp_user_access_binding(
+            &self,
+            request: tonic::Request<super::CreateGcpUserAccessBindingRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates a [GcpUserAccessBinding]
+        /// [google.identity.accesscontextmanager.v1.GcpUserAccessBinding].
+        /// Completion of this long-running operation does not necessarily signify that
+        /// the changed binding is deployed onto all affected users, which may take
+        /// more time.
+        async fn update_gcp_user_access_binding(
+            &self,
+            request: tonic::Request<super::UpdateGcpUserAccessBindingRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a [GcpUserAccessBinding]
+        /// [google.identity.accesscontextmanager.v1.GcpUserAccessBinding].
+        /// Completion of this long-running operation does not necessarily signify that
+        /// the binding deletion is deployed onto all affected users, which may take
+        /// more time.
+        async fn delete_gcp_user_access_binding(
+            &self,
+            request: tonic::Request<super::DeleteGcpUserAccessBindingRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Sets the IAM policy for the specified Access Context Manager
+        /// [access policy][google.identity.accesscontextmanager.v1.AccessPolicy].
+        /// This method replaces the existing IAM policy on the access policy. The IAM
+        /// policy controls the set of users who can perform specific operations on the
+        /// Access Context Manager [access
+        /// policy][google.identity.accesscontextmanager.v1.AccessPolicy].
+        async fn set_iam_policy(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::iam::v1::SetIamPolicyRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::iam::v1::Policy>,
+            tonic::Status,
+        >;
+        /// Gets the IAM policy for the specified Access Context Manager
+        /// [access policy][google.identity.accesscontextmanager.v1.AccessPolicy].
+        async fn get_iam_policy(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::iam::v1::GetIamPolicyRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::iam::v1::Policy>,
+            tonic::Status,
+        >;
+        /// Returns the IAM permissions that the caller has on the specified Access
+        /// Context Manager resource. The resource can be an
+        /// [AccessPolicy][google.identity.accesscontextmanager.v1.AccessPolicy],
+        /// [AccessLevel][google.identity.accesscontextmanager.v1.AccessLevel], or
+        /// [ServicePerimeter][google.identity.accesscontextmanager.v1.ServicePerimeter
+        /// ]. This method does not support other resources.
+        async fn test_iam_permissions(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::iam::v1::TestIamPermissionsRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<
+                super::super::super::super::iam::v1::TestIamPermissionsResponse,
+            >,
+            tonic::Status,
+        >;
+    }
+    /// API for setting [access levels]
+    /// [google.identity.accesscontextmanager.v1.AccessLevel] and [service
+    /// perimeters] [google.identity.accesscontextmanager.v1.ServicePerimeter]
+    /// for Google Cloud projects. Each organization has one [access policy]
+    /// [google.identity.accesscontextmanager.v1.AccessPolicy] that contains the
+    /// [access levels] [google.identity.accesscontextmanager.v1.AccessLevel]
+    /// and [service perimeters]
+    /// [google.identity.accesscontextmanager.v1.ServicePerimeter]. This
+    /// [access policy] [google.identity.accesscontextmanager.v1.AccessPolicy] is
+    /// applicable to all resources in the organization.
+    /// AccessPolicies
+    #[derive(Debug)]
+    pub struct AccessContextManagerServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> AccessContextManagerServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for AccessContextManagerServer<T>
+    where
+        T: AccessContextManager,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.identity.accesscontextmanager.v1.AccessContextManager/ListAccessPolicies" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAccessPoliciesSvc<T: AccessContextManager>(pub Arc<T>);
+                    impl<
+                        T: AccessContextManager,
+                    > tonic::server::UnaryService<super::ListAccessPoliciesRequest>
+                    for ListAccessPoliciesSvc<T> {
+                        type Response = super::ListAccessPoliciesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListAccessPoliciesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessContextManager>::list_access_policies(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAccessPoliciesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.identity.accesscontextmanager.v1.AccessContextManager/GetAccessPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAccessPolicySvc<T: AccessContextManager>(pub Arc<T>);
+                    impl<
+                        T: AccessContextManager,
+                    > tonic::server::UnaryService<super::GetAccessPolicyRequest>
+                    for GetAccessPolicySvc<T> {
+                        type Response = super::AccessPolicy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAccessPolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessContextManager>::get_access_policy(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAccessPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.identity.accesscontextmanager.v1.AccessContextManager/CreateAccessPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateAccessPolicySvc<T: AccessContextManager>(pub Arc<T>);
+                    impl<
+                        T: AccessContextManager,
+                    > tonic::server::UnaryService<super::AccessPolicy>
+                    for CreateAccessPolicySvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::AccessPolicy>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessContextManager>::create_access_policy(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateAccessPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.identity.accesscontextmanager.v1.AccessContextManager/UpdateAccessPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateAccessPolicySvc<T: AccessContextManager>(pub Arc<T>);
+                    impl<
+                        T: AccessContextManager,
+                    > tonic::server::UnaryService<super::UpdateAccessPolicyRequest>
+                    for UpdateAccessPolicySvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateAccessPolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessContextManager>::update_access_policy(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateAccessPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.identity.accesscontextmanager.v1.AccessContextManager/DeleteAccessPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteAccessPolicySvc<T: AccessContextManager>(pub Arc<T>);
+                    impl<
+                        T: AccessContextManager,
+                    > tonic::server::UnaryService<super::DeleteAccessPolicyRequest>
+                    for DeleteAccessPolicySvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteAccessPolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessContextManager>::delete_access_policy(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteAccessPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.identity.accesscontextmanager.v1.AccessContextManager/ListAccessLevels" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAccessLevelsSvc<T: AccessContextManager>(pub Arc<T>);
+                    impl<
+                        T: AccessContextManager,
+                    > tonic::server::UnaryService<super::ListAccessLevelsRequest>
+                    for ListAccessLevelsSvc<T> {
+                        type Response = super::ListAccessLevelsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListAccessLevelsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessContextManager>::list_access_levels(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAccessLevelsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.identity.accesscontextmanager.v1.AccessContextManager/GetAccessLevel" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAccessLevelSvc<T: AccessContextManager>(pub Arc<T>);
+                    impl<
+                        T: AccessContextManager,
+                    > tonic::server::UnaryService<super::GetAccessLevelRequest>
+                    for GetAccessLevelSvc<T> {
+                        type Response = super::AccessLevel;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAccessLevelRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessContextManager>::get_access_level(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAccessLevelSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.identity.accesscontextmanager.v1.AccessContextManager/CreateAccessLevel" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateAccessLevelSvc<T: AccessContextManager>(pub Arc<T>);
+                    impl<
+                        T: AccessContextManager,
+                    > tonic::server::UnaryService<super::CreateAccessLevelRequest>
+                    for CreateAccessLevelSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateAccessLevelRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessContextManager>::create_access_level(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateAccessLevelSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.identity.accesscontextmanager.v1.AccessContextManager/UpdateAccessLevel" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateAccessLevelSvc<T: AccessContextManager>(pub Arc<T>);
+                    impl<
+                        T: AccessContextManager,
+                    > tonic::server::UnaryService<super::UpdateAccessLevelRequest>
+                    for UpdateAccessLevelSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateAccessLevelRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessContextManager>::update_access_level(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateAccessLevelSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.identity.accesscontextmanager.v1.AccessContextManager/DeleteAccessLevel" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteAccessLevelSvc<T: AccessContextManager>(pub Arc<T>);
+                    impl<
+                        T: AccessContextManager,
+                    > tonic::server::UnaryService<super::DeleteAccessLevelRequest>
+                    for DeleteAccessLevelSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteAccessLevelRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessContextManager>::delete_access_level(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteAccessLevelSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.identity.accesscontextmanager.v1.AccessContextManager/ReplaceAccessLevels" => {
+                    #[allow(non_camel_case_types)]
+                    struct ReplaceAccessLevelsSvc<T: AccessContextManager>(pub Arc<T>);
+                    impl<
+                        T: AccessContextManager,
+                    > tonic::server::UnaryService<super::ReplaceAccessLevelsRequest>
+                    for ReplaceAccessLevelsSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ReplaceAccessLevelsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessContextManager>::replace_access_levels(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ReplaceAccessLevelsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.identity.accesscontextmanager.v1.AccessContextManager/ListServicePerimeters" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListServicePerimetersSvc<T: AccessContextManager>(pub Arc<T>);
+                    impl<
+                        T: AccessContextManager,
+                    > tonic::server::UnaryService<super::ListServicePerimetersRequest>
+                    for ListServicePerimetersSvc<T> {
+                        type Response = super::ListServicePerimetersResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListServicePerimetersRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessContextManager>::list_service_perimeters(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListServicePerimetersSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.identity.accesscontextmanager.v1.AccessContextManager/GetServicePerimeter" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetServicePerimeterSvc<T: AccessContextManager>(pub Arc<T>);
+                    impl<
+                        T: AccessContextManager,
+                    > tonic::server::UnaryService<super::GetServicePerimeterRequest>
+                    for GetServicePerimeterSvc<T> {
+                        type Response = super::ServicePerimeter;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetServicePerimeterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessContextManager>::get_service_perimeter(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetServicePerimeterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.identity.accesscontextmanager.v1.AccessContextManager/CreateServicePerimeter" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateServicePerimeterSvc<T: AccessContextManager>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AccessContextManager,
+                    > tonic::server::UnaryService<super::CreateServicePerimeterRequest>
+                    for CreateServicePerimeterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateServicePerimeterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessContextManager>::create_service_perimeter(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateServicePerimeterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.identity.accesscontextmanager.v1.AccessContextManager/UpdateServicePerimeter" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateServicePerimeterSvc<T: AccessContextManager>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AccessContextManager,
+                    > tonic::server::UnaryService<super::UpdateServicePerimeterRequest>
+                    for UpdateServicePerimeterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateServicePerimeterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessContextManager>::update_service_perimeter(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateServicePerimeterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.identity.accesscontextmanager.v1.AccessContextManager/DeleteServicePerimeter" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteServicePerimeterSvc<T: AccessContextManager>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AccessContextManager,
+                    > tonic::server::UnaryService<super::DeleteServicePerimeterRequest>
+                    for DeleteServicePerimeterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteServicePerimeterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessContextManager>::delete_service_perimeter(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteServicePerimeterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.identity.accesscontextmanager.v1.AccessContextManager/ReplaceServicePerimeters" => {
+                    #[allow(non_camel_case_types)]
+                    struct ReplaceServicePerimetersSvc<T: AccessContextManager>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AccessContextManager,
+                    > tonic::server::UnaryService<super::ReplaceServicePerimetersRequest>
+                    for ReplaceServicePerimetersSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ReplaceServicePerimetersRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessContextManager>::replace_service_perimeters(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ReplaceServicePerimetersSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.identity.accesscontextmanager.v1.AccessContextManager/CommitServicePerimeters" => {
+                    #[allow(non_camel_case_types)]
+                    struct CommitServicePerimetersSvc<T: AccessContextManager>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AccessContextManager,
+                    > tonic::server::UnaryService<super::CommitServicePerimetersRequest>
+                    for CommitServicePerimetersSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CommitServicePerimetersRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessContextManager>::commit_service_perimeters(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CommitServicePerimetersSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.identity.accesscontextmanager.v1.AccessContextManager/ListGcpUserAccessBindings" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListGcpUserAccessBindingsSvc<T: AccessContextManager>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AccessContextManager,
+                    > tonic::server::UnaryService<
+                        super::ListGcpUserAccessBindingsRequest,
+                    > for ListGcpUserAccessBindingsSvc<T> {
+                        type Response = super::ListGcpUserAccessBindingsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListGcpUserAccessBindingsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessContextManager>::list_gcp_user_access_bindings(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListGcpUserAccessBindingsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.identity.accesscontextmanager.v1.AccessContextManager/GetGcpUserAccessBinding" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetGcpUserAccessBindingSvc<T: AccessContextManager>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AccessContextManager,
+                    > tonic::server::UnaryService<super::GetGcpUserAccessBindingRequest>
+                    for GetGcpUserAccessBindingSvc<T> {
+                        type Response = super::GcpUserAccessBinding;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetGcpUserAccessBindingRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessContextManager>::get_gcp_user_access_binding(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetGcpUserAccessBindingSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.identity.accesscontextmanager.v1.AccessContextManager/CreateGcpUserAccessBinding" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateGcpUserAccessBindingSvc<T: AccessContextManager>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AccessContextManager,
+                    > tonic::server::UnaryService<
+                        super::CreateGcpUserAccessBindingRequest,
+                    > for CreateGcpUserAccessBindingSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateGcpUserAccessBindingRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessContextManager>::create_gcp_user_access_binding(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateGcpUserAccessBindingSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.identity.accesscontextmanager.v1.AccessContextManager/UpdateGcpUserAccessBinding" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateGcpUserAccessBindingSvc<T: AccessContextManager>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AccessContextManager,
+                    > tonic::server::UnaryService<
+                        super::UpdateGcpUserAccessBindingRequest,
+                    > for UpdateGcpUserAccessBindingSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::UpdateGcpUserAccessBindingRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessContextManager>::update_gcp_user_access_binding(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateGcpUserAccessBindingSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.identity.accesscontextmanager.v1.AccessContextManager/DeleteGcpUserAccessBinding" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteGcpUserAccessBindingSvc<T: AccessContextManager>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AccessContextManager,
+                    > tonic::server::UnaryService<
+                        super::DeleteGcpUserAccessBindingRequest,
+                    > for DeleteGcpUserAccessBindingSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteGcpUserAccessBindingRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessContextManager>::delete_gcp_user_access_binding(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteGcpUserAccessBindingSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.identity.accesscontextmanager.v1.AccessContextManager/SetIamPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetIamPolicySvc<T: AccessContextManager>(pub Arc<T>);
+                    impl<
+                        T: AccessContextManager,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::iam::v1::SetIamPolicyRequest,
+                    > for SetIamPolicySvc<T> {
+                        type Response = super::super::super::super::iam::v1::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::iam::v1::SetIamPolicyRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessContextManager>::set_iam_policy(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SetIamPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.identity.accesscontextmanager.v1.AccessContextManager/GetIamPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetIamPolicySvc<T: AccessContextManager>(pub Arc<T>);
+                    impl<
+                        T: AccessContextManager,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::iam::v1::GetIamPolicyRequest,
+                    > for GetIamPolicySvc<T> {
+                        type Response = super::super::super::super::iam::v1::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::iam::v1::GetIamPolicyRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessContextManager>::get_iam_policy(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetIamPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.identity.accesscontextmanager.v1.AccessContextManager/TestIamPermissions" => {
+                    #[allow(non_camel_case_types)]
+                    struct TestIamPermissionsSvc<T: AccessContextManager>(pub Arc<T>);
+                    impl<
+                        T: AccessContextManager,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::iam::v1::TestIamPermissionsRequest,
+                    > for TestIamPermissionsSvc<T> {
+                        type Response = super::super::super::super::iam::v1::TestIamPermissionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::iam::v1::TestIamPermissionsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AccessContextManager>::test_iam_permissions(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = TestIamPermissionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for AccessContextManagerServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.identity.accesscontextmanager.v1.AccessContextManager";
+    impl<T> tonic::server::NamedService for AccessContextManagerServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

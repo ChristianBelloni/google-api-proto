@@ -202,13 +202,13 @@ pub mod task_status {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Pending => "PENDING",
-                State::Assigned => "ASSIGNED",
-                State::Running => "RUNNING",
-                State::Failed => "FAILED",
-                State::Succeeded => "SUCCEEDED",
-                State::Unexecuted => "UNEXECUTED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Pending => "PENDING",
+                Self::Assigned => "ASSIGNED",
+                Self::Running => "RUNNING",
+                Self::Failed => "FAILED",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Unexecuted => "UNEXECUTED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -552,9 +552,9 @@ pub mod lifecycle_policy {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Action::Unspecified => "ACTION_UNSPECIFIED",
-                Action::RetryTask => "RETRY_TASK",
-                Action::FailTask => "FAIL_TASK",
+                Self::Unspecified => "ACTION_UNSPECIFIED",
+                Self::RetryTask => "RETRY_TASK",
+                Self::FailTask => "FAIL_TASK",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -732,9 +732,9 @@ pub mod logs_policy {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Destination::Unspecified => "DESTINATION_UNSPECIFIED",
-                Destination::CloudLogging => "CLOUD_LOGGING",
-                Destination::Path => "PATH",
+                Self::Unspecified => "DESTINATION_UNSPECIFIED",
+                Self::CloudLogging => "CLOUD_LOGGING",
+                Self::Path => "PATH",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -840,13 +840,13 @@ pub mod job_status {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Queued => "QUEUED",
-                State::Scheduled => "SCHEDULED",
-                State::Running => "RUNNING",
-                State::Succeeded => "SUCCEEDED",
-                State::Failed => "FAILED",
-                State::DeletionInProgress => "DELETION_IN_PROGRESS",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Queued => "QUEUED",
+                Self::Scheduled => "SCHEDULED",
+                Self::Running => "RUNNING",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Failed => "FAILED",
+                Self::DeletionInProgress => "DELETION_IN_PROGRESS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -936,9 +936,9 @@ pub mod job_notification {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::JobStateChanged => "JOB_STATE_CHANGED",
-                Type::TaskStateChanged => "TASK_STATE_CHANGED",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::JobStateChanged => "JOB_STATE_CHANGED",
+                Self::TaskStateChanged => "TASK_STATE_CHANGED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1336,10 +1336,10 @@ pub mod allocation_policy {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ProvisioningModel::Unspecified => "PROVISIONING_MODEL_UNSPECIFIED",
-                ProvisioningModel::Standard => "STANDARD",
-                ProvisioningModel::Spot => "SPOT",
-                ProvisioningModel::Preemptible => "PREEMPTIBLE",
+                Self::Unspecified => "PROVISIONING_MODEL_UNSPECIFIED",
+                Self::Standard => "STANDARD",
+                Self::Spot => "SPOT",
+                Self::Preemptible => "PREEMPTIBLE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1446,9 +1446,9 @@ pub mod task_group {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                SchedulingPolicy::Unspecified => "SCHEDULING_POLICY_UNSPECIFIED",
-                SchedulingPolicy::AsSoonAsPossible => "AS_SOON_AS_POSSIBLE",
-                SchedulingPolicy::InOrder => "IN_ORDER",
+                Self::Unspecified => "SCHEDULING_POLICY_UNSPECIFIED",
+                Self::AsSoonAsPossible => "AS_SOON_AS_POSSIBLE",
+                Self::InOrder => "IN_ORDER",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1877,5 +1877,437 @@ pub mod batch_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod batch_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with BatchServiceServer.
+    #[async_trait]
+    pub trait BatchService: std::marker::Send + std::marker::Sync + 'static {
+        /// Create a Job.
+        async fn create_job(
+            &self,
+            request: tonic::Request<super::CreateJobRequest>,
+        ) -> std::result::Result<tonic::Response<super::Job>, tonic::Status>;
+        /// Get a Job specified by its resource name.
+        async fn get_job(
+            &self,
+            request: tonic::Request<super::GetJobRequest>,
+        ) -> std::result::Result<tonic::Response<super::Job>, tonic::Status>;
+        /// Delete a Job.
+        async fn delete_job(
+            &self,
+            request: tonic::Request<super::DeleteJobRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// List all Jobs for a project within a region.
+        async fn list_jobs(
+            &self,
+            request: tonic::Request<super::ListJobsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListJobsResponse>,
+            tonic::Status,
+        >;
+        /// Return a single Task.
+        async fn get_task(
+            &self,
+            request: tonic::Request<super::GetTaskRequest>,
+        ) -> std::result::Result<tonic::Response<super::Task>, tonic::Status>;
+        /// List Tasks associated with a job.
+        async fn list_tasks(
+            &self,
+            request: tonic::Request<super::ListTasksRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListTasksResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Google Batch Service.
+    /// The service manages user submitted batch jobs and allocates Google Compute
+    /// Engine VM instances to run the jobs.
+    #[derive(Debug)]
+    pub struct BatchServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> BatchServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for BatchServiceServer<T>
+    where
+        T: BatchService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.batch.v1.BatchService/CreateJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateJobSvc<T: BatchService>(pub Arc<T>);
+                    impl<
+                        T: BatchService,
+                    > tonic::server::UnaryService<super::CreateJobRequest>
+                    for CreateJobSvc<T> {
+                        type Response = super::Job;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BatchService>::create_job(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.batch.v1.BatchService/GetJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetJobSvc<T: BatchService>(pub Arc<T>);
+                    impl<
+                        T: BatchService,
+                    > tonic::server::UnaryService<super::GetJobRequest>
+                    for GetJobSvc<T> {
+                        type Response = super::Job;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BatchService>::get_job(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.batch.v1.BatchService/DeleteJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteJobSvc<T: BatchService>(pub Arc<T>);
+                    impl<
+                        T: BatchService,
+                    > tonic::server::UnaryService<super::DeleteJobRequest>
+                    for DeleteJobSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BatchService>::delete_job(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.batch.v1.BatchService/ListJobs" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListJobsSvc<T: BatchService>(pub Arc<T>);
+                    impl<
+                        T: BatchService,
+                    > tonic::server::UnaryService<super::ListJobsRequest>
+                    for ListJobsSvc<T> {
+                        type Response = super::ListJobsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListJobsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BatchService>::list_jobs(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListJobsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.batch.v1.BatchService/GetTask" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetTaskSvc<T: BatchService>(pub Arc<T>);
+                    impl<
+                        T: BatchService,
+                    > tonic::server::UnaryService<super::GetTaskRequest>
+                    for GetTaskSvc<T> {
+                        type Response = super::Task;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetTaskRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BatchService>::get_task(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetTaskSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.batch.v1.BatchService/ListTasks" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListTasksSvc<T: BatchService>(pub Arc<T>);
+                    impl<
+                        T: BatchService,
+                    > tonic::server::UnaryService<super::ListTasksRequest>
+                    for ListTasksSvc<T> {
+                        type Response = super::ListTasksResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListTasksRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BatchService>::list_tasks(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListTasksSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for BatchServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.batch.v1.BatchService";
+    impl<T> tonic::server::NamedService for BatchServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

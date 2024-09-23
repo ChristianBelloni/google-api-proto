@@ -165,8 +165,8 @@ impl Action {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            Action::Unspecified => "ACTION_UNSPECIFIED",
-            Action::OpenNewStream => "OPEN_NEW_STREAM",
+            Self::Unspecified => "ACTION_UNSPECIFIED",
+            Self::OpenNewStream => "OPEN_NEW_STREAM",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -198,10 +198,10 @@ impl TetherEndpoint {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            TetherEndpoint::Unspecified => "TETHER_ENDPOINT_UNSPECIFIED",
-            TetherEndpoint::ApigeeMart => "APIGEE_MART",
-            TetherEndpoint::ApigeeRuntime => "APIGEE_RUNTIME",
-            TetherEndpoint::ApigeeMintRating => "APIGEE_MINT_RATING",
+            Self::Unspecified => "TETHER_ENDPOINT_UNSPECIFIED",
+            Self::ApigeeMart => "APIGEE_MART",
+            Self::ApigeeRuntime => "APIGEE_RUNTIME",
+            Self::ApigeeMintRating => "APIGEE_MINT_RATING",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -231,8 +231,8 @@ impl Scheme {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            Scheme::Unspecified => "SCHEME_UNSPECIFIED",
-            Scheme::Https => "HTTPS",
+            Self::Unspecified => "SCHEME_UNSPECIFIED",
+            Self::Https => "HTTPS",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -355,6 +355,194 @@ pub mod tether_client {
                 );
             self.inner.streaming(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod tether_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with TetherServer.
+    #[async_trait]
+    pub trait Tether: std::marker::Send + std::marker::Sync + 'static {
+        /// Server streaming response type for the Egress method.
+        type EgressStream: tonic::codegen::tokio_stream::Stream<
+                Item = std::result::Result<super::EgressRequest, tonic::Status>,
+            >
+            + std::marker::Send
+            + 'static;
+        /// Egress streams egress requests and responses. Logically, this is not
+        /// actually a streaming request, but uses streaming as a mechanism to flip
+        /// the client-server relationship of gRPC so that the server can act as a
+        /// client.
+        /// The listener, the RPC server, accepts connections from the dialer,
+        /// the RPC client.
+        /// The listener streams http requests and the dialer streams http responses.
+        async fn egress(
+            &self,
+            request: tonic::Request<tonic::Streaming<super::EgressResponse>>,
+        ) -> std::result::Result<tonic::Response<Self::EgressStream>, tonic::Status>;
+    }
+    /// Tether provides a way for the control plane to send HTTP API requests to
+    /// services in data planes that runs in a remote datacenter without
+    /// requiring customers to open firewalls on their runtime plane.
+    #[derive(Debug)]
+    pub struct TetherServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> TetherServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for TetherServer<T>
+    where
+        T: Tether,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.apigeeconnect.v1.Tether/Egress" => {
+                    #[allow(non_camel_case_types)]
+                    struct EgressSvc<T: Tether>(pub Arc<T>);
+                    impl<
+                        T: Tether,
+                    > tonic::server::StreamingService<super::EgressResponse>
+                    for EgressSvc<T> {
+                        type Response = super::EgressRequest;
+                        type ResponseStream = T::EgressStream;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::ResponseStream>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                tonic::Streaming<super::EgressResponse>,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Tether>::egress(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = EgressSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.streaming(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for TetherServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.apigeeconnect.v1.Tether";
+    impl<T> tonic::server::NamedService for TetherServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }
 /// The request for [ListConnections][Management.ListConnections].
@@ -518,5 +706,181 @@ pub mod connection_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod connection_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with ConnectionServiceServer.
+    #[async_trait]
+    pub trait ConnectionService: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists connections that are currently active for the given Apigee Connect
+        /// endpoint.
+        async fn list_connections(
+            &self,
+            request: tonic::Request<super::ListConnectionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListConnectionsResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Service Interface for the Apigee Connect connection management APIs.
+    #[derive(Debug)]
+    pub struct ConnectionServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> ConnectionServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for ConnectionServiceServer<T>
+    where
+        T: ConnectionService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.apigeeconnect.v1.ConnectionService/ListConnections" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListConnectionsSvc<T: ConnectionService>(pub Arc<T>);
+                    impl<
+                        T: ConnectionService,
+                    > tonic::server::UnaryService<super::ListConnectionsRequest>
+                    for ListConnectionsSvc<T> {
+                        type Response = super::ListConnectionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListConnectionsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ConnectionService>::list_connections(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListConnectionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for ConnectionServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.apigeeconnect.v1.ConnectionService";
+    impl<T> tonic::server::NamedService for ConnectionServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

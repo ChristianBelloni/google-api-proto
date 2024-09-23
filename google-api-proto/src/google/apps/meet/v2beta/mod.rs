@@ -83,10 +83,10 @@ pub mod space_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                AccessType::Unspecified => "ACCESS_TYPE_UNSPECIFIED",
-                AccessType::Open => "OPEN",
-                AccessType::Trusted => "TRUSTED",
-                AccessType::Restricted => "RESTRICTED",
+                Self::Unspecified => "ACCESS_TYPE_UNSPECIFIED",
+                Self::Open => "OPEN",
+                Self::Trusted => "TRUSTED",
+                Self::Restricted => "RESTRICTED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -131,9 +131,9 @@ pub mod space_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                EntryPointAccess::Unspecified => "ENTRY_POINT_ACCESS_UNSPECIFIED",
-                EntryPointAccess::All => "ALL",
-                EntryPointAccess::CreatorAppOnly => "CREATOR_APP_ONLY",
+                Self::Unspecified => "ENTRY_POINT_ACCESS_UNSPECIFIED",
+                Self::All => "ALL",
+                Self::CreatorAppOnly => "CREATOR_APP_ONLY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -311,10 +311,10 @@ pub mod recording {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Started => "STARTED",
-                State::Ended => "ENDED",
-                State::FileGenerated => "FILE_GENERATED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Started => "STARTED",
+                Self::Ended => "ENDED",
+                Self::FileGenerated => "FILE_GENERATED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -408,10 +408,10 @@ pub mod transcript {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Started => "STARTED",
-                State::Ended => "ENDED",
-                State::FileGenerated => "FILE_GENERATED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Started => "STARTED",
+                Self::Ended => "ENDED",
+                Self::FileGenerated => "FILE_GENERATED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1413,5 +1413,1168 @@ pub mod conference_records_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod spaces_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with SpacesServiceServer.
+    #[async_trait]
+    pub trait SpacesService: std::marker::Send + std::marker::Sync + 'static {
+        /// [Developer Preview](https://developers.google.com/workspace/preview).
+        /// Creates a space.
+        async fn create_space(
+            &self,
+            request: tonic::Request<super::CreateSpaceRequest>,
+        ) -> std::result::Result<tonic::Response<super::Space>, tonic::Status>;
+        /// [Developer Preview](https://developers.google.com/workspace/preview).
+        /// Gets a space by `space_id` or `meeting_code`.
+        async fn get_space(
+            &self,
+            request: tonic::Request<super::GetSpaceRequest>,
+        ) -> std::result::Result<tonic::Response<super::Space>, tonic::Status>;
+        /// [Developer Preview](https://developers.google.com/workspace/preview).
+        /// Updates a space.
+        async fn update_space(
+            &self,
+            request: tonic::Request<super::UpdateSpaceRequest>,
+        ) -> std::result::Result<tonic::Response<super::Space>, tonic::Status>;
+        /// [Developer Preview](https://developers.google.com/workspace/preview).
+        /// Ends an active conference (if there is one).
+        async fn end_active_conference(
+            &self,
+            request: tonic::Request<super::EndActiveConferenceRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+    }
+    /// REST API for services dealing with spaces.
+    #[derive(Debug)]
+    pub struct SpacesServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> SpacesServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for SpacesServiceServer<T>
+    where
+        T: SpacesService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.apps.meet.v2beta.SpacesService/CreateSpace" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateSpaceSvc<T: SpacesService>(pub Arc<T>);
+                    impl<
+                        T: SpacesService,
+                    > tonic::server::UnaryService<super::CreateSpaceRequest>
+                    for CreateSpaceSvc<T> {
+                        type Response = super::Space;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateSpaceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SpacesService>::create_space(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateSpaceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.apps.meet.v2beta.SpacesService/GetSpace" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetSpaceSvc<T: SpacesService>(pub Arc<T>);
+                    impl<
+                        T: SpacesService,
+                    > tonic::server::UnaryService<super::GetSpaceRequest>
+                    for GetSpaceSvc<T> {
+                        type Response = super::Space;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetSpaceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SpacesService>::get_space(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetSpaceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.apps.meet.v2beta.SpacesService/UpdateSpace" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateSpaceSvc<T: SpacesService>(pub Arc<T>);
+                    impl<
+                        T: SpacesService,
+                    > tonic::server::UnaryService<super::UpdateSpaceRequest>
+                    for UpdateSpaceSvc<T> {
+                        type Response = super::Space;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateSpaceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SpacesService>::update_space(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateSpaceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.apps.meet.v2beta.SpacesService/EndActiveConference" => {
+                    #[allow(non_camel_case_types)]
+                    struct EndActiveConferenceSvc<T: SpacesService>(pub Arc<T>);
+                    impl<
+                        T: SpacesService,
+                    > tonic::server::UnaryService<super::EndActiveConferenceRequest>
+                    for EndActiveConferenceSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::EndActiveConferenceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SpacesService>::end_active_conference(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = EndActiveConferenceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for SpacesServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.apps.meet.v2beta.SpacesService";
+    impl<T> tonic::server::NamedService for SpacesServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}
+/// Generated server implementations.
+pub mod conference_records_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with ConferenceRecordsServiceServer.
+    #[async_trait]
+    pub trait ConferenceRecordsService: std::marker::Send + std::marker::Sync + 'static {
+        /// [Developer Preview](https://developers.google.com/workspace/preview).
+        /// Gets a conference record by conference ID.
+        async fn get_conference_record(
+            &self,
+            request: tonic::Request<super::GetConferenceRecordRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ConferenceRecord>,
+            tonic::Status,
+        >;
+        /// [Developer Preview](https://developers.google.com/workspace/preview).
+        /// Lists the conference records by start time and in descending order.
+        async fn list_conference_records(
+            &self,
+            request: tonic::Request<super::ListConferenceRecordsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListConferenceRecordsResponse>,
+            tonic::Status,
+        >;
+        /// [Developer Preview](https://developers.google.com/workspace/preview).
+        /// Gets a participant by participant ID.
+        async fn get_participant(
+            &self,
+            request: tonic::Request<super::GetParticipantRequest>,
+        ) -> std::result::Result<tonic::Response<super::Participant>, tonic::Status>;
+        /// [Developer Preview](https://developers.google.com/workspace/preview).
+        /// Lists the participants in a conference record, by default ordered by join
+        /// time and in descending order. This API supports `fields` as standard
+        /// parameters like every other API. However, when the `fields` request
+        /// parameter is omitted, this API defaults to `'participants/*,
+        /// next_page_token'`.
+        async fn list_participants(
+            &self,
+            request: tonic::Request<super::ListParticipantsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListParticipantsResponse>,
+            tonic::Status,
+        >;
+        /// [Developer Preview](https://developers.google.com/workspace/preview).
+        /// Gets a participant session by participant session ID.
+        async fn get_participant_session(
+            &self,
+            request: tonic::Request<super::GetParticipantSessionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ParticipantSession>,
+            tonic::Status,
+        >;
+        /// [Developer Preview](https://developers.google.com/workspace/preview).
+        /// Lists the participant sessions of a participant in a conference record, by
+        /// default ordered by join time and in descending order. This API supports
+        /// `fields` as standard parameters like every other API. However, when the
+        /// `fields` request parameter is omitted this API defaults to
+        /// `'participantsessions/*, next_page_token'`.
+        async fn list_participant_sessions(
+            &self,
+            request: tonic::Request<super::ListParticipantSessionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListParticipantSessionsResponse>,
+            tonic::Status,
+        >;
+        /// [Developer Preview](https://developers.google.com/workspace/preview).
+        /// Gets a recording by recording ID.
+        async fn get_recording(
+            &self,
+            request: tonic::Request<super::GetRecordingRequest>,
+        ) -> std::result::Result<tonic::Response<super::Recording>, tonic::Status>;
+        /// [Developer Preview](https://developers.google.com/workspace/preview).
+        /// Lists the recording resources from the conference record.
+        async fn list_recordings(
+            &self,
+            request: tonic::Request<super::ListRecordingsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListRecordingsResponse>,
+            tonic::Status,
+        >;
+        /// [Developer Preview](https://developers.google.com/workspace/preview).
+        /// Gets a transcript by transcript ID.
+        async fn get_transcript(
+            &self,
+            request: tonic::Request<super::GetTranscriptRequest>,
+        ) -> std::result::Result<tonic::Response<super::Transcript>, tonic::Status>;
+        /// [Developer Preview](https://developers.google.com/workspace/preview).
+        /// Lists the set of transcripts from the conference record.
+        async fn list_transcripts(
+            &self,
+            request: tonic::Request<super::ListTranscriptsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListTranscriptsResponse>,
+            tonic::Status,
+        >;
+        /// [Developer Preview](https://developers.google.com/workspace/preview).
+        /// Gets a `TranscriptEntry` resource by entry ID.
+        ///
+        /// Note: The transcript entries returned by the Google Meet API might not
+        /// match the transcription found in the Google Docs transcript file. This can
+        /// occur when the Google Docs transcript file is modified after generation.
+        async fn get_transcript_entry(
+            &self,
+            request: tonic::Request<super::GetTranscriptEntryRequest>,
+        ) -> std::result::Result<tonic::Response<super::TranscriptEntry>, tonic::Status>;
+        /// [Developer Preview](https://developers.google.com/workspace/preview).
+        /// Lists the structured transcript entries per transcript. By default, ordered
+        /// by start time and in ascending order.
+        ///
+        /// Note: The transcript entries returned by the Google Meet API might not
+        /// match the transcription found in the Google Docs transcript file. This can
+        /// occur when the Google Docs transcript file is modified after generation.
+        async fn list_transcript_entries(
+            &self,
+            request: tonic::Request<super::ListTranscriptEntriesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListTranscriptEntriesResponse>,
+            tonic::Status,
+        >;
+    }
+    /// REST API for services dealing with conference records.
+    #[derive(Debug)]
+    pub struct ConferenceRecordsServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> ConferenceRecordsServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for ConferenceRecordsServiceServer<T>
+    where
+        T: ConferenceRecordsService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.apps.meet.v2beta.ConferenceRecordsService/GetConferenceRecord" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetConferenceRecordSvc<T: ConferenceRecordsService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: ConferenceRecordsService,
+                    > tonic::server::UnaryService<super::GetConferenceRecordRequest>
+                    for GetConferenceRecordSvc<T> {
+                        type Response = super::ConferenceRecord;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetConferenceRecordRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ConferenceRecordsService>::get_conference_record(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetConferenceRecordSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.apps.meet.v2beta.ConferenceRecordsService/ListConferenceRecords" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListConferenceRecordsSvc<T: ConferenceRecordsService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: ConferenceRecordsService,
+                    > tonic::server::UnaryService<super::ListConferenceRecordsRequest>
+                    for ListConferenceRecordsSvc<T> {
+                        type Response = super::ListConferenceRecordsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListConferenceRecordsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ConferenceRecordsService>::list_conference_records(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListConferenceRecordsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.apps.meet.v2beta.ConferenceRecordsService/GetParticipant" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetParticipantSvc<T: ConferenceRecordsService>(pub Arc<T>);
+                    impl<
+                        T: ConferenceRecordsService,
+                    > tonic::server::UnaryService<super::GetParticipantRequest>
+                    for GetParticipantSvc<T> {
+                        type Response = super::Participant;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetParticipantRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ConferenceRecordsService>::get_participant(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetParticipantSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.apps.meet.v2beta.ConferenceRecordsService/ListParticipants" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListParticipantsSvc<T: ConferenceRecordsService>(pub Arc<T>);
+                    impl<
+                        T: ConferenceRecordsService,
+                    > tonic::server::UnaryService<super::ListParticipantsRequest>
+                    for ListParticipantsSvc<T> {
+                        type Response = super::ListParticipantsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListParticipantsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ConferenceRecordsService>::list_participants(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListParticipantsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.apps.meet.v2beta.ConferenceRecordsService/GetParticipantSession" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetParticipantSessionSvc<T: ConferenceRecordsService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: ConferenceRecordsService,
+                    > tonic::server::UnaryService<super::GetParticipantSessionRequest>
+                    for GetParticipantSessionSvc<T> {
+                        type Response = super::ParticipantSession;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetParticipantSessionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ConferenceRecordsService>::get_participant_session(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetParticipantSessionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.apps.meet.v2beta.ConferenceRecordsService/ListParticipantSessions" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListParticipantSessionsSvc<T: ConferenceRecordsService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: ConferenceRecordsService,
+                    > tonic::server::UnaryService<super::ListParticipantSessionsRequest>
+                    for ListParticipantSessionsSvc<T> {
+                        type Response = super::ListParticipantSessionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListParticipantSessionsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ConferenceRecordsService>::list_participant_sessions(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListParticipantSessionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.apps.meet.v2beta.ConferenceRecordsService/GetRecording" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetRecordingSvc<T: ConferenceRecordsService>(pub Arc<T>);
+                    impl<
+                        T: ConferenceRecordsService,
+                    > tonic::server::UnaryService<super::GetRecordingRequest>
+                    for GetRecordingSvc<T> {
+                        type Response = super::Recording;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetRecordingRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ConferenceRecordsService>::get_recording(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetRecordingSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.apps.meet.v2beta.ConferenceRecordsService/ListRecordings" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListRecordingsSvc<T: ConferenceRecordsService>(pub Arc<T>);
+                    impl<
+                        T: ConferenceRecordsService,
+                    > tonic::server::UnaryService<super::ListRecordingsRequest>
+                    for ListRecordingsSvc<T> {
+                        type Response = super::ListRecordingsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListRecordingsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ConferenceRecordsService>::list_recordings(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListRecordingsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.apps.meet.v2beta.ConferenceRecordsService/GetTranscript" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetTranscriptSvc<T: ConferenceRecordsService>(pub Arc<T>);
+                    impl<
+                        T: ConferenceRecordsService,
+                    > tonic::server::UnaryService<super::GetTranscriptRequest>
+                    for GetTranscriptSvc<T> {
+                        type Response = super::Transcript;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetTranscriptRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ConferenceRecordsService>::get_transcript(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetTranscriptSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.apps.meet.v2beta.ConferenceRecordsService/ListTranscripts" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListTranscriptsSvc<T: ConferenceRecordsService>(pub Arc<T>);
+                    impl<
+                        T: ConferenceRecordsService,
+                    > tonic::server::UnaryService<super::ListTranscriptsRequest>
+                    for ListTranscriptsSvc<T> {
+                        type Response = super::ListTranscriptsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListTranscriptsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ConferenceRecordsService>::list_transcripts(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListTranscriptsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.apps.meet.v2beta.ConferenceRecordsService/GetTranscriptEntry" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetTranscriptEntrySvc<T: ConferenceRecordsService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: ConferenceRecordsService,
+                    > tonic::server::UnaryService<super::GetTranscriptEntryRequest>
+                    for GetTranscriptEntrySvc<T> {
+                        type Response = super::TranscriptEntry;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetTranscriptEntryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ConferenceRecordsService>::get_transcript_entry(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetTranscriptEntrySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.apps.meet.v2beta.ConferenceRecordsService/ListTranscriptEntries" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListTranscriptEntriesSvc<T: ConferenceRecordsService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: ConferenceRecordsService,
+                    > tonic::server::UnaryService<super::ListTranscriptEntriesRequest>
+                    for ListTranscriptEntriesSvc<T> {
+                        type Response = super::ListTranscriptEntriesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListTranscriptEntriesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ConferenceRecordsService>::list_transcript_entries(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListTranscriptEntriesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for ConferenceRecordsServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.apps.meet.v2beta.ConferenceRecordsService";
+    impl<T> tonic::server::NamedService for ConferenceRecordsServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

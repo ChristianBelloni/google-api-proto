@@ -131,12 +131,10 @@ pub mod address_component {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ConfirmationLevel::Unspecified => "CONFIRMATION_LEVEL_UNSPECIFIED",
-                ConfirmationLevel::Confirmed => "CONFIRMED",
-                ConfirmationLevel::UnconfirmedButPlausible => "UNCONFIRMED_BUT_PLAUSIBLE",
-                ConfirmationLevel::UnconfirmedAndSuspicious => {
-                    "UNCONFIRMED_AND_SUSPICIOUS"
-                }
+                Self::Unspecified => "CONFIRMATION_LEVEL_UNSPECIFIED",
+                Self::Confirmed => "CONFIRMED",
+                Self::UnconfirmedButPlausible => "UNCONFIRMED_BUT_PLAUSIBLE",
+                Self::UnconfirmedAndSuspicious => "UNCONFIRMED_AND_SUSPICIOUS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -662,13 +660,11 @@ pub mod provide_validation_feedback_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ValidationConclusion::Unspecified => "VALIDATION_CONCLUSION_UNSPECIFIED",
-                ValidationConclusion::ValidatedVersionUsed => "VALIDATED_VERSION_USED",
-                ValidationConclusion::UserVersionUsed => "USER_VERSION_USED",
-                ValidationConclusion::UnvalidatedVersionUsed => {
-                    "UNVALIDATED_VERSION_USED"
-                }
-                ValidationConclusion::Unused => "UNUSED",
+                Self::Unspecified => "VALIDATION_CONCLUSION_UNSPECIFIED",
+                Self::ValidatedVersionUsed => "VALIDATED_VERSION_USED",
+                Self::UserVersionUsed => "USER_VERSION_USED",
+                Self::UnvalidatedVersionUsed => "UNVALIDATED_VERSION_USED",
+                Self::Unused => "UNUSED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -817,13 +813,13 @@ pub mod verdict {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Granularity::Unspecified => "GRANULARITY_UNSPECIFIED",
-                Granularity::SubPremise => "SUB_PREMISE",
-                Granularity::Premise => "PREMISE",
-                Granularity::PremiseProximity => "PREMISE_PROXIMITY",
-                Granularity::Block => "BLOCK",
-                Granularity::Route => "ROUTE",
-                Granularity::Other => "OTHER",
+                Self::Unspecified => "GRANULARITY_UNSPECIFIED",
+                Self::SubPremise => "SUB_PREMISE",
+                Self::Premise => "PREMISE",
+                Self::PremiseProximity => "PREMISE_PROXIMITY",
+                Self::Block => "BLOCK",
+                Self::Route => "ROUTE",
+                Self::Other => "OTHER",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -982,5 +978,246 @@ pub mod address_validation_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod address_validation_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with AddressValidationServer.
+    #[async_trait]
+    pub trait AddressValidation: std::marker::Send + std::marker::Sync + 'static {
+        /// Validates an address.
+        async fn validate_address(
+            &self,
+            request: tonic::Request<super::ValidateAddressRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ValidateAddressResponse>,
+            tonic::Status,
+        >;
+        /// Feedback about the outcome of the sequence of validation attempts. This
+        /// should be the last call made after a sequence of validation calls for the
+        /// same address, and should be called once the transaction is concluded. This
+        /// should only be sent once for the sequence of `ValidateAddress` requests
+        /// needed to validate an address fully.
+        async fn provide_validation_feedback(
+            &self,
+            request: tonic::Request<super::ProvideValidationFeedbackRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ProvideValidationFeedbackResponse>,
+            tonic::Status,
+        >;
+    }
+    /// The service for validating addresses.
+    #[derive(Debug)]
+    pub struct AddressValidationServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> AddressValidationServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for AddressValidationServer<T>
+    where
+        T: AddressValidation,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.maps.addressvalidation.v1.AddressValidation/ValidateAddress" => {
+                    #[allow(non_camel_case_types)]
+                    struct ValidateAddressSvc<T: AddressValidation>(pub Arc<T>);
+                    impl<
+                        T: AddressValidation,
+                    > tonic::server::UnaryService<super::ValidateAddressRequest>
+                    for ValidateAddressSvc<T> {
+                        type Response = super::ValidateAddressResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ValidateAddressRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AddressValidation>::validate_address(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ValidateAddressSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.maps.addressvalidation.v1.AddressValidation/ProvideValidationFeedback" => {
+                    #[allow(non_camel_case_types)]
+                    struct ProvideValidationFeedbackSvc<T: AddressValidation>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AddressValidation,
+                    > tonic::server::UnaryService<
+                        super::ProvideValidationFeedbackRequest,
+                    > for ProvideValidationFeedbackSvc<T> {
+                        type Response = super::ProvideValidationFeedbackResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ProvideValidationFeedbackRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AddressValidation>::provide_validation_feedback(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ProvideValidationFeedbackSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for AddressValidationServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.maps.addressvalidation.v1.AddressValidation";
+    impl<T> tonic::server::NamedService for AddressValidationServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

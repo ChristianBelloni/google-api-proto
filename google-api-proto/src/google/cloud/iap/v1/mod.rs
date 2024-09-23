@@ -245,11 +245,11 @@ pub mod reauth_settings {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Method::Unspecified => "METHOD_UNSPECIFIED",
-                Method::Login => "LOGIN",
-                Method::Password => "PASSWORD",
-                Method::SecureKey => "SECURE_KEY",
-                Method::EnrolledSecondFactors => "ENROLLED_SECOND_FACTORS",
+                Self::Unspecified => "METHOD_UNSPECIFIED",
+                Self::Login => "LOGIN",
+                Self::Password => "PASSWORD",
+                Self::SecureKey => "SECURE_KEY",
+                Self::EnrolledSecondFactors => "ENROLLED_SECOND_FACTORS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -293,9 +293,9 @@ pub mod reauth_settings {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                PolicyType::Unspecified => "POLICY_TYPE_UNSPECIFIED",
-                PolicyType::Minimum => "MINIMUM",
-                PolicyType::Default => "DEFAULT",
+                Self::Unspecified => "POLICY_TYPE_UNSPECIFIED",
+                Self::Minimum => "MINIMUM",
+                Self::Default => "DEFAULT",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -453,10 +453,10 @@ pub mod attribute_propagation_settings {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                OutputCredentials::Unspecified => "OUTPUT_CREDENTIALS_UNSPECIFIED",
-                OutputCredentials::Header => "HEADER",
-                OutputCredentials::Jwt => "JWT",
-                OutputCredentials::Rctoken => "RCTOKEN",
+                Self::Unspecified => "OUTPUT_CREDENTIALS_UNSPECIFIED",
+                Self::Header => "HEADER",
+                Self::Jwt => "JWT",
+                Self::Rctoken => "RCTOKEN",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1348,5 +1348,1347 @@ pub mod identity_aware_proxy_o_auth_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod identity_aware_proxy_admin_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with IdentityAwareProxyAdminServiceServer.
+    #[async_trait]
+    pub trait IdentityAwareProxyAdminService: std::marker::Send + std::marker::Sync + 'static {
+        /// Sets the access control policy for an Identity-Aware Proxy protected
+        /// resource. Replaces any existing policy.
+        /// More information about managing access via IAP can be found at:
+        /// https://cloud.google.com/iap/docs/managing-access#managing_access_via_the_api
+        async fn set_iam_policy(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::iam::v1::SetIamPolicyRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::iam::v1::Policy>,
+            tonic::Status,
+        >;
+        /// Gets the access control policy for an Identity-Aware Proxy protected
+        /// resource.
+        /// More information about managing access via IAP can be found at:
+        /// https://cloud.google.com/iap/docs/managing-access#managing_access_via_the_api
+        async fn get_iam_policy(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::iam::v1::GetIamPolicyRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::iam::v1::Policy>,
+            tonic::Status,
+        >;
+        /// Returns permissions that a caller has on the Identity-Aware Proxy protected
+        /// resource.
+        /// More information about managing access via IAP can be found at:
+        /// https://cloud.google.com/iap/docs/managing-access#managing_access_via_the_api
+        async fn test_iam_permissions(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::iam::v1::TestIamPermissionsRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<
+                super::super::super::super::iam::v1::TestIamPermissionsResponse,
+            >,
+            tonic::Status,
+        >;
+        /// Gets the IAP settings on a particular IAP protected resource.
+        async fn get_iap_settings(
+            &self,
+            request: tonic::Request<super::GetIapSettingsRequest>,
+        ) -> std::result::Result<tonic::Response<super::IapSettings>, tonic::Status>;
+        /// Updates the IAP settings on a particular IAP protected resource. It
+        /// replaces all fields unless the `update_mask` is set.
+        async fn update_iap_settings(
+            &self,
+            request: tonic::Request<super::UpdateIapSettingsRequest>,
+        ) -> std::result::Result<tonic::Response<super::IapSettings>, tonic::Status>;
+        /// Lists the existing TunnelDestGroups. To group across all locations, use a
+        /// `-` as the location ID. For example:
+        /// `/v1/projects/123/iap_tunnel/locations/-/destGroups`
+        async fn list_tunnel_dest_groups(
+            &self,
+            request: tonic::Request<super::ListTunnelDestGroupsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListTunnelDestGroupsResponse>,
+            tonic::Status,
+        >;
+        /// Creates a new TunnelDestGroup.
+        async fn create_tunnel_dest_group(
+            &self,
+            request: tonic::Request<super::CreateTunnelDestGroupRequest>,
+        ) -> std::result::Result<tonic::Response<super::TunnelDestGroup>, tonic::Status>;
+        /// Retrieves an existing TunnelDestGroup.
+        async fn get_tunnel_dest_group(
+            &self,
+            request: tonic::Request<super::GetTunnelDestGroupRequest>,
+        ) -> std::result::Result<tonic::Response<super::TunnelDestGroup>, tonic::Status>;
+        /// Deletes a TunnelDestGroup.
+        async fn delete_tunnel_dest_group(
+            &self,
+            request: tonic::Request<super::DeleteTunnelDestGroupRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Updates a TunnelDestGroup.
+        async fn update_tunnel_dest_group(
+            &self,
+            request: tonic::Request<super::UpdateTunnelDestGroupRequest>,
+        ) -> std::result::Result<tonic::Response<super::TunnelDestGroup>, tonic::Status>;
+    }
+    /// APIs for Identity-Aware Proxy Admin configurations.
+    #[derive(Debug)]
+    pub struct IdentityAwareProxyAdminServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> IdentityAwareProxyAdminServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for IdentityAwareProxyAdminServiceServer<T>
+    where
+        T: IdentityAwareProxyAdminService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.iap.v1.IdentityAwareProxyAdminService/SetIamPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetIamPolicySvc<T: IdentityAwareProxyAdminService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: IdentityAwareProxyAdminService,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::iam::v1::SetIamPolicyRequest,
+                    > for SetIamPolicySvc<T> {
+                        type Response = super::super::super::super::iam::v1::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::iam::v1::SetIamPolicyRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IdentityAwareProxyAdminService>::set_iam_policy(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SetIamPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.iap.v1.IdentityAwareProxyAdminService/GetIamPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetIamPolicySvc<T: IdentityAwareProxyAdminService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: IdentityAwareProxyAdminService,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::iam::v1::GetIamPolicyRequest,
+                    > for GetIamPolicySvc<T> {
+                        type Response = super::super::super::super::iam::v1::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::iam::v1::GetIamPolicyRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IdentityAwareProxyAdminService>::get_iam_policy(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetIamPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.iap.v1.IdentityAwareProxyAdminService/TestIamPermissions" => {
+                    #[allow(non_camel_case_types)]
+                    struct TestIamPermissionsSvc<T: IdentityAwareProxyAdminService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: IdentityAwareProxyAdminService,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::iam::v1::TestIamPermissionsRequest,
+                    > for TestIamPermissionsSvc<T> {
+                        type Response = super::super::super::super::iam::v1::TestIamPermissionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::iam::v1::TestIamPermissionsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IdentityAwareProxyAdminService>::test_iam_permissions(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = TestIamPermissionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.iap.v1.IdentityAwareProxyAdminService/GetIapSettings" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetIapSettingsSvc<T: IdentityAwareProxyAdminService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: IdentityAwareProxyAdminService,
+                    > tonic::server::UnaryService<super::GetIapSettingsRequest>
+                    for GetIapSettingsSvc<T> {
+                        type Response = super::IapSettings;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetIapSettingsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IdentityAwareProxyAdminService>::get_iap_settings(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetIapSettingsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.iap.v1.IdentityAwareProxyAdminService/UpdateIapSettings" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateIapSettingsSvc<T: IdentityAwareProxyAdminService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: IdentityAwareProxyAdminService,
+                    > tonic::server::UnaryService<super::UpdateIapSettingsRequest>
+                    for UpdateIapSettingsSvc<T> {
+                        type Response = super::IapSettings;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateIapSettingsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IdentityAwareProxyAdminService>::update_iap_settings(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateIapSettingsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.iap.v1.IdentityAwareProxyAdminService/ListTunnelDestGroups" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListTunnelDestGroupsSvc<T: IdentityAwareProxyAdminService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: IdentityAwareProxyAdminService,
+                    > tonic::server::UnaryService<super::ListTunnelDestGroupsRequest>
+                    for ListTunnelDestGroupsSvc<T> {
+                        type Response = super::ListTunnelDestGroupsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListTunnelDestGroupsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IdentityAwareProxyAdminService>::list_tunnel_dest_groups(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListTunnelDestGroupsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.iap.v1.IdentityAwareProxyAdminService/CreateTunnelDestGroup" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateTunnelDestGroupSvc<T: IdentityAwareProxyAdminService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: IdentityAwareProxyAdminService,
+                    > tonic::server::UnaryService<super::CreateTunnelDestGroupRequest>
+                    for CreateTunnelDestGroupSvc<T> {
+                        type Response = super::TunnelDestGroup;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateTunnelDestGroupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IdentityAwareProxyAdminService>::create_tunnel_dest_group(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateTunnelDestGroupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.iap.v1.IdentityAwareProxyAdminService/GetTunnelDestGroup" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetTunnelDestGroupSvc<T: IdentityAwareProxyAdminService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: IdentityAwareProxyAdminService,
+                    > tonic::server::UnaryService<super::GetTunnelDestGroupRequest>
+                    for GetTunnelDestGroupSvc<T> {
+                        type Response = super::TunnelDestGroup;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetTunnelDestGroupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IdentityAwareProxyAdminService>::get_tunnel_dest_group(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetTunnelDestGroupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.iap.v1.IdentityAwareProxyAdminService/DeleteTunnelDestGroup" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteTunnelDestGroupSvc<T: IdentityAwareProxyAdminService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: IdentityAwareProxyAdminService,
+                    > tonic::server::UnaryService<super::DeleteTunnelDestGroupRequest>
+                    for DeleteTunnelDestGroupSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteTunnelDestGroupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IdentityAwareProxyAdminService>::delete_tunnel_dest_group(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteTunnelDestGroupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.iap.v1.IdentityAwareProxyAdminService/UpdateTunnelDestGroup" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateTunnelDestGroupSvc<T: IdentityAwareProxyAdminService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: IdentityAwareProxyAdminService,
+                    > tonic::server::UnaryService<super::UpdateTunnelDestGroupRequest>
+                    for UpdateTunnelDestGroupSvc<T> {
+                        type Response = super::TunnelDestGroup;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateTunnelDestGroupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IdentityAwareProxyAdminService>::update_tunnel_dest_group(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateTunnelDestGroupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for IdentityAwareProxyAdminServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.iap.v1.IdentityAwareProxyAdminService";
+    impl<T> tonic::server::NamedService for IdentityAwareProxyAdminServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}
+/// Generated server implementations.
+pub mod identity_aware_proxy_o_auth_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with IdentityAwareProxyOAuthServiceServer.
+    #[async_trait]
+    pub trait IdentityAwareProxyOAuthService: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists the existing brands for the project.
+        async fn list_brands(
+            &self,
+            request: tonic::Request<super::ListBrandsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListBrandsResponse>,
+            tonic::Status,
+        >;
+        /// Constructs a new OAuth brand for the project if one does not exist.
+        /// The created brand is "internal only", meaning that OAuth clients created
+        /// under it only accept requests from users who belong to the same Google
+        /// Workspace organization as the project. The brand is created in an
+        /// un-reviewed status. NOTE: The "internal only" status can be manually
+        /// changed in the Google Cloud Console. Requires that a brand does not already
+        /// exist for the project, and that the specified support email is owned by the
+        /// caller.
+        async fn create_brand(
+            &self,
+            request: tonic::Request<super::CreateBrandRequest>,
+        ) -> std::result::Result<tonic::Response<super::Brand>, tonic::Status>;
+        /// Retrieves the OAuth brand of the project.
+        async fn get_brand(
+            &self,
+            request: tonic::Request<super::GetBrandRequest>,
+        ) -> std::result::Result<tonic::Response<super::Brand>, tonic::Status>;
+        /// Creates an Identity Aware Proxy (IAP) OAuth client. The client is owned
+        /// by IAP. Requires that the brand for the project exists and that it is
+        /// set for internal-only use.
+        async fn create_identity_aware_proxy_client(
+            &self,
+            request: tonic::Request<super::CreateIdentityAwareProxyClientRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::IdentityAwareProxyClient>,
+            tonic::Status,
+        >;
+        /// Lists the existing clients for the brand.
+        async fn list_identity_aware_proxy_clients(
+            &self,
+            request: tonic::Request<super::ListIdentityAwareProxyClientsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListIdentityAwareProxyClientsResponse>,
+            tonic::Status,
+        >;
+        /// Retrieves an Identity Aware Proxy (IAP) OAuth client.
+        /// Requires that the client is owned by IAP.
+        async fn get_identity_aware_proxy_client(
+            &self,
+            request: tonic::Request<super::GetIdentityAwareProxyClientRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::IdentityAwareProxyClient>,
+            tonic::Status,
+        >;
+        /// Resets an Identity Aware Proxy (IAP) OAuth client secret. Useful if the
+        /// secret was compromised. Requires that the client is owned by IAP.
+        async fn reset_identity_aware_proxy_client_secret(
+            &self,
+            request: tonic::Request<super::ResetIdentityAwareProxyClientSecretRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::IdentityAwareProxyClient>,
+            tonic::Status,
+        >;
+        /// Deletes an Identity Aware Proxy (IAP) OAuth client. Useful for removing
+        /// obsolete clients, managing the number of clients in a given project, and
+        /// cleaning up after tests. Requires that the client is owned by IAP.
+        async fn delete_identity_aware_proxy_client(
+            &self,
+            request: tonic::Request<super::DeleteIdentityAwareProxyClientRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+    }
+    /// API to programmatically create, list and retrieve Identity Aware Proxy (IAP)
+    /// OAuth brands; and create, retrieve, delete and reset-secret of IAP OAuth
+    /// clients.
+    #[derive(Debug)]
+    pub struct IdentityAwareProxyOAuthServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> IdentityAwareProxyOAuthServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for IdentityAwareProxyOAuthServiceServer<T>
+    where
+        T: IdentityAwareProxyOAuthService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.iap.v1.IdentityAwareProxyOAuthService/ListBrands" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListBrandsSvc<T: IdentityAwareProxyOAuthService>(pub Arc<T>);
+                    impl<
+                        T: IdentityAwareProxyOAuthService,
+                    > tonic::server::UnaryService<super::ListBrandsRequest>
+                    for ListBrandsSvc<T> {
+                        type Response = super::ListBrandsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListBrandsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IdentityAwareProxyOAuthService>::list_brands(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListBrandsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.iap.v1.IdentityAwareProxyOAuthService/CreateBrand" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateBrandSvc<T: IdentityAwareProxyOAuthService>(pub Arc<T>);
+                    impl<
+                        T: IdentityAwareProxyOAuthService,
+                    > tonic::server::UnaryService<super::CreateBrandRequest>
+                    for CreateBrandSvc<T> {
+                        type Response = super::Brand;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateBrandRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IdentityAwareProxyOAuthService>::create_brand(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateBrandSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.iap.v1.IdentityAwareProxyOAuthService/GetBrand" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetBrandSvc<T: IdentityAwareProxyOAuthService>(pub Arc<T>);
+                    impl<
+                        T: IdentityAwareProxyOAuthService,
+                    > tonic::server::UnaryService<super::GetBrandRequest>
+                    for GetBrandSvc<T> {
+                        type Response = super::Brand;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetBrandRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IdentityAwareProxyOAuthService>::get_brand(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetBrandSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.iap.v1.IdentityAwareProxyOAuthService/CreateIdentityAwareProxyClient" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateIdentityAwareProxyClientSvc<
+                        T: IdentityAwareProxyOAuthService,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: IdentityAwareProxyOAuthService,
+                    > tonic::server::UnaryService<
+                        super::CreateIdentityAwareProxyClientRequest,
+                    > for CreateIdentityAwareProxyClientSvc<T> {
+                        type Response = super::IdentityAwareProxyClient;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateIdentityAwareProxyClientRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IdentityAwareProxyOAuthService>::create_identity_aware_proxy_client(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateIdentityAwareProxyClientSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.iap.v1.IdentityAwareProxyOAuthService/ListIdentityAwareProxyClients" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListIdentityAwareProxyClientsSvc<
+                        T: IdentityAwareProxyOAuthService,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: IdentityAwareProxyOAuthService,
+                    > tonic::server::UnaryService<
+                        super::ListIdentityAwareProxyClientsRequest,
+                    > for ListIdentityAwareProxyClientsSvc<T> {
+                        type Response = super::ListIdentityAwareProxyClientsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListIdentityAwareProxyClientsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IdentityAwareProxyOAuthService>::list_identity_aware_proxy_clients(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListIdentityAwareProxyClientsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.iap.v1.IdentityAwareProxyOAuthService/GetIdentityAwareProxyClient" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetIdentityAwareProxyClientSvc<
+                        T: IdentityAwareProxyOAuthService,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: IdentityAwareProxyOAuthService,
+                    > tonic::server::UnaryService<
+                        super::GetIdentityAwareProxyClientRequest,
+                    > for GetIdentityAwareProxyClientSvc<T> {
+                        type Response = super::IdentityAwareProxyClient;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetIdentityAwareProxyClientRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IdentityAwareProxyOAuthService>::get_identity_aware_proxy_client(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetIdentityAwareProxyClientSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.iap.v1.IdentityAwareProxyOAuthService/ResetIdentityAwareProxyClientSecret" => {
+                    #[allow(non_camel_case_types)]
+                    struct ResetIdentityAwareProxyClientSecretSvc<
+                        T: IdentityAwareProxyOAuthService,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: IdentityAwareProxyOAuthService,
+                    > tonic::server::UnaryService<
+                        super::ResetIdentityAwareProxyClientSecretRequest,
+                    > for ResetIdentityAwareProxyClientSecretSvc<T> {
+                        type Response = super::IdentityAwareProxyClient;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ResetIdentityAwareProxyClientSecretRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IdentityAwareProxyOAuthService>::reset_identity_aware_proxy_client_secret(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ResetIdentityAwareProxyClientSecretSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.iap.v1.IdentityAwareProxyOAuthService/DeleteIdentityAwareProxyClient" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteIdentityAwareProxyClientSvc<
+                        T: IdentityAwareProxyOAuthService,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: IdentityAwareProxyOAuthService,
+                    > tonic::server::UnaryService<
+                        super::DeleteIdentityAwareProxyClientRequest,
+                    > for DeleteIdentityAwareProxyClientSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteIdentityAwareProxyClientRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IdentityAwareProxyOAuthService>::delete_identity_aware_proxy_client(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteIdentityAwareProxyClientSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for IdentityAwareProxyOAuthServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.iap.v1.IdentityAwareProxyOAuthService";
+    impl<T> tonic::server::NamedService for IdentityAwareProxyOAuthServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

@@ -192,11 +192,11 @@ impl ResolutionStatus {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ResolutionStatus::Unspecified => "RESOLUTION_STATUS_UNSPECIFIED",
-            ResolutionStatus::Open => "OPEN",
-            ResolutionStatus::Acknowledged => "ACKNOWLEDGED",
-            ResolutionStatus::Resolved => "RESOLVED",
-            ResolutionStatus::Muted => "MUTED",
+            Self::Unspecified => "RESOLUTION_STATUS_UNSPECIFIED",
+            Self::Open => "OPEN",
+            Self::Acknowledged => "ACKNOWLEDGED",
+            Self::Resolved => "RESOLVED",
+            Self::Muted => "MUTED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -209,6 +209,394 @@ impl ResolutionStatus {
             "MUTED" => Some(Self::Muted),
             _ => None,
         }
+    }
+}
+/// A request for reporting an individual error event.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ReportErrorEventRequest {
+    /// Required. The resource name of the Google Cloud Platform project. Written
+    /// as `projects/{projectId}`, where `{projectId}` is the
+    /// [Google Cloud Platform project
+    /// ID](<https://support.google.com/cloud/answer/6158840>).
+    ///
+    /// Example: // `projects/my-project-123`.
+    #[prost(string, tag = "1")]
+    pub project_name: ::prost::alloc::string::String,
+    /// Required. The error event to be reported.
+    #[prost(message, optional, tag = "2")]
+    pub event: ::core::option::Option<ReportedErrorEvent>,
+}
+/// Response for reporting an individual error event.
+/// Data may be added to this message in the future.
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct ReportErrorEventResponse {}
+/// An error event which is reported to the Error Reporting system.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ReportedErrorEvent {
+    /// Optional. Time when the event occurred.
+    /// If not provided, the time when the event was received by the
+    /// Error Reporting system is used. If provided, the time must not
+    /// exceed the [logs retention
+    /// period](<https://cloud.google.com/logging/quotas#logs_retention_periods>) in
+    /// the past, or be more than 24 hours in the future.
+    /// If an invalid time is provided, then an error is returned.
+    #[prost(message, optional, tag = "1")]
+    pub event_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Required. The service context in which this error has occurred.
+    #[prost(message, optional, tag = "2")]
+    pub service_context: ::core::option::Option<ServiceContext>,
+    /// Required. The error message.
+    /// If no `context.reportLocation` is provided, the message must contain a
+    /// header (typically consisting of the exception type name and an error
+    /// message) and an exception stack trace in one of the supported programming
+    /// languages and formats.
+    /// Supported languages are Java, Python, JavaScript, Ruby, C#, PHP, and Go.
+    /// Supported stack trace formats are:
+    ///
+    /// * **Java**: Must be the return value of
+    /// [`Throwable.printStackTrace()`](<https://docs.oracle.com/javase/7/docs/api/java/lang/Throwable.html#printStackTrace%28%29>).
+    /// * **Python**: Must be the return value of
+    /// [`traceback.format_exc()`](<https://docs.python.org/2/library/traceback.html#traceback.format_exc>).
+    /// * **JavaScript**: Must be the value of
+    /// [`error.stack`](<https://github.com/v8/v8/wiki/Stack-Trace-API>) as returned
+    /// by V8.
+    /// * **Ruby**: Must contain frames returned by
+    /// [`Exception.backtrace`](<https://ruby-doc.org/core-2.2.0/Exception.html#method-i-backtrace>).
+    /// * **C#**: Must be the return value of
+    /// [`Exception.ToString()`](<https://msdn.microsoft.com/en-us/library/system.exception.tostring.aspx>).
+    /// * **PHP**: Must be prefixed with `"PHP (Notice|Parse error|Fatal
+    /// error|Warning): "` and contain the result of
+    /// [`(string)$exception`](<https://php.net/manual/en/exception.tostring.php>).
+    /// * **Go**: Must be the return value of
+    /// [`runtime.Stack()`](<https://golang.org/pkg/runtime/debug/#Stack>).
+    #[prost(string, tag = "3")]
+    pub message: ::prost::alloc::string::String,
+    /// Optional. A description of the context in which the error occurred.
+    #[prost(message, optional, tag = "4")]
+    pub context: ::core::option::Option<ErrorContext>,
+}
+/// Generated client implementations.
+pub mod report_errors_service_client {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    use tonic::codegen::http::Uri;
+    /// An API for reporting error events.
+    #[derive(Debug, Clone)]
+    pub struct ReportErrorsServiceClient<T> {
+        inner: tonic::client::Grpc<T>,
+    }
+    impl<T> ReportErrorsServiceClient<T>
+    where
+        T: tonic::client::GrpcService<tonic::body::BoxBody>,
+        T::Error: Into<StdError>,
+        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
+    {
+        pub fn new(inner: T) -> Self {
+            let inner = tonic::client::Grpc::new(inner);
+            Self { inner }
+        }
+        pub fn with_origin(inner: T, origin: Uri) -> Self {
+            let inner = tonic::client::Grpc::with_origin(inner, origin);
+            Self { inner }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> ReportErrorsServiceClient<InterceptedService<T, F>>
+        where
+            F: tonic::service::Interceptor,
+            T::ResponseBody: Default,
+            T: tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+                Response = http::Response<
+                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
+                >,
+            >,
+            <T as tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+            >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
+        {
+            ReportErrorsServiceClient::new(InterceptedService::new(inner, interceptor))
+        }
+        /// Compress requests with the given encoding.
+        ///
+        /// This requires the server to support it otherwise it might respond with an
+        /// error.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.send_compressed(encoding);
+            self
+        }
+        /// Enable decompressing responses.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.accept_compressed(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
+        /// Report an individual error event and record the event to a log.
+        ///
+        /// This endpoint accepts **either** an OAuth token,
+        /// **or** an [API key](https://support.google.com/cloud/answer/6158862)
+        /// for authentication. To use an API key, append it to the URL as the value of
+        /// a `key` parameter. For example:
+        ///
+        /// `POST
+        /// https://clouderrorreporting.googleapis.com/v1beta1/{projectName}/events:report?key=123ABC456`
+        ///
+        /// **Note:** [Error Reporting] (https://cloud.google.com/error-reporting)
+        /// is a service built on Cloud Logging and can analyze log entries when all of
+        /// the following are true:
+        ///
+        /// * Customer-managed encryption keys (CMEK) are disabled on the log bucket.
+        /// * The log bucket satisfies one of the following:
+        ///     * The log bucket is stored in the same project where the logs
+        ///     originated.
+        ///     * The logs were routed to a project, and then that project stored those
+        ///     logs in a log bucket that it owns.
+        pub async fn report_error_event(
+            &mut self,
+            request: impl tonic::IntoRequest<super::ReportErrorEventRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ReportErrorEventResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.devtools.clouderrorreporting.v1beta1.ReportErrorsService/ReportErrorEvent",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.devtools.clouderrorreporting.v1beta1.ReportErrorsService",
+                        "ReportErrorEvent",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+    }
+}
+/// Generated server implementations.
+pub mod report_errors_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with ReportErrorsServiceServer.
+    #[async_trait]
+    pub trait ReportErrorsService: std::marker::Send + std::marker::Sync + 'static {
+        /// Report an individual error event and record the event to a log.
+        ///
+        /// This endpoint accepts **either** an OAuth token,
+        /// **or** an [API key](https://support.google.com/cloud/answer/6158862)
+        /// for authentication. To use an API key, append it to the URL as the value of
+        /// a `key` parameter. For example:
+        ///
+        /// `POST
+        /// https://clouderrorreporting.googleapis.com/v1beta1/{projectName}/events:report?key=123ABC456`
+        ///
+        /// **Note:** [Error Reporting] (https://cloud.google.com/error-reporting)
+        /// is a service built on Cloud Logging and can analyze log entries when all of
+        /// the following are true:
+        ///
+        /// * Customer-managed encryption keys (CMEK) are disabled on the log bucket.
+        /// * The log bucket satisfies one of the following:
+        ///     * The log bucket is stored in the same project where the logs
+        ///     originated.
+        ///     * The logs were routed to a project, and then that project stored those
+        ///     logs in a log bucket that it owns.
+        async fn report_error_event(
+            &self,
+            request: tonic::Request<super::ReportErrorEventRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ReportErrorEventResponse>,
+            tonic::Status,
+        >;
+    }
+    /// An API for reporting error events.
+    #[derive(Debug)]
+    pub struct ReportErrorsServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> ReportErrorsServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for ReportErrorsServiceServer<T>
+    where
+        T: ReportErrorsService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.devtools.clouderrorreporting.v1beta1.ReportErrorsService/ReportErrorEvent" => {
+                    #[allow(non_camel_case_types)]
+                    struct ReportErrorEventSvc<T: ReportErrorsService>(pub Arc<T>);
+                    impl<
+                        T: ReportErrorsService,
+                    > tonic::server::UnaryService<super::ReportErrorEventRequest>
+                    for ReportErrorEventSvc<T> {
+                        type Response = super::ReportErrorEventResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ReportErrorEventRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ReportErrorsService>::report_error_event(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ReportErrorEventSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for ReportErrorsServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.devtools.clouderrorreporting.v1beta1.ReportErrorsService";
+    impl<T> tonic::server::NamedService for ReportErrorsServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }
 /// A request to return an individual group.
@@ -375,6 +763,229 @@ pub mod error_group_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod error_group_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with ErrorGroupServiceServer.
+    #[async_trait]
+    pub trait ErrorGroupService: std::marker::Send + std::marker::Sync + 'static {
+        /// Get the specified group.
+        async fn get_group(
+            &self,
+            request: tonic::Request<super::GetGroupRequest>,
+        ) -> std::result::Result<tonic::Response<super::ErrorGroup>, tonic::Status>;
+        /// Replace the data for the specified group.
+        /// Fails if the group does not exist.
+        async fn update_group(
+            &self,
+            request: tonic::Request<super::UpdateGroupRequest>,
+        ) -> std::result::Result<tonic::Response<super::ErrorGroup>, tonic::Status>;
+    }
+    /// Service for retrieving and updating individual error groups.
+    #[derive(Debug)]
+    pub struct ErrorGroupServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> ErrorGroupServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for ErrorGroupServiceServer<T>
+    where
+        T: ErrorGroupService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.devtools.clouderrorreporting.v1beta1.ErrorGroupService/GetGroup" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetGroupSvc<T: ErrorGroupService>(pub Arc<T>);
+                    impl<
+                        T: ErrorGroupService,
+                    > tonic::server::UnaryService<super::GetGroupRequest>
+                    for GetGroupSvc<T> {
+                        type Response = super::ErrorGroup;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetGroupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ErrorGroupService>::get_group(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetGroupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.clouderrorreporting.v1beta1.ErrorGroupService/UpdateGroup" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateGroupSvc<T: ErrorGroupService>(pub Arc<T>);
+                    impl<
+                        T: ErrorGroupService,
+                    > tonic::server::UnaryService<super::UpdateGroupRequest>
+                    for UpdateGroupSvc<T> {
+                        type Response = super::ErrorGroup;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateGroupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ErrorGroupService>::update_group(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateGroupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for ErrorGroupServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.devtools.clouderrorreporting.v1beta1.ErrorGroupService";
+    impl<T> tonic::server::NamedService for ErrorGroupServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }
 /// Specifies a set of `ErrorGroupStats` to return.
@@ -664,12 +1275,12 @@ pub mod query_time_range {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Period::Unspecified => "PERIOD_UNSPECIFIED",
-                Period::Period1Hour => "PERIOD_1_HOUR",
-                Period::Period6Hours => "PERIOD_6_HOURS",
-                Period::Period1Day => "PERIOD_1_DAY",
-                Period::Period1Week => "PERIOD_1_WEEK",
-                Period::Period30Days => "PERIOD_30_DAYS",
+                Self::Unspecified => "PERIOD_UNSPECIFIED",
+                Self::Period1Hour => "PERIOD_1_HOUR",
+                Self::Period6Hours => "PERIOD_6_HOURS",
+                Self::Period1Day => "PERIOD_1_DAY",
+                Self::Period1Week => "PERIOD_1_WEEK",
+                Self::Period30Days => "PERIOD_30_DAYS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -759,11 +1370,9 @@ impl TimedCountAlignment {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            TimedCountAlignment::ErrorCountAlignmentUnspecified => {
-                "ERROR_COUNT_ALIGNMENT_UNSPECIFIED"
-            }
-            TimedCountAlignment::AlignmentEqualRounded => "ALIGNMENT_EQUAL_ROUNDED",
-            TimedCountAlignment::AlignmentEqualAtEnd => "ALIGNMENT_EQUAL_AT_END",
+            Self::ErrorCountAlignmentUnspecified => "ERROR_COUNT_ALIGNMENT_UNSPECIFIED",
+            Self::AlignmentEqualRounded => "ALIGNMENT_EQUAL_ROUNDED",
+            Self::AlignmentEqualAtEnd => "ALIGNMENT_EQUAL_AT_END",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -801,11 +1410,11 @@ impl ErrorGroupOrder {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ErrorGroupOrder::GroupOrderUnspecified => "GROUP_ORDER_UNSPECIFIED",
-            ErrorGroupOrder::CountDesc => "COUNT_DESC",
-            ErrorGroupOrder::LastSeenDesc => "LAST_SEEN_DESC",
-            ErrorGroupOrder::CreatedDesc => "CREATED_DESC",
-            ErrorGroupOrder::AffectedUsersDesc => "AFFECTED_USERS_DESC",
+            Self::GroupOrderUnspecified => "GROUP_ORDER_UNSPECIFIED",
+            Self::CountDesc => "COUNT_DESC",
+            Self::LastSeenDesc => "LAST_SEEN_DESC",
+            Self::CreatedDesc => "CREATED_DESC",
+            Self::AffectedUsersDesc => "AFFECTED_USERS_DESC",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -991,127 +1600,80 @@ pub mod error_stats_service_client {
         }
     }
 }
-/// A request for reporting an individual error event.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ReportErrorEventRequest {
-    /// Required. The resource name of the Google Cloud Platform project. Written
-    /// as `projects/{projectId}`, where `{projectId}` is the
-    /// [Google Cloud Platform project
-    /// ID](<https://support.google.com/cloud/answer/6158840>).
-    ///
-    /// Example: // `projects/my-project-123`.
-    #[prost(string, tag = "1")]
-    pub project_name: ::prost::alloc::string::String,
-    /// Required. The error event to be reported.
-    #[prost(message, optional, tag = "2")]
-    pub event: ::core::option::Option<ReportedErrorEvent>,
-}
-/// Response for reporting an individual error event.
-/// Data may be added to this message in the future.
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
-pub struct ReportErrorEventResponse {}
-/// An error event which is reported to the Error Reporting system.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ReportedErrorEvent {
-    /// Optional. Time when the event occurred.
-    /// If not provided, the time when the event was received by the
-    /// Error Reporting system is used. If provided, the time must not
-    /// exceed the [logs retention
-    /// period](<https://cloud.google.com/logging/quotas#logs_retention_periods>) in
-    /// the past, or be more than 24 hours in the future.
-    /// If an invalid time is provided, then an error is returned.
-    #[prost(message, optional, tag = "1")]
-    pub event_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Required. The service context in which this error has occurred.
-    #[prost(message, optional, tag = "2")]
-    pub service_context: ::core::option::Option<ServiceContext>,
-    /// Required. The error message.
-    /// If no `context.reportLocation` is provided, the message must contain a
-    /// header (typically consisting of the exception type name and an error
-    /// message) and an exception stack trace in one of the supported programming
-    /// languages and formats.
-    /// Supported languages are Java, Python, JavaScript, Ruby, C#, PHP, and Go.
-    /// Supported stack trace formats are:
-    ///
-    /// * **Java**: Must be the return value of
-    /// [`Throwable.printStackTrace()`](<https://docs.oracle.com/javase/7/docs/api/java/lang/Throwable.html#printStackTrace%28%29>).
-    /// * **Python**: Must be the return value of
-    /// [`traceback.format_exc()`](<https://docs.python.org/2/library/traceback.html#traceback.format_exc>).
-    /// * **JavaScript**: Must be the value of
-    /// [`error.stack`](<https://github.com/v8/v8/wiki/Stack-Trace-API>) as returned
-    /// by V8.
-    /// * **Ruby**: Must contain frames returned by
-    /// [`Exception.backtrace`](<https://ruby-doc.org/core-2.2.0/Exception.html#method-i-backtrace>).
-    /// * **C#**: Must be the return value of
-    /// [`Exception.ToString()`](<https://msdn.microsoft.com/en-us/library/system.exception.tostring.aspx>).
-    /// * **PHP**: Must be prefixed with `"PHP (Notice|Parse error|Fatal
-    /// error|Warning): "` and contain the result of
-    /// [`(string)$exception`](<https://php.net/manual/en/exception.tostring.php>).
-    /// * **Go**: Must be the return value of
-    /// [`runtime.Stack()`](<https://golang.org/pkg/runtime/debug/#Stack>).
-    #[prost(string, tag = "3")]
-    pub message: ::prost::alloc::string::String,
-    /// Optional. A description of the context in which the error occurred.
-    #[prost(message, optional, tag = "4")]
-    pub context: ::core::option::Option<ErrorContext>,
-}
-/// Generated client implementations.
-pub mod report_errors_service_client {
+/// Generated server implementations.
+pub mod error_stats_service_server {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
-    use tonic::codegen::http::Uri;
-    /// An API for reporting error events.
-    #[derive(Debug, Clone)]
-    pub struct ReportErrorsServiceClient<T> {
-        inner: tonic::client::Grpc<T>,
+    /// Generated trait containing gRPC methods that should be implemented for use with ErrorStatsServiceServer.
+    #[async_trait]
+    pub trait ErrorStatsService: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists the specified groups.
+        async fn list_group_stats(
+            &self,
+            request: tonic::Request<super::ListGroupStatsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListGroupStatsResponse>,
+            tonic::Status,
+        >;
+        /// Lists the specified events.
+        async fn list_events(
+            &self,
+            request: tonic::Request<super::ListEventsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListEventsResponse>,
+            tonic::Status,
+        >;
+        /// Deletes all error events of a given project.
+        async fn delete_events(
+            &self,
+            request: tonic::Request<super::DeleteEventsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::DeleteEventsResponse>,
+            tonic::Status,
+        >;
     }
-    impl<T> ReportErrorsServiceClient<T>
-    where
-        T: tonic::client::GrpcService<tonic::body::BoxBody>,
-        T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
-    {
+    /// An API for retrieving and managing error statistics as well as data for
+    /// individual events.
+    #[derive(Debug)]
+    pub struct ErrorStatsServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> ErrorStatsServiceServer<T> {
         pub fn new(inner: T) -> Self {
-            let inner = tonic::client::Grpc::new(inner);
-            Self { inner }
+            Self::from_arc(Arc::new(inner))
         }
-        pub fn with_origin(inner: T, origin: Uri) -> Self {
-            let inner = tonic::client::Grpc::with_origin(inner, origin);
-            Self { inner }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
         }
         pub fn with_interceptor<F>(
             inner: T,
             interceptor: F,
-        ) -> ReportErrorsServiceClient<InterceptedService<T, F>>
+        ) -> InterceptedService<Self, F>
         where
             F: tonic::service::Interceptor,
-            T::ResponseBody: Default,
-            T: tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-                Response = http::Response<
-                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
-                >,
-            >,
-            <T as tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-            >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
         {
-            ReportErrorsServiceClient::new(InterceptedService::new(inner, interceptor))
+            InterceptedService::new(Self::new(inner), interceptor)
         }
-        /// Compress requests with the given encoding.
-        ///
-        /// This requires the server to support it otherwise it might respond with an
-        /// error.
-        #[must_use]
-        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.send_compressed(encoding);
-            self
-        }
-        /// Enable decompressing responses.
+        /// Enable decompressing requests with the given encoding.
         #[must_use]
         pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.accept_compressed(encoding);
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
             self
         }
         /// Limits the maximum size of a decoded message.
@@ -1119,7 +1681,7 @@ pub mod report_errors_service_client {
         /// Default: `4MB`
         #[must_use]
         pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_decoding_message_size(limit);
+            self.max_decoding_message_size = Some(limit);
             self
         }
         /// Limits the maximum size of an encoded message.
@@ -1127,58 +1689,197 @@ pub mod report_errors_service_client {
         /// Default: `usize::MAX`
         #[must_use]
         pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_encoding_message_size(limit);
+            self.max_encoding_message_size = Some(limit);
             self
         }
-        /// Report an individual error event and record the event to a log.
-        ///
-        /// This endpoint accepts **either** an OAuth token,
-        /// **or** an [API key](https://support.google.com/cloud/answer/6158862)
-        /// for authentication. To use an API key, append it to the URL as the value of
-        /// a `key` parameter. For example:
-        ///
-        /// `POST
-        /// https://clouderrorreporting.googleapis.com/v1beta1/{projectName}/events:report?key=123ABC456`
-        ///
-        /// **Note:** [Error Reporting] (https://cloud.google.com/error-reporting)
-        /// is a service built on Cloud Logging and can analyze log entries when all of
-        /// the following are true:
-        ///
-        /// * Customer-managed encryption keys (CMEK) are disabled on the log bucket.
-        /// * The log bucket satisfies one of the following:
-        ///     * The log bucket is stored in the same project where the logs
-        ///     originated.
-        ///     * The logs were routed to a project, and then that project stored those
-        ///     logs in a log bucket that it owns.
-        pub async fn report_error_event(
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for ErrorStatsServiceServer<T>
+    where
+        T: ErrorStatsService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
             &mut self,
-            request: impl tonic::IntoRequest<super::ReportErrorEventRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::ReportErrorEventResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.devtools.clouderrorreporting.v1beta1.ReportErrorsService/ReportErrorEvent",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.devtools.clouderrorreporting.v1beta1.ReportErrorsService",
-                        "ReportErrorEvent",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
         }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.devtools.clouderrorreporting.v1beta1.ErrorStatsService/ListGroupStats" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListGroupStatsSvc<T: ErrorStatsService>(pub Arc<T>);
+                    impl<
+                        T: ErrorStatsService,
+                    > tonic::server::UnaryService<super::ListGroupStatsRequest>
+                    for ListGroupStatsSvc<T> {
+                        type Response = super::ListGroupStatsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListGroupStatsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ErrorStatsService>::list_group_stats(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListGroupStatsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.clouderrorreporting.v1beta1.ErrorStatsService/ListEvents" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListEventsSvc<T: ErrorStatsService>(pub Arc<T>);
+                    impl<
+                        T: ErrorStatsService,
+                    > tonic::server::UnaryService<super::ListEventsRequest>
+                    for ListEventsSvc<T> {
+                        type Response = super::ListEventsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListEventsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ErrorStatsService>::list_events(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListEventsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.clouderrorreporting.v1beta1.ErrorStatsService/DeleteEvents" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteEventsSvc<T: ErrorStatsService>(pub Arc<T>);
+                    impl<
+                        T: ErrorStatsService,
+                    > tonic::server::UnaryService<super::DeleteEventsRequest>
+                    for DeleteEventsSvc<T> {
+                        type Response = super::DeleteEventsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteEventsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ErrorStatsService>::delete_events(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteEventsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for ErrorStatsServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.devtools.clouderrorreporting.v1beta1.ErrorStatsService";
+    impl<T> tonic::server::NamedService for ErrorStatsServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

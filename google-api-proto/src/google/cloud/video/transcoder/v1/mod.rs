@@ -105,11 +105,11 @@ pub mod job {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ProcessingState::Unspecified => "PROCESSING_STATE_UNSPECIFIED",
-                ProcessingState::Pending => "PENDING",
-                ProcessingState::Running => "RUNNING",
-                ProcessingState::Succeeded => "SUCCEEDED",
-                ProcessingState::Failed => "FAILED",
+                Self::Unspecified => "PROCESSING_STATE_UNSPECIFIED",
+                Self::Pending => "PENDING",
+                Self::Running => "RUNNING",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Failed => "FAILED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -155,9 +155,9 @@ pub mod job {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ProcessingMode::Unspecified => "PROCESSING_MODE_UNSPECIFIED",
-                ProcessingMode::Interactive => "PROCESSING_MODE_INTERACTIVE",
-                ProcessingMode::Batch => "PROCESSING_MODE_BATCH",
+                Self::Unspecified => "PROCESSING_MODE_UNSPECIFIED",
+                Self::Interactive => "PROCESSING_MODE_INTERACTIVE",
+                Self::Batch => "PROCESSING_MODE_BATCH",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -198,9 +198,9 @@ pub mod job {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                OptimizationStrategy::Unspecified => "OPTIMIZATION_STRATEGY_UNSPECIFIED",
-                OptimizationStrategy::Autodetect => "AUTODETECT",
-                OptimizationStrategy::Disabled => "DISABLED",
+                Self::Unspecified => "OPTIMIZATION_STRATEGY_UNSPECIFIED",
+                Self::Autodetect => "AUTODETECT",
+                Self::Disabled => "DISABLED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -478,13 +478,9 @@ pub mod manifest {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    SegmentReferenceScheme::Unspecified => {
-                        "SEGMENT_REFERENCE_SCHEME_UNSPECIFIED"
-                    }
-                    SegmentReferenceScheme::SegmentList => "SEGMENT_LIST",
-                    SegmentReferenceScheme::SegmentTemplateNumber => {
-                        "SEGMENT_TEMPLATE_NUMBER"
-                    }
+                    Self::Unspecified => "SEGMENT_REFERENCE_SCHEME_UNSPECIFIED",
+                    Self::SegmentList => "SEGMENT_LIST",
+                    Self::SegmentTemplateNumber => "SEGMENT_TEMPLATE_NUMBER",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -526,9 +522,9 @@ pub mod manifest {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ManifestType::Unspecified => "MANIFEST_TYPE_UNSPECIFIED",
-                ManifestType::Hls => "HLS",
-                ManifestType::Dash => "DASH",
+                Self::Unspecified => "MANIFEST_TYPE_UNSPECIFIED",
+                Self::Hls => "HLS",
+                Self::Dash => "DASH",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -781,9 +777,9 @@ pub mod overlay {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                FadeType::Unspecified => "FADE_TYPE_UNSPECIFIED",
-                FadeType::FadeIn => "FADE_IN",
-                FadeType::FadeOut => "FADE_OUT",
+                Self::Unspecified => "FADE_TYPE_UNSPECIFIED",
+                Self::FadeIn => "FADE_IN",
+                Self::FadeOut => "FADE_OUT",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2140,5 +2136,550 @@ pub mod transcoder_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod transcoder_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with TranscoderServiceServer.
+    #[async_trait]
+    pub trait TranscoderService: std::marker::Send + std::marker::Sync + 'static {
+        /// Creates a job in the specified region.
+        async fn create_job(
+            &self,
+            request: tonic::Request<super::CreateJobRequest>,
+        ) -> std::result::Result<tonic::Response<super::Job>, tonic::Status>;
+        /// Lists jobs in the specified region.
+        async fn list_jobs(
+            &self,
+            request: tonic::Request<super::ListJobsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListJobsResponse>,
+            tonic::Status,
+        >;
+        /// Returns the job data.
+        async fn get_job(
+            &self,
+            request: tonic::Request<super::GetJobRequest>,
+        ) -> std::result::Result<tonic::Response<super::Job>, tonic::Status>;
+        /// Deletes a job.
+        async fn delete_job(
+            &self,
+            request: tonic::Request<super::DeleteJobRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Creates a job template in the specified region.
+        async fn create_job_template(
+            &self,
+            request: tonic::Request<super::CreateJobTemplateRequest>,
+        ) -> std::result::Result<tonic::Response<super::JobTemplate>, tonic::Status>;
+        /// Lists job templates in the specified region.
+        async fn list_job_templates(
+            &self,
+            request: tonic::Request<super::ListJobTemplatesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListJobTemplatesResponse>,
+            tonic::Status,
+        >;
+        /// Returns the job template data.
+        async fn get_job_template(
+            &self,
+            request: tonic::Request<super::GetJobTemplateRequest>,
+        ) -> std::result::Result<tonic::Response<super::JobTemplate>, tonic::Status>;
+        /// Deletes a job template.
+        async fn delete_job_template(
+            &self,
+            request: tonic::Request<super::DeleteJobTemplateRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+    }
+    /// Using the Transcoder API, you can queue asynchronous jobs for transcoding
+    /// media into various output formats. Output formats may include different
+    /// streaming standards such as HTTP Live Streaming (HLS) and Dynamic Adaptive
+    /// Streaming over HTTP (DASH). You can also customize jobs using advanced
+    /// features such as Digital Rights Management (DRM), audio equalization, content
+    /// concatenation, and digital ad-stitch ready content generation.
+    #[derive(Debug)]
+    pub struct TranscoderServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> TranscoderServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for TranscoderServiceServer<T>
+    where
+        T: TranscoderService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.video.transcoder.v1.TranscoderService/CreateJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateJobSvc<T: TranscoderService>(pub Arc<T>);
+                    impl<
+                        T: TranscoderService,
+                    > tonic::server::UnaryService<super::CreateJobRequest>
+                    for CreateJobSvc<T> {
+                        type Response = super::Job;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranscoderService>::create_job(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.video.transcoder.v1.TranscoderService/ListJobs" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListJobsSvc<T: TranscoderService>(pub Arc<T>);
+                    impl<
+                        T: TranscoderService,
+                    > tonic::server::UnaryService<super::ListJobsRequest>
+                    for ListJobsSvc<T> {
+                        type Response = super::ListJobsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListJobsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranscoderService>::list_jobs(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListJobsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.video.transcoder.v1.TranscoderService/GetJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetJobSvc<T: TranscoderService>(pub Arc<T>);
+                    impl<
+                        T: TranscoderService,
+                    > tonic::server::UnaryService<super::GetJobRequest>
+                    for GetJobSvc<T> {
+                        type Response = super::Job;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranscoderService>::get_job(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.video.transcoder.v1.TranscoderService/DeleteJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteJobSvc<T: TranscoderService>(pub Arc<T>);
+                    impl<
+                        T: TranscoderService,
+                    > tonic::server::UnaryService<super::DeleteJobRequest>
+                    for DeleteJobSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranscoderService>::delete_job(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.video.transcoder.v1.TranscoderService/CreateJobTemplate" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateJobTemplateSvc<T: TranscoderService>(pub Arc<T>);
+                    impl<
+                        T: TranscoderService,
+                    > tonic::server::UnaryService<super::CreateJobTemplateRequest>
+                    for CreateJobTemplateSvc<T> {
+                        type Response = super::JobTemplate;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateJobTemplateRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranscoderService>::create_job_template(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateJobTemplateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.video.transcoder.v1.TranscoderService/ListJobTemplates" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListJobTemplatesSvc<T: TranscoderService>(pub Arc<T>);
+                    impl<
+                        T: TranscoderService,
+                    > tonic::server::UnaryService<super::ListJobTemplatesRequest>
+                    for ListJobTemplatesSvc<T> {
+                        type Response = super::ListJobTemplatesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListJobTemplatesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranscoderService>::list_job_templates(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListJobTemplatesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.video.transcoder.v1.TranscoderService/GetJobTemplate" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetJobTemplateSvc<T: TranscoderService>(pub Arc<T>);
+                    impl<
+                        T: TranscoderService,
+                    > tonic::server::UnaryService<super::GetJobTemplateRequest>
+                    for GetJobTemplateSvc<T> {
+                        type Response = super::JobTemplate;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetJobTemplateRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranscoderService>::get_job_template(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetJobTemplateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.video.transcoder.v1.TranscoderService/DeleteJobTemplate" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteJobTemplateSvc<T: TranscoderService>(pub Arc<T>);
+                    impl<
+                        T: TranscoderService,
+                    > tonic::server::UnaryService<super::DeleteJobTemplateRequest>
+                    for DeleteJobTemplateSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteJobTemplateRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranscoderService>::delete_job_template(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteJobTemplateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for TranscoderServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.video.transcoder.v1.TranscoderService";
+    impl<T> tonic::server::NamedService for TranscoderServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

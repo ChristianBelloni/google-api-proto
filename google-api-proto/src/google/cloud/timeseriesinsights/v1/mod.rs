@@ -106,14 +106,14 @@ pub mod data_set {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Unknown => "UNKNOWN",
-                State::Pending => "PENDING",
-                State::Loading => "LOADING",
-                State::Loaded => "LOADED",
-                State::Unloading => "UNLOADING",
-                State::Unloaded => "UNLOADED",
-                State::Failed => "FAILED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Unknown => "UNKNOWN",
+                Self::Pending => "PENDING",
+                Self::Loading => "LOADING",
+                Self::Loaded => "LOADED",
+                Self::Unloading => "UNLOADING",
+                Self::Unloaded => "UNLOADED",
+                Self::Failed => "FAILED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -402,12 +402,12 @@ pub mod forecast_params {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Period::Unspecified => "PERIOD_UNSPECIFIED",
-                Period::Hourly => "HOURLY",
-                Period::Daily => "DAILY",
-                Period::Weekly => "WEEKLY",
-                Period::Monthly => "MONTHLY",
-                Period::Yearly => "YEARLY",
+                Self::Unspecified => "PERIOD_UNSPECIFIED",
+                Self::Hourly => "HOURLY",
+                Self::Daily => "DAILY",
+                Self::Weekly => "WEEKLY",
+                Self::Monthly => "MONTHLY",
+                Self::Yearly => "YEARLY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -742,9 +742,9 @@ pub mod timeseries_params {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                AggregationMethod::Unspecified => "AGGREGATION_METHOD_UNSPECIFIED",
-                AggregationMethod::Sum => "SUM",
-                AggregationMethod::Average => "AVERAGE",
+                Self::Unspecified => "AGGREGATION_METHOD_UNSPECIFIED",
+                Self::Sum => "SUM",
+                Self::Average => "AVERAGE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1178,5 +1178,528 @@ pub mod timeseries_insights_controller_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod timeseries_insights_controller_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with TimeseriesInsightsControllerServer.
+    #[async_trait]
+    pub trait TimeseriesInsightsController: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists [DataSets][google.cloud.timeseriesinsights.v1.DataSet] under the project.
+        ///
+        /// The order of the results is unspecified but deterministic. Newly created
+        /// [DataSets][google.cloud.timeseriesinsights.v1.DataSet] will not necessarily be added to the end
+        /// of this list.
+        async fn list_data_sets(
+            &self,
+            request: tonic::Request<super::ListDataSetsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDataSetsResponse>,
+            tonic::Status,
+        >;
+        /// Create a [DataSet][google.cloud.timeseriesinsights.v1.DataSet] from data stored on Cloud
+        /// Storage.
+        ///
+        /// The data must stay immutable while we process the
+        /// [DataSet][google.cloud.timeseriesinsights.v1.DataSet] creation; otherwise, undefined outcomes
+        /// might result.  For more information, see [DataSet][google.cloud.timeseriesinsights.v1.DataSet].
+        async fn create_data_set(
+            &self,
+            request: tonic::Request<super::CreateDataSetRequest>,
+        ) -> std::result::Result<tonic::Response<super::DataSet>, tonic::Status>;
+        /// Delete a [DataSet][google.cloud.timeseriesinsights.v1.DataSet] from the system.
+        ///
+        /// **NOTE**: If the [DataSet][google.cloud.timeseriesinsights.v1.DataSet] is still being
+        /// processed, it will be aborted and deleted.
+        async fn delete_data_set(
+            &self,
+            request: tonic::Request<super::DeleteDataSetRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Append events to a `LOADED` [DataSet][google.cloud.timeseriesinsights.v1.DataSet].
+        async fn append_events(
+            &self,
+            request: tonic::Request<super::AppendEventsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AppendEventsResponse>,
+            tonic::Status,
+        >;
+        /// Execute a Timeseries Insights query over a loaded
+        /// [DataSet][google.cloud.timeseriesinsights.v1.DataSet].
+        async fn query_data_set(
+            &self,
+            request: tonic::Request<super::QueryDataSetRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryDataSetResponse>,
+            tonic::Status,
+        >;
+        /// Evaluate an explicit slice from a loaded [DataSet][google.cloud.timeseriesinsights.v1.DataSet].
+        async fn evaluate_slice(
+            &self,
+            request: tonic::Request<super::EvaluateSliceRequest>,
+        ) -> std::result::Result<tonic::Response<super::EvaluatedSlice>, tonic::Status>;
+        /// Evaluate an explicit timeseries.
+        async fn evaluate_timeseries(
+            &self,
+            request: tonic::Request<super::EvaluateTimeseriesRequest>,
+        ) -> std::result::Result<tonic::Response<super::EvaluatedSlice>, tonic::Status>;
+    }
+    #[derive(Debug)]
+    pub struct TimeseriesInsightsControllerServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> TimeseriesInsightsControllerServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for TimeseriesInsightsControllerServer<T>
+    where
+        T: TimeseriesInsightsController,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.timeseriesinsights.v1.TimeseriesInsightsController/ListDataSets" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDataSetsSvc<T: TimeseriesInsightsController>(pub Arc<T>);
+                    impl<
+                        T: TimeseriesInsightsController,
+                    > tonic::server::UnaryService<super::ListDataSetsRequest>
+                    for ListDataSetsSvc<T> {
+                        type Response = super::ListDataSetsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListDataSetsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TimeseriesInsightsController>::list_data_sets(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDataSetsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.timeseriesinsights.v1.TimeseriesInsightsController/CreateDataSet" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateDataSetSvc<T: TimeseriesInsightsController>(pub Arc<T>);
+                    impl<
+                        T: TimeseriesInsightsController,
+                    > tonic::server::UnaryService<super::CreateDataSetRequest>
+                    for CreateDataSetSvc<T> {
+                        type Response = super::DataSet;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateDataSetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TimeseriesInsightsController>::create_data_set(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateDataSetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.timeseriesinsights.v1.TimeseriesInsightsController/DeleteDataSet" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteDataSetSvc<T: TimeseriesInsightsController>(pub Arc<T>);
+                    impl<
+                        T: TimeseriesInsightsController,
+                    > tonic::server::UnaryService<super::DeleteDataSetRequest>
+                    for DeleteDataSetSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteDataSetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TimeseriesInsightsController>::delete_data_set(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteDataSetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.timeseriesinsights.v1.TimeseriesInsightsController/AppendEvents" => {
+                    #[allow(non_camel_case_types)]
+                    struct AppendEventsSvc<T: TimeseriesInsightsController>(pub Arc<T>);
+                    impl<
+                        T: TimeseriesInsightsController,
+                    > tonic::server::UnaryService<super::AppendEventsRequest>
+                    for AppendEventsSvc<T> {
+                        type Response = super::AppendEventsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::AppendEventsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TimeseriesInsightsController>::append_events(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = AppendEventsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.timeseriesinsights.v1.TimeseriesInsightsController/QueryDataSet" => {
+                    #[allow(non_camel_case_types)]
+                    struct QueryDataSetSvc<T: TimeseriesInsightsController>(pub Arc<T>);
+                    impl<
+                        T: TimeseriesInsightsController,
+                    > tonic::server::UnaryService<super::QueryDataSetRequest>
+                    for QueryDataSetSvc<T> {
+                        type Response = super::QueryDataSetResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QueryDataSetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TimeseriesInsightsController>::query_data_set(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = QueryDataSetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.timeseriesinsights.v1.TimeseriesInsightsController/EvaluateSlice" => {
+                    #[allow(non_camel_case_types)]
+                    struct EvaluateSliceSvc<T: TimeseriesInsightsController>(pub Arc<T>);
+                    impl<
+                        T: TimeseriesInsightsController,
+                    > tonic::server::UnaryService<super::EvaluateSliceRequest>
+                    for EvaluateSliceSvc<T> {
+                        type Response = super::EvaluatedSlice;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::EvaluateSliceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TimeseriesInsightsController>::evaluate_slice(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = EvaluateSliceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.timeseriesinsights.v1.TimeseriesInsightsController/EvaluateTimeseries" => {
+                    #[allow(non_camel_case_types)]
+                    struct EvaluateTimeseriesSvc<T: TimeseriesInsightsController>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: TimeseriesInsightsController,
+                    > tonic::server::UnaryService<super::EvaluateTimeseriesRequest>
+                    for EvaluateTimeseriesSvc<T> {
+                        type Response = super::EvaluatedSlice;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::EvaluateTimeseriesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TimeseriesInsightsController>::evaluate_timeseries(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = EvaluateTimeseriesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for TimeseriesInsightsControllerServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.timeseriesinsights.v1.TimeseriesInsightsController";
+    impl<T> tonic::server::NamedService for TimeseriesInsightsControllerServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

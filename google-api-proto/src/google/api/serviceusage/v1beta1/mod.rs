@@ -421,9 +421,9 @@ impl State {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            State::Unspecified => "STATE_UNSPECIFIED",
-            State::Disabled => "DISABLED",
-            State::Enabled => "ENABLED",
+            Self::Unspecified => "STATE_UNSPECIFIED",
+            Self::Disabled => "DISABLED",
+            Self::Enabled => "ENABLED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -461,9 +461,9 @@ impl QuotaView {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            QuotaView::Unspecified => "QUOTA_VIEW_UNSPECIFIED",
-            QuotaView::Basic => "BASIC",
-            QuotaView::Full => "FULL",
+            Self::Unspecified => "QUOTA_VIEW_UNSPECIFIED",
+            Self::Basic => "BASIC",
+            Self::Full => "FULL",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -496,11 +496,9 @@ impl QuotaSafetyCheck {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            QuotaSafetyCheck::Unspecified => "QUOTA_SAFETY_CHECK_UNSPECIFIED",
-            QuotaSafetyCheck::LimitDecreaseBelowUsage => "LIMIT_DECREASE_BELOW_USAGE",
-            QuotaSafetyCheck::LimitDecreasePercentageTooHigh => {
-                "LIMIT_DECREASE_PERCENTAGE_TOO_HIGH"
-            }
+            Self::Unspecified => "QUOTA_SAFETY_CHECK_UNSPECIFIED",
+            Self::LimitDecreaseBelowUsage => "LIMIT_DECREASE_BELOW_USAGE",
+            Self::LimitDecreasePercentageTooHigh => "LIMIT_DECREASE_PERCENTAGE_TOO_HIGH",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1076,8 +1074,8 @@ pub mod get_service_identity_response {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                IdentityState::Unspecified => "IDENTITY_STATE_UNSPECIFIED",
-                IdentityState::Active => "ACTIVE",
+                Self::Unspecified => "IDENTITY_STATE_UNSPECIFIED",
+                Self::Active => "ACTIVE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1791,5 +1789,1215 @@ pub mod service_usage_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod service_usage_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with ServiceUsageServer.
+    #[async_trait]
+    pub trait ServiceUsage: std::marker::Send + std::marker::Sync + 'static {
+        /// Enables a service so that it can be used with a project.
+        ///
+        /// Operation response type: `google.protobuf.Empty`
+        async fn enable_service(
+            &self,
+            request: tonic::Request<super::EnableServiceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Disables a service so that it can no longer be used with a project.
+        /// This prevents unintended usage that may cause unexpected billing
+        /// charges or security leaks.
+        ///
+        /// It is not valid to call the disable method on a service that is not
+        /// currently enabled. Callers will receive a `FAILED_PRECONDITION` status if
+        /// the target service is not currently enabled.
+        ///
+        /// Operation response type: `google.protobuf.Empty`
+        async fn disable_service(
+            &self,
+            request: tonic::Request<super::DisableServiceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Returns the service configuration and enabled state for a given service.
+        async fn get_service(
+            &self,
+            request: tonic::Request<super::GetServiceRequest>,
+        ) -> std::result::Result<tonic::Response<super::Service>, tonic::Status>;
+        /// Lists all services available to the specified project, and the current
+        /// state of those services with respect to the project. The list includes
+        /// all public services, all services for which the calling user has the
+        /// `servicemanagement.services.bind` permission, and all services that have
+        /// already been enabled on the project. The list can be filtered to
+        /// only include services in a specific state, for example to only include
+        /// services enabled on the project.
+        async fn list_services(
+            &self,
+            request: tonic::Request<super::ListServicesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListServicesResponse>,
+            tonic::Status,
+        >;
+        /// Enables multiple services on a project. The operation is atomic: if
+        /// enabling any service fails, then the entire batch fails, and no state
+        /// changes occur.
+        ///
+        /// Operation response type: `google.protobuf.Empty`
+        async fn batch_enable_services(
+            &self,
+            request: tonic::Request<super::BatchEnableServicesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Retrieves a summary of all quota information visible to the service
+        /// consumer, organized by service metric. Each metric includes information
+        /// about all of its defined limits. Each limit includes the limit
+        /// configuration (quota unit, preciseness, default value), the current
+        /// effective limit value, and all of the overrides applied to the limit.
+        async fn list_consumer_quota_metrics(
+            &self,
+            request: tonic::Request<super::ListConsumerQuotaMetricsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListConsumerQuotaMetricsResponse>,
+            tonic::Status,
+        >;
+        /// Retrieves a summary of quota information for a specific quota metric
+        async fn get_consumer_quota_metric(
+            &self,
+            request: tonic::Request<super::GetConsumerQuotaMetricRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ConsumerQuotaMetric>,
+            tonic::Status,
+        >;
+        /// Retrieves a summary of quota information for a specific quota limit.
+        async fn get_consumer_quota_limit(
+            &self,
+            request: tonic::Request<super::GetConsumerQuotaLimitRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ConsumerQuotaLimit>,
+            tonic::Status,
+        >;
+        /// Creates an admin override.
+        /// An admin override is applied by an administrator of a parent folder or
+        /// parent organization of the consumer receiving the override. An admin
+        /// override is intended to limit the amount of quota the consumer can use out
+        /// of the total quota pool allocated to all children of the folder or
+        /// organization.
+        async fn create_admin_override(
+            &self,
+            request: tonic::Request<super::CreateAdminOverrideRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates an admin override.
+        async fn update_admin_override(
+            &self,
+            request: tonic::Request<super::UpdateAdminOverrideRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes an admin override.
+        async fn delete_admin_override(
+            &self,
+            request: tonic::Request<super::DeleteAdminOverrideRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists all admin overrides on this limit.
+        async fn list_admin_overrides(
+            &self,
+            request: tonic::Request<super::ListAdminOverridesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAdminOverridesResponse>,
+            tonic::Status,
+        >;
+        /// Creates or updates multiple admin overrides atomically, all on the
+        /// same consumer, but on many different metrics or limits.
+        /// The name field in the quota override message should not be set.
+        async fn import_admin_overrides(
+            &self,
+            request: tonic::Request<super::ImportAdminOverridesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Creates a consumer override.
+        /// A consumer override is applied to the consumer on its own authority to
+        /// limit its own quota usage. Consumer overrides cannot be used to grant more
+        /// quota than would be allowed by admin overrides, producer overrides, or the
+        /// default limit of the service.
+        async fn create_consumer_override(
+            &self,
+            request: tonic::Request<super::CreateConsumerOverrideRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates a consumer override.
+        async fn update_consumer_override(
+            &self,
+            request: tonic::Request<super::UpdateConsumerOverrideRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a consumer override.
+        async fn delete_consumer_override(
+            &self,
+            request: tonic::Request<super::DeleteConsumerOverrideRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists all consumer overrides on this limit.
+        async fn list_consumer_overrides(
+            &self,
+            request: tonic::Request<super::ListConsumerOverridesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListConsumerOverridesResponse>,
+            tonic::Status,
+        >;
+        /// Creates or updates multiple consumer overrides atomically, all on the
+        /// same consumer, but on many different metrics or limits.
+        /// The name field in the quota override message should not be set.
+        async fn import_consumer_overrides(
+            &self,
+            request: tonic::Request<super::ImportConsumerOverridesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Generates service identity for service.
+        async fn generate_service_identity(
+            &self,
+            request: tonic::Request<super::GenerateServiceIdentityRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// [Service Usage API](https://cloud.google.com/service-usage/docs/overview)
+    #[derive(Debug)]
+    pub struct ServiceUsageServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> ServiceUsageServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for ServiceUsageServer<T>
+    where
+        T: ServiceUsage,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.api.serviceusage.v1beta1.ServiceUsage/EnableService" => {
+                    #[allow(non_camel_case_types)]
+                    struct EnableServiceSvc<T: ServiceUsage>(pub Arc<T>);
+                    impl<
+                        T: ServiceUsage,
+                    > tonic::server::UnaryService<super::EnableServiceRequest>
+                    for EnableServiceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::EnableServiceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ServiceUsage>::enable_service(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = EnableServiceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.api.serviceusage.v1beta1.ServiceUsage/DisableService" => {
+                    #[allow(non_camel_case_types)]
+                    struct DisableServiceSvc<T: ServiceUsage>(pub Arc<T>);
+                    impl<
+                        T: ServiceUsage,
+                    > tonic::server::UnaryService<super::DisableServiceRequest>
+                    for DisableServiceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DisableServiceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ServiceUsage>::disable_service(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DisableServiceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.api.serviceusage.v1beta1.ServiceUsage/GetService" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetServiceSvc<T: ServiceUsage>(pub Arc<T>);
+                    impl<
+                        T: ServiceUsage,
+                    > tonic::server::UnaryService<super::GetServiceRequest>
+                    for GetServiceSvc<T> {
+                        type Response = super::Service;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetServiceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ServiceUsage>::get_service(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetServiceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.api.serviceusage.v1beta1.ServiceUsage/ListServices" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListServicesSvc<T: ServiceUsage>(pub Arc<T>);
+                    impl<
+                        T: ServiceUsage,
+                    > tonic::server::UnaryService<super::ListServicesRequest>
+                    for ListServicesSvc<T> {
+                        type Response = super::ListServicesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListServicesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ServiceUsage>::list_services(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListServicesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.api.serviceusage.v1beta1.ServiceUsage/BatchEnableServices" => {
+                    #[allow(non_camel_case_types)]
+                    struct BatchEnableServicesSvc<T: ServiceUsage>(pub Arc<T>);
+                    impl<
+                        T: ServiceUsage,
+                    > tonic::server::UnaryService<super::BatchEnableServicesRequest>
+                    for BatchEnableServicesSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::BatchEnableServicesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ServiceUsage>::batch_enable_services(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BatchEnableServicesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.api.serviceusage.v1beta1.ServiceUsage/ListConsumerQuotaMetrics" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListConsumerQuotaMetricsSvc<T: ServiceUsage>(pub Arc<T>);
+                    impl<
+                        T: ServiceUsage,
+                    > tonic::server::UnaryService<super::ListConsumerQuotaMetricsRequest>
+                    for ListConsumerQuotaMetricsSvc<T> {
+                        type Response = super::ListConsumerQuotaMetricsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListConsumerQuotaMetricsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ServiceUsage>::list_consumer_quota_metrics(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListConsumerQuotaMetricsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.api.serviceusage.v1beta1.ServiceUsage/GetConsumerQuotaMetric" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetConsumerQuotaMetricSvc<T: ServiceUsage>(pub Arc<T>);
+                    impl<
+                        T: ServiceUsage,
+                    > tonic::server::UnaryService<super::GetConsumerQuotaMetricRequest>
+                    for GetConsumerQuotaMetricSvc<T> {
+                        type Response = super::ConsumerQuotaMetric;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetConsumerQuotaMetricRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ServiceUsage>::get_consumer_quota_metric(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetConsumerQuotaMetricSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.api.serviceusage.v1beta1.ServiceUsage/GetConsumerQuotaLimit" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetConsumerQuotaLimitSvc<T: ServiceUsage>(pub Arc<T>);
+                    impl<
+                        T: ServiceUsage,
+                    > tonic::server::UnaryService<super::GetConsumerQuotaLimitRequest>
+                    for GetConsumerQuotaLimitSvc<T> {
+                        type Response = super::ConsumerQuotaLimit;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetConsumerQuotaLimitRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ServiceUsage>::get_consumer_quota_limit(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetConsumerQuotaLimitSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.api.serviceusage.v1beta1.ServiceUsage/CreateAdminOverride" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateAdminOverrideSvc<T: ServiceUsage>(pub Arc<T>);
+                    impl<
+                        T: ServiceUsage,
+                    > tonic::server::UnaryService<super::CreateAdminOverrideRequest>
+                    for CreateAdminOverrideSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateAdminOverrideRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ServiceUsage>::create_admin_override(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateAdminOverrideSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.api.serviceusage.v1beta1.ServiceUsage/UpdateAdminOverride" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateAdminOverrideSvc<T: ServiceUsage>(pub Arc<T>);
+                    impl<
+                        T: ServiceUsage,
+                    > tonic::server::UnaryService<super::UpdateAdminOverrideRequest>
+                    for UpdateAdminOverrideSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateAdminOverrideRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ServiceUsage>::update_admin_override(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateAdminOverrideSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.api.serviceusage.v1beta1.ServiceUsage/DeleteAdminOverride" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteAdminOverrideSvc<T: ServiceUsage>(pub Arc<T>);
+                    impl<
+                        T: ServiceUsage,
+                    > tonic::server::UnaryService<super::DeleteAdminOverrideRequest>
+                    for DeleteAdminOverrideSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteAdminOverrideRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ServiceUsage>::delete_admin_override(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteAdminOverrideSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.api.serviceusage.v1beta1.ServiceUsage/ListAdminOverrides" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAdminOverridesSvc<T: ServiceUsage>(pub Arc<T>);
+                    impl<
+                        T: ServiceUsage,
+                    > tonic::server::UnaryService<super::ListAdminOverridesRequest>
+                    for ListAdminOverridesSvc<T> {
+                        type Response = super::ListAdminOverridesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListAdminOverridesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ServiceUsage>::list_admin_overrides(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAdminOverridesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.api.serviceusage.v1beta1.ServiceUsage/ImportAdminOverrides" => {
+                    #[allow(non_camel_case_types)]
+                    struct ImportAdminOverridesSvc<T: ServiceUsage>(pub Arc<T>);
+                    impl<
+                        T: ServiceUsage,
+                    > tonic::server::UnaryService<super::ImportAdminOverridesRequest>
+                    for ImportAdminOverridesSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ImportAdminOverridesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ServiceUsage>::import_admin_overrides(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ImportAdminOverridesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.api.serviceusage.v1beta1.ServiceUsage/CreateConsumerOverride" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateConsumerOverrideSvc<T: ServiceUsage>(pub Arc<T>);
+                    impl<
+                        T: ServiceUsage,
+                    > tonic::server::UnaryService<super::CreateConsumerOverrideRequest>
+                    for CreateConsumerOverrideSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateConsumerOverrideRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ServiceUsage>::create_consumer_override(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateConsumerOverrideSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.api.serviceusage.v1beta1.ServiceUsage/UpdateConsumerOverride" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateConsumerOverrideSvc<T: ServiceUsage>(pub Arc<T>);
+                    impl<
+                        T: ServiceUsage,
+                    > tonic::server::UnaryService<super::UpdateConsumerOverrideRequest>
+                    for UpdateConsumerOverrideSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateConsumerOverrideRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ServiceUsage>::update_consumer_override(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateConsumerOverrideSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.api.serviceusage.v1beta1.ServiceUsage/DeleteConsumerOverride" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteConsumerOverrideSvc<T: ServiceUsage>(pub Arc<T>);
+                    impl<
+                        T: ServiceUsage,
+                    > tonic::server::UnaryService<super::DeleteConsumerOverrideRequest>
+                    for DeleteConsumerOverrideSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteConsumerOverrideRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ServiceUsage>::delete_consumer_override(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteConsumerOverrideSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.api.serviceusage.v1beta1.ServiceUsage/ListConsumerOverrides" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListConsumerOverridesSvc<T: ServiceUsage>(pub Arc<T>);
+                    impl<
+                        T: ServiceUsage,
+                    > tonic::server::UnaryService<super::ListConsumerOverridesRequest>
+                    for ListConsumerOverridesSvc<T> {
+                        type Response = super::ListConsumerOverridesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListConsumerOverridesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ServiceUsage>::list_consumer_overrides(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListConsumerOverridesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.api.serviceusage.v1beta1.ServiceUsage/ImportConsumerOverrides" => {
+                    #[allow(non_camel_case_types)]
+                    struct ImportConsumerOverridesSvc<T: ServiceUsage>(pub Arc<T>);
+                    impl<
+                        T: ServiceUsage,
+                    > tonic::server::UnaryService<super::ImportConsumerOverridesRequest>
+                    for ImportConsumerOverridesSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ImportConsumerOverridesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ServiceUsage>::import_consumer_overrides(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ImportConsumerOverridesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.api.serviceusage.v1beta1.ServiceUsage/GenerateServiceIdentity" => {
+                    #[allow(non_camel_case_types)]
+                    struct GenerateServiceIdentitySvc<T: ServiceUsage>(pub Arc<T>);
+                    impl<
+                        T: ServiceUsage,
+                    > tonic::server::UnaryService<super::GenerateServiceIdentityRequest>
+                    for GenerateServiceIdentitySvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GenerateServiceIdentityRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ServiceUsage>::generate_service_identity(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GenerateServiceIdentitySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for ServiceUsageServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.api.serviceusage.v1beta1.ServiceUsage";
+    impl<T> tonic::server::NamedService for ServiceUsageServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

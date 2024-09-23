@@ -47,10 +47,10 @@ pub mod index_field {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Mode::Unspecified => "MODE_UNSPECIFIED",
-                Mode::Ascending => "ASCENDING",
-                Mode::Descending => "DESCENDING",
-                Mode::ArrayContains => "ARRAY_CONTAINS",
+                Self::Unspecified => "MODE_UNSPECIFIED",
+                Self::Ascending => "ASCENDING",
+                Self::Descending => "DESCENDING",
+                Self::ArrayContains => "ARRAY_CONTAINS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -127,10 +127,10 @@ pub mod index {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Ready => "READY",
-                State::Error => "ERROR",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Ready => "READY",
+                Self::Error => "ERROR",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -200,8 +200,8 @@ pub mod index_operation_metadata {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                OperationType::Unspecified => "OPERATION_TYPE_UNSPECIFIED",
-                OperationType::CreatingIndex => "CREATING_INDEX",
+                Self::Unspecified => "OPERATION_TYPE_UNSPECIFIED",
+                Self::CreatingIndex => "CREATING_INDEX",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -411,14 +411,14 @@ impl OperationState {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            OperationState::StateUnspecified => "STATE_UNSPECIFIED",
-            OperationState::Initializing => "INITIALIZING",
-            OperationState::Processing => "PROCESSING",
-            OperationState::Cancelling => "CANCELLING",
-            OperationState::Finalizing => "FINALIZING",
-            OperationState::Successful => "SUCCESSFUL",
-            OperationState::Failed => "FAILED",
-            OperationState::Cancelled => "CANCELLED",
+            Self::StateUnspecified => "STATE_UNSPECIFIED",
+            Self::Initializing => "INITIALIZING",
+            Self::Processing => "PROCESSING",
+            Self::Cancelling => "CANCELLING",
+            Self::Finalizing => "FINALIZING",
+            Self::Successful => "SUCCESSFUL",
+            Self::Failed => "FAILED",
+            Self::Cancelled => "CANCELLED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -756,6 +756,506 @@ pub mod firestore_admin_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod firestore_admin_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with FirestoreAdminServer.
+    #[async_trait]
+    pub trait FirestoreAdmin: std::marker::Send + std::marker::Sync + 'static {
+        /// Creates the specified index.
+        /// A newly created index's initial state is `CREATING`. On completion of the
+        /// returned [google.longrunning.Operation][google.longrunning.Operation], the state will be `READY`.
+        /// If the index already exists, the call will return an `ALREADY_EXISTS`
+        /// status.
+        ///
+        /// During creation, the process could result in an error, in which case the
+        /// index will move to the `ERROR` state. The process can be recovered by
+        /// fixing the data that caused the error, removing the index with
+        /// [delete][google.firestore.admin.v1beta1.FirestoreAdmin.DeleteIndex], then re-creating the index with
+        /// [create][google.firestore.admin.v1beta1.FirestoreAdmin.CreateIndex].
+        ///
+        /// Indexes with a single field cannot be created.
+        async fn create_index(
+            &self,
+            request: tonic::Request<super::CreateIndexRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists the indexes that match the specified filters.
+        async fn list_indexes(
+            &self,
+            request: tonic::Request<super::ListIndexesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListIndexesResponse>,
+            tonic::Status,
+        >;
+        /// Gets an index.
+        async fn get_index(
+            &self,
+            request: tonic::Request<super::GetIndexRequest>,
+        ) -> std::result::Result<tonic::Response<super::Index>, tonic::Status>;
+        /// Deletes an index.
+        async fn delete_index(
+            &self,
+            request: tonic::Request<super::DeleteIndexRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Exports a copy of all or a subset of documents from Google Cloud Firestore
+        /// to another storage system, such as Google Cloud Storage. Recent updates to
+        /// documents may not be reflected in the export. The export occurs in the
+        /// background and its progress can be monitored and managed via the
+        /// Operation resource that is created. The output of an export may only be
+        /// used once the associated operation is done. If an export operation is
+        /// cancelled before completion it may leave partial data behind in Google
+        /// Cloud Storage.
+        async fn export_documents(
+            &self,
+            request: tonic::Request<super::ExportDocumentsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Imports documents into Google Cloud Firestore. Existing documents with the
+        /// same name are overwritten. The import occurs in the background and its
+        /// progress can be monitored and managed via the Operation resource that is
+        /// created. If an ImportDocuments operation is cancelled, it is possible
+        /// that a subset of the data has already been imported to Cloud Firestore.
+        async fn import_documents(
+            &self,
+            request: tonic::Request<super::ImportDocumentsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// The Cloud Firestore Admin API.
+    ///
+    /// This API provides several administrative services for Cloud Firestore.
+    ///
+    /// # Concepts
+    ///
+    /// Project, Database, Namespace, Collection, and Document are used as defined in
+    /// the Google Cloud Firestore API.
+    ///
+    /// Operation: An Operation represents work being performed in the background.
+    ///
+    ///
+    /// # Services
+    ///
+    /// ## Index
+    ///
+    /// The index service manages Cloud Firestore indexes.
+    ///
+    /// Index creation is performed asynchronously.
+    /// An Operation resource is created for each such asynchronous operation.
+    /// The state of the operation (including any errors encountered)
+    /// may be queried via the Operation resource.
+    ///
+    /// ## Metadata
+    ///
+    /// Provides metadata and statistical information about data in Cloud Firestore.
+    /// The data provided as part of this API may be stale.
+    ///
+    /// ## Operation
+    ///
+    /// The Operations collection provides a record of actions performed for the
+    /// specified Project (including any Operations in progress). Operations are not
+    /// created directly but through calls on other collections or resources.
+    ///
+    /// An Operation that is not yet done may be cancelled. The request to cancel is
+    /// asynchronous and the Operation may continue to run for some time after the
+    /// request to cancel is made.
+    ///
+    /// An Operation that is done may be deleted so that it is no longer listed as
+    /// part of the Operation collection.
+    ///
+    /// Operations are created by service `FirestoreAdmin`, but are accessed via
+    /// service `google.longrunning.Operations`.
+    #[derive(Debug)]
+    pub struct FirestoreAdminServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> FirestoreAdminServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for FirestoreAdminServer<T>
+    where
+        T: FirestoreAdmin,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.firestore.admin.v1beta1.FirestoreAdmin/CreateIndex" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateIndexSvc<T: FirestoreAdmin>(pub Arc<T>);
+                    impl<
+                        T: FirestoreAdmin,
+                    > tonic::server::UnaryService<super::CreateIndexRequest>
+                    for CreateIndexSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateIndexRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as FirestoreAdmin>::create_index(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateIndexSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.firestore.admin.v1beta1.FirestoreAdmin/ListIndexes" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListIndexesSvc<T: FirestoreAdmin>(pub Arc<T>);
+                    impl<
+                        T: FirestoreAdmin,
+                    > tonic::server::UnaryService<super::ListIndexesRequest>
+                    for ListIndexesSvc<T> {
+                        type Response = super::ListIndexesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListIndexesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as FirestoreAdmin>::list_indexes(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListIndexesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.firestore.admin.v1beta1.FirestoreAdmin/GetIndex" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetIndexSvc<T: FirestoreAdmin>(pub Arc<T>);
+                    impl<
+                        T: FirestoreAdmin,
+                    > tonic::server::UnaryService<super::GetIndexRequest>
+                    for GetIndexSvc<T> {
+                        type Response = super::Index;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetIndexRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as FirestoreAdmin>::get_index(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetIndexSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.firestore.admin.v1beta1.FirestoreAdmin/DeleteIndex" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteIndexSvc<T: FirestoreAdmin>(pub Arc<T>);
+                    impl<
+                        T: FirestoreAdmin,
+                    > tonic::server::UnaryService<super::DeleteIndexRequest>
+                    for DeleteIndexSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteIndexRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as FirestoreAdmin>::delete_index(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteIndexSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.firestore.admin.v1beta1.FirestoreAdmin/ExportDocuments" => {
+                    #[allow(non_camel_case_types)]
+                    struct ExportDocumentsSvc<T: FirestoreAdmin>(pub Arc<T>);
+                    impl<
+                        T: FirestoreAdmin,
+                    > tonic::server::UnaryService<super::ExportDocumentsRequest>
+                    for ExportDocumentsSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ExportDocumentsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as FirestoreAdmin>::export_documents(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ExportDocumentsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.firestore.admin.v1beta1.FirestoreAdmin/ImportDocuments" => {
+                    #[allow(non_camel_case_types)]
+                    struct ImportDocumentsSvc<T: FirestoreAdmin>(pub Arc<T>);
+                    impl<
+                        T: FirestoreAdmin,
+                    > tonic::server::UnaryService<super::ImportDocumentsRequest>
+                    for ImportDocumentsSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ImportDocumentsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as FirestoreAdmin>::import_documents(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ImportDocumentsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for FirestoreAdminServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.firestore.admin.v1beta1.FirestoreAdmin";
+    impl<T> tonic::server::NamedService for FirestoreAdminServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }
 /// The metadata message for [google.cloud.location.Location.metadata][google.cloud.location.Location.metadata].

@@ -129,14 +129,14 @@ pub mod service {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Active => "ACTIVE",
-                State::Suspending => "SUSPENDING",
-                State::Suspended => "SUSPENDED",
-                State::Updating => "UPDATING",
-                State::Deleting => "DELETING",
-                State::Error => "ERROR",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Active => "ACTIVE",
+                Self::Suspending => "SUSPENDING",
+                Self::Suspended => "SUSPENDED",
+                Self::Updating => "UPDATING",
+                Self::Deleting => "DELETING",
+                Self::Error => "ERROR",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -184,9 +184,9 @@ pub mod service {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Tier::Unspecified => "TIER_UNSPECIFIED",
-                Tier::Developer => "DEVELOPER",
-                Tier::Enterprise => "ENTERPRISE",
+                Self::Unspecified => "TIER_UNSPECIFIED",
+                Self::Developer => "DEVELOPER",
+                Self::Enterprise => "ENTERPRISE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -232,9 +232,9 @@ pub mod service {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ReleaseChannel::Unspecified => "RELEASE_CHANNEL_UNSPECIFIED",
-                ReleaseChannel::Canary => "CANARY",
-                ReleaseChannel::Stable => "STABLE",
+                Self::Unspecified => "RELEASE_CHANNEL_UNSPECIFIED",
+                Self::Canary => "CANARY",
+                Self::Stable => "STABLE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -275,9 +275,9 @@ pub mod service {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                DatabaseType::Unspecified => "DATABASE_TYPE_UNSPECIFIED",
-                DatabaseType::Mysql => "MYSQL",
-                DatabaseType::Spanner => "SPANNER",
+                Self::Unspecified => "DATABASE_TYPE_UNSPECIFIED",
+                Self::Mysql => "MYSQL",
+                Self::Spanner => "SPANNER",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -383,9 +383,9 @@ pub mod hive_metastore_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                EndpointProtocol::Unspecified => "ENDPOINT_PROTOCOL_UNSPECIFIED",
-                EndpointProtocol::Thrift => "THRIFT",
-                EndpointProtocol::Grpc => "GRPC",
+                Self::Unspecified => "ENDPOINT_PROTOCOL_UNSPECIFIED",
+                Self::Thrift => "THRIFT",
+                Self::Grpc => "GRPC",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -548,9 +548,9 @@ pub mod telemetry_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                LogFormat::Unspecified => "LOG_FORMAT_UNSPECIFIED",
-                LogFormat::Legacy => "LEGACY",
-                LogFormat::Json => "JSON",
+                Self::Unspecified => "LOG_FORMAT_UNSPECIFIED",
+                Self::Legacy => "LEGACY",
+                Self::Json => "JSON",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -652,8 +652,8 @@ pub mod metadata_import {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    DatabaseType::Unspecified => "DATABASE_TYPE_UNSPECIFIED",
-                    DatabaseType::Mysql => "MYSQL",
+                    Self::Unspecified => "DATABASE_TYPE_UNSPECIFIED",
+                    Self::Mysql => "MYSQL",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -699,11 +699,11 @@ pub mod metadata_import {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Running => "RUNNING",
-                State::Succeeded => "SUCCEEDED",
-                State::Updating => "UPDATING",
-                State::Failed => "FAILED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Running => "RUNNING",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Updating => "UPDATING",
+                Self::Failed => "FAILED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -778,11 +778,11 @@ pub mod metadata_export {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Running => "RUNNING",
-                State::Succeeded => "SUCCEEDED",
-                State::Failed => "FAILED",
-                State::Cancelled => "CANCELLED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Running => "RUNNING",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Failed => "FAILED",
+                Self::Cancelled => "CANCELLED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -870,12 +870,12 @@ pub mod backup {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Deleting => "DELETING",
-                State::Active => "ACTIVE",
-                State::Failed => "FAILED",
-                State::Restoring => "RESTORING",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Deleting => "DELETING",
+                Self::Active => "ACTIVE",
+                Self::Failed => "FAILED",
+                Self::Restoring => "RESTORING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -952,11 +952,11 @@ pub mod restore {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Running => "RUNNING",
-                State::Succeeded => "SUCCEEDED",
-                State::Failed => "FAILED",
-                State::Cancelled => "CANCELLED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Running => "RUNNING",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Failed => "FAILED",
+                Self::Cancelled => "CANCELLED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -999,9 +999,9 @@ pub mod restore {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                RestoreType::Unspecified => "RESTORE_TYPE_UNSPECIFIED",
-                RestoreType::Full => "FULL",
-                RestoreType::MetadataOnly => "METADATA_ONLY",
+                Self::Unspecified => "RESTORE_TYPE_UNSPECIFIED",
+                Self::Full => "FULL",
+                Self::MetadataOnly => "METADATA_ONLY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1059,12 +1059,12 @@ pub mod scaling_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                InstanceSize::Unspecified => "INSTANCE_SIZE_UNSPECIFIED",
-                InstanceSize::ExtraSmall => "EXTRA_SMALL",
-                InstanceSize::Small => "SMALL",
-                InstanceSize::Medium => "MEDIUM",
-                InstanceSize::Large => "LARGE",
-                InstanceSize::ExtraLarge => "EXTRA_LARGE",
+                Self::Unspecified => "INSTANCE_SIZE_UNSPECIFIED",
+                Self::ExtraSmall => "EXTRA_SMALL",
+                Self::Small => "SMALL",
+                Self::Medium => "MEDIUM",
+                Self::Large => "LARGE",
+                Self::ExtraLarge => "EXTRA_LARGE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1669,9 +1669,9 @@ pub mod database_dump_spec {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::Mysql => "MYSQL",
-                Type::Avro => "AVRO",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::Mysql => "MYSQL",
+                Self::Avro => "AVRO",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2422,6 +2422,1131 @@ pub mod dataproc_metastore_client {
         }
     }
 }
+/// Generated server implementations.
+pub mod dataproc_metastore_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with DataprocMetastoreServer.
+    #[async_trait]
+    pub trait DataprocMetastore: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists services in a project and location.
+        async fn list_services(
+            &self,
+            request: tonic::Request<super::ListServicesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListServicesResponse>,
+            tonic::Status,
+        >;
+        /// Gets the details of a single service.
+        async fn get_service(
+            &self,
+            request: tonic::Request<super::GetServiceRequest>,
+        ) -> std::result::Result<tonic::Response<super::Service>, tonic::Status>;
+        /// Creates a metastore service in a project and location.
+        async fn create_service(
+            &self,
+            request: tonic::Request<super::CreateServiceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the parameters of a single service.
+        async fn update_service(
+            &self,
+            request: tonic::Request<super::UpdateServiceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single service.
+        async fn delete_service(
+            &self,
+            request: tonic::Request<super::DeleteServiceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists imports in a service.
+        async fn list_metadata_imports(
+            &self,
+            request: tonic::Request<super::ListMetadataImportsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListMetadataImportsResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single import.
+        async fn get_metadata_import(
+            &self,
+            request: tonic::Request<super::GetMetadataImportRequest>,
+        ) -> std::result::Result<tonic::Response<super::MetadataImport>, tonic::Status>;
+        /// Creates a new MetadataImport in a given project and location.
+        async fn create_metadata_import(
+            &self,
+            request: tonic::Request<super::CreateMetadataImportRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates a single import.
+        /// Only the description field of MetadataImport is supported to be updated.
+        async fn update_metadata_import(
+            &self,
+            request: tonic::Request<super::UpdateMetadataImportRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Exports metadata from a service.
+        async fn export_metadata(
+            &self,
+            request: tonic::Request<super::ExportMetadataRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Restores a service from a backup.
+        async fn restore_service(
+            &self,
+            request: tonic::Request<super::RestoreServiceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists backups in a service.
+        async fn list_backups(
+            &self,
+            request: tonic::Request<super::ListBackupsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListBackupsResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single backup.
+        async fn get_backup(
+            &self,
+            request: tonic::Request<super::GetBackupRequest>,
+        ) -> std::result::Result<tonic::Response<super::Backup>, tonic::Status>;
+        /// Creates a new backup in a given project and location.
+        async fn create_backup(
+            &self,
+            request: tonic::Request<super::CreateBackupRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single backup.
+        async fn delete_backup(
+            &self,
+            request: tonic::Request<super::DeleteBackupRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Query DPMS metadata.
+        async fn query_metadata(
+            &self,
+            request: tonic::Request<super::QueryMetadataRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Move a table to another database.
+        async fn move_table_to_database(
+            &self,
+            request: tonic::Request<super::MoveTableToDatabaseRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Alter metadata resource location. The metadata resource can be a database,
+        /// table, or partition. This functionality only updates the parent directory
+        /// for the respective metadata resource and does not transfer any existing
+        /// data to the new location.
+        async fn alter_metadata_resource_location(
+            &self,
+            request: tonic::Request<super::AlterMetadataResourceLocationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// Configures and manages metastore services.
+    /// Metastore services are fully managed, highly available, autoscaled,
+    /// autohealing, OSS-native deployments of technical metadata management
+    /// software. Each metastore service exposes a network endpoint through which
+    /// metadata queries are served. Metadata queries can originate from a variety
+    /// of sources, including Apache Hive, Apache Presto, and Apache Spark.
+    ///
+    /// The Dataproc Metastore API defines the following resource model:
+    ///
+    /// * The service works with a collection of Google Cloud projects, named:
+    /// `/projects/*`
+    /// * Each project has a collection of available locations, named: `/locations/*`
+    ///   (a location must refer to a Google Cloud `region`)
+    /// * Each location has a collection of services, named: `/services/*`
+    /// * Dataproc Metastore services are resources with names of the form:
+    ///
+    ///   `/projects/{project_number}/locations/{location_id}/services/{service_id}`.
+    #[derive(Debug)]
+    pub struct DataprocMetastoreServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> DataprocMetastoreServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for DataprocMetastoreServer<T>
+    where
+        T: DataprocMetastore,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.metastore.v1.DataprocMetastore/ListServices" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListServicesSvc<T: DataprocMetastore>(pub Arc<T>);
+                    impl<
+                        T: DataprocMetastore,
+                    > tonic::server::UnaryService<super::ListServicesRequest>
+                    for ListServicesSvc<T> {
+                        type Response = super::ListServicesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListServicesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataprocMetastore>::list_services(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListServicesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.metastore.v1.DataprocMetastore/GetService" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetServiceSvc<T: DataprocMetastore>(pub Arc<T>);
+                    impl<
+                        T: DataprocMetastore,
+                    > tonic::server::UnaryService<super::GetServiceRequest>
+                    for GetServiceSvc<T> {
+                        type Response = super::Service;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetServiceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataprocMetastore>::get_service(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetServiceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.metastore.v1.DataprocMetastore/CreateService" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateServiceSvc<T: DataprocMetastore>(pub Arc<T>);
+                    impl<
+                        T: DataprocMetastore,
+                    > tonic::server::UnaryService<super::CreateServiceRequest>
+                    for CreateServiceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateServiceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataprocMetastore>::create_service(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateServiceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.metastore.v1.DataprocMetastore/UpdateService" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateServiceSvc<T: DataprocMetastore>(pub Arc<T>);
+                    impl<
+                        T: DataprocMetastore,
+                    > tonic::server::UnaryService<super::UpdateServiceRequest>
+                    for UpdateServiceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateServiceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataprocMetastore>::update_service(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateServiceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.metastore.v1.DataprocMetastore/DeleteService" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteServiceSvc<T: DataprocMetastore>(pub Arc<T>);
+                    impl<
+                        T: DataprocMetastore,
+                    > tonic::server::UnaryService<super::DeleteServiceRequest>
+                    for DeleteServiceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteServiceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataprocMetastore>::delete_service(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteServiceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.metastore.v1.DataprocMetastore/ListMetadataImports" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListMetadataImportsSvc<T: DataprocMetastore>(pub Arc<T>);
+                    impl<
+                        T: DataprocMetastore,
+                    > tonic::server::UnaryService<super::ListMetadataImportsRequest>
+                    for ListMetadataImportsSvc<T> {
+                        type Response = super::ListMetadataImportsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListMetadataImportsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataprocMetastore>::list_metadata_imports(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListMetadataImportsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.metastore.v1.DataprocMetastore/GetMetadataImport" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetMetadataImportSvc<T: DataprocMetastore>(pub Arc<T>);
+                    impl<
+                        T: DataprocMetastore,
+                    > tonic::server::UnaryService<super::GetMetadataImportRequest>
+                    for GetMetadataImportSvc<T> {
+                        type Response = super::MetadataImport;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetMetadataImportRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataprocMetastore>::get_metadata_import(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetMetadataImportSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.metastore.v1.DataprocMetastore/CreateMetadataImport" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateMetadataImportSvc<T: DataprocMetastore>(pub Arc<T>);
+                    impl<
+                        T: DataprocMetastore,
+                    > tonic::server::UnaryService<super::CreateMetadataImportRequest>
+                    for CreateMetadataImportSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateMetadataImportRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataprocMetastore>::create_metadata_import(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateMetadataImportSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.metastore.v1.DataprocMetastore/UpdateMetadataImport" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateMetadataImportSvc<T: DataprocMetastore>(pub Arc<T>);
+                    impl<
+                        T: DataprocMetastore,
+                    > tonic::server::UnaryService<super::UpdateMetadataImportRequest>
+                    for UpdateMetadataImportSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateMetadataImportRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataprocMetastore>::update_metadata_import(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateMetadataImportSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.metastore.v1.DataprocMetastore/ExportMetadata" => {
+                    #[allow(non_camel_case_types)]
+                    struct ExportMetadataSvc<T: DataprocMetastore>(pub Arc<T>);
+                    impl<
+                        T: DataprocMetastore,
+                    > tonic::server::UnaryService<super::ExportMetadataRequest>
+                    for ExportMetadataSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ExportMetadataRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataprocMetastore>::export_metadata(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ExportMetadataSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.metastore.v1.DataprocMetastore/RestoreService" => {
+                    #[allow(non_camel_case_types)]
+                    struct RestoreServiceSvc<T: DataprocMetastore>(pub Arc<T>);
+                    impl<
+                        T: DataprocMetastore,
+                    > tonic::server::UnaryService<super::RestoreServiceRequest>
+                    for RestoreServiceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RestoreServiceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataprocMetastore>::restore_service(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RestoreServiceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.metastore.v1.DataprocMetastore/ListBackups" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListBackupsSvc<T: DataprocMetastore>(pub Arc<T>);
+                    impl<
+                        T: DataprocMetastore,
+                    > tonic::server::UnaryService<super::ListBackupsRequest>
+                    for ListBackupsSvc<T> {
+                        type Response = super::ListBackupsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListBackupsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataprocMetastore>::list_backups(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListBackupsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.metastore.v1.DataprocMetastore/GetBackup" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetBackupSvc<T: DataprocMetastore>(pub Arc<T>);
+                    impl<
+                        T: DataprocMetastore,
+                    > tonic::server::UnaryService<super::GetBackupRequest>
+                    for GetBackupSvc<T> {
+                        type Response = super::Backup;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetBackupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataprocMetastore>::get_backup(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetBackupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.metastore.v1.DataprocMetastore/CreateBackup" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateBackupSvc<T: DataprocMetastore>(pub Arc<T>);
+                    impl<
+                        T: DataprocMetastore,
+                    > tonic::server::UnaryService<super::CreateBackupRequest>
+                    for CreateBackupSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateBackupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataprocMetastore>::create_backup(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateBackupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.metastore.v1.DataprocMetastore/DeleteBackup" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteBackupSvc<T: DataprocMetastore>(pub Arc<T>);
+                    impl<
+                        T: DataprocMetastore,
+                    > tonic::server::UnaryService<super::DeleteBackupRequest>
+                    for DeleteBackupSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteBackupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataprocMetastore>::delete_backup(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteBackupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.metastore.v1.DataprocMetastore/QueryMetadata" => {
+                    #[allow(non_camel_case_types)]
+                    struct QueryMetadataSvc<T: DataprocMetastore>(pub Arc<T>);
+                    impl<
+                        T: DataprocMetastore,
+                    > tonic::server::UnaryService<super::QueryMetadataRequest>
+                    for QueryMetadataSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QueryMetadataRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataprocMetastore>::query_metadata(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = QueryMetadataSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.metastore.v1.DataprocMetastore/MoveTableToDatabase" => {
+                    #[allow(non_camel_case_types)]
+                    struct MoveTableToDatabaseSvc<T: DataprocMetastore>(pub Arc<T>);
+                    impl<
+                        T: DataprocMetastore,
+                    > tonic::server::UnaryService<super::MoveTableToDatabaseRequest>
+                    for MoveTableToDatabaseSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MoveTableToDatabaseRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataprocMetastore>::move_table_to_database(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = MoveTableToDatabaseSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.metastore.v1.DataprocMetastore/AlterMetadataResourceLocation" => {
+                    #[allow(non_camel_case_types)]
+                    struct AlterMetadataResourceLocationSvc<T: DataprocMetastore>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: DataprocMetastore,
+                    > tonic::server::UnaryService<
+                        super::AlterMetadataResourceLocationRequest,
+                    > for AlterMetadataResourceLocationSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::AlterMetadataResourceLocationRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataprocMetastore>::alter_metadata_resource_location(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = AlterMetadataResourceLocationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for DataprocMetastoreServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.metastore.v1.DataprocMetastore";
+    impl<T> tonic::server::NamedService for DataprocMetastoreServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}
 /// Represents a federation of multiple backend metastores.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Federation {
@@ -2507,12 +3632,12 @@ pub mod federation {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Active => "ACTIVE",
-                State::Updating => "UPDATING",
-                State::Deleting => "DELETING",
-                State::Error => "ERROR",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Active => "ACTIVE",
+                Self::Updating => "UPDATING",
+                Self::Deleting => "DELETING",
+                Self::Error => "ERROR",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2576,9 +3701,9 @@ pub mod backend_metastore {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                MetastoreType::Unspecified => "METASTORE_TYPE_UNSPECIFIED",
-                MetastoreType::Bigquery => "BIGQUERY",
-                MetastoreType::DataprocMetastore => "DATAPROC_METASTORE",
+                Self::Unspecified => "METASTORE_TYPE_UNSPECIFIED",
+                Self::Bigquery => "BIGQUERY",
+                Self::DataprocMetastore => "DATAPROC_METASTORE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2982,5 +4107,429 @@ pub mod dataproc_metastore_federation_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod dataproc_metastore_federation_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with DataprocMetastoreFederationServer.
+    #[async_trait]
+    pub trait DataprocMetastoreFederation: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists federations in a project and location.
+        async fn list_federations(
+            &self,
+            request: tonic::Request<super::ListFederationsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListFederationsResponse>,
+            tonic::Status,
+        >;
+        /// Gets the details of a single federation.
+        async fn get_federation(
+            &self,
+            request: tonic::Request<super::GetFederationRequest>,
+        ) -> std::result::Result<tonic::Response<super::Federation>, tonic::Status>;
+        /// Creates a metastore federation in a project and location.
+        async fn create_federation(
+            &self,
+            request: tonic::Request<super::CreateFederationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the fields of a federation.
+        async fn update_federation(
+            &self,
+            request: tonic::Request<super::UpdateFederationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single federation.
+        async fn delete_federation(
+            &self,
+            request: tonic::Request<super::DeleteFederationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// Configures and manages metastore federation services.
+    /// Dataproc Metastore Federation Service allows federating a collection of
+    /// backend metastores like BigQuery, Dataplex Lakes, and other Dataproc
+    /// Metastores. The Federation Service exposes a gRPC URL through which metadata
+    /// from the backend metastores are served at query time.
+    ///
+    /// The Dataproc Metastore Federation API defines the following resource model:
+    /// * The service works with a collection of Google Cloud projects.
+    /// * Each project has a collection of available locations.
+    /// * Each location has a collection of federations.
+    /// * Dataproc Metastore Federations are resources with names of the
+    /// form:
+    /// `projects/{project_number}/locations/{location_id}/federations/{federation_id}`.
+    #[derive(Debug)]
+    pub struct DataprocMetastoreFederationServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> DataprocMetastoreFederationServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for DataprocMetastoreFederationServer<T>
+    where
+        T: DataprocMetastoreFederation,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.metastore.v1.DataprocMetastoreFederation/ListFederations" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListFederationsSvc<T: DataprocMetastoreFederation>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: DataprocMetastoreFederation,
+                    > tonic::server::UnaryService<super::ListFederationsRequest>
+                    for ListFederationsSvc<T> {
+                        type Response = super::ListFederationsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListFederationsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataprocMetastoreFederation>::list_federations(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListFederationsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.metastore.v1.DataprocMetastoreFederation/GetFederation" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetFederationSvc<T: DataprocMetastoreFederation>(pub Arc<T>);
+                    impl<
+                        T: DataprocMetastoreFederation,
+                    > tonic::server::UnaryService<super::GetFederationRequest>
+                    for GetFederationSvc<T> {
+                        type Response = super::Federation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetFederationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataprocMetastoreFederation>::get_federation(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetFederationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.metastore.v1.DataprocMetastoreFederation/CreateFederation" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateFederationSvc<T: DataprocMetastoreFederation>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: DataprocMetastoreFederation,
+                    > tonic::server::UnaryService<super::CreateFederationRequest>
+                    for CreateFederationSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateFederationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataprocMetastoreFederation>::create_federation(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateFederationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.metastore.v1.DataprocMetastoreFederation/UpdateFederation" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateFederationSvc<T: DataprocMetastoreFederation>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: DataprocMetastoreFederation,
+                    > tonic::server::UnaryService<super::UpdateFederationRequest>
+                    for UpdateFederationSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateFederationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataprocMetastoreFederation>::update_federation(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateFederationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.metastore.v1.DataprocMetastoreFederation/DeleteFederation" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteFederationSvc<T: DataprocMetastoreFederation>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: DataprocMetastoreFederation,
+                    > tonic::server::UnaryService<super::DeleteFederationRequest>
+                    for DeleteFederationSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteFederationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataprocMetastoreFederation>::delete_federation(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteFederationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for DataprocMetastoreFederationServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.metastore.v1.DataprocMetastoreFederation";
+    impl<T> tonic::server::NamedService for DataprocMetastoreFederationServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

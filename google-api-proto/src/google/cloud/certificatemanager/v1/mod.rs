@@ -344,9 +344,9 @@ pub mod certificate_issuance_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                KeyAlgorithm::Unspecified => "KEY_ALGORITHM_UNSPECIFIED",
-                KeyAlgorithm::Rsa2048 => "RSA_2048",
-                KeyAlgorithm::EcdsaP256 => "ECDSA_P256",
+                Self::Unspecified => "KEY_ALGORITHM_UNSPECIFIED",
+                Self::Rsa2048 => "RSA_2048",
+                Self::EcdsaP256 => "ECDSA_P256",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -860,9 +860,9 @@ pub mod certificate {
                 /// (if the ProtoBuf definition does not change) and safe for programmatic use.
                 pub fn as_str_name(&self) -> &'static str {
                     match self {
-                        Reason::Unspecified => "REASON_UNSPECIFIED",
-                        Reason::AuthorizationIssue => "AUTHORIZATION_ISSUE",
-                        Reason::RateLimited => "RATE_LIMITED",
+                        Self::Unspecified => "REASON_UNSPECIFIED",
+                        Self::AuthorizationIssue => "AUTHORIZATION_ISSUE",
+                        Self::RateLimited => "RATE_LIMITED",
                     }
                 }
                 /// Creates an enum from field names used in the ProtoBuf definition.
@@ -934,10 +934,10 @@ pub mod certificate {
                 /// (if the ProtoBuf definition does not change) and safe for programmatic use.
                 pub fn as_str_name(&self) -> &'static str {
                     match self {
-                        State::Unspecified => "STATE_UNSPECIFIED",
-                        State::Authorizing => "AUTHORIZING",
-                        State::Authorized => "AUTHORIZED",
-                        State::Failed => "FAILED",
+                        Self::Unspecified => "STATE_UNSPECIFIED",
+                        Self::Authorizing => "AUTHORIZING",
+                        Self::Authorized => "AUTHORIZED",
+                        Self::Failed => "FAILED",
                     }
                 }
                 /// Creates an enum from field names used in the ProtoBuf definition.
@@ -984,10 +984,10 @@ pub mod certificate {
                 /// (if the ProtoBuf definition does not change) and safe for programmatic use.
                 pub fn as_str_name(&self) -> &'static str {
                     match self {
-                        FailureReason::Unspecified => "FAILURE_REASON_UNSPECIFIED",
-                        FailureReason::Config => "CONFIG",
-                        FailureReason::Caa => "CAA",
-                        FailureReason::RateLimited => "RATE_LIMITED",
+                        Self::Unspecified => "FAILURE_REASON_UNSPECIFIED",
+                        Self::Config => "CONFIG",
+                        Self::Caa => "CAA",
+                        Self::RateLimited => "RATE_LIMITED",
                     }
                 }
                 /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1038,10 +1038,10 @@ pub mod certificate {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    State::Unspecified => "STATE_UNSPECIFIED",
-                    State::Provisioning => "PROVISIONING",
-                    State::Failed => "FAILED",
-                    State::Active => "ACTIVE",
+                    Self::Unspecified => "STATE_UNSPECIFIED",
+                    Self::Provisioning => "PROVISIONING",
+                    Self::Failed => "FAILED",
+                    Self::Active => "ACTIVE",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1088,9 +1088,9 @@ pub mod certificate {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Scope::Default => "DEFAULT",
-                Scope::EdgeCache => "EDGE_CACHE",
-                Scope::AllRegions => "ALL_REGIONS",
+                Self::Default => "DEFAULT",
+                Self::EdgeCache => "EDGE_CACHE",
+                Self::AllRegions => "ALL_REGIONS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1247,8 +1247,8 @@ pub mod certificate_map_entry {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Matcher::Unspecified => "MATCHER_UNSPECIFIED",
-                Matcher::Primary => "PRIMARY",
+                Self::Unspecified => "MATCHER_UNSPECIFIED",
+                Self::Primary => "PRIMARY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1363,9 +1363,9 @@ pub mod dns_authorization {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::FixedRecord => "FIXED_RECORD",
-                Type::PerProjectRecord => "PER_PROJECT_RECORD",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::FixedRecord => "FIXED_RECORD",
+                Self::PerProjectRecord => "PER_PROJECT_RECORD",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1397,9 +1397,9 @@ impl ServingState {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ServingState::Unspecified => "SERVING_STATE_UNSPECIFIED",
-            ServingState::Active => "ACTIVE",
-            ServingState::Pending => "PENDING",
+            Self::Unspecified => "SERVING_STATE_UNSPECIFIED",
+            Self::Active => "ACTIVE",
+            Self::Pending => "PENDING",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2410,5 +2410,1831 @@ pub mod certificate_manager_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod certificate_manager_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with CertificateManagerServer.
+    #[async_trait]
+    pub trait CertificateManager: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists Certificates in a given project and location.
+        async fn list_certificates(
+            &self,
+            request: tonic::Request<super::ListCertificatesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListCertificatesResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single Certificate.
+        async fn get_certificate(
+            &self,
+            request: tonic::Request<super::GetCertificateRequest>,
+        ) -> std::result::Result<tonic::Response<super::Certificate>, tonic::Status>;
+        /// Creates a new Certificate in a given project and location.
+        async fn create_certificate(
+            &self,
+            request: tonic::Request<super::CreateCertificateRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates a Certificate.
+        async fn update_certificate(
+            &self,
+            request: tonic::Request<super::UpdateCertificateRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single Certificate.
+        async fn delete_certificate(
+            &self,
+            request: tonic::Request<super::DeleteCertificateRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists CertificateMaps in a given project and location.
+        async fn list_certificate_maps(
+            &self,
+            request: tonic::Request<super::ListCertificateMapsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListCertificateMapsResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single CertificateMap.
+        async fn get_certificate_map(
+            &self,
+            request: tonic::Request<super::GetCertificateMapRequest>,
+        ) -> std::result::Result<tonic::Response<super::CertificateMap>, tonic::Status>;
+        /// Creates a new CertificateMap in a given project and location.
+        async fn create_certificate_map(
+            &self,
+            request: tonic::Request<super::CreateCertificateMapRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates a CertificateMap.
+        async fn update_certificate_map(
+            &self,
+            request: tonic::Request<super::UpdateCertificateMapRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single CertificateMap. A Certificate Map can't be deleted
+        /// if it contains Certificate Map Entries. Remove all the entries from
+        /// the map before calling this method.
+        async fn delete_certificate_map(
+            &self,
+            request: tonic::Request<super::DeleteCertificateMapRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists CertificateMapEntries in a given project and location.
+        async fn list_certificate_map_entries(
+            &self,
+            request: tonic::Request<super::ListCertificateMapEntriesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListCertificateMapEntriesResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single CertificateMapEntry.
+        async fn get_certificate_map_entry(
+            &self,
+            request: tonic::Request<super::GetCertificateMapEntryRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::CertificateMapEntry>,
+            tonic::Status,
+        >;
+        /// Creates a new CertificateMapEntry in a given project and location.
+        async fn create_certificate_map_entry(
+            &self,
+            request: tonic::Request<super::CreateCertificateMapEntryRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates a CertificateMapEntry.
+        async fn update_certificate_map_entry(
+            &self,
+            request: tonic::Request<super::UpdateCertificateMapEntryRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single CertificateMapEntry.
+        async fn delete_certificate_map_entry(
+            &self,
+            request: tonic::Request<super::DeleteCertificateMapEntryRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists DnsAuthorizations in a given project and location.
+        async fn list_dns_authorizations(
+            &self,
+            request: tonic::Request<super::ListDnsAuthorizationsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDnsAuthorizationsResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single DnsAuthorization.
+        async fn get_dns_authorization(
+            &self,
+            request: tonic::Request<super::GetDnsAuthorizationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::DnsAuthorization>,
+            tonic::Status,
+        >;
+        /// Creates a new DnsAuthorization in a given project and location.
+        async fn create_dns_authorization(
+            &self,
+            request: tonic::Request<super::CreateDnsAuthorizationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates a DnsAuthorization.
+        async fn update_dns_authorization(
+            &self,
+            request: tonic::Request<super::UpdateDnsAuthorizationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single DnsAuthorization.
+        async fn delete_dns_authorization(
+            &self,
+            request: tonic::Request<super::DeleteDnsAuthorizationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists CertificateIssuanceConfigs in a given project and location.
+        async fn list_certificate_issuance_configs(
+            &self,
+            request: tonic::Request<super::ListCertificateIssuanceConfigsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListCertificateIssuanceConfigsResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single CertificateIssuanceConfig.
+        async fn get_certificate_issuance_config(
+            &self,
+            request: tonic::Request<super::GetCertificateIssuanceConfigRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::CertificateIssuanceConfig>,
+            tonic::Status,
+        >;
+        /// Creates a new CertificateIssuanceConfig in a given project and location.
+        async fn create_certificate_issuance_config(
+            &self,
+            request: tonic::Request<super::CreateCertificateIssuanceConfigRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single CertificateIssuanceConfig.
+        async fn delete_certificate_issuance_config(
+            &self,
+            request: tonic::Request<super::DeleteCertificateIssuanceConfigRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists TrustConfigs in a given project and location.
+        async fn list_trust_configs(
+            &self,
+            request: tonic::Request<super::ListTrustConfigsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListTrustConfigsResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single TrustConfig.
+        async fn get_trust_config(
+            &self,
+            request: tonic::Request<super::GetTrustConfigRequest>,
+        ) -> std::result::Result<tonic::Response<super::TrustConfig>, tonic::Status>;
+        /// Creates a new TrustConfig in a given project and location.
+        async fn create_trust_config(
+            &self,
+            request: tonic::Request<super::CreateTrustConfigRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates a TrustConfig.
+        async fn update_trust_config(
+            &self,
+            request: tonic::Request<super::UpdateTrustConfigRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single TrustConfig.
+        async fn delete_trust_config(
+            &self,
+            request: tonic::Request<super::DeleteTrustConfigRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// API Overview
+    ///
+    /// Certificates Manager API allows customers to see and manage all their TLS
+    /// certificates.
+    ///
+    /// Certificates Manager API service provides methods to manage certificates,
+    /// group them into collections, and create serving configuration that can be
+    /// easily applied to other Cloud resources e.g. Target Proxies.
+    ///
+    /// Data Model
+    ///
+    /// The Certificates Manager service exposes the following resources:
+    ///
+    /// * `Certificate` that describes a single TLS certificate.
+    /// * `CertificateMap` that describes a collection of certificates that can be
+    /// attached to a target resource.
+    /// * `CertificateMapEntry` that describes a single configuration entry that
+    /// consists of a SNI and a group of certificates. It's a subresource of
+    /// CertificateMap.
+    ///
+    /// Certificate, CertificateMap and CertificateMapEntry IDs
+    /// have to fully match the regexp `[a-z0-9-]{1,63}`. In other words,
+    /// - only lower case letters, digits, and hyphen are allowed
+    /// - length of the resource ID has to be in [1,63] range.
+    ///
+    /// Provides methods to manage Cloud Certificate Manager entities.
+    #[derive(Debug)]
+    pub struct CertificateManagerServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> CertificateManagerServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for CertificateManagerServer<T>
+    where
+        T: CertificateManager,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.certificatemanager.v1.CertificateManager/ListCertificates" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListCertificatesSvc<T: CertificateManager>(pub Arc<T>);
+                    impl<
+                        T: CertificateManager,
+                    > tonic::server::UnaryService<super::ListCertificatesRequest>
+                    for ListCertificatesSvc<T> {
+                        type Response = super::ListCertificatesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListCertificatesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateManager>::list_certificates(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListCertificatesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.certificatemanager.v1.CertificateManager/GetCertificate" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetCertificateSvc<T: CertificateManager>(pub Arc<T>);
+                    impl<
+                        T: CertificateManager,
+                    > tonic::server::UnaryService<super::GetCertificateRequest>
+                    for GetCertificateSvc<T> {
+                        type Response = super::Certificate;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetCertificateRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateManager>::get_certificate(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetCertificateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.certificatemanager.v1.CertificateManager/CreateCertificate" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateCertificateSvc<T: CertificateManager>(pub Arc<T>);
+                    impl<
+                        T: CertificateManager,
+                    > tonic::server::UnaryService<super::CreateCertificateRequest>
+                    for CreateCertificateSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateCertificateRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateManager>::create_certificate(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateCertificateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.certificatemanager.v1.CertificateManager/UpdateCertificate" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateCertificateSvc<T: CertificateManager>(pub Arc<T>);
+                    impl<
+                        T: CertificateManager,
+                    > tonic::server::UnaryService<super::UpdateCertificateRequest>
+                    for UpdateCertificateSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateCertificateRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateManager>::update_certificate(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateCertificateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.certificatemanager.v1.CertificateManager/DeleteCertificate" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteCertificateSvc<T: CertificateManager>(pub Arc<T>);
+                    impl<
+                        T: CertificateManager,
+                    > tonic::server::UnaryService<super::DeleteCertificateRequest>
+                    for DeleteCertificateSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteCertificateRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateManager>::delete_certificate(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteCertificateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.certificatemanager.v1.CertificateManager/ListCertificateMaps" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListCertificateMapsSvc<T: CertificateManager>(pub Arc<T>);
+                    impl<
+                        T: CertificateManager,
+                    > tonic::server::UnaryService<super::ListCertificateMapsRequest>
+                    for ListCertificateMapsSvc<T> {
+                        type Response = super::ListCertificateMapsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListCertificateMapsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateManager>::list_certificate_maps(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListCertificateMapsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.certificatemanager.v1.CertificateManager/GetCertificateMap" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetCertificateMapSvc<T: CertificateManager>(pub Arc<T>);
+                    impl<
+                        T: CertificateManager,
+                    > tonic::server::UnaryService<super::GetCertificateMapRequest>
+                    for GetCertificateMapSvc<T> {
+                        type Response = super::CertificateMap;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetCertificateMapRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateManager>::get_certificate_map(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetCertificateMapSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.certificatemanager.v1.CertificateManager/CreateCertificateMap" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateCertificateMapSvc<T: CertificateManager>(pub Arc<T>);
+                    impl<
+                        T: CertificateManager,
+                    > tonic::server::UnaryService<super::CreateCertificateMapRequest>
+                    for CreateCertificateMapSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateCertificateMapRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateManager>::create_certificate_map(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateCertificateMapSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.certificatemanager.v1.CertificateManager/UpdateCertificateMap" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateCertificateMapSvc<T: CertificateManager>(pub Arc<T>);
+                    impl<
+                        T: CertificateManager,
+                    > tonic::server::UnaryService<super::UpdateCertificateMapRequest>
+                    for UpdateCertificateMapSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateCertificateMapRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateManager>::update_certificate_map(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateCertificateMapSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.certificatemanager.v1.CertificateManager/DeleteCertificateMap" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteCertificateMapSvc<T: CertificateManager>(pub Arc<T>);
+                    impl<
+                        T: CertificateManager,
+                    > tonic::server::UnaryService<super::DeleteCertificateMapRequest>
+                    for DeleteCertificateMapSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteCertificateMapRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateManager>::delete_certificate_map(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteCertificateMapSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.certificatemanager.v1.CertificateManager/ListCertificateMapEntries" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListCertificateMapEntriesSvc<T: CertificateManager>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: CertificateManager,
+                    > tonic::server::UnaryService<
+                        super::ListCertificateMapEntriesRequest,
+                    > for ListCertificateMapEntriesSvc<T> {
+                        type Response = super::ListCertificateMapEntriesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListCertificateMapEntriesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateManager>::list_certificate_map_entries(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListCertificateMapEntriesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.certificatemanager.v1.CertificateManager/GetCertificateMapEntry" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetCertificateMapEntrySvc<T: CertificateManager>(pub Arc<T>);
+                    impl<
+                        T: CertificateManager,
+                    > tonic::server::UnaryService<super::GetCertificateMapEntryRequest>
+                    for GetCertificateMapEntrySvc<T> {
+                        type Response = super::CertificateMapEntry;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetCertificateMapEntryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateManager>::get_certificate_map_entry(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetCertificateMapEntrySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.certificatemanager.v1.CertificateManager/CreateCertificateMapEntry" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateCertificateMapEntrySvc<T: CertificateManager>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: CertificateManager,
+                    > tonic::server::UnaryService<
+                        super::CreateCertificateMapEntryRequest,
+                    > for CreateCertificateMapEntrySvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateCertificateMapEntryRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateManager>::create_certificate_map_entry(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateCertificateMapEntrySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.certificatemanager.v1.CertificateManager/UpdateCertificateMapEntry" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateCertificateMapEntrySvc<T: CertificateManager>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: CertificateManager,
+                    > tonic::server::UnaryService<
+                        super::UpdateCertificateMapEntryRequest,
+                    > for UpdateCertificateMapEntrySvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::UpdateCertificateMapEntryRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateManager>::update_certificate_map_entry(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateCertificateMapEntrySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.certificatemanager.v1.CertificateManager/DeleteCertificateMapEntry" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteCertificateMapEntrySvc<T: CertificateManager>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: CertificateManager,
+                    > tonic::server::UnaryService<
+                        super::DeleteCertificateMapEntryRequest,
+                    > for DeleteCertificateMapEntrySvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteCertificateMapEntryRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateManager>::delete_certificate_map_entry(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteCertificateMapEntrySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.certificatemanager.v1.CertificateManager/ListDnsAuthorizations" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDnsAuthorizationsSvc<T: CertificateManager>(pub Arc<T>);
+                    impl<
+                        T: CertificateManager,
+                    > tonic::server::UnaryService<super::ListDnsAuthorizationsRequest>
+                    for ListDnsAuthorizationsSvc<T> {
+                        type Response = super::ListDnsAuthorizationsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListDnsAuthorizationsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateManager>::list_dns_authorizations(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDnsAuthorizationsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.certificatemanager.v1.CertificateManager/GetDnsAuthorization" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetDnsAuthorizationSvc<T: CertificateManager>(pub Arc<T>);
+                    impl<
+                        T: CertificateManager,
+                    > tonic::server::UnaryService<super::GetDnsAuthorizationRequest>
+                    for GetDnsAuthorizationSvc<T> {
+                        type Response = super::DnsAuthorization;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetDnsAuthorizationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateManager>::get_dns_authorization(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetDnsAuthorizationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.certificatemanager.v1.CertificateManager/CreateDnsAuthorization" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateDnsAuthorizationSvc<T: CertificateManager>(pub Arc<T>);
+                    impl<
+                        T: CertificateManager,
+                    > tonic::server::UnaryService<super::CreateDnsAuthorizationRequest>
+                    for CreateDnsAuthorizationSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateDnsAuthorizationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateManager>::create_dns_authorization(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateDnsAuthorizationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.certificatemanager.v1.CertificateManager/UpdateDnsAuthorization" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateDnsAuthorizationSvc<T: CertificateManager>(pub Arc<T>);
+                    impl<
+                        T: CertificateManager,
+                    > tonic::server::UnaryService<super::UpdateDnsAuthorizationRequest>
+                    for UpdateDnsAuthorizationSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateDnsAuthorizationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateManager>::update_dns_authorization(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateDnsAuthorizationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.certificatemanager.v1.CertificateManager/DeleteDnsAuthorization" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteDnsAuthorizationSvc<T: CertificateManager>(pub Arc<T>);
+                    impl<
+                        T: CertificateManager,
+                    > tonic::server::UnaryService<super::DeleteDnsAuthorizationRequest>
+                    for DeleteDnsAuthorizationSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteDnsAuthorizationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateManager>::delete_dns_authorization(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteDnsAuthorizationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.certificatemanager.v1.CertificateManager/ListCertificateIssuanceConfigs" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListCertificateIssuanceConfigsSvc<T: CertificateManager>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: CertificateManager,
+                    > tonic::server::UnaryService<
+                        super::ListCertificateIssuanceConfigsRequest,
+                    > for ListCertificateIssuanceConfigsSvc<T> {
+                        type Response = super::ListCertificateIssuanceConfigsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListCertificateIssuanceConfigsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateManager>::list_certificate_issuance_configs(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListCertificateIssuanceConfigsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.certificatemanager.v1.CertificateManager/GetCertificateIssuanceConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetCertificateIssuanceConfigSvc<T: CertificateManager>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: CertificateManager,
+                    > tonic::server::UnaryService<
+                        super::GetCertificateIssuanceConfigRequest,
+                    > for GetCertificateIssuanceConfigSvc<T> {
+                        type Response = super::CertificateIssuanceConfig;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetCertificateIssuanceConfigRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateManager>::get_certificate_issuance_config(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetCertificateIssuanceConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.certificatemanager.v1.CertificateManager/CreateCertificateIssuanceConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateCertificateIssuanceConfigSvc<T: CertificateManager>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: CertificateManager,
+                    > tonic::server::UnaryService<
+                        super::CreateCertificateIssuanceConfigRequest,
+                    > for CreateCertificateIssuanceConfigSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateCertificateIssuanceConfigRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateManager>::create_certificate_issuance_config(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateCertificateIssuanceConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.certificatemanager.v1.CertificateManager/DeleteCertificateIssuanceConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteCertificateIssuanceConfigSvc<T: CertificateManager>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: CertificateManager,
+                    > tonic::server::UnaryService<
+                        super::DeleteCertificateIssuanceConfigRequest,
+                    > for DeleteCertificateIssuanceConfigSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteCertificateIssuanceConfigRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateManager>::delete_certificate_issuance_config(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteCertificateIssuanceConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.certificatemanager.v1.CertificateManager/ListTrustConfigs" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListTrustConfigsSvc<T: CertificateManager>(pub Arc<T>);
+                    impl<
+                        T: CertificateManager,
+                    > tonic::server::UnaryService<super::ListTrustConfigsRequest>
+                    for ListTrustConfigsSvc<T> {
+                        type Response = super::ListTrustConfigsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListTrustConfigsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateManager>::list_trust_configs(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListTrustConfigsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.certificatemanager.v1.CertificateManager/GetTrustConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetTrustConfigSvc<T: CertificateManager>(pub Arc<T>);
+                    impl<
+                        T: CertificateManager,
+                    > tonic::server::UnaryService<super::GetTrustConfigRequest>
+                    for GetTrustConfigSvc<T> {
+                        type Response = super::TrustConfig;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetTrustConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateManager>::get_trust_config(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetTrustConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.certificatemanager.v1.CertificateManager/CreateTrustConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateTrustConfigSvc<T: CertificateManager>(pub Arc<T>);
+                    impl<
+                        T: CertificateManager,
+                    > tonic::server::UnaryService<super::CreateTrustConfigRequest>
+                    for CreateTrustConfigSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateTrustConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateManager>::create_trust_config(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateTrustConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.certificatemanager.v1.CertificateManager/UpdateTrustConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateTrustConfigSvc<T: CertificateManager>(pub Arc<T>);
+                    impl<
+                        T: CertificateManager,
+                    > tonic::server::UnaryService<super::UpdateTrustConfigRequest>
+                    for UpdateTrustConfigSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateTrustConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateManager>::update_trust_config(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateTrustConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.certificatemanager.v1.CertificateManager/DeleteTrustConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteTrustConfigSvc<T: CertificateManager>(pub Arc<T>);
+                    impl<
+                        T: CertificateManager,
+                    > tonic::server::UnaryService<super::DeleteTrustConfigRequest>
+                    for DeleteTrustConfigSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteTrustConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateManager>::delete_trust_config(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteTrustConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for CertificateManagerServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.certificatemanager.v1.CertificateManager";
+    impl<T> tonic::server::NamedService for CertificateManagerServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

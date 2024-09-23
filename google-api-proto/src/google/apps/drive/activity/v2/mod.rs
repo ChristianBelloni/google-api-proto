@@ -216,9 +216,9 @@ pub mod system_event {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::UserDeletion => "USER_DELETION",
-                Type::TrashAutoPurge => "TRASH_AUTO_PURGE",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::UserDeletion => "USER_DELETION",
+                Self::TrashAutoPurge => "TRASH_AUTO_PURGE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -414,10 +414,10 @@ pub mod drive_item {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    Type::Unspecified => "TYPE_UNSPECIFIED",
-                    Type::MyDriveRoot => "MY_DRIVE_ROOT",
-                    Type::TeamDriveRoot => "TEAM_DRIVE_ROOT",
-                    Type::StandardFolder => "STANDARD_FOLDER",
+                    Self::Unspecified => "TYPE_UNSPECIFIED",
+                    Self::MyDriveRoot => "MY_DRIVE_ROOT",
+                    Self::TeamDriveRoot => "TEAM_DRIVE_ROOT",
+                    Self::StandardFolder => "STANDARD_FOLDER",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -474,10 +474,10 @@ pub mod drive_item {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    Type::Unspecified => "TYPE_UNSPECIFIED",
-                    Type::MyDriveRoot => "MY_DRIVE_ROOT",
-                    Type::SharedDriveRoot => "SHARED_DRIVE_ROOT",
-                    Type::StandardFolder => "STANDARD_FOLDER",
+                    Self::Unspecified => "TYPE_UNSPECIFIED",
+                    Self::MyDriveRoot => "MY_DRIVE_ROOT",
+                    Self::SharedDriveRoot => "SHARED_DRIVE_ROOT",
+                    Self::StandardFolder => "STANDARD_FOLDER",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -799,9 +799,9 @@ pub mod delete {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::Trash => "TRASH",
-                Type::PermanentDelete => "PERMANENT_DELETE",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::Trash => "TRASH",
+                Self::PermanentDelete => "PERMANENT_DELETE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -850,8 +850,8 @@ pub mod restore {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::Untrash => "UNTRASH",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::Untrash => "UNTRASH",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -940,14 +940,14 @@ pub mod permission {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Role::Unspecified => "ROLE_UNSPECIFIED",
-                Role::Owner => "OWNER",
-                Role::Organizer => "ORGANIZER",
-                Role::FileOrganizer => "FILE_ORGANIZER",
-                Role::Editor => "EDITOR",
-                Role::Commenter => "COMMENTER",
-                Role::Viewer => "VIEWER",
-                Role::PublishedViewer => "PUBLISHED_VIEWER",
+                Self::Unspecified => "ROLE_UNSPECIFIED",
+                Self::Owner => "OWNER",
+                Self::Organizer => "ORGANIZER",
+                Self::FileOrganizer => "FILE_ORGANIZER",
+                Self::Editor => "EDITOR",
+                Self::Commenter => "COMMENTER",
+                Self::Viewer => "VIEWER",
+                Self::PublishedViewer => "PUBLISHED_VIEWER",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1039,13 +1039,13 @@ pub mod comment {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    Subtype::Unspecified => "SUBTYPE_UNSPECIFIED",
-                    Subtype::Added => "ADDED",
-                    Subtype::Deleted => "DELETED",
-                    Subtype::ReplyAdded => "REPLY_ADDED",
-                    Subtype::ReplyDeleted => "REPLY_DELETED",
-                    Subtype::Resolved => "RESOLVED",
-                    Subtype::Reopened => "REOPENED",
+                    Self::Unspecified => "SUBTYPE_UNSPECIFIED",
+                    Self::Added => "ADDED",
+                    Self::Deleted => "DELETED",
+                    Self::ReplyAdded => "REPLY_ADDED",
+                    Self::ReplyDeleted => "REPLY_DELETED",
+                    Self::Resolved => "RESOLVED",
+                    Self::Reopened => "REOPENED",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1113,14 +1113,14 @@ pub mod comment {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    Subtype::Unspecified => "SUBTYPE_UNSPECIFIED",
-                    Subtype::Added => "ADDED",
-                    Subtype::Deleted => "DELETED",
-                    Subtype::ReplyAdded => "REPLY_ADDED",
-                    Subtype::ReplyDeleted => "REPLY_DELETED",
-                    Subtype::Resolved => "RESOLVED",
-                    Subtype::Reopened => "REOPENED",
-                    Subtype::Reassigned => "REASSIGNED",
+                    Self::Unspecified => "SUBTYPE_UNSPECIFIED",
+                    Self::Added => "ADDED",
+                    Self::Deleted => "DELETED",
+                    Self::ReplyAdded => "REPLY_ADDED",
+                    Self::ReplyDeleted => "REPLY_DELETED",
+                    Self::Resolved => "RESOLVED",
+                    Self::Reopened => "REOPENED",
+                    Self::Reassigned => "REASSIGNED",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1188,15 +1188,15 @@ pub mod comment {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    Subtype::Unspecified => "SUBTYPE_UNSPECIFIED",
-                    Subtype::Added => "ADDED",
-                    Subtype::Deleted => "DELETED",
-                    Subtype::ReplyAdded => "REPLY_ADDED",
-                    Subtype::ReplyDeleted => "REPLY_DELETED",
-                    Subtype::Accepted => "ACCEPTED",
-                    Subtype::Rejected => "REJECTED",
-                    Subtype::AcceptDeleted => "ACCEPT_DELETED",
-                    Subtype::RejectDeleted => "REJECT_DELETED",
+                    Self::Unspecified => "SUBTYPE_UNSPECIFIED",
+                    Self::Added => "ADDED",
+                    Self::Deleted => "DELETED",
+                    Self::ReplyAdded => "REPLY_ADDED",
+                    Self::ReplyDeleted => "REPLY_DELETED",
+                    Self::Accepted => "ACCEPTED",
+                    Self::Rejected => "REJECTED",
+                    Self::AcceptDeleted => "ACCEPT_DELETED",
+                    Self::RejectDeleted => "REJECT_DELETED",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1267,9 +1267,9 @@ pub mod data_leak_prevention_change {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::Flagged => "FLAGGED",
-                Type::Cleared => "CLEARED",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::Flagged => "FLAGGED",
+                Self::Cleared => "CLEARED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1320,9 +1320,9 @@ pub mod application_reference {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::UnspecifiedReferenceType => "UNSPECIFIED_REFERENCE_TYPE",
-                Type::Link => "LINK",
-                Type::Discuss => "DISCUSS",
+                Self::UnspecifiedReferenceType => "UNSPECIFIED_REFERENCE_TYPE",
+                Self::Link => "LINK",
+                Self::Discuss => "DISCUSS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1395,12 +1395,12 @@ pub mod settings_change {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    Feature::Unspecified => "FEATURE_UNSPECIFIED",
-                    Feature::SharingOutsideDomain => "SHARING_OUTSIDE_DOMAIN",
-                    Feature::DirectSharing => "DIRECT_SHARING",
-                    Feature::ItemDuplication => "ITEM_DUPLICATION",
-                    Feature::DriveFileStream => "DRIVE_FILE_STREAM",
-                    Feature::FileOrganizerCanShareFolders => {
+                    Self::Unspecified => "FEATURE_UNSPECIFIED",
+                    Self::SharingOutsideDomain => "SHARING_OUTSIDE_DOMAIN",
+                    Self::DirectSharing => "DIRECT_SHARING",
+                    Self::ItemDuplication => "ITEM_DUPLICATION",
+                    Self::DriveFileStream => "DRIVE_FILE_STREAM",
+                    Self::FileOrganizerCanShareFolders => {
                         "FILE_ORGANIZER_CAN_SHARE_FOLDERS"
                     }
                 }
@@ -1448,9 +1448,9 @@ pub mod settings_change {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    Restriction::Unspecified => "RESTRICTION_UNSPECIFIED",
-                    Restriction::Unrestricted => "UNRESTRICTED",
-                    Restriction::FullyRestricted => "FULLY_RESTRICTED",
+                    Self::Unspecified => "RESTRICTION_UNSPECIFIED",
+                    Self::Unrestricted => "UNRESTRICTED",
+                    Self::FullyRestricted => "FULLY_RESTRICTED",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1654,11 +1654,11 @@ pub mod applied_label_change {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    Type::Unspecified => "TYPE_UNSPECIFIED",
-                    Type::LabelAdded => "LABEL_ADDED",
-                    Type::LabelRemoved => "LABEL_REMOVED",
-                    Type::LabelFieldValueChanged => "LABEL_FIELD_VALUE_CHANGED",
-                    Type::LabelAppliedByItemCreate => "LABEL_APPLIED_BY_ITEM_CREATE",
+                    Self::Unspecified => "TYPE_UNSPECIFIED",
+                    Self::LabelAdded => "LABEL_ADDED",
+                    Self::LabelRemoved => "LABEL_REMOVED",
+                    Self::LabelFieldValueChanged => "LABEL_FIELD_VALUE_CHANGED",
+                    Self::LabelAppliedByItemCreate => "LABEL_APPLIED_BY_ITEM_CREATE",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1837,5 +1837,186 @@ pub mod drive_activity_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod drive_activity_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with DriveActivityServiceServer.
+    #[async_trait]
+    pub trait DriveActivityService: std::marker::Send + std::marker::Sync + 'static {
+        /// Query past activity in Google Drive.
+        async fn query_drive_activity(
+            &self,
+            request: tonic::Request<super::QueryDriveActivityRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryDriveActivityResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Service for querying activity on Drive items. Activity is user
+    /// or system action on Drive items that happened in the past. A Drive item can
+    /// be a file or folder, or a Team Drive.
+    #[derive(Debug)]
+    pub struct DriveActivityServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> DriveActivityServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for DriveActivityServiceServer<T>
+    where
+        T: DriveActivityService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.apps.drive.activity.v2.DriveActivityService/QueryDriveActivity" => {
+                    #[allow(non_camel_case_types)]
+                    struct QueryDriveActivitySvc<T: DriveActivityService>(pub Arc<T>);
+                    impl<
+                        T: DriveActivityService,
+                    > tonic::server::UnaryService<super::QueryDriveActivityRequest>
+                    for QueryDriveActivitySvc<T> {
+                        type Response = super::QueryDriveActivityResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QueryDriveActivityRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DriveActivityService>::query_drive_activity(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = QueryDriveActivitySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for DriveActivityServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.apps.drive.activity.v2.DriveActivityService";
+    impl<T> tonic::server::NamedService for DriveActivityServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

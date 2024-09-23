@@ -57,9 +57,9 @@ impl LinkVerificationState {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            LinkVerificationState::Unspecified => "LINK_VERIFICATION_STATE_UNSPECIFIED",
-            LinkVerificationState::Verified => "LINK_VERIFICATION_STATE_VERIFIED",
-            LinkVerificationState::NotVerified => "LINK_VERIFICATION_STATE_NOT_VERIFIED",
+            Self::Unspecified => "LINK_VERIFICATION_STATE_UNSPECIFIED",
+            Self::Verified => "LINK_VERIFICATION_STATE_VERIFIED",
+            Self::NotVerified => "LINK_VERIFICATION_STATE_NOT_VERIFIED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -173,11 +173,9 @@ impl AnalyticsServiceLevel {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            AnalyticsServiceLevel::Unspecified => "ANALYTICS_SERVICE_LEVEL_UNSPECIFIED",
-            AnalyticsServiceLevel::Standard => "ANALYTICS_SERVICE_LEVEL_STANDARD",
-            AnalyticsServiceLevel::AnalyticsServiceLevel360 => {
-                "ANALYTICS_SERVICE_LEVEL_360"
-            }
+            Self::Unspecified => "ANALYTICS_SERVICE_LEVEL_UNSPECIFIED",
+            Self::Standard => "ANALYTICS_SERVICE_LEVEL_STANDARD",
+            Self::AnalyticsServiceLevel360 => "ANALYTICS_SERVICE_LEVEL_360",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -426,5 +424,443 @@ pub mod marketingplatform_admin_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod marketingplatform_admin_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with MarketingplatformAdminServiceServer.
+    #[async_trait]
+    pub trait MarketingplatformAdminService: std::marker::Send + std::marker::Sync + 'static {
+        /// Lookup for a single organization.
+        async fn get_organization(
+            &self,
+            request: tonic::Request<super::GetOrganizationRequest>,
+        ) -> std::result::Result<tonic::Response<super::Organization>, tonic::Status>;
+        /// Lists the Google Analytics accounts link to the specified Google Marketing
+        /// Platform organization.
+        async fn list_analytics_account_links(
+            &self,
+            request: tonic::Request<super::ListAnalyticsAccountLinksRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAnalyticsAccountLinksResponse>,
+            tonic::Status,
+        >;
+        /// Creates the link between the Analytics account and the Google Marketing
+        /// Platform organization.
+        ///
+        /// User needs to be an org user, and admin on the Analytics account to create
+        /// the link. If the account is already linked to an organization, user needs
+        /// to unlink the account from the current organization, then try link again.
+        async fn create_analytics_account_link(
+            &self,
+            request: tonic::Request<super::CreateAnalyticsAccountLinkRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AnalyticsAccountLink>,
+            tonic::Status,
+        >;
+        /// Deletes the AnalyticsAccountLink, which detaches the Analytics account from
+        /// the Google Marketing Platform organization.
+        ///
+        /// User needs to be an org user, and admin on the Analytics account in order
+        /// to delete the link.
+        async fn delete_analytics_account_link(
+            &self,
+            request: tonic::Request<super::DeleteAnalyticsAccountLinkRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Updates the service level for an Analytics property.
+        async fn set_property_service_level(
+            &self,
+            request: tonic::Request<super::SetPropertyServiceLevelRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SetPropertyServiceLevelResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Service Interface for the Google Marketing Platform Admin API.
+    #[derive(Debug)]
+    pub struct MarketingplatformAdminServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> MarketingplatformAdminServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for MarketingplatformAdminServiceServer<T>
+    where
+        T: MarketingplatformAdminService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.marketingplatform.admin.v1alpha.MarketingplatformAdminService/GetOrganization" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetOrganizationSvc<T: MarketingplatformAdminService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: MarketingplatformAdminService,
+                    > tonic::server::UnaryService<super::GetOrganizationRequest>
+                    for GetOrganizationSvc<T> {
+                        type Response = super::Organization;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetOrganizationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MarketingplatformAdminService>::get_organization(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetOrganizationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.marketingplatform.admin.v1alpha.MarketingplatformAdminService/ListAnalyticsAccountLinks" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAnalyticsAccountLinksSvc<
+                        T: MarketingplatformAdminService,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: MarketingplatformAdminService,
+                    > tonic::server::UnaryService<
+                        super::ListAnalyticsAccountLinksRequest,
+                    > for ListAnalyticsAccountLinksSvc<T> {
+                        type Response = super::ListAnalyticsAccountLinksResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListAnalyticsAccountLinksRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MarketingplatformAdminService>::list_analytics_account_links(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAnalyticsAccountLinksSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.marketingplatform.admin.v1alpha.MarketingplatformAdminService/CreateAnalyticsAccountLink" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateAnalyticsAccountLinkSvc<
+                        T: MarketingplatformAdminService,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: MarketingplatformAdminService,
+                    > tonic::server::UnaryService<
+                        super::CreateAnalyticsAccountLinkRequest,
+                    > for CreateAnalyticsAccountLinkSvc<T> {
+                        type Response = super::AnalyticsAccountLink;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateAnalyticsAccountLinkRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MarketingplatformAdminService>::create_analytics_account_link(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateAnalyticsAccountLinkSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.marketingplatform.admin.v1alpha.MarketingplatformAdminService/DeleteAnalyticsAccountLink" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteAnalyticsAccountLinkSvc<
+                        T: MarketingplatformAdminService,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: MarketingplatformAdminService,
+                    > tonic::server::UnaryService<
+                        super::DeleteAnalyticsAccountLinkRequest,
+                    > for DeleteAnalyticsAccountLinkSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteAnalyticsAccountLinkRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MarketingplatformAdminService>::delete_analytics_account_link(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteAnalyticsAccountLinkSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.marketingplatform.admin.v1alpha.MarketingplatformAdminService/SetPropertyServiceLevel" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetPropertyServiceLevelSvc<T: MarketingplatformAdminService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: MarketingplatformAdminService,
+                    > tonic::server::UnaryService<super::SetPropertyServiceLevelRequest>
+                    for SetPropertyServiceLevelSvc<T> {
+                        type Response = super::SetPropertyServiceLevelResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::SetPropertyServiceLevelRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MarketingplatformAdminService>::set_property_service_level(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SetPropertyServiceLevelSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for MarketingplatformAdminServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.marketingplatform.admin.v1alpha.MarketingplatformAdminService";
+    impl<T> tonic::server::NamedService for MarketingplatformAdminServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

@@ -149,9 +149,9 @@ pub mod threshold_rule {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Basis::Unspecified => "BASIS_UNSPECIFIED",
-                Basis::CurrentSpend => "CURRENT_SPEND",
-                Basis::ForecastedSpend => "FORECASTED_SPEND",
+                Self::Unspecified => "BASIS_UNSPECIFIED",
+                Self::CurrentSpend => "CURRENT_SPEND",
+                Self::ForecastedSpend => "FORECASTED_SPEND",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -327,12 +327,10 @@ pub mod filter {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                CreditTypesTreatment::Unspecified => "CREDIT_TYPES_TREATMENT_UNSPECIFIED",
-                CreditTypesTreatment::IncludeAllCredits => "INCLUDE_ALL_CREDITS",
-                CreditTypesTreatment::ExcludeAllCredits => "EXCLUDE_ALL_CREDITS",
-                CreditTypesTreatment::IncludeSpecifiedCredits => {
-                    "INCLUDE_SPECIFIED_CREDITS"
-                }
+                Self::Unspecified => "CREDIT_TYPES_TREATMENT_UNSPECIFIED",
+                Self::IncludeAllCredits => "INCLUDE_ALL_CREDITS",
+                Self::ExcludeAllCredits => "EXCLUDE_ALL_CREDITS",
+                Self::IncludeSpecifiedCredits => "INCLUDE_SPECIFIED_CREDITS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -403,10 +401,10 @@ impl CalendarPeriod {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            CalendarPeriod::Unspecified => "CALENDAR_PERIOD_UNSPECIFIED",
-            CalendarPeriod::Month => "MONTH",
-            CalendarPeriod::Quarter => "QUARTER",
-            CalendarPeriod::Year => "YEAR",
+            Self::Unspecified => "CALENDAR_PERIOD_UNSPECIFIED",
+            Self::Month => "MONTH",
+            Self::Quarter => "QUARTER",
+            Self::Year => "YEAR",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -734,5 +732,396 @@ pub mod budget_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod budget_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with BudgetServiceServer.
+    #[async_trait]
+    pub trait BudgetService: std::marker::Send + std::marker::Sync + 'static {
+        /// Creates a new budget. See
+        /// [Quotas and limits](https://cloud.google.com/billing/quotas)
+        /// for more information on the limits of the number of budgets you can create.
+        async fn create_budget(
+            &self,
+            request: tonic::Request<super::CreateBudgetRequest>,
+        ) -> std::result::Result<tonic::Response<super::Budget>, tonic::Status>;
+        /// Updates a budget and returns the updated budget.
+        ///
+        /// WARNING: There are some fields exposed on the Google Cloud Console that
+        /// aren't available on this API. Budget fields that are not exposed in
+        /// this API will not be changed by this method.
+        async fn update_budget(
+            &self,
+            request: tonic::Request<super::UpdateBudgetRequest>,
+        ) -> std::result::Result<tonic::Response<super::Budget>, tonic::Status>;
+        /// Returns a budget.
+        ///
+        /// WARNING: There are some fields exposed on the Google Cloud Console that
+        /// aren't available on this API. When reading from the API, you will not
+        /// see these fields in the return value, though they may have been set
+        /// in the Cloud Console.
+        async fn get_budget(
+            &self,
+            request: tonic::Request<super::GetBudgetRequest>,
+        ) -> std::result::Result<tonic::Response<super::Budget>, tonic::Status>;
+        /// Returns a list of budgets for a billing account.
+        ///
+        /// WARNING: There are some fields exposed on the Google Cloud Console that
+        /// aren't available on this API. When reading from the API, you will not
+        /// see these fields in the return value, though they may have been set
+        /// in the Cloud Console.
+        async fn list_budgets(
+            &self,
+            request: tonic::Request<super::ListBudgetsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListBudgetsResponse>,
+            tonic::Status,
+        >;
+        /// Deletes a budget. Returns successfully if already deleted.
+        async fn delete_budget(
+            &self,
+            request: tonic::Request<super::DeleteBudgetRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+    }
+    /// BudgetService stores Cloud Billing budgets, which define a
+    /// budget plan and rules to execute as we track spend against that plan.
+    #[derive(Debug)]
+    pub struct BudgetServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> BudgetServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for BudgetServiceServer<T>
+    where
+        T: BudgetService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.billing.budgets.v1beta1.BudgetService/CreateBudget" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateBudgetSvc<T: BudgetService>(pub Arc<T>);
+                    impl<
+                        T: BudgetService,
+                    > tonic::server::UnaryService<super::CreateBudgetRequest>
+                    for CreateBudgetSvc<T> {
+                        type Response = super::Budget;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateBudgetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BudgetService>::create_budget(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateBudgetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.billing.budgets.v1beta1.BudgetService/UpdateBudget" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateBudgetSvc<T: BudgetService>(pub Arc<T>);
+                    impl<
+                        T: BudgetService,
+                    > tonic::server::UnaryService<super::UpdateBudgetRequest>
+                    for UpdateBudgetSvc<T> {
+                        type Response = super::Budget;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateBudgetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BudgetService>::update_budget(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateBudgetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.billing.budgets.v1beta1.BudgetService/GetBudget" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetBudgetSvc<T: BudgetService>(pub Arc<T>);
+                    impl<
+                        T: BudgetService,
+                    > tonic::server::UnaryService<super::GetBudgetRequest>
+                    for GetBudgetSvc<T> {
+                        type Response = super::Budget;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetBudgetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BudgetService>::get_budget(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetBudgetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.billing.budgets.v1beta1.BudgetService/ListBudgets" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListBudgetsSvc<T: BudgetService>(pub Arc<T>);
+                    impl<
+                        T: BudgetService,
+                    > tonic::server::UnaryService<super::ListBudgetsRequest>
+                    for ListBudgetsSvc<T> {
+                        type Response = super::ListBudgetsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListBudgetsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BudgetService>::list_budgets(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListBudgetsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.billing.budgets.v1beta1.BudgetService/DeleteBudget" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteBudgetSvc<T: BudgetService>(pub Arc<T>);
+                    impl<
+                        T: BudgetService,
+                    > tonic::server::UnaryService<super::DeleteBudgetRequest>
+                    for DeleteBudgetSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteBudgetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BudgetService>::delete_budget(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteBudgetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for BudgetServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.billing.budgets.v1beta1.BudgetService";
+    impl<T> tonic::server::NamedService for BudgetServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

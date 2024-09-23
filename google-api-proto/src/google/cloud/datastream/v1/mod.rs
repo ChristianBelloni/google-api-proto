@@ -193,12 +193,12 @@ pub mod private_connection {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Created => "CREATED",
-                State::Failed => "FAILED",
-                State::Deleting => "DELETING",
-                State::FailedToDelete => "FAILED_TO_DELETE",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Created => "CREATED",
+                Self::Failed => "FAILED",
+                Self::Deleting => "DELETING",
+                Self::FailedToDelete => "FAILED_TO_DELETE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -675,9 +675,9 @@ pub mod json_file_format {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                SchemaFileFormat::Unspecified => "SCHEMA_FILE_FORMAT_UNSPECIFIED",
-                SchemaFileFormat::NoSchemaFile => "NO_SCHEMA_FILE",
-                SchemaFileFormat::AvroSchemaFile => "AVRO_SCHEMA_FILE",
+                Self::Unspecified => "SCHEMA_FILE_FORMAT_UNSPECIFIED",
+                Self::NoSchemaFile => "NO_SCHEMA_FILE",
+                Self::AvroSchemaFile => "AVRO_SCHEMA_FILE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -718,9 +718,9 @@ pub mod json_file_format {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                JsonCompression::Unspecified => "JSON_COMPRESSION_UNSPECIFIED",
-                JsonCompression::NoCompression => "NO_COMPRESSION",
-                JsonCompression::Gzip => "GZIP",
+                Self::Unspecified => "JSON_COMPRESSION_UNSPECIFIED",
+                Self::NoCompression => "NO_COMPRESSION",
+                Self::Gzip => "GZIP",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -982,15 +982,15 @@ pub mod stream {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::NotStarted => "NOT_STARTED",
-                State::Running => "RUNNING",
-                State::Paused => "PAUSED",
-                State::Maintenance => "MAINTENANCE",
-                State::Failed => "FAILED",
-                State::FailedPermanently => "FAILED_PERMANENTLY",
-                State::Starting => "STARTING",
-                State::Draining => "DRAINING",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::NotStarted => "NOT_STARTED",
+                Self::Running => "RUNNING",
+                Self::Paused => "PAUSED",
+                Self::Maintenance => "MAINTENANCE",
+                Self::Failed => "FAILED",
+                Self::FailedPermanently => "FAILED_PERMANENTLY",
+                Self::Starting => "STARTING",
+                Self::Draining => "DRAINING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1163,14 +1163,14 @@ pub mod backfill_job {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::NotStarted => "NOT_STARTED",
-                State::Pending => "PENDING",
-                State::Active => "ACTIVE",
-                State::Stopped => "STOPPED",
-                State::Failed => "FAILED",
-                State::Completed => "COMPLETED",
-                State::Unsupported => "UNSUPPORTED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::NotStarted => "NOT_STARTED",
+                Self::Pending => "PENDING",
+                Self::Active => "ACTIVE",
+                Self::Stopped => "STOPPED",
+                Self::Failed => "FAILED",
+                Self::Completed => "COMPLETED",
+                Self::Unsupported => "UNSUPPORTED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1217,9 +1217,9 @@ pub mod backfill_job {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Trigger::Unspecified => "TRIGGER_UNSPECIFIED",
-                Trigger::Automatic => "AUTOMATIC",
-                Trigger::Manual => "MANUAL",
+                Self::Unspecified => "TRIGGER_UNSPECIFIED",
+                Self::Automatic => "AUTOMATIC",
+                Self::Manual => "MANUAL",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1312,10 +1312,10 @@ pub mod validation {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::NotExecuted => "NOT_EXECUTED",
-                State::Failed => "FAILED",
-                State::Passed => "PASSED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::NotExecuted => "NOT_EXECUTED",
+                Self::Failed => "FAILED",
+                Self::Passed => "PASSED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1379,9 +1379,9 @@ pub mod validation_message {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Level::Unspecified => "LEVEL_UNSPECIFIED",
-                Level::Warning => "WARNING",
-                Level::Error => "ERROR",
+                Self::Unspecified => "LEVEL_UNSPECIFIED",
+                Self::Warning => "WARNING",
+                Self::Error => "ERROR",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2942,5 +2942,1490 @@ pub mod datastream_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod datastream_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with DatastreamServer.
+    #[async_trait]
+    pub trait Datastream: std::marker::Send + std::marker::Sync + 'static {
+        /// Use this method to list connection profiles created in a project and
+        /// location.
+        async fn list_connection_profiles(
+            &self,
+            request: tonic::Request<super::ListConnectionProfilesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListConnectionProfilesResponse>,
+            tonic::Status,
+        >;
+        /// Use this method to get details about a connection profile.
+        async fn get_connection_profile(
+            &self,
+            request: tonic::Request<super::GetConnectionProfileRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ConnectionProfile>,
+            tonic::Status,
+        >;
+        /// Use this method to create a connection profile in a project and location.
+        async fn create_connection_profile(
+            &self,
+            request: tonic::Request<super::CreateConnectionProfileRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Use this method to update the parameters of a connection profile.
+        async fn update_connection_profile(
+            &self,
+            request: tonic::Request<super::UpdateConnectionProfileRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Use this method to delete a connection profile.
+        async fn delete_connection_profile(
+            &self,
+            request: tonic::Request<super::DeleteConnectionProfileRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Use this method to discover a connection profile.
+        /// The discover API call exposes the data objects and metadata belonging to
+        /// the profile. Typically, a request returns children data objects of a
+        /// parent data object that's optionally supplied in the request.
+        async fn discover_connection_profile(
+            &self,
+            request: tonic::Request<super::DiscoverConnectionProfileRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::DiscoverConnectionProfileResponse>,
+            tonic::Status,
+        >;
+        /// Use this method to list streams in a project and location.
+        async fn list_streams(
+            &self,
+            request: tonic::Request<super::ListStreamsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListStreamsResponse>,
+            tonic::Status,
+        >;
+        /// Use this method to get details about a stream.
+        async fn get_stream(
+            &self,
+            request: tonic::Request<super::GetStreamRequest>,
+        ) -> std::result::Result<tonic::Response<super::Stream>, tonic::Status>;
+        /// Use this method to create a stream.
+        async fn create_stream(
+            &self,
+            request: tonic::Request<super::CreateStreamRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Use this method to update the configuration of a stream.
+        async fn update_stream(
+            &self,
+            request: tonic::Request<super::UpdateStreamRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Use this method to delete a stream.
+        async fn delete_stream(
+            &self,
+            request: tonic::Request<super::DeleteStreamRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Use this method to get details about a stream object.
+        async fn get_stream_object(
+            &self,
+            request: tonic::Request<super::GetStreamObjectRequest>,
+        ) -> std::result::Result<tonic::Response<super::StreamObject>, tonic::Status>;
+        /// Use this method to look up a stream object by its source object identifier.
+        async fn lookup_stream_object(
+            &self,
+            request: tonic::Request<super::LookupStreamObjectRequest>,
+        ) -> std::result::Result<tonic::Response<super::StreamObject>, tonic::Status>;
+        /// Use this method to list the objects of a specific stream.
+        async fn list_stream_objects(
+            &self,
+            request: tonic::Request<super::ListStreamObjectsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListStreamObjectsResponse>,
+            tonic::Status,
+        >;
+        /// Use this method to start a backfill job for the specified stream object.
+        async fn start_backfill_job(
+            &self,
+            request: tonic::Request<super::StartBackfillJobRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::StartBackfillJobResponse>,
+            tonic::Status,
+        >;
+        /// Use this method to stop a backfill job for the specified stream object.
+        async fn stop_backfill_job(
+            &self,
+            request: tonic::Request<super::StopBackfillJobRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::StopBackfillJobResponse>,
+            tonic::Status,
+        >;
+        /// The FetchStaticIps API call exposes the static IP addresses used by
+        /// Datastream.
+        async fn fetch_static_ips(
+            &self,
+            request: tonic::Request<super::FetchStaticIpsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::FetchStaticIpsResponse>,
+            tonic::Status,
+        >;
+        /// Use this method to create a private connectivity configuration.
+        async fn create_private_connection(
+            &self,
+            request: tonic::Request<super::CreatePrivateConnectionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Use this method to get details about a private connectivity configuration.
+        async fn get_private_connection(
+            &self,
+            request: tonic::Request<super::GetPrivateConnectionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::PrivateConnection>,
+            tonic::Status,
+        >;
+        /// Use this method to list private connectivity configurations in a project
+        /// and location.
+        async fn list_private_connections(
+            &self,
+            request: tonic::Request<super::ListPrivateConnectionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListPrivateConnectionsResponse>,
+            tonic::Status,
+        >;
+        /// Use this method to delete a private connectivity configuration.
+        async fn delete_private_connection(
+            &self,
+            request: tonic::Request<super::DeletePrivateConnectionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Use this method to create a route for a private connectivity configuration
+        /// in a project and location.
+        async fn create_route(
+            &self,
+            request: tonic::Request<super::CreateRouteRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Use this method to get details about a route.
+        async fn get_route(
+            &self,
+            request: tonic::Request<super::GetRouteRequest>,
+        ) -> std::result::Result<tonic::Response<super::Route>, tonic::Status>;
+        /// Use this method to list routes created for a private connectivity
+        /// configuration in a project and location.
+        async fn list_routes(
+            &self,
+            request: tonic::Request<super::ListRoutesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListRoutesResponse>,
+            tonic::Status,
+        >;
+        /// Use this method to delete a route.
+        async fn delete_route(
+            &self,
+            request: tonic::Request<super::DeleteRouteRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// Datastream service
+    #[derive(Debug)]
+    pub struct DatastreamServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> DatastreamServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for DatastreamServer<T>
+    where
+        T: Datastream,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.datastream.v1.Datastream/ListConnectionProfiles" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListConnectionProfilesSvc<T: Datastream>(pub Arc<T>);
+                    impl<
+                        T: Datastream,
+                    > tonic::server::UnaryService<super::ListConnectionProfilesRequest>
+                    for ListConnectionProfilesSvc<T> {
+                        type Response = super::ListConnectionProfilesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListConnectionProfilesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Datastream>::list_connection_profiles(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListConnectionProfilesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datastream.v1.Datastream/GetConnectionProfile" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetConnectionProfileSvc<T: Datastream>(pub Arc<T>);
+                    impl<
+                        T: Datastream,
+                    > tonic::server::UnaryService<super::GetConnectionProfileRequest>
+                    for GetConnectionProfileSvc<T> {
+                        type Response = super::ConnectionProfile;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetConnectionProfileRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Datastream>::get_connection_profile(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetConnectionProfileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datastream.v1.Datastream/CreateConnectionProfile" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateConnectionProfileSvc<T: Datastream>(pub Arc<T>);
+                    impl<
+                        T: Datastream,
+                    > tonic::server::UnaryService<super::CreateConnectionProfileRequest>
+                    for CreateConnectionProfileSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateConnectionProfileRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Datastream>::create_connection_profile(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateConnectionProfileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datastream.v1.Datastream/UpdateConnectionProfile" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateConnectionProfileSvc<T: Datastream>(pub Arc<T>);
+                    impl<
+                        T: Datastream,
+                    > tonic::server::UnaryService<super::UpdateConnectionProfileRequest>
+                    for UpdateConnectionProfileSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::UpdateConnectionProfileRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Datastream>::update_connection_profile(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateConnectionProfileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datastream.v1.Datastream/DeleteConnectionProfile" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteConnectionProfileSvc<T: Datastream>(pub Arc<T>);
+                    impl<
+                        T: Datastream,
+                    > tonic::server::UnaryService<super::DeleteConnectionProfileRequest>
+                    for DeleteConnectionProfileSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteConnectionProfileRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Datastream>::delete_connection_profile(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteConnectionProfileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datastream.v1.Datastream/DiscoverConnectionProfile" => {
+                    #[allow(non_camel_case_types)]
+                    struct DiscoverConnectionProfileSvc<T: Datastream>(pub Arc<T>);
+                    impl<
+                        T: Datastream,
+                    > tonic::server::UnaryService<
+                        super::DiscoverConnectionProfileRequest,
+                    > for DiscoverConnectionProfileSvc<T> {
+                        type Response = super::DiscoverConnectionProfileResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DiscoverConnectionProfileRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Datastream>::discover_connection_profile(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DiscoverConnectionProfileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datastream.v1.Datastream/ListStreams" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListStreamsSvc<T: Datastream>(pub Arc<T>);
+                    impl<
+                        T: Datastream,
+                    > tonic::server::UnaryService<super::ListStreamsRequest>
+                    for ListStreamsSvc<T> {
+                        type Response = super::ListStreamsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListStreamsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Datastream>::list_streams(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListStreamsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datastream.v1.Datastream/GetStream" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetStreamSvc<T: Datastream>(pub Arc<T>);
+                    impl<
+                        T: Datastream,
+                    > tonic::server::UnaryService<super::GetStreamRequest>
+                    for GetStreamSvc<T> {
+                        type Response = super::Stream;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetStreamRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Datastream>::get_stream(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetStreamSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datastream.v1.Datastream/CreateStream" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateStreamSvc<T: Datastream>(pub Arc<T>);
+                    impl<
+                        T: Datastream,
+                    > tonic::server::UnaryService<super::CreateStreamRequest>
+                    for CreateStreamSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateStreamRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Datastream>::create_stream(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateStreamSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datastream.v1.Datastream/UpdateStream" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateStreamSvc<T: Datastream>(pub Arc<T>);
+                    impl<
+                        T: Datastream,
+                    > tonic::server::UnaryService<super::UpdateStreamRequest>
+                    for UpdateStreamSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateStreamRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Datastream>::update_stream(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateStreamSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datastream.v1.Datastream/DeleteStream" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteStreamSvc<T: Datastream>(pub Arc<T>);
+                    impl<
+                        T: Datastream,
+                    > tonic::server::UnaryService<super::DeleteStreamRequest>
+                    for DeleteStreamSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteStreamRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Datastream>::delete_stream(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteStreamSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datastream.v1.Datastream/GetStreamObject" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetStreamObjectSvc<T: Datastream>(pub Arc<T>);
+                    impl<
+                        T: Datastream,
+                    > tonic::server::UnaryService<super::GetStreamObjectRequest>
+                    for GetStreamObjectSvc<T> {
+                        type Response = super::StreamObject;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetStreamObjectRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Datastream>::get_stream_object(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetStreamObjectSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datastream.v1.Datastream/LookupStreamObject" => {
+                    #[allow(non_camel_case_types)]
+                    struct LookupStreamObjectSvc<T: Datastream>(pub Arc<T>);
+                    impl<
+                        T: Datastream,
+                    > tonic::server::UnaryService<super::LookupStreamObjectRequest>
+                    for LookupStreamObjectSvc<T> {
+                        type Response = super::StreamObject;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::LookupStreamObjectRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Datastream>::lookup_stream_object(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = LookupStreamObjectSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datastream.v1.Datastream/ListStreamObjects" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListStreamObjectsSvc<T: Datastream>(pub Arc<T>);
+                    impl<
+                        T: Datastream,
+                    > tonic::server::UnaryService<super::ListStreamObjectsRequest>
+                    for ListStreamObjectsSvc<T> {
+                        type Response = super::ListStreamObjectsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListStreamObjectsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Datastream>::list_stream_objects(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListStreamObjectsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datastream.v1.Datastream/StartBackfillJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct StartBackfillJobSvc<T: Datastream>(pub Arc<T>);
+                    impl<
+                        T: Datastream,
+                    > tonic::server::UnaryService<super::StartBackfillJobRequest>
+                    for StartBackfillJobSvc<T> {
+                        type Response = super::StartBackfillJobResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::StartBackfillJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Datastream>::start_backfill_job(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = StartBackfillJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datastream.v1.Datastream/StopBackfillJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct StopBackfillJobSvc<T: Datastream>(pub Arc<T>);
+                    impl<
+                        T: Datastream,
+                    > tonic::server::UnaryService<super::StopBackfillJobRequest>
+                    for StopBackfillJobSvc<T> {
+                        type Response = super::StopBackfillJobResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::StopBackfillJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Datastream>::stop_backfill_job(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = StopBackfillJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datastream.v1.Datastream/FetchStaticIps" => {
+                    #[allow(non_camel_case_types)]
+                    struct FetchStaticIpsSvc<T: Datastream>(pub Arc<T>);
+                    impl<
+                        T: Datastream,
+                    > tonic::server::UnaryService<super::FetchStaticIpsRequest>
+                    for FetchStaticIpsSvc<T> {
+                        type Response = super::FetchStaticIpsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::FetchStaticIpsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Datastream>::fetch_static_ips(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = FetchStaticIpsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datastream.v1.Datastream/CreatePrivateConnection" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreatePrivateConnectionSvc<T: Datastream>(pub Arc<T>);
+                    impl<
+                        T: Datastream,
+                    > tonic::server::UnaryService<super::CreatePrivateConnectionRequest>
+                    for CreatePrivateConnectionSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreatePrivateConnectionRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Datastream>::create_private_connection(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreatePrivateConnectionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datastream.v1.Datastream/GetPrivateConnection" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetPrivateConnectionSvc<T: Datastream>(pub Arc<T>);
+                    impl<
+                        T: Datastream,
+                    > tonic::server::UnaryService<super::GetPrivateConnectionRequest>
+                    for GetPrivateConnectionSvc<T> {
+                        type Response = super::PrivateConnection;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetPrivateConnectionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Datastream>::get_private_connection(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetPrivateConnectionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datastream.v1.Datastream/ListPrivateConnections" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListPrivateConnectionsSvc<T: Datastream>(pub Arc<T>);
+                    impl<
+                        T: Datastream,
+                    > tonic::server::UnaryService<super::ListPrivateConnectionsRequest>
+                    for ListPrivateConnectionsSvc<T> {
+                        type Response = super::ListPrivateConnectionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListPrivateConnectionsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Datastream>::list_private_connections(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListPrivateConnectionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datastream.v1.Datastream/DeletePrivateConnection" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeletePrivateConnectionSvc<T: Datastream>(pub Arc<T>);
+                    impl<
+                        T: Datastream,
+                    > tonic::server::UnaryService<super::DeletePrivateConnectionRequest>
+                    for DeletePrivateConnectionSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeletePrivateConnectionRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Datastream>::delete_private_connection(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeletePrivateConnectionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datastream.v1.Datastream/CreateRoute" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateRouteSvc<T: Datastream>(pub Arc<T>);
+                    impl<
+                        T: Datastream,
+                    > tonic::server::UnaryService<super::CreateRouteRequest>
+                    for CreateRouteSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateRouteRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Datastream>::create_route(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateRouteSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datastream.v1.Datastream/GetRoute" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetRouteSvc<T: Datastream>(pub Arc<T>);
+                    impl<
+                        T: Datastream,
+                    > tonic::server::UnaryService<super::GetRouteRequest>
+                    for GetRouteSvc<T> {
+                        type Response = super::Route;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetRouteRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Datastream>::get_route(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetRouteSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datastream.v1.Datastream/ListRoutes" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListRoutesSvc<T: Datastream>(pub Arc<T>);
+                    impl<
+                        T: Datastream,
+                    > tonic::server::UnaryService<super::ListRoutesRequest>
+                    for ListRoutesSvc<T> {
+                        type Response = super::ListRoutesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListRoutesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Datastream>::list_routes(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListRoutesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datastream.v1.Datastream/DeleteRoute" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteRouteSvc<T: Datastream>(pub Arc<T>);
+                    impl<
+                        T: Datastream,
+                    > tonic::server::UnaryService<super::DeleteRouteRequest>
+                    for DeleteRouteSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteRouteRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Datastream>::delete_route(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteRouteSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for DatastreamServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.datastream.v1.Datastream";
+    impl<T> tonic::server::NamedService for DatastreamServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

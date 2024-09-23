@@ -639,3 +639,448 @@ pub mod home_graph_api_service_client {
         }
     }
 }
+/// Generated server implementations.
+pub mod home_graph_api_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with HomeGraphApiServiceServer.
+    #[async_trait]
+    pub trait HomeGraphApiService: std::marker::Send + std::marker::Sync + 'static {
+        /// Requests Google to send an `action.devices.SYNC`
+        /// [intent](https://developers.home.google.com/cloud-to-cloud/intents/sync)
+        /// to your smart home Action to update device metadata for the given user.
+        ///
+        ///
+        /// The third-party user's identity is passed via the `agent_user_id`
+        /// (see
+        /// [RequestSyncDevicesRequest][google.home.graph.v1.RequestSyncDevicesRequest]).
+        /// This request must be authorized using service account credentials from your
+        /// Actions console project.
+        async fn request_sync_devices(
+            &self,
+            request: tonic::Request<super::RequestSyncDevicesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::RequestSyncDevicesResponse>,
+            tonic::Status,
+        >;
+        /// Reports device state and optionally sends device notifications.
+        /// Called by your smart home Action when the state of a third-party device
+        /// changes or you need to send a notification about the device.
+        /// See [Implement Report
+        /// State](https://developers.home.google.com/cloud-to-cloud/integration/report-state)
+        /// for more information.
+        ///
+        /// This method updates the device state according to its declared
+        /// [traits](https://developers.home.google.com/cloud-to-cloud/primer/device-types-and-traits).
+        /// Publishing a new state value outside of these traits will result in an
+        /// `INVALID_ARGUMENT` error response.
+        ///
+        /// The third-party user's identity is passed in via the `agent_user_id`
+        /// (see
+        /// [ReportStateAndNotificationRequest][google.home.graph.v1.ReportStateAndNotificationRequest]).
+        /// This request must be authorized using service account credentials from your
+        /// Actions console project.
+        async fn report_state_and_notification(
+            &self,
+            request: tonic::Request<super::ReportStateAndNotificationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ReportStateAndNotificationResponse>,
+            tonic::Status,
+        >;
+        /// Unlinks the given third-party user from your smart home Action.
+        /// All data related to this user will be deleted.
+        ///
+        /// For more details on how users link their accounts, see
+        /// [fulfillment and
+        /// authentication](https://developers.home.google.com/cloud-to-cloud/primer/fulfillment).
+        ///
+        /// The third-party user's identity is passed in via the `agent_user_id`
+        /// (see
+        /// [DeleteAgentUserRequest][google.home.graph.v1.DeleteAgentUserRequest]).
+        /// This request must be authorized using service account credentials from your
+        /// Actions console project.
+        async fn delete_agent_user(
+            &self,
+            request: tonic::Request<super::DeleteAgentUserRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Gets the current states in Home Graph for the given set of the third-party
+        /// user's devices.
+        ///
+        /// The third-party user's identity is passed in via the `agent_user_id`
+        /// (see [QueryRequest][google.home.graph.v1.QueryRequest]).
+        /// This request must be authorized using service account credentials from your
+        /// Actions console project.
+        async fn query(
+            &self,
+            request: tonic::Request<super::QueryRequest>,
+        ) -> std::result::Result<tonic::Response<super::QueryResponse>, tonic::Status>;
+        /// Gets all the devices associated with the given third-party user.
+        ///
+        /// The third-party user's identity is passed in via the `agent_user_id`
+        /// (see [SyncRequest][google.home.graph.v1.SyncRequest]).
+        /// This request must be authorized using service account credentials from your
+        /// Actions console project.
+        async fn sync(
+            &self,
+            request: tonic::Request<super::SyncRequest>,
+        ) -> std::result::Result<tonic::Response<super::SyncResponse>, tonic::Status>;
+    }
+    /// Google Home Graph API service. The Home Graph service provides support for
+    /// accessing first-party and third-party devices stored in Google's Home Graph.
+    /// The Home Graph database provides contextual data about the relationships
+    /// between devices and the home.
+    ///
+    /// For more details, see the [Home Graph developer
+    /// guide](https://developers.home.google.com/cloud-to-cloud/primer/home-graph).
+    #[derive(Debug)]
+    pub struct HomeGraphApiServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> HomeGraphApiServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for HomeGraphApiServiceServer<T>
+    where
+        T: HomeGraphApiService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.home.graph.v1.HomeGraphApiService/RequestSyncDevices" => {
+                    #[allow(non_camel_case_types)]
+                    struct RequestSyncDevicesSvc<T: HomeGraphApiService>(pub Arc<T>);
+                    impl<
+                        T: HomeGraphApiService,
+                    > tonic::server::UnaryService<super::RequestSyncDevicesRequest>
+                    for RequestSyncDevicesSvc<T> {
+                        type Response = super::RequestSyncDevicesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RequestSyncDevicesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as HomeGraphApiService>::request_sync_devices(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RequestSyncDevicesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.home.graph.v1.HomeGraphApiService/ReportStateAndNotification" => {
+                    #[allow(non_camel_case_types)]
+                    struct ReportStateAndNotificationSvc<T: HomeGraphApiService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: HomeGraphApiService,
+                    > tonic::server::UnaryService<
+                        super::ReportStateAndNotificationRequest,
+                    > for ReportStateAndNotificationSvc<T> {
+                        type Response = super::ReportStateAndNotificationResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ReportStateAndNotificationRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as HomeGraphApiService>::report_state_and_notification(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ReportStateAndNotificationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.home.graph.v1.HomeGraphApiService/DeleteAgentUser" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteAgentUserSvc<T: HomeGraphApiService>(pub Arc<T>);
+                    impl<
+                        T: HomeGraphApiService,
+                    > tonic::server::UnaryService<super::DeleteAgentUserRequest>
+                    for DeleteAgentUserSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteAgentUserRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as HomeGraphApiService>::delete_agent_user(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteAgentUserSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.home.graph.v1.HomeGraphApiService/Query" => {
+                    #[allow(non_camel_case_types)]
+                    struct QuerySvc<T: HomeGraphApiService>(pub Arc<T>);
+                    impl<
+                        T: HomeGraphApiService,
+                    > tonic::server::UnaryService<super::QueryRequest> for QuerySvc<T> {
+                        type Response = super::QueryResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QueryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as HomeGraphApiService>::query(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = QuerySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.home.graph.v1.HomeGraphApiService/Sync" => {
+                    #[allow(non_camel_case_types)]
+                    struct SyncSvc<T: HomeGraphApiService>(pub Arc<T>);
+                    impl<
+                        T: HomeGraphApiService,
+                    > tonic::server::UnaryService<super::SyncRequest> for SyncSvc<T> {
+                        type Response = super::SyncResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SyncRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as HomeGraphApiService>::sync(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SyncSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for HomeGraphApiServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.home.graph.v1.HomeGraphApiService";
+    impl<T> tonic::server::NamedService for HomeGraphApiServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}

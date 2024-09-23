@@ -53,10 +53,10 @@ impl OperationType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            OperationType::OperationUnspecified => "OPERATION_UNSPECIFIED",
-            OperationType::CreateFunction => "CREATE_FUNCTION",
-            OperationType::UpdateFunction => "UPDATE_FUNCTION",
-            OperationType::DeleteFunction => "DELETE_FUNCTION",
+            Self::OperationUnspecified => "OPERATION_UNSPECIFIED",
+            Self::CreateFunction => "CREATE_FUNCTION",
+            Self::UpdateFunction => "UPDATE_FUNCTION",
+            Self::DeleteFunction => "DELETE_FUNCTION",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -324,11 +324,9 @@ pub mod cloud_function {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                VpcConnectorEgressSettings::Unspecified => {
-                    "VPC_CONNECTOR_EGRESS_SETTINGS_UNSPECIFIED"
-                }
-                VpcConnectorEgressSettings::PrivateRangesOnly => "PRIVATE_RANGES_ONLY",
-                VpcConnectorEgressSettings::AllTraffic => "ALL_TRAFFIC",
+                Self::Unspecified => "VPC_CONNECTOR_EGRESS_SETTINGS_UNSPECIFIED",
+                Self::PrivateRangesOnly => "PRIVATE_RANGES_ONLY",
+                Self::AllTraffic => "ALL_TRAFFIC",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -375,10 +373,10 @@ pub mod cloud_function {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                IngressSettings::Unspecified => "INGRESS_SETTINGS_UNSPECIFIED",
-                IngressSettings::AllowAll => "ALLOW_ALL",
-                IngressSettings::AllowInternalOnly => "ALLOW_INTERNAL_ONLY",
-                IngressSettings::AllowInternalAndGclb => "ALLOW_INTERNAL_AND_GCLB",
+                Self::Unspecified => "INGRESS_SETTINGS_UNSPECIFIED",
+                Self::AllowAll => "ALLOW_ALL",
+                Self::AllowInternalOnly => "ALLOW_INTERNAL_ONLY",
+                Self::AllowInternalAndGclb => "ALLOW_INTERNAL_AND_GCLB",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -425,9 +423,9 @@ pub mod cloud_function {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                DockerRegistry::Unspecified => "DOCKER_REGISTRY_UNSPECIFIED",
-                DockerRegistry::ContainerRegistry => "CONTAINER_REGISTRY",
-                DockerRegistry::ArtifactRegistry => "ARTIFACT_REGISTRY",
+                Self::Unspecified => "DOCKER_REGISTRY_UNSPECIFIED",
+                Self::ContainerRegistry => "CONTAINER_REGISTRY",
+                Self::ArtifactRegistry => "ARTIFACT_REGISTRY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -554,9 +552,9 @@ pub mod https_trigger {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                SecurityLevel::Unspecified => "SECURITY_LEVEL_UNSPECIFIED",
-                SecurityLevel::SecureAlways => "SECURE_ALWAYS",
-                SecurityLevel::SecureOptional => "SECURE_OPTIONAL",
+                Self::Unspecified => "SECURITY_LEVEL_UNSPECIFIED",
+                Self::SecureAlways => "SECURE_ALWAYS",
+                Self::SecureOptional => "SECURE_OPTIONAL",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -906,12 +904,12 @@ impl CloudFunctionStatus {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            CloudFunctionStatus::Unspecified => "CLOUD_FUNCTION_STATUS_UNSPECIFIED",
-            CloudFunctionStatus::Active => "ACTIVE",
-            CloudFunctionStatus::Offline => "OFFLINE",
-            CloudFunctionStatus::DeployInProgress => "DEPLOY_IN_PROGRESS",
-            CloudFunctionStatus::DeleteInProgress => "DELETE_IN_PROGRESS",
-            CloudFunctionStatus::Unknown => "UNKNOWN",
+            Self::Unspecified => "CLOUD_FUNCTION_STATUS_UNSPECIFIED",
+            Self::Active => "ACTIVE",
+            Self::Offline => "OFFLINE",
+            Self::DeployInProgress => "DEPLOY_IN_PROGRESS",
+            Self::DeleteInProgress => "DELETE_IN_PROGRESS",
+            Self::Unknown => "UNKNOWN",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1389,5 +1387,803 @@ pub mod cloud_functions_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod cloud_functions_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with CloudFunctionsServiceServer.
+    #[async_trait]
+    pub trait CloudFunctionsService: std::marker::Send + std::marker::Sync + 'static {
+        /// Returns a list of functions that belong to the requested project.
+        async fn list_functions(
+            &self,
+            request: tonic::Request<super::ListFunctionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListFunctionsResponse>,
+            tonic::Status,
+        >;
+        /// Returns a function with the given name from the requested project.
+        async fn get_function(
+            &self,
+            request: tonic::Request<super::GetFunctionRequest>,
+        ) -> std::result::Result<tonic::Response<super::CloudFunction>, tonic::Status>;
+        /// Creates a new function. If a function with the given name already exists in
+        /// the specified project, the long running operation will return
+        /// `ALREADY_EXISTS` error.
+        async fn create_function(
+            &self,
+            request: tonic::Request<super::CreateFunctionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates existing function.
+        async fn update_function(
+            &self,
+            request: tonic::Request<super::UpdateFunctionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a function with the given name from the specified project. If the
+        /// given function is used by some trigger, the trigger will be updated to
+        /// remove this function.
+        async fn delete_function(
+            &self,
+            request: tonic::Request<super::DeleteFunctionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Synchronously invokes a deployed Cloud Function. To be used for testing
+        /// purposes as very limited traffic is allowed. For more information on
+        /// the actual limits, refer to
+        /// [Rate Limits](https://cloud.google.com/functions/quotas#rate_limits).
+        async fn call_function(
+            &self,
+            request: tonic::Request<super::CallFunctionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::CallFunctionResponse>,
+            tonic::Status,
+        >;
+        /// Returns a signed URL for uploading a function source code.
+        /// For more information about the signed URL usage see:
+        /// https://cloud.google.com/storage/docs/access-control/signed-urls.
+        /// Once the function source code upload is complete, the used signed
+        /// URL should be provided in CreateFunction or UpdateFunction request
+        /// as a reference to the function source code.
+        ///
+        /// When uploading source code to the generated signed URL, please follow
+        /// these restrictions:
+        ///
+        /// * Source file type should be a zip file.
+        /// * Source file size should not exceed 100MB limit.
+        /// * No credentials should be attached - the signed URLs provide access to the
+        ///   target bucket using internal service identity; if credentials were
+        ///   attached, the identity from the credentials would be used, but that
+        ///   identity does not have permissions to upload files to the URL.
+        ///
+        /// When making a HTTP PUT request, these two headers need to be specified:
+        ///
+        /// * `content-type: application/zip`
+        /// * `x-goog-content-length-range: 0,104857600`
+        ///
+        /// And this header SHOULD NOT be specified:
+        ///
+        /// * `Authorization: Bearer YOUR_TOKEN`
+        async fn generate_upload_url(
+            &self,
+            request: tonic::Request<super::GenerateUploadUrlRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::GenerateUploadUrlResponse>,
+            tonic::Status,
+        >;
+        /// Returns a signed URL for downloading deployed function source code.
+        /// The URL is only valid for a limited period and should be used within
+        /// minutes after generation.
+        /// For more information about the signed URL usage see:
+        /// https://cloud.google.com/storage/docs/access-control/signed-urls
+        async fn generate_download_url(
+            &self,
+            request: tonic::Request<super::GenerateDownloadUrlRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::GenerateDownloadUrlResponse>,
+            tonic::Status,
+        >;
+        /// Sets the IAM access control policy on the specified function.
+        /// Replaces any existing policy.
+        async fn set_iam_policy(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::iam::v1::SetIamPolicyRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::iam::v1::Policy>,
+            tonic::Status,
+        >;
+        /// Gets the IAM access control policy for a function.
+        /// Returns an empty policy if the function exists and does not have a policy
+        /// set.
+        async fn get_iam_policy(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::iam::v1::GetIamPolicyRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::iam::v1::Policy>,
+            tonic::Status,
+        >;
+        /// Tests the specified permissions against the IAM access control policy
+        /// for a function.
+        /// If the function does not exist, this will return an empty set of
+        /// permissions, not a NOT_FOUND error.
+        async fn test_iam_permissions(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::iam::v1::TestIamPermissionsRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<
+                super::super::super::super::iam::v1::TestIamPermissionsResponse,
+            >,
+            tonic::Status,
+        >;
+    }
+    /// A service that application uses to manipulate triggers and functions.
+    #[derive(Debug)]
+    pub struct CloudFunctionsServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> CloudFunctionsServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for CloudFunctionsServiceServer<T>
+    where
+        T: CloudFunctionsService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.functions.v1.CloudFunctionsService/ListFunctions" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListFunctionsSvc<T: CloudFunctionsService>(pub Arc<T>);
+                    impl<
+                        T: CloudFunctionsService,
+                    > tonic::server::UnaryService<super::ListFunctionsRequest>
+                    for ListFunctionsSvc<T> {
+                        type Response = super::ListFunctionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListFunctionsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudFunctionsService>::list_functions(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListFunctionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.functions.v1.CloudFunctionsService/GetFunction" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetFunctionSvc<T: CloudFunctionsService>(pub Arc<T>);
+                    impl<
+                        T: CloudFunctionsService,
+                    > tonic::server::UnaryService<super::GetFunctionRequest>
+                    for GetFunctionSvc<T> {
+                        type Response = super::CloudFunction;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetFunctionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudFunctionsService>::get_function(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetFunctionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.functions.v1.CloudFunctionsService/CreateFunction" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateFunctionSvc<T: CloudFunctionsService>(pub Arc<T>);
+                    impl<
+                        T: CloudFunctionsService,
+                    > tonic::server::UnaryService<super::CreateFunctionRequest>
+                    for CreateFunctionSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateFunctionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudFunctionsService>::create_function(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateFunctionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.functions.v1.CloudFunctionsService/UpdateFunction" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateFunctionSvc<T: CloudFunctionsService>(pub Arc<T>);
+                    impl<
+                        T: CloudFunctionsService,
+                    > tonic::server::UnaryService<super::UpdateFunctionRequest>
+                    for UpdateFunctionSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateFunctionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudFunctionsService>::update_function(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateFunctionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.functions.v1.CloudFunctionsService/DeleteFunction" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteFunctionSvc<T: CloudFunctionsService>(pub Arc<T>);
+                    impl<
+                        T: CloudFunctionsService,
+                    > tonic::server::UnaryService<super::DeleteFunctionRequest>
+                    for DeleteFunctionSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteFunctionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudFunctionsService>::delete_function(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteFunctionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.functions.v1.CloudFunctionsService/CallFunction" => {
+                    #[allow(non_camel_case_types)]
+                    struct CallFunctionSvc<T: CloudFunctionsService>(pub Arc<T>);
+                    impl<
+                        T: CloudFunctionsService,
+                    > tonic::server::UnaryService<super::CallFunctionRequest>
+                    for CallFunctionSvc<T> {
+                        type Response = super::CallFunctionResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CallFunctionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudFunctionsService>::call_function(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CallFunctionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.functions.v1.CloudFunctionsService/GenerateUploadUrl" => {
+                    #[allow(non_camel_case_types)]
+                    struct GenerateUploadUrlSvc<T: CloudFunctionsService>(pub Arc<T>);
+                    impl<
+                        T: CloudFunctionsService,
+                    > tonic::server::UnaryService<super::GenerateUploadUrlRequest>
+                    for GenerateUploadUrlSvc<T> {
+                        type Response = super::GenerateUploadUrlResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GenerateUploadUrlRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudFunctionsService>::generate_upload_url(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GenerateUploadUrlSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.functions.v1.CloudFunctionsService/GenerateDownloadUrl" => {
+                    #[allow(non_camel_case_types)]
+                    struct GenerateDownloadUrlSvc<T: CloudFunctionsService>(pub Arc<T>);
+                    impl<
+                        T: CloudFunctionsService,
+                    > tonic::server::UnaryService<super::GenerateDownloadUrlRequest>
+                    for GenerateDownloadUrlSvc<T> {
+                        type Response = super::GenerateDownloadUrlResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GenerateDownloadUrlRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudFunctionsService>::generate_download_url(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GenerateDownloadUrlSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.functions.v1.CloudFunctionsService/SetIamPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetIamPolicySvc<T: CloudFunctionsService>(pub Arc<T>);
+                    impl<
+                        T: CloudFunctionsService,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::iam::v1::SetIamPolicyRequest,
+                    > for SetIamPolicySvc<T> {
+                        type Response = super::super::super::super::iam::v1::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::iam::v1::SetIamPolicyRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudFunctionsService>::set_iam_policy(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SetIamPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.functions.v1.CloudFunctionsService/GetIamPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetIamPolicySvc<T: CloudFunctionsService>(pub Arc<T>);
+                    impl<
+                        T: CloudFunctionsService,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::iam::v1::GetIamPolicyRequest,
+                    > for GetIamPolicySvc<T> {
+                        type Response = super::super::super::super::iam::v1::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::iam::v1::GetIamPolicyRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudFunctionsService>::get_iam_policy(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetIamPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.functions.v1.CloudFunctionsService/TestIamPermissions" => {
+                    #[allow(non_camel_case_types)]
+                    struct TestIamPermissionsSvc<T: CloudFunctionsService>(pub Arc<T>);
+                    impl<
+                        T: CloudFunctionsService,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::iam::v1::TestIamPermissionsRequest,
+                    > for TestIamPermissionsSvc<T> {
+                        type Response = super::super::super::super::iam::v1::TestIamPermissionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::iam::v1::TestIamPermissionsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudFunctionsService>::test_iam_permissions(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = TestIamPermissionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for CloudFunctionsServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.functions.v1.CloudFunctionsService";
+    impl<T> tonic::server::NamedService for CloudFunctionsServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

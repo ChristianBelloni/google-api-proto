@@ -369,9 +369,9 @@ impl MqttState {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            MqttState::Unspecified => "MQTT_STATE_UNSPECIFIED",
-            MqttState::MqttEnabled => "MQTT_ENABLED",
-            MqttState::MqttDisabled => "MQTT_DISABLED",
+            Self::Unspecified => "MQTT_STATE_UNSPECIFIED",
+            Self::MqttEnabled => "MQTT_ENABLED",
+            Self::MqttDisabled => "MQTT_DISABLED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -404,9 +404,9 @@ impl HttpState {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            HttpState::Unspecified => "HTTP_STATE_UNSPECIFIED",
-            HttpState::HttpEnabled => "HTTP_ENABLED",
-            HttpState::HttpDisabled => "HTTP_DISABLED",
+            Self::Unspecified => "HTTP_STATE_UNSPECIFIED",
+            Self::HttpEnabled => "HTTP_ENABLED",
+            Self::HttpDisabled => "HTTP_DISABLED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -447,11 +447,11 @@ impl LogLevel {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            LogLevel::Unspecified => "LOG_LEVEL_UNSPECIFIED",
-            LogLevel::None => "NONE",
-            LogLevel::Error => "ERROR",
-            LogLevel::Info => "INFO",
-            LogLevel::Debug => "DEBUG",
+            Self::Unspecified => "LOG_LEVEL_UNSPECIFIED",
+            Self::None => "NONE",
+            Self::Error => "ERROR",
+            Self::Info => "INFO",
+            Self::Debug => "DEBUG",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -484,9 +484,9 @@ impl GatewayType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            GatewayType::Unspecified => "GATEWAY_TYPE_UNSPECIFIED",
-            GatewayType::Gateway => "GATEWAY",
-            GatewayType::NonGateway => "NON_GATEWAY",
+            Self::Unspecified => "GATEWAY_TYPE_UNSPECIFIED",
+            Self::Gateway => "GATEWAY",
+            Self::NonGateway => "NON_GATEWAY",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -525,12 +525,10 @@ impl GatewayAuthMethod {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            GatewayAuthMethod::Unspecified => "GATEWAY_AUTH_METHOD_UNSPECIFIED",
-            GatewayAuthMethod::AssociationOnly => "ASSOCIATION_ONLY",
-            GatewayAuthMethod::DeviceAuthTokenOnly => "DEVICE_AUTH_TOKEN_ONLY",
-            GatewayAuthMethod::AssociationAndDeviceAuthToken => {
-                "ASSOCIATION_AND_DEVICE_AUTH_TOKEN"
-            }
+            Self::Unspecified => "GATEWAY_AUTH_METHOD_UNSPECIFIED",
+            Self::AssociationOnly => "ASSOCIATION_ONLY",
+            Self::DeviceAuthTokenOnly => "DEVICE_AUTH_TOKEN_ONLY",
+            Self::AssociationAndDeviceAuthToken => "ASSOCIATION_AND_DEVICE_AUTH_TOKEN",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -565,10 +563,10 @@ impl PublicKeyCertificateFormat {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            PublicKeyCertificateFormat::UnspecifiedPublicKeyCertificateFormat => {
+            Self::UnspecifiedPublicKeyCertificateFormat => {
                 "UNSPECIFIED_PUBLIC_KEY_CERTIFICATE_FORMAT"
             }
-            PublicKeyCertificateFormat::X509CertificatePem => "X509_CERTIFICATE_PEM",
+            Self::X509CertificatePem => "X509_CERTIFICATE_PEM",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -616,13 +614,11 @@ impl PublicKeyFormat {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            PublicKeyFormat::UnspecifiedPublicKeyFormat => {
-                "UNSPECIFIED_PUBLIC_KEY_FORMAT"
-            }
-            PublicKeyFormat::RsaPem => "RSA_PEM",
-            PublicKeyFormat::RsaX509Pem => "RSA_X509_PEM",
-            PublicKeyFormat::Es256Pem => "ES256_PEM",
-            PublicKeyFormat::Es256X509Pem => "ES256_X509_PEM",
+            Self::UnspecifiedPublicKeyFormat => "UNSPECIFIED_PUBLIC_KEY_FORMAT",
+            Self::RsaPem => "RSA_PEM",
+            Self::RsaX509Pem => "RSA_X509_PEM",
+            Self::Es256Pem => "ES256_PEM",
+            Self::Es256X509Pem => "ES256_X509_PEM",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1616,5 +1612,1190 @@ pub mod device_manager_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod device_manager_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with DeviceManagerServer.
+    #[async_trait]
+    pub trait DeviceManager: std::marker::Send + std::marker::Sync + 'static {
+        /// Creates a device registry that contains devices.
+        async fn create_device_registry(
+            &self,
+            request: tonic::Request<super::CreateDeviceRegistryRequest>,
+        ) -> std::result::Result<tonic::Response<super::DeviceRegistry>, tonic::Status>;
+        /// Gets a device registry configuration.
+        async fn get_device_registry(
+            &self,
+            request: tonic::Request<super::GetDeviceRegistryRequest>,
+        ) -> std::result::Result<tonic::Response<super::DeviceRegistry>, tonic::Status>;
+        /// Updates a device registry configuration.
+        async fn update_device_registry(
+            &self,
+            request: tonic::Request<super::UpdateDeviceRegistryRequest>,
+        ) -> std::result::Result<tonic::Response<super::DeviceRegistry>, tonic::Status>;
+        /// Deletes a device registry configuration.
+        async fn delete_device_registry(
+            &self,
+            request: tonic::Request<super::DeleteDeviceRegistryRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Lists device registries.
+        async fn list_device_registries(
+            &self,
+            request: tonic::Request<super::ListDeviceRegistriesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDeviceRegistriesResponse>,
+            tonic::Status,
+        >;
+        /// Creates a device in a device registry.
+        async fn create_device(
+            &self,
+            request: tonic::Request<super::CreateDeviceRequest>,
+        ) -> std::result::Result<tonic::Response<super::Device>, tonic::Status>;
+        /// Gets details about a device.
+        async fn get_device(
+            &self,
+            request: tonic::Request<super::GetDeviceRequest>,
+        ) -> std::result::Result<tonic::Response<super::Device>, tonic::Status>;
+        /// Updates a device.
+        async fn update_device(
+            &self,
+            request: tonic::Request<super::UpdateDeviceRequest>,
+        ) -> std::result::Result<tonic::Response<super::Device>, tonic::Status>;
+        /// Deletes a device.
+        async fn delete_device(
+            &self,
+            request: tonic::Request<super::DeleteDeviceRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// List devices in a device registry.
+        async fn list_devices(
+            &self,
+            request: tonic::Request<super::ListDevicesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDevicesResponse>,
+            tonic::Status,
+        >;
+        /// Modifies the configuration for the device, which is eventually sent from
+        /// the Cloud IoT Core servers. Returns the modified configuration version and
+        /// its metadata.
+        async fn modify_cloud_to_device_config(
+            &self,
+            request: tonic::Request<super::ModifyCloudToDeviceConfigRequest>,
+        ) -> std::result::Result<tonic::Response<super::DeviceConfig>, tonic::Status>;
+        /// Lists the last few versions of the device configuration in descending
+        /// order (i.e.: newest first).
+        async fn list_device_config_versions(
+            &self,
+            request: tonic::Request<super::ListDeviceConfigVersionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDeviceConfigVersionsResponse>,
+            tonic::Status,
+        >;
+        /// Lists the last few versions of the device state in descending order (i.e.:
+        /// newest first).
+        async fn list_device_states(
+            &self,
+            request: tonic::Request<super::ListDeviceStatesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDeviceStatesResponse>,
+            tonic::Status,
+        >;
+        /// Sets the access control policy on the specified resource. Replaces any
+        /// existing policy.
+        async fn set_iam_policy(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::iam::v1::SetIamPolicyRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::iam::v1::Policy>,
+            tonic::Status,
+        >;
+        /// Gets the access control policy for a resource.
+        /// Returns an empty policy if the resource exists and does not have a policy
+        /// set.
+        async fn get_iam_policy(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::iam::v1::GetIamPolicyRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::iam::v1::Policy>,
+            tonic::Status,
+        >;
+        /// Returns permissions that a caller has on the specified resource.
+        /// If the resource does not exist, this will return an empty set of
+        /// permissions, not a NOT_FOUND error.
+        async fn test_iam_permissions(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::iam::v1::TestIamPermissionsRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<
+                super::super::super::super::iam::v1::TestIamPermissionsResponse,
+            >,
+            tonic::Status,
+        >;
+        /// Sends a command to the specified device. In order for a device to be able
+        /// to receive commands, it must:
+        /// 1) be connected to Cloud IoT Core using the MQTT protocol, and
+        /// 2) be subscribed to the group of MQTT topics specified by
+        ///    /devices/{device-id}/commands/#. This subscription will receive commands
+        ///    at the top-level topic /devices/{device-id}/commands as well as commands
+        ///    for subfolders, like /devices/{device-id}/commands/subfolder.
+        ///    Note that subscribing to specific subfolders is not supported.
+        /// If the command could not be delivered to the device, this method will
+        /// return an error; in particular, if the device is not subscribed, this
+        /// method will return FAILED_PRECONDITION. Otherwise, this method will
+        /// return OK. If the subscription is QoS 1, at least once delivery will be
+        /// guaranteed; for QoS 0, no acknowledgment will be expected from the device.
+        async fn send_command_to_device(
+            &self,
+            request: tonic::Request<super::SendCommandToDeviceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SendCommandToDeviceResponse>,
+            tonic::Status,
+        >;
+        /// Associates the device with the gateway.
+        async fn bind_device_to_gateway(
+            &self,
+            request: tonic::Request<super::BindDeviceToGatewayRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::BindDeviceToGatewayResponse>,
+            tonic::Status,
+        >;
+        /// Deletes the association between the device and the gateway.
+        async fn unbind_device_from_gateway(
+            &self,
+            request: tonic::Request<super::UnbindDeviceFromGatewayRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::UnbindDeviceFromGatewayResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Internet of Things (IoT) service. Securely connect and manage IoT devices.
+    #[derive(Debug)]
+    pub struct DeviceManagerServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> DeviceManagerServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for DeviceManagerServer<T>
+    where
+        T: DeviceManager,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.iot.v1.DeviceManager/CreateDeviceRegistry" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateDeviceRegistrySvc<T: DeviceManager>(pub Arc<T>);
+                    impl<
+                        T: DeviceManager,
+                    > tonic::server::UnaryService<super::CreateDeviceRegistryRequest>
+                    for CreateDeviceRegistrySvc<T> {
+                        type Response = super::DeviceRegistry;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateDeviceRegistryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DeviceManager>::create_device_registry(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateDeviceRegistrySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.iot.v1.DeviceManager/GetDeviceRegistry" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetDeviceRegistrySvc<T: DeviceManager>(pub Arc<T>);
+                    impl<
+                        T: DeviceManager,
+                    > tonic::server::UnaryService<super::GetDeviceRegistryRequest>
+                    for GetDeviceRegistrySvc<T> {
+                        type Response = super::DeviceRegistry;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetDeviceRegistryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DeviceManager>::get_device_registry(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetDeviceRegistrySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.iot.v1.DeviceManager/UpdateDeviceRegistry" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateDeviceRegistrySvc<T: DeviceManager>(pub Arc<T>);
+                    impl<
+                        T: DeviceManager,
+                    > tonic::server::UnaryService<super::UpdateDeviceRegistryRequest>
+                    for UpdateDeviceRegistrySvc<T> {
+                        type Response = super::DeviceRegistry;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateDeviceRegistryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DeviceManager>::update_device_registry(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateDeviceRegistrySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.iot.v1.DeviceManager/DeleteDeviceRegistry" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteDeviceRegistrySvc<T: DeviceManager>(pub Arc<T>);
+                    impl<
+                        T: DeviceManager,
+                    > tonic::server::UnaryService<super::DeleteDeviceRegistryRequest>
+                    for DeleteDeviceRegistrySvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteDeviceRegistryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DeviceManager>::delete_device_registry(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteDeviceRegistrySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.iot.v1.DeviceManager/ListDeviceRegistries" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDeviceRegistriesSvc<T: DeviceManager>(pub Arc<T>);
+                    impl<
+                        T: DeviceManager,
+                    > tonic::server::UnaryService<super::ListDeviceRegistriesRequest>
+                    for ListDeviceRegistriesSvc<T> {
+                        type Response = super::ListDeviceRegistriesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListDeviceRegistriesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DeviceManager>::list_device_registries(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDeviceRegistriesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.iot.v1.DeviceManager/CreateDevice" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateDeviceSvc<T: DeviceManager>(pub Arc<T>);
+                    impl<
+                        T: DeviceManager,
+                    > tonic::server::UnaryService<super::CreateDeviceRequest>
+                    for CreateDeviceSvc<T> {
+                        type Response = super::Device;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateDeviceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DeviceManager>::create_device(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateDeviceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.iot.v1.DeviceManager/GetDevice" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetDeviceSvc<T: DeviceManager>(pub Arc<T>);
+                    impl<
+                        T: DeviceManager,
+                    > tonic::server::UnaryService<super::GetDeviceRequest>
+                    for GetDeviceSvc<T> {
+                        type Response = super::Device;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetDeviceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DeviceManager>::get_device(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetDeviceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.iot.v1.DeviceManager/UpdateDevice" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateDeviceSvc<T: DeviceManager>(pub Arc<T>);
+                    impl<
+                        T: DeviceManager,
+                    > tonic::server::UnaryService<super::UpdateDeviceRequest>
+                    for UpdateDeviceSvc<T> {
+                        type Response = super::Device;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateDeviceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DeviceManager>::update_device(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateDeviceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.iot.v1.DeviceManager/DeleteDevice" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteDeviceSvc<T: DeviceManager>(pub Arc<T>);
+                    impl<
+                        T: DeviceManager,
+                    > tonic::server::UnaryService<super::DeleteDeviceRequest>
+                    for DeleteDeviceSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteDeviceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DeviceManager>::delete_device(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteDeviceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.iot.v1.DeviceManager/ListDevices" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDevicesSvc<T: DeviceManager>(pub Arc<T>);
+                    impl<
+                        T: DeviceManager,
+                    > tonic::server::UnaryService<super::ListDevicesRequest>
+                    for ListDevicesSvc<T> {
+                        type Response = super::ListDevicesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListDevicesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DeviceManager>::list_devices(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDevicesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.iot.v1.DeviceManager/ModifyCloudToDeviceConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct ModifyCloudToDeviceConfigSvc<T: DeviceManager>(pub Arc<T>);
+                    impl<
+                        T: DeviceManager,
+                    > tonic::server::UnaryService<
+                        super::ModifyCloudToDeviceConfigRequest,
+                    > for ModifyCloudToDeviceConfigSvc<T> {
+                        type Response = super::DeviceConfig;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ModifyCloudToDeviceConfigRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DeviceManager>::modify_cloud_to_device_config(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ModifyCloudToDeviceConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.iot.v1.DeviceManager/ListDeviceConfigVersions" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDeviceConfigVersionsSvc<T: DeviceManager>(pub Arc<T>);
+                    impl<
+                        T: DeviceManager,
+                    > tonic::server::UnaryService<super::ListDeviceConfigVersionsRequest>
+                    for ListDeviceConfigVersionsSvc<T> {
+                        type Response = super::ListDeviceConfigVersionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListDeviceConfigVersionsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DeviceManager>::list_device_config_versions(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDeviceConfigVersionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.iot.v1.DeviceManager/ListDeviceStates" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDeviceStatesSvc<T: DeviceManager>(pub Arc<T>);
+                    impl<
+                        T: DeviceManager,
+                    > tonic::server::UnaryService<super::ListDeviceStatesRequest>
+                    for ListDeviceStatesSvc<T> {
+                        type Response = super::ListDeviceStatesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListDeviceStatesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DeviceManager>::list_device_states(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDeviceStatesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.iot.v1.DeviceManager/SetIamPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetIamPolicySvc<T: DeviceManager>(pub Arc<T>);
+                    impl<
+                        T: DeviceManager,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::iam::v1::SetIamPolicyRequest,
+                    > for SetIamPolicySvc<T> {
+                        type Response = super::super::super::super::iam::v1::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::iam::v1::SetIamPolicyRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DeviceManager>::set_iam_policy(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SetIamPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.iot.v1.DeviceManager/GetIamPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetIamPolicySvc<T: DeviceManager>(pub Arc<T>);
+                    impl<
+                        T: DeviceManager,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::iam::v1::GetIamPolicyRequest,
+                    > for GetIamPolicySvc<T> {
+                        type Response = super::super::super::super::iam::v1::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::iam::v1::GetIamPolicyRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DeviceManager>::get_iam_policy(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetIamPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.iot.v1.DeviceManager/TestIamPermissions" => {
+                    #[allow(non_camel_case_types)]
+                    struct TestIamPermissionsSvc<T: DeviceManager>(pub Arc<T>);
+                    impl<
+                        T: DeviceManager,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::iam::v1::TestIamPermissionsRequest,
+                    > for TestIamPermissionsSvc<T> {
+                        type Response = super::super::super::super::iam::v1::TestIamPermissionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::iam::v1::TestIamPermissionsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DeviceManager>::test_iam_permissions(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = TestIamPermissionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.iot.v1.DeviceManager/SendCommandToDevice" => {
+                    #[allow(non_camel_case_types)]
+                    struct SendCommandToDeviceSvc<T: DeviceManager>(pub Arc<T>);
+                    impl<
+                        T: DeviceManager,
+                    > tonic::server::UnaryService<super::SendCommandToDeviceRequest>
+                    for SendCommandToDeviceSvc<T> {
+                        type Response = super::SendCommandToDeviceResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SendCommandToDeviceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DeviceManager>::send_command_to_device(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SendCommandToDeviceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.iot.v1.DeviceManager/BindDeviceToGateway" => {
+                    #[allow(non_camel_case_types)]
+                    struct BindDeviceToGatewaySvc<T: DeviceManager>(pub Arc<T>);
+                    impl<
+                        T: DeviceManager,
+                    > tonic::server::UnaryService<super::BindDeviceToGatewayRequest>
+                    for BindDeviceToGatewaySvc<T> {
+                        type Response = super::BindDeviceToGatewayResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::BindDeviceToGatewayRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DeviceManager>::bind_device_to_gateway(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BindDeviceToGatewaySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.iot.v1.DeviceManager/UnbindDeviceFromGateway" => {
+                    #[allow(non_camel_case_types)]
+                    struct UnbindDeviceFromGatewaySvc<T: DeviceManager>(pub Arc<T>);
+                    impl<
+                        T: DeviceManager,
+                    > tonic::server::UnaryService<super::UnbindDeviceFromGatewayRequest>
+                    for UnbindDeviceFromGatewaySvc<T> {
+                        type Response = super::UnbindDeviceFromGatewayResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::UnbindDeviceFromGatewayRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DeviceManager>::unbind_device_from_gateway(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UnbindDeviceFromGatewaySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for DeviceManagerServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.iot.v1.DeviceManager";
+    impl<T> tonic::server::NamedService for DeviceManagerServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

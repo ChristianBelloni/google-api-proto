@@ -131,27 +131,25 @@ pub mod transaction_event {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                TransactionEventType::Unspecified => "TRANSACTION_EVENT_TYPE_UNSPECIFIED",
-                TransactionEventType::MerchantApprove => "MERCHANT_APPROVE",
-                TransactionEventType::MerchantDeny => "MERCHANT_DENY",
-                TransactionEventType::ManualReview => "MANUAL_REVIEW",
-                TransactionEventType::Authorization => "AUTHORIZATION",
-                TransactionEventType::AuthorizationDecline => "AUTHORIZATION_DECLINE",
-                TransactionEventType::PaymentCapture => "PAYMENT_CAPTURE",
-                TransactionEventType::PaymentCaptureDecline => "PAYMENT_CAPTURE_DECLINE",
-                TransactionEventType::Cancel => "CANCEL",
-                TransactionEventType::ChargebackInquiry => "CHARGEBACK_INQUIRY",
-                TransactionEventType::ChargebackAlert => "CHARGEBACK_ALERT",
-                TransactionEventType::FraudNotification => "FRAUD_NOTIFICATION",
-                TransactionEventType::Chargeback => "CHARGEBACK",
-                TransactionEventType::ChargebackRepresentment => {
-                    "CHARGEBACK_REPRESENTMENT"
-                }
-                TransactionEventType::ChargebackReverse => "CHARGEBACK_REVERSE",
-                TransactionEventType::RefundRequest => "REFUND_REQUEST",
-                TransactionEventType::RefundDecline => "REFUND_DECLINE",
-                TransactionEventType::Refund => "REFUND",
-                TransactionEventType::RefundReverse => "REFUND_REVERSE",
+                Self::Unspecified => "TRANSACTION_EVENT_TYPE_UNSPECIFIED",
+                Self::MerchantApprove => "MERCHANT_APPROVE",
+                Self::MerchantDeny => "MERCHANT_DENY",
+                Self::ManualReview => "MANUAL_REVIEW",
+                Self::Authorization => "AUTHORIZATION",
+                Self::AuthorizationDecline => "AUTHORIZATION_DECLINE",
+                Self::PaymentCapture => "PAYMENT_CAPTURE",
+                Self::PaymentCaptureDecline => "PAYMENT_CAPTURE_DECLINE",
+                Self::Cancel => "CANCEL",
+                Self::ChargebackInquiry => "CHARGEBACK_INQUIRY",
+                Self::ChargebackAlert => "CHARGEBACK_ALERT",
+                Self::FraudNotification => "FRAUD_NOTIFICATION",
+                Self::Chargeback => "CHARGEBACK",
+                Self::ChargebackRepresentment => "CHARGEBACK_REPRESENTMENT",
+                Self::ChargebackReverse => "CHARGEBACK_REVERSE",
+                Self::RefundRequest => "REFUND_REQUEST",
+                Self::RefundDecline => "REFUND_DECLINE",
+                Self::Refund => "REFUND",
+                Self::RefundReverse => "REFUND_REVERSE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -255,11 +253,11 @@ pub mod annotate_assessment_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Annotation::Unspecified => "ANNOTATION_UNSPECIFIED",
-                Annotation::Legitimate => "LEGITIMATE",
-                Annotation::Fraudulent => "FRAUDULENT",
-                Annotation::PasswordCorrect => "PASSWORD_CORRECT",
-                Annotation::PasswordIncorrect => "PASSWORD_INCORRECT",
+                Self::Unspecified => "ANNOTATION_UNSPECIFIED",
+                Self::Legitimate => "LEGITIMATE",
+                Self::Fraudulent => "FRAUDULENT",
+                Self::PasswordCorrect => "PASSWORD_CORRECT",
+                Self::PasswordIncorrect => "PASSWORD_INCORRECT",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -343,21 +341,21 @@ pub mod annotate_assessment_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Reason::Unspecified => "REASON_UNSPECIFIED",
-                Reason::Chargeback => "CHARGEBACK",
-                Reason::ChargebackFraud => "CHARGEBACK_FRAUD",
-                Reason::ChargebackDispute => "CHARGEBACK_DISPUTE",
-                Reason::Refund => "REFUND",
-                Reason::RefundFraud => "REFUND_FRAUD",
-                Reason::TransactionAccepted => "TRANSACTION_ACCEPTED",
-                Reason::TransactionDeclined => "TRANSACTION_DECLINED",
-                Reason::PaymentHeuristics => "PAYMENT_HEURISTICS",
-                Reason::InitiatedTwoFactor => "INITIATED_TWO_FACTOR",
-                Reason::PassedTwoFactor => "PASSED_TWO_FACTOR",
-                Reason::FailedTwoFactor => "FAILED_TWO_FACTOR",
-                Reason::CorrectPassword => "CORRECT_PASSWORD",
-                Reason::IncorrectPassword => "INCORRECT_PASSWORD",
-                Reason::SocialSpam => "SOCIAL_SPAM",
+                Self::Unspecified => "REASON_UNSPECIFIED",
+                Self::Chargeback => "CHARGEBACK",
+                Self::ChargebackFraud => "CHARGEBACK_FRAUD",
+                Self::ChargebackDispute => "CHARGEBACK_DISPUTE",
+                Self::Refund => "REFUND",
+                Self::RefundFraud => "REFUND_FRAUD",
+                Self::TransactionAccepted => "TRANSACTION_ACCEPTED",
+                Self::TransactionDeclined => "TRANSACTION_DECLINED",
+                Self::PaymentHeuristics => "PAYMENT_HEURISTICS",
+                Self::InitiatedTwoFactor => "INITIATED_TWO_FACTOR",
+                Self::PassedTwoFactor => "PASSED_TWO_FACTOR",
+                Self::FailedTwoFactor => "FAILED_TWO_FACTOR",
+                Self::CorrectPassword => "CORRECT_PASSWORD",
+                Self::IncorrectPassword => "INCORRECT_PASSWORD",
+                Self::SocialSpam => "SOCIAL_SPAM",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -486,20 +484,18 @@ pub mod account_verification_info {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Result::Unspecified => "RESULT_UNSPECIFIED",
-                Result::SuccessUserVerified => "SUCCESS_USER_VERIFIED",
-                Result::ErrorUserNotVerified => "ERROR_USER_NOT_VERIFIED",
-                Result::ErrorSiteOnboardingIncomplete => {
-                    "ERROR_SITE_ONBOARDING_INCOMPLETE"
-                }
-                Result::ErrorRecipientNotAllowed => "ERROR_RECIPIENT_NOT_ALLOWED",
-                Result::ErrorRecipientAbuseLimitExhausted => {
+                Self::Unspecified => "RESULT_UNSPECIFIED",
+                Self::SuccessUserVerified => "SUCCESS_USER_VERIFIED",
+                Self::ErrorUserNotVerified => "ERROR_USER_NOT_VERIFIED",
+                Self::ErrorSiteOnboardingIncomplete => "ERROR_SITE_ONBOARDING_INCOMPLETE",
+                Self::ErrorRecipientNotAllowed => "ERROR_RECIPIENT_NOT_ALLOWED",
+                Self::ErrorRecipientAbuseLimitExhausted => {
                     "ERROR_RECIPIENT_ABUSE_LIMIT_EXHAUSTED"
                 }
-                Result::ErrorCriticalInternal => "ERROR_CRITICAL_INTERNAL",
-                Result::ErrorCustomerQuotaExhausted => "ERROR_CUSTOMER_QUOTA_EXHAUSTED",
-                Result::ErrorVerificationBypassed => "ERROR_VERIFICATION_BYPASSED",
-                Result::ErrorVerdictMismatch => "ERROR_VERDICT_MISMATCH",
+                Self::ErrorCriticalInternal => "ERROR_CRITICAL_INTERNAL",
+                Self::ErrorCustomerQuotaExhausted => "ERROR_CUSTOMER_QUOTA_EXHAUSTED",
+                Self::ErrorVerificationBypassed => "ERROR_VERIFICATION_BYPASSED",
+                Self::ErrorVerdictMismatch => "ERROR_VERDICT_MISMATCH",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -708,9 +704,9 @@ pub mod event {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                FraudPrevention::Unspecified => "FRAUD_PREVENTION_UNSPECIFIED",
-                FraudPrevention::Enabled => "ENABLED",
-                FraudPrevention::Disabled => "DISABLED",
+                Self::Unspecified => "FRAUD_PREVENTION_UNSPECIFIED",
+                Self::Enabled => "ENABLED",
+                Self::Disabled => "DISABLED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -981,16 +977,14 @@ pub mod risk_analysis {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ClassificationReason::Unspecified => "CLASSIFICATION_REASON_UNSPECIFIED",
-                ClassificationReason::Automation => "AUTOMATION",
-                ClassificationReason::UnexpectedEnvironment => "UNEXPECTED_ENVIRONMENT",
-                ClassificationReason::TooMuchTraffic => "TOO_MUCH_TRAFFIC",
-                ClassificationReason::UnexpectedUsagePatterns => {
-                    "UNEXPECTED_USAGE_PATTERNS"
-                }
-                ClassificationReason::LowConfidenceScore => "LOW_CONFIDENCE_SCORE",
-                ClassificationReason::SuspectedCarding => "SUSPECTED_CARDING",
-                ClassificationReason::SuspectedChargeback => "SUSPECTED_CHARGEBACK",
+                Self::Unspecified => "CLASSIFICATION_REASON_UNSPECIFIED",
+                Self::Automation => "AUTOMATION",
+                Self::UnexpectedEnvironment => "UNEXPECTED_ENVIRONMENT",
+                Self::TooMuchTraffic => "TOO_MUCH_TRAFFIC",
+                Self::UnexpectedUsagePatterns => "UNEXPECTED_USAGE_PATTERNS",
+                Self::LowConfidenceScore => "LOW_CONFIDENCE_SCORE",
+                Self::SuspectedCarding => "SUSPECTED_CARDING",
+                Self::SuspectedChargeback => "SUSPECTED_CHARGEBACK",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1080,13 +1074,13 @@ pub mod token_properties {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                InvalidReason::Unspecified => "INVALID_REASON_UNSPECIFIED",
-                InvalidReason::UnknownInvalidReason => "UNKNOWN_INVALID_REASON",
-                InvalidReason::Malformed => "MALFORMED",
-                InvalidReason::Expired => "EXPIRED",
-                InvalidReason::Dupe => "DUPE",
-                InvalidReason::Missing => "MISSING",
-                InvalidReason::BrowserError => "BROWSER_ERROR",
+                Self::Unspecified => "INVALID_REASON_UNSPECIFIED",
+                Self::UnknownInvalidReason => "UNKNOWN_INVALID_REASON",
+                Self::Malformed => "MALFORMED",
+                Self::Expired => "EXPIRED",
+                Self::Dupe => "DUPE",
+                Self::Missing => "MISSING",
+                Self::BrowserError => "BROWSER_ERROR",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1233,10 +1227,10 @@ pub mod fraud_signals {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    CardLabel::Unspecified => "CARD_LABEL_UNSPECIFIED",
-                    CardLabel::Prepaid => "PREPAID",
-                    CardLabel::Virtual => "VIRTUAL",
-                    CardLabel::UnexpectedLocation => "UNEXPECTED_LOCATION",
+                    Self::Unspecified => "CARD_LABEL_UNSPECIFIED",
+                    Self::Prepaid => "PREPAID",
+                    Self::Virtual => "VIRTUAL",
+                    Self::UnexpectedLocation => "UNEXPECTED_LOCATION",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1296,8 +1290,8 @@ pub mod sms_toll_fraud_verdict {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                SmsTollFraudReason::Unspecified => "SMS_TOLL_FRAUD_REASON_UNSPECIFIED",
-                SmsTollFraudReason::InvalidPhoneNumber => "INVALID_PHONE_NUMBER",
+                Self::Unspecified => "SMS_TOLL_FRAUD_REASON_UNSPECIFIED",
+                Self::InvalidPhoneNumber => "INVALID_PHONE_NUMBER",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1367,17 +1361,11 @@ pub mod account_defender_assessment {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                AccountDefenderLabel::Unspecified => "ACCOUNT_DEFENDER_LABEL_UNSPECIFIED",
-                AccountDefenderLabel::ProfileMatch => "PROFILE_MATCH",
-                AccountDefenderLabel::SuspiciousLoginActivity => {
-                    "SUSPICIOUS_LOGIN_ACTIVITY"
-                }
-                AccountDefenderLabel::SuspiciousAccountCreation => {
-                    "SUSPICIOUS_ACCOUNT_CREATION"
-                }
-                AccountDefenderLabel::RelatedAccountsNumberHigh => {
-                    "RELATED_ACCOUNTS_NUMBER_HIGH"
-                }
+                Self::Unspecified => "ACCOUNT_DEFENDER_LABEL_UNSPECIFIED",
+                Self::ProfileMatch => "PROFILE_MATCH",
+                Self::SuspiciousLoginActivity => "SUSPICIOUS_LOGIN_ACTIVITY",
+                Self::SuspiciousAccountCreation => "SUSPICIOUS_ACCOUNT_CREATION",
+                Self::RelatedAccountsNumberHigh => "RELATED_ACCOUNTS_NUMBER_HIGH",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1702,9 +1690,9 @@ pub mod testing_options {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                TestingChallenge::Unspecified => "TESTING_CHALLENGE_UNSPECIFIED",
-                TestingChallenge::Nocaptcha => "NOCAPTCHA",
-                TestingChallenge::UnsolvableChallenge => "UNSOLVABLE_CHALLENGE",
+                Self::Unspecified => "TESTING_CHALLENGE_UNSPECIFIED",
+                Self::Nocaptcha => "NOCAPTCHA",
+                Self::UnsolvableChallenge => "UNSOLVABLE_CHALLENGE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1780,10 +1768,10 @@ pub mod web_key_settings {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                IntegrationType::Unspecified => "INTEGRATION_TYPE_UNSPECIFIED",
-                IntegrationType::Score => "SCORE",
-                IntegrationType::Checkbox => "CHECKBOX",
-                IntegrationType::Invisible => "INVISIBLE",
+                Self::Unspecified => "INTEGRATION_TYPE_UNSPECIFIED",
+                Self::Score => "SCORE",
+                Self::Checkbox => "CHECKBOX",
+                Self::Invisible => "INVISIBLE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1828,12 +1816,10 @@ pub mod web_key_settings {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ChallengeSecurityPreference::Unspecified => {
-                    "CHALLENGE_SECURITY_PREFERENCE_UNSPECIFIED"
-                }
-                ChallengeSecurityPreference::Usability => "USABILITY",
-                ChallengeSecurityPreference::Balance => "BALANCE",
-                ChallengeSecurityPreference::Security => "SECURITY",
+                Self::Unspecified => "CHALLENGE_SECURITY_PREFERENCE_UNSPECIFIED",
+                Self::Usability => "USABILITY",
+                Self::Balance => "BALANCE",
+                Self::Security => "SECURITY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2281,11 +2267,11 @@ pub mod waf_settings {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                WafFeature::Unspecified => "WAF_FEATURE_UNSPECIFIED",
-                WafFeature::ChallengePage => "CHALLENGE_PAGE",
-                WafFeature::SessionToken => "SESSION_TOKEN",
-                WafFeature::ActionToken => "ACTION_TOKEN",
-                WafFeature::Express => "EXPRESS",
+                Self::Unspecified => "WAF_FEATURE_UNSPECIFIED",
+                Self::ChallengePage => "CHALLENGE_PAGE",
+                Self::SessionToken => "SESSION_TOKEN",
+                Self::ActionToken => "ACTION_TOKEN",
+                Self::Express => "EXPRESS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2330,10 +2316,10 @@ pub mod waf_settings {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                WafService::Unspecified => "WAF_SERVICE_UNSPECIFIED",
-                WafService::Ca => "CA",
-                WafService::Fastly => "FASTLY",
-                WafService::Cloudflare => "CLOUDFLARE",
+                Self::Unspecified => "WAF_SERVICE_UNSPECIFIED",
+                Self::Ca => "CA",
+                Self::Fastly => "FASTLY",
+                Self::Cloudflare => "CLOUDFLARE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2410,8 +2396,8 @@ pub mod ip_override_data {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                OverrideType::Unspecified => "OVERRIDE_TYPE_UNSPECIFIED",
-                OverrideType::Allow => "ALLOW",
+                Self::Unspecified => "OVERRIDE_TYPE_UNSPECIFIED",
+                Self::Allow => "ALLOW",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -3106,5 +3092,1285 @@ pub mod recaptcha_enterprise_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod recaptcha_enterprise_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with RecaptchaEnterpriseServiceServer.
+    #[async_trait]
+    pub trait RecaptchaEnterpriseService: std::marker::Send + std::marker::Sync + 'static {
+        /// Creates an Assessment of the likelihood an event is legitimate.
+        async fn create_assessment(
+            &self,
+            request: tonic::Request<super::CreateAssessmentRequest>,
+        ) -> std::result::Result<tonic::Response<super::Assessment>, tonic::Status>;
+        /// Annotates a previously created Assessment to provide additional information
+        /// on whether the event turned out to be authentic or fraudulent.
+        async fn annotate_assessment(
+            &self,
+            request: tonic::Request<super::AnnotateAssessmentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AnnotateAssessmentResponse>,
+            tonic::Status,
+        >;
+        /// Creates a new reCAPTCHA Enterprise key.
+        async fn create_key(
+            &self,
+            request: tonic::Request<super::CreateKeyRequest>,
+        ) -> std::result::Result<tonic::Response<super::Key>, tonic::Status>;
+        /// Returns the list of all keys that belong to a project.
+        async fn list_keys(
+            &self,
+            request: tonic::Request<super::ListKeysRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListKeysResponse>,
+            tonic::Status,
+        >;
+        /// Returns the secret key related to the specified public key.
+        /// You must use the legacy secret key only in a 3rd party integration with
+        /// legacy reCAPTCHA.
+        async fn retrieve_legacy_secret_key(
+            &self,
+            request: tonic::Request<super::RetrieveLegacySecretKeyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::RetrieveLegacySecretKeyResponse>,
+            tonic::Status,
+        >;
+        /// Returns the specified key.
+        async fn get_key(
+            &self,
+            request: tonic::Request<super::GetKeyRequest>,
+        ) -> std::result::Result<tonic::Response<super::Key>, tonic::Status>;
+        /// Updates the specified key.
+        async fn update_key(
+            &self,
+            request: tonic::Request<super::UpdateKeyRequest>,
+        ) -> std::result::Result<tonic::Response<super::Key>, tonic::Status>;
+        /// Deletes the specified key.
+        async fn delete_key(
+            &self,
+            request: tonic::Request<super::DeleteKeyRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Migrates an existing key from reCAPTCHA to reCAPTCHA Enterprise.
+        /// Once a key is migrated, it can be used from either product. SiteVerify
+        /// requests are billed as CreateAssessment calls. You must be
+        /// authenticated as one of the current owners of the reCAPTCHA Key, and
+        /// your user must have the reCAPTCHA Enterprise Admin IAM role in the
+        /// destination project.
+        async fn migrate_key(
+            &self,
+            request: tonic::Request<super::MigrateKeyRequest>,
+        ) -> std::result::Result<tonic::Response<super::Key>, tonic::Status>;
+        /// Adds an IP override to a key. The following restrictions hold:
+        /// * The maximum number of IP overrides per key is 100.
+        /// * For any conflict (such as IP already exists or IP part of an existing
+        ///   IP range), an error is returned.
+        async fn add_ip_override(
+            &self,
+            request: tonic::Request<super::AddIpOverrideRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AddIpOverrideResponse>,
+            tonic::Status,
+        >;
+        /// Get some aggregated metrics for a Key. This data can be used to build
+        /// dashboards.
+        async fn get_metrics(
+            &self,
+            request: tonic::Request<super::GetMetricsRequest>,
+        ) -> std::result::Result<tonic::Response<super::Metrics>, tonic::Status>;
+        /// Creates a new FirewallPolicy, specifying conditions at which reCAPTCHA
+        /// Enterprise actions can be executed.
+        /// A project may have a maximum of 1000 policies.
+        async fn create_firewall_policy(
+            &self,
+            request: tonic::Request<super::CreateFirewallPolicyRequest>,
+        ) -> std::result::Result<tonic::Response<super::FirewallPolicy>, tonic::Status>;
+        /// Returns the list of all firewall policies that belong to a project.
+        async fn list_firewall_policies(
+            &self,
+            request: tonic::Request<super::ListFirewallPoliciesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListFirewallPoliciesResponse>,
+            tonic::Status,
+        >;
+        /// Returns the specified firewall policy.
+        async fn get_firewall_policy(
+            &self,
+            request: tonic::Request<super::GetFirewallPolicyRequest>,
+        ) -> std::result::Result<tonic::Response<super::FirewallPolicy>, tonic::Status>;
+        /// Updates the specified firewall policy.
+        async fn update_firewall_policy(
+            &self,
+            request: tonic::Request<super::UpdateFirewallPolicyRequest>,
+        ) -> std::result::Result<tonic::Response<super::FirewallPolicy>, tonic::Status>;
+        /// Deletes the specified firewall policy.
+        async fn delete_firewall_policy(
+            &self,
+            request: tonic::Request<super::DeleteFirewallPolicyRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Reorders all firewall policies.
+        async fn reorder_firewall_policies(
+            &self,
+            request: tonic::Request<super::ReorderFirewallPoliciesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ReorderFirewallPoliciesResponse>,
+            tonic::Status,
+        >;
+        /// List groups of related accounts.
+        async fn list_related_account_groups(
+            &self,
+            request: tonic::Request<super::ListRelatedAccountGroupsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListRelatedAccountGroupsResponse>,
+            tonic::Status,
+        >;
+        /// Get memberships in a group of related accounts.
+        async fn list_related_account_group_memberships(
+            &self,
+            request: tonic::Request<super::ListRelatedAccountGroupMembershipsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListRelatedAccountGroupMembershipsResponse>,
+            tonic::Status,
+        >;
+        /// Search group memberships related to a given account.
+        async fn search_related_account_group_memberships(
+            &self,
+            request: tonic::Request<super::SearchRelatedAccountGroupMembershipsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SearchRelatedAccountGroupMembershipsResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Service to determine the likelihood an event is legitimate.
+    #[derive(Debug)]
+    pub struct RecaptchaEnterpriseServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> RecaptchaEnterpriseServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for RecaptchaEnterpriseServiceServer<T>
+    where
+        T: RecaptchaEnterpriseService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/CreateAssessment" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateAssessmentSvc<T: RecaptchaEnterpriseService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: RecaptchaEnterpriseService,
+                    > tonic::server::UnaryService<super::CreateAssessmentRequest>
+                    for CreateAssessmentSvc<T> {
+                        type Response = super::Assessment;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateAssessmentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RecaptchaEnterpriseService>::create_assessment(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateAssessmentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/AnnotateAssessment" => {
+                    #[allow(non_camel_case_types)]
+                    struct AnnotateAssessmentSvc<T: RecaptchaEnterpriseService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: RecaptchaEnterpriseService,
+                    > tonic::server::UnaryService<super::AnnotateAssessmentRequest>
+                    for AnnotateAssessmentSvc<T> {
+                        type Response = super::AnnotateAssessmentResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::AnnotateAssessmentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RecaptchaEnterpriseService>::annotate_assessment(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = AnnotateAssessmentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/CreateKey" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateKeySvc<T: RecaptchaEnterpriseService>(pub Arc<T>);
+                    impl<
+                        T: RecaptchaEnterpriseService,
+                    > tonic::server::UnaryService<super::CreateKeyRequest>
+                    for CreateKeySvc<T> {
+                        type Response = super::Key;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateKeyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RecaptchaEnterpriseService>::create_key(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateKeySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/ListKeys" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListKeysSvc<T: RecaptchaEnterpriseService>(pub Arc<T>);
+                    impl<
+                        T: RecaptchaEnterpriseService,
+                    > tonic::server::UnaryService<super::ListKeysRequest>
+                    for ListKeysSvc<T> {
+                        type Response = super::ListKeysResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListKeysRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RecaptchaEnterpriseService>::list_keys(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListKeysSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/RetrieveLegacySecretKey" => {
+                    #[allow(non_camel_case_types)]
+                    struct RetrieveLegacySecretKeySvc<T: RecaptchaEnterpriseService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: RecaptchaEnterpriseService,
+                    > tonic::server::UnaryService<super::RetrieveLegacySecretKeyRequest>
+                    for RetrieveLegacySecretKeySvc<T> {
+                        type Response = super::RetrieveLegacySecretKeyResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::RetrieveLegacySecretKeyRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RecaptchaEnterpriseService>::retrieve_legacy_secret_key(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RetrieveLegacySecretKeySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/GetKey" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetKeySvc<T: RecaptchaEnterpriseService>(pub Arc<T>);
+                    impl<
+                        T: RecaptchaEnterpriseService,
+                    > tonic::server::UnaryService<super::GetKeyRequest>
+                    for GetKeySvc<T> {
+                        type Response = super::Key;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetKeyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RecaptchaEnterpriseService>::get_key(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetKeySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/UpdateKey" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateKeySvc<T: RecaptchaEnterpriseService>(pub Arc<T>);
+                    impl<
+                        T: RecaptchaEnterpriseService,
+                    > tonic::server::UnaryService<super::UpdateKeyRequest>
+                    for UpdateKeySvc<T> {
+                        type Response = super::Key;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateKeyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RecaptchaEnterpriseService>::update_key(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateKeySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/DeleteKey" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteKeySvc<T: RecaptchaEnterpriseService>(pub Arc<T>);
+                    impl<
+                        T: RecaptchaEnterpriseService,
+                    > tonic::server::UnaryService<super::DeleteKeyRequest>
+                    for DeleteKeySvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteKeyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RecaptchaEnterpriseService>::delete_key(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteKeySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/MigrateKey" => {
+                    #[allow(non_camel_case_types)]
+                    struct MigrateKeySvc<T: RecaptchaEnterpriseService>(pub Arc<T>);
+                    impl<
+                        T: RecaptchaEnterpriseService,
+                    > tonic::server::UnaryService<super::MigrateKeyRequest>
+                    for MigrateKeySvc<T> {
+                        type Response = super::Key;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MigrateKeyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RecaptchaEnterpriseService>::migrate_key(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = MigrateKeySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/AddIpOverride" => {
+                    #[allow(non_camel_case_types)]
+                    struct AddIpOverrideSvc<T: RecaptchaEnterpriseService>(pub Arc<T>);
+                    impl<
+                        T: RecaptchaEnterpriseService,
+                    > tonic::server::UnaryService<super::AddIpOverrideRequest>
+                    for AddIpOverrideSvc<T> {
+                        type Response = super::AddIpOverrideResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::AddIpOverrideRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RecaptchaEnterpriseService>::add_ip_override(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = AddIpOverrideSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/GetMetrics" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetMetricsSvc<T: RecaptchaEnterpriseService>(pub Arc<T>);
+                    impl<
+                        T: RecaptchaEnterpriseService,
+                    > tonic::server::UnaryService<super::GetMetricsRequest>
+                    for GetMetricsSvc<T> {
+                        type Response = super::Metrics;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetMetricsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RecaptchaEnterpriseService>::get_metrics(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetMetricsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/CreateFirewallPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateFirewallPolicySvc<T: RecaptchaEnterpriseService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: RecaptchaEnterpriseService,
+                    > tonic::server::UnaryService<super::CreateFirewallPolicyRequest>
+                    for CreateFirewallPolicySvc<T> {
+                        type Response = super::FirewallPolicy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateFirewallPolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RecaptchaEnterpriseService>::create_firewall_policy(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateFirewallPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/ListFirewallPolicies" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListFirewallPoliciesSvc<T: RecaptchaEnterpriseService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: RecaptchaEnterpriseService,
+                    > tonic::server::UnaryService<super::ListFirewallPoliciesRequest>
+                    for ListFirewallPoliciesSvc<T> {
+                        type Response = super::ListFirewallPoliciesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListFirewallPoliciesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RecaptchaEnterpriseService>::list_firewall_policies(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListFirewallPoliciesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/GetFirewallPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetFirewallPolicySvc<T: RecaptchaEnterpriseService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: RecaptchaEnterpriseService,
+                    > tonic::server::UnaryService<super::GetFirewallPolicyRequest>
+                    for GetFirewallPolicySvc<T> {
+                        type Response = super::FirewallPolicy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetFirewallPolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RecaptchaEnterpriseService>::get_firewall_policy(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetFirewallPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/UpdateFirewallPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateFirewallPolicySvc<T: RecaptchaEnterpriseService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: RecaptchaEnterpriseService,
+                    > tonic::server::UnaryService<super::UpdateFirewallPolicyRequest>
+                    for UpdateFirewallPolicySvc<T> {
+                        type Response = super::FirewallPolicy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateFirewallPolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RecaptchaEnterpriseService>::update_firewall_policy(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateFirewallPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/DeleteFirewallPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteFirewallPolicySvc<T: RecaptchaEnterpriseService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: RecaptchaEnterpriseService,
+                    > tonic::server::UnaryService<super::DeleteFirewallPolicyRequest>
+                    for DeleteFirewallPolicySvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteFirewallPolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RecaptchaEnterpriseService>::delete_firewall_policy(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteFirewallPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/ReorderFirewallPolicies" => {
+                    #[allow(non_camel_case_types)]
+                    struct ReorderFirewallPoliciesSvc<T: RecaptchaEnterpriseService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: RecaptchaEnterpriseService,
+                    > tonic::server::UnaryService<super::ReorderFirewallPoliciesRequest>
+                    for ReorderFirewallPoliciesSvc<T> {
+                        type Response = super::ReorderFirewallPoliciesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ReorderFirewallPoliciesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RecaptchaEnterpriseService>::reorder_firewall_policies(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ReorderFirewallPoliciesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/ListRelatedAccountGroups" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListRelatedAccountGroupsSvc<T: RecaptchaEnterpriseService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: RecaptchaEnterpriseService,
+                    > tonic::server::UnaryService<super::ListRelatedAccountGroupsRequest>
+                    for ListRelatedAccountGroupsSvc<T> {
+                        type Response = super::ListRelatedAccountGroupsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListRelatedAccountGroupsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RecaptchaEnterpriseService>::list_related_account_groups(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListRelatedAccountGroupsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/ListRelatedAccountGroupMemberships" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListRelatedAccountGroupMembershipsSvc<
+                        T: RecaptchaEnterpriseService,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: RecaptchaEnterpriseService,
+                    > tonic::server::UnaryService<
+                        super::ListRelatedAccountGroupMembershipsRequest,
+                    > for ListRelatedAccountGroupMembershipsSvc<T> {
+                        type Response = super::ListRelatedAccountGroupMembershipsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListRelatedAccountGroupMembershipsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RecaptchaEnterpriseService>::list_related_account_group_memberships(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListRelatedAccountGroupMembershipsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService/SearchRelatedAccountGroupMemberships" => {
+                    #[allow(non_camel_case_types)]
+                    struct SearchRelatedAccountGroupMembershipsSvc<
+                        T: RecaptchaEnterpriseService,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: RecaptchaEnterpriseService,
+                    > tonic::server::UnaryService<
+                        super::SearchRelatedAccountGroupMembershipsRequest,
+                    > for SearchRelatedAccountGroupMembershipsSvc<T> {
+                        type Response = super::SearchRelatedAccountGroupMembershipsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::SearchRelatedAccountGroupMembershipsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RecaptchaEnterpriseService>::search_related_account_group_memberships(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SearchRelatedAccountGroupMembershipsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for RecaptchaEnterpriseServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.recaptchaenterprise.v1.RecaptchaEnterpriseService";
+    impl<T> tonic::server::NamedService for RecaptchaEnterpriseServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

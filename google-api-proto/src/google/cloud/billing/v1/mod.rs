@@ -699,6 +699,806 @@ pub mod cloud_billing_client {
         }
     }
 }
+/// Generated server implementations.
+pub mod cloud_billing_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with CloudBillingServer.
+    #[async_trait]
+    pub trait CloudBilling: std::marker::Send + std::marker::Sync + 'static {
+        /// Gets information about a billing account. The current authenticated user
+        /// must be a [viewer of the billing
+        /// account](https://cloud.google.com/billing/docs/how-to/billing-access).
+        async fn get_billing_account(
+            &self,
+            request: tonic::Request<super::GetBillingAccountRequest>,
+        ) -> std::result::Result<tonic::Response<super::BillingAccount>, tonic::Status>;
+        /// Lists the billing accounts that the current authenticated user has
+        /// permission to
+        /// [view](https://cloud.google.com/billing/docs/how-to/billing-access).
+        async fn list_billing_accounts(
+            &self,
+            request: tonic::Request<super::ListBillingAccountsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListBillingAccountsResponse>,
+            tonic::Status,
+        >;
+        /// Updates a billing account's fields.
+        /// Currently the only field that can be edited is `display_name`.
+        /// The current authenticated user must have the `billing.accounts.update`
+        /// IAM permission, which is typically given to the
+        /// [administrator](https://cloud.google.com/billing/docs/how-to/billing-access)
+        /// of the billing account.
+        async fn update_billing_account(
+            &self,
+            request: tonic::Request<super::UpdateBillingAccountRequest>,
+        ) -> std::result::Result<tonic::Response<super::BillingAccount>, tonic::Status>;
+        /// This method creates [billing
+        /// subaccounts](https://cloud.google.com/billing/docs/concepts#subaccounts).
+        ///
+        /// Google Cloud resellers should use the
+        /// Channel Services APIs,
+        /// [accounts.customers.create](https://cloud.google.com/channel/docs/reference/rest/v1/accounts.customers/create)
+        /// and
+        /// [accounts.customers.entitlements.create](https://cloud.google.com/channel/docs/reference/rest/v1/accounts.customers.entitlements/create).
+        ///
+        /// When creating a subaccount, the current authenticated user must have the
+        /// `billing.accounts.update` IAM permission on the parent account, which is
+        /// typically given to billing account
+        /// [administrators](https://cloud.google.com/billing/docs/how-to/billing-access).
+        /// This method will return an error if the parent account has not been
+        /// provisioned for subaccounts.
+        async fn create_billing_account(
+            &self,
+            request: tonic::Request<super::CreateBillingAccountRequest>,
+        ) -> std::result::Result<tonic::Response<super::BillingAccount>, tonic::Status>;
+        /// Lists the projects associated with a billing account. The current
+        /// authenticated user must have the `billing.resourceAssociations.list` IAM
+        /// permission, which is often given to billing account
+        /// [viewers](https://cloud.google.com/billing/docs/how-to/billing-access).
+        async fn list_project_billing_info(
+            &self,
+            request: tonic::Request<super::ListProjectBillingInfoRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListProjectBillingInfoResponse>,
+            tonic::Status,
+        >;
+        /// Gets the billing information for a project. The current authenticated user
+        /// must have the `resourcemanager.projects.get` permission for the project,
+        /// which can be granted by assigning the [Project
+        /// Viewer](https://cloud.google.com/iam/docs/understanding-roles#predefined_roles)
+        /// role.
+        async fn get_project_billing_info(
+            &self,
+            request: tonic::Request<super::GetProjectBillingInfoRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ProjectBillingInfo>,
+            tonic::Status,
+        >;
+        /// Sets or updates the billing account associated with a project. You specify
+        /// the new billing account by setting the `billing_account_name` in the
+        /// `ProjectBillingInfo` resource to the resource name of a billing account.
+        /// Associating a project with an open billing account enables billing on the
+        /// project and allows charges for resource usage. If the project already had a
+        /// billing account, this method changes the billing account used for resource
+        /// usage charges.
+        ///
+        /// *Note:* Incurred charges that have not yet been reported in the transaction
+        /// history of the Google Cloud Console might be billed to the new billing
+        /// account, even if the charge occurred before the new billing account was
+        /// assigned to the project.
+        ///
+        /// The current authenticated user must have ownership privileges for both
+        /// the
+        /// [project](https://cloud.google.com/docs/permissions-overview#h.bgs0oxofvnoo
+        /// ) and the [billing
+        /// account](https://cloud.google.com/billing/docs/how-to/billing-access).
+        ///
+        /// You can disable billing on the project by setting the
+        /// `billing_account_name` field to empty. This action disassociates the
+        /// current billing account from the project. Any billable activity of your
+        /// in-use services will stop, and your application could stop functioning as
+        /// expected. Any unbilled charges to date will be billed to the previously
+        /// associated account. The current authenticated user must be either an owner
+        /// of the project or an owner of the billing account for the project.
+        ///
+        /// Note that associating a project with a *closed* billing account will have
+        /// much the same effect as disabling billing on the project: any paid
+        /// resources used by the project will be shut down. Thus, unless you wish to
+        /// disable billing, you should always call this method with the name of an
+        /// *open* billing account.
+        async fn update_project_billing_info(
+            &self,
+            request: tonic::Request<super::UpdateProjectBillingInfoRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ProjectBillingInfo>,
+            tonic::Status,
+        >;
+        /// Gets the access control policy for a billing account.
+        /// The caller must have the `billing.accounts.getIamPolicy` permission on the
+        /// account, which is often given to billing account
+        /// [viewers](https://cloud.google.com/billing/docs/how-to/billing-access).
+        async fn get_iam_policy(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::iam::v1::GetIamPolicyRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::iam::v1::Policy>,
+            tonic::Status,
+        >;
+        /// Sets the access control policy for a billing account. Replaces any existing
+        /// policy.
+        /// The caller must have the `billing.accounts.setIamPolicy` permission on the
+        /// account, which is often given to billing account
+        /// [administrators](https://cloud.google.com/billing/docs/how-to/billing-access).
+        async fn set_iam_policy(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::iam::v1::SetIamPolicyRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::iam::v1::Policy>,
+            tonic::Status,
+        >;
+        /// Tests the access control policy for a billing account. This method takes
+        /// the resource and a set of permissions as input and returns the subset of
+        /// the input permissions that the caller is allowed for that resource.
+        async fn test_iam_permissions(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::iam::v1::TestIamPermissionsRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<
+                super::super::super::super::iam::v1::TestIamPermissionsResponse,
+            >,
+            tonic::Status,
+        >;
+        /// Changes which parent organization a billing account belongs to.
+        async fn move_billing_account(
+            &self,
+            request: tonic::Request<super::MoveBillingAccountRequest>,
+        ) -> std::result::Result<tonic::Response<super::BillingAccount>, tonic::Status>;
+    }
+    /// Retrieves the Google Cloud Console billing accounts and associates them with
+    /// projects.
+    #[derive(Debug)]
+    pub struct CloudBillingServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> CloudBillingServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for CloudBillingServer<T>
+    where
+        T: CloudBilling,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.billing.v1.CloudBilling/GetBillingAccount" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetBillingAccountSvc<T: CloudBilling>(pub Arc<T>);
+                    impl<
+                        T: CloudBilling,
+                    > tonic::server::UnaryService<super::GetBillingAccountRequest>
+                    for GetBillingAccountSvc<T> {
+                        type Response = super::BillingAccount;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetBillingAccountRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudBilling>::get_billing_account(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetBillingAccountSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.billing.v1.CloudBilling/ListBillingAccounts" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListBillingAccountsSvc<T: CloudBilling>(pub Arc<T>);
+                    impl<
+                        T: CloudBilling,
+                    > tonic::server::UnaryService<super::ListBillingAccountsRequest>
+                    for ListBillingAccountsSvc<T> {
+                        type Response = super::ListBillingAccountsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListBillingAccountsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudBilling>::list_billing_accounts(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListBillingAccountsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.billing.v1.CloudBilling/UpdateBillingAccount" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateBillingAccountSvc<T: CloudBilling>(pub Arc<T>);
+                    impl<
+                        T: CloudBilling,
+                    > tonic::server::UnaryService<super::UpdateBillingAccountRequest>
+                    for UpdateBillingAccountSvc<T> {
+                        type Response = super::BillingAccount;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateBillingAccountRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudBilling>::update_billing_account(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateBillingAccountSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.billing.v1.CloudBilling/CreateBillingAccount" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateBillingAccountSvc<T: CloudBilling>(pub Arc<T>);
+                    impl<
+                        T: CloudBilling,
+                    > tonic::server::UnaryService<super::CreateBillingAccountRequest>
+                    for CreateBillingAccountSvc<T> {
+                        type Response = super::BillingAccount;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateBillingAccountRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudBilling>::create_billing_account(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateBillingAccountSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.billing.v1.CloudBilling/ListProjectBillingInfo" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListProjectBillingInfoSvc<T: CloudBilling>(pub Arc<T>);
+                    impl<
+                        T: CloudBilling,
+                    > tonic::server::UnaryService<super::ListProjectBillingInfoRequest>
+                    for ListProjectBillingInfoSvc<T> {
+                        type Response = super::ListProjectBillingInfoResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListProjectBillingInfoRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudBilling>::list_project_billing_info(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListProjectBillingInfoSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.billing.v1.CloudBilling/GetProjectBillingInfo" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetProjectBillingInfoSvc<T: CloudBilling>(pub Arc<T>);
+                    impl<
+                        T: CloudBilling,
+                    > tonic::server::UnaryService<super::GetProjectBillingInfoRequest>
+                    for GetProjectBillingInfoSvc<T> {
+                        type Response = super::ProjectBillingInfo;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetProjectBillingInfoRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudBilling>::get_project_billing_info(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetProjectBillingInfoSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.billing.v1.CloudBilling/UpdateProjectBillingInfo" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateProjectBillingInfoSvc<T: CloudBilling>(pub Arc<T>);
+                    impl<
+                        T: CloudBilling,
+                    > tonic::server::UnaryService<super::UpdateProjectBillingInfoRequest>
+                    for UpdateProjectBillingInfoSvc<T> {
+                        type Response = super::ProjectBillingInfo;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::UpdateProjectBillingInfoRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudBilling>::update_project_billing_info(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateProjectBillingInfoSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.billing.v1.CloudBilling/GetIamPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetIamPolicySvc<T: CloudBilling>(pub Arc<T>);
+                    impl<
+                        T: CloudBilling,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::iam::v1::GetIamPolicyRequest,
+                    > for GetIamPolicySvc<T> {
+                        type Response = super::super::super::super::iam::v1::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::iam::v1::GetIamPolicyRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudBilling>::get_iam_policy(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetIamPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.billing.v1.CloudBilling/SetIamPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetIamPolicySvc<T: CloudBilling>(pub Arc<T>);
+                    impl<
+                        T: CloudBilling,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::iam::v1::SetIamPolicyRequest,
+                    > for SetIamPolicySvc<T> {
+                        type Response = super::super::super::super::iam::v1::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::iam::v1::SetIamPolicyRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudBilling>::set_iam_policy(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SetIamPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.billing.v1.CloudBilling/TestIamPermissions" => {
+                    #[allow(non_camel_case_types)]
+                    struct TestIamPermissionsSvc<T: CloudBilling>(pub Arc<T>);
+                    impl<
+                        T: CloudBilling,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::iam::v1::TestIamPermissionsRequest,
+                    > for TestIamPermissionsSvc<T> {
+                        type Response = super::super::super::super::iam::v1::TestIamPermissionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::iam::v1::TestIamPermissionsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudBilling>::test_iam_permissions(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = TestIamPermissionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.billing.v1.CloudBilling/MoveBillingAccount" => {
+                    #[allow(non_camel_case_types)]
+                    struct MoveBillingAccountSvc<T: CloudBilling>(pub Arc<T>);
+                    impl<
+                        T: CloudBilling,
+                    > tonic::server::UnaryService<super::MoveBillingAccountRequest>
+                    for MoveBillingAccountSvc<T> {
+                        type Response = super::BillingAccount;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MoveBillingAccountRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudBilling>::move_billing_account(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = MoveBillingAccountSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for CloudBillingServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.billing.v1.CloudBilling";
+    impl<T> tonic::server::NamedService for CloudBillingServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}
 /// Encapsulates a single service in Google Cloud Platform.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Service {
@@ -912,9 +1712,9 @@ pub mod aggregation_info {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                AggregationLevel::Unspecified => "AGGREGATION_LEVEL_UNSPECIFIED",
-                AggregationLevel::Account => "ACCOUNT",
-                AggregationLevel::Project => "PROJECT",
+                Self::Unspecified => "AGGREGATION_LEVEL_UNSPECIFIED",
+                Self::Account => "ACCOUNT",
+                Self::Project => "PROJECT",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -954,9 +1754,9 @@ pub mod aggregation_info {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                AggregationInterval::Unspecified => "AGGREGATION_INTERVAL_UNSPECIFIED",
-                AggregationInterval::Daily => "DAILY",
-                AggregationInterval::Monthly => "MONTHLY",
+                Self::Unspecified => "AGGREGATION_INTERVAL_UNSPECIFIED",
+                Self::Daily => "DAILY",
+                Self::Monthly => "MONTHLY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1015,10 +1815,10 @@ pub mod geo_taxonomy {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::Global => "GLOBAL",
-                Type::Regional => "REGIONAL",
-                Type::MultiRegional => "MULTI_REGIONAL",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::Global => "GLOBAL",
+                Self::Regional => "REGIONAL",
+                Self::MultiRegional => "MULTI_REGIONAL",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1242,5 +2042,234 @@ pub mod cloud_catalog_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod cloud_catalog_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with CloudCatalogServer.
+    #[async_trait]
+    pub trait CloudCatalog: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists all public cloud services.
+        async fn list_services(
+            &self,
+            request: tonic::Request<super::ListServicesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListServicesResponse>,
+            tonic::Status,
+        >;
+        /// Lists all publicly available SKUs for a given cloud service.
+        async fn list_skus(
+            &self,
+            request: tonic::Request<super::ListSkusRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListSkusResponse>,
+            tonic::Status,
+        >;
+    }
+    /// A catalog of Google Cloud Platform services and SKUs.
+    /// Provides pricing information and metadata on Google Cloud Platform services
+    /// and SKUs.
+    #[derive(Debug)]
+    pub struct CloudCatalogServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> CloudCatalogServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for CloudCatalogServer<T>
+    where
+        T: CloudCatalog,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.billing.v1.CloudCatalog/ListServices" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListServicesSvc<T: CloudCatalog>(pub Arc<T>);
+                    impl<
+                        T: CloudCatalog,
+                    > tonic::server::UnaryService<super::ListServicesRequest>
+                    for ListServicesSvc<T> {
+                        type Response = super::ListServicesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListServicesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudCatalog>::list_services(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListServicesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.billing.v1.CloudCatalog/ListSkus" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListSkusSvc<T: CloudCatalog>(pub Arc<T>);
+                    impl<
+                        T: CloudCatalog,
+                    > tonic::server::UnaryService<super::ListSkusRequest>
+                    for ListSkusSvc<T> {
+                        type Response = super::ListSkusResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListSkusRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudCatalog>::list_skus(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListSkusSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for CloudCatalogServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.billing.v1.CloudCatalog";
+    impl<T> tonic::server::NamedService for CloudCatalogServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

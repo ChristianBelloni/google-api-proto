@@ -146,9 +146,9 @@ pub mod manifest {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ManifestType::Unspecified => "MANIFEST_TYPE_UNSPECIFIED",
-                ManifestType::Hls => "HLS",
-                ManifestType::Dash => "DASH",
+                Self::Unspecified => "MANIFEST_TYPE_UNSPECIFIED",
+                Self::Hls => "HLS",
+                Self::Dash => "DASH",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -550,9 +550,9 @@ pub mod timecode_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                TimecodeSource::Unspecified => "TIMECODE_SOURCE_UNSPECIFIED",
-                TimecodeSource::MediaTimestamp => "MEDIA_TIMESTAMP",
-                TimecodeSource::EmbeddedTimecode => "EMBEDDED_TIMECODE",
+                Self::Unspecified => "TIMECODE_SOURCE_UNSPECIFIED",
+                Self::MediaTimestamp => "MEDIA_TIMESTAMP",
+                Self::EmbeddedTimecode => "EMBEDDED_TIMECODE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -667,9 +667,9 @@ pub mod input {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::RtmpPush => "RTMP_PUSH",
-                Type::SrtPush => "SRT_PUSH",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::RtmpPush => "RTMP_PUSH",
+                Self::SrtPush => "SRT_PUSH",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -712,10 +712,10 @@ pub mod input {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Tier::Unspecified => "TIER_UNSPECIFIED",
-                Tier::Sd => "SD",
-                Tier::Hd => "HD",
-                Tier::Uhd => "UHD",
+                Self::Unspecified => "TIER_UNSPECIFIED",
+                Self::Sd => "SD",
+                Self::Hd => "HD",
+                Self::Uhd => "UHD",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -866,14 +866,14 @@ pub mod channel {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                StreamingState::Unspecified => "STREAMING_STATE_UNSPECIFIED",
-                StreamingState::Streaming => "STREAMING",
-                StreamingState::AwaitingInput => "AWAITING_INPUT",
-                StreamingState::StreamingError => "STREAMING_ERROR",
-                StreamingState::StreamingNoInput => "STREAMING_NO_INPUT",
-                StreamingState::Stopped => "STOPPED",
-                StreamingState::Starting => "STARTING",
-                StreamingState::Stopping => "STOPPING",
+                Self::Unspecified => "STREAMING_STATE_UNSPECIFIED",
+                Self::Streaming => "STREAMING",
+                Self::AwaitingInput => "AWAITING_INPUT",
+                Self::StreamingError => "STREAMING_ERROR",
+                Self::StreamingNoInput => "STREAMING_NO_INPUT",
+                Self::Stopped => "STOPPED",
+                Self::Starting => "STARTING",
+                Self::Stopping => "STOPPING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -984,9 +984,9 @@ pub mod input_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                InputSwitchMode::Unspecified => "INPUT_SWITCH_MODE_UNSPECIFIED",
-                InputSwitchMode::FailoverPreferPrimary => "FAILOVER_PREFER_PRIMARY",
-                InputSwitchMode::Manual => "MANUAL",
+                Self::Unspecified => "INPUT_SWITCH_MODE_UNSPECIFIED",
+                Self::FailoverPreferPrimary => "FAILOVER_PREFER_PRIMARY",
+                Self::Manual => "MANUAL",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1053,12 +1053,12 @@ pub mod log_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                LogSeverity::Unspecified => "LOG_SEVERITY_UNSPECIFIED",
-                LogSeverity::Off => "OFF",
-                LogSeverity::Debug => "DEBUG",
-                LogSeverity::Info => "INFO",
-                LogSeverity::Warning => "WARNING",
-                LogSeverity::Error => "ERROR",
+                Self::Unspecified => "LOG_SEVERITY_UNSPECIFIED",
+                Self::Off => "OFF",
+                Self::Debug => "DEBUG",
+                Self::Info => "INFO",
+                Self::Warning => "WARNING",
+                Self::Error => "ERROR",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1320,13 +1320,13 @@ pub mod event {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Scheduled => "SCHEDULED",
-                State::Running => "RUNNING",
-                State::Succeeded => "SUCCEEDED",
-                State::Failed => "FAILED",
-                State::Pending => "PENDING",
-                State::Stopped => "STOPPED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Scheduled => "SCHEDULED",
+                Self::Running => "RUNNING",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Failed => "FAILED",
+                Self::Pending => "PENDING",
+                Self::Stopped => "STOPPED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1502,11 +1502,11 @@ pub mod clip {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Pending => "PENDING",
-                State::Creating => "CREATING",
-                State::Succeeded => "SUCCEEDED",
-                State::Failed => "FAILED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Pending => "PENDING",
+                Self::Creating => "CREATING",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Failed => "FAILED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1616,11 +1616,11 @@ pub mod asset {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Active => "ACTIVE",
-                State::Deleting => "DELETING",
-                State::Error => "ERROR",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Active => "ACTIVE",
+                Self::Deleting => "DELETING",
+                Self::Error => "ERROR",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -3344,5 +3344,1502 @@ pub mod livestream_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod livestream_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with LivestreamServiceServer.
+    #[async_trait]
+    pub trait LivestreamService: std::marker::Send + std::marker::Sync + 'static {
+        /// Creates a channel with the provided unique ID in the specified
+        /// region.
+        async fn create_channel(
+            &self,
+            request: tonic::Request<super::CreateChannelRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Returns a list of all channels in the specified region.
+        async fn list_channels(
+            &self,
+            request: tonic::Request<super::ListChannelsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListChannelsResponse>,
+            tonic::Status,
+        >;
+        /// Returns the specified channel.
+        async fn get_channel(
+            &self,
+            request: tonic::Request<super::GetChannelRequest>,
+        ) -> std::result::Result<tonic::Response<super::Channel>, tonic::Status>;
+        /// Deletes the specified channel.
+        async fn delete_channel(
+            &self,
+            request: tonic::Request<super::DeleteChannelRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the specified channel.
+        async fn update_channel(
+            &self,
+            request: tonic::Request<super::UpdateChannelRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Starts the specified channel. Part of the video pipeline will be created
+        /// only when the StartChannel request is received by the server.
+        async fn start_channel(
+            &self,
+            request: tonic::Request<super::StartChannelRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Stops the specified channel. Part of the video pipeline will be released
+        /// when the StopChannel request is received by the server.
+        async fn stop_channel(
+            &self,
+            request: tonic::Request<super::StopChannelRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Creates an input with the provided unique ID in the specified region.
+        async fn create_input(
+            &self,
+            request: tonic::Request<super::CreateInputRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Returns a list of all inputs in the specified region.
+        async fn list_inputs(
+            &self,
+            request: tonic::Request<super::ListInputsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListInputsResponse>,
+            tonic::Status,
+        >;
+        /// Returns the specified input.
+        async fn get_input(
+            &self,
+            request: tonic::Request<super::GetInputRequest>,
+        ) -> std::result::Result<tonic::Response<super::Input>, tonic::Status>;
+        /// Deletes the specified input.
+        async fn delete_input(
+            &self,
+            request: tonic::Request<super::DeleteInputRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the specified input.
+        async fn update_input(
+            &self,
+            request: tonic::Request<super::UpdateInputRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Creates an event with the provided unique ID in the specified channel.
+        async fn create_event(
+            &self,
+            request: tonic::Request<super::CreateEventRequest>,
+        ) -> std::result::Result<tonic::Response<super::Event>, tonic::Status>;
+        /// Returns a list of all events in the specified channel.
+        async fn list_events(
+            &self,
+            request: tonic::Request<super::ListEventsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListEventsResponse>,
+            tonic::Status,
+        >;
+        /// Returns the specified event.
+        async fn get_event(
+            &self,
+            request: tonic::Request<super::GetEventRequest>,
+        ) -> std::result::Result<tonic::Response<super::Event>, tonic::Status>;
+        /// Deletes the specified event.
+        async fn delete_event(
+            &self,
+            request: tonic::Request<super::DeleteEventRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Returns a list of all clips in the specified channel.
+        async fn list_clips(
+            &self,
+            request: tonic::Request<super::ListClipsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListClipsResponse>,
+            tonic::Status,
+        >;
+        /// Returns the specified clip.
+        async fn get_clip(
+            &self,
+            request: tonic::Request<super::GetClipRequest>,
+        ) -> std::result::Result<tonic::Response<super::Clip>, tonic::Status>;
+        /// Creates a clip with the provided clip ID in the specified channel.
+        async fn create_clip(
+            &self,
+            request: tonic::Request<super::CreateClipRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes the specified clip job resource. This method only deletes the clip
+        /// job and does not delete the VOD clip stored in the GCS.
+        async fn delete_clip(
+            &self,
+            request: tonic::Request<super::DeleteClipRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Creates a Asset with the provided unique ID in the specified
+        /// region.
+        async fn create_asset(
+            &self,
+            request: tonic::Request<super::CreateAssetRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes the specified asset if it is not used.
+        async fn delete_asset(
+            &self,
+            request: tonic::Request<super::DeleteAssetRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Returns the specified asset.
+        async fn get_asset(
+            &self,
+            request: tonic::Request<super::GetAssetRequest>,
+        ) -> std::result::Result<tonic::Response<super::Asset>, tonic::Status>;
+        /// Returns a list of all assets in the specified region.
+        async fn list_assets(
+            &self,
+            request: tonic::Request<super::ListAssetsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAssetsResponse>,
+            tonic::Status,
+        >;
+        /// Returns the specified pool.
+        async fn get_pool(
+            &self,
+            request: tonic::Request<super::GetPoolRequest>,
+        ) -> std::result::Result<tonic::Response<super::Pool>, tonic::Status>;
+        /// Updates the specified pool.
+        async fn update_pool(
+            &self,
+            request: tonic::Request<super::UpdatePoolRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// Using Live Stream API, you can generate live streams in the various
+    /// renditions and streaming formats. The streaming format include HTTP Live
+    /// Streaming (HLS) and Dynamic Adaptive Streaming over HTTP (DASH). You can send
+    /// a source stream in the various ways, including Real-Time Messaging
+    /// Protocol (RTMP) and Secure Reliable Transport (SRT).
+    #[derive(Debug)]
+    pub struct LivestreamServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> LivestreamServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for LivestreamServiceServer<T>
+    where
+        T: LivestreamService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.video.livestream.v1.LivestreamService/CreateChannel" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateChannelSvc<T: LivestreamService>(pub Arc<T>);
+                    impl<
+                        T: LivestreamService,
+                    > tonic::server::UnaryService<super::CreateChannelRequest>
+                    for CreateChannelSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateChannelRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LivestreamService>::create_channel(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateChannelSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.video.livestream.v1.LivestreamService/ListChannels" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListChannelsSvc<T: LivestreamService>(pub Arc<T>);
+                    impl<
+                        T: LivestreamService,
+                    > tonic::server::UnaryService<super::ListChannelsRequest>
+                    for ListChannelsSvc<T> {
+                        type Response = super::ListChannelsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListChannelsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LivestreamService>::list_channels(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListChannelsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.video.livestream.v1.LivestreamService/GetChannel" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetChannelSvc<T: LivestreamService>(pub Arc<T>);
+                    impl<
+                        T: LivestreamService,
+                    > tonic::server::UnaryService<super::GetChannelRequest>
+                    for GetChannelSvc<T> {
+                        type Response = super::Channel;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetChannelRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LivestreamService>::get_channel(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetChannelSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.video.livestream.v1.LivestreamService/DeleteChannel" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteChannelSvc<T: LivestreamService>(pub Arc<T>);
+                    impl<
+                        T: LivestreamService,
+                    > tonic::server::UnaryService<super::DeleteChannelRequest>
+                    for DeleteChannelSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteChannelRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LivestreamService>::delete_channel(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteChannelSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.video.livestream.v1.LivestreamService/UpdateChannel" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateChannelSvc<T: LivestreamService>(pub Arc<T>);
+                    impl<
+                        T: LivestreamService,
+                    > tonic::server::UnaryService<super::UpdateChannelRequest>
+                    for UpdateChannelSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateChannelRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LivestreamService>::update_channel(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateChannelSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.video.livestream.v1.LivestreamService/StartChannel" => {
+                    #[allow(non_camel_case_types)]
+                    struct StartChannelSvc<T: LivestreamService>(pub Arc<T>);
+                    impl<
+                        T: LivestreamService,
+                    > tonic::server::UnaryService<super::StartChannelRequest>
+                    for StartChannelSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::StartChannelRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LivestreamService>::start_channel(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = StartChannelSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.video.livestream.v1.LivestreamService/StopChannel" => {
+                    #[allow(non_camel_case_types)]
+                    struct StopChannelSvc<T: LivestreamService>(pub Arc<T>);
+                    impl<
+                        T: LivestreamService,
+                    > tonic::server::UnaryService<super::StopChannelRequest>
+                    for StopChannelSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::StopChannelRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LivestreamService>::stop_channel(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = StopChannelSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.video.livestream.v1.LivestreamService/CreateInput" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateInputSvc<T: LivestreamService>(pub Arc<T>);
+                    impl<
+                        T: LivestreamService,
+                    > tonic::server::UnaryService<super::CreateInputRequest>
+                    for CreateInputSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateInputRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LivestreamService>::create_input(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateInputSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.video.livestream.v1.LivestreamService/ListInputs" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListInputsSvc<T: LivestreamService>(pub Arc<T>);
+                    impl<
+                        T: LivestreamService,
+                    > tonic::server::UnaryService<super::ListInputsRequest>
+                    for ListInputsSvc<T> {
+                        type Response = super::ListInputsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListInputsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LivestreamService>::list_inputs(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListInputsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.video.livestream.v1.LivestreamService/GetInput" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetInputSvc<T: LivestreamService>(pub Arc<T>);
+                    impl<
+                        T: LivestreamService,
+                    > tonic::server::UnaryService<super::GetInputRequest>
+                    for GetInputSvc<T> {
+                        type Response = super::Input;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetInputRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LivestreamService>::get_input(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetInputSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.video.livestream.v1.LivestreamService/DeleteInput" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteInputSvc<T: LivestreamService>(pub Arc<T>);
+                    impl<
+                        T: LivestreamService,
+                    > tonic::server::UnaryService<super::DeleteInputRequest>
+                    for DeleteInputSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteInputRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LivestreamService>::delete_input(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteInputSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.video.livestream.v1.LivestreamService/UpdateInput" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateInputSvc<T: LivestreamService>(pub Arc<T>);
+                    impl<
+                        T: LivestreamService,
+                    > tonic::server::UnaryService<super::UpdateInputRequest>
+                    for UpdateInputSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateInputRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LivestreamService>::update_input(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateInputSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.video.livestream.v1.LivestreamService/CreateEvent" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateEventSvc<T: LivestreamService>(pub Arc<T>);
+                    impl<
+                        T: LivestreamService,
+                    > tonic::server::UnaryService<super::CreateEventRequest>
+                    for CreateEventSvc<T> {
+                        type Response = super::Event;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateEventRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LivestreamService>::create_event(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateEventSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.video.livestream.v1.LivestreamService/ListEvents" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListEventsSvc<T: LivestreamService>(pub Arc<T>);
+                    impl<
+                        T: LivestreamService,
+                    > tonic::server::UnaryService<super::ListEventsRequest>
+                    for ListEventsSvc<T> {
+                        type Response = super::ListEventsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListEventsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LivestreamService>::list_events(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListEventsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.video.livestream.v1.LivestreamService/GetEvent" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetEventSvc<T: LivestreamService>(pub Arc<T>);
+                    impl<
+                        T: LivestreamService,
+                    > tonic::server::UnaryService<super::GetEventRequest>
+                    for GetEventSvc<T> {
+                        type Response = super::Event;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetEventRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LivestreamService>::get_event(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetEventSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.video.livestream.v1.LivestreamService/DeleteEvent" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteEventSvc<T: LivestreamService>(pub Arc<T>);
+                    impl<
+                        T: LivestreamService,
+                    > tonic::server::UnaryService<super::DeleteEventRequest>
+                    for DeleteEventSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteEventRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LivestreamService>::delete_event(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteEventSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.video.livestream.v1.LivestreamService/ListClips" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListClipsSvc<T: LivestreamService>(pub Arc<T>);
+                    impl<
+                        T: LivestreamService,
+                    > tonic::server::UnaryService<super::ListClipsRequest>
+                    for ListClipsSvc<T> {
+                        type Response = super::ListClipsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListClipsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LivestreamService>::list_clips(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListClipsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.video.livestream.v1.LivestreamService/GetClip" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetClipSvc<T: LivestreamService>(pub Arc<T>);
+                    impl<
+                        T: LivestreamService,
+                    > tonic::server::UnaryService<super::GetClipRequest>
+                    for GetClipSvc<T> {
+                        type Response = super::Clip;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetClipRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LivestreamService>::get_clip(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetClipSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.video.livestream.v1.LivestreamService/CreateClip" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateClipSvc<T: LivestreamService>(pub Arc<T>);
+                    impl<
+                        T: LivestreamService,
+                    > tonic::server::UnaryService<super::CreateClipRequest>
+                    for CreateClipSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateClipRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LivestreamService>::create_clip(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateClipSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.video.livestream.v1.LivestreamService/DeleteClip" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteClipSvc<T: LivestreamService>(pub Arc<T>);
+                    impl<
+                        T: LivestreamService,
+                    > tonic::server::UnaryService<super::DeleteClipRequest>
+                    for DeleteClipSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteClipRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LivestreamService>::delete_clip(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteClipSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.video.livestream.v1.LivestreamService/CreateAsset" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateAssetSvc<T: LivestreamService>(pub Arc<T>);
+                    impl<
+                        T: LivestreamService,
+                    > tonic::server::UnaryService<super::CreateAssetRequest>
+                    for CreateAssetSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateAssetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LivestreamService>::create_asset(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateAssetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.video.livestream.v1.LivestreamService/DeleteAsset" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteAssetSvc<T: LivestreamService>(pub Arc<T>);
+                    impl<
+                        T: LivestreamService,
+                    > tonic::server::UnaryService<super::DeleteAssetRequest>
+                    for DeleteAssetSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteAssetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LivestreamService>::delete_asset(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteAssetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.video.livestream.v1.LivestreamService/GetAsset" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAssetSvc<T: LivestreamService>(pub Arc<T>);
+                    impl<
+                        T: LivestreamService,
+                    > tonic::server::UnaryService<super::GetAssetRequest>
+                    for GetAssetSvc<T> {
+                        type Response = super::Asset;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAssetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LivestreamService>::get_asset(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAssetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.video.livestream.v1.LivestreamService/ListAssets" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAssetsSvc<T: LivestreamService>(pub Arc<T>);
+                    impl<
+                        T: LivestreamService,
+                    > tonic::server::UnaryService<super::ListAssetsRequest>
+                    for ListAssetsSvc<T> {
+                        type Response = super::ListAssetsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListAssetsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LivestreamService>::list_assets(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAssetsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.video.livestream.v1.LivestreamService/GetPool" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetPoolSvc<T: LivestreamService>(pub Arc<T>);
+                    impl<
+                        T: LivestreamService,
+                    > tonic::server::UnaryService<super::GetPoolRequest>
+                    for GetPoolSvc<T> {
+                        type Response = super::Pool;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetPoolRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LivestreamService>::get_pool(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetPoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.video.livestream.v1.LivestreamService/UpdatePool" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdatePoolSvc<T: LivestreamService>(pub Arc<T>);
+                    impl<
+                        T: LivestreamService,
+                    > tonic::server::UnaryService<super::UpdatePoolRequest>
+                    for UpdatePoolSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdatePoolRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LivestreamService>::update_pool(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdatePoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for LivestreamServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.video.livestream.v1.LivestreamService";
+    impl<T> tonic::server::NamedService for LivestreamServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

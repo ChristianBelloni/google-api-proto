@@ -183,12 +183,10 @@ pub mod binding_explanation {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                RolePermission::Unspecified => "ROLE_PERMISSION_UNSPECIFIED",
-                RolePermission::Included => "ROLE_PERMISSION_INCLUDED",
-                RolePermission::NotIncluded => "ROLE_PERMISSION_NOT_INCLUDED",
-                RolePermission::UnknownInfoDenied => {
-                    "ROLE_PERMISSION_UNKNOWN_INFO_DENIED"
-                }
+                Self::Unspecified => "ROLE_PERMISSION_UNSPECIFIED",
+                Self::Included => "ROLE_PERMISSION_INCLUDED",
+                Self::NotIncluded => "ROLE_PERMISSION_NOT_INCLUDED",
+                Self::UnknownInfoDenied => "ROLE_PERMISSION_UNKNOWN_INFO_DENIED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -241,11 +239,11 @@ pub mod binding_explanation {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Membership::Unspecified => "MEMBERSHIP_UNSPECIFIED",
-                Membership::Included => "MEMBERSHIP_INCLUDED",
-                Membership::NotIncluded => "MEMBERSHIP_NOT_INCLUDED",
-                Membership::UnknownInfoDenied => "MEMBERSHIP_UNKNOWN_INFO_DENIED",
-                Membership::UnknownUnsupported => "MEMBERSHIP_UNKNOWN_UNSUPPORTED",
+                Self::Unspecified => "MEMBERSHIP_UNSPECIFIED",
+                Self::Included => "MEMBERSHIP_INCLUDED",
+                Self::NotIncluded => "MEMBERSHIP_NOT_INCLUDED",
+                Self::UnknownInfoDenied => "MEMBERSHIP_UNKNOWN_INFO_DENIED",
+                Self::UnknownUnsupported => "MEMBERSHIP_UNKNOWN_UNSUPPORTED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -285,11 +283,11 @@ impl AccessState {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            AccessState::Unspecified => "ACCESS_STATE_UNSPECIFIED",
-            AccessState::Granted => "GRANTED",
-            AccessState::NotGranted => "NOT_GRANTED",
-            AccessState::UnknownConditional => "UNKNOWN_CONDITIONAL",
-            AccessState::UnknownInfoDenied => "UNKNOWN_INFO_DENIED",
+            Self::Unspecified => "ACCESS_STATE_UNSPECIFIED",
+            Self::Granted => "GRANTED",
+            Self::NotGranted => "NOT_GRANTED",
+            Self::UnknownConditional => "UNKNOWN_CONDITIONAL",
+            Self::UnknownInfoDenied => "UNKNOWN_INFO_DENIED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -326,9 +324,9 @@ impl HeuristicRelevance {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            HeuristicRelevance::Unspecified => "HEURISTIC_RELEVANCE_UNSPECIFIED",
-            HeuristicRelevance::Normal => "NORMAL",
-            HeuristicRelevance::High => "HIGH",
+            Self::Unspecified => "HEURISTIC_RELEVANCE_UNSPECIFIED",
+            Self::Normal => "NORMAL",
+            Self::High => "HIGH",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -484,5 +482,184 @@ pub mod iam_checker_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod iam_checker_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with IamCheckerServer.
+    #[async_trait]
+    pub trait IamChecker: std::marker::Send + std::marker::Sync + 'static {
+        /// Checks whether a principal has a specific permission for a specific
+        /// resource, and explains why the principal does or does not have that
+        /// permission.
+        async fn troubleshoot_iam_policy(
+            &self,
+            request: tonic::Request<super::TroubleshootIamPolicyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::TroubleshootIamPolicyResponse>,
+            tonic::Status,
+        >;
+    }
+    /// IAM Policy Troubleshooter service.
+    ///
+    /// This service helps you troubleshoot access issues for Google Cloud resources.
+    #[derive(Debug)]
+    pub struct IamCheckerServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> IamCheckerServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for IamCheckerServer<T>
+    where
+        T: IamChecker,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.policytroubleshooter.v1.IamChecker/TroubleshootIamPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct TroubleshootIamPolicySvc<T: IamChecker>(pub Arc<T>);
+                    impl<
+                        T: IamChecker,
+                    > tonic::server::UnaryService<super::TroubleshootIamPolicyRequest>
+                    for TroubleshootIamPolicySvc<T> {
+                        type Response = super::TroubleshootIamPolicyResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::TroubleshootIamPolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IamChecker>::troubleshoot_iam_policy(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = TroubleshootIamPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for IamCheckerServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.policytroubleshooter.v1.IamChecker";
+    impl<T> tonic::server::NamedService for IamCheckerServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

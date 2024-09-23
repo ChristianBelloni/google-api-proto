@@ -105,11 +105,11 @@ impl HealthStatus {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            HealthStatus::Unspecified => "HEALTH_STATUS_UNSPECIFIED",
-            HealthStatus::Healthy => "HEALTHY",
-            HealthStatus::Unhealthy => "UNHEALTHY",
-            HealthStatus::Unresponsive => "UNRESPONSIVE",
-            HealthStatus::Degraded => "DEGRADED",
+            Self::Unspecified => "HEALTH_STATUS_UNSPECIFIED",
+            Self::Healthy => "HEALTHY",
+            Self::Unhealthy => "UNHEALTHY",
+            Self::Unresponsive => "UNRESPONSIVE",
+            Self::Degraded => "DEGRADED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -403,12 +403,12 @@ pub mod app_connector {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Created => "CREATED",
-                State::Updating => "UPDATING",
-                State::Deleting => "DELETING",
-                State::Down => "DOWN",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Created => "CREATED",
+                Self::Updating => "UPDATING",
+                Self::Deleting => "DELETING",
+                Self::Down => "DOWN",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -725,5 +725,476 @@ pub mod app_connectors_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod app_connectors_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with AppConnectorsServiceServer.
+    #[async_trait]
+    pub trait AppConnectorsService: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists AppConnectors in a given project and location.
+        async fn list_app_connectors(
+            &self,
+            request: tonic::Request<super::ListAppConnectorsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAppConnectorsResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single AppConnector.
+        async fn get_app_connector(
+            &self,
+            request: tonic::Request<super::GetAppConnectorRequest>,
+        ) -> std::result::Result<tonic::Response<super::AppConnector>, tonic::Status>;
+        /// Creates a new AppConnector in a given project and location.
+        async fn create_app_connector(
+            &self,
+            request: tonic::Request<super::CreateAppConnectorRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the parameters of a single AppConnector.
+        async fn update_app_connector(
+            &self,
+            request: tonic::Request<super::UpdateAppConnectorRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single AppConnector.
+        async fn delete_app_connector(
+            &self,
+            request: tonic::Request<super::DeleteAppConnectorRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Report status for a given connector.
+        async fn report_status(
+            &self,
+            request: tonic::Request<super::ReportStatusRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// API Overview:
+    ///
+    /// The `beyondcorp.googleapis.com` service implements the Google Cloud
+    /// BeyondCorp API.
+    ///
+    /// Data Model:
+    ///
+    /// The AppConnectorsService exposes the following resource:
+    ///
+    /// * AppConnectors, named as follows:
+    ///   `projects/{project_id}/locations/{location_id}/appConnectors/{app_connector_id}`.
+    ///
+    /// The AppConnectorsService provides methods to manage
+    /// (create/read/update/delete) BeyondCorp AppConnectors.
+    #[derive(Debug)]
+    pub struct AppConnectorsServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> AppConnectorsServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for AppConnectorsServiceServer<T>
+    where
+        T: AppConnectorsService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.beyondcorp.appconnectors.v1.AppConnectorsService/ListAppConnectors" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAppConnectorsSvc<T: AppConnectorsService>(pub Arc<T>);
+                    impl<
+                        T: AppConnectorsService,
+                    > tonic::server::UnaryService<super::ListAppConnectorsRequest>
+                    for ListAppConnectorsSvc<T> {
+                        type Response = super::ListAppConnectorsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListAppConnectorsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppConnectorsService>::list_app_connectors(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAppConnectorsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.beyondcorp.appconnectors.v1.AppConnectorsService/GetAppConnector" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAppConnectorSvc<T: AppConnectorsService>(pub Arc<T>);
+                    impl<
+                        T: AppConnectorsService,
+                    > tonic::server::UnaryService<super::GetAppConnectorRequest>
+                    for GetAppConnectorSvc<T> {
+                        type Response = super::AppConnector;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAppConnectorRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppConnectorsService>::get_app_connector(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAppConnectorSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.beyondcorp.appconnectors.v1.AppConnectorsService/CreateAppConnector" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateAppConnectorSvc<T: AppConnectorsService>(pub Arc<T>);
+                    impl<
+                        T: AppConnectorsService,
+                    > tonic::server::UnaryService<super::CreateAppConnectorRequest>
+                    for CreateAppConnectorSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateAppConnectorRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppConnectorsService>::create_app_connector(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateAppConnectorSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.beyondcorp.appconnectors.v1.AppConnectorsService/UpdateAppConnector" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateAppConnectorSvc<T: AppConnectorsService>(pub Arc<T>);
+                    impl<
+                        T: AppConnectorsService,
+                    > tonic::server::UnaryService<super::UpdateAppConnectorRequest>
+                    for UpdateAppConnectorSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateAppConnectorRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppConnectorsService>::update_app_connector(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateAppConnectorSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.beyondcorp.appconnectors.v1.AppConnectorsService/DeleteAppConnector" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteAppConnectorSvc<T: AppConnectorsService>(pub Arc<T>);
+                    impl<
+                        T: AppConnectorsService,
+                    > tonic::server::UnaryService<super::DeleteAppConnectorRequest>
+                    for DeleteAppConnectorSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteAppConnectorRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppConnectorsService>::delete_app_connector(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteAppConnectorSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.beyondcorp.appconnectors.v1.AppConnectorsService/ReportStatus" => {
+                    #[allow(non_camel_case_types)]
+                    struct ReportStatusSvc<T: AppConnectorsService>(pub Arc<T>);
+                    impl<
+                        T: AppConnectorsService,
+                    > tonic::server::UnaryService<super::ReportStatusRequest>
+                    for ReportStatusSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ReportStatusRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppConnectorsService>::report_status(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ReportStatusSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for AppConnectorsServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.beyondcorp.appconnectors.v1.AppConnectorsService";
+    impl<T> tonic::server::NamedService for AppConnectorsServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

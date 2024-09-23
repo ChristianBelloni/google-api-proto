@@ -147,11 +147,9 @@ pub mod data_policy {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                DataPolicyType::Unspecified => "DATA_POLICY_TYPE_UNSPECIFIED",
-                DataPolicyType::ColumnLevelSecurityPolicy => {
-                    "COLUMN_LEVEL_SECURITY_POLICY"
-                }
-                DataPolicyType::DataMaskingPolicy => "DATA_MASKING_POLICY",
+                Self::Unspecified => "DATA_POLICY_TYPE_UNSPECIFIED",
+                Self::ColumnLevelSecurityPolicy => "COLUMN_LEVEL_SECURITY_POLICY",
+                Self::DataMaskingPolicy => "DATA_MASKING_POLICY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -278,14 +276,14 @@ pub mod data_masking_policy {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                PredefinedExpression::Unspecified => "PREDEFINED_EXPRESSION_UNSPECIFIED",
-                PredefinedExpression::Sha256 => "SHA256",
-                PredefinedExpression::AlwaysNull => "ALWAYS_NULL",
-                PredefinedExpression::DefaultMaskingValue => "DEFAULT_MASKING_VALUE",
-                PredefinedExpression::LastFourCharacters => "LAST_FOUR_CHARACTERS",
-                PredefinedExpression::FirstFourCharacters => "FIRST_FOUR_CHARACTERS",
-                PredefinedExpression::EmailMask => "EMAIL_MASK",
-                PredefinedExpression::DateYearMask => "DATE_YEAR_MASK",
+                Self::Unspecified => "PREDEFINED_EXPRESSION_UNSPECIFIED",
+                Self::Sha256 => "SHA256",
+                Self::AlwaysNull => "ALWAYS_NULL",
+                Self::DefaultMaskingValue => "DEFAULT_MASKING_VALUE",
+                Self::LastFourCharacters => "LAST_FOUR_CHARACTERS",
+                Self::FirstFourCharacters => "FIRST_FOUR_CHARACTERS",
+                Self::EmailMask => "EMAIL_MASK",
+                Self::DateYearMask => "DATE_YEAR_MASK",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -665,5 +663,634 @@ pub mod data_policy_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod data_policy_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with DataPolicyServiceServer.
+    #[async_trait]
+    pub trait DataPolicyService: std::marker::Send + std::marker::Sync + 'static {
+        /// Creates a new data policy under a project with the given `dataPolicyId`
+        /// (used as the display name), policy tag, and data policy type.
+        async fn create_data_policy(
+            &self,
+            request: tonic::Request<super::CreateDataPolicyRequest>,
+        ) -> std::result::Result<tonic::Response<super::DataPolicy>, tonic::Status>;
+        /// Updates the metadata for an existing data policy. The target data policy
+        /// can be specified by the resource name.
+        async fn update_data_policy(
+            &self,
+            request: tonic::Request<super::UpdateDataPolicyRequest>,
+        ) -> std::result::Result<tonic::Response<super::DataPolicy>, tonic::Status>;
+        /// Renames the id (display name) of the specified data policy.
+        async fn rename_data_policy(
+            &self,
+            request: tonic::Request<super::RenameDataPolicyRequest>,
+        ) -> std::result::Result<tonic::Response<super::DataPolicy>, tonic::Status>;
+        /// Deletes the data policy specified by its resource name.
+        async fn delete_data_policy(
+            &self,
+            request: tonic::Request<super::DeleteDataPolicyRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Gets the data policy specified by its resource name.
+        async fn get_data_policy(
+            &self,
+            request: tonic::Request<super::GetDataPolicyRequest>,
+        ) -> std::result::Result<tonic::Response<super::DataPolicy>, tonic::Status>;
+        /// List all of the data policies in the specified parent project.
+        async fn list_data_policies(
+            &self,
+            request: tonic::Request<super::ListDataPoliciesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDataPoliciesResponse>,
+            tonic::Status,
+        >;
+        /// Gets the IAM policy for the specified data policy.
+        async fn get_iam_policy(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::super::iam::v1::GetIamPolicyRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::iam::v1::Policy>,
+            tonic::Status,
+        >;
+        /// Sets the IAM policy for the specified data policy.
+        async fn set_iam_policy(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::super::iam::v1::SetIamPolicyRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::iam::v1::Policy>,
+            tonic::Status,
+        >;
+        /// Returns the caller's permission on the specified data policy resource.
+        async fn test_iam_permissions(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::super::iam::v1::TestIamPermissionsRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<
+                super::super::super::super::super::iam::v1::TestIamPermissionsResponse,
+            >,
+            tonic::Status,
+        >;
+    }
+    /// Data Policy Service provides APIs for managing the label-policy bindings.
+    #[derive(Debug)]
+    pub struct DataPolicyServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> DataPolicyServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for DataPolicyServiceServer<T>
+    where
+        T: DataPolicyService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.bigquery.datapolicies.v1.DataPolicyService/CreateDataPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateDataPolicySvc<T: DataPolicyService>(pub Arc<T>);
+                    impl<
+                        T: DataPolicyService,
+                    > tonic::server::UnaryService<super::CreateDataPolicyRequest>
+                    for CreateDataPolicySvc<T> {
+                        type Response = super::DataPolicy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateDataPolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataPolicyService>::create_data_policy(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateDataPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.datapolicies.v1.DataPolicyService/UpdateDataPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateDataPolicySvc<T: DataPolicyService>(pub Arc<T>);
+                    impl<
+                        T: DataPolicyService,
+                    > tonic::server::UnaryService<super::UpdateDataPolicyRequest>
+                    for UpdateDataPolicySvc<T> {
+                        type Response = super::DataPolicy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateDataPolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataPolicyService>::update_data_policy(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateDataPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.datapolicies.v1.DataPolicyService/RenameDataPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct RenameDataPolicySvc<T: DataPolicyService>(pub Arc<T>);
+                    impl<
+                        T: DataPolicyService,
+                    > tonic::server::UnaryService<super::RenameDataPolicyRequest>
+                    for RenameDataPolicySvc<T> {
+                        type Response = super::DataPolicy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RenameDataPolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataPolicyService>::rename_data_policy(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RenameDataPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.datapolicies.v1.DataPolicyService/DeleteDataPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteDataPolicySvc<T: DataPolicyService>(pub Arc<T>);
+                    impl<
+                        T: DataPolicyService,
+                    > tonic::server::UnaryService<super::DeleteDataPolicyRequest>
+                    for DeleteDataPolicySvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteDataPolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataPolicyService>::delete_data_policy(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteDataPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.datapolicies.v1.DataPolicyService/GetDataPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetDataPolicySvc<T: DataPolicyService>(pub Arc<T>);
+                    impl<
+                        T: DataPolicyService,
+                    > tonic::server::UnaryService<super::GetDataPolicyRequest>
+                    for GetDataPolicySvc<T> {
+                        type Response = super::DataPolicy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetDataPolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataPolicyService>::get_data_policy(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetDataPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.datapolicies.v1.DataPolicyService/ListDataPolicies" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDataPoliciesSvc<T: DataPolicyService>(pub Arc<T>);
+                    impl<
+                        T: DataPolicyService,
+                    > tonic::server::UnaryService<super::ListDataPoliciesRequest>
+                    for ListDataPoliciesSvc<T> {
+                        type Response = super::ListDataPoliciesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListDataPoliciesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataPolicyService>::list_data_policies(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDataPoliciesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.datapolicies.v1.DataPolicyService/GetIamPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetIamPolicySvc<T: DataPolicyService>(pub Arc<T>);
+                    impl<
+                        T: DataPolicyService,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::super::iam::v1::GetIamPolicyRequest,
+                    > for GetIamPolicySvc<T> {
+                        type Response = super::super::super::super::super::iam::v1::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::super::iam::v1::GetIamPolicyRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataPolicyService>::get_iam_policy(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetIamPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.datapolicies.v1.DataPolicyService/SetIamPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetIamPolicySvc<T: DataPolicyService>(pub Arc<T>);
+                    impl<
+                        T: DataPolicyService,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::super::iam::v1::SetIamPolicyRequest,
+                    > for SetIamPolicySvc<T> {
+                        type Response = super::super::super::super::super::iam::v1::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::super::iam::v1::SetIamPolicyRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataPolicyService>::set_iam_policy(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SetIamPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.datapolicies.v1.DataPolicyService/TestIamPermissions" => {
+                    #[allow(non_camel_case_types)]
+                    struct TestIamPermissionsSvc<T: DataPolicyService>(pub Arc<T>);
+                    impl<
+                        T: DataPolicyService,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::super::iam::v1::TestIamPermissionsRequest,
+                    > for TestIamPermissionsSvc<T> {
+                        type Response = super::super::super::super::super::iam::v1::TestIamPermissionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::super::iam::v1::TestIamPermissionsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataPolicyService>::test_iam_permissions(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = TestIamPermissionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for DataPolicyServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.bigquery.datapolicies.v1.DataPolicyService";
+    impl<T> tonic::server::NamedService for DataPolicyServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

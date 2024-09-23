@@ -203,16 +203,16 @@ pub mod network_report_spec {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Dimension::Unspecified => "DIMENSION_UNSPECIFIED",
-                Dimension::Date => "DATE",
-                Dimension::Month => "MONTH",
-                Dimension::Week => "WEEK",
-                Dimension::AdUnit => "AD_UNIT",
-                Dimension::App => "APP",
-                Dimension::AdType => "AD_TYPE",
-                Dimension::Country => "COUNTRY",
-                Dimension::Format => "FORMAT",
-                Dimension::Platform => "PLATFORM",
+                Self::Unspecified => "DIMENSION_UNSPECIFIED",
+                Self::Date => "DATE",
+                Self::Month => "MONTH",
+                Self::Week => "WEEK",
+                Self::AdUnit => "AD_UNIT",
+                Self::App => "APP",
+                Self::AdType => "AD_TYPE",
+                Self::Country => "COUNTRY",
+                Self::Format => "FORMAT",
+                Self::Platform => "PLATFORM",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -295,16 +295,16 @@ pub mod network_report_spec {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Metric::Unspecified => "METRIC_UNSPECIFIED",
-                Metric::AdRequests => "AD_REQUESTS",
-                Metric::Clicks => "CLICKS",
-                Metric::EstimatedEarnings => "ESTIMATED_EARNINGS",
-                Metric::Impressions => "IMPRESSIONS",
-                Metric::ImpressionCtr => "IMPRESSION_CTR",
-                Metric::ImpressionRpm => "IMPRESSION_RPM",
-                Metric::MatchedRequests => "MATCHED_REQUESTS",
-                Metric::MatchRate => "MATCH_RATE",
-                Metric::ShowRate => "SHOW_RATE",
+                Self::Unspecified => "METRIC_UNSPECIFIED",
+                Self::AdRequests => "AD_REQUESTS",
+                Self::Clicks => "CLICKS",
+                Self::EstimatedEarnings => "ESTIMATED_EARNINGS",
+                Self::Impressions => "IMPRESSIONS",
+                Self::ImpressionCtr => "IMPRESSION_CTR",
+                Self::ImpressionRpm => "IMPRESSION_RPM",
+                Self::MatchedRequests => "MATCHED_REQUESTS",
+                Self::MatchRate => "MATCH_RATE",
+                Self::ShowRate => "SHOW_RATE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -506,18 +506,18 @@ pub mod mediation_report_spec {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Dimension::Unspecified => "DIMENSION_UNSPECIFIED",
-                Dimension::Date => "DATE",
-                Dimension::Month => "MONTH",
-                Dimension::Week => "WEEK",
-                Dimension::AdSource => "AD_SOURCE",
-                Dimension::AdSourceInstance => "AD_SOURCE_INSTANCE",
-                Dimension::AdUnit => "AD_UNIT",
-                Dimension::App => "APP",
-                Dimension::MediationGroup => "MEDIATION_GROUP",
-                Dimension::Country => "COUNTRY",
-                Dimension::Format => "FORMAT",
-                Dimension::Platform => "PLATFORM",
+                Self::Unspecified => "DIMENSION_UNSPECIFIED",
+                Self::Date => "DATE",
+                Self::Month => "MONTH",
+                Self::Week => "WEEK",
+                Self::AdSource => "AD_SOURCE",
+                Self::AdSourceInstance => "AD_SOURCE_INSTANCE",
+                Self::AdUnit => "AD_UNIT",
+                Self::App => "APP",
+                Self::MediationGroup => "MEDIATION_GROUP",
+                Self::Country => "COUNTRY",
+                Self::Format => "FORMAT",
+                Self::Platform => "PLATFORM",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -599,15 +599,15 @@ pub mod mediation_report_spec {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Metric::Unspecified => "METRIC_UNSPECIFIED",
-                Metric::AdRequests => "AD_REQUESTS",
-                Metric::Clicks => "CLICKS",
-                Metric::EstimatedEarnings => "ESTIMATED_EARNINGS",
-                Metric::Impressions => "IMPRESSIONS",
-                Metric::ImpressionCtr => "IMPRESSION_CTR",
-                Metric::MatchedRequests => "MATCHED_REQUESTS",
-                Metric::MatchRate => "MATCH_RATE",
-                Metric::ObservedEcpm => "OBSERVED_ECPM",
+                Self::Unspecified => "METRIC_UNSPECIFIED",
+                Self::AdRequests => "AD_REQUESTS",
+                Self::Clicks => "CLICKS",
+                Self::EstimatedEarnings => "ESTIMATED_EARNINGS",
+                Self::Impressions => "IMPRESSIONS",
+                Self::ImpressionCtr => "IMPRESSION_CTR",
+                Self::MatchedRequests => "MATCHED_REQUESTS",
+                Self::MatchRate => "MATCH_RATE",
+                Self::ObservedEcpm => "OBSERVED_ECPM",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -742,13 +742,13 @@ pub mod report_warning {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::DataBeforeAccountTimezoneChange => {
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::DataBeforeAccountTimezoneChange => {
                     "DATA_BEFORE_ACCOUNT_TIMEZONE_CHANGE"
                 }
-                Type::DataDelayed => "DATA_DELAYED",
-                Type::Other => "OTHER",
-                Type::ReportCurrencyNotAccountCurrency => {
+                Self::DataDelayed => "DATA_DELAYED",
+                Self::Other => "OTHER",
+                Self::ReportCurrencyNotAccountCurrency => {
                     "REPORT_CURRENCY_NOT_ACCOUNT_CURRENCY"
                 }
             }
@@ -853,9 +853,9 @@ impl SortOrder {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            SortOrder::Unspecified => "SORT_ORDER_UNSPECIFIED",
-            SortOrder::Ascending => "ASCENDING",
-            SortOrder::Descending => "DESCENDING",
+            Self::Unspecified => "SORT_ORDER_UNSPECIFIED",
+            Self::Ascending => "ASCENDING",
+            Self::Descending => "DESCENDING",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1247,5 +1247,370 @@ pub mod ad_mob_api_client {
                 );
             self.inner.server_streaming(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod ad_mob_api_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with AdMobApiServer.
+    #[async_trait]
+    pub trait AdMobApi: std::marker::Send + std::marker::Sync + 'static {
+        /// Gets information about the specified AdMob publisher account.
+        async fn get_publisher_account(
+            &self,
+            request: tonic::Request<super::GetPublisherAccountRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::PublisherAccount>,
+            tonic::Status,
+        >;
+        /// Lists the AdMob publisher account accessible with the client credential.
+        /// Currently, all credentials have access to at most one AdMob account.
+        async fn list_publisher_accounts(
+            &self,
+            request: tonic::Request<super::ListPublisherAccountsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListPublisherAccountsResponse>,
+            tonic::Status,
+        >;
+        /// Server streaming response type for the GenerateNetworkReport method.
+        type GenerateNetworkReportStream: tonic::codegen::tokio_stream::Stream<
+                Item = std::result::Result<
+                    super::GenerateNetworkReportResponse,
+                    tonic::Status,
+                >,
+            >
+            + std::marker::Send
+            + 'static;
+        /// Generates an AdMob Network report based on the provided report
+        /// specification.
+        async fn generate_network_report(
+            &self,
+            request: tonic::Request<super::GenerateNetworkReportRequest>,
+        ) -> std::result::Result<
+            tonic::Response<Self::GenerateNetworkReportStream>,
+            tonic::Status,
+        >;
+        /// Server streaming response type for the GenerateMediationReport method.
+        type GenerateMediationReportStream: tonic::codegen::tokio_stream::Stream<
+                Item = std::result::Result<
+                    super::GenerateMediationReportResponse,
+                    tonic::Status,
+                >,
+            >
+            + std::marker::Send
+            + 'static;
+        /// Generates an AdMob Mediation report based on the provided report
+        /// specification.
+        async fn generate_mediation_report(
+            &self,
+            request: tonic::Request<super::GenerateMediationReportRequest>,
+        ) -> std::result::Result<
+            tonic::Response<Self::GenerateMediationReportStream>,
+            tonic::Status,
+        >;
+    }
+    /// The AdMob API allows AdMob publishers programmatically get information about
+    /// their AdMob account.
+    #[derive(Debug)]
+    pub struct AdMobApiServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> AdMobApiServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for AdMobApiServer<T>
+    where
+        T: AdMobApi,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.ads.admob.v1.AdMobApi/GetPublisherAccount" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetPublisherAccountSvc<T: AdMobApi>(pub Arc<T>);
+                    impl<
+                        T: AdMobApi,
+                    > tonic::server::UnaryService<super::GetPublisherAccountRequest>
+                    for GetPublisherAccountSvc<T> {
+                        type Response = super::PublisherAccount;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetPublisherAccountRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AdMobApi>::get_publisher_account(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetPublisherAccountSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.ads.admob.v1.AdMobApi/ListPublisherAccounts" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListPublisherAccountsSvc<T: AdMobApi>(pub Arc<T>);
+                    impl<
+                        T: AdMobApi,
+                    > tonic::server::UnaryService<super::ListPublisherAccountsRequest>
+                    for ListPublisherAccountsSvc<T> {
+                        type Response = super::ListPublisherAccountsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListPublisherAccountsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AdMobApi>::list_publisher_accounts(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListPublisherAccountsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.ads.admob.v1.AdMobApi/GenerateNetworkReport" => {
+                    #[allow(non_camel_case_types)]
+                    struct GenerateNetworkReportSvc<T: AdMobApi>(pub Arc<T>);
+                    impl<
+                        T: AdMobApi,
+                    > tonic::server::ServerStreamingService<
+                        super::GenerateNetworkReportRequest,
+                    > for GenerateNetworkReportSvc<T> {
+                        type Response = super::GenerateNetworkReportResponse;
+                        type ResponseStream = T::GenerateNetworkReportStream;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::ResponseStream>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GenerateNetworkReportRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AdMobApi>::generate_network_report(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GenerateNetworkReportSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.server_streaming(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.ads.admob.v1.AdMobApi/GenerateMediationReport" => {
+                    #[allow(non_camel_case_types)]
+                    struct GenerateMediationReportSvc<T: AdMobApi>(pub Arc<T>);
+                    impl<
+                        T: AdMobApi,
+                    > tonic::server::ServerStreamingService<
+                        super::GenerateMediationReportRequest,
+                    > for GenerateMediationReportSvc<T> {
+                        type Response = super::GenerateMediationReportResponse;
+                        type ResponseStream = T::GenerateMediationReportStream;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::ResponseStream>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GenerateMediationReportRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AdMobApi>::generate_mediation_report(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GenerateMediationReportSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.server_streaming(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for AdMobApiServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.ads.admob.v1.AdMobApi";
+    impl<T> tonic::server::NamedService for AdMobApiServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

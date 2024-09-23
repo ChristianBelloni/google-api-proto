@@ -132,9 +132,9 @@ pub mod subnet {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                BondingType::Unspecified => "BONDING_TYPE_UNSPECIFIED",
-                BondingType::Bonded => "BONDED",
-                BondingType::NonBonded => "NON_BONDED",
+                Self::Unspecified => "BONDING_TYPE_UNSPECIFIED",
+                Self::Bonded => "BONDED",
+                Self::NonBonded => "NON_BONDED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -213,8 +213,8 @@ pub mod interconnect {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                InterconnectType::Unspecified => "INTERCONNECT_TYPE_UNSPECIFIED",
-                InterconnectType::Dedicated => "DEDICATED",
+                Self::Unspecified => "INTERCONNECT_TYPE_UNSPECIFIED",
+                Self::Dedicated => "DEDICATED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -529,9 +529,9 @@ pub mod interconnect_diagnostics {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    State::Unknown => "UNKNOWN",
-                    State::Active => "ACTIVE",
-                    State::Detached => "DETACHED",
+                    Self::Unknown => "UNKNOWN",
+                    Self::Active => "ACTIVE",
+                    Self::Detached => "DETACHED",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -644,9 +644,9 @@ pub mod router_status {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    BgpStatus::Unknown => "UNKNOWN",
-                    BgpStatus::Up => "UP",
-                    BgpStatus::Down => "DOWN",
+                    Self::Unknown => "UNKNOWN",
+                    Self::Up => "UP",
+                    Self::Down => "DOWN",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -711,12 +711,12 @@ impl ResourceState {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ResourceState::StateUnknown => "STATE_UNKNOWN",
-            ResourceState::StatePending => "STATE_PENDING",
-            ResourceState::StateProvisioning => "STATE_PROVISIONING",
-            ResourceState::StateRunning => "STATE_RUNNING",
-            ResourceState::StateSuspended => "STATE_SUSPENDED",
-            ResourceState::StateDeleting => "STATE_DELETING",
+            Self::StateUnknown => "STATE_UNKNOWN",
+            Self::StatePending => "STATE_PENDING",
+            Self::StateProvisioning => "STATE_PROVISIONING",
+            Self::StateRunning => "STATE_RUNNING",
+            Self::StateSuspended => "STATE_SUSPENDED",
+            Self::StateDeleting => "STATE_DELETING",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1330,9 +1330,9 @@ pub mod diagnose_network_response {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    MacsecStatus::Unspecified => "MACSEC_STATUS_UNSPECIFIED",
-                    MacsecStatus::Secure => "SECURE",
-                    MacsecStatus::Unsecure => "UNSECURE",
+                    Self::Unspecified => "MACSEC_STATUS_UNSPECIFIED",
+                    Self::Secure => "SECURE",
+                    Self::Unsecure => "UNSECURE",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2261,5 +2261,1524 @@ pub mod edge_network_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod edge_network_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with EdgeNetworkServer.
+    #[async_trait]
+    pub trait EdgeNetwork: std::marker::Send + std::marker::Sync + 'static {
+        /// InitializeZone will initialize resources for a zone in a project.
+        async fn initialize_zone(
+            &self,
+            request: tonic::Request<super::InitializeZoneRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::InitializeZoneResponse>,
+            tonic::Status,
+        >;
+        /// Deprecated: not implemented.
+        /// Lists Zones in a given project and location.
+        async fn list_zones(
+            &self,
+            request: tonic::Request<super::ListZonesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListZonesResponse>,
+            tonic::Status,
+        >;
+        /// Deprecated: not implemented.
+        /// Gets details of a single Zone.
+        async fn get_zone(
+            &self,
+            request: tonic::Request<super::GetZoneRequest>,
+        ) -> std::result::Result<tonic::Response<super::Zone>, tonic::Status>;
+        /// Lists Networks in a given project and location.
+        async fn list_networks(
+            &self,
+            request: tonic::Request<super::ListNetworksRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListNetworksResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single Network.
+        async fn get_network(
+            &self,
+            request: tonic::Request<super::GetNetworkRequest>,
+        ) -> std::result::Result<tonic::Response<super::Network>, tonic::Status>;
+        /// Get the diagnostics of a single network resource.
+        async fn diagnose_network(
+            &self,
+            request: tonic::Request<super::DiagnoseNetworkRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::DiagnoseNetworkResponse>,
+            tonic::Status,
+        >;
+        /// Creates a new Network in a given project and location.
+        async fn create_network(
+            &self,
+            request: tonic::Request<super::CreateNetworkRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single Network.
+        async fn delete_network(
+            &self,
+            request: tonic::Request<super::DeleteNetworkRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists Subnets in a given project and location.
+        async fn list_subnets(
+            &self,
+            request: tonic::Request<super::ListSubnetsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListSubnetsResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single Subnet.
+        async fn get_subnet(
+            &self,
+            request: tonic::Request<super::GetSubnetRequest>,
+        ) -> std::result::Result<tonic::Response<super::Subnet>, tonic::Status>;
+        /// Creates a new Subnet in a given project and location.
+        async fn create_subnet(
+            &self,
+            request: tonic::Request<super::CreateSubnetRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the parameters of a single Subnet.
+        async fn update_subnet(
+            &self,
+            request: tonic::Request<super::UpdateSubnetRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single Subnet.
+        async fn delete_subnet(
+            &self,
+            request: tonic::Request<super::DeleteSubnetRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists Interconnects in a given project and location.
+        async fn list_interconnects(
+            &self,
+            request: tonic::Request<super::ListInterconnectsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListInterconnectsResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single Interconnect.
+        async fn get_interconnect(
+            &self,
+            request: tonic::Request<super::GetInterconnectRequest>,
+        ) -> std::result::Result<tonic::Response<super::Interconnect>, tonic::Status>;
+        /// Get the diagnostics of a single interconnect resource.
+        async fn diagnose_interconnect(
+            &self,
+            request: tonic::Request<super::DiagnoseInterconnectRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::DiagnoseInterconnectResponse>,
+            tonic::Status,
+        >;
+        /// Lists InterconnectAttachments in a given project and location.
+        async fn list_interconnect_attachments(
+            &self,
+            request: tonic::Request<super::ListInterconnectAttachmentsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListInterconnectAttachmentsResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single InterconnectAttachment.
+        async fn get_interconnect_attachment(
+            &self,
+            request: tonic::Request<super::GetInterconnectAttachmentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::InterconnectAttachment>,
+            tonic::Status,
+        >;
+        /// Creates a new InterconnectAttachment in a given project and location.
+        async fn create_interconnect_attachment(
+            &self,
+            request: tonic::Request<super::CreateInterconnectAttachmentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single InterconnectAttachment.
+        async fn delete_interconnect_attachment(
+            &self,
+            request: tonic::Request<super::DeleteInterconnectAttachmentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists Routers in a given project and location.
+        async fn list_routers(
+            &self,
+            request: tonic::Request<super::ListRoutersRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListRoutersResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single Router.
+        async fn get_router(
+            &self,
+            request: tonic::Request<super::GetRouterRequest>,
+        ) -> std::result::Result<tonic::Response<super::Router>, tonic::Status>;
+        /// Get the diagnostics of a single router resource.
+        async fn diagnose_router(
+            &self,
+            request: tonic::Request<super::DiagnoseRouterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::DiagnoseRouterResponse>,
+            tonic::Status,
+        >;
+        /// Creates a new Router in a given project and location.
+        async fn create_router(
+            &self,
+            request: tonic::Request<super::CreateRouterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the parameters of a single Router.
+        async fn update_router(
+            &self,
+            request: tonic::Request<super::UpdateRouterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single Router.
+        async fn delete_router(
+            &self,
+            request: tonic::Request<super::DeleteRouterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// EdgeNetwork API provides managed, highly available cloud dynamic network
+    /// configuration service to the GEC customer to enable edge application and
+    /// network function solutions. This allows the customers to easily define and
+    /// configure the network setup and property to meet the workload requirement.
+    #[derive(Debug)]
+    pub struct EdgeNetworkServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> EdgeNetworkServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for EdgeNetworkServer<T>
+    where
+        T: EdgeNetwork,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.edgenetwork.v1.EdgeNetwork/InitializeZone" => {
+                    #[allow(non_camel_case_types)]
+                    struct InitializeZoneSvc<T: EdgeNetwork>(pub Arc<T>);
+                    impl<
+                        T: EdgeNetwork,
+                    > tonic::server::UnaryService<super::InitializeZoneRequest>
+                    for InitializeZoneSvc<T> {
+                        type Response = super::InitializeZoneResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::InitializeZoneRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeNetwork>::initialize_zone(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = InitializeZoneSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgenetwork.v1.EdgeNetwork/ListZones" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListZonesSvc<T: EdgeNetwork>(pub Arc<T>);
+                    impl<
+                        T: EdgeNetwork,
+                    > tonic::server::UnaryService<super::ListZonesRequest>
+                    for ListZonesSvc<T> {
+                        type Response = super::ListZonesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListZonesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeNetwork>::list_zones(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListZonesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgenetwork.v1.EdgeNetwork/GetZone" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetZoneSvc<T: EdgeNetwork>(pub Arc<T>);
+                    impl<
+                        T: EdgeNetwork,
+                    > tonic::server::UnaryService<super::GetZoneRequest>
+                    for GetZoneSvc<T> {
+                        type Response = super::Zone;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetZoneRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeNetwork>::get_zone(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetZoneSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgenetwork.v1.EdgeNetwork/ListNetworks" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListNetworksSvc<T: EdgeNetwork>(pub Arc<T>);
+                    impl<
+                        T: EdgeNetwork,
+                    > tonic::server::UnaryService<super::ListNetworksRequest>
+                    for ListNetworksSvc<T> {
+                        type Response = super::ListNetworksResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListNetworksRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeNetwork>::list_networks(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListNetworksSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgenetwork.v1.EdgeNetwork/GetNetwork" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetNetworkSvc<T: EdgeNetwork>(pub Arc<T>);
+                    impl<
+                        T: EdgeNetwork,
+                    > tonic::server::UnaryService<super::GetNetworkRequest>
+                    for GetNetworkSvc<T> {
+                        type Response = super::Network;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetNetworkRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeNetwork>::get_network(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetNetworkSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgenetwork.v1.EdgeNetwork/DiagnoseNetwork" => {
+                    #[allow(non_camel_case_types)]
+                    struct DiagnoseNetworkSvc<T: EdgeNetwork>(pub Arc<T>);
+                    impl<
+                        T: EdgeNetwork,
+                    > tonic::server::UnaryService<super::DiagnoseNetworkRequest>
+                    for DiagnoseNetworkSvc<T> {
+                        type Response = super::DiagnoseNetworkResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DiagnoseNetworkRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeNetwork>::diagnose_network(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DiagnoseNetworkSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgenetwork.v1.EdgeNetwork/CreateNetwork" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateNetworkSvc<T: EdgeNetwork>(pub Arc<T>);
+                    impl<
+                        T: EdgeNetwork,
+                    > tonic::server::UnaryService<super::CreateNetworkRequest>
+                    for CreateNetworkSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateNetworkRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeNetwork>::create_network(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateNetworkSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgenetwork.v1.EdgeNetwork/DeleteNetwork" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteNetworkSvc<T: EdgeNetwork>(pub Arc<T>);
+                    impl<
+                        T: EdgeNetwork,
+                    > tonic::server::UnaryService<super::DeleteNetworkRequest>
+                    for DeleteNetworkSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteNetworkRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeNetwork>::delete_network(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteNetworkSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgenetwork.v1.EdgeNetwork/ListSubnets" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListSubnetsSvc<T: EdgeNetwork>(pub Arc<T>);
+                    impl<
+                        T: EdgeNetwork,
+                    > tonic::server::UnaryService<super::ListSubnetsRequest>
+                    for ListSubnetsSvc<T> {
+                        type Response = super::ListSubnetsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListSubnetsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeNetwork>::list_subnets(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListSubnetsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgenetwork.v1.EdgeNetwork/GetSubnet" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetSubnetSvc<T: EdgeNetwork>(pub Arc<T>);
+                    impl<
+                        T: EdgeNetwork,
+                    > tonic::server::UnaryService<super::GetSubnetRequest>
+                    for GetSubnetSvc<T> {
+                        type Response = super::Subnet;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetSubnetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeNetwork>::get_subnet(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetSubnetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgenetwork.v1.EdgeNetwork/CreateSubnet" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateSubnetSvc<T: EdgeNetwork>(pub Arc<T>);
+                    impl<
+                        T: EdgeNetwork,
+                    > tonic::server::UnaryService<super::CreateSubnetRequest>
+                    for CreateSubnetSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateSubnetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeNetwork>::create_subnet(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateSubnetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgenetwork.v1.EdgeNetwork/UpdateSubnet" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateSubnetSvc<T: EdgeNetwork>(pub Arc<T>);
+                    impl<
+                        T: EdgeNetwork,
+                    > tonic::server::UnaryService<super::UpdateSubnetRequest>
+                    for UpdateSubnetSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateSubnetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeNetwork>::update_subnet(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateSubnetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgenetwork.v1.EdgeNetwork/DeleteSubnet" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteSubnetSvc<T: EdgeNetwork>(pub Arc<T>);
+                    impl<
+                        T: EdgeNetwork,
+                    > tonic::server::UnaryService<super::DeleteSubnetRequest>
+                    for DeleteSubnetSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteSubnetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeNetwork>::delete_subnet(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteSubnetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgenetwork.v1.EdgeNetwork/ListInterconnects" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListInterconnectsSvc<T: EdgeNetwork>(pub Arc<T>);
+                    impl<
+                        T: EdgeNetwork,
+                    > tonic::server::UnaryService<super::ListInterconnectsRequest>
+                    for ListInterconnectsSvc<T> {
+                        type Response = super::ListInterconnectsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListInterconnectsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeNetwork>::list_interconnects(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListInterconnectsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgenetwork.v1.EdgeNetwork/GetInterconnect" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetInterconnectSvc<T: EdgeNetwork>(pub Arc<T>);
+                    impl<
+                        T: EdgeNetwork,
+                    > tonic::server::UnaryService<super::GetInterconnectRequest>
+                    for GetInterconnectSvc<T> {
+                        type Response = super::Interconnect;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetInterconnectRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeNetwork>::get_interconnect(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetInterconnectSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgenetwork.v1.EdgeNetwork/DiagnoseInterconnect" => {
+                    #[allow(non_camel_case_types)]
+                    struct DiagnoseInterconnectSvc<T: EdgeNetwork>(pub Arc<T>);
+                    impl<
+                        T: EdgeNetwork,
+                    > tonic::server::UnaryService<super::DiagnoseInterconnectRequest>
+                    for DiagnoseInterconnectSvc<T> {
+                        type Response = super::DiagnoseInterconnectResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DiagnoseInterconnectRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeNetwork>::diagnose_interconnect(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DiagnoseInterconnectSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgenetwork.v1.EdgeNetwork/ListInterconnectAttachments" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListInterconnectAttachmentsSvc<T: EdgeNetwork>(pub Arc<T>);
+                    impl<
+                        T: EdgeNetwork,
+                    > tonic::server::UnaryService<
+                        super::ListInterconnectAttachmentsRequest,
+                    > for ListInterconnectAttachmentsSvc<T> {
+                        type Response = super::ListInterconnectAttachmentsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListInterconnectAttachmentsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeNetwork>::list_interconnect_attachments(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListInterconnectAttachmentsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgenetwork.v1.EdgeNetwork/GetInterconnectAttachment" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetInterconnectAttachmentSvc<T: EdgeNetwork>(pub Arc<T>);
+                    impl<
+                        T: EdgeNetwork,
+                    > tonic::server::UnaryService<
+                        super::GetInterconnectAttachmentRequest,
+                    > for GetInterconnectAttachmentSvc<T> {
+                        type Response = super::InterconnectAttachment;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetInterconnectAttachmentRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeNetwork>::get_interconnect_attachment(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetInterconnectAttachmentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgenetwork.v1.EdgeNetwork/CreateInterconnectAttachment" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateInterconnectAttachmentSvc<T: EdgeNetwork>(pub Arc<T>);
+                    impl<
+                        T: EdgeNetwork,
+                    > tonic::server::UnaryService<
+                        super::CreateInterconnectAttachmentRequest,
+                    > for CreateInterconnectAttachmentSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateInterconnectAttachmentRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeNetwork>::create_interconnect_attachment(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateInterconnectAttachmentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgenetwork.v1.EdgeNetwork/DeleteInterconnectAttachment" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteInterconnectAttachmentSvc<T: EdgeNetwork>(pub Arc<T>);
+                    impl<
+                        T: EdgeNetwork,
+                    > tonic::server::UnaryService<
+                        super::DeleteInterconnectAttachmentRequest,
+                    > for DeleteInterconnectAttachmentSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteInterconnectAttachmentRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeNetwork>::delete_interconnect_attachment(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteInterconnectAttachmentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgenetwork.v1.EdgeNetwork/ListRouters" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListRoutersSvc<T: EdgeNetwork>(pub Arc<T>);
+                    impl<
+                        T: EdgeNetwork,
+                    > tonic::server::UnaryService<super::ListRoutersRequest>
+                    for ListRoutersSvc<T> {
+                        type Response = super::ListRoutersResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListRoutersRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeNetwork>::list_routers(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListRoutersSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgenetwork.v1.EdgeNetwork/GetRouter" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetRouterSvc<T: EdgeNetwork>(pub Arc<T>);
+                    impl<
+                        T: EdgeNetwork,
+                    > tonic::server::UnaryService<super::GetRouterRequest>
+                    for GetRouterSvc<T> {
+                        type Response = super::Router;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetRouterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeNetwork>::get_router(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetRouterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgenetwork.v1.EdgeNetwork/DiagnoseRouter" => {
+                    #[allow(non_camel_case_types)]
+                    struct DiagnoseRouterSvc<T: EdgeNetwork>(pub Arc<T>);
+                    impl<
+                        T: EdgeNetwork,
+                    > tonic::server::UnaryService<super::DiagnoseRouterRequest>
+                    for DiagnoseRouterSvc<T> {
+                        type Response = super::DiagnoseRouterResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DiagnoseRouterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeNetwork>::diagnose_router(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DiagnoseRouterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgenetwork.v1.EdgeNetwork/CreateRouter" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateRouterSvc<T: EdgeNetwork>(pub Arc<T>);
+                    impl<
+                        T: EdgeNetwork,
+                    > tonic::server::UnaryService<super::CreateRouterRequest>
+                    for CreateRouterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateRouterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeNetwork>::create_router(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateRouterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgenetwork.v1.EdgeNetwork/UpdateRouter" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateRouterSvc<T: EdgeNetwork>(pub Arc<T>);
+                    impl<
+                        T: EdgeNetwork,
+                    > tonic::server::UnaryService<super::UpdateRouterRequest>
+                    for UpdateRouterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateRouterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeNetwork>::update_router(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateRouterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgenetwork.v1.EdgeNetwork/DeleteRouter" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteRouterSvc<T: EdgeNetwork>(pub Arc<T>);
+                    impl<
+                        T: EdgeNetwork,
+                    > tonic::server::UnaryService<super::DeleteRouterRequest>
+                    for DeleteRouterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteRouterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeNetwork>::delete_router(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteRouterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for EdgeNetworkServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.edgenetwork.v1.EdgeNetwork";
+    impl<T> tonic::server::NamedService for EdgeNetworkServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

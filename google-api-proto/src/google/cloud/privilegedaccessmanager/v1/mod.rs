@@ -201,12 +201,12 @@ pub mod entitlement {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Available => "AVAILABLE",
-                State::Deleting => "DELETING",
-                State::Deleted => "DELETED",
-                State::Updating => "UPDATING",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Available => "AVAILABLE",
+                Self::Deleting => "DELETING",
+                Self::Deleted => "DELETED",
+                Self::Updating => "UPDATING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -434,9 +434,9 @@ pub mod search_entitlements_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                CallerAccessType::Unspecified => "CALLER_ACCESS_TYPE_UNSPECIFIED",
-                CallerAccessType::GrantRequester => "GRANT_REQUESTER",
-                CallerAccessType::GrantApprover => "GRANT_APPROVER",
+                Self::Unspecified => "CALLER_ACCESS_TYPE_UNSPECIFIED",
+                Self::GrantRequester => "GRANT_REQUESTER",
+                Self::GrantApprover => "GRANT_APPROVER",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -811,17 +811,17 @@ pub mod grant {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::ApprovalAwaited => "APPROVAL_AWAITED",
-                State::Denied => "DENIED",
-                State::Scheduled => "SCHEDULED",
-                State::Activating => "ACTIVATING",
-                State::Active => "ACTIVE",
-                State::ActivationFailed => "ACTIVATION_FAILED",
-                State::Expired => "EXPIRED",
-                State::Revoking => "REVOKING",
-                State::Revoked => "REVOKED",
-                State::Ended => "ENDED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::ApprovalAwaited => "APPROVAL_AWAITED",
+                Self::Denied => "DENIED",
+                Self::Scheduled => "SCHEDULED",
+                Self::Activating => "ACTIVATING",
+                Self::Active => "ACTIVE",
+                Self::ActivationFailed => "ACTIVATION_FAILED",
+                Self::Expired => "EXPIRED",
+                Self::Revoking => "REVOKING",
+                Self::Revoked => "REVOKED",
+                Self::Ended => "ENDED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -946,12 +946,10 @@ pub mod search_grants_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                CallerRelationshipType::Unspecified => {
-                    "CALLER_RELATIONSHIP_TYPE_UNSPECIFIED"
-                }
-                CallerRelationshipType::HadCreated => "HAD_CREATED",
-                CallerRelationshipType::CanApprove => "CAN_APPROVE",
-                CallerRelationshipType::HadApproved => "HAD_APPROVED",
+                Self::Unspecified => "CALLER_RELATIONSHIP_TYPE_UNSPECIFIED",
+                Self::HadCreated => "HAD_CREATED",
+                Self::CanApprove => "CAN_APPROVE",
+                Self::HadApproved => "HAD_APPROVED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1618,5 +1616,953 @@ pub mod privileged_access_manager_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod privileged_access_manager_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with PrivilegedAccessManagerServer.
+    #[async_trait]
+    pub trait PrivilegedAccessManager: std::marker::Send + std::marker::Sync + 'static {
+        /// CheckOnboardingStatus reports the onboarding status for a
+        /// project/folder/organization. Any findings reported by this API need to be
+        /// fixed before PAM can be used on the resource.
+        async fn check_onboarding_status(
+            &self,
+            request: tonic::Request<super::CheckOnboardingStatusRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::CheckOnboardingStatusResponse>,
+            tonic::Status,
+        >;
+        /// Lists entitlements in a given project/folder/organization and location.
+        async fn list_entitlements(
+            &self,
+            request: tonic::Request<super::ListEntitlementsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListEntitlementsResponse>,
+            tonic::Status,
+        >;
+        /// `SearchEntitlements` returns entitlements on which the caller has the
+        /// specified access.
+        async fn search_entitlements(
+            &self,
+            request: tonic::Request<super::SearchEntitlementsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SearchEntitlementsResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single entitlement.
+        async fn get_entitlement(
+            &self,
+            request: tonic::Request<super::GetEntitlementRequest>,
+        ) -> std::result::Result<tonic::Response<super::Entitlement>, tonic::Status>;
+        /// Creates a new entitlement in a given project/folder/organization and
+        /// location.
+        async fn create_entitlement(
+            &self,
+            request: tonic::Request<super::CreateEntitlementRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single entitlement. This method can only be called when there
+        /// are no in-progress (ACTIVE/ACTIVATING/REVOKING) grants under the
+        /// entitlement.
+        async fn delete_entitlement(
+            &self,
+            request: tonic::Request<super::DeleteEntitlementRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the entitlement specified in the request. Updated fields in the
+        /// entitlement need to be specified in an update mask. The changes made to an
+        /// entitlement are applicable only on future grants of the entitlement.
+        /// However, if new approvers are added or existing approvers are removed from
+        /// the approval workflow, the changes are effective on existing grants.
+        ///
+        /// The following fields are not supported for updates:
+        ///
+        ///  * All immutable fields
+        ///  * Entitlement name
+        ///  * Resource name
+        ///  * Resource type
+        ///  * Adding an approval workflow in an entitlement which previously had no
+        ///    approval workflow.
+        ///  * Deleting the approval workflow from an entitlement.
+        ///  * Adding or deleting a step in the approval workflow (only one step is
+        ///    supported)
+        ///
+        /// Note that updates are allowed on the list of approvers in an approval
+        /// workflow step.
+        async fn update_entitlement(
+            &self,
+            request: tonic::Request<super::UpdateEntitlementRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists grants for a given entitlement.
+        async fn list_grants(
+            &self,
+            request: tonic::Request<super::ListGrantsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListGrantsResponse>,
+            tonic::Status,
+        >;
+        /// `SearchGrants` returns grants that are related to the calling user in the
+        /// specified way.
+        async fn search_grants(
+            &self,
+            request: tonic::Request<super::SearchGrantsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SearchGrantsResponse>,
+            tonic::Status,
+        >;
+        /// Get details of a single grant.
+        async fn get_grant(
+            &self,
+            request: tonic::Request<super::GetGrantRequest>,
+        ) -> std::result::Result<tonic::Response<super::Grant>, tonic::Status>;
+        /// Creates a new grant in a given project and location.
+        async fn create_grant(
+            &self,
+            request: tonic::Request<super::CreateGrantRequest>,
+        ) -> std::result::Result<tonic::Response<super::Grant>, tonic::Status>;
+        /// `ApproveGrant` is used to approve a grant. This method can only be called
+        /// on a grant when it's in the `APPROVAL_AWAITED` state. This operation can't
+        /// be undone.
+        async fn approve_grant(
+            &self,
+            request: tonic::Request<super::ApproveGrantRequest>,
+        ) -> std::result::Result<tonic::Response<super::Grant>, tonic::Status>;
+        /// `DenyGrant` is used to deny a grant. This method can only be called on a
+        /// grant when it's in the `APPROVAL_AWAITED` state. This operation can't be
+        /// undone.
+        async fn deny_grant(
+            &self,
+            request: tonic::Request<super::DenyGrantRequest>,
+        ) -> std::result::Result<tonic::Response<super::Grant>, tonic::Status>;
+        /// `RevokeGrant` is used to immediately revoke access for a grant. This method
+        /// can be called when the grant is in a non-terminal state.
+        async fn revoke_grant(
+            &self,
+            request: tonic::Request<super::RevokeGrantRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// This API allows customers to manage temporary, request based privileged
+    /// access to their resources.
+    ///
+    /// It defines the following resource model:
+    ///
+    /// * A collection of `Entitlement` resources. An entitlement allows configuring
+    ///   (among other things):
+    ///
+    ///   * Some kind of privileged access that users can request.
+    ///   * A set of users called _requesters_ who can request this access.
+    ///   * A maximum duration for which the access can be requested.
+    ///   * An optional approval workflow which must be satisfied before access is
+    ///     granted.
+    ///
+    /// * A collection of `Grant` resources. A grant is a request by a requester to
+    ///   get the privileged access specified in an entitlement for some duration.
+    ///
+    ///   After the approval workflow as specified in the entitlement is satisfied,
+    ///   the specified access is given to the requester. The access is automatically
+    ///   taken back after the requested duration is over.
+    #[derive(Debug)]
+    pub struct PrivilegedAccessManagerServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> PrivilegedAccessManagerServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for PrivilegedAccessManagerServer<T>
+    where
+        T: PrivilegedAccessManager,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.privilegedaccessmanager.v1.PrivilegedAccessManager/CheckOnboardingStatus" => {
+                    #[allow(non_camel_case_types)]
+                    struct CheckOnboardingStatusSvc<T: PrivilegedAccessManager>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: PrivilegedAccessManager,
+                    > tonic::server::UnaryService<super::CheckOnboardingStatusRequest>
+                    for CheckOnboardingStatusSvc<T> {
+                        type Response = super::CheckOnboardingStatusResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CheckOnboardingStatusRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as PrivilegedAccessManager>::check_onboarding_status(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CheckOnboardingStatusSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.privilegedaccessmanager.v1.PrivilegedAccessManager/ListEntitlements" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListEntitlementsSvc<T: PrivilegedAccessManager>(pub Arc<T>);
+                    impl<
+                        T: PrivilegedAccessManager,
+                    > tonic::server::UnaryService<super::ListEntitlementsRequest>
+                    for ListEntitlementsSvc<T> {
+                        type Response = super::ListEntitlementsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListEntitlementsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as PrivilegedAccessManager>::list_entitlements(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListEntitlementsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.privilegedaccessmanager.v1.PrivilegedAccessManager/SearchEntitlements" => {
+                    #[allow(non_camel_case_types)]
+                    struct SearchEntitlementsSvc<T: PrivilegedAccessManager>(pub Arc<T>);
+                    impl<
+                        T: PrivilegedAccessManager,
+                    > tonic::server::UnaryService<super::SearchEntitlementsRequest>
+                    for SearchEntitlementsSvc<T> {
+                        type Response = super::SearchEntitlementsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SearchEntitlementsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as PrivilegedAccessManager>::search_entitlements(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SearchEntitlementsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.privilegedaccessmanager.v1.PrivilegedAccessManager/GetEntitlement" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetEntitlementSvc<T: PrivilegedAccessManager>(pub Arc<T>);
+                    impl<
+                        T: PrivilegedAccessManager,
+                    > tonic::server::UnaryService<super::GetEntitlementRequest>
+                    for GetEntitlementSvc<T> {
+                        type Response = super::Entitlement;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetEntitlementRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as PrivilegedAccessManager>::get_entitlement(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetEntitlementSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.privilegedaccessmanager.v1.PrivilegedAccessManager/CreateEntitlement" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateEntitlementSvc<T: PrivilegedAccessManager>(pub Arc<T>);
+                    impl<
+                        T: PrivilegedAccessManager,
+                    > tonic::server::UnaryService<super::CreateEntitlementRequest>
+                    for CreateEntitlementSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateEntitlementRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as PrivilegedAccessManager>::create_entitlement(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateEntitlementSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.privilegedaccessmanager.v1.PrivilegedAccessManager/DeleteEntitlement" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteEntitlementSvc<T: PrivilegedAccessManager>(pub Arc<T>);
+                    impl<
+                        T: PrivilegedAccessManager,
+                    > tonic::server::UnaryService<super::DeleteEntitlementRequest>
+                    for DeleteEntitlementSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteEntitlementRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as PrivilegedAccessManager>::delete_entitlement(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteEntitlementSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.privilegedaccessmanager.v1.PrivilegedAccessManager/UpdateEntitlement" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateEntitlementSvc<T: PrivilegedAccessManager>(pub Arc<T>);
+                    impl<
+                        T: PrivilegedAccessManager,
+                    > tonic::server::UnaryService<super::UpdateEntitlementRequest>
+                    for UpdateEntitlementSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateEntitlementRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as PrivilegedAccessManager>::update_entitlement(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateEntitlementSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.privilegedaccessmanager.v1.PrivilegedAccessManager/ListGrants" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListGrantsSvc<T: PrivilegedAccessManager>(pub Arc<T>);
+                    impl<
+                        T: PrivilegedAccessManager,
+                    > tonic::server::UnaryService<super::ListGrantsRequest>
+                    for ListGrantsSvc<T> {
+                        type Response = super::ListGrantsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListGrantsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as PrivilegedAccessManager>::list_grants(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListGrantsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.privilegedaccessmanager.v1.PrivilegedAccessManager/SearchGrants" => {
+                    #[allow(non_camel_case_types)]
+                    struct SearchGrantsSvc<T: PrivilegedAccessManager>(pub Arc<T>);
+                    impl<
+                        T: PrivilegedAccessManager,
+                    > tonic::server::UnaryService<super::SearchGrantsRequest>
+                    for SearchGrantsSvc<T> {
+                        type Response = super::SearchGrantsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SearchGrantsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as PrivilegedAccessManager>::search_grants(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SearchGrantsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.privilegedaccessmanager.v1.PrivilegedAccessManager/GetGrant" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetGrantSvc<T: PrivilegedAccessManager>(pub Arc<T>);
+                    impl<
+                        T: PrivilegedAccessManager,
+                    > tonic::server::UnaryService<super::GetGrantRequest>
+                    for GetGrantSvc<T> {
+                        type Response = super::Grant;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetGrantRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as PrivilegedAccessManager>::get_grant(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetGrantSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.privilegedaccessmanager.v1.PrivilegedAccessManager/CreateGrant" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateGrantSvc<T: PrivilegedAccessManager>(pub Arc<T>);
+                    impl<
+                        T: PrivilegedAccessManager,
+                    > tonic::server::UnaryService<super::CreateGrantRequest>
+                    for CreateGrantSvc<T> {
+                        type Response = super::Grant;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateGrantRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as PrivilegedAccessManager>::create_grant(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateGrantSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.privilegedaccessmanager.v1.PrivilegedAccessManager/ApproveGrant" => {
+                    #[allow(non_camel_case_types)]
+                    struct ApproveGrantSvc<T: PrivilegedAccessManager>(pub Arc<T>);
+                    impl<
+                        T: PrivilegedAccessManager,
+                    > tonic::server::UnaryService<super::ApproveGrantRequest>
+                    for ApproveGrantSvc<T> {
+                        type Response = super::Grant;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ApproveGrantRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as PrivilegedAccessManager>::approve_grant(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ApproveGrantSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.privilegedaccessmanager.v1.PrivilegedAccessManager/DenyGrant" => {
+                    #[allow(non_camel_case_types)]
+                    struct DenyGrantSvc<T: PrivilegedAccessManager>(pub Arc<T>);
+                    impl<
+                        T: PrivilegedAccessManager,
+                    > tonic::server::UnaryService<super::DenyGrantRequest>
+                    for DenyGrantSvc<T> {
+                        type Response = super::Grant;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DenyGrantRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as PrivilegedAccessManager>::deny_grant(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DenyGrantSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.privilegedaccessmanager.v1.PrivilegedAccessManager/RevokeGrant" => {
+                    #[allow(non_camel_case_types)]
+                    struct RevokeGrantSvc<T: PrivilegedAccessManager>(pub Arc<T>);
+                    impl<
+                        T: PrivilegedAccessManager,
+                    > tonic::server::UnaryService<super::RevokeGrantRequest>
+                    for RevokeGrantSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RevokeGrantRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as PrivilegedAccessManager>::revoke_grant(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RevokeGrantSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for PrivilegedAccessManagerServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.privilegedaccessmanager.v1.PrivilegedAccessManager";
+    impl<T> tonic::server::NamedService for PrivilegedAccessManagerServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

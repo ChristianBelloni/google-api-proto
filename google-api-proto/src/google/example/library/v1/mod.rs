@@ -575,3 +575,699 @@ pub mod library_service_client {
         }
     }
 }
+/// Generated server implementations.
+pub mod library_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with LibraryServiceServer.
+    #[async_trait]
+    pub trait LibraryService: std::marker::Send + std::marker::Sync + 'static {
+        /// Creates a shelf, and returns the new Shelf.
+        async fn create_shelf(
+            &self,
+            request: tonic::Request<super::CreateShelfRequest>,
+        ) -> std::result::Result<tonic::Response<super::Shelf>, tonic::Status>;
+        /// Gets a shelf. Returns NOT_FOUND if the shelf does not exist.
+        async fn get_shelf(
+            &self,
+            request: tonic::Request<super::GetShelfRequest>,
+        ) -> std::result::Result<tonic::Response<super::Shelf>, tonic::Status>;
+        /// Lists shelves. The order is unspecified but deterministic. Newly created
+        /// shelves will not necessarily be added to the end of this list.
+        async fn list_shelves(
+            &self,
+            request: tonic::Request<super::ListShelvesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListShelvesResponse>,
+            tonic::Status,
+        >;
+        /// Deletes a shelf. Returns NOT_FOUND if the shelf does not exist.
+        async fn delete_shelf(
+            &self,
+            request: tonic::Request<super::DeleteShelfRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Merges two shelves by adding all books from the shelf named
+        /// `other_shelf_name` to shelf `name`, and deletes
+        /// `other_shelf_name`. Returns the updated shelf.
+        /// The book ids of the moved books may not be the same as the original books.
+        ///
+        /// Returns NOT_FOUND if either shelf does not exist.
+        /// This call is a no-op if the specified shelves are the same.
+        async fn merge_shelves(
+            &self,
+            request: tonic::Request<super::MergeShelvesRequest>,
+        ) -> std::result::Result<tonic::Response<super::Shelf>, tonic::Status>;
+        /// Creates a book, and returns the new Book.
+        async fn create_book(
+            &self,
+            request: tonic::Request<super::CreateBookRequest>,
+        ) -> std::result::Result<tonic::Response<super::Book>, tonic::Status>;
+        /// Gets a book. Returns NOT_FOUND if the book does not exist.
+        async fn get_book(
+            &self,
+            request: tonic::Request<super::GetBookRequest>,
+        ) -> std::result::Result<tonic::Response<super::Book>, tonic::Status>;
+        /// Lists books in a shelf. The order is unspecified but deterministic. Newly
+        /// created books will not necessarily be added to the end of this list.
+        /// Returns NOT_FOUND if the shelf does not exist.
+        async fn list_books(
+            &self,
+            request: tonic::Request<super::ListBooksRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListBooksResponse>,
+            tonic::Status,
+        >;
+        /// Deletes a book. Returns NOT_FOUND if the book does not exist.
+        async fn delete_book(
+            &self,
+            request: tonic::Request<super::DeleteBookRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Updates a book. Returns INVALID_ARGUMENT if the name of the book
+        /// is non-empty and does not equal the existing name.
+        async fn update_book(
+            &self,
+            request: tonic::Request<super::UpdateBookRequest>,
+        ) -> std::result::Result<tonic::Response<super::Book>, tonic::Status>;
+        /// Moves a book to another shelf, and returns the new book. The book
+        /// id of the new book may not be the same as the original book.
+        async fn move_book(
+            &self,
+            request: tonic::Request<super::MoveBookRequest>,
+        ) -> std::result::Result<tonic::Response<super::Book>, tonic::Status>;
+    }
+    /// This API represents a simple digital library. It lets you manage Shelf
+    /// resources and Book resources in the library. It defines the following
+    /// resource model:
+    ///
+    /// - The API has a collection of [Shelf][google.example.library.v1.Shelf]
+    ///   resources, named `shelves/*`
+    ///
+    /// - Each Shelf has a collection of [Book][google.example.library.v1.Book]
+    ///   resources, named `shelves/*/books/*`
+    #[derive(Debug)]
+    pub struct LibraryServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> LibraryServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for LibraryServiceServer<T>
+    where
+        T: LibraryService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.example.library.v1.LibraryService/CreateShelf" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateShelfSvc<T: LibraryService>(pub Arc<T>);
+                    impl<
+                        T: LibraryService,
+                    > tonic::server::UnaryService<super::CreateShelfRequest>
+                    for CreateShelfSvc<T> {
+                        type Response = super::Shelf;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateShelfRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LibraryService>::create_shelf(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateShelfSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.example.library.v1.LibraryService/GetShelf" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetShelfSvc<T: LibraryService>(pub Arc<T>);
+                    impl<
+                        T: LibraryService,
+                    > tonic::server::UnaryService<super::GetShelfRequest>
+                    for GetShelfSvc<T> {
+                        type Response = super::Shelf;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetShelfRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LibraryService>::get_shelf(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetShelfSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.example.library.v1.LibraryService/ListShelves" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListShelvesSvc<T: LibraryService>(pub Arc<T>);
+                    impl<
+                        T: LibraryService,
+                    > tonic::server::UnaryService<super::ListShelvesRequest>
+                    for ListShelvesSvc<T> {
+                        type Response = super::ListShelvesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListShelvesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LibraryService>::list_shelves(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListShelvesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.example.library.v1.LibraryService/DeleteShelf" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteShelfSvc<T: LibraryService>(pub Arc<T>);
+                    impl<
+                        T: LibraryService,
+                    > tonic::server::UnaryService<super::DeleteShelfRequest>
+                    for DeleteShelfSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteShelfRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LibraryService>::delete_shelf(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteShelfSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.example.library.v1.LibraryService/MergeShelves" => {
+                    #[allow(non_camel_case_types)]
+                    struct MergeShelvesSvc<T: LibraryService>(pub Arc<T>);
+                    impl<
+                        T: LibraryService,
+                    > tonic::server::UnaryService<super::MergeShelvesRequest>
+                    for MergeShelvesSvc<T> {
+                        type Response = super::Shelf;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MergeShelvesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LibraryService>::merge_shelves(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = MergeShelvesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.example.library.v1.LibraryService/CreateBook" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateBookSvc<T: LibraryService>(pub Arc<T>);
+                    impl<
+                        T: LibraryService,
+                    > tonic::server::UnaryService<super::CreateBookRequest>
+                    for CreateBookSvc<T> {
+                        type Response = super::Book;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateBookRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LibraryService>::create_book(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateBookSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.example.library.v1.LibraryService/GetBook" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetBookSvc<T: LibraryService>(pub Arc<T>);
+                    impl<
+                        T: LibraryService,
+                    > tonic::server::UnaryService<super::GetBookRequest>
+                    for GetBookSvc<T> {
+                        type Response = super::Book;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetBookRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LibraryService>::get_book(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetBookSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.example.library.v1.LibraryService/ListBooks" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListBooksSvc<T: LibraryService>(pub Arc<T>);
+                    impl<
+                        T: LibraryService,
+                    > tonic::server::UnaryService<super::ListBooksRequest>
+                    for ListBooksSvc<T> {
+                        type Response = super::ListBooksResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListBooksRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LibraryService>::list_books(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListBooksSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.example.library.v1.LibraryService/DeleteBook" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteBookSvc<T: LibraryService>(pub Arc<T>);
+                    impl<
+                        T: LibraryService,
+                    > tonic::server::UnaryService<super::DeleteBookRequest>
+                    for DeleteBookSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteBookRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LibraryService>::delete_book(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteBookSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.example.library.v1.LibraryService/UpdateBook" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateBookSvc<T: LibraryService>(pub Arc<T>);
+                    impl<
+                        T: LibraryService,
+                    > tonic::server::UnaryService<super::UpdateBookRequest>
+                    for UpdateBookSvc<T> {
+                        type Response = super::Book;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateBookRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LibraryService>::update_book(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateBookSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.example.library.v1.LibraryService/MoveBook" => {
+                    #[allow(non_camel_case_types)]
+                    struct MoveBookSvc<T: LibraryService>(pub Arc<T>);
+                    impl<
+                        T: LibraryService,
+                    > tonic::server::UnaryService<super::MoveBookRequest>
+                    for MoveBookSvc<T> {
+                        type Response = super::Book;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MoveBookRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LibraryService>::move_book(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = MoveBookSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for LibraryServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.example.library.v1.LibraryService";
+    impl<T> tonic::server::NamedService for LibraryServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}

@@ -83,9 +83,9 @@ pub mod storage_source {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                SourceFetcher::Unspecified => "SOURCE_FETCHER_UNSPECIFIED",
-                SourceFetcher::Gsutil => "GSUTIL",
-                SourceFetcher::GcsFetcher => "GCS_FETCHER",
+                Self::Unspecified => "SOURCE_FETCHER_UNSPECIFIED",
+                Self::Gsutil => "GSUTIL",
+                Self::GcsFetcher => "GCS_FETCHER",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -681,10 +681,10 @@ pub mod build {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    Priority::Unspecified => "PRIORITY_UNSPECIFIED",
-                    Priority::Info => "INFO",
-                    Priority::Warning => "WARNING",
-                    Priority::Alert => "ALERT",
+                    Self::Unspecified => "PRIORITY_UNSPECIFIED",
+                    Self::Info => "INFO",
+                    Self::Warning => "WARNING",
+                    Self::Alert => "ALERT",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -748,13 +748,13 @@ pub mod build {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    FailureType::Unspecified => "FAILURE_TYPE_UNSPECIFIED",
-                    FailureType::PushFailed => "PUSH_FAILED",
-                    FailureType::PushImageNotFound => "PUSH_IMAGE_NOT_FOUND",
-                    FailureType::PushNotAuthorized => "PUSH_NOT_AUTHORIZED",
-                    FailureType::LoggingFailure => "LOGGING_FAILURE",
-                    FailureType::UserBuildStep => "USER_BUILD_STEP",
-                    FailureType::FetchSourceFailed => "FETCH_SOURCE_FAILED",
+                    Self::Unspecified => "FAILURE_TYPE_UNSPECIFIED",
+                    Self::PushFailed => "PUSH_FAILED",
+                    Self::PushImageNotFound => "PUSH_IMAGE_NOT_FOUND",
+                    Self::PushNotAuthorized => "PUSH_NOT_AUTHORIZED",
+                    Self::LoggingFailure => "LOGGING_FAILURE",
+                    Self::UserBuildStep => "USER_BUILD_STEP",
+                    Self::FetchSourceFailed => "FETCH_SOURCE_FAILED",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -815,16 +815,16 @@ pub mod build {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Status::Unknown => "STATUS_UNKNOWN",
-                Status::Pending => "PENDING",
-                Status::Queued => "QUEUED",
-                Status::Working => "WORKING",
-                Status::Success => "SUCCESS",
-                Status::Failure => "FAILURE",
-                Status::InternalError => "INTERNAL_ERROR",
-                Status::Timeout => "TIMEOUT",
-                Status::Cancelled => "CANCELLED",
-                Status::Expired => "EXPIRED",
+                Self::Unknown => "STATUS_UNKNOWN",
+                Self::Pending => "PENDING",
+                Self::Queued => "QUEUED",
+                Self::Working => "WORKING",
+                Self::Success => "SUCCESS",
+                Self::Failure => "FAILURE",
+                Self::InternalError => "INTERNAL_ERROR",
+                Self::Timeout => "TIMEOUT",
+                Self::Cancelled => "CANCELLED",
+                Self::Expired => "EXPIRED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1090,10 +1090,10 @@ pub mod hash {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                HashType::None => "NONE",
-                HashType::Sha256 => "SHA256",
-                HashType::Md5 => "MD5",
-                HashType::Sha512 => "SHA512",
+                Self::None => "NONE",
+                Self::Sha256 => "SHA256",
+                Self::Md5 => "MD5",
+                Self::Sha512 => "SHA512",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1314,11 +1314,11 @@ pub mod build_approval {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Pending => "PENDING",
-                State::Approved => "APPROVED",
-                State::Rejected => "REJECTED",
-                State::Cancelled => "CANCELLED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Pending => "PENDING",
+                Self::Approved => "APPROVED",
+                Self::Rejected => "REJECTED",
+                Self::Cancelled => "CANCELLED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1398,9 +1398,9 @@ pub mod approval_result {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Decision::Unspecified => "DECISION_UNSPECIFIED",
-                Decision::Approved => "APPROVED",
-                Decision::Rejected => "REJECTED",
+                Self::Unspecified => "DECISION_UNSPECIFIED",
+                Self::Approved => "APPROVED",
+                Self::Rejected => "REJECTED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1526,11 +1526,11 @@ pub mod git_file_source {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                RepoType::Unknown => "UNKNOWN",
-                RepoType::CloudSourceRepositories => "CLOUD_SOURCE_REPOSITORIES",
-                RepoType::Github => "GITHUB",
-                RepoType::BitbucketServer => "BITBUCKET_SERVER",
-                RepoType::Gitlab => "GITLAB",
+                Self::Unknown => "UNKNOWN",
+                Self::CloudSourceRepositories => "CLOUD_SOURCE_REPOSITORIES",
+                Self::Github => "GITHUB",
+                Self::BitbucketServer => "BITBUCKET_SERVER",
+                Self::Gitlab => "GITLAB",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1752,10 +1752,10 @@ pub mod repository_event_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                RepositoryType::Unspecified => "REPOSITORY_TYPE_UNSPECIFIED",
-                RepositoryType::Github => "GITHUB",
-                RepositoryType::GithubEnterprise => "GITHUB_ENTERPRISE",
-                RepositoryType::GitlabEnterprise => "GITLAB_ENTERPRISE",
+                Self::Unspecified => "REPOSITORY_TYPE_UNSPECIFIED",
+                Self::Github => "GITHUB",
+                Self::GithubEnterprise => "GITHUB_ENTERPRISE",
+                Self::GitlabEnterprise => "GITLAB_ENTERPRISE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1871,11 +1871,11 @@ pub mod pubsub_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Ok => "OK",
-                State::SubscriptionDeleted => "SUBSCRIPTION_DELETED",
-                State::TopicDeleted => "TOPIC_DELETED",
-                State::SubscriptionMisconfigured => "SUBSCRIPTION_MISCONFIGURED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Ok => "OK",
+                Self::SubscriptionDeleted => "SUBSCRIPTION_DELETED",
+                Self::TopicDeleted => "TOPIC_DELETED",
+                Self::SubscriptionMisconfigured => "SUBSCRIPTION_MISCONFIGURED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1934,9 +1934,9 @@ pub mod webhook_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Ok => "OK",
-                State::SecretDeleted => "SECRET_DELETED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Ok => "OK",
+                Self::SecretDeleted => "SECRET_DELETED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2005,9 +2005,9 @@ pub mod pull_request_filter {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                CommentControl::CommentsDisabled => "COMMENTS_DISABLED",
-                CommentControl::CommentsEnabled => "COMMENTS_ENABLED",
-                CommentControl::CommentsEnabledForExternalContributorsOnly => {
+                Self::CommentsDisabled => "COMMENTS_DISABLED",
+                Self::CommentsEnabled => "COMMENTS_ENABLED",
+                Self::CommentsEnabledForExternalContributorsOnly => {
                     "COMMENTS_ENABLED_FOR_EXTERNAL_CONTRIBUTORS_ONLY"
                 }
             }
@@ -2293,8 +2293,8 @@ pub mod build_options {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                VerifyOption::NotVerified => "NOT_VERIFIED",
-                VerifyOption::Verified => "VERIFIED",
+                Self::NotVerified => "NOT_VERIFIED",
+                Self::Verified => "VERIFIED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2342,12 +2342,12 @@ pub mod build_options {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                MachineType::Unspecified => "UNSPECIFIED",
-                MachineType::N1Highcpu8 => "N1_HIGHCPU_8",
-                MachineType::N1Highcpu32 => "N1_HIGHCPU_32",
-                MachineType::E2Highcpu8 => "E2_HIGHCPU_8",
-                MachineType::E2Highcpu32 => "E2_HIGHCPU_32",
-                MachineType::E2Medium => "E2_MEDIUM",
+                Self::Unspecified => "UNSPECIFIED",
+                Self::N1Highcpu8 => "N1_HIGHCPU_8",
+                Self::N1Highcpu32 => "N1_HIGHCPU_32",
+                Self::E2Highcpu8 => "E2_HIGHCPU_8",
+                Self::E2Highcpu32 => "E2_HIGHCPU_32",
+                Self::E2Medium => "E2_MEDIUM",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2390,8 +2390,8 @@ pub mod build_options {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                SubstitutionOption::MustMatch => "MUST_MATCH",
-                SubstitutionOption::AllowLoose => "ALLOW_LOOSE",
+                Self::MustMatch => "MUST_MATCH",
+                Self::AllowLoose => "ALLOW_LOOSE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2432,9 +2432,9 @@ pub mod build_options {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                LogStreamingOption::StreamDefault => "STREAM_DEFAULT",
-                LogStreamingOption::StreamOn => "STREAM_ON",
-                LogStreamingOption::StreamOff => "STREAM_OFF",
+                Self::StreamDefault => "STREAM_DEFAULT",
+                Self::StreamOn => "STREAM_ON",
+                Self::StreamOff => "STREAM_OFF",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2484,12 +2484,12 @@ pub mod build_options {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                LoggingMode::LoggingUnspecified => "LOGGING_UNSPECIFIED",
-                LoggingMode::Legacy => "LEGACY",
-                LoggingMode::GcsOnly => "GCS_ONLY",
-                LoggingMode::StackdriverOnly => "STACKDRIVER_ONLY",
-                LoggingMode::CloudLoggingOnly => "CLOUD_LOGGING_ONLY",
-                LoggingMode::None => "NONE",
+                Self::LoggingUnspecified => "LOGGING_UNSPECIFIED",
+                Self::Legacy => "LEGACY",
+                Self::GcsOnly => "GCS_ONLY",
+                Self::StackdriverOnly => "STACKDRIVER_ONLY",
+                Self::CloudLoggingOnly => "CLOUD_LOGGING_ONLY",
+                Self::None => "NONE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2533,12 +2533,8 @@ pub mod build_options {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                DefaultLogsBucketBehavior::Unspecified => {
-                    "DEFAULT_LOGS_BUCKET_BEHAVIOR_UNSPECIFIED"
-                }
-                DefaultLogsBucketBehavior::RegionalUserOwnedBucket => {
-                    "REGIONAL_USER_OWNED_BUCKET"
-                }
+                Self::Unspecified => "DEFAULT_LOGS_BUCKET_BEHAVIOR_UNSPECIFIED",
+                Self::RegionalUserOwnedBucket => "REGIONAL_USER_OWNED_BUCKET",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2733,12 +2729,12 @@ pub mod worker_pool {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Running => "RUNNING",
-                State::Deleting => "DELETING",
-                State::Deleted => "DELETED",
-                State::Updating => "UPDATING",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Running => "RUNNING",
+                Self::Deleting => "DELETING",
+                Self::Deleted => "DELETED",
+                Self::Updating => "UPDATING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2851,9 +2847,9 @@ pub mod private_pool_v1_config {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    EgressOption::Unspecified => "EGRESS_OPTION_UNSPECIFIED",
-                    EgressOption::NoPublicEgress => "NO_PUBLIC_EGRESS",
-                    EgressOption::PublicEgress => "PUBLIC_EGRESS",
+                    Self::Unspecified => "EGRESS_OPTION_UNSPECIFIED",
+                    Self::NoPublicEgress => "NO_PUBLIC_EGRESS",
+                    Self::PublicEgress => "PUBLIC_EGRESS",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -3686,5 +3682,1129 @@ pub mod cloud_build_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod cloud_build_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with CloudBuildServer.
+    #[async_trait]
+    pub trait CloudBuild: std::marker::Send + std::marker::Sync + 'static {
+        /// Starts a build with the specified configuration.
+        ///
+        /// This method returns a long-running `Operation`, which includes the build
+        /// ID. Pass the build ID to `GetBuild` to determine the build status (such as
+        /// `SUCCESS` or `FAILURE`).
+        async fn create_build(
+            &self,
+            request: tonic::Request<super::CreateBuildRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Returns information about a previously requested build.
+        ///
+        /// The `Build` that is returned includes its status (such as `SUCCESS`,
+        /// `FAILURE`, or `WORKING`), and timing information.
+        async fn get_build(
+            &self,
+            request: tonic::Request<super::GetBuildRequest>,
+        ) -> std::result::Result<tonic::Response<super::Build>, tonic::Status>;
+        /// Lists previously requested builds.
+        ///
+        /// Previously requested builds may still be in-progress, or may have finished
+        /// successfully or unsuccessfully.
+        async fn list_builds(
+            &self,
+            request: tonic::Request<super::ListBuildsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListBuildsResponse>,
+            tonic::Status,
+        >;
+        /// Cancels a build in progress.
+        async fn cancel_build(
+            &self,
+            request: tonic::Request<super::CancelBuildRequest>,
+        ) -> std::result::Result<tonic::Response<super::Build>, tonic::Status>;
+        /// Creates a new build based on the specified build.
+        ///
+        /// This method creates a new build using the original build request, which may
+        /// or may not result in an identical build.
+        ///
+        /// For triggered builds:
+        ///
+        /// * Triggered builds resolve to a precise revision; therefore a retry of a
+        /// triggered build will result in a build that uses the same revision.
+        ///
+        /// For non-triggered builds that specify `RepoSource`:
+        ///
+        /// * If the original build built from the tip of a branch, the retried build
+        /// will build from the tip of that branch, which may not be the same revision
+        /// as the original build.
+        /// * If the original build specified a commit sha or revision ID, the retried
+        /// build will use the identical source.
+        ///
+        /// For builds that specify `StorageSource`:
+        ///
+        /// * If the original build pulled source from Cloud Storage without
+        /// specifying the generation of the object, the new build will use the current
+        /// object, which may be different from the original build source.
+        /// * If the original build pulled source from Cloud Storage and specified the
+        /// generation of the object, the new build will attempt to use the same
+        /// object, which may or may not be available depending on the bucket's
+        /// lifecycle management settings.
+        async fn retry_build(
+            &self,
+            request: tonic::Request<super::RetryBuildRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Approves or rejects a pending build.
+        ///
+        /// If approved, the returned LRO will be analogous to the LRO returned from
+        /// a CreateBuild call.
+        ///
+        /// If rejected, the returned LRO will be immediately done.
+        async fn approve_build(
+            &self,
+            request: tonic::Request<super::ApproveBuildRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Creates a new `BuildTrigger`.
+        ///
+        /// This API is experimental.
+        async fn create_build_trigger(
+            &self,
+            request: tonic::Request<super::CreateBuildTriggerRequest>,
+        ) -> std::result::Result<tonic::Response<super::BuildTrigger>, tonic::Status>;
+        /// Returns information about a `BuildTrigger`.
+        ///
+        /// This API is experimental.
+        async fn get_build_trigger(
+            &self,
+            request: tonic::Request<super::GetBuildTriggerRequest>,
+        ) -> std::result::Result<tonic::Response<super::BuildTrigger>, tonic::Status>;
+        /// Lists existing `BuildTrigger`s.
+        ///
+        /// This API is experimental.
+        async fn list_build_triggers(
+            &self,
+            request: tonic::Request<super::ListBuildTriggersRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListBuildTriggersResponse>,
+            tonic::Status,
+        >;
+        /// Deletes a `BuildTrigger` by its project ID and trigger ID.
+        ///
+        /// This API is experimental.
+        async fn delete_build_trigger(
+            &self,
+            request: tonic::Request<super::DeleteBuildTriggerRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Updates a `BuildTrigger` by its project ID and trigger ID.
+        ///
+        /// This API is experimental.
+        async fn update_build_trigger(
+            &self,
+            request: tonic::Request<super::UpdateBuildTriggerRequest>,
+        ) -> std::result::Result<tonic::Response<super::BuildTrigger>, tonic::Status>;
+        /// Runs a `BuildTrigger` at a particular source revision.
+        ///
+        /// To run a regional or global trigger, use the POST request
+        /// that includes the location endpoint in the path (ex.
+        /// v1/projects/{projectId}/locations/{region}/triggers/{triggerId}:run). The
+        /// POST request that does not include the location endpoint in the path can
+        /// only be used when running global triggers.
+        async fn run_build_trigger(
+            &self,
+            request: tonic::Request<super::RunBuildTriggerRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// ReceiveTriggerWebhook [Experimental] is called when the API receives a
+        /// webhook request targeted at a specific trigger.
+        async fn receive_trigger_webhook(
+            &self,
+            request: tonic::Request<super::ReceiveTriggerWebhookRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ReceiveTriggerWebhookResponse>,
+            tonic::Status,
+        >;
+        /// Creates a `WorkerPool`.
+        async fn create_worker_pool(
+            &self,
+            request: tonic::Request<super::CreateWorkerPoolRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Returns details of a `WorkerPool`.
+        async fn get_worker_pool(
+            &self,
+            request: tonic::Request<super::GetWorkerPoolRequest>,
+        ) -> std::result::Result<tonic::Response<super::WorkerPool>, tonic::Status>;
+        /// Deletes a `WorkerPool`.
+        async fn delete_worker_pool(
+            &self,
+            request: tonic::Request<super::DeleteWorkerPoolRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates a `WorkerPool`.
+        async fn update_worker_pool(
+            &self,
+            request: tonic::Request<super::UpdateWorkerPoolRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists `WorkerPool`s.
+        async fn list_worker_pools(
+            &self,
+            request: tonic::Request<super::ListWorkerPoolsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListWorkerPoolsResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Creates and manages builds on Google Cloud Platform.
+    ///
+    /// The main concept used by this API is a `Build`, which describes the location
+    /// of the source to build, how to build the source, and where to store the
+    /// built artifacts, if any.
+    ///
+    /// A user can list previously-requested builds or get builds by their ID to
+    /// determine the status of the build.
+    #[derive(Debug)]
+    pub struct CloudBuildServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> CloudBuildServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for CloudBuildServer<T>
+    where
+        T: CloudBuild,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.devtools.cloudbuild.v1.CloudBuild/CreateBuild" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateBuildSvc<T: CloudBuild>(pub Arc<T>);
+                    impl<
+                        T: CloudBuild,
+                    > tonic::server::UnaryService<super::CreateBuildRequest>
+                    for CreateBuildSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateBuildRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudBuild>::create_build(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateBuildSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.cloudbuild.v1.CloudBuild/GetBuild" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetBuildSvc<T: CloudBuild>(pub Arc<T>);
+                    impl<
+                        T: CloudBuild,
+                    > tonic::server::UnaryService<super::GetBuildRequest>
+                    for GetBuildSvc<T> {
+                        type Response = super::Build;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetBuildRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudBuild>::get_build(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetBuildSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.cloudbuild.v1.CloudBuild/ListBuilds" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListBuildsSvc<T: CloudBuild>(pub Arc<T>);
+                    impl<
+                        T: CloudBuild,
+                    > tonic::server::UnaryService<super::ListBuildsRequest>
+                    for ListBuildsSvc<T> {
+                        type Response = super::ListBuildsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListBuildsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudBuild>::list_builds(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListBuildsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.cloudbuild.v1.CloudBuild/CancelBuild" => {
+                    #[allow(non_camel_case_types)]
+                    struct CancelBuildSvc<T: CloudBuild>(pub Arc<T>);
+                    impl<
+                        T: CloudBuild,
+                    > tonic::server::UnaryService<super::CancelBuildRequest>
+                    for CancelBuildSvc<T> {
+                        type Response = super::Build;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CancelBuildRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudBuild>::cancel_build(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CancelBuildSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.cloudbuild.v1.CloudBuild/RetryBuild" => {
+                    #[allow(non_camel_case_types)]
+                    struct RetryBuildSvc<T: CloudBuild>(pub Arc<T>);
+                    impl<
+                        T: CloudBuild,
+                    > tonic::server::UnaryService<super::RetryBuildRequest>
+                    for RetryBuildSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RetryBuildRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudBuild>::retry_build(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RetryBuildSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.cloudbuild.v1.CloudBuild/ApproveBuild" => {
+                    #[allow(non_camel_case_types)]
+                    struct ApproveBuildSvc<T: CloudBuild>(pub Arc<T>);
+                    impl<
+                        T: CloudBuild,
+                    > tonic::server::UnaryService<super::ApproveBuildRequest>
+                    for ApproveBuildSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ApproveBuildRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudBuild>::approve_build(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ApproveBuildSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.cloudbuild.v1.CloudBuild/CreateBuildTrigger" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateBuildTriggerSvc<T: CloudBuild>(pub Arc<T>);
+                    impl<
+                        T: CloudBuild,
+                    > tonic::server::UnaryService<super::CreateBuildTriggerRequest>
+                    for CreateBuildTriggerSvc<T> {
+                        type Response = super::BuildTrigger;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateBuildTriggerRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudBuild>::create_build_trigger(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateBuildTriggerSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.cloudbuild.v1.CloudBuild/GetBuildTrigger" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetBuildTriggerSvc<T: CloudBuild>(pub Arc<T>);
+                    impl<
+                        T: CloudBuild,
+                    > tonic::server::UnaryService<super::GetBuildTriggerRequest>
+                    for GetBuildTriggerSvc<T> {
+                        type Response = super::BuildTrigger;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetBuildTriggerRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudBuild>::get_build_trigger(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetBuildTriggerSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.cloudbuild.v1.CloudBuild/ListBuildTriggers" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListBuildTriggersSvc<T: CloudBuild>(pub Arc<T>);
+                    impl<
+                        T: CloudBuild,
+                    > tonic::server::UnaryService<super::ListBuildTriggersRequest>
+                    for ListBuildTriggersSvc<T> {
+                        type Response = super::ListBuildTriggersResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListBuildTriggersRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudBuild>::list_build_triggers(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListBuildTriggersSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.cloudbuild.v1.CloudBuild/DeleteBuildTrigger" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteBuildTriggerSvc<T: CloudBuild>(pub Arc<T>);
+                    impl<
+                        T: CloudBuild,
+                    > tonic::server::UnaryService<super::DeleteBuildTriggerRequest>
+                    for DeleteBuildTriggerSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteBuildTriggerRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudBuild>::delete_build_trigger(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteBuildTriggerSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.cloudbuild.v1.CloudBuild/UpdateBuildTrigger" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateBuildTriggerSvc<T: CloudBuild>(pub Arc<T>);
+                    impl<
+                        T: CloudBuild,
+                    > tonic::server::UnaryService<super::UpdateBuildTriggerRequest>
+                    for UpdateBuildTriggerSvc<T> {
+                        type Response = super::BuildTrigger;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateBuildTriggerRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudBuild>::update_build_trigger(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateBuildTriggerSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.cloudbuild.v1.CloudBuild/RunBuildTrigger" => {
+                    #[allow(non_camel_case_types)]
+                    struct RunBuildTriggerSvc<T: CloudBuild>(pub Arc<T>);
+                    impl<
+                        T: CloudBuild,
+                    > tonic::server::UnaryService<super::RunBuildTriggerRequest>
+                    for RunBuildTriggerSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RunBuildTriggerRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudBuild>::run_build_trigger(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RunBuildTriggerSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.cloudbuild.v1.CloudBuild/ReceiveTriggerWebhook" => {
+                    #[allow(non_camel_case_types)]
+                    struct ReceiveTriggerWebhookSvc<T: CloudBuild>(pub Arc<T>);
+                    impl<
+                        T: CloudBuild,
+                    > tonic::server::UnaryService<super::ReceiveTriggerWebhookRequest>
+                    for ReceiveTriggerWebhookSvc<T> {
+                        type Response = super::ReceiveTriggerWebhookResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ReceiveTriggerWebhookRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudBuild>::receive_trigger_webhook(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ReceiveTriggerWebhookSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.cloudbuild.v1.CloudBuild/CreateWorkerPool" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateWorkerPoolSvc<T: CloudBuild>(pub Arc<T>);
+                    impl<
+                        T: CloudBuild,
+                    > tonic::server::UnaryService<super::CreateWorkerPoolRequest>
+                    for CreateWorkerPoolSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateWorkerPoolRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudBuild>::create_worker_pool(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateWorkerPoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.cloudbuild.v1.CloudBuild/GetWorkerPool" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetWorkerPoolSvc<T: CloudBuild>(pub Arc<T>);
+                    impl<
+                        T: CloudBuild,
+                    > tonic::server::UnaryService<super::GetWorkerPoolRequest>
+                    for GetWorkerPoolSvc<T> {
+                        type Response = super::WorkerPool;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetWorkerPoolRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudBuild>::get_worker_pool(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetWorkerPoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.cloudbuild.v1.CloudBuild/DeleteWorkerPool" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteWorkerPoolSvc<T: CloudBuild>(pub Arc<T>);
+                    impl<
+                        T: CloudBuild,
+                    > tonic::server::UnaryService<super::DeleteWorkerPoolRequest>
+                    for DeleteWorkerPoolSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteWorkerPoolRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudBuild>::delete_worker_pool(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteWorkerPoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.cloudbuild.v1.CloudBuild/UpdateWorkerPool" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateWorkerPoolSvc<T: CloudBuild>(pub Arc<T>);
+                    impl<
+                        T: CloudBuild,
+                    > tonic::server::UnaryService<super::UpdateWorkerPoolRequest>
+                    for UpdateWorkerPoolSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateWorkerPoolRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudBuild>::update_worker_pool(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateWorkerPoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.cloudbuild.v1.CloudBuild/ListWorkerPools" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListWorkerPoolsSvc<T: CloudBuild>(pub Arc<T>);
+                    impl<
+                        T: CloudBuild,
+                    > tonic::server::UnaryService<super::ListWorkerPoolsRequest>
+                    for ListWorkerPoolsSvc<T> {
+                        type Response = super::ListWorkerPoolsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListWorkerPoolsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudBuild>::list_worker_pools(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListWorkerPoolsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for CloudBuildServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.devtools.cloudbuild.v1.CloudBuild";
+    impl<T> tonic::server::NamedService for CloudBuildServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

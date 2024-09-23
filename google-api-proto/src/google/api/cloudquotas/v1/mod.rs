@@ -99,10 +99,10 @@ pub mod quota_info {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ContainerType::Unspecified => "CONTAINER_TYPE_UNSPECIFIED",
-                ContainerType::Project => "PROJECT",
-                ContainerType::Folder => "FOLDER",
-                ContainerType::Organization => "ORGANIZATION",
+                Self::Unspecified => "CONTAINER_TYPE_UNSPECIFIED",
+                Self::Project => "PROJECT",
+                Self::Folder => "FOLDER",
+                Self::Organization => "ORGANIZATION",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -160,9 +160,9 @@ pub mod quota_increase_eligibility {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                IneligibilityReason::Unspecified => "INELIGIBILITY_REASON_UNSPECIFIED",
-                IneligibilityReason::NoValidBillingAccount => "NO_VALID_BILLING_ACCOUNT",
-                IneligibilityReason::Other => "OTHER",
+                Self::Unspecified => "INELIGIBILITY_REASON_UNSPECIFIED",
+                Self::NoValidBillingAccount => "NO_VALID_BILLING_ACCOUNT",
+                Self::Other => "OTHER",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -310,9 +310,9 @@ pub mod quota_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Origin::Unspecified => "ORIGIN_UNSPECIFIED",
-                Origin::CloudConsole => "CLOUD_CONSOLE",
-                Origin::AutoAdjuster => "AUTO_ADJUSTER",
+                Self::Unspecified => "ORIGIN_UNSPECIFIED",
+                Self::CloudConsole => "CLOUD_CONSOLE",
+                Self::AutoAdjuster => "AUTO_ADJUSTER",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -392,11 +392,9 @@ impl QuotaSafetyCheck {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            QuotaSafetyCheck::Unspecified => "QUOTA_SAFETY_CHECK_UNSPECIFIED",
-            QuotaSafetyCheck::QuotaDecreaseBelowUsage => "QUOTA_DECREASE_BELOW_USAGE",
-            QuotaSafetyCheck::QuotaDecreasePercentageTooHigh => {
-                "QUOTA_DECREASE_PERCENTAGE_TOO_HIGH"
-            }
+            Self::Unspecified => "QUOTA_SAFETY_CHECK_UNSPECIFIED",
+            Self::QuotaDecreaseBelowUsage => "QUOTA_DECREASE_BELOW_USAGE",
+            Self::QuotaDecreasePercentageTooHigh => "QUOTA_DECREASE_PERCENTAGE_TOO_HIGH",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -827,5 +825,443 @@ pub mod cloud_quotas_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod cloud_quotas_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with CloudQuotasServer.
+    #[async_trait]
+    pub trait CloudQuotas: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists QuotaInfos of all quotas for a given project, folder or organization.
+        async fn list_quota_infos(
+            &self,
+            request: tonic::Request<super::ListQuotaInfosRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListQuotaInfosResponse>,
+            tonic::Status,
+        >;
+        /// Retrieve the QuotaInfo of a quota for a project, folder or organization.
+        async fn get_quota_info(
+            &self,
+            request: tonic::Request<super::GetQuotaInfoRequest>,
+        ) -> std::result::Result<tonic::Response<super::QuotaInfo>, tonic::Status>;
+        /// Lists QuotaPreferences in a given project, folder or organization.
+        async fn list_quota_preferences(
+            &self,
+            request: tonic::Request<super::ListQuotaPreferencesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListQuotaPreferencesResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single QuotaPreference.
+        async fn get_quota_preference(
+            &self,
+            request: tonic::Request<super::GetQuotaPreferenceRequest>,
+        ) -> std::result::Result<tonic::Response<super::QuotaPreference>, tonic::Status>;
+        /// Creates a new QuotaPreference that declares the desired value for a quota.
+        async fn create_quota_preference(
+            &self,
+            request: tonic::Request<super::CreateQuotaPreferenceRequest>,
+        ) -> std::result::Result<tonic::Response<super::QuotaPreference>, tonic::Status>;
+        /// Updates the parameters of a single QuotaPreference. It can updates the
+        /// config in any states, not just the ones pending approval.
+        async fn update_quota_preference(
+            &self,
+            request: tonic::Request<super::UpdateQuotaPreferenceRequest>,
+        ) -> std::result::Result<tonic::Response<super::QuotaPreference>, tonic::Status>;
+    }
+    /// The Cloud Quotas API is an infrastructure service for Google Cloud that lets
+    /// service consumers list and manage their resource usage limits.
+    ///
+    /// - List/Get the metadata and current status of the quotas for a service.
+    /// - Create/Update quota preferencess that declare the preferred quota values.
+    /// - Check the status of a quota preference request.
+    /// - List/Get pending and historical quota preference.
+    #[derive(Debug)]
+    pub struct CloudQuotasServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> CloudQuotasServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for CloudQuotasServer<T>
+    where
+        T: CloudQuotas,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.api.cloudquotas.v1.CloudQuotas/ListQuotaInfos" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListQuotaInfosSvc<T: CloudQuotas>(pub Arc<T>);
+                    impl<
+                        T: CloudQuotas,
+                    > tonic::server::UnaryService<super::ListQuotaInfosRequest>
+                    for ListQuotaInfosSvc<T> {
+                        type Response = super::ListQuotaInfosResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListQuotaInfosRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudQuotas>::list_quota_infos(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListQuotaInfosSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.api.cloudquotas.v1.CloudQuotas/GetQuotaInfo" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetQuotaInfoSvc<T: CloudQuotas>(pub Arc<T>);
+                    impl<
+                        T: CloudQuotas,
+                    > tonic::server::UnaryService<super::GetQuotaInfoRequest>
+                    for GetQuotaInfoSvc<T> {
+                        type Response = super::QuotaInfo;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetQuotaInfoRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudQuotas>::get_quota_info(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetQuotaInfoSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.api.cloudquotas.v1.CloudQuotas/ListQuotaPreferences" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListQuotaPreferencesSvc<T: CloudQuotas>(pub Arc<T>);
+                    impl<
+                        T: CloudQuotas,
+                    > tonic::server::UnaryService<super::ListQuotaPreferencesRequest>
+                    for ListQuotaPreferencesSvc<T> {
+                        type Response = super::ListQuotaPreferencesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListQuotaPreferencesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudQuotas>::list_quota_preferences(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListQuotaPreferencesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.api.cloudquotas.v1.CloudQuotas/GetQuotaPreference" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetQuotaPreferenceSvc<T: CloudQuotas>(pub Arc<T>);
+                    impl<
+                        T: CloudQuotas,
+                    > tonic::server::UnaryService<super::GetQuotaPreferenceRequest>
+                    for GetQuotaPreferenceSvc<T> {
+                        type Response = super::QuotaPreference;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetQuotaPreferenceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudQuotas>::get_quota_preference(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetQuotaPreferenceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.api.cloudquotas.v1.CloudQuotas/CreateQuotaPreference" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateQuotaPreferenceSvc<T: CloudQuotas>(pub Arc<T>);
+                    impl<
+                        T: CloudQuotas,
+                    > tonic::server::UnaryService<super::CreateQuotaPreferenceRequest>
+                    for CreateQuotaPreferenceSvc<T> {
+                        type Response = super::QuotaPreference;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateQuotaPreferenceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudQuotas>::create_quota_preference(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateQuotaPreferenceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.api.cloudquotas.v1.CloudQuotas/UpdateQuotaPreference" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateQuotaPreferenceSvc<T: CloudQuotas>(pub Arc<T>);
+                    impl<
+                        T: CloudQuotas,
+                    > tonic::server::UnaryService<super::UpdateQuotaPreferenceRequest>
+                    for UpdateQuotaPreferenceSvc<T> {
+                        type Response = super::QuotaPreference;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateQuotaPreferenceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudQuotas>::update_quota_preference(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateQuotaPreferenceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for CloudQuotasServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.api.cloudquotas.v1.CloudQuotas";
+    impl<T> tonic::server::NamedService for CloudQuotasServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

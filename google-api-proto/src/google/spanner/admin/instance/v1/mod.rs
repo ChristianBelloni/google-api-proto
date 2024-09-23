@@ -35,9 +35,9 @@ impl FulfillmentPeriod {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            FulfillmentPeriod::Unspecified => "FULFILLMENT_PERIOD_UNSPECIFIED",
-            FulfillmentPeriod::Normal => "FULFILLMENT_PERIOD_NORMAL",
-            FulfillmentPeriod::Extended => "FULFILLMENT_PERIOD_EXTENDED",
+            Self::Unspecified => "FULFILLMENT_PERIOD_UNSPECIFIED",
+            Self::Normal => "FULFILLMENT_PERIOD_NORMAL",
+            Self::Extended => "FULFILLMENT_PERIOD_EXTENDED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -116,10 +116,10 @@ pub mod replica_info {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ReplicaType::TypeUnspecified => "TYPE_UNSPECIFIED",
-                ReplicaType::ReadWrite => "READ_WRITE",
-                ReplicaType::ReadOnly => "READ_ONLY",
-                ReplicaType::Witness => "WITNESS",
+                Self::TypeUnspecified => "TYPE_UNSPECIFIED",
+                Self::ReadWrite => "READ_WRITE",
+                Self::ReadOnly => "READ_ONLY",
+                Self::Witness => "WITNESS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -249,9 +249,9 @@ pub mod instance_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::GoogleManaged => "GOOGLE_MANAGED",
-                Type::UserManaged => "USER_MANAGED",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::GoogleManaged => "GOOGLE_MANAGED",
+                Self::UserManaged => "USER_MANAGED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -293,9 +293,9 @@ pub mod instance_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Ready => "READY",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Ready => "READY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -520,9 +520,9 @@ pub mod instance {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Ready => "READY",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Ready => "READY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -566,10 +566,10 @@ pub mod instance {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Edition::Unspecified => "EDITION_UNSPECIFIED",
-                Edition::Standard => "STANDARD",
-                Edition::Enterprise => "ENTERPRISE",
-                Edition::EnterprisePlus => "ENTERPRISE_PLUS",
+                Self::Unspecified => "EDITION_UNSPECIFIED",
+                Self::Standard => "STANDARD",
+                Self::Enterprise => "ENTERPRISE",
+                Self::EnterprisePlus => "ENTERPRISE_PLUS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1089,9 +1089,9 @@ pub mod instance_partition {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Ready => "READY",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Ready => "READY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2514,5 +2514,1672 @@ pub mod instance_admin_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod instance_admin_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with InstanceAdminServer.
+    #[async_trait]
+    pub trait InstanceAdmin: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists the supported instance configurations for a given project.
+        async fn list_instance_configs(
+            &self,
+            request: tonic::Request<super::ListInstanceConfigsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListInstanceConfigsResponse>,
+            tonic::Status,
+        >;
+        /// Gets information about a particular instance configuration.
+        async fn get_instance_config(
+            &self,
+            request: tonic::Request<super::GetInstanceConfigRequest>,
+        ) -> std::result::Result<tonic::Response<super::InstanceConfig>, tonic::Status>;
+        /// Creates an instance configuration and begins preparing it to be used. The
+        /// returned [long-running operation][google.longrunning.Operation]
+        /// can be used to track the progress of preparing the new
+        /// instance configuration. The instance configuration name is assigned by the
+        /// caller. If the named instance configuration already exists,
+        /// `CreateInstanceConfig` returns `ALREADY_EXISTS`.
+        ///
+        /// Immediately after the request returns:
+        ///
+        ///   * The instance configuration is readable via the API, with all requested
+        ///     attributes. The instance configuration's
+        ///     [reconciling][google.spanner.admin.instance.v1.InstanceConfig.reconciling]
+        ///     field is set to true. Its state is `CREATING`.
+        ///
+        /// While the operation is pending:
+        ///
+        ///   * Cancelling the operation renders the instance configuration immediately
+        ///     unreadable via the API.
+        ///   * Except for deleting the creating resource, all other attempts to modify
+        ///     the instance configuration are rejected.
+        ///
+        /// Upon completion of the returned operation:
+        ///
+        ///   * Instances can be created using the instance configuration.
+        ///   * The instance configuration's
+        ///   [reconciling][google.spanner.admin.instance.v1.InstanceConfig.reconciling]
+        ///   field becomes false. Its state becomes `READY`.
+        ///
+        /// The returned [long-running operation][google.longrunning.Operation] will
+        /// have a name of the format
+        /// `<instance_config_name>/operations/<operation_id>` and can be used to track
+        /// creation of the instance configuration. The
+        /// [metadata][google.longrunning.Operation.metadata] field type is
+        /// [CreateInstanceConfigMetadata][google.spanner.admin.instance.v1.CreateInstanceConfigMetadata].
+        /// The [response][google.longrunning.Operation.response] field type is
+        /// [InstanceConfig][google.spanner.admin.instance.v1.InstanceConfig], if
+        /// successful.
+        ///
+        /// Authorization requires `spanner.instanceConfigs.create` permission on
+        /// the resource
+        /// [parent][google.spanner.admin.instance.v1.CreateInstanceConfigRequest.parent].
+        async fn create_instance_config(
+            &self,
+            request: tonic::Request<super::CreateInstanceConfigRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates an instance configuration. The returned
+        /// [long-running operation][google.longrunning.Operation] can be used to track
+        /// the progress of updating the instance. If the named instance configuration
+        /// does not exist, returns `NOT_FOUND`.
+        ///
+        /// Only user-managed configurations can be updated.
+        ///
+        /// Immediately after the request returns:
+        ///
+        ///   * The instance configuration's
+        ///     [reconciling][google.spanner.admin.instance.v1.InstanceConfig.reconciling]
+        ///     field is set to true.
+        ///
+        /// While the operation is pending:
+        ///
+        ///   * Cancelling the operation sets its metadata's
+        ///     [cancel_time][google.spanner.admin.instance.v1.UpdateInstanceConfigMetadata.cancel_time].
+        ///     The operation is guaranteed to succeed at undoing all changes, after
+        ///     which point it terminates with a `CANCELLED` status.
+        ///   * All other attempts to modify the instance configuration are rejected.
+        ///   * Reading the instance configuration via the API continues to give the
+        ///     pre-request values.
+        ///
+        /// Upon completion of the returned operation:
+        ///
+        ///   * Creating instances using the instance configuration uses the new
+        ///     values.
+        ///   * The new values of the instance configuration are readable via the API.
+        ///   * The instance configuration's
+        ///   [reconciling][google.spanner.admin.instance.v1.InstanceConfig.reconciling]
+        ///   field becomes false.
+        ///
+        /// The returned [long-running operation][google.longrunning.Operation] will
+        /// have a name of the format
+        /// `<instance_config_name>/operations/<operation_id>` and can be used to track
+        /// the instance configuration modification.  The
+        /// [metadata][google.longrunning.Operation.metadata] field type is
+        /// [UpdateInstanceConfigMetadata][google.spanner.admin.instance.v1.UpdateInstanceConfigMetadata].
+        /// The [response][google.longrunning.Operation.response] field type is
+        /// [InstanceConfig][google.spanner.admin.instance.v1.InstanceConfig], if
+        /// successful.
+        ///
+        /// Authorization requires `spanner.instanceConfigs.update` permission on
+        /// the resource [name][google.spanner.admin.instance.v1.InstanceConfig.name].
+        async fn update_instance_config(
+            &self,
+            request: tonic::Request<super::UpdateInstanceConfigRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes the instance configuration. Deletion is only allowed when no
+        /// instances are using the configuration. If any instances are using
+        /// the configuration, returns `FAILED_PRECONDITION`.
+        ///
+        /// Only user-managed configurations can be deleted.
+        ///
+        /// Authorization requires `spanner.instanceConfigs.delete` permission on
+        /// the resource [name][google.spanner.admin.instance.v1.InstanceConfig.name].
+        async fn delete_instance_config(
+            &self,
+            request: tonic::Request<super::DeleteInstanceConfigRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Lists the user-managed instance configuration [long-running
+        /// operations][google.longrunning.Operation] in the given project. An instance
+        /// configuration operation has a name of the form
+        /// `projects/<project>/instanceConfigs/<instance_config>/operations/<operation>`.
+        /// The long-running operation
+        /// [metadata][google.longrunning.Operation.metadata] field type
+        /// `metadata.type_url` describes the type of the metadata. Operations returned
+        /// include those that have completed/failed/canceled within the last 7 days,
+        /// and pending operations. Operations returned are ordered by
+        /// `operation.metadata.value.start_time` in descending order starting
+        /// from the most recently started operation.
+        async fn list_instance_config_operations(
+            &self,
+            request: tonic::Request<super::ListInstanceConfigOperationsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListInstanceConfigOperationsResponse>,
+            tonic::Status,
+        >;
+        /// Lists all instances in the given project.
+        async fn list_instances(
+            &self,
+            request: tonic::Request<super::ListInstancesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListInstancesResponse>,
+            tonic::Status,
+        >;
+        /// Lists all instance partitions for the given instance.
+        async fn list_instance_partitions(
+            &self,
+            request: tonic::Request<super::ListInstancePartitionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListInstancePartitionsResponse>,
+            tonic::Status,
+        >;
+        /// Gets information about a particular instance.
+        async fn get_instance(
+            &self,
+            request: tonic::Request<super::GetInstanceRequest>,
+        ) -> std::result::Result<tonic::Response<super::Instance>, tonic::Status>;
+        /// Creates an instance and begins preparing it to begin serving. The
+        /// returned [long-running operation][google.longrunning.Operation]
+        /// can be used to track the progress of preparing the new
+        /// instance. The instance name is assigned by the caller. If the
+        /// named instance already exists, `CreateInstance` returns
+        /// `ALREADY_EXISTS`.
+        ///
+        /// Immediately upon completion of this request:
+        ///
+        ///   * The instance is readable via the API, with all requested attributes
+        ///     but no allocated resources. Its state is `CREATING`.
+        ///
+        /// Until completion of the returned operation:
+        ///
+        ///   * Cancelling the operation renders the instance immediately unreadable
+        ///     via the API.
+        ///   * The instance can be deleted.
+        ///   * All other attempts to modify the instance are rejected.
+        ///
+        /// Upon completion of the returned operation:
+        ///
+        ///   * Billing for all successfully-allocated resources begins (some types
+        ///     may have lower than the requested levels).
+        ///   * Databases can be created in the instance.
+        ///   * The instance's allocated resource levels are readable via the API.
+        ///   * The instance's state becomes `READY`.
+        ///
+        /// The returned [long-running operation][google.longrunning.Operation] will
+        /// have a name of the format `<instance_name>/operations/<operation_id>` and
+        /// can be used to track creation of the instance.  The
+        /// [metadata][google.longrunning.Operation.metadata] field type is
+        /// [CreateInstanceMetadata][google.spanner.admin.instance.v1.CreateInstanceMetadata].
+        /// The [response][google.longrunning.Operation.response] field type is
+        /// [Instance][google.spanner.admin.instance.v1.Instance], if successful.
+        async fn create_instance(
+            &self,
+            request: tonic::Request<super::CreateInstanceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates an instance, and begins allocating or releasing resources
+        /// as requested. The returned [long-running
+        /// operation][google.longrunning.Operation] can be used to track the
+        /// progress of updating the instance. If the named instance does not
+        /// exist, returns `NOT_FOUND`.
+        ///
+        /// Immediately upon completion of this request:
+        ///
+        ///   * For resource types for which a decrease in the instance's allocation
+        ///     has been requested, billing is based on the newly-requested level.
+        ///
+        /// Until completion of the returned operation:
+        ///
+        ///   * Cancelling the operation sets its metadata's
+        ///     [cancel_time][google.spanner.admin.instance.v1.UpdateInstanceMetadata.cancel_time],
+        ///     and begins restoring resources to their pre-request values. The
+        ///     operation is guaranteed to succeed at undoing all resource changes,
+        ///     after which point it terminates with a `CANCELLED` status.
+        ///   * All other attempts to modify the instance are rejected.
+        ///   * Reading the instance via the API continues to give the pre-request
+        ///     resource levels.
+        ///
+        /// Upon completion of the returned operation:
+        ///
+        ///   * Billing begins for all successfully-allocated resources (some types
+        ///     may have lower than the requested levels).
+        ///   * All newly-reserved resources are available for serving the instance's
+        ///     tables.
+        ///   * The instance's new resource levels are readable via the API.
+        ///
+        /// The returned [long-running operation][google.longrunning.Operation] will
+        /// have a name of the format `<instance_name>/operations/<operation_id>` and
+        /// can be used to track the instance modification.  The
+        /// [metadata][google.longrunning.Operation.metadata] field type is
+        /// [UpdateInstanceMetadata][google.spanner.admin.instance.v1.UpdateInstanceMetadata].
+        /// The [response][google.longrunning.Operation.response] field type is
+        /// [Instance][google.spanner.admin.instance.v1.Instance], if successful.
+        ///
+        /// Authorization requires `spanner.instances.update` permission on
+        /// the resource [name][google.spanner.admin.instance.v1.Instance.name].
+        async fn update_instance(
+            &self,
+            request: tonic::Request<super::UpdateInstanceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes an instance.
+        ///
+        /// Immediately upon completion of the request:
+        ///
+        ///   * Billing ceases for all of the instance's reserved resources.
+        ///
+        /// Soon afterward:
+        ///
+        ///   * The instance and *all of its databases* immediately and
+        ///     irrevocably disappear from the API. All data in the databases
+        ///     is permanently deleted.
+        async fn delete_instance(
+            &self,
+            request: tonic::Request<super::DeleteInstanceRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Sets the access control policy on an instance resource. Replaces any
+        /// existing policy.
+        ///
+        /// Authorization requires `spanner.instances.setIamPolicy` on
+        /// [resource][google.iam.v1.SetIamPolicyRequest.resource].
+        async fn set_iam_policy(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::super::iam::v1::SetIamPolicyRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::iam::v1::Policy>,
+            tonic::Status,
+        >;
+        /// Gets the access control policy for an instance resource. Returns an empty
+        /// policy if an instance exists but does not have a policy set.
+        ///
+        /// Authorization requires `spanner.instances.getIamPolicy` on
+        /// [resource][google.iam.v1.GetIamPolicyRequest.resource].
+        async fn get_iam_policy(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::super::iam::v1::GetIamPolicyRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::iam::v1::Policy>,
+            tonic::Status,
+        >;
+        /// Returns permissions that the caller has on the specified instance resource.
+        ///
+        /// Attempting this RPC on a non-existent Cloud Spanner instance resource will
+        /// result in a NOT_FOUND error if the user has `spanner.instances.list`
+        /// permission on the containing Google Cloud Project. Otherwise returns an
+        /// empty set of permissions.
+        async fn test_iam_permissions(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::super::iam::v1::TestIamPermissionsRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<
+                super::super::super::super::super::iam::v1::TestIamPermissionsResponse,
+            >,
+            tonic::Status,
+        >;
+        /// Gets information about a particular instance partition.
+        async fn get_instance_partition(
+            &self,
+            request: tonic::Request<super::GetInstancePartitionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::InstancePartition>,
+            tonic::Status,
+        >;
+        /// Creates an instance partition and begins preparing it to be used. The
+        /// returned [long-running operation][google.longrunning.Operation]
+        /// can be used to track the progress of preparing the new instance partition.
+        /// The instance partition name is assigned by the caller. If the named
+        /// instance partition already exists, `CreateInstancePartition` returns
+        /// `ALREADY_EXISTS`.
+        ///
+        /// Immediately upon completion of this request:
+        ///
+        ///   * The instance partition is readable via the API, with all requested
+        ///     attributes but no allocated resources. Its state is `CREATING`.
+        ///
+        /// Until completion of the returned operation:
+        ///
+        ///   * Cancelling the operation renders the instance partition immediately
+        ///     unreadable via the API.
+        ///   * The instance partition can be deleted.
+        ///   * All other attempts to modify the instance partition are rejected.
+        ///
+        /// Upon completion of the returned operation:
+        ///
+        ///   * Billing for all successfully-allocated resources begins (some types
+        ///     may have lower than the requested levels).
+        ///   * Databases can start using this instance partition.
+        ///   * The instance partition's allocated resource levels are readable via the
+        ///     API.
+        ///   * The instance partition's state becomes `READY`.
+        ///
+        /// The returned [long-running operation][google.longrunning.Operation] will
+        /// have a name of the format
+        /// `<instance_partition_name>/operations/<operation_id>` and can be used to
+        /// track creation of the instance partition.  The
+        /// [metadata][google.longrunning.Operation.metadata] field type is
+        /// [CreateInstancePartitionMetadata][google.spanner.admin.instance.v1.CreateInstancePartitionMetadata].
+        /// The [response][google.longrunning.Operation.response] field type is
+        /// [InstancePartition][google.spanner.admin.instance.v1.InstancePartition], if
+        /// successful.
+        async fn create_instance_partition(
+            &self,
+            request: tonic::Request<super::CreateInstancePartitionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes an existing instance partition. Requires that the
+        /// instance partition is not used by any database or backup and is not the
+        /// default instance partition of an instance.
+        ///
+        /// Authorization requires `spanner.instancePartitions.delete` permission on
+        /// the resource
+        /// [name][google.spanner.admin.instance.v1.InstancePartition.name].
+        async fn delete_instance_partition(
+            &self,
+            request: tonic::Request<super::DeleteInstancePartitionRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Updates an instance partition, and begins allocating or releasing resources
+        /// as requested. The returned [long-running
+        /// operation][google.longrunning.Operation] can be used to track the
+        /// progress of updating the instance partition. If the named instance
+        /// partition does not exist, returns `NOT_FOUND`.
+        ///
+        /// Immediately upon completion of this request:
+        ///
+        ///   * For resource types for which a decrease in the instance partition's
+        ///   allocation has been requested, billing is based on the newly-requested
+        ///   level.
+        ///
+        /// Until completion of the returned operation:
+        ///
+        ///   * Cancelling the operation sets its metadata's
+        ///     [cancel_time][google.spanner.admin.instance.v1.UpdateInstancePartitionMetadata.cancel_time],
+        ///     and begins restoring resources to their pre-request values. The
+        ///     operation is guaranteed to succeed at undoing all resource changes,
+        ///     after which point it terminates with a `CANCELLED` status.
+        ///   * All other attempts to modify the instance partition are rejected.
+        ///   * Reading the instance partition via the API continues to give the
+        ///     pre-request resource levels.
+        ///
+        /// Upon completion of the returned operation:
+        ///
+        ///   * Billing begins for all successfully-allocated resources (some types
+        ///     may have lower than the requested levels).
+        ///   * All newly-reserved resources are available for serving the instance
+        ///     partition's tables.
+        ///   * The instance partition's new resource levels are readable via the API.
+        ///
+        /// The returned [long-running operation][google.longrunning.Operation] will
+        /// have a name of the format
+        /// `<instance_partition_name>/operations/<operation_id>` and can be used to
+        /// track the instance partition modification. The
+        /// [metadata][google.longrunning.Operation.metadata] field type is
+        /// [UpdateInstancePartitionMetadata][google.spanner.admin.instance.v1.UpdateInstancePartitionMetadata].
+        /// The [response][google.longrunning.Operation.response] field type is
+        /// [InstancePartition][google.spanner.admin.instance.v1.InstancePartition], if
+        /// successful.
+        ///
+        /// Authorization requires `spanner.instancePartitions.update` permission on
+        /// the resource
+        /// [name][google.spanner.admin.instance.v1.InstancePartition.name].
+        async fn update_instance_partition(
+            &self,
+            request: tonic::Request<super::UpdateInstancePartitionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists instance partition [long-running
+        /// operations][google.longrunning.Operation] in the given instance.
+        /// An instance partition operation has a name of the form
+        /// `projects/<project>/instances/<instance>/instancePartitions/<instance_partition>/operations/<operation>`.
+        /// The long-running operation
+        /// [metadata][google.longrunning.Operation.metadata] field type
+        /// `metadata.type_url` describes the type of the metadata. Operations returned
+        /// include those that have completed/failed/canceled within the last 7 days,
+        /// and pending operations. Operations returned are ordered by
+        /// `operation.metadata.value.start_time` in descending order starting from the
+        /// most recently started operation.
+        ///
+        /// Authorization requires `spanner.instancePartitionOperations.list`
+        /// permission on the resource
+        /// [parent][google.spanner.admin.instance.v1.ListInstancePartitionOperationsRequest.parent].
+        async fn list_instance_partition_operations(
+            &self,
+            request: tonic::Request<super::ListInstancePartitionOperationsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListInstancePartitionOperationsResponse>,
+            tonic::Status,
+        >;
+        /// Moves an instance to the target instance configuration. You can use the
+        /// returned [long-running operation][google.longrunning.Operation] to track
+        /// the progress of moving the instance.
+        ///
+        /// `MoveInstance` returns `FAILED_PRECONDITION` if the instance meets any of
+        /// the following criteria:
+        ///
+        ///   * Is undergoing a move to a different instance configuration
+        ///   * Has backups
+        ///   * Has an ongoing update
+        ///   * Contains any CMEK-enabled databases
+        ///   * Is a free trial instance
+        ///
+        /// While the operation is pending:
+        ///
+        ///   * All other attempts to modify the instance, including changes to its
+        ///     compute capacity, are rejected.
+        ///   * The following database and backup admin operations are rejected:
+        ///
+        ///     * `DatabaseAdmin.CreateDatabase`
+        ///     * `DatabaseAdmin.UpdateDatabaseDdl` (disabled if default_leader is
+        ///        specified in the request.)
+        ///     * `DatabaseAdmin.RestoreDatabase`
+        ///     * `DatabaseAdmin.CreateBackup`
+        ///     * `DatabaseAdmin.CopyBackup`
+        ///
+        ///   * Both the source and target instance configurations are subject to
+        ///     hourly compute and storage charges.
+        ///   * The instance might experience higher read-write latencies and a higher
+        ///     transaction abort rate. However, moving an instance doesn't cause any
+        ///     downtime.
+        ///
+        /// The returned [long-running operation][google.longrunning.Operation] has
+        /// a name of the format
+        /// `<instance_name>/operations/<operation_id>` and can be used to track
+        /// the move instance operation. The
+        /// [metadata][google.longrunning.Operation.metadata] field type is
+        /// [MoveInstanceMetadata][google.spanner.admin.instance.v1.MoveInstanceMetadata].
+        /// The [response][google.longrunning.Operation.response] field type is
+        /// [Instance][google.spanner.admin.instance.v1.Instance],
+        /// if successful.
+        /// Cancelling the operation sets its metadata's
+        /// [cancel_time][google.spanner.admin.instance.v1.MoveInstanceMetadata.cancel_time].
+        /// Cancellation is not immediate because it involves moving any data
+        /// previously moved to the target instance configuration back to the original
+        /// instance configuration. You can use this operation to track the progress of
+        /// the cancellation. Upon successful completion of the cancellation, the
+        /// operation terminates with `CANCELLED` status.
+        ///
+        /// If not cancelled, upon completion of the returned operation:
+        ///
+        ///   * The instance successfully moves to the target instance
+        ///     configuration.
+        ///   * You are billed for compute and storage in target instance
+        ///   configuration.
+        ///
+        /// Authorization requires the `spanner.instances.update` permission on
+        /// the resource [instance][google.spanner.admin.instance.v1.Instance].
+        ///
+        /// For more details, see
+        /// [Move an instance](https://cloud.google.com/spanner/docs/move-instance).
+        async fn move_instance(
+            &self,
+            request: tonic::Request<super::MoveInstanceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// Cloud Spanner Instance Admin API
+    ///
+    /// The Cloud Spanner Instance Admin API can be used to create, delete,
+    /// modify and list instances. Instances are dedicated Cloud Spanner serving
+    /// and storage resources to be used by Cloud Spanner databases.
+    ///
+    /// Each instance has a "configuration", which dictates where the
+    /// serving resources for the Cloud Spanner instance are located (e.g.,
+    /// US-central, Europe). Configurations are created by Google based on
+    /// resource availability.
+    ///
+    /// Cloud Spanner billing is based on the instances that exist and their
+    /// sizes. After an instance exists, there are no additional
+    /// per-database or per-operation charges for use of the instance
+    /// (though there may be additional network bandwidth charges).
+    /// Instances offer isolation: problems with databases in one instance
+    /// will not affect other instances. However, within an instance
+    /// databases can affect each other. For example, if one database in an
+    /// instance receives a lot of requests and consumes most of the
+    /// instance resources, fewer resources are available for other
+    /// databases in that instance, and their performance may suffer.
+    #[derive(Debug)]
+    pub struct InstanceAdminServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> InstanceAdminServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for InstanceAdminServer<T>
+    where
+        T: InstanceAdmin,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.spanner.admin.instance.v1.InstanceAdmin/ListInstanceConfigs" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListInstanceConfigsSvc<T: InstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: InstanceAdmin,
+                    > tonic::server::UnaryService<super::ListInstanceConfigsRequest>
+                    for ListInstanceConfigsSvc<T> {
+                        type Response = super::ListInstanceConfigsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListInstanceConfigsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as InstanceAdmin>::list_instance_configs(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListInstanceConfigsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.instance.v1.InstanceAdmin/GetInstanceConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetInstanceConfigSvc<T: InstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: InstanceAdmin,
+                    > tonic::server::UnaryService<super::GetInstanceConfigRequest>
+                    for GetInstanceConfigSvc<T> {
+                        type Response = super::InstanceConfig;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetInstanceConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as InstanceAdmin>::get_instance_config(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetInstanceConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.instance.v1.InstanceAdmin/CreateInstanceConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateInstanceConfigSvc<T: InstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: InstanceAdmin,
+                    > tonic::server::UnaryService<super::CreateInstanceConfigRequest>
+                    for CreateInstanceConfigSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateInstanceConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as InstanceAdmin>::create_instance_config(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateInstanceConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.instance.v1.InstanceAdmin/UpdateInstanceConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateInstanceConfigSvc<T: InstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: InstanceAdmin,
+                    > tonic::server::UnaryService<super::UpdateInstanceConfigRequest>
+                    for UpdateInstanceConfigSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateInstanceConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as InstanceAdmin>::update_instance_config(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateInstanceConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.instance.v1.InstanceAdmin/DeleteInstanceConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteInstanceConfigSvc<T: InstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: InstanceAdmin,
+                    > tonic::server::UnaryService<super::DeleteInstanceConfigRequest>
+                    for DeleteInstanceConfigSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteInstanceConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as InstanceAdmin>::delete_instance_config(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteInstanceConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.instance.v1.InstanceAdmin/ListInstanceConfigOperations" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListInstanceConfigOperationsSvc<T: InstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: InstanceAdmin,
+                    > tonic::server::UnaryService<
+                        super::ListInstanceConfigOperationsRequest,
+                    > for ListInstanceConfigOperationsSvc<T> {
+                        type Response = super::ListInstanceConfigOperationsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListInstanceConfigOperationsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as InstanceAdmin>::list_instance_config_operations(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListInstanceConfigOperationsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.instance.v1.InstanceAdmin/ListInstances" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListInstancesSvc<T: InstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: InstanceAdmin,
+                    > tonic::server::UnaryService<super::ListInstancesRequest>
+                    for ListInstancesSvc<T> {
+                        type Response = super::ListInstancesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListInstancesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as InstanceAdmin>::list_instances(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListInstancesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.instance.v1.InstanceAdmin/ListInstancePartitions" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListInstancePartitionsSvc<T: InstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: InstanceAdmin,
+                    > tonic::server::UnaryService<super::ListInstancePartitionsRequest>
+                    for ListInstancePartitionsSvc<T> {
+                        type Response = super::ListInstancePartitionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListInstancePartitionsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as InstanceAdmin>::list_instance_partitions(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListInstancePartitionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.instance.v1.InstanceAdmin/GetInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetInstanceSvc<T: InstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: InstanceAdmin,
+                    > tonic::server::UnaryService<super::GetInstanceRequest>
+                    for GetInstanceSvc<T> {
+                        type Response = super::Instance;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetInstanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as InstanceAdmin>::get_instance(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.instance.v1.InstanceAdmin/CreateInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateInstanceSvc<T: InstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: InstanceAdmin,
+                    > tonic::server::UnaryService<super::CreateInstanceRequest>
+                    for CreateInstanceSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateInstanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as InstanceAdmin>::create_instance(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.instance.v1.InstanceAdmin/UpdateInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateInstanceSvc<T: InstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: InstanceAdmin,
+                    > tonic::server::UnaryService<super::UpdateInstanceRequest>
+                    for UpdateInstanceSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateInstanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as InstanceAdmin>::update_instance(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.instance.v1.InstanceAdmin/DeleteInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteInstanceSvc<T: InstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: InstanceAdmin,
+                    > tonic::server::UnaryService<super::DeleteInstanceRequest>
+                    for DeleteInstanceSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteInstanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as InstanceAdmin>::delete_instance(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.instance.v1.InstanceAdmin/SetIamPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetIamPolicySvc<T: InstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: InstanceAdmin,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::super::iam::v1::SetIamPolicyRequest,
+                    > for SetIamPolicySvc<T> {
+                        type Response = super::super::super::super::super::iam::v1::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::super::iam::v1::SetIamPolicyRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as InstanceAdmin>::set_iam_policy(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SetIamPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.instance.v1.InstanceAdmin/GetIamPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetIamPolicySvc<T: InstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: InstanceAdmin,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::super::iam::v1::GetIamPolicyRequest,
+                    > for GetIamPolicySvc<T> {
+                        type Response = super::super::super::super::super::iam::v1::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::super::iam::v1::GetIamPolicyRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as InstanceAdmin>::get_iam_policy(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetIamPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.instance.v1.InstanceAdmin/TestIamPermissions" => {
+                    #[allow(non_camel_case_types)]
+                    struct TestIamPermissionsSvc<T: InstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: InstanceAdmin,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::super::iam::v1::TestIamPermissionsRequest,
+                    > for TestIamPermissionsSvc<T> {
+                        type Response = super::super::super::super::super::iam::v1::TestIamPermissionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::super::iam::v1::TestIamPermissionsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as InstanceAdmin>::test_iam_permissions(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = TestIamPermissionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.instance.v1.InstanceAdmin/GetInstancePartition" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetInstancePartitionSvc<T: InstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: InstanceAdmin,
+                    > tonic::server::UnaryService<super::GetInstancePartitionRequest>
+                    for GetInstancePartitionSvc<T> {
+                        type Response = super::InstancePartition;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetInstancePartitionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as InstanceAdmin>::get_instance_partition(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetInstancePartitionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.instance.v1.InstanceAdmin/CreateInstancePartition" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateInstancePartitionSvc<T: InstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: InstanceAdmin,
+                    > tonic::server::UnaryService<super::CreateInstancePartitionRequest>
+                    for CreateInstancePartitionSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateInstancePartitionRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as InstanceAdmin>::create_instance_partition(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateInstancePartitionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.instance.v1.InstanceAdmin/DeleteInstancePartition" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteInstancePartitionSvc<T: InstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: InstanceAdmin,
+                    > tonic::server::UnaryService<super::DeleteInstancePartitionRequest>
+                    for DeleteInstancePartitionSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteInstancePartitionRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as InstanceAdmin>::delete_instance_partition(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteInstancePartitionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.instance.v1.InstanceAdmin/UpdateInstancePartition" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateInstancePartitionSvc<T: InstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: InstanceAdmin,
+                    > tonic::server::UnaryService<super::UpdateInstancePartitionRequest>
+                    for UpdateInstancePartitionSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::UpdateInstancePartitionRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as InstanceAdmin>::update_instance_partition(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateInstancePartitionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.instance.v1.InstanceAdmin/ListInstancePartitionOperations" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListInstancePartitionOperationsSvc<T: InstanceAdmin>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: InstanceAdmin,
+                    > tonic::server::UnaryService<
+                        super::ListInstancePartitionOperationsRequest,
+                    > for ListInstancePartitionOperationsSvc<T> {
+                        type Response = super::ListInstancePartitionOperationsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListInstancePartitionOperationsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as InstanceAdmin>::list_instance_partition_operations(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListInstancePartitionOperationsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.instance.v1.InstanceAdmin/MoveInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct MoveInstanceSvc<T: InstanceAdmin>(pub Arc<T>);
+                    impl<
+                        T: InstanceAdmin,
+                    > tonic::server::UnaryService<super::MoveInstanceRequest>
+                    for MoveInstanceSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MoveInstanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as InstanceAdmin>::move_instance(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = MoveInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for InstanceAdminServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.spanner.admin.instance.v1.InstanceAdmin";
+    impl<T> tonic::server::NamedService for InstanceAdminServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

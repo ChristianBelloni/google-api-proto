@@ -121,14 +121,14 @@ pub mod registration {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::RegistrationPending => "REGISTRATION_PENDING",
-                State::RegistrationFailed => "REGISTRATION_FAILED",
-                State::TransferPending => "TRANSFER_PENDING",
-                State::TransferFailed => "TRANSFER_FAILED",
-                State::Active => "ACTIVE",
-                State::Suspended => "SUSPENDED",
-                State::Exported => "EXPORTED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::RegistrationPending => "REGISTRATION_PENDING",
+                Self::RegistrationFailed => "REGISTRATION_FAILED",
+                Self::TransferPending => "TRANSFER_PENDING",
+                Self::TransferFailed => "TRANSFER_FAILED",
+                Self::Active => "ACTIVE",
+                Self::Suspended => "SUSPENDED",
+                Self::Exported => "EXPORTED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -181,9 +181,9 @@ pub mod registration {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Issue::Unspecified => "ISSUE_UNSPECIFIED",
-                Issue::ContactSupport => "CONTACT_SUPPORT",
-                Issue::UnverifiedEmail => "UNVERIFIED_EMAIL",
+                Self::Unspecified => "ISSUE_UNSPECIFIED",
+                Self::ContactSupport => "CONTACT_SUPPORT",
+                Self::UnverifiedEmail => "UNVERIFIED_EMAIL",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -245,9 +245,9 @@ pub mod management_settings {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                RenewalMethod::Unspecified => "RENEWAL_METHOD_UNSPECIFIED",
-                RenewalMethod::AutomaticRenewal => "AUTOMATIC_RENEWAL",
-                RenewalMethod::ManualRenewal => "MANUAL_RENEWAL",
+                Self::Unspecified => "RENEWAL_METHOD_UNSPECIFIED",
+                Self::AutomaticRenewal => "AUTOMATIC_RENEWAL",
+                Self::ManualRenewal => "MANUAL_RENEWAL",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -389,24 +389,24 @@ pub mod dns_settings {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    Algorithm::Unspecified => "ALGORITHM_UNSPECIFIED",
-                    Algorithm::Rsamd5 => "RSAMD5",
-                    Algorithm::Dh => "DH",
-                    Algorithm::Dsa => "DSA",
-                    Algorithm::Ecc => "ECC",
-                    Algorithm::Rsasha1 => "RSASHA1",
-                    Algorithm::Dsansec3sha1 => "DSANSEC3SHA1",
-                    Algorithm::Rsasha1nsec3sha1 => "RSASHA1NSEC3SHA1",
-                    Algorithm::Rsasha256 => "RSASHA256",
-                    Algorithm::Rsasha512 => "RSASHA512",
-                    Algorithm::Eccgost => "ECCGOST",
-                    Algorithm::Ecdsap256sha256 => "ECDSAP256SHA256",
-                    Algorithm::Ecdsap384sha384 => "ECDSAP384SHA384",
-                    Algorithm::Ed25519 => "ED25519",
-                    Algorithm::Ed448 => "ED448",
-                    Algorithm::Indirect => "INDIRECT",
-                    Algorithm::Privatedns => "PRIVATEDNS",
-                    Algorithm::Privateoid => "PRIVATEOID",
+                    Self::Unspecified => "ALGORITHM_UNSPECIFIED",
+                    Self::Rsamd5 => "RSAMD5",
+                    Self::Dh => "DH",
+                    Self::Dsa => "DSA",
+                    Self::Ecc => "ECC",
+                    Self::Rsasha1 => "RSASHA1",
+                    Self::Dsansec3sha1 => "DSANSEC3SHA1",
+                    Self::Rsasha1nsec3sha1 => "RSASHA1NSEC3SHA1",
+                    Self::Rsasha256 => "RSASHA256",
+                    Self::Rsasha512 => "RSASHA512",
+                    Self::Eccgost => "ECCGOST",
+                    Self::Ecdsap256sha256 => "ECDSAP256SHA256",
+                    Self::Ecdsap384sha384 => "ECDSAP384SHA384",
+                    Self::Ed25519 => "ED25519",
+                    Self::Ed448 => "ED448",
+                    Self::Indirect => "INDIRECT",
+                    Self::Privatedns => "PRIVATEDNS",
+                    Self::Privateoid => "PRIVATEOID",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -467,11 +467,11 @@ pub mod dns_settings {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    DigestType::Unspecified => "DIGEST_TYPE_UNSPECIFIED",
-                    DigestType::Sha1 => "SHA1",
-                    DigestType::Sha256 => "SHA256",
-                    DigestType::Gost3411 => "GOST3411",
-                    DigestType::Sha384 => "SHA384",
+                    Self::Unspecified => "DIGEST_TYPE_UNSPECIFIED",
+                    Self::Sha1 => "SHA1",
+                    Self::Sha256 => "SHA256",
+                    Self::Gost3411 => "GOST3411",
+                    Self::Sha384 => "SHA384",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -541,9 +541,9 @@ pub mod dns_settings {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                DsState::Unspecified => "DS_STATE_UNSPECIFIED",
-                DsState::DsRecordsUnpublished => "DS_RECORDS_UNPUBLISHED",
-                DsState::DsRecordsPublished => "DS_RECORDS_PUBLISHED",
+                Self::Unspecified => "DS_STATE_UNSPECIFIED",
+                Self::DsRecordsUnpublished => "DS_RECORDS_UNPUBLISHED",
+                Self::DsRecordsPublished => "DS_RECORDS_PUBLISHED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -951,11 +951,11 @@ pub mod register_parameters {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Availability::Unspecified => "AVAILABILITY_UNSPECIFIED",
-                Availability::Available => "AVAILABLE",
-                Availability::Unavailable => "UNAVAILABLE",
-                Availability::Unsupported => "UNSUPPORTED",
-                Availability::Unknown => "UNKNOWN",
+                Self::Unspecified => "AVAILABILITY_UNSPECIFIED",
+                Self::Available => "AVAILABLE",
+                Self::Unavailable => "UNAVAILABLE",
+                Self::Unsupported => "UNSUPPORTED",
+                Self::Unknown => "UNKNOWN",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1059,10 +1059,10 @@ impl ContactPrivacy {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ContactPrivacy::Unspecified => "CONTACT_PRIVACY_UNSPECIFIED",
-            ContactPrivacy::PublicContactData => "PUBLIC_CONTACT_DATA",
-            ContactPrivacy::PrivateContactData => "PRIVATE_CONTACT_DATA",
-            ContactPrivacy::RedactedContactData => "REDACTED_CONTACT_DATA",
+            Self::Unspecified => "CONTACT_PRIVACY_UNSPECIFIED",
+            Self::PublicContactData => "PUBLIC_CONTACT_DATA",
+            Self::PrivateContactData => "PRIVATE_CONTACT_DATA",
+            Self::RedactedContactData => "REDACTED_CONTACT_DATA",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1096,8 +1096,8 @@ impl DomainNotice {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            DomainNotice::Unspecified => "DOMAIN_NOTICE_UNSPECIFIED",
-            DomainNotice::HstsPreloaded => "HSTS_PRELOADED",
+            Self::Unspecified => "DOMAIN_NOTICE_UNSPECIFIED",
+            Self::HstsPreloaded => "HSTS_PRELOADED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1126,8 +1126,8 @@ impl ContactNotice {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ContactNotice::Unspecified => "CONTACT_NOTICE_UNSPECIFIED",
-            ContactNotice::PublicContactDataAcknowledgement => {
+            Self::Unspecified => "CONTACT_NOTICE_UNSPECIFIED",
+            Self::PublicContactDataAcknowledgement => {
                 "PUBLIC_CONTACT_DATA_ACKNOWLEDGEMENT"
             }
         }
@@ -1161,9 +1161,9 @@ impl TransferLockState {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            TransferLockState::Unspecified => "TRANSFER_LOCK_STATE_UNSPECIFIED",
-            TransferLockState::Unlocked => "UNLOCKED",
-            TransferLockState::Locked => "LOCKED",
+            Self::Unspecified => "TRANSFER_LOCK_STATE_UNSPECIFIED",
+            Self::Unlocked => "UNLOCKED",
+            Self::Locked => "LOCKED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1794,5 +1794,1029 @@ pub mod domains_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod domains_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with DomainsServer.
+    #[async_trait]
+    pub trait Domains: std::marker::Send + std::marker::Sync + 'static {
+        /// Searches for available domain names similar to the provided query.
+        ///
+        /// Availability results from this method are approximate; call
+        /// `RetrieveRegisterParameters` on a domain before registering to confirm
+        /// availability.
+        async fn search_domains(
+            &self,
+            request: tonic::Request<super::SearchDomainsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SearchDomainsResponse>,
+            tonic::Status,
+        >;
+        /// Gets parameters needed to register a new domain name, including price and
+        /// up-to-date availability. Use the returned values to call `RegisterDomain`.
+        async fn retrieve_register_parameters(
+            &self,
+            request: tonic::Request<super::RetrieveRegisterParametersRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::RetrieveRegisterParametersResponse>,
+            tonic::Status,
+        >;
+        /// Registers a new domain name and creates a corresponding `Registration`
+        /// resource.
+        ///
+        /// Call `RetrieveRegisterParameters` first to check availability of the domain
+        /// name and determine parameters like price that are needed to build a call to
+        /// this method.
+        ///
+        /// A successful call creates a `Registration` resource in state
+        /// `REGISTRATION_PENDING`, which resolves to `ACTIVE` within 1-2
+        /// minutes, indicating that the domain was successfully registered. If the
+        /// resource ends up in state `REGISTRATION_FAILED`, it indicates that the
+        /// domain was not registered successfully, and you can safely delete the
+        /// resource and retry registration.
+        async fn register_domain(
+            &self,
+            request: tonic::Request<super::RegisterDomainRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Gets parameters needed to transfer a domain name from another registrar to
+        /// Cloud Domains. For domains managed by Google Domains, transferring to Cloud
+        /// Domains is not supported.
+        ///
+        ///
+        /// Use the returned values to call `TransferDomain`.
+        async fn retrieve_transfer_parameters(
+            &self,
+            request: tonic::Request<super::RetrieveTransferParametersRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::RetrieveTransferParametersResponse>,
+            tonic::Status,
+        >;
+        /// Transfers a domain name from another registrar to Cloud Domains.  For
+        /// domains managed by Google Domains, transferring to Cloud Domains is not
+        /// supported.
+        ///
+        ///
+        /// Before calling this method, go to the domain's current registrar to unlock
+        /// the domain for transfer and retrieve the domain's transfer authorization
+        /// code. Then call `RetrieveTransferParameters` to confirm that the domain is
+        /// unlocked and to get values needed to build a call to this method.
+        ///
+        /// A successful call creates a `Registration` resource in state
+        /// `TRANSFER_PENDING`. It can take several days to complete the transfer
+        /// process. The registrant can often speed up this process by approving the
+        /// transfer through the current registrar, either by clicking a link in an
+        /// email from the registrar or by visiting the registrar's website.
+        ///
+        /// A few minutes after transfer approval, the resource transitions to state
+        /// `ACTIVE`, indicating that the transfer was successful. If the transfer is
+        /// rejected or the request expires without being approved, the resource can
+        /// end up in state `TRANSFER_FAILED`. If transfer fails, you can safely delete
+        /// the resource and retry the transfer.
+        async fn transfer_domain(
+            &self,
+            request: tonic::Request<super::TransferDomainRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists the `Registration` resources in a project.
+        async fn list_registrations(
+            &self,
+            request: tonic::Request<super::ListRegistrationsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListRegistrationsResponse>,
+            tonic::Status,
+        >;
+        /// Gets the details of a `Registration` resource.
+        async fn get_registration(
+            &self,
+            request: tonic::Request<super::GetRegistrationRequest>,
+        ) -> std::result::Result<tonic::Response<super::Registration>, tonic::Status>;
+        /// Updates select fields of a `Registration` resource, notably `labels`. To
+        /// update other fields, use the appropriate custom update method:
+        ///
+        /// * To update management settings, see `ConfigureManagementSettings`
+        /// * To update DNS configuration, see `ConfigureDnsSettings`
+        /// * To update contact information, see `ConfigureContactSettings`
+        async fn update_registration(
+            &self,
+            request: tonic::Request<super::UpdateRegistrationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates a `Registration`'s management settings.
+        async fn configure_management_settings(
+            &self,
+            request: tonic::Request<super::ConfigureManagementSettingsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates a `Registration`'s DNS settings.
+        async fn configure_dns_settings(
+            &self,
+            request: tonic::Request<super::ConfigureDnsSettingsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates a `Registration`'s contact settings. Some changes require
+        /// confirmation by the domain's registrant contact .
+        async fn configure_contact_settings(
+            &self,
+            request: tonic::Request<super::ConfigureContactSettingsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Exports a `Registration` resource, such that it is no longer managed by
+        /// Cloud Domains.
+        ///
+        /// When an active domain is successfully exported, you can continue to use the
+        /// domain in [Google Domains](https://domains.google/) until it expires. The
+        /// calling user becomes the domain's sole owner in Google Domains, and
+        /// permissions for the domain are subsequently managed there. The domain does
+        /// not renew automatically unless the new owner sets up billing in Google
+        /// Domains.
+        async fn export_registration(
+            &self,
+            request: tonic::Request<super::ExportRegistrationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a `Registration` resource.
+        ///
+        /// This method works on any `Registration` resource using [Subscription or
+        /// Commitment billing](/domains/pricing#billing-models), provided that the
+        /// resource was created at least 1 day in the past.
+        ///
+        /// For `Registration` resources using
+        /// [Monthly billing](/domains/pricing#billing-models), this method works if:
+        ///
+        /// * `state` is `EXPORTED` with `expire_time` in the past
+        /// * `state` is `REGISTRATION_FAILED`
+        /// * `state` is `TRANSFER_FAILED`
+        ///
+        /// When an active registration is successfully deleted, you can continue to
+        /// use the domain in [Google Domains](https://domains.google/) until it
+        /// expires. The calling user becomes the domain's sole owner in Google
+        /// Domains, and permissions for the domain are subsequently managed there. The
+        /// domain does not renew automatically unless the new owner sets up billing in
+        /// Google Domains.
+        async fn delete_registration(
+            &self,
+            request: tonic::Request<super::DeleteRegistrationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Gets the authorization code of the `Registration` for the purpose of
+        /// transferring the domain to another registrar.
+        ///
+        /// You can call this method only after 60 days have elapsed since the initial
+        /// domain registration.
+        async fn retrieve_authorization_code(
+            &self,
+            request: tonic::Request<super::RetrieveAuthorizationCodeRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AuthorizationCode>,
+            tonic::Status,
+        >;
+        /// Resets the authorization code of the `Registration` to a new random string.
+        ///
+        /// You can call this method only after 60 days have elapsed since the initial
+        /// domain registration.
+        async fn reset_authorization_code(
+            &self,
+            request: tonic::Request<super::ResetAuthorizationCodeRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AuthorizationCode>,
+            tonic::Status,
+        >;
+    }
+    /// The Cloud Domains API enables management and configuration of domain names.
+    #[derive(Debug)]
+    pub struct DomainsServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> DomainsServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for DomainsServer<T>
+    where
+        T: Domains,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.domains.v1alpha2.Domains/SearchDomains" => {
+                    #[allow(non_camel_case_types)]
+                    struct SearchDomainsSvc<T: Domains>(pub Arc<T>);
+                    impl<
+                        T: Domains,
+                    > tonic::server::UnaryService<super::SearchDomainsRequest>
+                    for SearchDomainsSvc<T> {
+                        type Response = super::SearchDomainsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SearchDomainsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Domains>::search_domains(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SearchDomainsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.domains.v1alpha2.Domains/RetrieveRegisterParameters" => {
+                    #[allow(non_camel_case_types)]
+                    struct RetrieveRegisterParametersSvc<T: Domains>(pub Arc<T>);
+                    impl<
+                        T: Domains,
+                    > tonic::server::UnaryService<
+                        super::RetrieveRegisterParametersRequest,
+                    > for RetrieveRegisterParametersSvc<T> {
+                        type Response = super::RetrieveRegisterParametersResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::RetrieveRegisterParametersRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Domains>::retrieve_register_parameters(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RetrieveRegisterParametersSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.domains.v1alpha2.Domains/RegisterDomain" => {
+                    #[allow(non_camel_case_types)]
+                    struct RegisterDomainSvc<T: Domains>(pub Arc<T>);
+                    impl<
+                        T: Domains,
+                    > tonic::server::UnaryService<super::RegisterDomainRequest>
+                    for RegisterDomainSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RegisterDomainRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Domains>::register_domain(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RegisterDomainSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.domains.v1alpha2.Domains/RetrieveTransferParameters" => {
+                    #[allow(non_camel_case_types)]
+                    struct RetrieveTransferParametersSvc<T: Domains>(pub Arc<T>);
+                    impl<
+                        T: Domains,
+                    > tonic::server::UnaryService<
+                        super::RetrieveTransferParametersRequest,
+                    > for RetrieveTransferParametersSvc<T> {
+                        type Response = super::RetrieveTransferParametersResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::RetrieveTransferParametersRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Domains>::retrieve_transfer_parameters(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RetrieveTransferParametersSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.domains.v1alpha2.Domains/TransferDomain" => {
+                    #[allow(non_camel_case_types)]
+                    struct TransferDomainSvc<T: Domains>(pub Arc<T>);
+                    impl<
+                        T: Domains,
+                    > tonic::server::UnaryService<super::TransferDomainRequest>
+                    for TransferDomainSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::TransferDomainRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Domains>::transfer_domain(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = TransferDomainSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.domains.v1alpha2.Domains/ListRegistrations" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListRegistrationsSvc<T: Domains>(pub Arc<T>);
+                    impl<
+                        T: Domains,
+                    > tonic::server::UnaryService<super::ListRegistrationsRequest>
+                    for ListRegistrationsSvc<T> {
+                        type Response = super::ListRegistrationsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListRegistrationsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Domains>::list_registrations(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListRegistrationsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.domains.v1alpha2.Domains/GetRegistration" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetRegistrationSvc<T: Domains>(pub Arc<T>);
+                    impl<
+                        T: Domains,
+                    > tonic::server::UnaryService<super::GetRegistrationRequest>
+                    for GetRegistrationSvc<T> {
+                        type Response = super::Registration;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetRegistrationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Domains>::get_registration(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetRegistrationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.domains.v1alpha2.Domains/UpdateRegistration" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateRegistrationSvc<T: Domains>(pub Arc<T>);
+                    impl<
+                        T: Domains,
+                    > tonic::server::UnaryService<super::UpdateRegistrationRequest>
+                    for UpdateRegistrationSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateRegistrationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Domains>::update_registration(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateRegistrationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.domains.v1alpha2.Domains/ConfigureManagementSettings" => {
+                    #[allow(non_camel_case_types)]
+                    struct ConfigureManagementSettingsSvc<T: Domains>(pub Arc<T>);
+                    impl<
+                        T: Domains,
+                    > tonic::server::UnaryService<
+                        super::ConfigureManagementSettingsRequest,
+                    > for ConfigureManagementSettingsSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ConfigureManagementSettingsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Domains>::configure_management_settings(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ConfigureManagementSettingsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.domains.v1alpha2.Domains/ConfigureDnsSettings" => {
+                    #[allow(non_camel_case_types)]
+                    struct ConfigureDnsSettingsSvc<T: Domains>(pub Arc<T>);
+                    impl<
+                        T: Domains,
+                    > tonic::server::UnaryService<super::ConfigureDnsSettingsRequest>
+                    for ConfigureDnsSettingsSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ConfigureDnsSettingsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Domains>::configure_dns_settings(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ConfigureDnsSettingsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.domains.v1alpha2.Domains/ConfigureContactSettings" => {
+                    #[allow(non_camel_case_types)]
+                    struct ConfigureContactSettingsSvc<T: Domains>(pub Arc<T>);
+                    impl<
+                        T: Domains,
+                    > tonic::server::UnaryService<super::ConfigureContactSettingsRequest>
+                    for ConfigureContactSettingsSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ConfigureContactSettingsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Domains>::configure_contact_settings(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ConfigureContactSettingsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.domains.v1alpha2.Domains/ExportRegistration" => {
+                    #[allow(non_camel_case_types)]
+                    struct ExportRegistrationSvc<T: Domains>(pub Arc<T>);
+                    impl<
+                        T: Domains,
+                    > tonic::server::UnaryService<super::ExportRegistrationRequest>
+                    for ExportRegistrationSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ExportRegistrationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Domains>::export_registration(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ExportRegistrationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.domains.v1alpha2.Domains/DeleteRegistration" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteRegistrationSvc<T: Domains>(pub Arc<T>);
+                    impl<
+                        T: Domains,
+                    > tonic::server::UnaryService<super::DeleteRegistrationRequest>
+                    for DeleteRegistrationSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteRegistrationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Domains>::delete_registration(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteRegistrationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.domains.v1alpha2.Domains/RetrieveAuthorizationCode" => {
+                    #[allow(non_camel_case_types)]
+                    struct RetrieveAuthorizationCodeSvc<T: Domains>(pub Arc<T>);
+                    impl<
+                        T: Domains,
+                    > tonic::server::UnaryService<
+                        super::RetrieveAuthorizationCodeRequest,
+                    > for RetrieveAuthorizationCodeSvc<T> {
+                        type Response = super::AuthorizationCode;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::RetrieveAuthorizationCodeRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Domains>::retrieve_authorization_code(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RetrieveAuthorizationCodeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.domains.v1alpha2.Domains/ResetAuthorizationCode" => {
+                    #[allow(non_camel_case_types)]
+                    struct ResetAuthorizationCodeSvc<T: Domains>(pub Arc<T>);
+                    impl<
+                        T: Domains,
+                    > tonic::server::UnaryService<super::ResetAuthorizationCodeRequest>
+                    for ResetAuthorizationCodeSvc<T> {
+                        type Response = super::AuthorizationCode;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ResetAuthorizationCodeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Domains>::reset_authorization_code(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ResetAuthorizationCodeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for DomainsServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.domains.v1alpha2.Domains";
+    impl<T> tonic::server::NamedService for DomainsServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

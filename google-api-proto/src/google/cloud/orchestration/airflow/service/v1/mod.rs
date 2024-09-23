@@ -57,11 +57,11 @@ pub mod operation_metadata {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Pending => "PENDING",
-                State::Running => "RUNNING",
-                State::Succeeded => "SUCCEEDED",
-                State::Failed => "FAILED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Pending => "PENDING",
+                Self::Running => "RUNNING",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Failed => "FAILED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -115,14 +115,14 @@ pub mod operation_metadata {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::Create => "CREATE",
-                Type::Delete => "DELETE",
-                Type::Update => "UPDATE",
-                Type::Check => "CHECK",
-                Type::SaveSnapshot => "SAVE_SNAPSHOT",
-                Type::LoadSnapshot => "LOAD_SNAPSHOT",
-                Type::DatabaseFailover => "DATABASE_FAILOVER",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::Create => "CREATE",
+                Self::Delete => "DELETE",
+                Self::Update => "UPDATE",
+                Self::Check => "CHECK",
+                Self::SaveSnapshot => "SAVE_SNAPSHOT",
+                Self::LoadSnapshot => "LOAD_SNAPSHOT",
+                Self::DatabaseFailover => "DATABASE_FAILOVER",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -139,6 +139,345 @@ pub mod operation_metadata {
                 _ => None,
             }
         }
+    }
+}
+/// List ImageVersions in a project and location.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListImageVersionsRequest {
+    /// List ImageVersions in the given project and location, in the form:
+    /// "projects/{projectId}/locations/{locationId}"
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// The maximum number of image_versions to return.
+    #[prost(int32, tag = "2")]
+    pub page_size: i32,
+    /// The next_page_token value returned from a previous List request, if any.
+    #[prost(string, tag = "3")]
+    pub page_token: ::prost::alloc::string::String,
+    /// Whether or not image versions from old releases should be included.
+    #[prost(bool, tag = "4")]
+    pub include_past_releases: bool,
+}
+/// The ImageVersions in a project and location.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListImageVersionsResponse {
+    /// The list of supported ImageVersions in a location.
+    #[prost(message, repeated, tag = "1")]
+    pub image_versions: ::prost::alloc::vec::Vec<ImageVersion>,
+    /// The page token used to query for the next page if one exists.
+    #[prost(string, tag = "2")]
+    pub next_page_token: ::prost::alloc::string::String,
+}
+/// ImageVersion information
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ImageVersion {
+    /// The string identifier of the ImageVersion, in the form:
+    /// "composer-x.y.z-airflow-a.b.c"
+    #[prost(string, tag = "1")]
+    pub image_version_id: ::prost::alloc::string::String,
+    /// Whether this is the default ImageVersion used by Composer during
+    /// environment creation if no input ImageVersion is specified.
+    #[prost(bool, tag = "2")]
+    pub is_default: bool,
+    /// supported python versions
+    #[prost(string, repeated, tag = "3")]
+    pub supported_python_versions: ::prost::alloc::vec::Vec<
+        ::prost::alloc::string::String,
+    >,
+    /// The date of the version release.
+    #[prost(message, optional, tag = "4")]
+    pub release_date: ::core::option::Option<
+        super::super::super::super::super::r#type::Date,
+    >,
+    /// Whether it is impossible to create an environment with the image version.
+    #[prost(bool, tag = "5")]
+    pub creation_disabled: bool,
+    /// Whether it is impossible to upgrade an environment running with the image
+    /// version.
+    #[prost(bool, tag = "6")]
+    pub upgrade_disabled: bool,
+}
+/// Generated client implementations.
+pub mod image_versions_client {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    use tonic::codegen::http::Uri;
+    /// Readonly service to query available ImageVersions.
+    #[derive(Debug, Clone)]
+    pub struct ImageVersionsClient<T> {
+        inner: tonic::client::Grpc<T>,
+    }
+    impl<T> ImageVersionsClient<T>
+    where
+        T: tonic::client::GrpcService<tonic::body::BoxBody>,
+        T::Error: Into<StdError>,
+        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
+    {
+        pub fn new(inner: T) -> Self {
+            let inner = tonic::client::Grpc::new(inner);
+            Self { inner }
+        }
+        pub fn with_origin(inner: T, origin: Uri) -> Self {
+            let inner = tonic::client::Grpc::with_origin(inner, origin);
+            Self { inner }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> ImageVersionsClient<InterceptedService<T, F>>
+        where
+            F: tonic::service::Interceptor,
+            T::ResponseBody: Default,
+            T: tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+                Response = http::Response<
+                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
+                >,
+            >,
+            <T as tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+            >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
+        {
+            ImageVersionsClient::new(InterceptedService::new(inner, interceptor))
+        }
+        /// Compress requests with the given encoding.
+        ///
+        /// This requires the server to support it otherwise it might respond with an
+        /// error.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.send_compressed(encoding);
+            self
+        }
+        /// Enable decompressing responses.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.accept_compressed(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
+        /// List ImageVersions for provided location.
+        pub async fn list_image_versions(
+            &mut self,
+            request: impl tonic::IntoRequest<super::ListImageVersionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListImageVersionsResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.orchestration.airflow.service.v1.ImageVersions/ListImageVersions",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.orchestration.airflow.service.v1.ImageVersions",
+                        "ListImageVersions",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+    }
+}
+/// Generated server implementations.
+pub mod image_versions_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with ImageVersionsServer.
+    #[async_trait]
+    pub trait ImageVersions: std::marker::Send + std::marker::Sync + 'static {
+        /// List ImageVersions for provided location.
+        async fn list_image_versions(
+            &self,
+            request: tonic::Request<super::ListImageVersionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListImageVersionsResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Readonly service to query available ImageVersions.
+    #[derive(Debug)]
+    pub struct ImageVersionsServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> ImageVersionsServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for ImageVersionsServer<T>
+    where
+        T: ImageVersions,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.orchestration.airflow.service.v1.ImageVersions/ListImageVersions" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListImageVersionsSvc<T: ImageVersions>(pub Arc<T>);
+                    impl<
+                        T: ImageVersions,
+                    > tonic::server::UnaryService<super::ListImageVersionsRequest>
+                    for ListImageVersionsSvc<T> {
+                        type Response = super::ListImageVersionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListImageVersionsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ImageVersions>::list_image_versions(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListImageVersionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for ImageVersionsServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.orchestration.airflow.service.v1.ImageVersions";
+    impl<T> tonic::server::NamedService for ImageVersionsServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }
 /// Create a new environment.
@@ -707,15 +1046,15 @@ pub mod list_workloads_response {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ComposerWorkloadType::Unspecified => "COMPOSER_WORKLOAD_TYPE_UNSPECIFIED",
-                ComposerWorkloadType::CeleryWorker => "CELERY_WORKER",
-                ComposerWorkloadType::KubernetesWorker => "KUBERNETES_WORKER",
-                ComposerWorkloadType::KubernetesOperatorPod => "KUBERNETES_OPERATOR_POD",
-                ComposerWorkloadType::Scheduler => "SCHEDULER",
-                ComposerWorkloadType::DagProcessor => "DAG_PROCESSOR",
-                ComposerWorkloadType::Triggerer => "TRIGGERER",
-                ComposerWorkloadType::WebServer => "WEB_SERVER",
-                ComposerWorkloadType::Redis => "REDIS",
+                Self::Unspecified => "COMPOSER_WORKLOAD_TYPE_UNSPECIFIED",
+                Self::CeleryWorker => "CELERY_WORKER",
+                Self::KubernetesWorker => "KUBERNETES_WORKER",
+                Self::KubernetesOperatorPod => "KUBERNETES_OPERATOR_POD",
+                Self::Scheduler => "SCHEDULER",
+                Self::DagProcessor => "DAG_PROCESSOR",
+                Self::Triggerer => "TRIGGERER",
+                Self::WebServer => "WEB_SERVER",
+                Self::Redis => "REDIS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -770,15 +1109,13 @@ pub mod list_workloads_response {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ComposerWorkloadState::Unspecified => {
-                    "COMPOSER_WORKLOAD_STATE_UNSPECIFIED"
-                }
-                ComposerWorkloadState::Pending => "PENDING",
-                ComposerWorkloadState::Ok => "OK",
-                ComposerWorkloadState::Warning => "WARNING",
-                ComposerWorkloadState::Error => "ERROR",
-                ComposerWorkloadState::Succeeded => "SUCCEEDED",
-                ComposerWorkloadState::Failed => "FAILED",
+                Self::Unspecified => "COMPOSER_WORKLOAD_STATE_UNSPECIFIED",
+                Self::Pending => "PENDING",
+                Self::Ok => "OK",
+                Self::Warning => "WARNING",
+                Self::Error => "ERROR",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Failed => "FAILED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1041,10 +1378,10 @@ pub mod environment_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                EnvironmentSize::Unspecified => "ENVIRONMENT_SIZE_UNSPECIFIED",
-                EnvironmentSize::Small => "ENVIRONMENT_SIZE_SMALL",
-                EnvironmentSize::Medium => "ENVIRONMENT_SIZE_MEDIUM",
-                EnvironmentSize::Large => "ENVIRONMENT_SIZE_LARGE",
+                Self::Unspecified => "ENVIRONMENT_SIZE_UNSPECIFIED",
+                Self::Small => "ENVIRONMENT_SIZE_SMALL",
+                Self::Medium => "ENVIRONMENT_SIZE_MEDIUM",
+                Self::Large => "ENVIRONMENT_SIZE_LARGE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1084,8 +1421,8 @@ pub mod environment_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ResilienceMode::Unspecified => "RESILIENCE_MODE_UNSPECIFIED",
-                ResilienceMode::HighResilience => "HIGH_RESILIENCE",
+                Self::Unspecified => "RESILIENCE_MODE_UNSPECIFIED",
+                Self::HighResilience => "HIGH_RESILIENCE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1351,11 +1688,9 @@ pub mod software_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                WebServerPluginsMode::Unspecified => {
-                    "WEB_SERVER_PLUGINS_MODE_UNSPECIFIED"
-                }
-                WebServerPluginsMode::PluginsDisabled => "PLUGINS_DISABLED",
-                WebServerPluginsMode::PluginsEnabled => "PLUGINS_ENABLED",
+                Self::Unspecified => "WEB_SERVER_PLUGINS_MODE_UNSPECIFIED",
+                Self::PluginsDisabled => "PLUGINS_DISABLED",
+                Self::PluginsEnabled => "PLUGINS_ENABLED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1653,9 +1988,9 @@ pub mod networking_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ConnectionType::Unspecified => "CONNECTION_TYPE_UNSPECIFIED",
-                ConnectionType::VpcPeering => "VPC_PEERING",
-                ConnectionType::PrivateServiceConnect => "PRIVATE_SERVICE_CONNECT",
+                Self::Unspecified => "CONNECTION_TYPE_UNSPECIFIED",
+                Self::VpcPeering => "VPC_PEERING",
+                Self::PrivateServiceConnect => "PRIVATE_SERVICE_CONNECT",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2005,12 +2340,12 @@ pub mod environment {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Running => "RUNNING",
-                State::Updating => "UPDATING",
-                State::Deleting => "DELETING",
-                State::Error => "ERROR",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Running => "RUNNING",
+                Self::Updating => "UPDATING",
+                Self::Deleting => "DELETING",
+                Self::Error => "ERROR",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2082,9 +2417,9 @@ pub mod check_upgrade_response {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ConflictResult::Unspecified => "CONFLICT_RESULT_UNSPECIFIED",
-                ConflictResult::Conflict => "CONFLICT",
-                ConflictResult::NoConflict => "NO_CONFLICT",
+                Self::Unspecified => "CONFLICT_RESULT_UNSPECIFIED",
+                Self::Conflict => "CONFLICT",
+                Self::NoConflict => "NO_CONFLICT",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2144,11 +2479,9 @@ pub mod task_logs_retention_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                TaskLogsStorageMode::Unspecified => "TASK_LOGS_STORAGE_MODE_UNSPECIFIED",
-                TaskLogsStorageMode::CloudLoggingAndCloudStorage => {
-                    "CLOUD_LOGGING_AND_CLOUD_STORAGE"
-                }
-                TaskLogsStorageMode::CloudLoggingOnly => "CLOUD_LOGGING_ONLY",
+                Self::Unspecified => "TASK_LOGS_STORAGE_MODE_UNSPECIFIED",
+                Self::CloudLoggingAndCloudStorage => "CLOUD_LOGGING_AND_CLOUD_STORAGE",
+                Self::CloudLoggingOnly => "CLOUD_LOGGING_ONLY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2998,119 +3331,283 @@ pub mod environments_client {
         }
     }
 }
-/// List ImageVersions in a project and location.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListImageVersionsRequest {
-    /// List ImageVersions in the given project and location, in the form:
-    /// "projects/{projectId}/locations/{locationId}"
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// The maximum number of image_versions to return.
-    #[prost(int32, tag = "2")]
-    pub page_size: i32,
-    /// The next_page_token value returned from a previous List request, if any.
-    #[prost(string, tag = "3")]
-    pub page_token: ::prost::alloc::string::String,
-    /// Whether or not image versions from old releases should be included.
-    #[prost(bool, tag = "4")]
-    pub include_past_releases: bool,
-}
-/// The ImageVersions in a project and location.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListImageVersionsResponse {
-    /// The list of supported ImageVersions in a location.
-    #[prost(message, repeated, tag = "1")]
-    pub image_versions: ::prost::alloc::vec::Vec<ImageVersion>,
-    /// The page token used to query for the next page if one exists.
-    #[prost(string, tag = "2")]
-    pub next_page_token: ::prost::alloc::string::String,
-}
-/// ImageVersion information
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ImageVersion {
-    /// The string identifier of the ImageVersion, in the form:
-    /// "composer-x.y.z-airflow-a.b.c"
-    #[prost(string, tag = "1")]
-    pub image_version_id: ::prost::alloc::string::String,
-    /// Whether this is the default ImageVersion used by Composer during
-    /// environment creation if no input ImageVersion is specified.
-    #[prost(bool, tag = "2")]
-    pub is_default: bool,
-    /// supported python versions
-    #[prost(string, repeated, tag = "3")]
-    pub supported_python_versions: ::prost::alloc::vec::Vec<
-        ::prost::alloc::string::String,
-    >,
-    /// The date of the version release.
-    #[prost(message, optional, tag = "4")]
-    pub release_date: ::core::option::Option<
-        super::super::super::super::super::r#type::Date,
-    >,
-    /// Whether it is impossible to create an environment with the image version.
-    #[prost(bool, tag = "5")]
-    pub creation_disabled: bool,
-    /// Whether it is impossible to upgrade an environment running with the image
-    /// version.
-    #[prost(bool, tag = "6")]
-    pub upgrade_disabled: bool,
-}
-/// Generated client implementations.
-pub mod image_versions_client {
+/// Generated server implementations.
+pub mod environments_server {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
-    use tonic::codegen::http::Uri;
-    /// Readonly service to query available ImageVersions.
-    #[derive(Debug, Clone)]
-    pub struct ImageVersionsClient<T> {
-        inner: tonic::client::Grpc<T>,
+    /// Generated trait containing gRPC methods that should be implemented for use with EnvironmentsServer.
+    #[async_trait]
+    pub trait Environments: std::marker::Send + std::marker::Sync + 'static {
+        /// Create a new environment.
+        async fn create_environment(
+            &self,
+            request: tonic::Request<super::CreateEnvironmentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<
+                super::super::super::super::super::super::longrunning::Operation,
+            >,
+            tonic::Status,
+        >;
+        /// Get an existing environment.
+        async fn get_environment(
+            &self,
+            request: tonic::Request<super::GetEnvironmentRequest>,
+        ) -> std::result::Result<tonic::Response<super::Environment>, tonic::Status>;
+        /// List environments.
+        async fn list_environments(
+            &self,
+            request: tonic::Request<super::ListEnvironmentsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListEnvironmentsResponse>,
+            tonic::Status,
+        >;
+        /// Update an environment.
+        async fn update_environment(
+            &self,
+            request: tonic::Request<super::UpdateEnvironmentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<
+                super::super::super::super::super::super::longrunning::Operation,
+            >,
+            tonic::Status,
+        >;
+        /// Delete an environment.
+        async fn delete_environment(
+            &self,
+            request: tonic::Request<super::DeleteEnvironmentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<
+                super::super::super::super::super::super::longrunning::Operation,
+            >,
+            tonic::Status,
+        >;
+        /// Executes Airflow CLI command.
+        async fn execute_airflow_command(
+            &self,
+            request: tonic::Request<super::ExecuteAirflowCommandRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ExecuteAirflowCommandResponse>,
+            tonic::Status,
+        >;
+        /// Stops Airflow CLI command execution.
+        async fn stop_airflow_command(
+            &self,
+            request: tonic::Request<super::StopAirflowCommandRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::StopAirflowCommandResponse>,
+            tonic::Status,
+        >;
+        /// Polls Airflow CLI command execution and fetches logs.
+        async fn poll_airflow_command(
+            &self,
+            request: tonic::Request<super::PollAirflowCommandRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::PollAirflowCommandResponse>,
+            tonic::Status,
+        >;
+        /// Lists workloads in a Cloud Composer environment. Workload is a unit that
+        /// runs a single Composer component.
+        ///
+        /// This method is supported for Cloud Composer environments in versions
+        /// composer-3.*.*-airflow-*.*.* and newer.
+        async fn list_workloads(
+            &self,
+            request: tonic::Request<super::ListWorkloadsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListWorkloadsResponse>,
+            tonic::Status,
+        >;
+        /// Creates a user workloads Secret.
+        ///
+        /// This method is supported for Cloud Composer environments in versions
+        /// composer-3.*.*-airflow-*.*.* and newer.
+        async fn create_user_workloads_secret(
+            &self,
+            request: tonic::Request<super::CreateUserWorkloadsSecretRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::UserWorkloadsSecret>,
+            tonic::Status,
+        >;
+        /// Gets an existing user workloads Secret.
+        /// Values of the "data" field in the response are cleared.
+        ///
+        /// This method is supported for Cloud Composer environments in versions
+        /// composer-3.*.*-airflow-*.*.* and newer.
+        async fn get_user_workloads_secret(
+            &self,
+            request: tonic::Request<super::GetUserWorkloadsSecretRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::UserWorkloadsSecret>,
+            tonic::Status,
+        >;
+        /// Lists user workloads Secrets.
+        ///
+        /// This method is supported for Cloud Composer environments in versions
+        /// composer-3.*.*-airflow-*.*.* and newer.
+        async fn list_user_workloads_secrets(
+            &self,
+            request: tonic::Request<super::ListUserWorkloadsSecretsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListUserWorkloadsSecretsResponse>,
+            tonic::Status,
+        >;
+        /// Updates a user workloads Secret.
+        ///
+        /// This method is supported for Cloud Composer environments in versions
+        /// composer-3.*.*-airflow-*.*.* and newer.
+        async fn update_user_workloads_secret(
+            &self,
+            request: tonic::Request<super::UpdateUserWorkloadsSecretRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::UserWorkloadsSecret>,
+            tonic::Status,
+        >;
+        /// Deletes a user workloads Secret.
+        ///
+        /// This method is supported for Cloud Composer environments in versions
+        /// composer-3.*.*-airflow-*.*.* and newer.
+        async fn delete_user_workloads_secret(
+            &self,
+            request: tonic::Request<super::DeleteUserWorkloadsSecretRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Creates a user workloads ConfigMap.
+        ///
+        /// This method is supported for Cloud Composer environments in versions
+        /// composer-3.*.*-airflow-*.*.* and newer.
+        async fn create_user_workloads_config_map(
+            &self,
+            request: tonic::Request<super::CreateUserWorkloadsConfigMapRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::UserWorkloadsConfigMap>,
+            tonic::Status,
+        >;
+        /// Gets an existing user workloads ConfigMap.
+        ///
+        /// This method is supported for Cloud Composer environments in versions
+        /// composer-3.*.*-airflow-*.*.* and newer.
+        async fn get_user_workloads_config_map(
+            &self,
+            request: tonic::Request<super::GetUserWorkloadsConfigMapRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::UserWorkloadsConfigMap>,
+            tonic::Status,
+        >;
+        /// Lists user workloads ConfigMaps.
+        ///
+        /// This method is supported for Cloud Composer environments in versions
+        /// composer-3.*.*-airflow-*.*.* and newer.
+        async fn list_user_workloads_config_maps(
+            &self,
+            request: tonic::Request<super::ListUserWorkloadsConfigMapsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListUserWorkloadsConfigMapsResponse>,
+            tonic::Status,
+        >;
+        /// Updates a user workloads ConfigMap.
+        ///
+        /// This method is supported for Cloud Composer environments in versions
+        /// composer-3.*.*-airflow-*.*.* and newer.
+        async fn update_user_workloads_config_map(
+            &self,
+            request: tonic::Request<super::UpdateUserWorkloadsConfigMapRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::UserWorkloadsConfigMap>,
+            tonic::Status,
+        >;
+        /// Deletes a user workloads ConfigMap.
+        ///
+        /// This method is supported for Cloud Composer environments in versions
+        /// composer-3.*.*-airflow-*.*.* and newer.
+        async fn delete_user_workloads_config_map(
+            &self,
+            request: tonic::Request<super::DeleteUserWorkloadsConfigMapRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Creates a snapshots of a Cloud Composer environment.
+        ///
+        /// As a result of this operation, snapshot of environment's state is stored
+        /// in a location specified in the SaveSnapshotRequest.
+        async fn save_snapshot(
+            &self,
+            request: tonic::Request<super::SaveSnapshotRequest>,
+        ) -> std::result::Result<
+            tonic::Response<
+                super::super::super::super::super::super::longrunning::Operation,
+            >,
+            tonic::Status,
+        >;
+        /// Loads a snapshot of a Cloud Composer environment.
+        ///
+        /// As a result of this operation, a snapshot of environment's specified in
+        /// LoadSnapshotRequest is loaded into the environment.
+        async fn load_snapshot(
+            &self,
+            request: tonic::Request<super::LoadSnapshotRequest>,
+        ) -> std::result::Result<
+            tonic::Response<
+                super::super::super::super::super::super::longrunning::Operation,
+            >,
+            tonic::Status,
+        >;
+        /// Triggers database failover (only for highly resilient environments).
+        async fn database_failover(
+            &self,
+            request: tonic::Request<super::DatabaseFailoverRequest>,
+        ) -> std::result::Result<
+            tonic::Response<
+                super::super::super::super::super::super::longrunning::Operation,
+            >,
+            tonic::Status,
+        >;
+        /// Fetches database properties.
+        async fn fetch_database_properties(
+            &self,
+            request: tonic::Request<super::FetchDatabasePropertiesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::FetchDatabasePropertiesResponse>,
+            tonic::Status,
+        >;
     }
-    impl<T> ImageVersionsClient<T>
-    where
-        T: tonic::client::GrpcService<tonic::body::BoxBody>,
-        T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
-    {
+    /// Managed Apache Airflow Environments.
+    #[derive(Debug)]
+    pub struct EnvironmentsServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> EnvironmentsServer<T> {
         pub fn new(inner: T) -> Self {
-            let inner = tonic::client::Grpc::new(inner);
-            Self { inner }
+            Self::from_arc(Arc::new(inner))
         }
-        pub fn with_origin(inner: T, origin: Uri) -> Self {
-            let inner = tonic::client::Grpc::with_origin(inner, origin);
-            Self { inner }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
         }
         pub fn with_interceptor<F>(
             inner: T,
             interceptor: F,
-        ) -> ImageVersionsClient<InterceptedService<T, F>>
+        ) -> InterceptedService<Self, F>
         where
             F: tonic::service::Interceptor,
-            T::ResponseBody: Default,
-            T: tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-                Response = http::Response<
-                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
-                >,
-            >,
-            <T as tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-            >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
         {
-            ImageVersionsClient::new(InterceptedService::new(inner, interceptor))
+            InterceptedService::new(Self::new(inner), interceptor)
         }
-        /// Compress requests with the given encoding.
-        ///
-        /// This requires the server to support it otherwise it might respond with an
-        /// error.
-        #[must_use]
-        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.send_compressed(encoding);
-            self
-        }
-        /// Enable decompressing responses.
+        /// Enable decompressing requests with the given encoding.
         #[must_use]
         pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.accept_compressed(encoding);
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
             self
         }
         /// Limits the maximum size of a decoded message.
@@ -3118,7 +3615,7 @@ pub mod image_versions_client {
         /// Default: `4MB`
         #[must_use]
         pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_decoding_message_size(limit);
+            self.max_decoding_message_size = Some(limit);
             self
         }
         /// Limits the maximum size of an encoded message.
@@ -3126,39 +3623,1178 @@ pub mod image_versions_client {
         /// Default: `usize::MAX`
         #[must_use]
         pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_encoding_message_size(limit);
+            self.max_encoding_message_size = Some(limit);
             self
         }
-        /// List ImageVersions for provided location.
-        pub async fn list_image_versions(
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for EnvironmentsServer<T>
+    where
+        T: Environments,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
             &mut self,
-            request: impl tonic::IntoRequest<super::ListImageVersionsRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::ListImageVersionsResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.orchestration.airflow.service.v1.ImageVersions/ListImageVersions",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.orchestration.airflow.service.v1.ImageVersions",
-                        "ListImageVersions",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
         }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.orchestration.airflow.service.v1.Environments/CreateEnvironment" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateEnvironmentSvc<T: Environments>(pub Arc<T>);
+                    impl<
+                        T: Environments,
+                    > tonic::server::UnaryService<super::CreateEnvironmentRequest>
+                    for CreateEnvironmentSvc<T> {
+                        type Response = super::super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateEnvironmentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Environments>::create_environment(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateEnvironmentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.orchestration.airflow.service.v1.Environments/GetEnvironment" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetEnvironmentSvc<T: Environments>(pub Arc<T>);
+                    impl<
+                        T: Environments,
+                    > tonic::server::UnaryService<super::GetEnvironmentRequest>
+                    for GetEnvironmentSvc<T> {
+                        type Response = super::Environment;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetEnvironmentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Environments>::get_environment(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetEnvironmentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.orchestration.airflow.service.v1.Environments/ListEnvironments" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListEnvironmentsSvc<T: Environments>(pub Arc<T>);
+                    impl<
+                        T: Environments,
+                    > tonic::server::UnaryService<super::ListEnvironmentsRequest>
+                    for ListEnvironmentsSvc<T> {
+                        type Response = super::ListEnvironmentsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListEnvironmentsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Environments>::list_environments(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListEnvironmentsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.orchestration.airflow.service.v1.Environments/UpdateEnvironment" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateEnvironmentSvc<T: Environments>(pub Arc<T>);
+                    impl<
+                        T: Environments,
+                    > tonic::server::UnaryService<super::UpdateEnvironmentRequest>
+                    for UpdateEnvironmentSvc<T> {
+                        type Response = super::super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateEnvironmentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Environments>::update_environment(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateEnvironmentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.orchestration.airflow.service.v1.Environments/DeleteEnvironment" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteEnvironmentSvc<T: Environments>(pub Arc<T>);
+                    impl<
+                        T: Environments,
+                    > tonic::server::UnaryService<super::DeleteEnvironmentRequest>
+                    for DeleteEnvironmentSvc<T> {
+                        type Response = super::super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteEnvironmentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Environments>::delete_environment(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteEnvironmentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.orchestration.airflow.service.v1.Environments/ExecuteAirflowCommand" => {
+                    #[allow(non_camel_case_types)]
+                    struct ExecuteAirflowCommandSvc<T: Environments>(pub Arc<T>);
+                    impl<
+                        T: Environments,
+                    > tonic::server::UnaryService<super::ExecuteAirflowCommandRequest>
+                    for ExecuteAirflowCommandSvc<T> {
+                        type Response = super::ExecuteAirflowCommandResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ExecuteAirflowCommandRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Environments>::execute_airflow_command(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ExecuteAirflowCommandSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.orchestration.airflow.service.v1.Environments/StopAirflowCommand" => {
+                    #[allow(non_camel_case_types)]
+                    struct StopAirflowCommandSvc<T: Environments>(pub Arc<T>);
+                    impl<
+                        T: Environments,
+                    > tonic::server::UnaryService<super::StopAirflowCommandRequest>
+                    for StopAirflowCommandSvc<T> {
+                        type Response = super::StopAirflowCommandResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::StopAirflowCommandRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Environments>::stop_airflow_command(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = StopAirflowCommandSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.orchestration.airflow.service.v1.Environments/PollAirflowCommand" => {
+                    #[allow(non_camel_case_types)]
+                    struct PollAirflowCommandSvc<T: Environments>(pub Arc<T>);
+                    impl<
+                        T: Environments,
+                    > tonic::server::UnaryService<super::PollAirflowCommandRequest>
+                    for PollAirflowCommandSvc<T> {
+                        type Response = super::PollAirflowCommandResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::PollAirflowCommandRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Environments>::poll_airflow_command(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = PollAirflowCommandSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.orchestration.airflow.service.v1.Environments/ListWorkloads" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListWorkloadsSvc<T: Environments>(pub Arc<T>);
+                    impl<
+                        T: Environments,
+                    > tonic::server::UnaryService<super::ListWorkloadsRequest>
+                    for ListWorkloadsSvc<T> {
+                        type Response = super::ListWorkloadsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListWorkloadsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Environments>::list_workloads(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListWorkloadsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.orchestration.airflow.service.v1.Environments/CreateUserWorkloadsSecret" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateUserWorkloadsSecretSvc<T: Environments>(pub Arc<T>);
+                    impl<
+                        T: Environments,
+                    > tonic::server::UnaryService<
+                        super::CreateUserWorkloadsSecretRequest,
+                    > for CreateUserWorkloadsSecretSvc<T> {
+                        type Response = super::UserWorkloadsSecret;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateUserWorkloadsSecretRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Environments>::create_user_workloads_secret(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateUserWorkloadsSecretSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.orchestration.airflow.service.v1.Environments/GetUserWorkloadsSecret" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetUserWorkloadsSecretSvc<T: Environments>(pub Arc<T>);
+                    impl<
+                        T: Environments,
+                    > tonic::server::UnaryService<super::GetUserWorkloadsSecretRequest>
+                    for GetUserWorkloadsSecretSvc<T> {
+                        type Response = super::UserWorkloadsSecret;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetUserWorkloadsSecretRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Environments>::get_user_workloads_secret(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetUserWorkloadsSecretSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.orchestration.airflow.service.v1.Environments/ListUserWorkloadsSecrets" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListUserWorkloadsSecretsSvc<T: Environments>(pub Arc<T>);
+                    impl<
+                        T: Environments,
+                    > tonic::server::UnaryService<super::ListUserWorkloadsSecretsRequest>
+                    for ListUserWorkloadsSecretsSvc<T> {
+                        type Response = super::ListUserWorkloadsSecretsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListUserWorkloadsSecretsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Environments>::list_user_workloads_secrets(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListUserWorkloadsSecretsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.orchestration.airflow.service.v1.Environments/UpdateUserWorkloadsSecret" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateUserWorkloadsSecretSvc<T: Environments>(pub Arc<T>);
+                    impl<
+                        T: Environments,
+                    > tonic::server::UnaryService<
+                        super::UpdateUserWorkloadsSecretRequest,
+                    > for UpdateUserWorkloadsSecretSvc<T> {
+                        type Response = super::UserWorkloadsSecret;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::UpdateUserWorkloadsSecretRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Environments>::update_user_workloads_secret(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateUserWorkloadsSecretSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.orchestration.airflow.service.v1.Environments/DeleteUserWorkloadsSecret" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteUserWorkloadsSecretSvc<T: Environments>(pub Arc<T>);
+                    impl<
+                        T: Environments,
+                    > tonic::server::UnaryService<
+                        super::DeleteUserWorkloadsSecretRequest,
+                    > for DeleteUserWorkloadsSecretSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteUserWorkloadsSecretRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Environments>::delete_user_workloads_secret(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteUserWorkloadsSecretSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.orchestration.airflow.service.v1.Environments/CreateUserWorkloadsConfigMap" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateUserWorkloadsConfigMapSvc<T: Environments>(pub Arc<T>);
+                    impl<
+                        T: Environments,
+                    > tonic::server::UnaryService<
+                        super::CreateUserWorkloadsConfigMapRequest,
+                    > for CreateUserWorkloadsConfigMapSvc<T> {
+                        type Response = super::UserWorkloadsConfigMap;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateUserWorkloadsConfigMapRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Environments>::create_user_workloads_config_map(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateUserWorkloadsConfigMapSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.orchestration.airflow.service.v1.Environments/GetUserWorkloadsConfigMap" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetUserWorkloadsConfigMapSvc<T: Environments>(pub Arc<T>);
+                    impl<
+                        T: Environments,
+                    > tonic::server::UnaryService<
+                        super::GetUserWorkloadsConfigMapRequest,
+                    > for GetUserWorkloadsConfigMapSvc<T> {
+                        type Response = super::UserWorkloadsConfigMap;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetUserWorkloadsConfigMapRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Environments>::get_user_workloads_config_map(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetUserWorkloadsConfigMapSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.orchestration.airflow.service.v1.Environments/ListUserWorkloadsConfigMaps" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListUserWorkloadsConfigMapsSvc<T: Environments>(pub Arc<T>);
+                    impl<
+                        T: Environments,
+                    > tonic::server::UnaryService<
+                        super::ListUserWorkloadsConfigMapsRequest,
+                    > for ListUserWorkloadsConfigMapsSvc<T> {
+                        type Response = super::ListUserWorkloadsConfigMapsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListUserWorkloadsConfigMapsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Environments>::list_user_workloads_config_maps(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListUserWorkloadsConfigMapsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.orchestration.airflow.service.v1.Environments/UpdateUserWorkloadsConfigMap" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateUserWorkloadsConfigMapSvc<T: Environments>(pub Arc<T>);
+                    impl<
+                        T: Environments,
+                    > tonic::server::UnaryService<
+                        super::UpdateUserWorkloadsConfigMapRequest,
+                    > for UpdateUserWorkloadsConfigMapSvc<T> {
+                        type Response = super::UserWorkloadsConfigMap;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::UpdateUserWorkloadsConfigMapRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Environments>::update_user_workloads_config_map(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateUserWorkloadsConfigMapSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.orchestration.airflow.service.v1.Environments/DeleteUserWorkloadsConfigMap" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteUserWorkloadsConfigMapSvc<T: Environments>(pub Arc<T>);
+                    impl<
+                        T: Environments,
+                    > tonic::server::UnaryService<
+                        super::DeleteUserWorkloadsConfigMapRequest,
+                    > for DeleteUserWorkloadsConfigMapSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteUserWorkloadsConfigMapRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Environments>::delete_user_workloads_config_map(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteUserWorkloadsConfigMapSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.orchestration.airflow.service.v1.Environments/SaveSnapshot" => {
+                    #[allow(non_camel_case_types)]
+                    struct SaveSnapshotSvc<T: Environments>(pub Arc<T>);
+                    impl<
+                        T: Environments,
+                    > tonic::server::UnaryService<super::SaveSnapshotRequest>
+                    for SaveSnapshotSvc<T> {
+                        type Response = super::super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SaveSnapshotRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Environments>::save_snapshot(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SaveSnapshotSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.orchestration.airflow.service.v1.Environments/LoadSnapshot" => {
+                    #[allow(non_camel_case_types)]
+                    struct LoadSnapshotSvc<T: Environments>(pub Arc<T>);
+                    impl<
+                        T: Environments,
+                    > tonic::server::UnaryService<super::LoadSnapshotRequest>
+                    for LoadSnapshotSvc<T> {
+                        type Response = super::super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::LoadSnapshotRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Environments>::load_snapshot(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = LoadSnapshotSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.orchestration.airflow.service.v1.Environments/DatabaseFailover" => {
+                    #[allow(non_camel_case_types)]
+                    struct DatabaseFailoverSvc<T: Environments>(pub Arc<T>);
+                    impl<
+                        T: Environments,
+                    > tonic::server::UnaryService<super::DatabaseFailoverRequest>
+                    for DatabaseFailoverSvc<T> {
+                        type Response = super::super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DatabaseFailoverRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Environments>::database_failover(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DatabaseFailoverSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.orchestration.airflow.service.v1.Environments/FetchDatabaseProperties" => {
+                    #[allow(non_camel_case_types)]
+                    struct FetchDatabasePropertiesSvc<T: Environments>(pub Arc<T>);
+                    impl<
+                        T: Environments,
+                    > tonic::server::UnaryService<super::FetchDatabasePropertiesRequest>
+                    for FetchDatabasePropertiesSvc<T> {
+                        type Response = super::FetchDatabasePropertiesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::FetchDatabasePropertiesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Environments>::fetch_database_properties(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = FetchDatabasePropertiesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for EnvironmentsServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.orchestration.airflow.service.v1.Environments";
+    impl<T> tonic::server::NamedService for EnvironmentsServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

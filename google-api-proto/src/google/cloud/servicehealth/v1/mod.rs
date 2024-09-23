@@ -84,8 +84,8 @@ pub mod event {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                EventCategory::Unspecified => "EVENT_CATEGORY_UNSPECIFIED",
-                EventCategory::Incident => "INCIDENT",
+                Self::Unspecified => "EVENT_CATEGORY_UNSPECIFIED",
+                Self::Incident => "INCIDENT",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -128,9 +128,9 @@ pub mod event {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                DetailedCategory::Unspecified => "DETAILED_CATEGORY_UNSPECIFIED",
-                DetailedCategory::ConfirmedIncident => "CONFIRMED_INCIDENT",
-                DetailedCategory::EmergingIncident => "EMERGING_INCIDENT",
+                Self::Unspecified => "DETAILED_CATEGORY_UNSPECIFIED",
+                Self::ConfirmedIncident => "CONFIRMED_INCIDENT",
+                Self::EmergingIncident => "EMERGING_INCIDENT",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -173,9 +173,9 @@ pub mod event {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Active => "ACTIVE",
-                State::Closed => "CLOSED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Active => "ACTIVE",
+                Self::Closed => "CLOSED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -238,13 +238,13 @@ pub mod event {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                DetailedState::Unspecified => "DETAILED_STATE_UNSPECIFIED",
-                DetailedState::Emerging => "EMERGING",
-                DetailedState::Confirmed => "CONFIRMED",
-                DetailedState::Resolved => "RESOLVED",
-                DetailedState::Merged => "MERGED",
-                DetailedState::AutoClosed => "AUTO_CLOSED",
-                DetailedState::FalsePositive => "FALSE_POSITIVE",
+                Self::Unspecified => "DETAILED_STATE_UNSPECIFIED",
+                Self::Emerging => "EMERGING",
+                Self::Confirmed => "CONFIRMED",
+                Self::Resolved => "RESOLVED",
+                Self::Merged => "MERGED",
+                Self::AutoClosed => "AUTO_CLOSED",
+                Self::FalsePositive => "FALSE_POSITIVE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -300,12 +300,12 @@ pub mod event {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Relevance::Unspecified => "RELEVANCE_UNSPECIFIED",
-                Relevance::Unknown => "UNKNOWN",
-                Relevance::NotImpacted => "NOT_IMPACTED",
-                Relevance::PartiallyRelated => "PARTIALLY_RELATED",
-                Relevance::Related => "RELATED",
-                Relevance::Impacted => "IMPACTED",
+                Self::Unspecified => "RELEVANCE_UNSPECIFIED",
+                Self::Unknown => "UNKNOWN",
+                Self::NotImpacted => "NOT_IMPACTED",
+                Self::PartiallyRelated => "PARTIALLY_RELATED",
+                Self::Related => "RELATED",
+                Self::Impacted => "IMPACTED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -411,8 +411,8 @@ pub mod organization_event {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                EventCategory::Unspecified => "EVENT_CATEGORY_UNSPECIFIED",
-                EventCategory::Incident => "INCIDENT",
+                Self::Unspecified => "EVENT_CATEGORY_UNSPECIFIED",
+                Self::Incident => "INCIDENT",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -455,9 +455,9 @@ pub mod organization_event {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                DetailedCategory::Unspecified => "DETAILED_CATEGORY_UNSPECIFIED",
-                DetailedCategory::ConfirmedIncident => "CONFIRMED_INCIDENT",
-                DetailedCategory::EmergingIncident => "EMERGING_INCIDENT",
+                Self::Unspecified => "DETAILED_CATEGORY_UNSPECIFIED",
+                Self::ConfirmedIncident => "CONFIRMED_INCIDENT",
+                Self::EmergingIncident => "EMERGING_INCIDENT",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -501,9 +501,9 @@ pub mod organization_event {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Active => "ACTIVE",
-                State::Closed => "CLOSED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Active => "ACTIVE",
+                Self::Closed => "CLOSED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -566,13 +566,13 @@ pub mod organization_event {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                DetailedState::Unspecified => "DETAILED_STATE_UNSPECIFIED",
-                DetailedState::Emerging => "EMERGING",
-                DetailedState::Confirmed => "CONFIRMED",
-                DetailedState::Resolved => "RESOLVED",
-                DetailedState::Merged => "MERGED",
-                DetailedState::AutoClosed => "AUTO_CLOSED",
-                DetailedState::FalsePositive => "FALSE_POSITIVE",
+                Self::Unspecified => "DETAILED_STATE_UNSPECIFIED",
+                Self::Emerging => "EMERGING",
+                Self::Confirmed => "CONFIRMED",
+                Self::Resolved => "RESOLVED",
+                Self::Merged => "MERGED",
+                Self::AutoClosed => "AUTO_CLOSED",
+                Self::FalsePositive => "FALSE_POSITIVE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -931,9 +931,9 @@ impl EventView {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            EventView::Unspecified => "EVENT_VIEW_UNSPECIFIED",
-            EventView::Basic => "EVENT_VIEW_BASIC",
-            EventView::Full => "EVENT_VIEW_FULL",
+            Self::Unspecified => "EVENT_VIEW_UNSPECIFIED",
+            Self::Basic => "EVENT_VIEW_BASIC",
+            Self::Full => "EVENT_VIEW_FULL",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -966,9 +966,9 @@ impl OrganizationEventView {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            OrganizationEventView::Unspecified => "ORGANIZATION_EVENT_VIEW_UNSPECIFIED",
-            OrganizationEventView::Basic => "ORGANIZATION_EVENT_VIEW_BASIC",
-            OrganizationEventView::Full => "ORGANIZATION_EVENT_VIEW_FULL",
+            Self::Unspecified => "ORGANIZATION_EVENT_VIEW_UNSPECIFIED",
+            Self::Basic => "ORGANIZATION_EVENT_VIEW_BASIC",
+            Self::Full => "ORGANIZATION_EVENT_VIEW_FULL",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1242,5 +1242,462 @@ pub mod service_health_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod service_health_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with ServiceHealthServer.
+    #[async_trait]
+    pub trait ServiceHealth: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists events under a given project and location.
+        async fn list_events(
+            &self,
+            request: tonic::Request<super::ListEventsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListEventsResponse>,
+            tonic::Status,
+        >;
+        /// Retrieves a resource containing information about an event.
+        async fn get_event(
+            &self,
+            request: tonic::Request<super::GetEventRequest>,
+        ) -> std::result::Result<tonic::Response<super::Event>, tonic::Status>;
+        /// Lists organization events under a given organization and location.
+        async fn list_organization_events(
+            &self,
+            request: tonic::Request<super::ListOrganizationEventsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListOrganizationEventsResponse>,
+            tonic::Status,
+        >;
+        /// Retrieves a resource containing information about an event affecting an
+        /// organization .
+        async fn get_organization_event(
+            &self,
+            request: tonic::Request<super::GetOrganizationEventRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::OrganizationEvent>,
+            tonic::Status,
+        >;
+        /// Lists assets impacted by organization events under a given organization and
+        /// location.
+        async fn list_organization_impacts(
+            &self,
+            request: tonic::Request<super::ListOrganizationImpactsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListOrganizationImpactsResponse>,
+            tonic::Status,
+        >;
+        /// Retrieves a resource containing information about impact to an asset under
+        /// an organization affected by a service health event.
+        async fn get_organization_impact(
+            &self,
+            request: tonic::Request<super::GetOrganizationImpactRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::OrganizationImpact>,
+            tonic::Status,
+        >;
+    }
+    /// Request service health events relevant to your Google Cloud project.
+    #[derive(Debug)]
+    pub struct ServiceHealthServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> ServiceHealthServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for ServiceHealthServer<T>
+    where
+        T: ServiceHealth,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.servicehealth.v1.ServiceHealth/ListEvents" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListEventsSvc<T: ServiceHealth>(pub Arc<T>);
+                    impl<
+                        T: ServiceHealth,
+                    > tonic::server::UnaryService<super::ListEventsRequest>
+                    for ListEventsSvc<T> {
+                        type Response = super::ListEventsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListEventsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ServiceHealth>::list_events(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListEventsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.servicehealth.v1.ServiceHealth/GetEvent" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetEventSvc<T: ServiceHealth>(pub Arc<T>);
+                    impl<
+                        T: ServiceHealth,
+                    > tonic::server::UnaryService<super::GetEventRequest>
+                    for GetEventSvc<T> {
+                        type Response = super::Event;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetEventRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ServiceHealth>::get_event(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetEventSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.servicehealth.v1.ServiceHealth/ListOrganizationEvents" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListOrganizationEventsSvc<T: ServiceHealth>(pub Arc<T>);
+                    impl<
+                        T: ServiceHealth,
+                    > tonic::server::UnaryService<super::ListOrganizationEventsRequest>
+                    for ListOrganizationEventsSvc<T> {
+                        type Response = super::ListOrganizationEventsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListOrganizationEventsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ServiceHealth>::list_organization_events(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListOrganizationEventsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.servicehealth.v1.ServiceHealth/GetOrganizationEvent" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetOrganizationEventSvc<T: ServiceHealth>(pub Arc<T>);
+                    impl<
+                        T: ServiceHealth,
+                    > tonic::server::UnaryService<super::GetOrganizationEventRequest>
+                    for GetOrganizationEventSvc<T> {
+                        type Response = super::OrganizationEvent;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetOrganizationEventRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ServiceHealth>::get_organization_event(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetOrganizationEventSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.servicehealth.v1.ServiceHealth/ListOrganizationImpacts" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListOrganizationImpactsSvc<T: ServiceHealth>(pub Arc<T>);
+                    impl<
+                        T: ServiceHealth,
+                    > tonic::server::UnaryService<super::ListOrganizationImpactsRequest>
+                    for ListOrganizationImpactsSvc<T> {
+                        type Response = super::ListOrganizationImpactsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListOrganizationImpactsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ServiceHealth>::list_organization_impacts(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListOrganizationImpactsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.servicehealth.v1.ServiceHealth/GetOrganizationImpact" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetOrganizationImpactSvc<T: ServiceHealth>(pub Arc<T>);
+                    impl<
+                        T: ServiceHealth,
+                    > tonic::server::UnaryService<super::GetOrganizationImpactRequest>
+                    for GetOrganizationImpactSvc<T> {
+                        type Response = super::OrganizationImpact;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetOrganizationImpactRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ServiceHealth>::get_organization_impact(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetOrganizationImpactSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for ServiceHealthServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.servicehealth.v1.ServiceHealth";
+    impl<T> tonic::server::NamedService for ServiceHealthServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

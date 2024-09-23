@@ -363,8 +363,8 @@ impl AnnotationSource {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            AnnotationSource::Unspecified => "ANNOTATION_SOURCE_UNSPECIFIED",
-            AnnotationSource::Operator => "OPERATOR",
+            Self::Unspecified => "ANNOTATION_SOURCE_UNSPECIFIED",
+            Self::Operator => "OPERATOR",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -392,9 +392,9 @@ impl AnnotationSentiment {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            AnnotationSentiment::Unspecified => "ANNOTATION_SENTIMENT_UNSPECIFIED",
-            AnnotationSentiment::Negative => "NEGATIVE",
-            AnnotationSentiment::Positive => "POSITIVE",
+            Self::Unspecified => "ANNOTATION_SENTIMENT_UNSPECIFIED",
+            Self::Negative => "NEGATIVE",
+            Self::Positive => "POSITIVE",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -447,40 +447,24 @@ impl AnnotationType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            AnnotationType::Unspecified => "ANNOTATION_TYPE_UNSPECIFIED",
-            AnnotationType::ImageClassificationAnnotation => {
-                "IMAGE_CLASSIFICATION_ANNOTATION"
-            }
-            AnnotationType::ImageBoundingBoxAnnotation => "IMAGE_BOUNDING_BOX_ANNOTATION",
-            AnnotationType::ImageOrientedBoundingBoxAnnotation => {
+            Self::Unspecified => "ANNOTATION_TYPE_UNSPECIFIED",
+            Self::ImageClassificationAnnotation => "IMAGE_CLASSIFICATION_ANNOTATION",
+            Self::ImageBoundingBoxAnnotation => "IMAGE_BOUNDING_BOX_ANNOTATION",
+            Self::ImageOrientedBoundingBoxAnnotation => {
                 "IMAGE_ORIENTED_BOUNDING_BOX_ANNOTATION"
             }
-            AnnotationType::ImageBoundingPolyAnnotation => {
-                "IMAGE_BOUNDING_POLY_ANNOTATION"
-            }
-            AnnotationType::ImagePolylineAnnotation => "IMAGE_POLYLINE_ANNOTATION",
-            AnnotationType::ImageSegmentationAnnotation => {
-                "IMAGE_SEGMENTATION_ANNOTATION"
-            }
-            AnnotationType::VideoShotsClassificationAnnotation => {
+            Self::ImageBoundingPolyAnnotation => "IMAGE_BOUNDING_POLY_ANNOTATION",
+            Self::ImagePolylineAnnotation => "IMAGE_POLYLINE_ANNOTATION",
+            Self::ImageSegmentationAnnotation => "IMAGE_SEGMENTATION_ANNOTATION",
+            Self::VideoShotsClassificationAnnotation => {
                 "VIDEO_SHOTS_CLASSIFICATION_ANNOTATION"
             }
-            AnnotationType::VideoObjectTrackingAnnotation => {
-                "VIDEO_OBJECT_TRACKING_ANNOTATION"
-            }
-            AnnotationType::VideoObjectDetectionAnnotation => {
-                "VIDEO_OBJECT_DETECTION_ANNOTATION"
-            }
-            AnnotationType::VideoEventAnnotation => "VIDEO_EVENT_ANNOTATION",
-            AnnotationType::TextClassificationAnnotation => {
-                "TEXT_CLASSIFICATION_ANNOTATION"
-            }
-            AnnotationType::TextEntityExtractionAnnotation => {
-                "TEXT_ENTITY_EXTRACTION_ANNOTATION"
-            }
-            AnnotationType::GeneralClassificationAnnotation => {
-                "GENERAL_CLASSIFICATION_ANNOTATION"
-            }
+            Self::VideoObjectTrackingAnnotation => "VIDEO_OBJECT_TRACKING_ANNOTATION",
+            Self::VideoObjectDetectionAnnotation => "VIDEO_OBJECT_DETECTION_ANNOTATION",
+            Self::VideoEventAnnotation => "VIDEO_EVENT_ANNOTATION",
+            Self::TextClassificationAnnotation => "TEXT_CLASSIFICATION_ANNOTATION",
+            Self::TextEntityExtractionAnnotation => "TEXT_ENTITY_EXTRACTION_ANNOTATION",
+            Self::GeneralClassificationAnnotation => "GENERAL_CLASSIFICATION_ANNOTATION",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -777,10 +761,10 @@ impl StringAggregationType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            StringAggregationType::Unspecified => "STRING_AGGREGATION_TYPE_UNSPECIFIED",
-            StringAggregationType::MajorityVote => "MAJORITY_VOTE",
-            StringAggregationType::UnanimousVote => "UNANIMOUS_VOTE",
-            StringAggregationType::NoAggregation => "NO_AGGREGATION",
+            Self::Unspecified => "STRING_AGGREGATION_TYPE_UNSPECIFIED",
+            Self::MajorityVote => "MAJORITY_VOTE",
+            Self::UnanimousVote => "UNANIMOUS_VOTE",
+            Self::NoAggregation => "NO_AGGREGATION",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1154,11 +1138,11 @@ impl DataType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            DataType::Unspecified => "DATA_TYPE_UNSPECIFIED",
-            DataType::Image => "IMAGE",
-            DataType::Video => "VIDEO",
-            DataType::Text => "TEXT",
-            DataType::GeneralData => "GENERAL_DATA",
+            Self::Unspecified => "DATA_TYPE_UNSPECIFIED",
+            Self::Image => "IMAGE",
+            Self::Video => "VIDEO",
+            Self::Text => "TEXT",
+            Self::GeneralData => "GENERAL_DATA",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1172,6 +1156,238 @@ impl DataType {
             _ => None,
         }
     }
+}
+/// Response used for ImportData longrunning operation.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ImportDataOperationResponse {
+    /// Ouptut only. The name of imported dataset.
+    #[prost(string, tag = "1")]
+    pub dataset: ::prost::alloc::string::String,
+    /// Output only. Total number of examples requested to import
+    #[prost(int32, tag = "2")]
+    pub total_count: i32,
+    /// Output only. Number of examples imported successfully.
+    #[prost(int32, tag = "3")]
+    pub import_count: i32,
+}
+/// Response used for ExportDataset longrunning operation.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ExportDataOperationResponse {
+    /// Ouptut only. The name of dataset.
+    /// "projects/*/datasets/*"
+    #[prost(string, tag = "1")]
+    pub dataset: ::prost::alloc::string::String,
+    /// Output only. Total number of examples requested to export
+    #[prost(int32, tag = "2")]
+    pub total_count: i32,
+    /// Output only. Number of examples exported successfully.
+    #[prost(int32, tag = "3")]
+    pub export_count: i32,
+    /// Output only. Statistic infos of labels in the exported dataset.
+    #[prost(message, optional, tag = "4")]
+    pub label_stats: ::core::option::Option<LabelStats>,
+    /// Output only. output_config in the ExportData request.
+    #[prost(message, optional, tag = "5")]
+    pub output_config: ::core::option::Option<OutputConfig>,
+}
+/// Metadata of an ImportData operation.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ImportDataOperationMetadata {
+    /// Output only. The name of imported dataset.
+    /// "projects/*/datasets/*"
+    #[prost(string, tag = "1")]
+    pub dataset: ::prost::alloc::string::String,
+    /// Output only. Partial failures encountered.
+    /// E.g. single files that couldn't be read.
+    /// Status details field will contain standard GCP error details.
+    #[prost(message, repeated, tag = "2")]
+    pub partial_failures: ::prost::alloc::vec::Vec<super::super::super::rpc::Status>,
+    /// Output only. Timestamp when import dataset request was created.
+    #[prost(message, optional, tag = "3")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+}
+/// Metadata of an ExportData operation.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ExportDataOperationMetadata {
+    /// Output only. The name of dataset to be exported.
+    /// "projects/*/datasets/*"
+    #[prost(string, tag = "1")]
+    pub dataset: ::prost::alloc::string::String,
+    /// Output only. Partial failures encountered.
+    /// E.g. single files that couldn't be read.
+    /// Status details field will contain standard GCP error details.
+    #[prost(message, repeated, tag = "2")]
+    pub partial_failures: ::prost::alloc::vec::Vec<super::super::super::rpc::Status>,
+    /// Output only. Timestamp when export dataset request was created.
+    #[prost(message, optional, tag = "3")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+}
+/// Metadata of a labeling operation, such as LabelImage or LabelVideo.
+/// Next tag: 20
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LabelOperationMetadata {
+    /// Output only. Progress of label operation. Range: \[0, 100\].
+    #[prost(int32, tag = "1")]
+    pub progress_percent: i32,
+    /// Output only. Partial failures encountered.
+    /// E.g. single files that couldn't be read.
+    /// Status details field will contain standard GCP error details.
+    #[prost(message, repeated, tag = "2")]
+    pub partial_failures: ::prost::alloc::vec::Vec<super::super::super::rpc::Status>,
+    /// Output only. Timestamp when labeling request was created.
+    #[prost(message, optional, tag = "16")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Ouptut only. Details of specific label operation.
+    #[prost(
+        oneof = "label_operation_metadata::Details",
+        tags = "3, 4, 11, 14, 12, 15, 5, 6, 7, 8, 9, 13"
+    )]
+    pub details: ::core::option::Option<label_operation_metadata::Details>,
+}
+/// Nested message and enum types in `LabelOperationMetadata`.
+pub mod label_operation_metadata {
+    /// Ouptut only. Details of specific label operation.
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum Details {
+        /// Details of label image classification operation.
+        #[prost(message, tag = "3")]
+        ImageClassificationDetails(super::LabelImageClassificationOperationMetadata),
+        /// Details of label image bounding box operation.
+        #[prost(message, tag = "4")]
+        ImageBoundingBoxDetails(super::LabelImageBoundingBoxOperationMetadata),
+        /// Details of label image bounding poly operation.
+        #[prost(message, tag = "11")]
+        ImageBoundingPolyDetails(super::LabelImageBoundingPolyOperationMetadata),
+        /// Details of label image oriented bounding box operation.
+        #[prost(message, tag = "14")]
+        ImageOrientedBoundingBoxDetails(
+            super::LabelImageOrientedBoundingBoxOperationMetadata,
+        ),
+        /// Details of label image polyline operation.
+        #[prost(message, tag = "12")]
+        ImagePolylineDetails(super::LabelImagePolylineOperationMetadata),
+        /// Details of label image segmentation operation.
+        #[prost(message, tag = "15")]
+        ImageSegmentationDetails(super::LabelImageSegmentationOperationMetadata),
+        /// Details of label video classification operation.
+        #[prost(message, tag = "5")]
+        VideoClassificationDetails(super::LabelVideoClassificationOperationMetadata),
+        /// Details of label video object detection operation.
+        #[prost(message, tag = "6")]
+        VideoObjectDetectionDetails(super::LabelVideoObjectDetectionOperationMetadata),
+        /// Details of label video object tracking operation.
+        #[prost(message, tag = "7")]
+        VideoObjectTrackingDetails(super::LabelVideoObjectTrackingOperationMetadata),
+        /// Details of label video event operation.
+        #[prost(message, tag = "8")]
+        VideoEventDetails(super::LabelVideoEventOperationMetadata),
+        /// Details of label text classification operation.
+        #[prost(message, tag = "9")]
+        TextClassificationDetails(super::LabelTextClassificationOperationMetadata),
+        /// Details of label text entity extraction operation.
+        #[prost(message, tag = "13")]
+        TextEntityExtractionDetails(super::LabelTextEntityExtractionOperationMetadata),
+    }
+}
+/// Metadata of a LabelImageClassification operation.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LabelImageClassificationOperationMetadata {
+    /// Basic human annotation config used in labeling request.
+    #[prost(message, optional, tag = "1")]
+    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
+}
+/// Details of a LabelImageBoundingBox operation metadata.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LabelImageBoundingBoxOperationMetadata {
+    /// Basic human annotation config used in labeling request.
+    #[prost(message, optional, tag = "1")]
+    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
+}
+/// Details of a LabelImageOrientedBoundingBox operation metadata.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LabelImageOrientedBoundingBoxOperationMetadata {
+    /// Basic human annotation config.
+    #[prost(message, optional, tag = "1")]
+    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
+}
+/// Details of LabelImageBoundingPoly operation metadata.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LabelImageBoundingPolyOperationMetadata {
+    /// Basic human annotation config used in labeling request.
+    #[prost(message, optional, tag = "1")]
+    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
+}
+/// Details of LabelImagePolyline operation metadata.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LabelImagePolylineOperationMetadata {
+    /// Basic human annotation config used in labeling request.
+    #[prost(message, optional, tag = "1")]
+    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
+}
+/// Details of a LabelImageSegmentation operation metadata.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LabelImageSegmentationOperationMetadata {
+    /// Basic human annotation config.
+    #[prost(message, optional, tag = "1")]
+    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
+}
+/// Details of a LabelVideoClassification operation metadata.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LabelVideoClassificationOperationMetadata {
+    /// Basic human annotation config used in labeling request.
+    #[prost(message, optional, tag = "1")]
+    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
+}
+/// Details of a LabelVideoObjectDetection operation metadata.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LabelVideoObjectDetectionOperationMetadata {
+    /// Basic human annotation config used in labeling request.
+    #[prost(message, optional, tag = "1")]
+    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
+}
+/// Details of a LabelVideoObjectTracking operation metadata.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LabelVideoObjectTrackingOperationMetadata {
+    /// Basic human annotation config used in labeling request.
+    #[prost(message, optional, tag = "1")]
+    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
+}
+/// Details of a LabelVideoEvent operation metadata.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LabelVideoEventOperationMetadata {
+    /// Basic human annotation config used in labeling request.
+    #[prost(message, optional, tag = "1")]
+    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
+}
+/// Details of a LabelTextClassification operation metadata.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LabelTextClassificationOperationMetadata {
+    /// Basic human annotation config used in labeling request.
+    #[prost(message, optional, tag = "1")]
+    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
+}
+/// Details of a LabelTextEntityExtraction operation metadata.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct LabelTextEntityExtractionOperationMetadata {
+    /// Basic human annotation config used in labeling request.
+    #[prost(message, optional, tag = "1")]
+    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
+}
+/// Metadata of a CreateInstruction operation.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateInstructionMetadata {
+    /// The name of the created Instruction.
+    /// projects/{project_id}/instructions/{instruction_id}
+    #[prost(string, tag = "1")]
+    pub instruction: ::prost::alloc::string::String,
+    /// Partial failures encountered.
+    /// E.g. single files that couldn't be read.
+    /// Status details field will contain standard GCP error details.
+    #[prost(message, repeated, tag = "2")]
+    pub partial_failures: ::prost::alloc::vec::Vec<super::super::super::rpc::Status>,
+    /// Timestamp when create instruction request was created.
+    #[prost(message, optional, tag = "3")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
 }
 /// Describes an evaluation between a machine learning model's predictions and
 /// ground truth labels. Created when an [EvaluationJob][google.cloud.datalabeling.v1beta1.EvaluationJob] runs successfully.
@@ -1511,11 +1727,11 @@ pub mod evaluation_job {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Scheduled => "SCHEDULED",
-                State::Running => "RUNNING",
-                State::Paused => "PAUSED",
-                State::Stopped => "STOPPED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Scheduled => "SCHEDULED",
+                Self::Running => "RUNNING",
+                Self::Paused => "PAUSED",
+                Self::Stopped => "STOPPED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1727,238 +1943,6 @@ pub struct PdfInstruction {
     /// PDF file for the instruction. Only gcs path is allowed.
     #[prost(string, tag = "1")]
     pub gcs_file_uri: ::prost::alloc::string::String,
-}
-/// Response used for ImportData longrunning operation.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ImportDataOperationResponse {
-    /// Ouptut only. The name of imported dataset.
-    #[prost(string, tag = "1")]
-    pub dataset: ::prost::alloc::string::String,
-    /// Output only. Total number of examples requested to import
-    #[prost(int32, tag = "2")]
-    pub total_count: i32,
-    /// Output only. Number of examples imported successfully.
-    #[prost(int32, tag = "3")]
-    pub import_count: i32,
-}
-/// Response used for ExportDataset longrunning operation.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ExportDataOperationResponse {
-    /// Ouptut only. The name of dataset.
-    /// "projects/*/datasets/*"
-    #[prost(string, tag = "1")]
-    pub dataset: ::prost::alloc::string::String,
-    /// Output only. Total number of examples requested to export
-    #[prost(int32, tag = "2")]
-    pub total_count: i32,
-    /// Output only. Number of examples exported successfully.
-    #[prost(int32, tag = "3")]
-    pub export_count: i32,
-    /// Output only. Statistic infos of labels in the exported dataset.
-    #[prost(message, optional, tag = "4")]
-    pub label_stats: ::core::option::Option<LabelStats>,
-    /// Output only. output_config in the ExportData request.
-    #[prost(message, optional, tag = "5")]
-    pub output_config: ::core::option::Option<OutputConfig>,
-}
-/// Metadata of an ImportData operation.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ImportDataOperationMetadata {
-    /// Output only. The name of imported dataset.
-    /// "projects/*/datasets/*"
-    #[prost(string, tag = "1")]
-    pub dataset: ::prost::alloc::string::String,
-    /// Output only. Partial failures encountered.
-    /// E.g. single files that couldn't be read.
-    /// Status details field will contain standard GCP error details.
-    #[prost(message, repeated, tag = "2")]
-    pub partial_failures: ::prost::alloc::vec::Vec<super::super::super::rpc::Status>,
-    /// Output only. Timestamp when import dataset request was created.
-    #[prost(message, optional, tag = "3")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
-}
-/// Metadata of an ExportData operation.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ExportDataOperationMetadata {
-    /// Output only. The name of dataset to be exported.
-    /// "projects/*/datasets/*"
-    #[prost(string, tag = "1")]
-    pub dataset: ::prost::alloc::string::String,
-    /// Output only. Partial failures encountered.
-    /// E.g. single files that couldn't be read.
-    /// Status details field will contain standard GCP error details.
-    #[prost(message, repeated, tag = "2")]
-    pub partial_failures: ::prost::alloc::vec::Vec<super::super::super::rpc::Status>,
-    /// Output only. Timestamp when export dataset request was created.
-    #[prost(message, optional, tag = "3")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
-}
-/// Metadata of a labeling operation, such as LabelImage or LabelVideo.
-/// Next tag: 20
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct LabelOperationMetadata {
-    /// Output only. Progress of label operation. Range: \[0, 100\].
-    #[prost(int32, tag = "1")]
-    pub progress_percent: i32,
-    /// Output only. Partial failures encountered.
-    /// E.g. single files that couldn't be read.
-    /// Status details field will contain standard GCP error details.
-    #[prost(message, repeated, tag = "2")]
-    pub partial_failures: ::prost::alloc::vec::Vec<super::super::super::rpc::Status>,
-    /// Output only. Timestamp when labeling request was created.
-    #[prost(message, optional, tag = "16")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Ouptut only. Details of specific label operation.
-    #[prost(
-        oneof = "label_operation_metadata::Details",
-        tags = "3, 4, 11, 14, 12, 15, 5, 6, 7, 8, 9, 13"
-    )]
-    pub details: ::core::option::Option<label_operation_metadata::Details>,
-}
-/// Nested message and enum types in `LabelOperationMetadata`.
-pub mod label_operation_metadata {
-    /// Ouptut only. Details of specific label operation.
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
-    pub enum Details {
-        /// Details of label image classification operation.
-        #[prost(message, tag = "3")]
-        ImageClassificationDetails(super::LabelImageClassificationOperationMetadata),
-        /// Details of label image bounding box operation.
-        #[prost(message, tag = "4")]
-        ImageBoundingBoxDetails(super::LabelImageBoundingBoxOperationMetadata),
-        /// Details of label image bounding poly operation.
-        #[prost(message, tag = "11")]
-        ImageBoundingPolyDetails(super::LabelImageBoundingPolyOperationMetadata),
-        /// Details of label image oriented bounding box operation.
-        #[prost(message, tag = "14")]
-        ImageOrientedBoundingBoxDetails(
-            super::LabelImageOrientedBoundingBoxOperationMetadata,
-        ),
-        /// Details of label image polyline operation.
-        #[prost(message, tag = "12")]
-        ImagePolylineDetails(super::LabelImagePolylineOperationMetadata),
-        /// Details of label image segmentation operation.
-        #[prost(message, tag = "15")]
-        ImageSegmentationDetails(super::LabelImageSegmentationOperationMetadata),
-        /// Details of label video classification operation.
-        #[prost(message, tag = "5")]
-        VideoClassificationDetails(super::LabelVideoClassificationOperationMetadata),
-        /// Details of label video object detection operation.
-        #[prost(message, tag = "6")]
-        VideoObjectDetectionDetails(super::LabelVideoObjectDetectionOperationMetadata),
-        /// Details of label video object tracking operation.
-        #[prost(message, tag = "7")]
-        VideoObjectTrackingDetails(super::LabelVideoObjectTrackingOperationMetadata),
-        /// Details of label video event operation.
-        #[prost(message, tag = "8")]
-        VideoEventDetails(super::LabelVideoEventOperationMetadata),
-        /// Details of label text classification operation.
-        #[prost(message, tag = "9")]
-        TextClassificationDetails(super::LabelTextClassificationOperationMetadata),
-        /// Details of label text entity extraction operation.
-        #[prost(message, tag = "13")]
-        TextEntityExtractionDetails(super::LabelTextEntityExtractionOperationMetadata),
-    }
-}
-/// Metadata of a LabelImageClassification operation.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct LabelImageClassificationOperationMetadata {
-    /// Basic human annotation config used in labeling request.
-    #[prost(message, optional, tag = "1")]
-    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
-}
-/// Details of a LabelImageBoundingBox operation metadata.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct LabelImageBoundingBoxOperationMetadata {
-    /// Basic human annotation config used in labeling request.
-    #[prost(message, optional, tag = "1")]
-    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
-}
-/// Details of a LabelImageOrientedBoundingBox operation metadata.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct LabelImageOrientedBoundingBoxOperationMetadata {
-    /// Basic human annotation config.
-    #[prost(message, optional, tag = "1")]
-    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
-}
-/// Details of LabelImageBoundingPoly operation metadata.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct LabelImageBoundingPolyOperationMetadata {
-    /// Basic human annotation config used in labeling request.
-    #[prost(message, optional, tag = "1")]
-    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
-}
-/// Details of LabelImagePolyline operation metadata.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct LabelImagePolylineOperationMetadata {
-    /// Basic human annotation config used in labeling request.
-    #[prost(message, optional, tag = "1")]
-    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
-}
-/// Details of a LabelImageSegmentation operation metadata.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct LabelImageSegmentationOperationMetadata {
-    /// Basic human annotation config.
-    #[prost(message, optional, tag = "1")]
-    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
-}
-/// Details of a LabelVideoClassification operation metadata.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct LabelVideoClassificationOperationMetadata {
-    /// Basic human annotation config used in labeling request.
-    #[prost(message, optional, tag = "1")]
-    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
-}
-/// Details of a LabelVideoObjectDetection operation metadata.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct LabelVideoObjectDetectionOperationMetadata {
-    /// Basic human annotation config used in labeling request.
-    #[prost(message, optional, tag = "1")]
-    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
-}
-/// Details of a LabelVideoObjectTracking operation metadata.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct LabelVideoObjectTrackingOperationMetadata {
-    /// Basic human annotation config used in labeling request.
-    #[prost(message, optional, tag = "1")]
-    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
-}
-/// Details of a LabelVideoEvent operation metadata.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct LabelVideoEventOperationMetadata {
-    /// Basic human annotation config used in labeling request.
-    #[prost(message, optional, tag = "1")]
-    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
-}
-/// Details of a LabelTextClassification operation metadata.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct LabelTextClassificationOperationMetadata {
-    /// Basic human annotation config used in labeling request.
-    #[prost(message, optional, tag = "1")]
-    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
-}
-/// Details of a LabelTextEntityExtraction operation metadata.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct LabelTextEntityExtractionOperationMetadata {
-    /// Basic human annotation config used in labeling request.
-    #[prost(message, optional, tag = "1")]
-    pub basic_config: ::core::option::Option<HumanAnnotationConfig>,
-}
-/// Metadata of a CreateInstruction operation.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CreateInstructionMetadata {
-    /// The name of the created Instruction.
-    /// projects/{project_id}/instructions/{instruction_id}
-    #[prost(string, tag = "1")]
-    pub instruction: ::prost::alloc::string::String,
-    /// Partial failures encountered.
-    /// E.g. single files that couldn't be read.
-    /// Status details field will contain standard GCP error details.
-    #[prost(message, repeated, tag = "2")]
-    pub partial_failures: ::prost::alloc::vec::Vec<super::super::super::rpc::Status>,
-    /// Timestamp when create instruction request was created.
-    #[prost(message, optional, tag = "3")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
 }
 /// Request message for CreateDataset.
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -2208,13 +2192,13 @@ pub mod label_image_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Feature::Unspecified => "FEATURE_UNSPECIFIED",
-                Feature::Classification => "CLASSIFICATION",
-                Feature::BoundingBox => "BOUNDING_BOX",
-                Feature::OrientedBoundingBox => "ORIENTED_BOUNDING_BOX",
-                Feature::BoundingPoly => "BOUNDING_POLY",
-                Feature::Polyline => "POLYLINE",
-                Feature::Segmentation => "SEGMENTATION",
+                Self::Unspecified => "FEATURE_UNSPECIFIED",
+                Self::Classification => "CLASSIFICATION",
+                Self::BoundingBox => "BOUNDING_BOX",
+                Self::OrientedBoundingBox => "ORIENTED_BOUNDING_BOX",
+                Self::BoundingPoly => "BOUNDING_POLY",
+                Self::Polyline => "POLYLINE",
+                Self::Segmentation => "SEGMENTATION",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2308,11 +2292,11 @@ pub mod label_video_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Feature::Unspecified => "FEATURE_UNSPECIFIED",
-                Feature::Classification => "CLASSIFICATION",
-                Feature::ObjectDetection => "OBJECT_DETECTION",
-                Feature::ObjectTracking => "OBJECT_TRACKING",
-                Feature::Event => "EVENT",
+                Self::Unspecified => "FEATURE_UNSPECIFIED",
+                Self::Classification => "CLASSIFICATION",
+                Self::ObjectDetection => "OBJECT_DETECTION",
+                Self::ObjectTracking => "OBJECT_TRACKING",
+                Self::Event => "EVENT",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2400,9 +2384,9 @@ pub mod label_text_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Feature::Unspecified => "FEATURE_UNSPECIFIED",
-                Feature::TextClassification => "TEXT_CLASSIFICATION",
-                Feature::TextEntityExtraction => "TEXT_ENTITY_EXTRACTION",
+                Self::Unspecified => "FEATURE_UNSPECIFIED",
+                Self::TextClassification => "TEXT_CLASSIFICATION",
+                Self::TextEntityExtraction => "TEXT_ENTITY_EXTRACTION",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -3926,5 +3910,2003 @@ pub mod data_labeling_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod data_labeling_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with DataLabelingServiceServer.
+    #[async_trait]
+    pub trait DataLabelingService: std::marker::Send + std::marker::Sync + 'static {
+        /// Creates dataset. If success return a Dataset resource.
+        async fn create_dataset(
+            &self,
+            request: tonic::Request<super::CreateDatasetRequest>,
+        ) -> std::result::Result<tonic::Response<super::Dataset>, tonic::Status>;
+        /// Gets dataset by resource name.
+        async fn get_dataset(
+            &self,
+            request: tonic::Request<super::GetDatasetRequest>,
+        ) -> std::result::Result<tonic::Response<super::Dataset>, tonic::Status>;
+        /// Lists datasets under a project. Pagination is supported.
+        async fn list_datasets(
+            &self,
+            request: tonic::Request<super::ListDatasetsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDatasetsResponse>,
+            tonic::Status,
+        >;
+        /// Deletes a dataset by resource name.
+        async fn delete_dataset(
+            &self,
+            request: tonic::Request<super::DeleteDatasetRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Imports data into dataset based on source locations defined in request.
+        /// It can be called multiple times for the same dataset. Each dataset can
+        /// only have one long running operation running on it. For example, no
+        /// labeling task (also long running operation) can be started while
+        /// importing is still ongoing. Vice versa.
+        async fn import_data(
+            &self,
+            request: tonic::Request<super::ImportDataRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Exports data and annotations from dataset.
+        async fn export_data(
+            &self,
+            request: tonic::Request<super::ExportDataRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Gets a data item in a dataset by resource name. This API can be
+        /// called after data are imported into dataset.
+        async fn get_data_item(
+            &self,
+            request: tonic::Request<super::GetDataItemRequest>,
+        ) -> std::result::Result<tonic::Response<super::DataItem>, tonic::Status>;
+        /// Lists data items in a dataset. This API can be called after data
+        /// are imported into dataset. Pagination is supported.
+        async fn list_data_items(
+            &self,
+            request: tonic::Request<super::ListDataItemsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDataItemsResponse>,
+            tonic::Status,
+        >;
+        /// Gets an annotated dataset by resource name.
+        async fn get_annotated_dataset(
+            &self,
+            request: tonic::Request<super::GetAnnotatedDatasetRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AnnotatedDataset>,
+            tonic::Status,
+        >;
+        /// Lists annotated datasets for a dataset. Pagination is supported.
+        async fn list_annotated_datasets(
+            &self,
+            request: tonic::Request<super::ListAnnotatedDatasetsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAnnotatedDatasetsResponse>,
+            tonic::Status,
+        >;
+        /// Deletes an annotated dataset by resource name.
+        async fn delete_annotated_dataset(
+            &self,
+            request: tonic::Request<super::DeleteAnnotatedDatasetRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Starts a labeling task for image. The type of image labeling task is
+        /// configured by feature in the request.
+        async fn label_image(
+            &self,
+            request: tonic::Request<super::LabelImageRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Starts a labeling task for video. The type of video labeling task is
+        /// configured by feature in the request.
+        async fn label_video(
+            &self,
+            request: tonic::Request<super::LabelVideoRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Starts a labeling task for text. The type of text labeling task is
+        /// configured by feature in the request.
+        async fn label_text(
+            &self,
+            request: tonic::Request<super::LabelTextRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Gets an example by resource name, including both data and annotation.
+        async fn get_example(
+            &self,
+            request: tonic::Request<super::GetExampleRequest>,
+        ) -> std::result::Result<tonic::Response<super::Example>, tonic::Status>;
+        /// Lists examples in an annotated dataset. Pagination is supported.
+        async fn list_examples(
+            &self,
+            request: tonic::Request<super::ListExamplesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListExamplesResponse>,
+            tonic::Status,
+        >;
+        /// Creates an annotation spec set by providing a set of labels.
+        async fn create_annotation_spec_set(
+            &self,
+            request: tonic::Request<super::CreateAnnotationSpecSetRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AnnotationSpecSet>,
+            tonic::Status,
+        >;
+        /// Gets an annotation spec set by resource name.
+        async fn get_annotation_spec_set(
+            &self,
+            request: tonic::Request<super::GetAnnotationSpecSetRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AnnotationSpecSet>,
+            tonic::Status,
+        >;
+        /// Lists annotation spec sets for a project. Pagination is supported.
+        async fn list_annotation_spec_sets(
+            &self,
+            request: tonic::Request<super::ListAnnotationSpecSetsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAnnotationSpecSetsResponse>,
+            tonic::Status,
+        >;
+        /// Deletes an annotation spec set by resource name.
+        async fn delete_annotation_spec_set(
+            &self,
+            request: tonic::Request<super::DeleteAnnotationSpecSetRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Creates an instruction for how data should be labeled.
+        async fn create_instruction(
+            &self,
+            request: tonic::Request<super::CreateInstructionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Gets an instruction by resource name.
+        async fn get_instruction(
+            &self,
+            request: tonic::Request<super::GetInstructionRequest>,
+        ) -> std::result::Result<tonic::Response<super::Instruction>, tonic::Status>;
+        /// Lists instructions for a project. Pagination is supported.
+        async fn list_instructions(
+            &self,
+            request: tonic::Request<super::ListInstructionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListInstructionsResponse>,
+            tonic::Status,
+        >;
+        /// Deletes an instruction object by resource name.
+        async fn delete_instruction(
+            &self,
+            request: tonic::Request<super::DeleteInstructionRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Gets an evaluation by resource name (to search, use
+        /// [projects.evaluations.search][google.cloud.datalabeling.v1beta1.DataLabelingService.SearchEvaluations]).
+        async fn get_evaluation(
+            &self,
+            request: tonic::Request<super::GetEvaluationRequest>,
+        ) -> std::result::Result<tonic::Response<super::Evaluation>, tonic::Status>;
+        /// Searches [evaluations][google.cloud.datalabeling.v1beta1.Evaluation] within a project.
+        async fn search_evaluations(
+            &self,
+            request: tonic::Request<super::SearchEvaluationsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SearchEvaluationsResponse>,
+            tonic::Status,
+        >;
+        /// Searches example comparisons from an evaluation. The return format is a
+        /// list of example comparisons that show ground truth and prediction(s) for
+        /// a single input. Search by providing an evaluation ID.
+        async fn search_example_comparisons(
+            &self,
+            request: tonic::Request<super::SearchExampleComparisonsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SearchExampleComparisonsResponse>,
+            tonic::Status,
+        >;
+        /// Creates an evaluation job.
+        async fn create_evaluation_job(
+            &self,
+            request: tonic::Request<super::CreateEvaluationJobRequest>,
+        ) -> std::result::Result<tonic::Response<super::EvaluationJob>, tonic::Status>;
+        /// Updates an evaluation job. You can only update certain fields of the job's
+        /// [EvaluationJobConfig][google.cloud.datalabeling.v1beta1.EvaluationJobConfig]: `humanAnnotationConfig.instruction`,
+        /// `exampleCount`, and `exampleSamplePercentage`.
+        ///
+        /// If you want to change any other aspect of the evaluation job, you must
+        /// delete the job and create a new one.
+        async fn update_evaluation_job(
+            &self,
+            request: tonic::Request<super::UpdateEvaluationJobRequest>,
+        ) -> std::result::Result<tonic::Response<super::EvaluationJob>, tonic::Status>;
+        /// Gets an evaluation job by resource name.
+        async fn get_evaluation_job(
+            &self,
+            request: tonic::Request<super::GetEvaluationJobRequest>,
+        ) -> std::result::Result<tonic::Response<super::EvaluationJob>, tonic::Status>;
+        /// Pauses an evaluation job. Pausing an evaluation job that is already in a
+        /// `PAUSED` state is a no-op.
+        async fn pause_evaluation_job(
+            &self,
+            request: tonic::Request<super::PauseEvaluationJobRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Resumes a paused evaluation job. A deleted evaluation job can't be resumed.
+        /// Resuming a running or scheduled evaluation job is a no-op.
+        async fn resume_evaluation_job(
+            &self,
+            request: tonic::Request<super::ResumeEvaluationJobRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Stops and deletes an evaluation job.
+        async fn delete_evaluation_job(
+            &self,
+            request: tonic::Request<super::DeleteEvaluationJobRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Lists all evaluation jobs within a project with possible filters.
+        /// Pagination is supported.
+        async fn list_evaluation_jobs(
+            &self,
+            request: tonic::Request<super::ListEvaluationJobsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListEvaluationJobsResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Service for the AI Platform Data Labeling API.
+    #[derive(Debug)]
+    pub struct DataLabelingServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> DataLabelingServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for DataLabelingServiceServer<T>
+    where
+        T: DataLabelingService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.datalabeling.v1beta1.DataLabelingService/CreateDataset" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateDatasetSvc<T: DataLabelingService>(pub Arc<T>);
+                    impl<
+                        T: DataLabelingService,
+                    > tonic::server::UnaryService<super::CreateDatasetRequest>
+                    for CreateDatasetSvc<T> {
+                        type Response = super::Dataset;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateDatasetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataLabelingService>::create_dataset(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateDatasetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datalabeling.v1beta1.DataLabelingService/GetDataset" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetDatasetSvc<T: DataLabelingService>(pub Arc<T>);
+                    impl<
+                        T: DataLabelingService,
+                    > tonic::server::UnaryService<super::GetDatasetRequest>
+                    for GetDatasetSvc<T> {
+                        type Response = super::Dataset;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetDatasetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataLabelingService>::get_dataset(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetDatasetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datalabeling.v1beta1.DataLabelingService/ListDatasets" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDatasetsSvc<T: DataLabelingService>(pub Arc<T>);
+                    impl<
+                        T: DataLabelingService,
+                    > tonic::server::UnaryService<super::ListDatasetsRequest>
+                    for ListDatasetsSvc<T> {
+                        type Response = super::ListDatasetsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListDatasetsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataLabelingService>::list_datasets(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDatasetsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datalabeling.v1beta1.DataLabelingService/DeleteDataset" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteDatasetSvc<T: DataLabelingService>(pub Arc<T>);
+                    impl<
+                        T: DataLabelingService,
+                    > tonic::server::UnaryService<super::DeleteDatasetRequest>
+                    for DeleteDatasetSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteDatasetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataLabelingService>::delete_dataset(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteDatasetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datalabeling.v1beta1.DataLabelingService/ImportData" => {
+                    #[allow(non_camel_case_types)]
+                    struct ImportDataSvc<T: DataLabelingService>(pub Arc<T>);
+                    impl<
+                        T: DataLabelingService,
+                    > tonic::server::UnaryService<super::ImportDataRequest>
+                    for ImportDataSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ImportDataRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataLabelingService>::import_data(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ImportDataSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datalabeling.v1beta1.DataLabelingService/ExportData" => {
+                    #[allow(non_camel_case_types)]
+                    struct ExportDataSvc<T: DataLabelingService>(pub Arc<T>);
+                    impl<
+                        T: DataLabelingService,
+                    > tonic::server::UnaryService<super::ExportDataRequest>
+                    for ExportDataSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ExportDataRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataLabelingService>::export_data(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ExportDataSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datalabeling.v1beta1.DataLabelingService/GetDataItem" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetDataItemSvc<T: DataLabelingService>(pub Arc<T>);
+                    impl<
+                        T: DataLabelingService,
+                    > tonic::server::UnaryService<super::GetDataItemRequest>
+                    for GetDataItemSvc<T> {
+                        type Response = super::DataItem;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetDataItemRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataLabelingService>::get_data_item(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetDataItemSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datalabeling.v1beta1.DataLabelingService/ListDataItems" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDataItemsSvc<T: DataLabelingService>(pub Arc<T>);
+                    impl<
+                        T: DataLabelingService,
+                    > tonic::server::UnaryService<super::ListDataItemsRequest>
+                    for ListDataItemsSvc<T> {
+                        type Response = super::ListDataItemsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListDataItemsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataLabelingService>::list_data_items(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDataItemsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datalabeling.v1beta1.DataLabelingService/GetAnnotatedDataset" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAnnotatedDatasetSvc<T: DataLabelingService>(pub Arc<T>);
+                    impl<
+                        T: DataLabelingService,
+                    > tonic::server::UnaryService<super::GetAnnotatedDatasetRequest>
+                    for GetAnnotatedDatasetSvc<T> {
+                        type Response = super::AnnotatedDataset;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAnnotatedDatasetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataLabelingService>::get_annotated_dataset(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAnnotatedDatasetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datalabeling.v1beta1.DataLabelingService/ListAnnotatedDatasets" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAnnotatedDatasetsSvc<T: DataLabelingService>(pub Arc<T>);
+                    impl<
+                        T: DataLabelingService,
+                    > tonic::server::UnaryService<super::ListAnnotatedDatasetsRequest>
+                    for ListAnnotatedDatasetsSvc<T> {
+                        type Response = super::ListAnnotatedDatasetsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListAnnotatedDatasetsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataLabelingService>::list_annotated_datasets(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAnnotatedDatasetsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datalabeling.v1beta1.DataLabelingService/DeleteAnnotatedDataset" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteAnnotatedDatasetSvc<T: DataLabelingService>(pub Arc<T>);
+                    impl<
+                        T: DataLabelingService,
+                    > tonic::server::UnaryService<super::DeleteAnnotatedDatasetRequest>
+                    for DeleteAnnotatedDatasetSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteAnnotatedDatasetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataLabelingService>::delete_annotated_dataset(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteAnnotatedDatasetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datalabeling.v1beta1.DataLabelingService/LabelImage" => {
+                    #[allow(non_camel_case_types)]
+                    struct LabelImageSvc<T: DataLabelingService>(pub Arc<T>);
+                    impl<
+                        T: DataLabelingService,
+                    > tonic::server::UnaryService<super::LabelImageRequest>
+                    for LabelImageSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::LabelImageRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataLabelingService>::label_image(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = LabelImageSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datalabeling.v1beta1.DataLabelingService/LabelVideo" => {
+                    #[allow(non_camel_case_types)]
+                    struct LabelVideoSvc<T: DataLabelingService>(pub Arc<T>);
+                    impl<
+                        T: DataLabelingService,
+                    > tonic::server::UnaryService<super::LabelVideoRequest>
+                    for LabelVideoSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::LabelVideoRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataLabelingService>::label_video(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = LabelVideoSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datalabeling.v1beta1.DataLabelingService/LabelText" => {
+                    #[allow(non_camel_case_types)]
+                    struct LabelTextSvc<T: DataLabelingService>(pub Arc<T>);
+                    impl<
+                        T: DataLabelingService,
+                    > tonic::server::UnaryService<super::LabelTextRequest>
+                    for LabelTextSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::LabelTextRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataLabelingService>::label_text(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = LabelTextSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datalabeling.v1beta1.DataLabelingService/GetExample" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetExampleSvc<T: DataLabelingService>(pub Arc<T>);
+                    impl<
+                        T: DataLabelingService,
+                    > tonic::server::UnaryService<super::GetExampleRequest>
+                    for GetExampleSvc<T> {
+                        type Response = super::Example;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetExampleRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataLabelingService>::get_example(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetExampleSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datalabeling.v1beta1.DataLabelingService/ListExamples" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListExamplesSvc<T: DataLabelingService>(pub Arc<T>);
+                    impl<
+                        T: DataLabelingService,
+                    > tonic::server::UnaryService<super::ListExamplesRequest>
+                    for ListExamplesSvc<T> {
+                        type Response = super::ListExamplesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListExamplesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataLabelingService>::list_examples(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListExamplesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datalabeling.v1beta1.DataLabelingService/CreateAnnotationSpecSet" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateAnnotationSpecSetSvc<T: DataLabelingService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: DataLabelingService,
+                    > tonic::server::UnaryService<super::CreateAnnotationSpecSetRequest>
+                    for CreateAnnotationSpecSetSvc<T> {
+                        type Response = super::AnnotationSpecSet;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateAnnotationSpecSetRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataLabelingService>::create_annotation_spec_set(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateAnnotationSpecSetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datalabeling.v1beta1.DataLabelingService/GetAnnotationSpecSet" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAnnotationSpecSetSvc<T: DataLabelingService>(pub Arc<T>);
+                    impl<
+                        T: DataLabelingService,
+                    > tonic::server::UnaryService<super::GetAnnotationSpecSetRequest>
+                    for GetAnnotationSpecSetSvc<T> {
+                        type Response = super::AnnotationSpecSet;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAnnotationSpecSetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataLabelingService>::get_annotation_spec_set(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAnnotationSpecSetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datalabeling.v1beta1.DataLabelingService/ListAnnotationSpecSets" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAnnotationSpecSetsSvc<T: DataLabelingService>(pub Arc<T>);
+                    impl<
+                        T: DataLabelingService,
+                    > tonic::server::UnaryService<super::ListAnnotationSpecSetsRequest>
+                    for ListAnnotationSpecSetsSvc<T> {
+                        type Response = super::ListAnnotationSpecSetsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListAnnotationSpecSetsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataLabelingService>::list_annotation_spec_sets(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAnnotationSpecSetsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datalabeling.v1beta1.DataLabelingService/DeleteAnnotationSpecSet" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteAnnotationSpecSetSvc<T: DataLabelingService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: DataLabelingService,
+                    > tonic::server::UnaryService<super::DeleteAnnotationSpecSetRequest>
+                    for DeleteAnnotationSpecSetSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteAnnotationSpecSetRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataLabelingService>::delete_annotation_spec_set(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteAnnotationSpecSetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datalabeling.v1beta1.DataLabelingService/CreateInstruction" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateInstructionSvc<T: DataLabelingService>(pub Arc<T>);
+                    impl<
+                        T: DataLabelingService,
+                    > tonic::server::UnaryService<super::CreateInstructionRequest>
+                    for CreateInstructionSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateInstructionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataLabelingService>::create_instruction(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateInstructionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datalabeling.v1beta1.DataLabelingService/GetInstruction" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetInstructionSvc<T: DataLabelingService>(pub Arc<T>);
+                    impl<
+                        T: DataLabelingService,
+                    > tonic::server::UnaryService<super::GetInstructionRequest>
+                    for GetInstructionSvc<T> {
+                        type Response = super::Instruction;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetInstructionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataLabelingService>::get_instruction(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetInstructionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datalabeling.v1beta1.DataLabelingService/ListInstructions" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListInstructionsSvc<T: DataLabelingService>(pub Arc<T>);
+                    impl<
+                        T: DataLabelingService,
+                    > tonic::server::UnaryService<super::ListInstructionsRequest>
+                    for ListInstructionsSvc<T> {
+                        type Response = super::ListInstructionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListInstructionsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataLabelingService>::list_instructions(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListInstructionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datalabeling.v1beta1.DataLabelingService/DeleteInstruction" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteInstructionSvc<T: DataLabelingService>(pub Arc<T>);
+                    impl<
+                        T: DataLabelingService,
+                    > tonic::server::UnaryService<super::DeleteInstructionRequest>
+                    for DeleteInstructionSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteInstructionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataLabelingService>::delete_instruction(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteInstructionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datalabeling.v1beta1.DataLabelingService/GetEvaluation" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetEvaluationSvc<T: DataLabelingService>(pub Arc<T>);
+                    impl<
+                        T: DataLabelingService,
+                    > tonic::server::UnaryService<super::GetEvaluationRequest>
+                    for GetEvaluationSvc<T> {
+                        type Response = super::Evaluation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetEvaluationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataLabelingService>::get_evaluation(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetEvaluationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datalabeling.v1beta1.DataLabelingService/SearchEvaluations" => {
+                    #[allow(non_camel_case_types)]
+                    struct SearchEvaluationsSvc<T: DataLabelingService>(pub Arc<T>);
+                    impl<
+                        T: DataLabelingService,
+                    > tonic::server::UnaryService<super::SearchEvaluationsRequest>
+                    for SearchEvaluationsSvc<T> {
+                        type Response = super::SearchEvaluationsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SearchEvaluationsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataLabelingService>::search_evaluations(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SearchEvaluationsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datalabeling.v1beta1.DataLabelingService/SearchExampleComparisons" => {
+                    #[allow(non_camel_case_types)]
+                    struct SearchExampleComparisonsSvc<T: DataLabelingService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: DataLabelingService,
+                    > tonic::server::UnaryService<super::SearchExampleComparisonsRequest>
+                    for SearchExampleComparisonsSvc<T> {
+                        type Response = super::SearchExampleComparisonsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::SearchExampleComparisonsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataLabelingService>::search_example_comparisons(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SearchExampleComparisonsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datalabeling.v1beta1.DataLabelingService/CreateEvaluationJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateEvaluationJobSvc<T: DataLabelingService>(pub Arc<T>);
+                    impl<
+                        T: DataLabelingService,
+                    > tonic::server::UnaryService<super::CreateEvaluationJobRequest>
+                    for CreateEvaluationJobSvc<T> {
+                        type Response = super::EvaluationJob;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateEvaluationJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataLabelingService>::create_evaluation_job(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateEvaluationJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datalabeling.v1beta1.DataLabelingService/UpdateEvaluationJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateEvaluationJobSvc<T: DataLabelingService>(pub Arc<T>);
+                    impl<
+                        T: DataLabelingService,
+                    > tonic::server::UnaryService<super::UpdateEvaluationJobRequest>
+                    for UpdateEvaluationJobSvc<T> {
+                        type Response = super::EvaluationJob;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateEvaluationJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataLabelingService>::update_evaluation_job(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateEvaluationJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datalabeling.v1beta1.DataLabelingService/GetEvaluationJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetEvaluationJobSvc<T: DataLabelingService>(pub Arc<T>);
+                    impl<
+                        T: DataLabelingService,
+                    > tonic::server::UnaryService<super::GetEvaluationJobRequest>
+                    for GetEvaluationJobSvc<T> {
+                        type Response = super::EvaluationJob;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetEvaluationJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataLabelingService>::get_evaluation_job(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetEvaluationJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datalabeling.v1beta1.DataLabelingService/PauseEvaluationJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct PauseEvaluationJobSvc<T: DataLabelingService>(pub Arc<T>);
+                    impl<
+                        T: DataLabelingService,
+                    > tonic::server::UnaryService<super::PauseEvaluationJobRequest>
+                    for PauseEvaluationJobSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::PauseEvaluationJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataLabelingService>::pause_evaluation_job(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = PauseEvaluationJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datalabeling.v1beta1.DataLabelingService/ResumeEvaluationJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct ResumeEvaluationJobSvc<T: DataLabelingService>(pub Arc<T>);
+                    impl<
+                        T: DataLabelingService,
+                    > tonic::server::UnaryService<super::ResumeEvaluationJobRequest>
+                    for ResumeEvaluationJobSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ResumeEvaluationJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataLabelingService>::resume_evaluation_job(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ResumeEvaluationJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datalabeling.v1beta1.DataLabelingService/DeleteEvaluationJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteEvaluationJobSvc<T: DataLabelingService>(pub Arc<T>);
+                    impl<
+                        T: DataLabelingService,
+                    > tonic::server::UnaryService<super::DeleteEvaluationJobRequest>
+                    for DeleteEvaluationJobSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteEvaluationJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataLabelingService>::delete_evaluation_job(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteEvaluationJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datalabeling.v1beta1.DataLabelingService/ListEvaluationJobs" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListEvaluationJobsSvc<T: DataLabelingService>(pub Arc<T>);
+                    impl<
+                        T: DataLabelingService,
+                    > tonic::server::UnaryService<super::ListEvaluationJobsRequest>
+                    for ListEvaluationJobsSvc<T> {
+                        type Response = super::ListEvaluationJobsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListEvaluationJobsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DataLabelingService>::list_evaluation_jobs(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListEvaluationJobsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for DataLabelingServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.datalabeling.v1beta1.DataLabelingService";
+    impl<T> tonic::server::NamedService for DataLabelingServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

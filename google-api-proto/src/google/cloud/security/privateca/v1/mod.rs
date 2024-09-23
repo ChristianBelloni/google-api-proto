@@ -193,9 +193,9 @@ pub mod certificate_authority {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::SelfSigned => "SELF_SIGNED",
-                Type::Subordinate => "SUBORDINATE",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::SelfSigned => "SELF_SIGNED",
+                Self::Subordinate => "SUBORDINATE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -268,12 +268,12 @@ pub mod certificate_authority {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Enabled => "ENABLED",
-                State::Disabled => "DISABLED",
-                State::Staged => "STAGED",
-                State::AwaitingUserActivation => "AWAITING_USER_ACTIVATION",
-                State::Deleted => "DELETED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Enabled => "ENABLED",
+                Self::Disabled => "DISABLED",
+                Self::Staged => "STAGED",
+                Self::AwaitingUserActivation => "AWAITING_USER_ACTIVATION",
+                Self::Deleted => "DELETED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -337,15 +337,15 @@ pub mod certificate_authority {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                SignHashAlgorithm::Unspecified => "SIGN_HASH_ALGORITHM_UNSPECIFIED",
-                SignHashAlgorithm::RsaPss2048Sha256 => "RSA_PSS_2048_SHA256",
-                SignHashAlgorithm::RsaPss3072Sha256 => "RSA_PSS_3072_SHA256",
-                SignHashAlgorithm::RsaPss4096Sha256 => "RSA_PSS_4096_SHA256",
-                SignHashAlgorithm::RsaPkcs12048Sha256 => "RSA_PKCS1_2048_SHA256",
-                SignHashAlgorithm::RsaPkcs13072Sha256 => "RSA_PKCS1_3072_SHA256",
-                SignHashAlgorithm::RsaPkcs14096Sha256 => "RSA_PKCS1_4096_SHA256",
-                SignHashAlgorithm::EcP256Sha256 => "EC_P256_SHA256",
-                SignHashAlgorithm::EcP384Sha384 => "EC_P384_SHA384",
+                Self::Unspecified => "SIGN_HASH_ALGORITHM_UNSPECIFIED",
+                Self::RsaPss2048Sha256 => "RSA_PSS_2048_SHA256",
+                Self::RsaPss3072Sha256 => "RSA_PSS_3072_SHA256",
+                Self::RsaPss4096Sha256 => "RSA_PSS_4096_SHA256",
+                Self::RsaPkcs12048Sha256 => "RSA_PKCS1_2048_SHA256",
+                Self::RsaPkcs13072Sha256 => "RSA_PKCS1_3072_SHA256",
+                Self::RsaPkcs14096Sha256 => "RSA_PKCS1_4096_SHA256",
+                Self::EcP256Sha256 => "EC_P256_SHA256",
+                Self::EcP384Sha384 => "EC_P384_SHA384",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -478,9 +478,9 @@ pub mod ca_pool {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    EncodingFormat::Unspecified => "ENCODING_FORMAT_UNSPECIFIED",
-                    EncodingFormat::Pem => "PEM",
-                    EncodingFormat::Der => "DER",
+                    Self::Unspecified => "ENCODING_FORMAT_UNSPECIFIED",
+                    Self::Pem => "PEM",
+                    Self::Der => "DER",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -642,12 +642,10 @@ pub mod ca_pool {
                     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
                     pub fn as_str_name(&self) -> &'static str {
                         match self {
-                            EcSignatureAlgorithm::Unspecified => {
-                                "EC_SIGNATURE_ALGORITHM_UNSPECIFIED"
-                            }
-                            EcSignatureAlgorithm::EcdsaP256 => "ECDSA_P256",
-                            EcSignatureAlgorithm::EcdsaP384 => "ECDSA_P384",
-                            EcSignatureAlgorithm::Eddsa25519 => "EDDSA_25519",
+                            Self::Unspecified => "EC_SIGNATURE_ALGORITHM_UNSPECIFIED",
+                            Self::EcdsaP256 => "ECDSA_P256",
+                            Self::EcdsaP384 => "ECDSA_P384",
+                            Self::Eddsa25519 => "EDDSA_25519",
                         }
                     }
                     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -722,9 +720,9 @@ pub mod ca_pool {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Tier::Unspecified => "TIER_UNSPECIFIED",
-                Tier::Enterprise => "ENTERPRISE",
-                Tier::Devops => "DEVOPS",
+                Self::Unspecified => "TIER_UNSPECIFIED",
+                Self::Enterprise => "ENTERPRISE",
+                Self::Devops => "DEVOPS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -848,9 +846,9 @@ pub mod certificate_revocation_list {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Active => "ACTIVE",
-                State::Superseded => "SUPERSEDED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Active => "ACTIVE",
+                Self::Superseded => "SUPERSEDED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1255,8 +1253,8 @@ pub mod public_key {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                KeyFormat::Unspecified => "KEY_FORMAT_UNSPECIFIED",
-                KeyFormat::Pem => "PEM",
+                Self::Unspecified => "KEY_FORMAT_UNSPECIFIED",
+                Self::Pem => "PEM",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1695,15 +1693,13 @@ pub mod certificate_extension_constraints {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                KnownCertificateExtension::Unspecified => {
-                    "KNOWN_CERTIFICATE_EXTENSION_UNSPECIFIED"
-                }
-                KnownCertificateExtension::BaseKeyUsage => "BASE_KEY_USAGE",
-                KnownCertificateExtension::ExtendedKeyUsage => "EXTENDED_KEY_USAGE",
-                KnownCertificateExtension::CaOptions => "CA_OPTIONS",
-                KnownCertificateExtension::PolicyIds => "POLICY_IDS",
-                KnownCertificateExtension::AiaOcspServers => "AIA_OCSP_SERVERS",
-                KnownCertificateExtension::NameConstraints => "NAME_CONSTRAINTS",
+                Self::Unspecified => "KNOWN_CERTIFICATE_EXTENSION_UNSPECIFIED",
+                Self::BaseKeyUsage => "BASE_KEY_USAGE",
+                Self::ExtendedKeyUsage => "EXTENDED_KEY_USAGE",
+                Self::CaOptions => "CA_OPTIONS",
+                Self::PolicyIds => "POLICY_IDS",
+                Self::AiaOcspServers => "AIA_OCSP_SERVERS",
+                Self::NameConstraints => "NAME_CONSTRAINTS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1770,19 +1766,15 @@ impl RevocationReason {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            RevocationReason::Unspecified => "REVOCATION_REASON_UNSPECIFIED",
-            RevocationReason::KeyCompromise => "KEY_COMPROMISE",
-            RevocationReason::CertificateAuthorityCompromise => {
-                "CERTIFICATE_AUTHORITY_COMPROMISE"
-            }
-            RevocationReason::AffiliationChanged => "AFFILIATION_CHANGED",
-            RevocationReason::Superseded => "SUPERSEDED",
-            RevocationReason::CessationOfOperation => "CESSATION_OF_OPERATION",
-            RevocationReason::CertificateHold => "CERTIFICATE_HOLD",
-            RevocationReason::PrivilegeWithdrawn => "PRIVILEGE_WITHDRAWN",
-            RevocationReason::AttributeAuthorityCompromise => {
-                "ATTRIBUTE_AUTHORITY_COMPROMISE"
-            }
+            Self::Unspecified => "REVOCATION_REASON_UNSPECIFIED",
+            Self::KeyCompromise => "KEY_COMPROMISE",
+            Self::CertificateAuthorityCompromise => "CERTIFICATE_AUTHORITY_COMPROMISE",
+            Self::AffiliationChanged => "AFFILIATION_CHANGED",
+            Self::Superseded => "SUPERSEDED",
+            Self::CessationOfOperation => "CESSATION_OF_OPERATION",
+            Self::CertificateHold => "CERTIFICATE_HOLD",
+            Self::PrivilegeWithdrawn => "PRIVILEGE_WITHDRAWN",
+            Self::AttributeAuthorityCompromise => "ATTRIBUTE_AUTHORITY_COMPROMISE",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1837,9 +1829,9 @@ impl SubjectRequestMode {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            SubjectRequestMode::Unspecified => "SUBJECT_REQUEST_MODE_UNSPECIFIED",
-            SubjectRequestMode::Default => "DEFAULT",
-            SubjectRequestMode::ReflectedSpiffe => "REFLECTED_SPIFFE",
+            Self::Unspecified => "SUBJECT_REQUEST_MODE_UNSPECIFIED",
+            Self::Default => "DEFAULT",
+            Self::ReflectedSpiffe => "REFLECTED_SPIFFE",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -3795,5 +3787,1919 @@ pub mod certificate_authority_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod certificate_authority_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with CertificateAuthorityServiceServer.
+    #[async_trait]
+    pub trait CertificateAuthorityService: std::marker::Send + std::marker::Sync + 'static {
+        /// Create a new [Certificate][google.cloud.security.privateca.v1.Certificate]
+        /// in a given Project, Location from a particular
+        /// [CaPool][google.cloud.security.privateca.v1.CaPool].
+        async fn create_certificate(
+            &self,
+            request: tonic::Request<super::CreateCertificateRequest>,
+        ) -> std::result::Result<tonic::Response<super::Certificate>, tonic::Status>;
+        /// Returns a [Certificate][google.cloud.security.privateca.v1.Certificate].
+        async fn get_certificate(
+            &self,
+            request: tonic::Request<super::GetCertificateRequest>,
+        ) -> std::result::Result<tonic::Response<super::Certificate>, tonic::Status>;
+        /// Lists [Certificates][google.cloud.security.privateca.v1.Certificate].
+        async fn list_certificates(
+            &self,
+            request: tonic::Request<super::ListCertificatesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListCertificatesResponse>,
+            tonic::Status,
+        >;
+        /// Revoke a [Certificate][google.cloud.security.privateca.v1.Certificate].
+        async fn revoke_certificate(
+            &self,
+            request: tonic::Request<super::RevokeCertificateRequest>,
+        ) -> std::result::Result<tonic::Response<super::Certificate>, tonic::Status>;
+        /// Update a [Certificate][google.cloud.security.privateca.v1.Certificate].
+        /// Currently, the only field you can update is the
+        /// [labels][google.cloud.security.privateca.v1.Certificate.labels] field.
+        async fn update_certificate(
+            &self,
+            request: tonic::Request<super::UpdateCertificateRequest>,
+        ) -> std::result::Result<tonic::Response<super::Certificate>, tonic::Status>;
+        /// Activate a
+        /// [CertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthority]
+        /// that is in state
+        /// [AWAITING_USER_ACTIVATION][google.cloud.security.privateca.v1.CertificateAuthority.State.AWAITING_USER_ACTIVATION]
+        /// and is of type
+        /// [SUBORDINATE][google.cloud.security.privateca.v1.CertificateAuthority.Type.SUBORDINATE].
+        /// After the parent Certificate Authority signs a certificate signing request
+        /// from
+        /// [FetchCertificateAuthorityCsr][google.cloud.security.privateca.v1.CertificateAuthorityService.FetchCertificateAuthorityCsr],
+        /// this method can complete the activation process.
+        async fn activate_certificate_authority(
+            &self,
+            request: tonic::Request<super::ActivateCertificateAuthorityRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Create a new
+        /// [CertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthority]
+        /// in a given Project and Location.
+        async fn create_certificate_authority(
+            &self,
+            request: tonic::Request<super::CreateCertificateAuthorityRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Disable a
+        /// [CertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthority].
+        async fn disable_certificate_authority(
+            &self,
+            request: tonic::Request<super::DisableCertificateAuthorityRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Enable a
+        /// [CertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthority].
+        async fn enable_certificate_authority(
+            &self,
+            request: tonic::Request<super::EnableCertificateAuthorityRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Fetch a certificate signing request (CSR) from a
+        /// [CertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthority]
+        /// that is in state
+        /// [AWAITING_USER_ACTIVATION][google.cloud.security.privateca.v1.CertificateAuthority.State.AWAITING_USER_ACTIVATION]
+        /// and is of type
+        /// [SUBORDINATE][google.cloud.security.privateca.v1.CertificateAuthority.Type.SUBORDINATE].
+        /// The CSR must then be signed by the desired parent Certificate Authority,
+        /// which could be another
+        /// [CertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthority]
+        /// resource, or could be an on-prem certificate authority. See also
+        /// [ActivateCertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthorityService.ActivateCertificateAuthority].
+        async fn fetch_certificate_authority_csr(
+            &self,
+            request: tonic::Request<super::FetchCertificateAuthorityCsrRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::FetchCertificateAuthorityCsrResponse>,
+            tonic::Status,
+        >;
+        /// Returns a
+        /// [CertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthority].
+        async fn get_certificate_authority(
+            &self,
+            request: tonic::Request<super::GetCertificateAuthorityRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::CertificateAuthority>,
+            tonic::Status,
+        >;
+        /// Lists
+        /// [CertificateAuthorities][google.cloud.security.privateca.v1.CertificateAuthority].
+        async fn list_certificate_authorities(
+            &self,
+            request: tonic::Request<super::ListCertificateAuthoritiesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListCertificateAuthoritiesResponse>,
+            tonic::Status,
+        >;
+        /// Undelete a
+        /// [CertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthority]
+        /// that has been deleted.
+        async fn undelete_certificate_authority(
+            &self,
+            request: tonic::Request<super::UndeleteCertificateAuthorityRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Delete a
+        /// [CertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthority].
+        async fn delete_certificate_authority(
+            &self,
+            request: tonic::Request<super::DeleteCertificateAuthorityRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Update a
+        /// [CertificateAuthority][google.cloud.security.privateca.v1.CertificateAuthority].
+        async fn update_certificate_authority(
+            &self,
+            request: tonic::Request<super::UpdateCertificateAuthorityRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Create a [CaPool][google.cloud.security.privateca.v1.CaPool].
+        async fn create_ca_pool(
+            &self,
+            request: tonic::Request<super::CreateCaPoolRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Update a [CaPool][google.cloud.security.privateca.v1.CaPool].
+        async fn update_ca_pool(
+            &self,
+            request: tonic::Request<super::UpdateCaPoolRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Returns a [CaPool][google.cloud.security.privateca.v1.CaPool].
+        async fn get_ca_pool(
+            &self,
+            request: tonic::Request<super::GetCaPoolRequest>,
+        ) -> std::result::Result<tonic::Response<super::CaPool>, tonic::Status>;
+        /// Lists [CaPools][google.cloud.security.privateca.v1.CaPool].
+        async fn list_ca_pools(
+            &self,
+            request: tonic::Request<super::ListCaPoolsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListCaPoolsResponse>,
+            tonic::Status,
+        >;
+        /// Delete a [CaPool][google.cloud.security.privateca.v1.CaPool].
+        async fn delete_ca_pool(
+            &self,
+            request: tonic::Request<super::DeleteCaPoolRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// FetchCaCerts returns the current trust anchor for the
+        /// [CaPool][google.cloud.security.privateca.v1.CaPool]. This will include CA
+        /// certificate chains for all certificate authorities in the ENABLED,
+        /// DISABLED, or STAGED states.
+        async fn fetch_ca_certs(
+            &self,
+            request: tonic::Request<super::FetchCaCertsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::FetchCaCertsResponse>,
+            tonic::Status,
+        >;
+        /// Returns a
+        /// [CertificateRevocationList][google.cloud.security.privateca.v1.CertificateRevocationList].
+        async fn get_certificate_revocation_list(
+            &self,
+            request: tonic::Request<super::GetCertificateRevocationListRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::CertificateRevocationList>,
+            tonic::Status,
+        >;
+        /// Lists
+        /// [CertificateRevocationLists][google.cloud.security.privateca.v1.CertificateRevocationList].
+        async fn list_certificate_revocation_lists(
+            &self,
+            request: tonic::Request<super::ListCertificateRevocationListsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListCertificateRevocationListsResponse>,
+            tonic::Status,
+        >;
+        /// Update a
+        /// [CertificateRevocationList][google.cloud.security.privateca.v1.CertificateRevocationList].
+        async fn update_certificate_revocation_list(
+            &self,
+            request: tonic::Request<super::UpdateCertificateRevocationListRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Create a new
+        /// [CertificateTemplate][google.cloud.security.privateca.v1.CertificateTemplate]
+        /// in a given Project and Location.
+        async fn create_certificate_template(
+            &self,
+            request: tonic::Request<super::CreateCertificateTemplateRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// DeleteCertificateTemplate deletes a
+        /// [CertificateTemplate][google.cloud.security.privateca.v1.CertificateTemplate].
+        async fn delete_certificate_template(
+            &self,
+            request: tonic::Request<super::DeleteCertificateTemplateRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Returns a
+        /// [CertificateTemplate][google.cloud.security.privateca.v1.CertificateTemplate].
+        async fn get_certificate_template(
+            &self,
+            request: tonic::Request<super::GetCertificateTemplateRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::CertificateTemplate>,
+            tonic::Status,
+        >;
+        /// Lists
+        /// [CertificateTemplates][google.cloud.security.privateca.v1.CertificateTemplate].
+        async fn list_certificate_templates(
+            &self,
+            request: tonic::Request<super::ListCertificateTemplatesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListCertificateTemplatesResponse>,
+            tonic::Status,
+        >;
+        /// Update a
+        /// [CertificateTemplate][google.cloud.security.privateca.v1.CertificateTemplate].
+        async fn update_certificate_template(
+            &self,
+            request: tonic::Request<super::UpdateCertificateTemplateRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// [Certificate Authority
+    /// Service][google.cloud.security.privateca.v1.CertificateAuthorityService]
+    /// manages private certificate authorities and issued certificates.
+    #[derive(Debug)]
+    pub struct CertificateAuthorityServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> CertificateAuthorityServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for CertificateAuthorityServiceServer<T>
+    where
+        T: CertificateAuthorityService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.security.privateca.v1.CertificateAuthorityService/CreateCertificate" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateCertificateSvc<T: CertificateAuthorityService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: CertificateAuthorityService,
+                    > tonic::server::UnaryService<super::CreateCertificateRequest>
+                    for CreateCertificateSvc<T> {
+                        type Response = super::Certificate;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateCertificateRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateAuthorityService>::create_certificate(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateCertificateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.security.privateca.v1.CertificateAuthorityService/GetCertificate" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetCertificateSvc<T: CertificateAuthorityService>(pub Arc<T>);
+                    impl<
+                        T: CertificateAuthorityService,
+                    > tonic::server::UnaryService<super::GetCertificateRequest>
+                    for GetCertificateSvc<T> {
+                        type Response = super::Certificate;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetCertificateRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateAuthorityService>::get_certificate(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetCertificateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.security.privateca.v1.CertificateAuthorityService/ListCertificates" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListCertificatesSvc<T: CertificateAuthorityService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: CertificateAuthorityService,
+                    > tonic::server::UnaryService<super::ListCertificatesRequest>
+                    for ListCertificatesSvc<T> {
+                        type Response = super::ListCertificatesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListCertificatesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateAuthorityService>::list_certificates(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListCertificatesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.security.privateca.v1.CertificateAuthorityService/RevokeCertificate" => {
+                    #[allow(non_camel_case_types)]
+                    struct RevokeCertificateSvc<T: CertificateAuthorityService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: CertificateAuthorityService,
+                    > tonic::server::UnaryService<super::RevokeCertificateRequest>
+                    for RevokeCertificateSvc<T> {
+                        type Response = super::Certificate;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RevokeCertificateRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateAuthorityService>::revoke_certificate(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RevokeCertificateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.security.privateca.v1.CertificateAuthorityService/UpdateCertificate" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateCertificateSvc<T: CertificateAuthorityService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: CertificateAuthorityService,
+                    > tonic::server::UnaryService<super::UpdateCertificateRequest>
+                    for UpdateCertificateSvc<T> {
+                        type Response = super::Certificate;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateCertificateRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateAuthorityService>::update_certificate(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateCertificateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.security.privateca.v1.CertificateAuthorityService/ActivateCertificateAuthority" => {
+                    #[allow(non_camel_case_types)]
+                    struct ActivateCertificateAuthoritySvc<
+                        T: CertificateAuthorityService,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: CertificateAuthorityService,
+                    > tonic::server::UnaryService<
+                        super::ActivateCertificateAuthorityRequest,
+                    > for ActivateCertificateAuthoritySvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ActivateCertificateAuthorityRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateAuthorityService>::activate_certificate_authority(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ActivateCertificateAuthoritySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.security.privateca.v1.CertificateAuthorityService/CreateCertificateAuthority" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateCertificateAuthoritySvc<T: CertificateAuthorityService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: CertificateAuthorityService,
+                    > tonic::server::UnaryService<
+                        super::CreateCertificateAuthorityRequest,
+                    > for CreateCertificateAuthoritySvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateCertificateAuthorityRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateAuthorityService>::create_certificate_authority(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateCertificateAuthoritySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.security.privateca.v1.CertificateAuthorityService/DisableCertificateAuthority" => {
+                    #[allow(non_camel_case_types)]
+                    struct DisableCertificateAuthoritySvc<
+                        T: CertificateAuthorityService,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: CertificateAuthorityService,
+                    > tonic::server::UnaryService<
+                        super::DisableCertificateAuthorityRequest,
+                    > for DisableCertificateAuthoritySvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DisableCertificateAuthorityRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateAuthorityService>::disable_certificate_authority(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DisableCertificateAuthoritySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.security.privateca.v1.CertificateAuthorityService/EnableCertificateAuthority" => {
+                    #[allow(non_camel_case_types)]
+                    struct EnableCertificateAuthoritySvc<T: CertificateAuthorityService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: CertificateAuthorityService,
+                    > tonic::server::UnaryService<
+                        super::EnableCertificateAuthorityRequest,
+                    > for EnableCertificateAuthoritySvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::EnableCertificateAuthorityRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateAuthorityService>::enable_certificate_authority(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = EnableCertificateAuthoritySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.security.privateca.v1.CertificateAuthorityService/FetchCertificateAuthorityCsr" => {
+                    #[allow(non_camel_case_types)]
+                    struct FetchCertificateAuthorityCsrSvc<
+                        T: CertificateAuthorityService,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: CertificateAuthorityService,
+                    > tonic::server::UnaryService<
+                        super::FetchCertificateAuthorityCsrRequest,
+                    > for FetchCertificateAuthorityCsrSvc<T> {
+                        type Response = super::FetchCertificateAuthorityCsrResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::FetchCertificateAuthorityCsrRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateAuthorityService>::fetch_certificate_authority_csr(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = FetchCertificateAuthorityCsrSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.security.privateca.v1.CertificateAuthorityService/GetCertificateAuthority" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetCertificateAuthoritySvc<T: CertificateAuthorityService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: CertificateAuthorityService,
+                    > tonic::server::UnaryService<super::GetCertificateAuthorityRequest>
+                    for GetCertificateAuthoritySvc<T> {
+                        type Response = super::CertificateAuthority;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetCertificateAuthorityRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateAuthorityService>::get_certificate_authority(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetCertificateAuthoritySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.security.privateca.v1.CertificateAuthorityService/ListCertificateAuthorities" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListCertificateAuthoritiesSvc<T: CertificateAuthorityService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: CertificateAuthorityService,
+                    > tonic::server::UnaryService<
+                        super::ListCertificateAuthoritiesRequest,
+                    > for ListCertificateAuthoritiesSvc<T> {
+                        type Response = super::ListCertificateAuthoritiesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListCertificateAuthoritiesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateAuthorityService>::list_certificate_authorities(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListCertificateAuthoritiesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.security.privateca.v1.CertificateAuthorityService/UndeleteCertificateAuthority" => {
+                    #[allow(non_camel_case_types)]
+                    struct UndeleteCertificateAuthoritySvc<
+                        T: CertificateAuthorityService,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: CertificateAuthorityService,
+                    > tonic::server::UnaryService<
+                        super::UndeleteCertificateAuthorityRequest,
+                    > for UndeleteCertificateAuthoritySvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::UndeleteCertificateAuthorityRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateAuthorityService>::undelete_certificate_authority(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UndeleteCertificateAuthoritySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.security.privateca.v1.CertificateAuthorityService/DeleteCertificateAuthority" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteCertificateAuthoritySvc<T: CertificateAuthorityService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: CertificateAuthorityService,
+                    > tonic::server::UnaryService<
+                        super::DeleteCertificateAuthorityRequest,
+                    > for DeleteCertificateAuthoritySvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteCertificateAuthorityRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateAuthorityService>::delete_certificate_authority(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteCertificateAuthoritySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.security.privateca.v1.CertificateAuthorityService/UpdateCertificateAuthority" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateCertificateAuthoritySvc<T: CertificateAuthorityService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: CertificateAuthorityService,
+                    > tonic::server::UnaryService<
+                        super::UpdateCertificateAuthorityRequest,
+                    > for UpdateCertificateAuthoritySvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::UpdateCertificateAuthorityRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateAuthorityService>::update_certificate_authority(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateCertificateAuthoritySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.security.privateca.v1.CertificateAuthorityService/CreateCaPool" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateCaPoolSvc<T: CertificateAuthorityService>(pub Arc<T>);
+                    impl<
+                        T: CertificateAuthorityService,
+                    > tonic::server::UnaryService<super::CreateCaPoolRequest>
+                    for CreateCaPoolSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateCaPoolRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateAuthorityService>::create_ca_pool(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateCaPoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.security.privateca.v1.CertificateAuthorityService/UpdateCaPool" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateCaPoolSvc<T: CertificateAuthorityService>(pub Arc<T>);
+                    impl<
+                        T: CertificateAuthorityService,
+                    > tonic::server::UnaryService<super::UpdateCaPoolRequest>
+                    for UpdateCaPoolSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateCaPoolRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateAuthorityService>::update_ca_pool(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateCaPoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.security.privateca.v1.CertificateAuthorityService/GetCaPool" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetCaPoolSvc<T: CertificateAuthorityService>(pub Arc<T>);
+                    impl<
+                        T: CertificateAuthorityService,
+                    > tonic::server::UnaryService<super::GetCaPoolRequest>
+                    for GetCaPoolSvc<T> {
+                        type Response = super::CaPool;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetCaPoolRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateAuthorityService>::get_ca_pool(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetCaPoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.security.privateca.v1.CertificateAuthorityService/ListCaPools" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListCaPoolsSvc<T: CertificateAuthorityService>(pub Arc<T>);
+                    impl<
+                        T: CertificateAuthorityService,
+                    > tonic::server::UnaryService<super::ListCaPoolsRequest>
+                    for ListCaPoolsSvc<T> {
+                        type Response = super::ListCaPoolsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListCaPoolsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateAuthorityService>::list_ca_pools(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListCaPoolsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.security.privateca.v1.CertificateAuthorityService/DeleteCaPool" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteCaPoolSvc<T: CertificateAuthorityService>(pub Arc<T>);
+                    impl<
+                        T: CertificateAuthorityService,
+                    > tonic::server::UnaryService<super::DeleteCaPoolRequest>
+                    for DeleteCaPoolSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteCaPoolRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateAuthorityService>::delete_ca_pool(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteCaPoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.security.privateca.v1.CertificateAuthorityService/FetchCaCerts" => {
+                    #[allow(non_camel_case_types)]
+                    struct FetchCaCertsSvc<T: CertificateAuthorityService>(pub Arc<T>);
+                    impl<
+                        T: CertificateAuthorityService,
+                    > tonic::server::UnaryService<super::FetchCaCertsRequest>
+                    for FetchCaCertsSvc<T> {
+                        type Response = super::FetchCaCertsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::FetchCaCertsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateAuthorityService>::fetch_ca_certs(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = FetchCaCertsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.security.privateca.v1.CertificateAuthorityService/GetCertificateRevocationList" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetCertificateRevocationListSvc<
+                        T: CertificateAuthorityService,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: CertificateAuthorityService,
+                    > tonic::server::UnaryService<
+                        super::GetCertificateRevocationListRequest,
+                    > for GetCertificateRevocationListSvc<T> {
+                        type Response = super::CertificateRevocationList;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetCertificateRevocationListRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateAuthorityService>::get_certificate_revocation_list(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetCertificateRevocationListSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.security.privateca.v1.CertificateAuthorityService/ListCertificateRevocationLists" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListCertificateRevocationListsSvc<
+                        T: CertificateAuthorityService,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: CertificateAuthorityService,
+                    > tonic::server::UnaryService<
+                        super::ListCertificateRevocationListsRequest,
+                    > for ListCertificateRevocationListsSvc<T> {
+                        type Response = super::ListCertificateRevocationListsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListCertificateRevocationListsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateAuthorityService>::list_certificate_revocation_lists(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListCertificateRevocationListsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.security.privateca.v1.CertificateAuthorityService/UpdateCertificateRevocationList" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateCertificateRevocationListSvc<
+                        T: CertificateAuthorityService,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: CertificateAuthorityService,
+                    > tonic::server::UnaryService<
+                        super::UpdateCertificateRevocationListRequest,
+                    > for UpdateCertificateRevocationListSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::UpdateCertificateRevocationListRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateAuthorityService>::update_certificate_revocation_list(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateCertificateRevocationListSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.security.privateca.v1.CertificateAuthorityService/CreateCertificateTemplate" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateCertificateTemplateSvc<T: CertificateAuthorityService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: CertificateAuthorityService,
+                    > tonic::server::UnaryService<
+                        super::CreateCertificateTemplateRequest,
+                    > for CreateCertificateTemplateSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateCertificateTemplateRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateAuthorityService>::create_certificate_template(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateCertificateTemplateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.security.privateca.v1.CertificateAuthorityService/DeleteCertificateTemplate" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteCertificateTemplateSvc<T: CertificateAuthorityService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: CertificateAuthorityService,
+                    > tonic::server::UnaryService<
+                        super::DeleteCertificateTemplateRequest,
+                    > for DeleteCertificateTemplateSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteCertificateTemplateRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateAuthorityService>::delete_certificate_template(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteCertificateTemplateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.security.privateca.v1.CertificateAuthorityService/GetCertificateTemplate" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetCertificateTemplateSvc<T: CertificateAuthorityService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: CertificateAuthorityService,
+                    > tonic::server::UnaryService<super::GetCertificateTemplateRequest>
+                    for GetCertificateTemplateSvc<T> {
+                        type Response = super::CertificateTemplate;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetCertificateTemplateRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateAuthorityService>::get_certificate_template(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetCertificateTemplateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.security.privateca.v1.CertificateAuthorityService/ListCertificateTemplates" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListCertificateTemplatesSvc<T: CertificateAuthorityService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: CertificateAuthorityService,
+                    > tonic::server::UnaryService<super::ListCertificateTemplatesRequest>
+                    for ListCertificateTemplatesSvc<T> {
+                        type Response = super::ListCertificateTemplatesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListCertificateTemplatesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateAuthorityService>::list_certificate_templates(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListCertificateTemplatesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.security.privateca.v1.CertificateAuthorityService/UpdateCertificateTemplate" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateCertificateTemplateSvc<T: CertificateAuthorityService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: CertificateAuthorityService,
+                    > tonic::server::UnaryService<
+                        super::UpdateCertificateTemplateRequest,
+                    > for UpdateCertificateTemplateSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::UpdateCertificateTemplateRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CertificateAuthorityService>::update_certificate_template(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateCertificateTemplateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for CertificateAuthorityServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.security.privateca.v1.CertificateAuthorityService";
+    impl<T> tonic::server::NamedService for CertificateAuthorityServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

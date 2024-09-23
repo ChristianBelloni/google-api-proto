@@ -85,11 +85,11 @@ pub mod environment {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Suspended => "SUSPENDED",
-                State::Pending => "PENDING",
-                State::Running => "RUNNING",
-                State::Deleting => "DELETING",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Suspended => "SUSPENDED",
+                Self::Pending => "PENDING",
+                Self::Running => "RUNNING",
+                Self::Deleting => "DELETING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -223,11 +223,11 @@ pub mod start_environment_metadata {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Starting => "STARTING",
-                State::UnarchivingDisk => "UNARCHIVING_DISK",
-                State::AwaitingComputeResources => "AWAITING_COMPUTE_RESOURCES",
-                State::Finished => "FINISHED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Starting => "STARTING",
+                Self::UnarchivingDisk => "UNARCHIVING_DISK",
+                Self::AwaitingComputeResources => "AWAITING_COMPUTE_RESOURCES",
+                Self::Finished => "FINISHED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -350,12 +350,12 @@ pub mod cloud_shell_error_details {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                CloudShellErrorCode::Unspecified => "CLOUD_SHELL_ERROR_CODE_UNSPECIFIED",
-                CloudShellErrorCode::ImageUnavailable => "IMAGE_UNAVAILABLE",
-                CloudShellErrorCode::CloudShellDisabled => "CLOUD_SHELL_DISABLED",
-                CloudShellErrorCode::TosViolation => "TOS_VIOLATION",
-                CloudShellErrorCode::QuotaExceeded => "QUOTA_EXCEEDED",
-                CloudShellErrorCode::EnvironmentUnavailable => "ENVIRONMENT_UNAVAILABLE",
+                Self::Unspecified => "CLOUD_SHELL_ERROR_CODE_UNSPECIFIED",
+                Self::ImageUnavailable => "IMAGE_UNAVAILABLE",
+                Self::CloudShellDisabled => "CLOUD_SHELL_DISABLED",
+                Self::TosViolation => "TOS_VIOLATION",
+                Self::QuotaExceeded => "QUOTA_EXCEEDED",
+                Self::EnvironmentUnavailable => "ENVIRONMENT_UNAVAILABLE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -618,5 +618,415 @@ pub mod cloud_shell_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod cloud_shell_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with CloudShellServiceServer.
+    #[async_trait]
+    pub trait CloudShellService: std::marker::Send + std::marker::Sync + 'static {
+        /// Gets an environment. Returns NOT_FOUND if the environment does not exist.
+        async fn get_environment(
+            &self,
+            request: tonic::Request<super::GetEnvironmentRequest>,
+        ) -> std::result::Result<tonic::Response<super::Environment>, tonic::Status>;
+        /// Starts an existing environment, allowing clients to connect to it. The
+        /// returned operation will contain an instance of StartEnvironmentMetadata in
+        /// its metadata field. Users can wait for the environment to start by polling
+        /// this operation via GetOperation. Once the environment has finished starting
+        /// and is ready to accept connections, the operation will contain a
+        /// StartEnvironmentResponse in its response field.
+        async fn start_environment(
+            &self,
+            request: tonic::Request<super::StartEnvironmentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Sends OAuth credentials to a running environment on behalf of a user. When
+        /// this completes, the environment will be authorized to run various Google
+        /// Cloud command line tools without requiring the user to manually
+        /// authenticate.
+        async fn authorize_environment(
+            &self,
+            request: tonic::Request<super::AuthorizeEnvironmentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Adds a public SSH key to an environment, allowing clients with the
+        /// corresponding private key to connect to that environment via SSH. If a key
+        /// with the same content already exists, this will error with ALREADY_EXISTS.
+        async fn add_public_key(
+            &self,
+            request: tonic::Request<super::AddPublicKeyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Removes a public SSH key from an environment. Clients will no longer be
+        /// able to connect to the environment using the corresponding private key.
+        /// If a key with the same content is not present, this will error with
+        /// NOT_FOUND.
+        async fn remove_public_key(
+            &self,
+            request: tonic::Request<super::RemovePublicKeyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// API for interacting with Google Cloud Shell. Each user of Cloud Shell has at
+    /// least one environment, which has the ID "default". Environment consists of a
+    /// Docker image defining what is installed on the environment and a home
+    /// directory containing the user's data that will remain across sessions.
+    /// Clients use this API to start and fetch information about their environment,
+    /// which can then be used to connect to that environment via a separate SSH
+    /// client.
+    #[derive(Debug)]
+    pub struct CloudShellServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> CloudShellServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for CloudShellServiceServer<T>
+    where
+        T: CloudShellService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.shell.v1.CloudShellService/GetEnvironment" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetEnvironmentSvc<T: CloudShellService>(pub Arc<T>);
+                    impl<
+                        T: CloudShellService,
+                    > tonic::server::UnaryService<super::GetEnvironmentRequest>
+                    for GetEnvironmentSvc<T> {
+                        type Response = super::Environment;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetEnvironmentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudShellService>::get_environment(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetEnvironmentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.shell.v1.CloudShellService/StartEnvironment" => {
+                    #[allow(non_camel_case_types)]
+                    struct StartEnvironmentSvc<T: CloudShellService>(pub Arc<T>);
+                    impl<
+                        T: CloudShellService,
+                    > tonic::server::UnaryService<super::StartEnvironmentRequest>
+                    for StartEnvironmentSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::StartEnvironmentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudShellService>::start_environment(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = StartEnvironmentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.shell.v1.CloudShellService/AuthorizeEnvironment" => {
+                    #[allow(non_camel_case_types)]
+                    struct AuthorizeEnvironmentSvc<T: CloudShellService>(pub Arc<T>);
+                    impl<
+                        T: CloudShellService,
+                    > tonic::server::UnaryService<super::AuthorizeEnvironmentRequest>
+                    for AuthorizeEnvironmentSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::AuthorizeEnvironmentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudShellService>::authorize_environment(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = AuthorizeEnvironmentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.shell.v1.CloudShellService/AddPublicKey" => {
+                    #[allow(non_camel_case_types)]
+                    struct AddPublicKeySvc<T: CloudShellService>(pub Arc<T>);
+                    impl<
+                        T: CloudShellService,
+                    > tonic::server::UnaryService<super::AddPublicKeyRequest>
+                    for AddPublicKeySvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::AddPublicKeyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudShellService>::add_public_key(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = AddPublicKeySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.shell.v1.CloudShellService/RemovePublicKey" => {
+                    #[allow(non_camel_case_types)]
+                    struct RemovePublicKeySvc<T: CloudShellService>(pub Arc<T>);
+                    impl<
+                        T: CloudShellService,
+                    > tonic::server::UnaryService<super::RemovePublicKeyRequest>
+                    for RemovePublicKeySvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RemovePublicKeyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudShellService>::remove_public_key(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RemovePublicKeySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for CloudShellServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.shell.v1.CloudShellService";
+    impl<T> tonic::server::NamedService for CloudShellServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

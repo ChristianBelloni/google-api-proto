@@ -76,8 +76,8 @@ pub mod access_metadata {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ConstraintType::Unspecified => "CONSTRAINT_TYPE_UNSPECIFIED",
-                ConstraintType::ResourceLocationsOrgPolicyCreateConstraint => {
+                Self::Unspecified => "CONSTRAINT_TYPE_UNSPECIFIED",
+                Self::ResourceLocationsOrgPolicyCreateConstraint => {
                     "RESOURCE_LOCATIONS_ORG_POLICY_CREATE_CONSTRAINT"
                 }
             }
@@ -466,9 +466,9 @@ pub mod recognizer {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Active => "ACTIVE",
-                State::Deleted => "DELETED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Active => "ACTIVE",
+                Self::Deleted => "DELETED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -574,10 +574,10 @@ pub mod explicit_decoding_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                AudioEncoding::Unspecified => "AUDIO_ENCODING_UNSPECIFIED",
-                AudioEncoding::Linear16 => "LINEAR16",
-                AudioEncoding::Mulaw => "MULAW",
-                AudioEncoding::Alaw => "ALAW",
+                Self::Unspecified => "AUDIO_ENCODING_UNSPECIFIED",
+                Self::Linear16 => "LINEAR16",
+                Self::Mulaw => "MULAW",
+                Self::Alaw => "ALAW",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -699,10 +699,8 @@ pub mod recognition_features {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                MultiChannelMode::Unspecified => "MULTI_CHANNEL_MODE_UNSPECIFIED",
-                MultiChannelMode::SeparateRecognitionPerChannel => {
-                    "SEPARATE_RECOGNITION_PER_CHANNEL"
-                }
+                Self::Unspecified => "MULTI_CHANNEL_MODE_UNSPECIFIED",
+                Self::SeparateRecognitionPerChannel => "SEPARATE_RECOGNITION_PER_CHANNEL",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1219,8 +1217,8 @@ pub mod batch_recognize_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ProcessingStrategy::Unspecified => "PROCESSING_STRATEGY_UNSPECIFIED",
-                ProcessingStrategy::DynamicBatching => "DYNAMIC_BATCHING",
+                Self::Unspecified => "PROCESSING_STRATEGY_UNSPECIFIED",
+                Self::DynamicBatching => "DYNAMIC_BATCHING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1616,10 +1614,10 @@ pub mod streaming_recognize_response {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                SpeechEventType::Unspecified => "SPEECH_EVENT_TYPE_UNSPECIFIED",
-                SpeechEventType::EndOfSingleUtterance => "END_OF_SINGLE_UTTERANCE",
-                SpeechEventType::SpeechActivityBegin => "SPEECH_ACTIVITY_BEGIN",
-                SpeechEventType::SpeechActivityEnd => "SPEECH_ACTIVITY_END",
+                Self::Unspecified => "SPEECH_EVENT_TYPE_UNSPECIFIED",
+                Self::EndOfSingleUtterance => "END_OF_SINGLE_UTTERANCE",
+                Self::SpeechActivityBegin => "SPEECH_ACTIVITY_BEGIN",
+                Self::SpeechActivityEnd => "SPEECH_ACTIVITY_END",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1783,9 +1781,9 @@ pub mod custom_class {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Active => "ACTIVE",
-                State::Deleted => "DELETED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Active => "ACTIVE",
+                Self::Deleted => "DELETED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1928,9 +1926,9 @@ pub mod phrase_set {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Active => "ACTIVE",
-                State::Deleted => "DELETED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Active => "ACTIVE",
+                Self::Deleted => "DELETED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2932,5 +2930,1347 @@ pub mod speech_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod speech_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with SpeechServer.
+    #[async_trait]
+    pub trait Speech: std::marker::Send + std::marker::Sync + 'static {
+        /// Creates a [Recognizer][google.cloud.speech.v2.Recognizer].
+        async fn create_recognizer(
+            &self,
+            request: tonic::Request<super::CreateRecognizerRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists Recognizers.
+        async fn list_recognizers(
+            &self,
+            request: tonic::Request<super::ListRecognizersRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListRecognizersResponse>,
+            tonic::Status,
+        >;
+        /// Returns the requested
+        /// [Recognizer][google.cloud.speech.v2.Recognizer]. Fails with
+        /// [NOT_FOUND][google.rpc.Code.NOT_FOUND] if the requested Recognizer doesn't
+        /// exist.
+        async fn get_recognizer(
+            &self,
+            request: tonic::Request<super::GetRecognizerRequest>,
+        ) -> std::result::Result<tonic::Response<super::Recognizer>, tonic::Status>;
+        /// Updates the [Recognizer][google.cloud.speech.v2.Recognizer].
+        async fn update_recognizer(
+            &self,
+            request: tonic::Request<super::UpdateRecognizerRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes the [Recognizer][google.cloud.speech.v2.Recognizer].
+        async fn delete_recognizer(
+            &self,
+            request: tonic::Request<super::DeleteRecognizerRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Undeletes the [Recognizer][google.cloud.speech.v2.Recognizer].
+        async fn undelete_recognizer(
+            &self,
+            request: tonic::Request<super::UndeleteRecognizerRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Performs synchronous Speech recognition: receive results after all audio
+        /// has been sent and processed.
+        async fn recognize(
+            &self,
+            request: tonic::Request<super::RecognizeRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::RecognizeResponse>,
+            tonic::Status,
+        >;
+        /// Server streaming response type for the StreamingRecognize method.
+        type StreamingRecognizeStream: tonic::codegen::tokio_stream::Stream<
+                Item = std::result::Result<
+                    super::StreamingRecognizeResponse,
+                    tonic::Status,
+                >,
+            >
+            + std::marker::Send
+            + 'static;
+        /// Performs bidirectional streaming speech recognition: receive results while
+        /// sending audio. This method is only available via the gRPC API (not REST).
+        async fn streaming_recognize(
+            &self,
+            request: tonic::Request<tonic::Streaming<super::StreamingRecognizeRequest>>,
+        ) -> std::result::Result<
+            tonic::Response<Self::StreamingRecognizeStream>,
+            tonic::Status,
+        >;
+        /// Performs batch asynchronous speech recognition: send a request with N
+        /// audio files and receive a long running operation that can be polled to see
+        /// when the transcriptions are finished.
+        async fn batch_recognize(
+            &self,
+            request: tonic::Request<super::BatchRecognizeRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Returns the requested [Config][google.cloud.speech.v2.Config].
+        async fn get_config(
+            &self,
+            request: tonic::Request<super::GetConfigRequest>,
+        ) -> std::result::Result<tonic::Response<super::Config>, tonic::Status>;
+        /// Updates the [Config][google.cloud.speech.v2.Config].
+        async fn update_config(
+            &self,
+            request: tonic::Request<super::UpdateConfigRequest>,
+        ) -> std::result::Result<tonic::Response<super::Config>, tonic::Status>;
+        /// Creates a [CustomClass][google.cloud.speech.v2.CustomClass].
+        async fn create_custom_class(
+            &self,
+            request: tonic::Request<super::CreateCustomClassRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists CustomClasses.
+        async fn list_custom_classes(
+            &self,
+            request: tonic::Request<super::ListCustomClassesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListCustomClassesResponse>,
+            tonic::Status,
+        >;
+        /// Returns the requested
+        /// [CustomClass][google.cloud.speech.v2.CustomClass].
+        async fn get_custom_class(
+            &self,
+            request: tonic::Request<super::GetCustomClassRequest>,
+        ) -> std::result::Result<tonic::Response<super::CustomClass>, tonic::Status>;
+        /// Updates the [CustomClass][google.cloud.speech.v2.CustomClass].
+        async fn update_custom_class(
+            &self,
+            request: tonic::Request<super::UpdateCustomClassRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes the [CustomClass][google.cloud.speech.v2.CustomClass].
+        async fn delete_custom_class(
+            &self,
+            request: tonic::Request<super::DeleteCustomClassRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Undeletes the [CustomClass][google.cloud.speech.v2.CustomClass].
+        async fn undelete_custom_class(
+            &self,
+            request: tonic::Request<super::UndeleteCustomClassRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Creates a [PhraseSet][google.cloud.speech.v2.PhraseSet].
+        async fn create_phrase_set(
+            &self,
+            request: tonic::Request<super::CreatePhraseSetRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists PhraseSets.
+        async fn list_phrase_sets(
+            &self,
+            request: tonic::Request<super::ListPhraseSetsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListPhraseSetsResponse>,
+            tonic::Status,
+        >;
+        /// Returns the requested
+        /// [PhraseSet][google.cloud.speech.v2.PhraseSet].
+        async fn get_phrase_set(
+            &self,
+            request: tonic::Request<super::GetPhraseSetRequest>,
+        ) -> std::result::Result<tonic::Response<super::PhraseSet>, tonic::Status>;
+        /// Updates the [PhraseSet][google.cloud.speech.v2.PhraseSet].
+        async fn update_phrase_set(
+            &self,
+            request: tonic::Request<super::UpdatePhraseSetRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes the [PhraseSet][google.cloud.speech.v2.PhraseSet].
+        async fn delete_phrase_set(
+            &self,
+            request: tonic::Request<super::DeletePhraseSetRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Undeletes the [PhraseSet][google.cloud.speech.v2.PhraseSet].
+        async fn undelete_phrase_set(
+            &self,
+            request: tonic::Request<super::UndeletePhraseSetRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// Enables speech transcription and resource management.
+    #[derive(Debug)]
+    pub struct SpeechServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> SpeechServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for SpeechServer<T>
+    where
+        T: Speech,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.speech.v2.Speech/CreateRecognizer" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateRecognizerSvc<T: Speech>(pub Arc<T>);
+                    impl<
+                        T: Speech,
+                    > tonic::server::UnaryService<super::CreateRecognizerRequest>
+                    for CreateRecognizerSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateRecognizerRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Speech>::create_recognizer(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateRecognizerSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.speech.v2.Speech/ListRecognizers" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListRecognizersSvc<T: Speech>(pub Arc<T>);
+                    impl<
+                        T: Speech,
+                    > tonic::server::UnaryService<super::ListRecognizersRequest>
+                    for ListRecognizersSvc<T> {
+                        type Response = super::ListRecognizersResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListRecognizersRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Speech>::list_recognizers(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListRecognizersSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.speech.v2.Speech/GetRecognizer" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetRecognizerSvc<T: Speech>(pub Arc<T>);
+                    impl<
+                        T: Speech,
+                    > tonic::server::UnaryService<super::GetRecognizerRequest>
+                    for GetRecognizerSvc<T> {
+                        type Response = super::Recognizer;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetRecognizerRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Speech>::get_recognizer(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetRecognizerSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.speech.v2.Speech/UpdateRecognizer" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateRecognizerSvc<T: Speech>(pub Arc<T>);
+                    impl<
+                        T: Speech,
+                    > tonic::server::UnaryService<super::UpdateRecognizerRequest>
+                    for UpdateRecognizerSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateRecognizerRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Speech>::update_recognizer(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateRecognizerSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.speech.v2.Speech/DeleteRecognizer" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteRecognizerSvc<T: Speech>(pub Arc<T>);
+                    impl<
+                        T: Speech,
+                    > tonic::server::UnaryService<super::DeleteRecognizerRequest>
+                    for DeleteRecognizerSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteRecognizerRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Speech>::delete_recognizer(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteRecognizerSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.speech.v2.Speech/UndeleteRecognizer" => {
+                    #[allow(non_camel_case_types)]
+                    struct UndeleteRecognizerSvc<T: Speech>(pub Arc<T>);
+                    impl<
+                        T: Speech,
+                    > tonic::server::UnaryService<super::UndeleteRecognizerRequest>
+                    for UndeleteRecognizerSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UndeleteRecognizerRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Speech>::undelete_recognizer(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UndeleteRecognizerSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.speech.v2.Speech/Recognize" => {
+                    #[allow(non_camel_case_types)]
+                    struct RecognizeSvc<T: Speech>(pub Arc<T>);
+                    impl<T: Speech> tonic::server::UnaryService<super::RecognizeRequest>
+                    for RecognizeSvc<T> {
+                        type Response = super::RecognizeResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RecognizeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Speech>::recognize(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RecognizeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.speech.v2.Speech/StreamingRecognize" => {
+                    #[allow(non_camel_case_types)]
+                    struct StreamingRecognizeSvc<T: Speech>(pub Arc<T>);
+                    impl<
+                        T: Speech,
+                    > tonic::server::StreamingService<super::StreamingRecognizeRequest>
+                    for StreamingRecognizeSvc<T> {
+                        type Response = super::StreamingRecognizeResponse;
+                        type ResponseStream = T::StreamingRecognizeStream;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::ResponseStream>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                tonic::Streaming<super::StreamingRecognizeRequest>,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Speech>::streaming_recognize(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = StreamingRecognizeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.streaming(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.speech.v2.Speech/BatchRecognize" => {
+                    #[allow(non_camel_case_types)]
+                    struct BatchRecognizeSvc<T: Speech>(pub Arc<T>);
+                    impl<
+                        T: Speech,
+                    > tonic::server::UnaryService<super::BatchRecognizeRequest>
+                    for BatchRecognizeSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::BatchRecognizeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Speech>::batch_recognize(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BatchRecognizeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.speech.v2.Speech/GetConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetConfigSvc<T: Speech>(pub Arc<T>);
+                    impl<T: Speech> tonic::server::UnaryService<super::GetConfigRequest>
+                    for GetConfigSvc<T> {
+                        type Response = super::Config;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Speech>::get_config(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.speech.v2.Speech/UpdateConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateConfigSvc<T: Speech>(pub Arc<T>);
+                    impl<
+                        T: Speech,
+                    > tonic::server::UnaryService<super::UpdateConfigRequest>
+                    for UpdateConfigSvc<T> {
+                        type Response = super::Config;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Speech>::update_config(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.speech.v2.Speech/CreateCustomClass" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateCustomClassSvc<T: Speech>(pub Arc<T>);
+                    impl<
+                        T: Speech,
+                    > tonic::server::UnaryService<super::CreateCustomClassRequest>
+                    for CreateCustomClassSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateCustomClassRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Speech>::create_custom_class(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateCustomClassSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.speech.v2.Speech/ListCustomClasses" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListCustomClassesSvc<T: Speech>(pub Arc<T>);
+                    impl<
+                        T: Speech,
+                    > tonic::server::UnaryService<super::ListCustomClassesRequest>
+                    for ListCustomClassesSvc<T> {
+                        type Response = super::ListCustomClassesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListCustomClassesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Speech>::list_custom_classes(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListCustomClassesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.speech.v2.Speech/GetCustomClass" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetCustomClassSvc<T: Speech>(pub Arc<T>);
+                    impl<
+                        T: Speech,
+                    > tonic::server::UnaryService<super::GetCustomClassRequest>
+                    for GetCustomClassSvc<T> {
+                        type Response = super::CustomClass;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetCustomClassRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Speech>::get_custom_class(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetCustomClassSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.speech.v2.Speech/UpdateCustomClass" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateCustomClassSvc<T: Speech>(pub Arc<T>);
+                    impl<
+                        T: Speech,
+                    > tonic::server::UnaryService<super::UpdateCustomClassRequest>
+                    for UpdateCustomClassSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateCustomClassRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Speech>::update_custom_class(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateCustomClassSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.speech.v2.Speech/DeleteCustomClass" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteCustomClassSvc<T: Speech>(pub Arc<T>);
+                    impl<
+                        T: Speech,
+                    > tonic::server::UnaryService<super::DeleteCustomClassRequest>
+                    for DeleteCustomClassSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteCustomClassRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Speech>::delete_custom_class(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteCustomClassSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.speech.v2.Speech/UndeleteCustomClass" => {
+                    #[allow(non_camel_case_types)]
+                    struct UndeleteCustomClassSvc<T: Speech>(pub Arc<T>);
+                    impl<
+                        T: Speech,
+                    > tonic::server::UnaryService<super::UndeleteCustomClassRequest>
+                    for UndeleteCustomClassSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UndeleteCustomClassRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Speech>::undelete_custom_class(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UndeleteCustomClassSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.speech.v2.Speech/CreatePhraseSet" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreatePhraseSetSvc<T: Speech>(pub Arc<T>);
+                    impl<
+                        T: Speech,
+                    > tonic::server::UnaryService<super::CreatePhraseSetRequest>
+                    for CreatePhraseSetSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreatePhraseSetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Speech>::create_phrase_set(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreatePhraseSetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.speech.v2.Speech/ListPhraseSets" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListPhraseSetsSvc<T: Speech>(pub Arc<T>);
+                    impl<
+                        T: Speech,
+                    > tonic::server::UnaryService<super::ListPhraseSetsRequest>
+                    for ListPhraseSetsSvc<T> {
+                        type Response = super::ListPhraseSetsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListPhraseSetsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Speech>::list_phrase_sets(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListPhraseSetsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.speech.v2.Speech/GetPhraseSet" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetPhraseSetSvc<T: Speech>(pub Arc<T>);
+                    impl<
+                        T: Speech,
+                    > tonic::server::UnaryService<super::GetPhraseSetRequest>
+                    for GetPhraseSetSvc<T> {
+                        type Response = super::PhraseSet;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetPhraseSetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Speech>::get_phrase_set(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetPhraseSetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.speech.v2.Speech/UpdatePhraseSet" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdatePhraseSetSvc<T: Speech>(pub Arc<T>);
+                    impl<
+                        T: Speech,
+                    > tonic::server::UnaryService<super::UpdatePhraseSetRequest>
+                    for UpdatePhraseSetSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdatePhraseSetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Speech>::update_phrase_set(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdatePhraseSetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.speech.v2.Speech/DeletePhraseSet" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeletePhraseSetSvc<T: Speech>(pub Arc<T>);
+                    impl<
+                        T: Speech,
+                    > tonic::server::UnaryService<super::DeletePhraseSetRequest>
+                    for DeletePhraseSetSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeletePhraseSetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Speech>::delete_phrase_set(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeletePhraseSetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.speech.v2.Speech/UndeletePhraseSet" => {
+                    #[allow(non_camel_case_types)]
+                    struct UndeletePhraseSetSvc<T: Speech>(pub Arc<T>);
+                    impl<
+                        T: Speech,
+                    > tonic::server::UnaryService<super::UndeletePhraseSetRequest>
+                    for UndeletePhraseSetSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UndeletePhraseSetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Speech>::undelete_phrase_set(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UndeletePhraseSetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for SpeechServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.speech.v2.Speech";
+    impl<T> tonic::server::NamedService for SpeechServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

@@ -63,8 +63,8 @@ pub mod volume_type_enum {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                VolumeType::Unspecified => "VOLUME_TYPE_UNSPECIFIED",
-                VolumeType::GcePersistentDisk => "GCE_PERSISTENT_DISK",
+                Self::Unspecified => "VOLUME_TYPE_UNSPECIFIED",
+                Self::GcePersistentDisk => "GCE_PERSISTENT_DISK",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -72,326 +72,6 @@ pub mod volume_type_enum {
             match value {
                 "VOLUME_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
                 "GCE_PERSISTENT_DISK" => Some(Self::GcePersistentDisk),
-                _ => None,
-            }
-        }
-    }
-}
-/// Represents the backup of a specific persistent volume as a component of a
-/// Backup - both the record of the operation and a pointer to the underlying
-/// storage-specific artifacts.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct VolumeBackup {
-    /// Output only. The full name of the VolumeBackup resource.
-    /// Format: `projects/*/locations/*/backupPlans/*/backups/*/volumeBackups/*`.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// Output only. Server generated global unique identifier of
-    /// [UUID](<https://en.wikipedia.org/wiki/Universally_unique_identifier>) format.
-    #[prost(string, tag = "2")]
-    pub uid: ::prost::alloc::string::String,
-    /// Output only. The timestamp when this VolumeBackup resource was
-    /// created.
-    #[prost(message, optional, tag = "3")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. The timestamp when this VolumeBackup resource was last
-    /// updated.
-    #[prost(message, optional, tag = "4")]
-    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. A reference to the source Kubernetes PVC from which this
-    /// VolumeBackup was created.
-    #[prost(message, optional, tag = "5")]
-    pub source_pvc: ::core::option::Option<NamespacedName>,
-    /// Output only. A storage system-specific opaque handle to the underlying
-    /// volume backup.
-    #[prost(string, tag = "6")]
-    pub volume_backup_handle: ::prost::alloc::string::String,
-    /// Output only. The format used for the volume backup.
-    #[prost(enumeration = "volume_backup::VolumeBackupFormat", tag = "7")]
-    pub format: i32,
-    /// Output only. The aggregate size of the underlying artifacts associated with
-    /// this VolumeBackup in the backup storage. This may change over time when
-    /// multiple backups of the same volume share the same backup storage
-    /// location. In particular, this is likely to increase in size when
-    /// the immediately preceding backup of the same volume is deleted.
-    #[prost(int64, tag = "8")]
-    pub storage_bytes: i64,
-    /// Output only. The minimum size of the disk to which this VolumeBackup can be
-    /// restored.
-    #[prost(int64, tag = "9")]
-    pub disk_size_bytes: i64,
-    /// Output only. The timestamp when the associated underlying volume backup
-    /// operation completed.
-    #[prost(message, optional, tag = "10")]
-    pub complete_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. The current state of this VolumeBackup.
-    #[prost(enumeration = "volume_backup::State", tag = "11")]
-    pub state: i32,
-    /// Output only. A human readable message explaining why the VolumeBackup is in
-    /// its current state.
-    #[prost(string, tag = "12")]
-    pub state_message: ::prost::alloc::string::String,
-    /// Output only. `etag` is used for optimistic concurrency control as a way to
-    /// help prevent simultaneous updates of a volume backup from overwriting each
-    /// other. It is strongly suggested that systems make use of the `etag` in the
-    /// read-modify-write cycle to perform volume backup updates in order to avoid
-    /// race conditions.
-    #[prost(string, tag = "13")]
-    pub etag: ::prost::alloc::string::String,
-}
-/// Nested message and enum types in `VolumeBackup`.
-pub mod volume_backup {
-    /// Identifies the format used for the volume backup.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum VolumeBackupFormat {
-        /// Default value, not specified.
-        Unspecified = 0,
-        /// Compute Engine Persistent Disk snapshot based volume backup.
-        GcePersistentDisk = 1,
-    }
-    impl VolumeBackupFormat {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                VolumeBackupFormat::Unspecified => "VOLUME_BACKUP_FORMAT_UNSPECIFIED",
-                VolumeBackupFormat::GcePersistentDisk => "GCE_PERSISTENT_DISK",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "VOLUME_BACKUP_FORMAT_UNSPECIFIED" => Some(Self::Unspecified),
-                "GCE_PERSISTENT_DISK" => Some(Self::GcePersistentDisk),
-                _ => None,
-            }
-        }
-    }
-    /// The current state of a VolumeBackup
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum State {
-        /// This is an illegal state and should not be encountered.
-        Unspecified = 0,
-        /// A volume for the backup was identified and backup process is about to
-        /// start.
-        Creating = 1,
-        /// The volume backup operation has begun and is in the initial "snapshot"
-        /// phase of the process. Any defined ProtectedApplication "pre" hooks will
-        /// be executed before entering this state and "post" hooks will be executed
-        /// upon leaving this state.
-        Snapshotting = 2,
-        /// The snapshot phase of the volume backup operation has completed and
-        /// the snapshot is now being uploaded to backup storage.
-        Uploading = 3,
-        /// The volume backup operation has completed successfully.
-        Succeeded = 4,
-        /// The volume backup operation has failed.
-        Failed = 5,
-        /// This VolumeBackup resource (and its associated artifacts) is in the
-        /// process of being deleted.
-        Deleting = 6,
-    }
-    impl State {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Snapshotting => "SNAPSHOTTING",
-                State::Uploading => "UPLOADING",
-                State::Succeeded => "SUCCEEDED",
-                State::Failed => "FAILED",
-                State::Deleting => "DELETING",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "STATE_UNSPECIFIED" => Some(Self::Unspecified),
-                "CREATING" => Some(Self::Creating),
-                "SNAPSHOTTING" => Some(Self::Snapshotting),
-                "UPLOADING" => Some(Self::Uploading),
-                "SUCCEEDED" => Some(Self::Succeeded),
-                "FAILED" => Some(Self::Failed),
-                "DELETING" => Some(Self::Deleting),
-                _ => None,
-            }
-        }
-    }
-}
-/// Represents the operation of restoring a volume from a VolumeBackup.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct VolumeRestore {
-    /// Output only. Full name of the VolumeRestore resource.
-    /// Format: `projects/*/locations/*/restorePlans/*/restores/*/volumeRestores/*`
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// Output only. Server generated global unique identifier of
-    /// [UUID](<https://en.wikipedia.org/wiki/Universally_unique_identifier>) format.
-    #[prost(string, tag = "2")]
-    pub uid: ::prost::alloc::string::String,
-    /// Output only. The timestamp when this VolumeRestore resource was
-    /// created.
-    #[prost(message, optional, tag = "3")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. The timestamp when this VolumeRestore resource was last
-    /// updated.
-    #[prost(message, optional, tag = "4")]
-    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. The full name of the VolumeBackup from which the volume will
-    /// be restored. Format:
-    /// `projects/*/locations/*/backupPlans/*/backups/*/volumeBackups/*`.
-    #[prost(string, tag = "5")]
-    pub volume_backup: ::prost::alloc::string::String,
-    /// Output only. The reference to the target Kubernetes PVC to be restored.
-    #[prost(message, optional, tag = "6")]
-    pub target_pvc: ::core::option::Option<NamespacedName>,
-    /// Output only. A storage system-specific opaque handler to the underlying
-    /// volume created for the target PVC from the volume backup.
-    #[prost(string, tag = "7")]
-    pub volume_handle: ::prost::alloc::string::String,
-    /// Output only. The type of volume provisioned
-    #[prost(enumeration = "volume_restore::VolumeType", tag = "8")]
-    pub volume_type: i32,
-    /// Output only. The timestamp when the associated underlying volume
-    /// restoration completed.
-    #[prost(message, optional, tag = "9")]
-    pub complete_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. The current state of this VolumeRestore.
-    #[prost(enumeration = "volume_restore::State", tag = "10")]
-    pub state: i32,
-    /// Output only. A human readable message explaining why the VolumeRestore is
-    /// in its current state.
-    #[prost(string, tag = "11")]
-    pub state_message: ::prost::alloc::string::String,
-    /// Output only. `etag` is used for optimistic concurrency control as a way to
-    /// help prevent simultaneous updates of a volume restore from overwriting each
-    /// other. It is strongly suggested that systems make use of the `etag` in the
-    /// read-modify-write cycle to perform volume restore updates in order to avoid
-    /// race conditions.
-    #[prost(string, tag = "12")]
-    pub etag: ::prost::alloc::string::String,
-}
-/// Nested message and enum types in `VolumeRestore`.
-pub mod volume_restore {
-    /// Supported volume types.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum VolumeType {
-        /// Default
-        Unspecified = 0,
-        /// Compute Engine Persistent Disk volume
-        GcePersistentDisk = 1,
-    }
-    impl VolumeType {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                VolumeType::Unspecified => "VOLUME_TYPE_UNSPECIFIED",
-                VolumeType::GcePersistentDisk => "GCE_PERSISTENT_DISK",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "VOLUME_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
-                "GCE_PERSISTENT_DISK" => Some(Self::GcePersistentDisk),
-                _ => None,
-            }
-        }
-    }
-    /// The current state of a VolumeRestore
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum State {
-        /// This is an illegal state and should not be encountered.
-        Unspecified = 0,
-        /// A volume for the restore was identified and restore process is about to
-        /// start.
-        Creating = 1,
-        /// The volume is currently being restored.
-        Restoring = 2,
-        /// The volume has been successfully restored.
-        Succeeded = 3,
-        /// The volume restoration process failed.
-        Failed = 4,
-        /// This VolumeRestore resource is in the process of being deleted.
-        Deleting = 5,
-    }
-    impl State {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Restoring => "RESTORING",
-                State::Succeeded => "SUCCEEDED",
-                State::Failed => "FAILED",
-                State::Deleting => "DELETING",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "STATE_UNSPECIFIED" => Some(Self::Unspecified),
-                "CREATING" => Some(Self::Creating),
-                "RESTORING" => Some(Self::Restoring),
-                "SUCCEEDED" => Some(Self::Succeeded),
-                "FAILED" => Some(Self::Failed),
-                "DELETING" => Some(Self::Deleting),
                 _ => None,
             }
         }
@@ -659,13 +339,13 @@ pub mod backup_plan {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::ClusterPending => "CLUSTER_PENDING",
-                State::Provisioning => "PROVISIONING",
-                State::Ready => "READY",
-                State::Failed => "FAILED",
-                State::Deactivated => "DEACTIVATED",
-                State::Deleting => "DELETING",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::ClusterPending => "CLUSTER_PENDING",
+                Self::Provisioning => "PROVISIONING",
+                Self::Ready => "READY",
+                Self::Failed => "FAILED",
+                Self::Deactivated => "DEACTIVATED",
+                Self::Deleting => "DELETING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -760,6 +440,273 @@ pub mod exclusion_window {
         /// The exclusion window occurs on these days of each week in UTC.
         #[prost(message, tag = "5")]
         DaysOfWeek(DayOfWeekList),
+    }
+}
+/// Represents a request to perform a single point-in-time capture of
+/// some portion of the state of a GKE cluster, the record of the backup
+/// operation itself, and an anchor for the underlying artifacts that
+/// comprise the Backup (the config backup and VolumeBackups).
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Backup {
+    /// Output only. The fully qualified name of the Backup.
+    /// `projects/*/locations/*/backupPlans/*/backups/*`
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// Output only. Server generated global unique identifier of
+    /// [UUID4](<https://en.wikipedia.org/wiki/Universally_unique_identifier>)
+    #[prost(string, tag = "2")]
+    pub uid: ::prost::alloc::string::String,
+    /// Output only. The timestamp when this Backup resource was created.
+    #[prost(message, optional, tag = "3")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. The timestamp when this Backup resource was last updated.
+    #[prost(message, optional, tag = "4")]
+    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. This flag indicates whether this Backup resource was created
+    /// manually by a user or via a schedule in the BackupPlan. A value of True
+    /// means that the Backup was created manually.
+    #[prost(bool, tag = "5")]
+    pub manual: bool,
+    /// Optional. A set of custom labels supplied by user.
+    #[prost(btree_map = "string, string", tag = "6")]
+    pub labels: ::prost::alloc::collections::BTreeMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+    /// Optional. Minimum age for this Backup (in days). If this field is set to a
+    /// non-zero value, the Backup will be "locked" against deletion (either manual
+    /// or automatic deletion) for the number of days provided (measured from the
+    /// creation time of the Backup).  MUST be an integer value between 0-90
+    /// (inclusive).
+    ///
+    /// Defaults to parent BackupPlan's
+    /// [backup_delete_lock_days][google.cloud.gkebackup.v1.BackupPlan.RetentionPolicy.backup_delete_lock_days]
+    /// setting and may only be increased
+    /// (either at creation time or in a subsequent update).
+    #[prost(int32, tag = "7")]
+    pub delete_lock_days: i32,
+    /// Output only. The time at which an existing delete lock will expire for this
+    /// backup (calculated from create_time +
+    /// [delete_lock_days][google.cloud.gkebackup.v1.Backup.delete_lock_days]).
+    #[prost(message, optional, tag = "8")]
+    pub delete_lock_expire_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Optional. The age (in days) after which this Backup will be automatically
+    /// deleted. Must be an integer value >= 0:
+    ///
+    /// - If 0, no automatic deletion will occur for this Backup.
+    /// - If not 0, this must be >=
+    /// [delete_lock_days][google.cloud.gkebackup.v1.Backup.delete_lock_days] and
+    /// <= 365.
+    ///
+    /// Once a Backup is created, this value may only be increased.
+    ///
+    /// Defaults to the parent BackupPlan's
+    /// [backup_retain_days][google.cloud.gkebackup.v1.BackupPlan.RetentionPolicy.backup_retain_days]
+    /// value.
+    #[prost(int32, tag = "9")]
+    pub retain_days: i32,
+    /// Output only. The time at which this Backup will be automatically deleted
+    /// (calculated from create_time +
+    /// [retain_days][google.cloud.gkebackup.v1.Backup.retain_days]).
+    #[prost(message, optional, tag = "10")]
+    pub retain_expire_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. The customer managed encryption key that was used to encrypt
+    /// the Backup's artifacts.  Inherited from the parent BackupPlan's
+    /// [encryption_key][google.cloud.gkebackup.v1.BackupPlan.BackupConfig.encryption_key]
+    /// value.
+    #[prost(message, optional, tag = "11")]
+    pub encryption_key: ::core::option::Option<EncryptionKey>,
+    /// Output only. Whether or not the Backup contains volume data.  Controlled by
+    /// the parent BackupPlan's
+    /// [include_volume_data][google.cloud.gkebackup.v1.BackupPlan.BackupConfig.include_volume_data]
+    /// value.
+    #[prost(bool, tag = "15")]
+    pub contains_volume_data: bool,
+    /// Output only. Whether or not the Backup contains Kubernetes Secrets.
+    /// Controlled by the parent BackupPlan's
+    /// [include_secrets][google.cloud.gkebackup.v1.BackupPlan.BackupConfig.include_secrets]
+    /// value.
+    #[prost(bool, tag = "16")]
+    pub contains_secrets: bool,
+    /// Output only. Information about the GKE cluster from which this Backup was
+    /// created.
+    #[prost(message, optional, tag = "17")]
+    pub cluster_metadata: ::core::option::Option<backup::ClusterMetadata>,
+    /// Output only. Current state of the Backup
+    #[prost(enumeration = "backup::State", tag = "18")]
+    pub state: i32,
+    /// Output only. Human-readable description of why the backup is in the current
+    /// `state`.
+    #[prost(string, tag = "19")]
+    pub state_reason: ::prost::alloc::string::String,
+    /// Output only. Completion time of the Backup
+    #[prost(message, optional, tag = "20")]
+    pub complete_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. The total number of Kubernetes resources included in the
+    /// Backup.
+    #[prost(int32, tag = "21")]
+    pub resource_count: i32,
+    /// Output only. The total number of volume backups contained in the Backup.
+    #[prost(int32, tag = "22")]
+    pub volume_count: i32,
+    /// Output only. The total size of the Backup in bytes = config backup size +
+    /// sum(volume backup sizes)
+    #[prost(int64, tag = "23")]
+    pub size_bytes: i64,
+    /// Output only. `etag` is used for optimistic concurrency control as a way to
+    /// help prevent simultaneous updates of a backup from overwriting each other.
+    /// It is strongly suggested that systems make use of the `etag` in the
+    /// read-modify-write cycle to perform backup updates in order to avoid
+    /// race conditions: An `etag` is returned in the response to `GetBackup`,
+    /// and systems are expected to put that etag in the request to
+    /// `UpdateBackup` or `DeleteBackup` to ensure that their change will be
+    /// applied to the same version of the resource.
+    #[prost(string, tag = "24")]
+    pub etag: ::prost::alloc::string::String,
+    /// Optional. User specified descriptive string for this Backup.
+    #[prost(string, tag = "25")]
+    pub description: ::prost::alloc::string::String,
+    /// Output only. The total number of Kubernetes Pods contained in the Backup.
+    #[prost(int32, tag = "26")]
+    pub pod_count: i32,
+    /// Output only. The size of the config backup in bytes.
+    #[prost(int64, tag = "27")]
+    pub config_backup_size_bytes: i64,
+    /// Output only. If false, Backup will fail when Backup for GKE detects
+    /// Kubernetes configuration that is non-standard or
+    /// requires additional setup to restore.
+    ///
+    /// Inherited from the parent BackupPlan's
+    /// [permissive_mode][google.cloud.gkebackup.v1.BackupPlan.BackupConfig.permissive_mode]
+    /// value.
+    #[prost(bool, tag = "28")]
+    pub permissive_mode: bool,
+    /// Defines the "scope" of the Backup - which namespaced resources in the
+    /// cluster were included in the Backup.  Inherited from the parent
+    /// BackupPlan's
+    /// [backup_scope][google.cloud.gkebackup.v1.BackupPlan.BackupConfig.backup_scope]
+    /// value.
+    #[prost(oneof = "backup::BackupScope", tags = "12, 13, 14")]
+    pub backup_scope: ::core::option::Option<backup::BackupScope>,
+}
+/// Nested message and enum types in `Backup`.
+pub mod backup {
+    /// Information about the GKE cluster from which this Backup was created.
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct ClusterMetadata {
+        /// Output only. The source cluster from which this Backup was created.
+        /// Valid formats:
+        ///
+        ///    - `projects/*/locations/*/clusters/*`
+        ///    - `projects/*/zones/*/clusters/*`
+        ///
+        /// This is inherited from the parent BackupPlan's
+        /// [cluster][google.cloud.gkebackup.v1.BackupPlan.cluster] field.
+        #[prost(string, tag = "1")]
+        pub cluster: ::prost::alloc::string::String,
+        /// Output only. The Kubernetes server version of the source cluster.
+        #[prost(string, tag = "2")]
+        pub k8s_version: ::prost::alloc::string::String,
+        /// Output only. A list of the Backup for GKE CRD versions found in the
+        /// cluster.
+        #[prost(btree_map = "string, string", tag = "3")]
+        pub backup_crd_versions: ::prost::alloc::collections::BTreeMap<
+            ::prost::alloc::string::String,
+            ::prost::alloc::string::String,
+        >,
+        /// Platform-specific version
+        #[prost(oneof = "cluster_metadata::PlatformVersion", tags = "4, 5")]
+        pub platform_version: ::core::option::Option<cluster_metadata::PlatformVersion>,
+    }
+    /// Nested message and enum types in `ClusterMetadata`.
+    pub mod cluster_metadata {
+        /// Platform-specific version
+        #[derive(Clone, PartialEq, ::prost::Oneof)]
+        pub enum PlatformVersion {
+            /// Output only. GKE version
+            #[prost(string, tag = "4")]
+            GkeVersion(::prost::alloc::string::String),
+            /// Output only. Anthos version
+            #[prost(string, tag = "5")]
+            AnthosVersion(::prost::alloc::string::String),
+        }
+    }
+    /// State
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum State {
+        /// The Backup resource is in the process of being created.
+        Unspecified = 0,
+        /// The Backup resource has been created and the associated BackupJob
+        /// Kubernetes resource has been injected into the source cluster.
+        Creating = 1,
+        /// The gkebackup agent in the cluster has begun executing the backup
+        /// operation.
+        InProgress = 2,
+        /// The backup operation has completed successfully.
+        Succeeded = 3,
+        /// The backup operation has failed.
+        Failed = 4,
+        /// This Backup resource (and its associated artifacts) is in the process
+        /// of being deleted.
+        Deleting = 5,
+    }
+    impl State {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::InProgress => "IN_PROGRESS",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Failed => "FAILED",
+                Self::Deleting => "DELETING",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "STATE_UNSPECIFIED" => Some(Self::Unspecified),
+                "CREATING" => Some(Self::Creating),
+                "IN_PROGRESS" => Some(Self::InProgress),
+                "SUCCEEDED" => Some(Self::Succeeded),
+                "FAILED" => Some(Self::Failed),
+                "DELETING" => Some(Self::Deleting),
+                _ => None,
+            }
+        }
+    }
+    /// Defines the "scope" of the Backup - which namespaced resources in the
+    /// cluster were included in the Backup.  Inherited from the parent
+    /// BackupPlan's
+    /// [backup_scope][google.cloud.gkebackup.v1.BackupPlan.BackupConfig.backup_scope]
+    /// value.
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum BackupScope {
+        /// Output only. If True, all namespaces were included in the Backup.
+        #[prost(bool, tag = "12")]
+        AllNamespaces(bool),
+        /// Output only. If set, the list of namespaces that were included in the
+        /// Backup.
+        #[prost(message, tag = "13")]
+        SelectedNamespaces(super::Namespaces),
+        /// Output only. If set, the list of ProtectedApplications whose resources
+        /// were included in the Backup.
+        #[prost(message, tag = "14")]
+        SelectedApplications(super::NamespacedNames),
     }
 }
 /// Represents both a request to Restore some portion of a Backup into
@@ -921,12 +868,12 @@ pub mod restore {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::InProgress => "IN_PROGRESS",
-                State::Succeeded => "SUCCEEDED",
-                State::Failed => "FAILED",
-                State::Deleting => "DELETING",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::InProgress => "IN_PROGRESS",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Failed => "FAILED",
+                Self::Deleting => "DELETING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1190,13 +1137,13 @@ pub mod restore_config {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    Op::Unspecified => "OP_UNSPECIFIED",
-                    Op::Remove => "REMOVE",
-                    Op::Move => "MOVE",
-                    Op::Copy => "COPY",
-                    Op::Add => "ADD",
-                    Op::Test => "TEST",
-                    Op::Replace => "REPLACE",
+                    Self::Unspecified => "OP_UNSPECIFIED",
+                    Self::Remove => "REMOVE",
+                    Self::Move => "MOVE",
+                    Self::Copy => "COPY",
+                    Self::Add => "ADD",
+                    Self::Test => "TEST",
+                    Self::Replace => "REPLACE",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1349,18 +1296,10 @@ pub mod restore_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                VolumeDataRestorePolicy::Unspecified => {
-                    "VOLUME_DATA_RESTORE_POLICY_UNSPECIFIED"
-                }
-                VolumeDataRestorePolicy::RestoreVolumeDataFromBackup => {
-                    "RESTORE_VOLUME_DATA_FROM_BACKUP"
-                }
-                VolumeDataRestorePolicy::ReuseVolumeHandleFromBackup => {
-                    "REUSE_VOLUME_HANDLE_FROM_BACKUP"
-                }
-                VolumeDataRestorePolicy::NoVolumeDataRestoration => {
-                    "NO_VOLUME_DATA_RESTORATION"
-                }
+                Self::Unspecified => "VOLUME_DATA_RESTORE_POLICY_UNSPECIFIED",
+                Self::RestoreVolumeDataFromBackup => "RESTORE_VOLUME_DATA_FROM_BACKUP",
+                Self::ReuseVolumeHandleFromBackup => "REUSE_VOLUME_HANDLE_FROM_BACKUP",
+                Self::NoVolumeDataRestoration => "NO_VOLUME_DATA_RESTORATION",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1411,13 +1350,9 @@ pub mod restore_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ClusterResourceConflictPolicy::Unspecified => {
-                    "CLUSTER_RESOURCE_CONFLICT_POLICY_UNSPECIFIED"
-                }
-                ClusterResourceConflictPolicy::UseExistingVersion => {
-                    "USE_EXISTING_VERSION"
-                }
-                ClusterResourceConflictPolicy::UseBackupVersion => "USE_BACKUP_VERSION",
+                Self::Unspecified => "CLUSTER_RESOURCE_CONFLICT_POLICY_UNSPECIFIED",
+                Self::UseExistingVersion => "USE_EXISTING_VERSION",
+                Self::UseBackupVersion => "USE_BACKUP_VERSION",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1499,20 +1434,12 @@ pub mod restore_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                NamespacedResourceRestoreMode::Unspecified => {
-                    "NAMESPACED_RESOURCE_RESTORE_MODE_UNSPECIFIED"
-                }
-                NamespacedResourceRestoreMode::DeleteAndRestore => "DELETE_AND_RESTORE",
-                NamespacedResourceRestoreMode::FailOnConflict => "FAIL_ON_CONFLICT",
-                NamespacedResourceRestoreMode::MergeSkipOnConflict => {
-                    "MERGE_SKIP_ON_CONFLICT"
-                }
-                NamespacedResourceRestoreMode::MergeReplaceVolumeOnConflict => {
-                    "MERGE_REPLACE_VOLUME_ON_CONFLICT"
-                }
-                NamespacedResourceRestoreMode::MergeReplaceOnConflict => {
-                    "MERGE_REPLACE_ON_CONFLICT"
-                }
+                Self::Unspecified => "NAMESPACED_RESOURCE_RESTORE_MODE_UNSPECIFIED",
+                Self::DeleteAndRestore => "DELETE_AND_RESTORE",
+                Self::FailOnConflict => "FAIL_ON_CONFLICT",
+                Self::MergeSkipOnConflict => "MERGE_SKIP_ON_CONFLICT",
+                Self::MergeReplaceVolumeOnConflict => "MERGE_REPLACE_VOLUME_ON_CONFLICT",
+                Self::MergeReplaceOnConflict => "MERGE_REPLACE_ON_CONFLICT",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1719,11 +1646,11 @@ pub mod restore_plan {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::ClusterPending => "CLUSTER_PENDING",
-                State::Ready => "READY",
-                State::Failed => "FAILED",
-                State::Deleting => "DELETING",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::ClusterPending => "CLUSTER_PENDING",
+                Self::Ready => "READY",
+                Self::Failed => "FAILED",
+                Self::Deleting => "DELETING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1739,196 +1666,110 @@ pub mod restore_plan {
         }
     }
 }
-/// Represents a request to perform a single point-in-time capture of
-/// some portion of the state of a GKE cluster, the record of the backup
-/// operation itself, and an anchor for the underlying artifacts that
-/// comprise the Backup (the config backup and VolumeBackups).
+/// Represents the backup of a specific persistent volume as a component of a
+/// Backup - both the record of the operation and a pointer to the underlying
+/// storage-specific artifacts.
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Backup {
-    /// Output only. The fully qualified name of the Backup.
-    /// `projects/*/locations/*/backupPlans/*/backups/*`
+pub struct VolumeBackup {
+    /// Output only. The full name of the VolumeBackup resource.
+    /// Format: `projects/*/locations/*/backupPlans/*/backups/*/volumeBackups/*`.
     #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
     /// Output only. Server generated global unique identifier of
-    /// [UUID4](<https://en.wikipedia.org/wiki/Universally_unique_identifier>)
+    /// [UUID](<https://en.wikipedia.org/wiki/Universally_unique_identifier>) format.
     #[prost(string, tag = "2")]
     pub uid: ::prost::alloc::string::String,
-    /// Output only. The timestamp when this Backup resource was created.
+    /// Output only. The timestamp when this VolumeBackup resource was
+    /// created.
     #[prost(message, optional, tag = "3")]
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. The timestamp when this Backup resource was last updated.
+    /// Output only. The timestamp when this VolumeBackup resource was last
+    /// updated.
     #[prost(message, optional, tag = "4")]
     pub update_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. This flag indicates whether this Backup resource was created
-    /// manually by a user or via a schedule in the BackupPlan. A value of True
-    /// means that the Backup was created manually.
-    #[prost(bool, tag = "5")]
-    pub manual: bool,
-    /// Optional. A set of custom labels supplied by user.
-    #[prost(btree_map = "string, string", tag = "6")]
-    pub labels: ::prost::alloc::collections::BTreeMap<
-        ::prost::alloc::string::String,
-        ::prost::alloc::string::String,
-    >,
-    /// Optional. Minimum age for this Backup (in days). If this field is set to a
-    /// non-zero value, the Backup will be "locked" against deletion (either manual
-    /// or automatic deletion) for the number of days provided (measured from the
-    /// creation time of the Backup).  MUST be an integer value between 0-90
-    /// (inclusive).
-    ///
-    /// Defaults to parent BackupPlan's
-    /// [backup_delete_lock_days][google.cloud.gkebackup.v1.BackupPlan.RetentionPolicy.backup_delete_lock_days]
-    /// setting and may only be increased
-    /// (either at creation time or in a subsequent update).
-    #[prost(int32, tag = "7")]
-    pub delete_lock_days: i32,
-    /// Output only. The time at which an existing delete lock will expire for this
-    /// backup (calculated from create_time +
-    /// [delete_lock_days][google.cloud.gkebackup.v1.Backup.delete_lock_days]).
-    #[prost(message, optional, tag = "8")]
-    pub delete_lock_expire_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Optional. The age (in days) after which this Backup will be automatically
-    /// deleted. Must be an integer value >= 0:
-    ///
-    /// - If 0, no automatic deletion will occur for this Backup.
-    /// - If not 0, this must be >=
-    /// [delete_lock_days][google.cloud.gkebackup.v1.Backup.delete_lock_days] and
-    /// <= 365.
-    ///
-    /// Once a Backup is created, this value may only be increased.
-    ///
-    /// Defaults to the parent BackupPlan's
-    /// [backup_retain_days][google.cloud.gkebackup.v1.BackupPlan.RetentionPolicy.backup_retain_days]
-    /// value.
-    #[prost(int32, tag = "9")]
-    pub retain_days: i32,
-    /// Output only. The time at which this Backup will be automatically deleted
-    /// (calculated from create_time +
-    /// [retain_days][google.cloud.gkebackup.v1.Backup.retain_days]).
+    /// Output only. A reference to the source Kubernetes PVC from which this
+    /// VolumeBackup was created.
+    #[prost(message, optional, tag = "5")]
+    pub source_pvc: ::core::option::Option<NamespacedName>,
+    /// Output only. A storage system-specific opaque handle to the underlying
+    /// volume backup.
+    #[prost(string, tag = "6")]
+    pub volume_backup_handle: ::prost::alloc::string::String,
+    /// Output only. The format used for the volume backup.
+    #[prost(enumeration = "volume_backup::VolumeBackupFormat", tag = "7")]
+    pub format: i32,
+    /// Output only. The aggregate size of the underlying artifacts associated with
+    /// this VolumeBackup in the backup storage. This may change over time when
+    /// multiple backups of the same volume share the same backup storage
+    /// location. In particular, this is likely to increase in size when
+    /// the immediately preceding backup of the same volume is deleted.
+    #[prost(int64, tag = "8")]
+    pub storage_bytes: i64,
+    /// Output only. The minimum size of the disk to which this VolumeBackup can be
+    /// restored.
+    #[prost(int64, tag = "9")]
+    pub disk_size_bytes: i64,
+    /// Output only. The timestamp when the associated underlying volume backup
+    /// operation completed.
     #[prost(message, optional, tag = "10")]
-    pub retain_expire_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. The customer managed encryption key that was used to encrypt
-    /// the Backup's artifacts.  Inherited from the parent BackupPlan's
-    /// [encryption_key][google.cloud.gkebackup.v1.BackupPlan.BackupConfig.encryption_key]
-    /// value.
-    #[prost(message, optional, tag = "11")]
-    pub encryption_key: ::core::option::Option<EncryptionKey>,
-    /// Output only. Whether or not the Backup contains volume data.  Controlled by
-    /// the parent BackupPlan's
-    /// [include_volume_data][google.cloud.gkebackup.v1.BackupPlan.BackupConfig.include_volume_data]
-    /// value.
-    #[prost(bool, tag = "15")]
-    pub contains_volume_data: bool,
-    /// Output only. Whether or not the Backup contains Kubernetes Secrets.
-    /// Controlled by the parent BackupPlan's
-    /// [include_secrets][google.cloud.gkebackup.v1.BackupPlan.BackupConfig.include_secrets]
-    /// value.
-    #[prost(bool, tag = "16")]
-    pub contains_secrets: bool,
-    /// Output only. Information about the GKE cluster from which this Backup was
-    /// created.
-    #[prost(message, optional, tag = "17")]
-    pub cluster_metadata: ::core::option::Option<backup::ClusterMetadata>,
-    /// Output only. Current state of the Backup
-    #[prost(enumeration = "backup::State", tag = "18")]
-    pub state: i32,
-    /// Output only. Human-readable description of why the backup is in the current
-    /// `state`.
-    #[prost(string, tag = "19")]
-    pub state_reason: ::prost::alloc::string::String,
-    /// Output only. Completion time of the Backup
-    #[prost(message, optional, tag = "20")]
     pub complete_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. The total number of Kubernetes resources included in the
-    /// Backup.
-    #[prost(int32, tag = "21")]
-    pub resource_count: i32,
-    /// Output only. The total number of volume backups contained in the Backup.
-    #[prost(int32, tag = "22")]
-    pub volume_count: i32,
-    /// Output only. The total size of the Backup in bytes = config backup size +
-    /// sum(volume backup sizes)
-    #[prost(int64, tag = "23")]
-    pub size_bytes: i64,
+    /// Output only. The current state of this VolumeBackup.
+    #[prost(enumeration = "volume_backup::State", tag = "11")]
+    pub state: i32,
+    /// Output only. A human readable message explaining why the VolumeBackup is in
+    /// its current state.
+    #[prost(string, tag = "12")]
+    pub state_message: ::prost::alloc::string::String,
     /// Output only. `etag` is used for optimistic concurrency control as a way to
-    /// help prevent simultaneous updates of a backup from overwriting each other.
-    /// It is strongly suggested that systems make use of the `etag` in the
-    /// read-modify-write cycle to perform backup updates in order to avoid
-    /// race conditions: An `etag` is returned in the response to `GetBackup`,
-    /// and systems are expected to put that etag in the request to
-    /// `UpdateBackup` or `DeleteBackup` to ensure that their change will be
-    /// applied to the same version of the resource.
-    #[prost(string, tag = "24")]
+    /// help prevent simultaneous updates of a volume backup from overwriting each
+    /// other. It is strongly suggested that systems make use of the `etag` in the
+    /// read-modify-write cycle to perform volume backup updates in order to avoid
+    /// race conditions.
+    #[prost(string, tag = "13")]
     pub etag: ::prost::alloc::string::String,
-    /// Optional. User specified descriptive string for this Backup.
-    #[prost(string, tag = "25")]
-    pub description: ::prost::alloc::string::String,
-    /// Output only. The total number of Kubernetes Pods contained in the Backup.
-    #[prost(int32, tag = "26")]
-    pub pod_count: i32,
-    /// Output only. The size of the config backup in bytes.
-    #[prost(int64, tag = "27")]
-    pub config_backup_size_bytes: i64,
-    /// Output only. If false, Backup will fail when Backup for GKE detects
-    /// Kubernetes configuration that is non-standard or
-    /// requires additional setup to restore.
-    ///
-    /// Inherited from the parent BackupPlan's
-    /// [permissive_mode][google.cloud.gkebackup.v1.BackupPlan.BackupConfig.permissive_mode]
-    /// value.
-    #[prost(bool, tag = "28")]
-    pub permissive_mode: bool,
-    /// Defines the "scope" of the Backup - which namespaced resources in the
-    /// cluster were included in the Backup.  Inherited from the parent
-    /// BackupPlan's
-    /// [backup_scope][google.cloud.gkebackup.v1.BackupPlan.BackupConfig.backup_scope]
-    /// value.
-    #[prost(oneof = "backup::BackupScope", tags = "12, 13, 14")]
-    pub backup_scope: ::core::option::Option<backup::BackupScope>,
 }
-/// Nested message and enum types in `Backup`.
-pub mod backup {
-    /// Information about the GKE cluster from which this Backup was created.
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct ClusterMetadata {
-        /// Output only. The source cluster from which this Backup was created.
-        /// Valid formats:
-        ///
-        ///    - `projects/*/locations/*/clusters/*`
-        ///    - `projects/*/zones/*/clusters/*`
-        ///
-        /// This is inherited from the parent BackupPlan's
-        /// [cluster][google.cloud.gkebackup.v1.BackupPlan.cluster] field.
-        #[prost(string, tag = "1")]
-        pub cluster: ::prost::alloc::string::String,
-        /// Output only. The Kubernetes server version of the source cluster.
-        #[prost(string, tag = "2")]
-        pub k8s_version: ::prost::alloc::string::String,
-        /// Output only. A list of the Backup for GKE CRD versions found in the
-        /// cluster.
-        #[prost(btree_map = "string, string", tag = "3")]
-        pub backup_crd_versions: ::prost::alloc::collections::BTreeMap<
-            ::prost::alloc::string::String,
-            ::prost::alloc::string::String,
-        >,
-        /// Platform-specific version
-        #[prost(oneof = "cluster_metadata::PlatformVersion", tags = "4, 5")]
-        pub platform_version: ::core::option::Option<cluster_metadata::PlatformVersion>,
+/// Nested message and enum types in `VolumeBackup`.
+pub mod volume_backup {
+    /// Identifies the format used for the volume backup.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum VolumeBackupFormat {
+        /// Default value, not specified.
+        Unspecified = 0,
+        /// Compute Engine Persistent Disk snapshot based volume backup.
+        GcePersistentDisk = 1,
     }
-    /// Nested message and enum types in `ClusterMetadata`.
-    pub mod cluster_metadata {
-        /// Platform-specific version
-        #[derive(Clone, PartialEq, ::prost::Oneof)]
-        pub enum PlatformVersion {
-            /// Output only. GKE version
-            #[prost(string, tag = "4")]
-            GkeVersion(::prost::alloc::string::String),
-            /// Output only. Anthos version
-            #[prost(string, tag = "5")]
-            AnthosVersion(::prost::alloc::string::String),
+    impl VolumeBackupFormat {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "VOLUME_BACKUP_FORMAT_UNSPECIFIED",
+                Self::GcePersistentDisk => "GCE_PERSISTENT_DISK",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "VOLUME_BACKUP_FORMAT_UNSPECIFIED" => Some(Self::Unspecified),
+                "GCE_PERSISTENT_DISK" => Some(Self::GcePersistentDisk),
+                _ => None,
+            }
         }
     }
-    /// State
+    /// The current state of a VolumeBackup
     #[derive(
         Clone,
         Copy,
@@ -1942,20 +1783,178 @@ pub mod backup {
     )]
     #[repr(i32)]
     pub enum State {
-        /// The Backup resource is in the process of being created.
+        /// This is an illegal state and should not be encountered.
         Unspecified = 0,
-        /// The Backup resource has been created and the associated BackupJob
-        /// Kubernetes resource has been injected into the source cluster.
+        /// A volume for the backup was identified and backup process is about to
+        /// start.
         Creating = 1,
-        /// The gkebackup agent in the cluster has begun executing the backup
-        /// operation.
-        InProgress = 2,
-        /// The backup operation has completed successfully.
+        /// The volume backup operation has begun and is in the initial "snapshot"
+        /// phase of the process. Any defined ProtectedApplication "pre" hooks will
+        /// be executed before entering this state and "post" hooks will be executed
+        /// upon leaving this state.
+        Snapshotting = 2,
+        /// The snapshot phase of the volume backup operation has completed and
+        /// the snapshot is now being uploaded to backup storage.
+        Uploading = 3,
+        /// The volume backup operation has completed successfully.
+        Succeeded = 4,
+        /// The volume backup operation has failed.
+        Failed = 5,
+        /// This VolumeBackup resource (and its associated artifacts) is in the
+        /// process of being deleted.
+        Deleting = 6,
+    }
+    impl State {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Snapshotting => "SNAPSHOTTING",
+                Self::Uploading => "UPLOADING",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Failed => "FAILED",
+                Self::Deleting => "DELETING",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "STATE_UNSPECIFIED" => Some(Self::Unspecified),
+                "CREATING" => Some(Self::Creating),
+                "SNAPSHOTTING" => Some(Self::Snapshotting),
+                "UPLOADING" => Some(Self::Uploading),
+                "SUCCEEDED" => Some(Self::Succeeded),
+                "FAILED" => Some(Self::Failed),
+                "DELETING" => Some(Self::Deleting),
+                _ => None,
+            }
+        }
+    }
+}
+/// Represents the operation of restoring a volume from a VolumeBackup.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct VolumeRestore {
+    /// Output only. Full name of the VolumeRestore resource.
+    /// Format: `projects/*/locations/*/restorePlans/*/restores/*/volumeRestores/*`
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// Output only. Server generated global unique identifier of
+    /// [UUID](<https://en.wikipedia.org/wiki/Universally_unique_identifier>) format.
+    #[prost(string, tag = "2")]
+    pub uid: ::prost::alloc::string::String,
+    /// Output only. The timestamp when this VolumeRestore resource was
+    /// created.
+    #[prost(message, optional, tag = "3")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. The timestamp when this VolumeRestore resource was last
+    /// updated.
+    #[prost(message, optional, tag = "4")]
+    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. The full name of the VolumeBackup from which the volume will
+    /// be restored. Format:
+    /// `projects/*/locations/*/backupPlans/*/backups/*/volumeBackups/*`.
+    #[prost(string, tag = "5")]
+    pub volume_backup: ::prost::alloc::string::String,
+    /// Output only. The reference to the target Kubernetes PVC to be restored.
+    #[prost(message, optional, tag = "6")]
+    pub target_pvc: ::core::option::Option<NamespacedName>,
+    /// Output only. A storage system-specific opaque handler to the underlying
+    /// volume created for the target PVC from the volume backup.
+    #[prost(string, tag = "7")]
+    pub volume_handle: ::prost::alloc::string::String,
+    /// Output only. The type of volume provisioned
+    #[prost(enumeration = "volume_restore::VolumeType", tag = "8")]
+    pub volume_type: i32,
+    /// Output only. The timestamp when the associated underlying volume
+    /// restoration completed.
+    #[prost(message, optional, tag = "9")]
+    pub complete_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. The current state of this VolumeRestore.
+    #[prost(enumeration = "volume_restore::State", tag = "10")]
+    pub state: i32,
+    /// Output only. A human readable message explaining why the VolumeRestore is
+    /// in its current state.
+    #[prost(string, tag = "11")]
+    pub state_message: ::prost::alloc::string::String,
+    /// Output only. `etag` is used for optimistic concurrency control as a way to
+    /// help prevent simultaneous updates of a volume restore from overwriting each
+    /// other. It is strongly suggested that systems make use of the `etag` in the
+    /// read-modify-write cycle to perform volume restore updates in order to avoid
+    /// race conditions.
+    #[prost(string, tag = "12")]
+    pub etag: ::prost::alloc::string::String,
+}
+/// Nested message and enum types in `VolumeRestore`.
+pub mod volume_restore {
+    /// Supported volume types.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum VolumeType {
+        /// Default
+        Unspecified = 0,
+        /// Compute Engine Persistent Disk volume
+        GcePersistentDisk = 1,
+    }
+    impl VolumeType {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "VOLUME_TYPE_UNSPECIFIED",
+                Self::GcePersistentDisk => "GCE_PERSISTENT_DISK",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "VOLUME_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "GCE_PERSISTENT_DISK" => Some(Self::GcePersistentDisk),
+                _ => None,
+            }
+        }
+    }
+    /// The current state of a VolumeRestore
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum State {
+        /// This is an illegal state and should not be encountered.
+        Unspecified = 0,
+        /// A volume for the restore was identified and restore process is about to
+        /// start.
+        Creating = 1,
+        /// The volume is currently being restored.
+        Restoring = 2,
+        /// The volume has been successfully restored.
         Succeeded = 3,
-        /// The backup operation has failed.
+        /// The volume restoration process failed.
         Failed = 4,
-        /// This Backup resource (and its associated artifacts) is in the process
-        /// of being deleted.
+        /// This VolumeRestore resource is in the process of being deleted.
         Deleting = 5,
     }
     impl State {
@@ -1965,12 +1964,12 @@ pub mod backup {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::InProgress => "IN_PROGRESS",
-                State::Succeeded => "SUCCEEDED",
-                State::Failed => "FAILED",
-                State::Deleting => "DELETING",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Restoring => "RESTORING",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Failed => "FAILED",
+                Self::Deleting => "DELETING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1978,32 +1977,13 @@ pub mod backup {
             match value {
                 "STATE_UNSPECIFIED" => Some(Self::Unspecified),
                 "CREATING" => Some(Self::Creating),
-                "IN_PROGRESS" => Some(Self::InProgress),
+                "RESTORING" => Some(Self::Restoring),
                 "SUCCEEDED" => Some(Self::Succeeded),
                 "FAILED" => Some(Self::Failed),
                 "DELETING" => Some(Self::Deleting),
                 _ => None,
             }
         }
-    }
-    /// Defines the "scope" of the Backup - which namespaced resources in the
-    /// cluster were included in the Backup.  Inherited from the parent
-    /// BackupPlan's
-    /// [backup_scope][google.cloud.gkebackup.v1.BackupPlan.BackupConfig.backup_scope]
-    /// value.
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
-    pub enum BackupScope {
-        /// Output only. If True, all namespaces were included in the Backup.
-        #[prost(bool, tag = "12")]
-        AllNamespaces(bool),
-        /// Output only. If set, the list of namespaces that were included in the
-        /// Backup.
-        #[prost(message, tag = "13")]
-        SelectedNamespaces(super::Namespaces),
-        /// Output only. If set, the list of ProtectedApplications whose resources
-        /// were included in the Backup.
-        #[prost(message, tag = "14")]
-        SelectedApplications(super::NamespacedNames),
     }
 }
 /// Represents the metadata of the long-running operation.
@@ -3426,5 +3406,1453 @@ pub mod backup_for_gke_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod backup_for_gke_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with BackupForGkeServer.
+    #[async_trait]
+    pub trait BackupForGke: std::marker::Send + std::marker::Sync + 'static {
+        /// Creates a new BackupPlan in a given location.
+        async fn create_backup_plan(
+            &self,
+            request: tonic::Request<super::CreateBackupPlanRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists BackupPlans in a given location.
+        async fn list_backup_plans(
+            &self,
+            request: tonic::Request<super::ListBackupPlansRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListBackupPlansResponse>,
+            tonic::Status,
+        >;
+        /// Retrieve the details of a single BackupPlan.
+        async fn get_backup_plan(
+            &self,
+            request: tonic::Request<super::GetBackupPlanRequest>,
+        ) -> std::result::Result<tonic::Response<super::BackupPlan>, tonic::Status>;
+        /// Update a BackupPlan.
+        async fn update_backup_plan(
+            &self,
+            request: tonic::Request<super::UpdateBackupPlanRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes an existing BackupPlan.
+        async fn delete_backup_plan(
+            &self,
+            request: tonic::Request<super::DeleteBackupPlanRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Creates a Backup for the given BackupPlan.
+        async fn create_backup(
+            &self,
+            request: tonic::Request<super::CreateBackupRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists the Backups for a given BackupPlan.
+        async fn list_backups(
+            &self,
+            request: tonic::Request<super::ListBackupsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListBackupsResponse>,
+            tonic::Status,
+        >;
+        /// Retrieve the details of a single Backup.
+        async fn get_backup(
+            &self,
+            request: tonic::Request<super::GetBackupRequest>,
+        ) -> std::result::Result<tonic::Response<super::Backup>, tonic::Status>;
+        /// Update a Backup.
+        async fn update_backup(
+            &self,
+            request: tonic::Request<super::UpdateBackupRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes an existing Backup.
+        async fn delete_backup(
+            &self,
+            request: tonic::Request<super::DeleteBackupRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists the VolumeBackups for a given Backup.
+        async fn list_volume_backups(
+            &self,
+            request: tonic::Request<super::ListVolumeBackupsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListVolumeBackupsResponse>,
+            tonic::Status,
+        >;
+        /// Retrieve the details of a single VolumeBackup.
+        async fn get_volume_backup(
+            &self,
+            request: tonic::Request<super::GetVolumeBackupRequest>,
+        ) -> std::result::Result<tonic::Response<super::VolumeBackup>, tonic::Status>;
+        /// Creates a new RestorePlan in a given location.
+        async fn create_restore_plan(
+            &self,
+            request: tonic::Request<super::CreateRestorePlanRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists RestorePlans in a given location.
+        async fn list_restore_plans(
+            &self,
+            request: tonic::Request<super::ListRestorePlansRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListRestorePlansResponse>,
+            tonic::Status,
+        >;
+        /// Retrieve the details of a single RestorePlan.
+        async fn get_restore_plan(
+            &self,
+            request: tonic::Request<super::GetRestorePlanRequest>,
+        ) -> std::result::Result<tonic::Response<super::RestorePlan>, tonic::Status>;
+        /// Update a RestorePlan.
+        async fn update_restore_plan(
+            &self,
+            request: tonic::Request<super::UpdateRestorePlanRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes an existing RestorePlan.
+        async fn delete_restore_plan(
+            &self,
+            request: tonic::Request<super::DeleteRestorePlanRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Creates a new Restore for the given RestorePlan.
+        async fn create_restore(
+            &self,
+            request: tonic::Request<super::CreateRestoreRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists the Restores for a given RestorePlan.
+        async fn list_restores(
+            &self,
+            request: tonic::Request<super::ListRestoresRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListRestoresResponse>,
+            tonic::Status,
+        >;
+        /// Retrieves the details of a single Restore.
+        async fn get_restore(
+            &self,
+            request: tonic::Request<super::GetRestoreRequest>,
+        ) -> std::result::Result<tonic::Response<super::Restore>, tonic::Status>;
+        /// Update a Restore.
+        async fn update_restore(
+            &self,
+            request: tonic::Request<super::UpdateRestoreRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes an existing Restore.
+        async fn delete_restore(
+            &self,
+            request: tonic::Request<super::DeleteRestoreRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists the VolumeRestores for a given Restore.
+        async fn list_volume_restores(
+            &self,
+            request: tonic::Request<super::ListVolumeRestoresRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListVolumeRestoresResponse>,
+            tonic::Status,
+        >;
+        /// Retrieve the details of a single VolumeRestore.
+        async fn get_volume_restore(
+            &self,
+            request: tonic::Request<super::GetVolumeRestoreRequest>,
+        ) -> std::result::Result<tonic::Response<super::VolumeRestore>, tonic::Status>;
+        /// Retrieve the link to the backupIndex.
+        async fn get_backup_index_download_url(
+            &self,
+            request: tonic::Request<super::GetBackupIndexDownloadUrlRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::GetBackupIndexDownloadUrlResponse>,
+            tonic::Status,
+        >;
+    }
+    /// BackupForGKE allows Kubernetes administrators to configure, execute, and
+    /// manage backup and restore operations for their GKE clusters.
+    #[derive(Debug)]
+    pub struct BackupForGkeServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> BackupForGkeServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for BackupForGkeServer<T>
+    where
+        T: BackupForGke,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.gkebackup.v1.BackupForGKE/CreateBackupPlan" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateBackupPlanSvc<T: BackupForGke>(pub Arc<T>);
+                    impl<
+                        T: BackupForGke,
+                    > tonic::server::UnaryService<super::CreateBackupPlanRequest>
+                    for CreateBackupPlanSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateBackupPlanRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BackupForGke>::create_backup_plan(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateBackupPlanSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkebackup.v1.BackupForGKE/ListBackupPlans" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListBackupPlansSvc<T: BackupForGke>(pub Arc<T>);
+                    impl<
+                        T: BackupForGke,
+                    > tonic::server::UnaryService<super::ListBackupPlansRequest>
+                    for ListBackupPlansSvc<T> {
+                        type Response = super::ListBackupPlansResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListBackupPlansRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BackupForGke>::list_backup_plans(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListBackupPlansSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkebackup.v1.BackupForGKE/GetBackupPlan" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetBackupPlanSvc<T: BackupForGke>(pub Arc<T>);
+                    impl<
+                        T: BackupForGke,
+                    > tonic::server::UnaryService<super::GetBackupPlanRequest>
+                    for GetBackupPlanSvc<T> {
+                        type Response = super::BackupPlan;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetBackupPlanRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BackupForGke>::get_backup_plan(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetBackupPlanSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkebackup.v1.BackupForGKE/UpdateBackupPlan" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateBackupPlanSvc<T: BackupForGke>(pub Arc<T>);
+                    impl<
+                        T: BackupForGke,
+                    > tonic::server::UnaryService<super::UpdateBackupPlanRequest>
+                    for UpdateBackupPlanSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateBackupPlanRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BackupForGke>::update_backup_plan(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateBackupPlanSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkebackup.v1.BackupForGKE/DeleteBackupPlan" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteBackupPlanSvc<T: BackupForGke>(pub Arc<T>);
+                    impl<
+                        T: BackupForGke,
+                    > tonic::server::UnaryService<super::DeleteBackupPlanRequest>
+                    for DeleteBackupPlanSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteBackupPlanRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BackupForGke>::delete_backup_plan(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteBackupPlanSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkebackup.v1.BackupForGKE/CreateBackup" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateBackupSvc<T: BackupForGke>(pub Arc<T>);
+                    impl<
+                        T: BackupForGke,
+                    > tonic::server::UnaryService<super::CreateBackupRequest>
+                    for CreateBackupSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateBackupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BackupForGke>::create_backup(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateBackupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkebackup.v1.BackupForGKE/ListBackups" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListBackupsSvc<T: BackupForGke>(pub Arc<T>);
+                    impl<
+                        T: BackupForGke,
+                    > tonic::server::UnaryService<super::ListBackupsRequest>
+                    for ListBackupsSvc<T> {
+                        type Response = super::ListBackupsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListBackupsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BackupForGke>::list_backups(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListBackupsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkebackup.v1.BackupForGKE/GetBackup" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetBackupSvc<T: BackupForGke>(pub Arc<T>);
+                    impl<
+                        T: BackupForGke,
+                    > tonic::server::UnaryService<super::GetBackupRequest>
+                    for GetBackupSvc<T> {
+                        type Response = super::Backup;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetBackupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BackupForGke>::get_backup(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetBackupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkebackup.v1.BackupForGKE/UpdateBackup" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateBackupSvc<T: BackupForGke>(pub Arc<T>);
+                    impl<
+                        T: BackupForGke,
+                    > tonic::server::UnaryService<super::UpdateBackupRequest>
+                    for UpdateBackupSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateBackupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BackupForGke>::update_backup(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateBackupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkebackup.v1.BackupForGKE/DeleteBackup" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteBackupSvc<T: BackupForGke>(pub Arc<T>);
+                    impl<
+                        T: BackupForGke,
+                    > tonic::server::UnaryService<super::DeleteBackupRequest>
+                    for DeleteBackupSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteBackupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BackupForGke>::delete_backup(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteBackupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkebackup.v1.BackupForGKE/ListVolumeBackups" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListVolumeBackupsSvc<T: BackupForGke>(pub Arc<T>);
+                    impl<
+                        T: BackupForGke,
+                    > tonic::server::UnaryService<super::ListVolumeBackupsRequest>
+                    for ListVolumeBackupsSvc<T> {
+                        type Response = super::ListVolumeBackupsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListVolumeBackupsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BackupForGke>::list_volume_backups(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListVolumeBackupsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkebackup.v1.BackupForGKE/GetVolumeBackup" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetVolumeBackupSvc<T: BackupForGke>(pub Arc<T>);
+                    impl<
+                        T: BackupForGke,
+                    > tonic::server::UnaryService<super::GetVolumeBackupRequest>
+                    for GetVolumeBackupSvc<T> {
+                        type Response = super::VolumeBackup;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetVolumeBackupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BackupForGke>::get_volume_backup(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetVolumeBackupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkebackup.v1.BackupForGKE/CreateRestorePlan" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateRestorePlanSvc<T: BackupForGke>(pub Arc<T>);
+                    impl<
+                        T: BackupForGke,
+                    > tonic::server::UnaryService<super::CreateRestorePlanRequest>
+                    for CreateRestorePlanSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateRestorePlanRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BackupForGke>::create_restore_plan(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateRestorePlanSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkebackup.v1.BackupForGKE/ListRestorePlans" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListRestorePlansSvc<T: BackupForGke>(pub Arc<T>);
+                    impl<
+                        T: BackupForGke,
+                    > tonic::server::UnaryService<super::ListRestorePlansRequest>
+                    for ListRestorePlansSvc<T> {
+                        type Response = super::ListRestorePlansResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListRestorePlansRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BackupForGke>::list_restore_plans(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListRestorePlansSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkebackup.v1.BackupForGKE/GetRestorePlan" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetRestorePlanSvc<T: BackupForGke>(pub Arc<T>);
+                    impl<
+                        T: BackupForGke,
+                    > tonic::server::UnaryService<super::GetRestorePlanRequest>
+                    for GetRestorePlanSvc<T> {
+                        type Response = super::RestorePlan;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetRestorePlanRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BackupForGke>::get_restore_plan(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetRestorePlanSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkebackup.v1.BackupForGKE/UpdateRestorePlan" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateRestorePlanSvc<T: BackupForGke>(pub Arc<T>);
+                    impl<
+                        T: BackupForGke,
+                    > tonic::server::UnaryService<super::UpdateRestorePlanRequest>
+                    for UpdateRestorePlanSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateRestorePlanRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BackupForGke>::update_restore_plan(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateRestorePlanSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkebackup.v1.BackupForGKE/DeleteRestorePlan" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteRestorePlanSvc<T: BackupForGke>(pub Arc<T>);
+                    impl<
+                        T: BackupForGke,
+                    > tonic::server::UnaryService<super::DeleteRestorePlanRequest>
+                    for DeleteRestorePlanSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteRestorePlanRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BackupForGke>::delete_restore_plan(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteRestorePlanSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkebackup.v1.BackupForGKE/CreateRestore" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateRestoreSvc<T: BackupForGke>(pub Arc<T>);
+                    impl<
+                        T: BackupForGke,
+                    > tonic::server::UnaryService<super::CreateRestoreRequest>
+                    for CreateRestoreSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateRestoreRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BackupForGke>::create_restore(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateRestoreSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkebackup.v1.BackupForGKE/ListRestores" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListRestoresSvc<T: BackupForGke>(pub Arc<T>);
+                    impl<
+                        T: BackupForGke,
+                    > tonic::server::UnaryService<super::ListRestoresRequest>
+                    for ListRestoresSvc<T> {
+                        type Response = super::ListRestoresResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListRestoresRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BackupForGke>::list_restores(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListRestoresSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkebackup.v1.BackupForGKE/GetRestore" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetRestoreSvc<T: BackupForGke>(pub Arc<T>);
+                    impl<
+                        T: BackupForGke,
+                    > tonic::server::UnaryService<super::GetRestoreRequest>
+                    for GetRestoreSvc<T> {
+                        type Response = super::Restore;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetRestoreRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BackupForGke>::get_restore(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetRestoreSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkebackup.v1.BackupForGKE/UpdateRestore" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateRestoreSvc<T: BackupForGke>(pub Arc<T>);
+                    impl<
+                        T: BackupForGke,
+                    > tonic::server::UnaryService<super::UpdateRestoreRequest>
+                    for UpdateRestoreSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateRestoreRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BackupForGke>::update_restore(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateRestoreSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkebackup.v1.BackupForGKE/DeleteRestore" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteRestoreSvc<T: BackupForGke>(pub Arc<T>);
+                    impl<
+                        T: BackupForGke,
+                    > tonic::server::UnaryService<super::DeleteRestoreRequest>
+                    for DeleteRestoreSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteRestoreRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BackupForGke>::delete_restore(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteRestoreSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkebackup.v1.BackupForGKE/ListVolumeRestores" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListVolumeRestoresSvc<T: BackupForGke>(pub Arc<T>);
+                    impl<
+                        T: BackupForGke,
+                    > tonic::server::UnaryService<super::ListVolumeRestoresRequest>
+                    for ListVolumeRestoresSvc<T> {
+                        type Response = super::ListVolumeRestoresResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListVolumeRestoresRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BackupForGke>::list_volume_restores(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListVolumeRestoresSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkebackup.v1.BackupForGKE/GetVolumeRestore" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetVolumeRestoreSvc<T: BackupForGke>(pub Arc<T>);
+                    impl<
+                        T: BackupForGke,
+                    > tonic::server::UnaryService<super::GetVolumeRestoreRequest>
+                    for GetVolumeRestoreSvc<T> {
+                        type Response = super::VolumeRestore;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetVolumeRestoreRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BackupForGke>::get_volume_restore(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetVolumeRestoreSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkebackup.v1.BackupForGKE/GetBackupIndexDownloadUrl" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetBackupIndexDownloadUrlSvc<T: BackupForGke>(pub Arc<T>);
+                    impl<
+                        T: BackupForGke,
+                    > tonic::server::UnaryService<
+                        super::GetBackupIndexDownloadUrlRequest,
+                    > for GetBackupIndexDownloadUrlSvc<T> {
+                        type Response = super::GetBackupIndexDownloadUrlResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetBackupIndexDownloadUrlRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BackupForGke>::get_backup_index_download_url(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetBackupIndexDownloadUrlSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for BackupForGkeServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.gkebackup.v1.BackupForGKE";
+    impl<T> tonic::server::NamedService for BackupForGkeServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

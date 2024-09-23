@@ -80,8 +80,8 @@ pub mod database {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::Hive => "HIVE",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::Hive => "HIVE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -164,8 +164,8 @@ pub mod table {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::Hive => "HIVE",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::Hive => "HIVE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -235,8 +235,8 @@ pub mod lock {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::Exclusive => "EXCLUSIVE",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::Exclusive => "EXCLUSIVE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -276,9 +276,9 @@ pub mod lock {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Waiting => "WAITING",
-                State::Acquired => "ACQUIRED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Waiting => "WAITING",
+                Self::Acquired => "ACQUIRED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -698,9 +698,9 @@ impl TableView {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            TableView::Unspecified => "TABLE_VIEW_UNSPECIFIED",
-            TableView::Basic => "BASIC",
-            TableView::Full => "FULL",
+            Self::Unspecified => "TABLE_VIEW_UNSPECIFIED",
+            Self::Basic => "BASIC",
+            Self::Full => "FULL",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1341,5 +1341,1104 @@ pub mod metastore_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod metastore_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with MetastoreServiceServer.
+    #[async_trait]
+    pub trait MetastoreService: std::marker::Send + std::marker::Sync + 'static {
+        /// Creates a new catalog.
+        async fn create_catalog(
+            &self,
+            request: tonic::Request<super::CreateCatalogRequest>,
+        ) -> std::result::Result<tonic::Response<super::Catalog>, tonic::Status>;
+        /// Deletes an existing catalog specified by the catalog ID.
+        async fn delete_catalog(
+            &self,
+            request: tonic::Request<super::DeleteCatalogRequest>,
+        ) -> std::result::Result<tonic::Response<super::Catalog>, tonic::Status>;
+        /// Gets the catalog specified by the resource name.
+        async fn get_catalog(
+            &self,
+            request: tonic::Request<super::GetCatalogRequest>,
+        ) -> std::result::Result<tonic::Response<super::Catalog>, tonic::Status>;
+        /// List all catalogs in a specified project.
+        async fn list_catalogs(
+            &self,
+            request: tonic::Request<super::ListCatalogsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListCatalogsResponse>,
+            tonic::Status,
+        >;
+        /// Creates a new database.
+        async fn create_database(
+            &self,
+            request: tonic::Request<super::CreateDatabaseRequest>,
+        ) -> std::result::Result<tonic::Response<super::Database>, tonic::Status>;
+        /// Deletes an existing database specified by the database ID.
+        async fn delete_database(
+            &self,
+            request: tonic::Request<super::DeleteDatabaseRequest>,
+        ) -> std::result::Result<tonic::Response<super::Database>, tonic::Status>;
+        /// Updates an existing database specified by the database ID.
+        async fn update_database(
+            &self,
+            request: tonic::Request<super::UpdateDatabaseRequest>,
+        ) -> std::result::Result<tonic::Response<super::Database>, tonic::Status>;
+        /// Gets the database specified by the resource name.
+        async fn get_database(
+            &self,
+            request: tonic::Request<super::GetDatabaseRequest>,
+        ) -> std::result::Result<tonic::Response<super::Database>, tonic::Status>;
+        /// List all databases in a specified catalog.
+        async fn list_databases(
+            &self,
+            request: tonic::Request<super::ListDatabasesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDatabasesResponse>,
+            tonic::Status,
+        >;
+        /// Creates a new table.
+        async fn create_table(
+            &self,
+            request: tonic::Request<super::CreateTableRequest>,
+        ) -> std::result::Result<tonic::Response<super::Table>, tonic::Status>;
+        /// Deletes an existing table specified by the table ID.
+        async fn delete_table(
+            &self,
+            request: tonic::Request<super::DeleteTableRequest>,
+        ) -> std::result::Result<tonic::Response<super::Table>, tonic::Status>;
+        /// Updates an existing table specified by the table ID.
+        async fn update_table(
+            &self,
+            request: tonic::Request<super::UpdateTableRequest>,
+        ) -> std::result::Result<tonic::Response<super::Table>, tonic::Status>;
+        /// Renames an existing table specified by the table ID.
+        async fn rename_table(
+            &self,
+            request: tonic::Request<super::RenameTableRequest>,
+        ) -> std::result::Result<tonic::Response<super::Table>, tonic::Status>;
+        /// Gets the table specified by the resource name.
+        async fn get_table(
+            &self,
+            request: tonic::Request<super::GetTableRequest>,
+        ) -> std::result::Result<tonic::Response<super::Table>, tonic::Status>;
+        /// List all tables in a specified database.
+        async fn list_tables(
+            &self,
+            request: tonic::Request<super::ListTablesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListTablesResponse>,
+            tonic::Status,
+        >;
+        /// Creates a new lock.
+        async fn create_lock(
+            &self,
+            request: tonic::Request<super::CreateLockRequest>,
+        ) -> std::result::Result<tonic::Response<super::Lock>, tonic::Status>;
+        /// Deletes an existing lock specified by the lock ID.
+        async fn delete_lock(
+            &self,
+            request: tonic::Request<super::DeleteLockRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Checks the state of a lock specified by the lock ID.
+        async fn check_lock(
+            &self,
+            request: tonic::Request<super::CheckLockRequest>,
+        ) -> std::result::Result<tonic::Response<super::Lock>, tonic::Status>;
+        /// List all locks in a specified database.
+        async fn list_locks(
+            &self,
+            request: tonic::Request<super::ListLocksRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListLocksResponse>,
+            tonic::Status,
+        >;
+    }
+    /// BigLake Metastore is a serverless, highly available, multi-tenant runtime
+    /// metastore for Google Cloud Data Analytics products.
+    ///
+    /// The BigLake Metastore API defines the following resource model:
+    ///
+    /// * A collection of Google Cloud projects: `/projects/*`
+    /// * Each project has a collection of available locations: `/locations/*`
+    /// * Each location has a collection of catalogs: `/catalogs/*`
+    /// * Each catalog has a collection of databases: `/databases/*`
+    /// * Each database has a collection of tables: `/tables/*`
+    #[derive(Debug)]
+    pub struct MetastoreServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> MetastoreServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for MetastoreServiceServer<T>
+    where
+        T: MetastoreService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.bigquery.biglake.v1alpha1.MetastoreService/CreateCatalog" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateCatalogSvc<T: MetastoreService>(pub Arc<T>);
+                    impl<
+                        T: MetastoreService,
+                    > tonic::server::UnaryService<super::CreateCatalogRequest>
+                    for CreateCatalogSvc<T> {
+                        type Response = super::Catalog;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateCatalogRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MetastoreService>::create_catalog(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateCatalogSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.biglake.v1alpha1.MetastoreService/DeleteCatalog" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteCatalogSvc<T: MetastoreService>(pub Arc<T>);
+                    impl<
+                        T: MetastoreService,
+                    > tonic::server::UnaryService<super::DeleteCatalogRequest>
+                    for DeleteCatalogSvc<T> {
+                        type Response = super::Catalog;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteCatalogRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MetastoreService>::delete_catalog(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteCatalogSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.biglake.v1alpha1.MetastoreService/GetCatalog" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetCatalogSvc<T: MetastoreService>(pub Arc<T>);
+                    impl<
+                        T: MetastoreService,
+                    > tonic::server::UnaryService<super::GetCatalogRequest>
+                    for GetCatalogSvc<T> {
+                        type Response = super::Catalog;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetCatalogRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MetastoreService>::get_catalog(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetCatalogSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.biglake.v1alpha1.MetastoreService/ListCatalogs" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListCatalogsSvc<T: MetastoreService>(pub Arc<T>);
+                    impl<
+                        T: MetastoreService,
+                    > tonic::server::UnaryService<super::ListCatalogsRequest>
+                    for ListCatalogsSvc<T> {
+                        type Response = super::ListCatalogsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListCatalogsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MetastoreService>::list_catalogs(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListCatalogsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.biglake.v1alpha1.MetastoreService/CreateDatabase" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateDatabaseSvc<T: MetastoreService>(pub Arc<T>);
+                    impl<
+                        T: MetastoreService,
+                    > tonic::server::UnaryService<super::CreateDatabaseRequest>
+                    for CreateDatabaseSvc<T> {
+                        type Response = super::Database;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateDatabaseRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MetastoreService>::create_database(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateDatabaseSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.biglake.v1alpha1.MetastoreService/DeleteDatabase" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteDatabaseSvc<T: MetastoreService>(pub Arc<T>);
+                    impl<
+                        T: MetastoreService,
+                    > tonic::server::UnaryService<super::DeleteDatabaseRequest>
+                    for DeleteDatabaseSvc<T> {
+                        type Response = super::Database;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteDatabaseRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MetastoreService>::delete_database(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteDatabaseSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.biglake.v1alpha1.MetastoreService/UpdateDatabase" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateDatabaseSvc<T: MetastoreService>(pub Arc<T>);
+                    impl<
+                        T: MetastoreService,
+                    > tonic::server::UnaryService<super::UpdateDatabaseRequest>
+                    for UpdateDatabaseSvc<T> {
+                        type Response = super::Database;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateDatabaseRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MetastoreService>::update_database(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateDatabaseSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.biglake.v1alpha1.MetastoreService/GetDatabase" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetDatabaseSvc<T: MetastoreService>(pub Arc<T>);
+                    impl<
+                        T: MetastoreService,
+                    > tonic::server::UnaryService<super::GetDatabaseRequest>
+                    for GetDatabaseSvc<T> {
+                        type Response = super::Database;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetDatabaseRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MetastoreService>::get_database(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetDatabaseSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.biglake.v1alpha1.MetastoreService/ListDatabases" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDatabasesSvc<T: MetastoreService>(pub Arc<T>);
+                    impl<
+                        T: MetastoreService,
+                    > tonic::server::UnaryService<super::ListDatabasesRequest>
+                    for ListDatabasesSvc<T> {
+                        type Response = super::ListDatabasesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListDatabasesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MetastoreService>::list_databases(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDatabasesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.biglake.v1alpha1.MetastoreService/CreateTable" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateTableSvc<T: MetastoreService>(pub Arc<T>);
+                    impl<
+                        T: MetastoreService,
+                    > tonic::server::UnaryService<super::CreateTableRequest>
+                    for CreateTableSvc<T> {
+                        type Response = super::Table;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateTableRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MetastoreService>::create_table(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateTableSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.biglake.v1alpha1.MetastoreService/DeleteTable" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteTableSvc<T: MetastoreService>(pub Arc<T>);
+                    impl<
+                        T: MetastoreService,
+                    > tonic::server::UnaryService<super::DeleteTableRequest>
+                    for DeleteTableSvc<T> {
+                        type Response = super::Table;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteTableRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MetastoreService>::delete_table(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteTableSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.biglake.v1alpha1.MetastoreService/UpdateTable" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateTableSvc<T: MetastoreService>(pub Arc<T>);
+                    impl<
+                        T: MetastoreService,
+                    > tonic::server::UnaryService<super::UpdateTableRequest>
+                    for UpdateTableSvc<T> {
+                        type Response = super::Table;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateTableRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MetastoreService>::update_table(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateTableSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.biglake.v1alpha1.MetastoreService/RenameTable" => {
+                    #[allow(non_camel_case_types)]
+                    struct RenameTableSvc<T: MetastoreService>(pub Arc<T>);
+                    impl<
+                        T: MetastoreService,
+                    > tonic::server::UnaryService<super::RenameTableRequest>
+                    for RenameTableSvc<T> {
+                        type Response = super::Table;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RenameTableRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MetastoreService>::rename_table(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RenameTableSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.biglake.v1alpha1.MetastoreService/GetTable" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetTableSvc<T: MetastoreService>(pub Arc<T>);
+                    impl<
+                        T: MetastoreService,
+                    > tonic::server::UnaryService<super::GetTableRequest>
+                    for GetTableSvc<T> {
+                        type Response = super::Table;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetTableRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MetastoreService>::get_table(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetTableSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.biglake.v1alpha1.MetastoreService/ListTables" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListTablesSvc<T: MetastoreService>(pub Arc<T>);
+                    impl<
+                        T: MetastoreService,
+                    > tonic::server::UnaryService<super::ListTablesRequest>
+                    for ListTablesSvc<T> {
+                        type Response = super::ListTablesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListTablesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MetastoreService>::list_tables(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListTablesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.biglake.v1alpha1.MetastoreService/CreateLock" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateLockSvc<T: MetastoreService>(pub Arc<T>);
+                    impl<
+                        T: MetastoreService,
+                    > tonic::server::UnaryService<super::CreateLockRequest>
+                    for CreateLockSvc<T> {
+                        type Response = super::Lock;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateLockRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MetastoreService>::create_lock(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateLockSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.biglake.v1alpha1.MetastoreService/DeleteLock" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteLockSvc<T: MetastoreService>(pub Arc<T>);
+                    impl<
+                        T: MetastoreService,
+                    > tonic::server::UnaryService<super::DeleteLockRequest>
+                    for DeleteLockSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteLockRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MetastoreService>::delete_lock(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteLockSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.biglake.v1alpha1.MetastoreService/CheckLock" => {
+                    #[allow(non_camel_case_types)]
+                    struct CheckLockSvc<T: MetastoreService>(pub Arc<T>);
+                    impl<
+                        T: MetastoreService,
+                    > tonic::server::UnaryService<super::CheckLockRequest>
+                    for CheckLockSvc<T> {
+                        type Response = super::Lock;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CheckLockRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MetastoreService>::check_lock(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CheckLockSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.biglake.v1alpha1.MetastoreService/ListLocks" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListLocksSvc<T: MetastoreService>(pub Arc<T>);
+                    impl<
+                        T: MetastoreService,
+                    > tonic::server::UnaryService<super::ListLocksRequest>
+                    for ListLocksSvc<T> {
+                        type Response = super::ListLocksResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListLocksRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MetastoreService>::list_locks(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListLocksSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for MetastoreServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.bigquery.biglake.v1alpha1.MetastoreService";
+    impl<T> tonic::server::NamedService for MetastoreServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

@@ -39,6 +39,476 @@ pub struct ErrorLocation {
     #[prost(int32, tag = "2")]
     pub column: i32,
 }
+/// The request of translating a SQL query to Standard SQL.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct TranslateQueryRequest {
+    /// Required. The name of the project to which this translation request belongs.
+    /// Example: `projects/foo/locations/bar`
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// Required. The source SQL dialect of `queries`.
+    #[prost(
+        enumeration = "translate_query_request::SqlTranslationSourceDialect",
+        tag = "2"
+    )]
+    pub source_dialect: i32,
+    /// Required. The query to be translated.
+    #[prost(string, tag = "3")]
+    pub query: ::prost::alloc::string::String,
+}
+/// Nested message and enum types in `TranslateQueryRequest`.
+pub mod translate_query_request {
+    /// Supported SQL translation source dialects.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum SqlTranslationSourceDialect {
+        /// SqlTranslationSourceDialect not specified.
+        Unspecified = 0,
+        /// Teradata SQL.
+        Teradata = 1,
+    }
+    impl SqlTranslationSourceDialect {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "SQL_TRANSLATION_SOURCE_DIALECT_UNSPECIFIED",
+                Self::Teradata => "TERADATA",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "SQL_TRANSLATION_SOURCE_DIALECT_UNSPECIFIED" => Some(Self::Unspecified),
+                "TERADATA" => Some(Self::Teradata),
+                _ => None,
+            }
+        }
+    }
+}
+/// The response of translating a SQL query to Standard SQL.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct TranslateQueryResponse {
+    /// Output only. Immutable. The unique identifier for the SQL translation job.
+    /// Example: `projects/123/locations/us/translation/1234`
+    #[prost(string, tag = "4")]
+    pub translation_job: ::prost::alloc::string::String,
+    /// The translated result. This will be empty if the translation fails.
+    #[prost(string, tag = "1")]
+    pub translated_query: ::prost::alloc::string::String,
+    /// The list of errors encountered during the translation, if present.
+    #[prost(message, repeated, tag = "2")]
+    pub errors: ::prost::alloc::vec::Vec<SqlTranslationError>,
+    /// The list of warnings encountered during the translation, if present,
+    /// indicates non-semantically correct translation.
+    #[prost(message, repeated, tag = "3")]
+    pub warnings: ::prost::alloc::vec::Vec<SqlTranslationWarning>,
+}
+/// Structured error object capturing the error message and the location in the
+/// source text where the error occurs.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SqlTranslationErrorDetail {
+    /// Specifies the row from the source text where the error occurred.
+    #[prost(int64, tag = "1")]
+    pub row: i64,
+    /// Specifie the column from the source texts where the error occurred.
+    #[prost(int64, tag = "2")]
+    pub column: i64,
+    /// A human-readable description of the error.
+    #[prost(string, tag = "3")]
+    pub message: ::prost::alloc::string::String,
+}
+/// The detailed error object if the SQL translation job fails.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SqlTranslationError {
+    /// The type of SQL translation error.
+    #[prost(enumeration = "sql_translation_error::SqlTranslationErrorType", tag = "1")]
+    pub error_type: i32,
+    /// Specifies the details of the error, including the error message and
+    /// location from the source text.
+    #[prost(message, optional, tag = "2")]
+    pub error_detail: ::core::option::Option<SqlTranslationErrorDetail>,
+}
+/// Nested message and enum types in `SqlTranslationError`.
+pub mod sql_translation_error {
+    /// The error type of the SQL translation job.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum SqlTranslationErrorType {
+        /// SqlTranslationErrorType not specified.
+        Unspecified = 0,
+        /// Failed to parse the input text as a SQL query.
+        SqlParseError = 1,
+        /// Found unsupported functions in the input SQL query that are not able to
+        /// translate.
+        UnsupportedSqlFunction = 2,
+    }
+    impl SqlTranslationErrorType {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "SQL_TRANSLATION_ERROR_TYPE_UNSPECIFIED",
+                Self::SqlParseError => "SQL_PARSE_ERROR",
+                Self::UnsupportedSqlFunction => "UNSUPPORTED_SQL_FUNCTION",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "SQL_TRANSLATION_ERROR_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "SQL_PARSE_ERROR" => Some(Self::SqlParseError),
+                "UNSUPPORTED_SQL_FUNCTION" => Some(Self::UnsupportedSqlFunction),
+                _ => None,
+            }
+        }
+    }
+}
+/// The detailed warning object if the SQL translation job is completed but not
+/// semantically correct.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct SqlTranslationWarning {
+    /// Specifies the details of the warning, including the warning message and
+    /// location from the source text.
+    #[prost(message, optional, tag = "1")]
+    pub warning_detail: ::core::option::Option<SqlTranslationErrorDetail>,
+}
+/// Generated client implementations.
+pub mod sql_translation_service_client {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    use tonic::codegen::http::Uri;
+    /// Provides other SQL dialects to GoogleSQL translation operations.
+    #[derive(Debug, Clone)]
+    pub struct SqlTranslationServiceClient<T> {
+        inner: tonic::client::Grpc<T>,
+    }
+    impl<T> SqlTranslationServiceClient<T>
+    where
+        T: tonic::client::GrpcService<tonic::body::BoxBody>,
+        T::Error: Into<StdError>,
+        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
+    {
+        pub fn new(inner: T) -> Self {
+            let inner = tonic::client::Grpc::new(inner);
+            Self { inner }
+        }
+        pub fn with_origin(inner: T, origin: Uri) -> Self {
+            let inner = tonic::client::Grpc::with_origin(inner, origin);
+            Self { inner }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> SqlTranslationServiceClient<InterceptedService<T, F>>
+        where
+            F: tonic::service::Interceptor,
+            T::ResponseBody: Default,
+            T: tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+                Response = http::Response<
+                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
+                >,
+            >,
+            <T as tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+            >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
+        {
+            SqlTranslationServiceClient::new(InterceptedService::new(inner, interceptor))
+        }
+        /// Compress requests with the given encoding.
+        ///
+        /// This requires the server to support it otherwise it might respond with an
+        /// error.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.send_compressed(encoding);
+            self
+        }
+        /// Enable decompressing responses.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.accept_compressed(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
+        /// Translates input queries from source dialects to GoogleSQL.
+        pub async fn translate_query(
+            &mut self,
+            request: impl tonic::IntoRequest<super::TranslateQueryRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::TranslateQueryResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.bigquery.migration.v2alpha.SqlTranslationService/TranslateQuery",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.bigquery.migration.v2alpha.SqlTranslationService",
+                        "TranslateQuery",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+    }
+}
+/// Generated server implementations.
+pub mod sql_translation_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with SqlTranslationServiceServer.
+    #[async_trait]
+    pub trait SqlTranslationService: std::marker::Send + std::marker::Sync + 'static {
+        /// Translates input queries from source dialects to GoogleSQL.
+        async fn translate_query(
+            &self,
+            request: tonic::Request<super::TranslateQueryRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::TranslateQueryResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Provides other SQL dialects to GoogleSQL translation operations.
+    #[derive(Debug)]
+    pub struct SqlTranslationServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> SqlTranslationServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for SqlTranslationServiceServer<T>
+    where
+        T: SqlTranslationService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.bigquery.migration.v2alpha.SqlTranslationService/TranslateQuery" => {
+                    #[allow(non_camel_case_types)]
+                    struct TranslateQuerySvc<T: SqlTranslationService>(pub Arc<T>);
+                    impl<
+                        T: SqlTranslationService,
+                    > tonic::server::UnaryService<super::TranslateQueryRequest>
+                    for TranslateQuerySvc<T> {
+                        type Response = super::TranslateQueryResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::TranslateQueryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SqlTranslationService>::translate_query(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = TranslateQuerySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for SqlTranslationServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.bigquery.migration.v2alpha.SqlTranslationService";
+    impl<T> tonic::server::NamedService for SqlTranslationServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}
+/// Assessment task config.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AssessmentTaskDetails {
+    /// Required. The Cloud Storage path for assessment input files.
+    #[prost(string, tag = "1")]
+    pub input_path: ::prost::alloc::string::String,
+    /// Required. The BigQuery dataset for output.
+    #[prost(string, tag = "2")]
+    pub output_dataset: ::prost::alloc::string::String,
+    /// Optional. An optional Cloud Storage path to write the query logs (which is
+    /// then used as an input path on the translation task)
+    #[prost(string, tag = "3")]
+    pub querylogs_path: ::prost::alloc::string::String,
+    /// Required. The data source or data warehouse type (eg: TERADATA/REDSHIFT)
+    /// from which the input data is extracted.
+    #[prost(string, tag = "4")]
+    pub data_source: ::prost::alloc::string::String,
+}
+/// Details for an assessment task orchestration result.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AssessmentOrchestrationResultDetails {
+    /// Optional. The version used for the output table schemas.
+    #[prost(string, tag = "1")]
+    pub output_tables_schema_version: ::prost::alloc::string::String,
+}
 /// The metrics object for a SubTask.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct TimeSeries {
@@ -137,31 +607,6 @@ pub mod typed_value {
         #[prost(message, tag = "5")]
         DistributionValue(super::super::super::super::super::api::Distribution),
     }
-}
-/// Assessment task config.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AssessmentTaskDetails {
-    /// Required. The Cloud Storage path for assessment input files.
-    #[prost(string, tag = "1")]
-    pub input_path: ::prost::alloc::string::String,
-    /// Required. The BigQuery dataset for output.
-    #[prost(string, tag = "2")]
-    pub output_dataset: ::prost::alloc::string::String,
-    /// Optional. An optional Cloud Storage path to write the query logs (which is
-    /// then used as an input path on the translation task)
-    #[prost(string, tag = "3")]
-    pub querylogs_path: ::prost::alloc::string::String,
-    /// Required. The data source or data warehouse type (eg: TERADATA/REDSHIFT)
-    /// from which the input data is extracted.
-    #[prost(string, tag = "4")]
-    pub data_source: ::prost::alloc::string::String,
-}
-/// Details for an assessment task orchestration result.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AssessmentOrchestrationResultDetails {
-    /// Optional. The version used for the output table schemas.
-    #[prost(string, tag = "1")]
-    pub output_tables_schema_version: ::prost::alloc::string::String,
 }
 /// Mapping between an input and output file to be translated in a subtask.
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -263,13 +708,13 @@ pub mod translation_task_details {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                FileEncoding::Unspecified => "FILE_ENCODING_UNSPECIFIED",
-                FileEncoding::Utf8 => "UTF_8",
-                FileEncoding::Iso88591 => "ISO_8859_1",
-                FileEncoding::UsAscii => "US_ASCII",
-                FileEncoding::Utf16 => "UTF_16",
-                FileEncoding::Utf16le => "UTF_16LE",
-                FileEncoding::Utf16be => "UTF_16BE",
+                Self::Unspecified => "FILE_ENCODING_UNSPECIFIED",
+                Self::Utf8 => "UTF_8",
+                Self::Iso88591 => "ISO_8859_1",
+                Self::UsAscii => "US_ASCII",
+                Self::Utf16 => "UTF_16",
+                Self::Utf16le => "UTF_16LE",
+                Self::Utf16be => "UTF_16BE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -324,14 +769,14 @@ pub mod translation_task_details {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                TokenType::Unspecified => "TOKEN_TYPE_UNSPECIFIED",
-                TokenType::String => "STRING",
-                TokenType::Int64 => "INT64",
-                TokenType::Numeric => "NUMERIC",
-                TokenType::Bool => "BOOL",
-                TokenType::Float64 => "FLOAT64",
-                TokenType::Date => "DATE",
-                TokenType::Timestamp => "TIMESTAMP",
+                Self::Unspecified => "TOKEN_TYPE_UNSPECIFIED",
+                Self::String => "STRING",
+                Self::Int64 => "INT64",
+                Self::Numeric => "NUMERIC",
+                Self::Bool => "BOOL",
+                Self::Float64 => "FLOAT64",
+                Self::Date => "DATE",
+                Self::Timestamp => "TIMESTAMP",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -411,10 +856,10 @@ pub mod identifier_settings {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                IdentifierCase::Unspecified => "IDENTIFIER_CASE_UNSPECIFIED",
-                IdentifierCase::Original => "ORIGINAL",
-                IdentifierCase::Upper => "UPPER",
-                IdentifierCase::Lower => "LOWER",
+                Self::Unspecified => "IDENTIFIER_CASE_UNSPECIFIED",
+                Self::Original => "ORIGINAL",
+                Self::Upper => "UPPER",
+                Self::Lower => "LOWER",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -456,11 +901,9 @@ pub mod identifier_settings {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                IdentifierRewriteMode::Unspecified => {
-                    "IDENTIFIER_REWRITE_MODE_UNSPECIFIED"
-                }
-                IdentifierRewriteMode::None => "NONE",
-                IdentifierRewriteMode::RewriteAll => "REWRITE_ALL",
+                Self::Unspecified => "IDENTIFIER_REWRITE_MODE_UNSPECIFIED",
+                Self::None => "NONE",
+                Self::RewriteAll => "REWRITE_ALL",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -579,11 +1022,11 @@ pub mod migration_workflow {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Draft => "DRAFT",
-                State::Running => "RUNNING",
-                State::Paused => "PAUSED",
-                State::Completed => "COMPLETED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Draft => "DRAFT",
+                Self::Running => "RUNNING",
+                Self::Paused => "PAUSED",
+                Self::Completed => "COMPLETED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -674,13 +1117,13 @@ pub mod migration_task {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Pending => "PENDING",
-                State::Orchestrating => "ORCHESTRATING",
-                State::Running => "RUNNING",
-                State::Paused => "PAUSED",
-                State::Succeeded => "SUCCEEDED",
-                State::Failed => "FAILED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Pending => "PENDING",
+                Self::Orchestrating => "ORCHESTRATING",
+                Self::Running => "RUNNING",
+                Self::Paused => "PAUSED",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Failed => "FAILED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -793,12 +1236,12 @@ pub mod migration_subtask {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Active => "ACTIVE",
-                State::Running => "RUNNING",
-                State::Succeeded => "SUCCEEDED",
-                State::Failed => "FAILED",
-                State::Paused => "PAUSED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Active => "ACTIVE",
+                Self::Running => "RUNNING",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Failed => "FAILED",
+                Self::Paused => "PAUSED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1244,227 +1687,108 @@ pub mod migration_service_client {
         }
     }
 }
-/// The request of translating a SQL query to Standard SQL.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct TranslateQueryRequest {
-    /// Required. The name of the project to which this translation request belongs.
-    /// Example: `projects/foo/locations/bar`
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// Required. The source SQL dialect of `queries`.
-    #[prost(
-        enumeration = "translate_query_request::SqlTranslationSourceDialect",
-        tag = "2"
-    )]
-    pub source_dialect: i32,
-    /// Required. The query to be translated.
-    #[prost(string, tag = "3")]
-    pub query: ::prost::alloc::string::String,
-}
-/// Nested message and enum types in `TranslateQueryRequest`.
-pub mod translate_query_request {
-    /// Supported SQL translation source dialects.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum SqlTranslationSourceDialect {
-        /// SqlTranslationSourceDialect not specified.
-        Unspecified = 0,
-        /// Teradata SQL.
-        Teradata = 1,
-    }
-    impl SqlTranslationSourceDialect {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                SqlTranslationSourceDialect::Unspecified => {
-                    "SQL_TRANSLATION_SOURCE_DIALECT_UNSPECIFIED"
-                }
-                SqlTranslationSourceDialect::Teradata => "TERADATA",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "SQL_TRANSLATION_SOURCE_DIALECT_UNSPECIFIED" => Some(Self::Unspecified),
-                "TERADATA" => Some(Self::Teradata),
-                _ => None,
-            }
-        }
-    }
-}
-/// The response of translating a SQL query to Standard SQL.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct TranslateQueryResponse {
-    /// Output only. Immutable. The unique identifier for the SQL translation job.
-    /// Example: `projects/123/locations/us/translation/1234`
-    #[prost(string, tag = "4")]
-    pub translation_job: ::prost::alloc::string::String,
-    /// The translated result. This will be empty if the translation fails.
-    #[prost(string, tag = "1")]
-    pub translated_query: ::prost::alloc::string::String,
-    /// The list of errors encountered during the translation, if present.
-    #[prost(message, repeated, tag = "2")]
-    pub errors: ::prost::alloc::vec::Vec<SqlTranslationError>,
-    /// The list of warnings encountered during the translation, if present,
-    /// indicates non-semantically correct translation.
-    #[prost(message, repeated, tag = "3")]
-    pub warnings: ::prost::alloc::vec::Vec<SqlTranslationWarning>,
-}
-/// Structured error object capturing the error message and the location in the
-/// source text where the error occurs.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SqlTranslationErrorDetail {
-    /// Specifies the row from the source text where the error occurred.
-    #[prost(int64, tag = "1")]
-    pub row: i64,
-    /// Specifie the column from the source texts where the error occurred.
-    #[prost(int64, tag = "2")]
-    pub column: i64,
-    /// A human-readable description of the error.
-    #[prost(string, tag = "3")]
-    pub message: ::prost::alloc::string::String,
-}
-/// The detailed error object if the SQL translation job fails.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SqlTranslationError {
-    /// The type of SQL translation error.
-    #[prost(enumeration = "sql_translation_error::SqlTranslationErrorType", tag = "1")]
-    pub error_type: i32,
-    /// Specifies the details of the error, including the error message and
-    /// location from the source text.
-    #[prost(message, optional, tag = "2")]
-    pub error_detail: ::core::option::Option<SqlTranslationErrorDetail>,
-}
-/// Nested message and enum types in `SqlTranslationError`.
-pub mod sql_translation_error {
-    /// The error type of the SQL translation job.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum SqlTranslationErrorType {
-        /// SqlTranslationErrorType not specified.
-        Unspecified = 0,
-        /// Failed to parse the input text as a SQL query.
-        SqlParseError = 1,
-        /// Found unsupported functions in the input SQL query that are not able to
-        /// translate.
-        UnsupportedSqlFunction = 2,
-    }
-    impl SqlTranslationErrorType {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                SqlTranslationErrorType::Unspecified => {
-                    "SQL_TRANSLATION_ERROR_TYPE_UNSPECIFIED"
-                }
-                SqlTranslationErrorType::SqlParseError => "SQL_PARSE_ERROR",
-                SqlTranslationErrorType::UnsupportedSqlFunction => {
-                    "UNSUPPORTED_SQL_FUNCTION"
-                }
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "SQL_TRANSLATION_ERROR_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
-                "SQL_PARSE_ERROR" => Some(Self::SqlParseError),
-                "UNSUPPORTED_SQL_FUNCTION" => Some(Self::UnsupportedSqlFunction),
-                _ => None,
-            }
-        }
-    }
-}
-/// The detailed warning object if the SQL translation job is completed but not
-/// semantically correct.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct SqlTranslationWarning {
-    /// Specifies the details of the warning, including the warning message and
-    /// location from the source text.
-    #[prost(message, optional, tag = "1")]
-    pub warning_detail: ::core::option::Option<SqlTranslationErrorDetail>,
-}
-/// Generated client implementations.
-pub mod sql_translation_service_client {
+/// Generated server implementations.
+pub mod migration_service_server {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
-    use tonic::codegen::http::Uri;
-    /// Provides other SQL dialects to GoogleSQL translation operations.
-    #[derive(Debug, Clone)]
-    pub struct SqlTranslationServiceClient<T> {
-        inner: tonic::client::Grpc<T>,
+    /// Generated trait containing gRPC methods that should be implemented for use with MigrationServiceServer.
+    #[async_trait]
+    pub trait MigrationService: std::marker::Send + std::marker::Sync + 'static {
+        /// Creates a migration workflow.
+        async fn create_migration_workflow(
+            &self,
+            request: tonic::Request<super::CreateMigrationWorkflowRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::MigrationWorkflow>,
+            tonic::Status,
+        >;
+        /// Gets a previously created migration workflow.
+        async fn get_migration_workflow(
+            &self,
+            request: tonic::Request<super::GetMigrationWorkflowRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::MigrationWorkflow>,
+            tonic::Status,
+        >;
+        /// Lists previously created migration workflow.
+        async fn list_migration_workflows(
+            &self,
+            request: tonic::Request<super::ListMigrationWorkflowsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListMigrationWorkflowsResponse>,
+            tonic::Status,
+        >;
+        /// Deletes a migration workflow by name.
+        async fn delete_migration_workflow(
+            &self,
+            request: tonic::Request<super::DeleteMigrationWorkflowRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Starts a previously created migration workflow. I.e., the state transitions
+        /// from DRAFT to RUNNING. This is a no-op if the state is already RUNNING.
+        /// An error will be signaled if the state is anything other than DRAFT or
+        /// RUNNING.
+        async fn start_migration_workflow(
+            &self,
+            request: tonic::Request<super::StartMigrationWorkflowRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Gets a previously created migration subtask.
+        async fn get_migration_subtask(
+            &self,
+            request: tonic::Request<super::GetMigrationSubtaskRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::MigrationSubtask>,
+            tonic::Status,
+        >;
+        /// Lists previously created migration subtasks.
+        async fn list_migration_subtasks(
+            &self,
+            request: tonic::Request<super::ListMigrationSubtasksRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListMigrationSubtasksResponse>,
+            tonic::Status,
+        >;
     }
-    impl<T> SqlTranslationServiceClient<T>
-    where
-        T: tonic::client::GrpcService<tonic::body::BoxBody>,
-        T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
-    {
+    /// Service to handle EDW migrations.
+    #[derive(Debug)]
+    pub struct MigrationServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> MigrationServiceServer<T> {
         pub fn new(inner: T) -> Self {
-            let inner = tonic::client::Grpc::new(inner);
-            Self { inner }
+            Self::from_arc(Arc::new(inner))
         }
-        pub fn with_origin(inner: T, origin: Uri) -> Self {
-            let inner = tonic::client::Grpc::with_origin(inner, origin);
-            Self { inner }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
         }
         pub fn with_interceptor<F>(
             inner: T,
             interceptor: F,
-        ) -> SqlTranslationServiceClient<InterceptedService<T, F>>
+        ) -> InterceptedService<Self, F>
         where
             F: tonic::service::Interceptor,
-            T::ResponseBody: Default,
-            T: tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-                Response = http::Response<
-                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
-                >,
-            >,
-            <T as tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-            >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
         {
-            SqlTranslationServiceClient::new(InterceptedService::new(inner, interceptor))
+            InterceptedService::new(Self::new(inner), interceptor)
         }
-        /// Compress requests with the given encoding.
-        ///
-        /// This requires the server to support it otherwise it might respond with an
-        /// error.
-        #[must_use]
-        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.send_compressed(encoding);
-            self
-        }
-        /// Enable decompressing responses.
+        /// Enable decompressing requests with the given encoding.
         #[must_use]
         pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.accept_compressed(encoding);
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
             self
         }
         /// Limits the maximum size of a decoded message.
@@ -1472,7 +1796,7 @@ pub mod sql_translation_service_client {
         /// Default: `4MB`
         #[must_use]
         pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_decoding_message_size(limit);
+            self.max_decoding_message_size = Some(limit);
             self
         }
         /// Limits the maximum size of an encoded message.
@@ -1480,39 +1804,407 @@ pub mod sql_translation_service_client {
         /// Default: `usize::MAX`
         #[must_use]
         pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_encoding_message_size(limit);
+            self.max_encoding_message_size = Some(limit);
             self
         }
-        /// Translates input queries from source dialects to GoogleSQL.
-        pub async fn translate_query(
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for MigrationServiceServer<T>
+    where
+        T: MigrationService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
             &mut self,
-            request: impl tonic::IntoRequest<super::TranslateQueryRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::TranslateQueryResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.bigquery.migration.v2alpha.SqlTranslationService/TranslateQuery",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.bigquery.migration.v2alpha.SqlTranslationService",
-                        "TranslateQuery",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
         }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.bigquery.migration.v2alpha.MigrationService/CreateMigrationWorkflow" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateMigrationWorkflowSvc<T: MigrationService>(pub Arc<T>);
+                    impl<
+                        T: MigrationService,
+                    > tonic::server::UnaryService<super::CreateMigrationWorkflowRequest>
+                    for CreateMigrationWorkflowSvc<T> {
+                        type Response = super::MigrationWorkflow;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateMigrationWorkflowRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MigrationService>::create_migration_workflow(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateMigrationWorkflowSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.migration.v2alpha.MigrationService/GetMigrationWorkflow" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetMigrationWorkflowSvc<T: MigrationService>(pub Arc<T>);
+                    impl<
+                        T: MigrationService,
+                    > tonic::server::UnaryService<super::GetMigrationWorkflowRequest>
+                    for GetMigrationWorkflowSvc<T> {
+                        type Response = super::MigrationWorkflow;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetMigrationWorkflowRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MigrationService>::get_migration_workflow(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetMigrationWorkflowSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.migration.v2alpha.MigrationService/ListMigrationWorkflows" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListMigrationWorkflowsSvc<T: MigrationService>(pub Arc<T>);
+                    impl<
+                        T: MigrationService,
+                    > tonic::server::UnaryService<super::ListMigrationWorkflowsRequest>
+                    for ListMigrationWorkflowsSvc<T> {
+                        type Response = super::ListMigrationWorkflowsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListMigrationWorkflowsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MigrationService>::list_migration_workflows(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListMigrationWorkflowsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.migration.v2alpha.MigrationService/DeleteMigrationWorkflow" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteMigrationWorkflowSvc<T: MigrationService>(pub Arc<T>);
+                    impl<
+                        T: MigrationService,
+                    > tonic::server::UnaryService<super::DeleteMigrationWorkflowRequest>
+                    for DeleteMigrationWorkflowSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteMigrationWorkflowRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MigrationService>::delete_migration_workflow(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteMigrationWorkflowSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.migration.v2alpha.MigrationService/StartMigrationWorkflow" => {
+                    #[allow(non_camel_case_types)]
+                    struct StartMigrationWorkflowSvc<T: MigrationService>(pub Arc<T>);
+                    impl<
+                        T: MigrationService,
+                    > tonic::server::UnaryService<super::StartMigrationWorkflowRequest>
+                    for StartMigrationWorkflowSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::StartMigrationWorkflowRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MigrationService>::start_migration_workflow(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = StartMigrationWorkflowSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.migration.v2alpha.MigrationService/GetMigrationSubtask" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetMigrationSubtaskSvc<T: MigrationService>(pub Arc<T>);
+                    impl<
+                        T: MigrationService,
+                    > tonic::server::UnaryService<super::GetMigrationSubtaskRequest>
+                    for GetMigrationSubtaskSvc<T> {
+                        type Response = super::MigrationSubtask;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetMigrationSubtaskRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MigrationService>::get_migration_subtask(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetMigrationSubtaskSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.migration.v2alpha.MigrationService/ListMigrationSubtasks" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListMigrationSubtasksSvc<T: MigrationService>(pub Arc<T>);
+                    impl<
+                        T: MigrationService,
+                    > tonic::server::UnaryService<super::ListMigrationSubtasksRequest>
+                    for ListMigrationSubtasksSvc<T> {
+                        type Response = super::ListMigrationSubtasksResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListMigrationSubtasksRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MigrationService>::list_migration_subtasks(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListMigrationSubtasksSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for MigrationServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.bigquery.migration.v2alpha.MigrationService";
+    impl<T> tonic::server::NamedService for MigrationServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

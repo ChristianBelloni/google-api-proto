@@ -98,9 +98,9 @@ impl State {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            State::Unspecified => "STATE_UNSPECIFIED",
-            State::Disabled => "DISABLED",
-            State::Enabled => "ENABLED",
+            Self::Unspecified => "STATE_UNSPECIFIED",
+            Self::Disabled => "DISABLED",
+            Self::Enabled => "ENABLED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -195,11 +195,9 @@ pub mod disable_service_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                CheckIfServiceHasUsage::Unspecified => {
-                    "CHECK_IF_SERVICE_HAS_USAGE_UNSPECIFIED"
-                }
-                CheckIfServiceHasUsage::Skip => "SKIP",
-                CheckIfServiceHasUsage::Check => "CHECK",
+                Self::Unspecified => "CHECK_IF_SERVICE_HAS_USAGE_UNSPECIFIED",
+                Self::Skip => "SKIP",
+                Self::Check => "CHECK",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -629,5 +627,468 @@ pub mod service_usage_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod service_usage_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with ServiceUsageServer.
+    #[async_trait]
+    pub trait ServiceUsage: std::marker::Send + std::marker::Sync + 'static {
+        /// Enable a service so that it can be used with a project.
+        async fn enable_service(
+            &self,
+            request: tonic::Request<super::EnableServiceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Disable a service so that it can no longer be used with a project.
+        /// This prevents unintended usage that may cause unexpected billing
+        /// charges or security leaks.
+        ///
+        /// It is not valid to call the disable method on a service that is not
+        /// currently enabled. Callers will receive a `FAILED_PRECONDITION` status if
+        /// the target service is not currently enabled.
+        async fn disable_service(
+            &self,
+            request: tonic::Request<super::DisableServiceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Returns the service configuration and enabled state for a given service.
+        async fn get_service(
+            &self,
+            request: tonic::Request<super::GetServiceRequest>,
+        ) -> std::result::Result<tonic::Response<super::Service>, tonic::Status>;
+        /// List all services available to the specified project, and the current
+        /// state of those services with respect to the project. The list includes
+        /// all public services, all services for which the calling user has the
+        /// `servicemanagement.services.bind` permission, and all services that have
+        /// already been enabled on the project. The list can be filtered to
+        /// only include services in a specific state, for example to only include
+        /// services enabled on the project.
+        ///
+        /// WARNING: If you need to query enabled services frequently or across
+        /// an organization, you should use
+        /// [Cloud Asset Inventory
+        /// API](https://cloud.google.com/asset-inventory/docs/apis), which provides
+        /// higher throughput and richer filtering capability.
+        async fn list_services(
+            &self,
+            request: tonic::Request<super::ListServicesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListServicesResponse>,
+            tonic::Status,
+        >;
+        /// Enable multiple services on a project. The operation is atomic: if enabling
+        /// any service fails, then the entire batch fails, and no state changes occur.
+        /// To enable a single service, use the `EnableService` method instead.
+        async fn batch_enable_services(
+            &self,
+            request: tonic::Request<super::BatchEnableServicesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Returns the service configurations and enabled states for a given list of
+        /// services.
+        async fn batch_get_services(
+            &self,
+            request: tonic::Request<super::BatchGetServicesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::BatchGetServicesResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Enables services that service consumers want to use on Google Cloud Platform,
+    /// lists the available or enabled services, or disables services that service
+    /// consumers no longer use.
+    ///
+    /// See [Service Usage API](https://cloud.google.com/service-usage/docs/overview)
+    #[derive(Debug)]
+    pub struct ServiceUsageServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> ServiceUsageServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for ServiceUsageServer<T>
+    where
+        T: ServiceUsage,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.api.serviceusage.v1.ServiceUsage/EnableService" => {
+                    #[allow(non_camel_case_types)]
+                    struct EnableServiceSvc<T: ServiceUsage>(pub Arc<T>);
+                    impl<
+                        T: ServiceUsage,
+                    > tonic::server::UnaryService<super::EnableServiceRequest>
+                    for EnableServiceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::EnableServiceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ServiceUsage>::enable_service(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = EnableServiceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.api.serviceusage.v1.ServiceUsage/DisableService" => {
+                    #[allow(non_camel_case_types)]
+                    struct DisableServiceSvc<T: ServiceUsage>(pub Arc<T>);
+                    impl<
+                        T: ServiceUsage,
+                    > tonic::server::UnaryService<super::DisableServiceRequest>
+                    for DisableServiceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DisableServiceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ServiceUsage>::disable_service(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DisableServiceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.api.serviceusage.v1.ServiceUsage/GetService" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetServiceSvc<T: ServiceUsage>(pub Arc<T>);
+                    impl<
+                        T: ServiceUsage,
+                    > tonic::server::UnaryService<super::GetServiceRequest>
+                    for GetServiceSvc<T> {
+                        type Response = super::Service;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetServiceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ServiceUsage>::get_service(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetServiceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.api.serviceusage.v1.ServiceUsage/ListServices" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListServicesSvc<T: ServiceUsage>(pub Arc<T>);
+                    impl<
+                        T: ServiceUsage,
+                    > tonic::server::UnaryService<super::ListServicesRequest>
+                    for ListServicesSvc<T> {
+                        type Response = super::ListServicesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListServicesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ServiceUsage>::list_services(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListServicesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.api.serviceusage.v1.ServiceUsage/BatchEnableServices" => {
+                    #[allow(non_camel_case_types)]
+                    struct BatchEnableServicesSvc<T: ServiceUsage>(pub Arc<T>);
+                    impl<
+                        T: ServiceUsage,
+                    > tonic::server::UnaryService<super::BatchEnableServicesRequest>
+                    for BatchEnableServicesSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::BatchEnableServicesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ServiceUsage>::batch_enable_services(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BatchEnableServicesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.api.serviceusage.v1.ServiceUsage/BatchGetServices" => {
+                    #[allow(non_camel_case_types)]
+                    struct BatchGetServicesSvc<T: ServiceUsage>(pub Arc<T>);
+                    impl<
+                        T: ServiceUsage,
+                    > tonic::server::UnaryService<super::BatchGetServicesRequest>
+                    for BatchGetServicesSvc<T> {
+                        type Response = super::BatchGetServicesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::BatchGetServicesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ServiceUsage>::batch_get_services(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BatchGetServicesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for ServiceUsageServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.api.serviceusage.v1.ServiceUsage";
+    impl<T> tonic::server::NamedService for ServiceUsageServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

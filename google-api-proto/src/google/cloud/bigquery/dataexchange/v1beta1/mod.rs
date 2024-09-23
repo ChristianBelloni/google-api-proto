@@ -205,8 +205,8 @@ pub mod listing {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Active => "ACTIVE",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Active => "ACTIVE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -260,30 +260,28 @@ pub mod listing {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Category::Unspecified => "CATEGORY_UNSPECIFIED",
-                Category::Others => "CATEGORY_OTHERS",
-                Category::AdvertisingAndMarketing => "CATEGORY_ADVERTISING_AND_MARKETING",
-                Category::Commerce => "CATEGORY_COMMERCE",
-                Category::ClimateAndEnvironment => "CATEGORY_CLIMATE_AND_ENVIRONMENT",
-                Category::Demographics => "CATEGORY_DEMOGRAPHICS",
-                Category::Economics => "CATEGORY_ECONOMICS",
-                Category::Education => "CATEGORY_EDUCATION",
-                Category::Energy => "CATEGORY_ENERGY",
-                Category::Financial => "CATEGORY_FINANCIAL",
-                Category::Gaming => "CATEGORY_GAMING",
-                Category::Geospatial => "CATEGORY_GEOSPATIAL",
-                Category::HealthcareAndLifeScience => {
-                    "CATEGORY_HEALTHCARE_AND_LIFE_SCIENCE"
-                }
-                Category::Media => "CATEGORY_MEDIA",
-                Category::PublicSector => "CATEGORY_PUBLIC_SECTOR",
-                Category::Retail => "CATEGORY_RETAIL",
-                Category::Sports => "CATEGORY_SPORTS",
-                Category::ScienceAndResearch => "CATEGORY_SCIENCE_AND_RESEARCH",
-                Category::TransportationAndLogistics => {
+                Self::Unspecified => "CATEGORY_UNSPECIFIED",
+                Self::Others => "CATEGORY_OTHERS",
+                Self::AdvertisingAndMarketing => "CATEGORY_ADVERTISING_AND_MARKETING",
+                Self::Commerce => "CATEGORY_COMMERCE",
+                Self::ClimateAndEnvironment => "CATEGORY_CLIMATE_AND_ENVIRONMENT",
+                Self::Demographics => "CATEGORY_DEMOGRAPHICS",
+                Self::Economics => "CATEGORY_ECONOMICS",
+                Self::Education => "CATEGORY_EDUCATION",
+                Self::Energy => "CATEGORY_ENERGY",
+                Self::Financial => "CATEGORY_FINANCIAL",
+                Self::Gaming => "CATEGORY_GAMING",
+                Self::Geospatial => "CATEGORY_GEOSPATIAL",
+                Self::HealthcareAndLifeScience => "CATEGORY_HEALTHCARE_AND_LIFE_SCIENCE",
+                Self::Media => "CATEGORY_MEDIA",
+                Self::PublicSector => "CATEGORY_PUBLIC_SECTOR",
+                Self::Retail => "CATEGORY_RETAIL",
+                Self::Sports => "CATEGORY_SPORTS",
+                Self::ScienceAndResearch => "CATEGORY_SCIENCE_AND_RESEARCH",
+                Self::TransportationAndLogistics => {
                     "CATEGORY_TRANSPORTATION_AND_LOGISTICS"
                 }
-                Category::TravelAndTourism => "CATEGORY_TRAVEL_AND_TOURISM",
+                Self::TravelAndTourism => "CATEGORY_TRAVEL_AND_TOURISM",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1058,5 +1056,964 @@ pub mod analytics_hub_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod analytics_hub_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with AnalyticsHubServiceServer.
+    #[async_trait]
+    pub trait AnalyticsHubService: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists all data exchanges in a given project and location.
+        async fn list_data_exchanges(
+            &self,
+            request: tonic::Request<super::ListDataExchangesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDataExchangesResponse>,
+            tonic::Status,
+        >;
+        /// Lists all data exchanges from projects in a given organization and
+        /// location.
+        async fn list_org_data_exchanges(
+            &self,
+            request: tonic::Request<super::ListOrgDataExchangesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListOrgDataExchangesResponse>,
+            tonic::Status,
+        >;
+        /// Gets the details of a data exchange.
+        async fn get_data_exchange(
+            &self,
+            request: tonic::Request<super::GetDataExchangeRequest>,
+        ) -> std::result::Result<tonic::Response<super::DataExchange>, tonic::Status>;
+        /// Creates a new data exchange.
+        async fn create_data_exchange(
+            &self,
+            request: tonic::Request<super::CreateDataExchangeRequest>,
+        ) -> std::result::Result<tonic::Response<super::DataExchange>, tonic::Status>;
+        /// Updates an existing data exchange.
+        async fn update_data_exchange(
+            &self,
+            request: tonic::Request<super::UpdateDataExchangeRequest>,
+        ) -> std::result::Result<tonic::Response<super::DataExchange>, tonic::Status>;
+        /// Deletes an existing data exchange.
+        async fn delete_data_exchange(
+            &self,
+            request: tonic::Request<super::DeleteDataExchangeRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Lists all listings in a given project and location.
+        async fn list_listings(
+            &self,
+            request: tonic::Request<super::ListListingsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListListingsResponse>,
+            tonic::Status,
+        >;
+        /// Gets the details of a listing.
+        async fn get_listing(
+            &self,
+            request: tonic::Request<super::GetListingRequest>,
+        ) -> std::result::Result<tonic::Response<super::Listing>, tonic::Status>;
+        /// Creates a new listing.
+        async fn create_listing(
+            &self,
+            request: tonic::Request<super::CreateListingRequest>,
+        ) -> std::result::Result<tonic::Response<super::Listing>, tonic::Status>;
+        /// Updates an existing listing.
+        async fn update_listing(
+            &self,
+            request: tonic::Request<super::UpdateListingRequest>,
+        ) -> std::result::Result<tonic::Response<super::Listing>, tonic::Status>;
+        /// Deletes a listing.
+        async fn delete_listing(
+            &self,
+            request: tonic::Request<super::DeleteListingRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Subscribes to a listing.
+        ///
+        /// Currently, with Analytics Hub, you can create listings that
+        /// reference only BigQuery datasets.
+        /// Upon subscription to a listing for a BigQuery dataset, Analytics Hub
+        /// creates a linked dataset in the subscriber's project.
+        async fn subscribe_listing(
+            &self,
+            request: tonic::Request<super::SubscribeListingRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SubscribeListingResponse>,
+            tonic::Status,
+        >;
+        /// Gets the IAM policy.
+        async fn get_iam_policy(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::super::iam::v1::GetIamPolicyRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::iam::v1::Policy>,
+            tonic::Status,
+        >;
+        /// Sets the IAM policy.
+        async fn set_iam_policy(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::super::iam::v1::SetIamPolicyRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::iam::v1::Policy>,
+            tonic::Status,
+        >;
+        /// Returns the permissions that a caller has.
+        async fn test_iam_permissions(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::super::iam::v1::TestIamPermissionsRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<
+                super::super::super::super::super::iam::v1::TestIamPermissionsResponse,
+            >,
+            tonic::Status,
+        >;
+    }
+    /// The `AnalyticsHubService` API facilitates data sharing within and across
+    /// organizations. It allows data providers to publish listings that reference
+    /// shared datasets. With Analytics Hub, users can discover and search for
+    /// listings that they have access to. Subscribers can view and subscribe to
+    /// listings. When you subscribe to a listing, Analytics Hub creates a linked
+    /// dataset in your project.
+    #[derive(Debug)]
+    pub struct AnalyticsHubServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> AnalyticsHubServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for AnalyticsHubServiceServer<T>
+    where
+        T: AnalyticsHubService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.bigquery.dataexchange.v1beta1.AnalyticsHubService/ListDataExchanges" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDataExchangesSvc<T: AnalyticsHubService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsHubService,
+                    > tonic::server::UnaryService<super::ListDataExchangesRequest>
+                    for ListDataExchangesSvc<T> {
+                        type Response = super::ListDataExchangesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListDataExchangesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsHubService>::list_data_exchanges(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDataExchangesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.dataexchange.v1beta1.AnalyticsHubService/ListOrgDataExchanges" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListOrgDataExchangesSvc<T: AnalyticsHubService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsHubService,
+                    > tonic::server::UnaryService<super::ListOrgDataExchangesRequest>
+                    for ListOrgDataExchangesSvc<T> {
+                        type Response = super::ListOrgDataExchangesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListOrgDataExchangesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsHubService>::list_org_data_exchanges(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListOrgDataExchangesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.dataexchange.v1beta1.AnalyticsHubService/GetDataExchange" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetDataExchangeSvc<T: AnalyticsHubService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsHubService,
+                    > tonic::server::UnaryService<super::GetDataExchangeRequest>
+                    for GetDataExchangeSvc<T> {
+                        type Response = super::DataExchange;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetDataExchangeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsHubService>::get_data_exchange(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetDataExchangeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.dataexchange.v1beta1.AnalyticsHubService/CreateDataExchange" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateDataExchangeSvc<T: AnalyticsHubService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsHubService,
+                    > tonic::server::UnaryService<super::CreateDataExchangeRequest>
+                    for CreateDataExchangeSvc<T> {
+                        type Response = super::DataExchange;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateDataExchangeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsHubService>::create_data_exchange(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateDataExchangeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.dataexchange.v1beta1.AnalyticsHubService/UpdateDataExchange" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateDataExchangeSvc<T: AnalyticsHubService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsHubService,
+                    > tonic::server::UnaryService<super::UpdateDataExchangeRequest>
+                    for UpdateDataExchangeSvc<T> {
+                        type Response = super::DataExchange;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateDataExchangeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsHubService>::update_data_exchange(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateDataExchangeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.dataexchange.v1beta1.AnalyticsHubService/DeleteDataExchange" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteDataExchangeSvc<T: AnalyticsHubService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsHubService,
+                    > tonic::server::UnaryService<super::DeleteDataExchangeRequest>
+                    for DeleteDataExchangeSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteDataExchangeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsHubService>::delete_data_exchange(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteDataExchangeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.dataexchange.v1beta1.AnalyticsHubService/ListListings" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListListingsSvc<T: AnalyticsHubService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsHubService,
+                    > tonic::server::UnaryService<super::ListListingsRequest>
+                    for ListListingsSvc<T> {
+                        type Response = super::ListListingsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListListingsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsHubService>::list_listings(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListListingsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.dataexchange.v1beta1.AnalyticsHubService/GetListing" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetListingSvc<T: AnalyticsHubService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsHubService,
+                    > tonic::server::UnaryService<super::GetListingRequest>
+                    for GetListingSvc<T> {
+                        type Response = super::Listing;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetListingRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsHubService>::get_listing(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetListingSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.dataexchange.v1beta1.AnalyticsHubService/CreateListing" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateListingSvc<T: AnalyticsHubService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsHubService,
+                    > tonic::server::UnaryService<super::CreateListingRequest>
+                    for CreateListingSvc<T> {
+                        type Response = super::Listing;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateListingRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsHubService>::create_listing(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateListingSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.dataexchange.v1beta1.AnalyticsHubService/UpdateListing" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateListingSvc<T: AnalyticsHubService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsHubService,
+                    > tonic::server::UnaryService<super::UpdateListingRequest>
+                    for UpdateListingSvc<T> {
+                        type Response = super::Listing;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateListingRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsHubService>::update_listing(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateListingSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.dataexchange.v1beta1.AnalyticsHubService/DeleteListing" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteListingSvc<T: AnalyticsHubService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsHubService,
+                    > tonic::server::UnaryService<super::DeleteListingRequest>
+                    for DeleteListingSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteListingRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsHubService>::delete_listing(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteListingSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.dataexchange.v1beta1.AnalyticsHubService/SubscribeListing" => {
+                    #[allow(non_camel_case_types)]
+                    struct SubscribeListingSvc<T: AnalyticsHubService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsHubService,
+                    > tonic::server::UnaryService<super::SubscribeListingRequest>
+                    for SubscribeListingSvc<T> {
+                        type Response = super::SubscribeListingResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SubscribeListingRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsHubService>::subscribe_listing(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SubscribeListingSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.dataexchange.v1beta1.AnalyticsHubService/GetIamPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetIamPolicySvc<T: AnalyticsHubService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsHubService,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::super::iam::v1::GetIamPolicyRequest,
+                    > for GetIamPolicySvc<T> {
+                        type Response = super::super::super::super::super::iam::v1::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::super::iam::v1::GetIamPolicyRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsHubService>::get_iam_policy(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetIamPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.dataexchange.v1beta1.AnalyticsHubService/SetIamPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetIamPolicySvc<T: AnalyticsHubService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsHubService,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::super::iam::v1::SetIamPolicyRequest,
+                    > for SetIamPolicySvc<T> {
+                        type Response = super::super::super::super::super::iam::v1::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::super::iam::v1::SetIamPolicyRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsHubService>::set_iam_policy(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SetIamPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.dataexchange.v1beta1.AnalyticsHubService/TestIamPermissions" => {
+                    #[allow(non_camel_case_types)]
+                    struct TestIamPermissionsSvc<T: AnalyticsHubService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsHubService,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::super::iam::v1::TestIamPermissionsRequest,
+                    > for TestIamPermissionsSvc<T> {
+                        type Response = super::super::super::super::super::iam::v1::TestIamPermissionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::super::iam::v1::TestIamPermissionsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsHubService>::test_iam_permissions(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = TestIamPermissionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for AnalyticsHubServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.bigquery.dataexchange.v1beta1.AnalyticsHubService";
+    impl<T> tonic::server::NamedService for AnalyticsHubServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

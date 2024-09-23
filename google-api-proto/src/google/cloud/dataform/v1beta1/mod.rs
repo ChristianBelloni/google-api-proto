@@ -114,10 +114,10 @@ pub mod repository {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    TokenStatus::Unspecified => "TOKEN_STATUS_UNSPECIFIED",
-                    TokenStatus::NotFound => "NOT_FOUND",
-                    TokenStatus::Invalid => "INVALID",
-                    TokenStatus::Valid => "VALID",
+                    Self::Unspecified => "TOKEN_STATUS_UNSPECIFIED",
+                    Self::NotFound => "NOT_FOUND",
+                    Self::Invalid => "INVALID",
+                    Self::Valid => "VALID",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -462,10 +462,10 @@ pub mod compute_repository_access_token_status_response {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                TokenStatus::Unspecified => "TOKEN_STATUS_UNSPECIFIED",
-                TokenStatus::NotFound => "NOT_FOUND",
-                TokenStatus::Invalid => "INVALID",
-                TokenStatus::Valid => "VALID",
+                Self::Unspecified => "TOKEN_STATUS_UNSPECIFIED",
+                Self::NotFound => "NOT_FOUND",
+                Self::Invalid => "INVALID",
+                Self::Valid => "VALID",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -672,11 +672,11 @@ pub mod fetch_file_git_statuses_response {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    State::Unspecified => "STATE_UNSPECIFIED",
-                    State::Added => "ADDED",
-                    State::Deleted => "DELETED",
-                    State::Modified => "MODIFIED",
-                    State::HasConflicts => "HAS_CONFLICTS",
+                    Self::Unspecified => "STATE_UNSPECIFIED",
+                    Self::Added => "ADDED",
+                    Self::Deleted => "DELETED",
+                    Self::Modified => "MODIFIED",
+                    Self::HasConflicts => "HAS_CONFLICTS",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1430,11 +1430,11 @@ pub mod compilation_result_action {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    RelationType::Unspecified => "RELATION_TYPE_UNSPECIFIED",
-                    RelationType::Table => "TABLE",
-                    RelationType::View => "VIEW",
-                    RelationType::IncrementalTable => "INCREMENTAL_TABLE",
-                    RelationType::MaterializedView => "MATERIALIZED_VIEW",
+                    Self::Unspecified => "RELATION_TYPE_UNSPECIFIED",
+                    Self::Table => "TABLE",
+                    Self::View => "VIEW",
+                    Self::IncrementalTable => "INCREMENTAL_TABLE",
+                    Self::MaterializedView => "MATERIALIZED_VIEW",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1778,12 +1778,12 @@ pub mod workflow_invocation {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Running => "RUNNING",
-                State::Succeeded => "SUCCEEDED",
-                State::Cancelled => "CANCELLED",
-                State::Failed => "FAILED",
-                State::Canceling => "CANCELING",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Running => "RUNNING",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Cancelled => "CANCELLED",
+                Self::Failed => "FAILED",
+                Self::Canceling => "CANCELING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1964,13 +1964,13 @@ pub mod workflow_invocation_action {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Pending => "PENDING",
-                State::Running => "RUNNING",
-                State::Skipped => "SKIPPED",
-                State::Disabled => "DISABLED",
-                State::Succeeded => "SUCCEEDED",
-                State::Cancelled => "CANCELLED",
-                State::Failed => "FAILED",
+                Self::Pending => "PENDING",
+                Self::Running => "RUNNING",
+                Self::Skipped => "SKIPPED",
+                Self::Disabled => "DISABLED",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Cancelled => "CANCELLED",
+                Self::Failed => "FAILED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -3610,5 +3610,2824 @@ pub mod dataform_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod dataform_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with DataformServer.
+    #[async_trait]
+    pub trait Dataform: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists Repositories in a given project and location.
+        async fn list_repositories(
+            &self,
+            request: tonic::Request<super::ListRepositoriesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListRepositoriesResponse>,
+            tonic::Status,
+        >;
+        /// Fetches a single Repository.
+        async fn get_repository(
+            &self,
+            request: tonic::Request<super::GetRepositoryRequest>,
+        ) -> std::result::Result<tonic::Response<super::Repository>, tonic::Status>;
+        /// Creates a new Repository in a given project and location.
+        async fn create_repository(
+            &self,
+            request: tonic::Request<super::CreateRepositoryRequest>,
+        ) -> std::result::Result<tonic::Response<super::Repository>, tonic::Status>;
+        /// Updates a single Repository.
+        async fn update_repository(
+            &self,
+            request: tonic::Request<super::UpdateRepositoryRequest>,
+        ) -> std::result::Result<tonic::Response<super::Repository>, tonic::Status>;
+        /// Deletes a single Repository.
+        async fn delete_repository(
+            &self,
+            request: tonic::Request<super::DeleteRepositoryRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Applies a Git commit to a Repository. The Repository must not have a value
+        /// for `git_remote_settings.url`.
+        async fn commit_repository_changes(
+            &self,
+            request: tonic::Request<super::CommitRepositoryChangesRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Returns the contents of a file (inside a Repository). The Repository
+        /// must not have a value for `git_remote_settings.url`.
+        async fn read_repository_file(
+            &self,
+            request: tonic::Request<super::ReadRepositoryFileRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ReadRepositoryFileResponse>,
+            tonic::Status,
+        >;
+        /// Returns the contents of a given Repository directory. The Repository must
+        /// not have a value for `git_remote_settings.url`.
+        async fn query_repository_directory_contents(
+            &self,
+            request: tonic::Request<super::QueryRepositoryDirectoryContentsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryRepositoryDirectoryContentsResponse>,
+            tonic::Status,
+        >;
+        /// Fetches a Repository's history of commits.  The Repository must not have a
+        /// value for `git_remote_settings.url`.
+        async fn fetch_repository_history(
+            &self,
+            request: tonic::Request<super::FetchRepositoryHistoryRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::FetchRepositoryHistoryResponse>,
+            tonic::Status,
+        >;
+        /// Computes a Repository's Git access token status.
+        async fn compute_repository_access_token_status(
+            &self,
+            request: tonic::Request<super::ComputeRepositoryAccessTokenStatusRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ComputeRepositoryAccessTokenStatusResponse>,
+            tonic::Status,
+        >;
+        /// Fetches a Repository's remote branches.
+        async fn fetch_remote_branches(
+            &self,
+            request: tonic::Request<super::FetchRemoteBranchesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::FetchRemoteBranchesResponse>,
+            tonic::Status,
+        >;
+        /// Lists Workspaces in a given Repository.
+        async fn list_workspaces(
+            &self,
+            request: tonic::Request<super::ListWorkspacesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListWorkspacesResponse>,
+            tonic::Status,
+        >;
+        /// Fetches a single Workspace.
+        async fn get_workspace(
+            &self,
+            request: tonic::Request<super::GetWorkspaceRequest>,
+        ) -> std::result::Result<tonic::Response<super::Workspace>, tonic::Status>;
+        /// Creates a new Workspace in a given Repository.
+        async fn create_workspace(
+            &self,
+            request: tonic::Request<super::CreateWorkspaceRequest>,
+        ) -> std::result::Result<tonic::Response<super::Workspace>, tonic::Status>;
+        /// Deletes a single Workspace.
+        async fn delete_workspace(
+            &self,
+            request: tonic::Request<super::DeleteWorkspaceRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Installs dependency NPM packages (inside a Workspace).
+        async fn install_npm_packages(
+            &self,
+            request: tonic::Request<super::InstallNpmPackagesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::InstallNpmPackagesResponse>,
+            tonic::Status,
+        >;
+        /// Pulls Git commits from the Repository's remote into a Workspace.
+        async fn pull_git_commits(
+            &self,
+            request: tonic::Request<super::PullGitCommitsRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Pushes Git commits from a Workspace to the Repository's remote.
+        async fn push_git_commits(
+            &self,
+            request: tonic::Request<super::PushGitCommitsRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Fetches Git statuses for the files in a Workspace.
+        async fn fetch_file_git_statuses(
+            &self,
+            request: tonic::Request<super::FetchFileGitStatusesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::FetchFileGitStatusesResponse>,
+            tonic::Status,
+        >;
+        /// Fetches Git ahead/behind against a remote branch.
+        async fn fetch_git_ahead_behind(
+            &self,
+            request: tonic::Request<super::FetchGitAheadBehindRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::FetchGitAheadBehindResponse>,
+            tonic::Status,
+        >;
+        /// Applies a Git commit for uncommitted files in a Workspace.
+        async fn commit_workspace_changes(
+            &self,
+            request: tonic::Request<super::CommitWorkspaceChangesRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Performs a Git reset for uncommitted files in a Workspace.
+        async fn reset_workspace_changes(
+            &self,
+            request: tonic::Request<super::ResetWorkspaceChangesRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Fetches Git diff for an uncommitted file in a Workspace.
+        async fn fetch_file_diff(
+            &self,
+            request: tonic::Request<super::FetchFileDiffRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::FetchFileDiffResponse>,
+            tonic::Status,
+        >;
+        /// Returns the contents of a given Workspace directory.
+        async fn query_directory_contents(
+            &self,
+            request: tonic::Request<super::QueryDirectoryContentsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryDirectoryContentsResponse>,
+            tonic::Status,
+        >;
+        /// Creates a directory inside a Workspace.
+        async fn make_directory(
+            &self,
+            request: tonic::Request<super::MakeDirectoryRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::MakeDirectoryResponse>,
+            tonic::Status,
+        >;
+        /// Deletes a directory (inside a Workspace) and all of its contents.
+        async fn remove_directory(
+            &self,
+            request: tonic::Request<super::RemoveDirectoryRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Moves a directory (inside a Workspace), and all of its contents, to a new
+        /// location.
+        async fn move_directory(
+            &self,
+            request: tonic::Request<super::MoveDirectoryRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::MoveDirectoryResponse>,
+            tonic::Status,
+        >;
+        /// Returns the contents of a file (inside a Workspace).
+        async fn read_file(
+            &self,
+            request: tonic::Request<super::ReadFileRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ReadFileResponse>,
+            tonic::Status,
+        >;
+        /// Deletes a file (inside a Workspace).
+        async fn remove_file(
+            &self,
+            request: tonic::Request<super::RemoveFileRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Moves a file (inside a Workspace) to a new location.
+        async fn move_file(
+            &self,
+            request: tonic::Request<super::MoveFileRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::MoveFileResponse>,
+            tonic::Status,
+        >;
+        /// Writes to a file (inside a Workspace).
+        async fn write_file(
+            &self,
+            request: tonic::Request<super::WriteFileRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::WriteFileResponse>,
+            tonic::Status,
+        >;
+        /// Lists ReleaseConfigs in a given Repository.
+        async fn list_release_configs(
+            &self,
+            request: tonic::Request<super::ListReleaseConfigsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListReleaseConfigsResponse>,
+            tonic::Status,
+        >;
+        /// Fetches a single ReleaseConfig.
+        async fn get_release_config(
+            &self,
+            request: tonic::Request<super::GetReleaseConfigRequest>,
+        ) -> std::result::Result<tonic::Response<super::ReleaseConfig>, tonic::Status>;
+        /// Creates a new ReleaseConfig in a given Repository.
+        async fn create_release_config(
+            &self,
+            request: tonic::Request<super::CreateReleaseConfigRequest>,
+        ) -> std::result::Result<tonic::Response<super::ReleaseConfig>, tonic::Status>;
+        /// Updates a single ReleaseConfig.
+        async fn update_release_config(
+            &self,
+            request: tonic::Request<super::UpdateReleaseConfigRequest>,
+        ) -> std::result::Result<tonic::Response<super::ReleaseConfig>, tonic::Status>;
+        /// Deletes a single ReleaseConfig.
+        async fn delete_release_config(
+            &self,
+            request: tonic::Request<super::DeleteReleaseConfigRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Lists CompilationResults in a given Repository.
+        async fn list_compilation_results(
+            &self,
+            request: tonic::Request<super::ListCompilationResultsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListCompilationResultsResponse>,
+            tonic::Status,
+        >;
+        /// Fetches a single CompilationResult.
+        async fn get_compilation_result(
+            &self,
+            request: tonic::Request<super::GetCompilationResultRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::CompilationResult>,
+            tonic::Status,
+        >;
+        /// Creates a new CompilationResult in a given project and location.
+        async fn create_compilation_result(
+            &self,
+            request: tonic::Request<super::CreateCompilationResultRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::CompilationResult>,
+            tonic::Status,
+        >;
+        /// Returns CompilationResultActions in a given CompilationResult.
+        async fn query_compilation_result_actions(
+            &self,
+            request: tonic::Request<super::QueryCompilationResultActionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryCompilationResultActionsResponse>,
+            tonic::Status,
+        >;
+        /// Lists WorkflowConfigs in a given Repository.
+        async fn list_workflow_configs(
+            &self,
+            request: tonic::Request<super::ListWorkflowConfigsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListWorkflowConfigsResponse>,
+            tonic::Status,
+        >;
+        /// Fetches a single WorkflowConfig.
+        async fn get_workflow_config(
+            &self,
+            request: tonic::Request<super::GetWorkflowConfigRequest>,
+        ) -> std::result::Result<tonic::Response<super::WorkflowConfig>, tonic::Status>;
+        /// Creates a new WorkflowConfig in a given Repository.
+        async fn create_workflow_config(
+            &self,
+            request: tonic::Request<super::CreateWorkflowConfigRequest>,
+        ) -> std::result::Result<tonic::Response<super::WorkflowConfig>, tonic::Status>;
+        /// Updates a single WorkflowConfig.
+        async fn update_workflow_config(
+            &self,
+            request: tonic::Request<super::UpdateWorkflowConfigRequest>,
+        ) -> std::result::Result<tonic::Response<super::WorkflowConfig>, tonic::Status>;
+        /// Deletes a single WorkflowConfig.
+        async fn delete_workflow_config(
+            &self,
+            request: tonic::Request<super::DeleteWorkflowConfigRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Lists WorkflowInvocations in a given Repository.
+        async fn list_workflow_invocations(
+            &self,
+            request: tonic::Request<super::ListWorkflowInvocationsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListWorkflowInvocationsResponse>,
+            tonic::Status,
+        >;
+        /// Fetches a single WorkflowInvocation.
+        async fn get_workflow_invocation(
+            &self,
+            request: tonic::Request<super::GetWorkflowInvocationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::WorkflowInvocation>,
+            tonic::Status,
+        >;
+        /// Creates a new WorkflowInvocation in a given Repository.
+        async fn create_workflow_invocation(
+            &self,
+            request: tonic::Request<super::CreateWorkflowInvocationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::WorkflowInvocation>,
+            tonic::Status,
+        >;
+        /// Deletes a single WorkflowInvocation.
+        async fn delete_workflow_invocation(
+            &self,
+            request: tonic::Request<super::DeleteWorkflowInvocationRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Requests cancellation of a running WorkflowInvocation.
+        async fn cancel_workflow_invocation(
+            &self,
+            request: tonic::Request<super::CancelWorkflowInvocationRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Returns WorkflowInvocationActions in a given WorkflowInvocation.
+        async fn query_workflow_invocation_actions(
+            &self,
+            request: tonic::Request<super::QueryWorkflowInvocationActionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryWorkflowInvocationActionsResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Dataform is a service to develop, create, document, test, and update curated
+    /// tables in BigQuery.
+    #[derive(Debug)]
+    pub struct DataformServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> DataformServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for DataformServer<T>
+    where
+        T: Dataform,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.dataform.v1beta1.Dataform/ListRepositories" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListRepositoriesSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::ListRepositoriesRequest>
+                    for ListRepositoriesSvc<T> {
+                        type Response = super::ListRepositoriesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListRepositoriesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::list_repositories(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListRepositoriesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/GetRepository" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetRepositorySvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::GetRepositoryRequest>
+                    for GetRepositorySvc<T> {
+                        type Response = super::Repository;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetRepositoryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::get_repository(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetRepositorySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/CreateRepository" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateRepositorySvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::CreateRepositoryRequest>
+                    for CreateRepositorySvc<T> {
+                        type Response = super::Repository;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateRepositoryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::create_repository(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateRepositorySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/UpdateRepository" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateRepositorySvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::UpdateRepositoryRequest>
+                    for UpdateRepositorySvc<T> {
+                        type Response = super::Repository;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateRepositoryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::update_repository(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateRepositorySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/DeleteRepository" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteRepositorySvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::DeleteRepositoryRequest>
+                    for DeleteRepositorySvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteRepositoryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::delete_repository(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteRepositorySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/CommitRepositoryChanges" => {
+                    #[allow(non_camel_case_types)]
+                    struct CommitRepositoryChangesSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::CommitRepositoryChangesRequest>
+                    for CommitRepositoryChangesSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CommitRepositoryChangesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::commit_repository_changes(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CommitRepositoryChangesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/ReadRepositoryFile" => {
+                    #[allow(non_camel_case_types)]
+                    struct ReadRepositoryFileSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::ReadRepositoryFileRequest>
+                    for ReadRepositoryFileSvc<T> {
+                        type Response = super::ReadRepositoryFileResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ReadRepositoryFileRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::read_repository_file(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ReadRepositoryFileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/QueryRepositoryDirectoryContents" => {
+                    #[allow(non_camel_case_types)]
+                    struct QueryRepositoryDirectoryContentsSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<
+                        super::QueryRepositoryDirectoryContentsRequest,
+                    > for QueryRepositoryDirectoryContentsSvc<T> {
+                        type Response = super::QueryRepositoryDirectoryContentsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::QueryRepositoryDirectoryContentsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::query_repository_directory_contents(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = QueryRepositoryDirectoryContentsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/FetchRepositoryHistory" => {
+                    #[allow(non_camel_case_types)]
+                    struct FetchRepositoryHistorySvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::FetchRepositoryHistoryRequest>
+                    for FetchRepositoryHistorySvc<T> {
+                        type Response = super::FetchRepositoryHistoryResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::FetchRepositoryHistoryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::fetch_repository_history(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = FetchRepositoryHistorySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/ComputeRepositoryAccessTokenStatus" => {
+                    #[allow(non_camel_case_types)]
+                    struct ComputeRepositoryAccessTokenStatusSvc<T: Dataform>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<
+                        super::ComputeRepositoryAccessTokenStatusRequest,
+                    > for ComputeRepositoryAccessTokenStatusSvc<T> {
+                        type Response = super::ComputeRepositoryAccessTokenStatusResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ComputeRepositoryAccessTokenStatusRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::compute_repository_access_token_status(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ComputeRepositoryAccessTokenStatusSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/FetchRemoteBranches" => {
+                    #[allow(non_camel_case_types)]
+                    struct FetchRemoteBranchesSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::FetchRemoteBranchesRequest>
+                    for FetchRemoteBranchesSvc<T> {
+                        type Response = super::FetchRemoteBranchesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::FetchRemoteBranchesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::fetch_remote_branches(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = FetchRemoteBranchesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/ListWorkspaces" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListWorkspacesSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::ListWorkspacesRequest>
+                    for ListWorkspacesSvc<T> {
+                        type Response = super::ListWorkspacesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListWorkspacesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::list_workspaces(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListWorkspacesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/GetWorkspace" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetWorkspaceSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::GetWorkspaceRequest>
+                    for GetWorkspaceSvc<T> {
+                        type Response = super::Workspace;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetWorkspaceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::get_workspace(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetWorkspaceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/CreateWorkspace" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateWorkspaceSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::CreateWorkspaceRequest>
+                    for CreateWorkspaceSvc<T> {
+                        type Response = super::Workspace;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateWorkspaceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::create_workspace(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateWorkspaceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/DeleteWorkspace" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteWorkspaceSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::DeleteWorkspaceRequest>
+                    for DeleteWorkspaceSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteWorkspaceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::delete_workspace(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteWorkspaceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/InstallNpmPackages" => {
+                    #[allow(non_camel_case_types)]
+                    struct InstallNpmPackagesSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::InstallNpmPackagesRequest>
+                    for InstallNpmPackagesSvc<T> {
+                        type Response = super::InstallNpmPackagesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::InstallNpmPackagesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::install_npm_packages(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = InstallNpmPackagesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/PullGitCommits" => {
+                    #[allow(non_camel_case_types)]
+                    struct PullGitCommitsSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::PullGitCommitsRequest>
+                    for PullGitCommitsSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::PullGitCommitsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::pull_git_commits(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = PullGitCommitsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/PushGitCommits" => {
+                    #[allow(non_camel_case_types)]
+                    struct PushGitCommitsSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::PushGitCommitsRequest>
+                    for PushGitCommitsSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::PushGitCommitsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::push_git_commits(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = PushGitCommitsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/FetchFileGitStatuses" => {
+                    #[allow(non_camel_case_types)]
+                    struct FetchFileGitStatusesSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::FetchFileGitStatusesRequest>
+                    for FetchFileGitStatusesSvc<T> {
+                        type Response = super::FetchFileGitStatusesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::FetchFileGitStatusesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::fetch_file_git_statuses(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = FetchFileGitStatusesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/FetchGitAheadBehind" => {
+                    #[allow(non_camel_case_types)]
+                    struct FetchGitAheadBehindSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::FetchGitAheadBehindRequest>
+                    for FetchGitAheadBehindSvc<T> {
+                        type Response = super::FetchGitAheadBehindResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::FetchGitAheadBehindRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::fetch_git_ahead_behind(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = FetchGitAheadBehindSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/CommitWorkspaceChanges" => {
+                    #[allow(non_camel_case_types)]
+                    struct CommitWorkspaceChangesSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::CommitWorkspaceChangesRequest>
+                    for CommitWorkspaceChangesSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CommitWorkspaceChangesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::commit_workspace_changes(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CommitWorkspaceChangesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/ResetWorkspaceChanges" => {
+                    #[allow(non_camel_case_types)]
+                    struct ResetWorkspaceChangesSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::ResetWorkspaceChangesRequest>
+                    for ResetWorkspaceChangesSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ResetWorkspaceChangesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::reset_workspace_changes(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ResetWorkspaceChangesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/FetchFileDiff" => {
+                    #[allow(non_camel_case_types)]
+                    struct FetchFileDiffSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::FetchFileDiffRequest>
+                    for FetchFileDiffSvc<T> {
+                        type Response = super::FetchFileDiffResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::FetchFileDiffRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::fetch_file_diff(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = FetchFileDiffSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/QueryDirectoryContents" => {
+                    #[allow(non_camel_case_types)]
+                    struct QueryDirectoryContentsSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::QueryDirectoryContentsRequest>
+                    for QueryDirectoryContentsSvc<T> {
+                        type Response = super::QueryDirectoryContentsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QueryDirectoryContentsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::query_directory_contents(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = QueryDirectoryContentsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/MakeDirectory" => {
+                    #[allow(non_camel_case_types)]
+                    struct MakeDirectorySvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::MakeDirectoryRequest>
+                    for MakeDirectorySvc<T> {
+                        type Response = super::MakeDirectoryResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MakeDirectoryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::make_directory(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = MakeDirectorySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/RemoveDirectory" => {
+                    #[allow(non_camel_case_types)]
+                    struct RemoveDirectorySvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::RemoveDirectoryRequest>
+                    for RemoveDirectorySvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RemoveDirectoryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::remove_directory(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RemoveDirectorySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/MoveDirectory" => {
+                    #[allow(non_camel_case_types)]
+                    struct MoveDirectorySvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::MoveDirectoryRequest>
+                    for MoveDirectorySvc<T> {
+                        type Response = super::MoveDirectoryResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MoveDirectoryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::move_directory(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = MoveDirectorySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/ReadFile" => {
+                    #[allow(non_camel_case_types)]
+                    struct ReadFileSvc<T: Dataform>(pub Arc<T>);
+                    impl<T: Dataform> tonic::server::UnaryService<super::ReadFileRequest>
+                    for ReadFileSvc<T> {
+                        type Response = super::ReadFileResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ReadFileRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::read_file(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ReadFileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/RemoveFile" => {
+                    #[allow(non_camel_case_types)]
+                    struct RemoveFileSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::RemoveFileRequest>
+                    for RemoveFileSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RemoveFileRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::remove_file(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RemoveFileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/MoveFile" => {
+                    #[allow(non_camel_case_types)]
+                    struct MoveFileSvc<T: Dataform>(pub Arc<T>);
+                    impl<T: Dataform> tonic::server::UnaryService<super::MoveFileRequest>
+                    for MoveFileSvc<T> {
+                        type Response = super::MoveFileResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MoveFileRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::move_file(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = MoveFileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/WriteFile" => {
+                    #[allow(non_camel_case_types)]
+                    struct WriteFileSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::WriteFileRequest>
+                    for WriteFileSvc<T> {
+                        type Response = super::WriteFileResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::WriteFileRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::write_file(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = WriteFileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/ListReleaseConfigs" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListReleaseConfigsSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::ListReleaseConfigsRequest>
+                    for ListReleaseConfigsSvc<T> {
+                        type Response = super::ListReleaseConfigsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListReleaseConfigsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::list_release_configs(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListReleaseConfigsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/GetReleaseConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetReleaseConfigSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::GetReleaseConfigRequest>
+                    for GetReleaseConfigSvc<T> {
+                        type Response = super::ReleaseConfig;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetReleaseConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::get_release_config(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetReleaseConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/CreateReleaseConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateReleaseConfigSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::CreateReleaseConfigRequest>
+                    for CreateReleaseConfigSvc<T> {
+                        type Response = super::ReleaseConfig;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateReleaseConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::create_release_config(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateReleaseConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/UpdateReleaseConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateReleaseConfigSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::UpdateReleaseConfigRequest>
+                    for UpdateReleaseConfigSvc<T> {
+                        type Response = super::ReleaseConfig;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateReleaseConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::update_release_config(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateReleaseConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/DeleteReleaseConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteReleaseConfigSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::DeleteReleaseConfigRequest>
+                    for DeleteReleaseConfigSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteReleaseConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::delete_release_config(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteReleaseConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/ListCompilationResults" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListCompilationResultsSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::ListCompilationResultsRequest>
+                    for ListCompilationResultsSvc<T> {
+                        type Response = super::ListCompilationResultsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListCompilationResultsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::list_compilation_results(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListCompilationResultsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/GetCompilationResult" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetCompilationResultSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::GetCompilationResultRequest>
+                    for GetCompilationResultSvc<T> {
+                        type Response = super::CompilationResult;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetCompilationResultRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::get_compilation_result(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetCompilationResultSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/CreateCompilationResult" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateCompilationResultSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::CreateCompilationResultRequest>
+                    for CreateCompilationResultSvc<T> {
+                        type Response = super::CompilationResult;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateCompilationResultRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::create_compilation_result(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateCompilationResultSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/QueryCompilationResultActions" => {
+                    #[allow(non_camel_case_types)]
+                    struct QueryCompilationResultActionsSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<
+                        super::QueryCompilationResultActionsRequest,
+                    > for QueryCompilationResultActionsSvc<T> {
+                        type Response = super::QueryCompilationResultActionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::QueryCompilationResultActionsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::query_compilation_result_actions(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = QueryCompilationResultActionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/ListWorkflowConfigs" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListWorkflowConfigsSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::ListWorkflowConfigsRequest>
+                    for ListWorkflowConfigsSvc<T> {
+                        type Response = super::ListWorkflowConfigsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListWorkflowConfigsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::list_workflow_configs(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListWorkflowConfigsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/GetWorkflowConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetWorkflowConfigSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::GetWorkflowConfigRequest>
+                    for GetWorkflowConfigSvc<T> {
+                        type Response = super::WorkflowConfig;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetWorkflowConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::get_workflow_config(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetWorkflowConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/CreateWorkflowConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateWorkflowConfigSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::CreateWorkflowConfigRequest>
+                    for CreateWorkflowConfigSvc<T> {
+                        type Response = super::WorkflowConfig;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateWorkflowConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::create_workflow_config(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateWorkflowConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/UpdateWorkflowConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateWorkflowConfigSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::UpdateWorkflowConfigRequest>
+                    for UpdateWorkflowConfigSvc<T> {
+                        type Response = super::WorkflowConfig;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateWorkflowConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::update_workflow_config(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateWorkflowConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/DeleteWorkflowConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteWorkflowConfigSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::DeleteWorkflowConfigRequest>
+                    for DeleteWorkflowConfigSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteWorkflowConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::delete_workflow_config(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteWorkflowConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/ListWorkflowInvocations" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListWorkflowInvocationsSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::ListWorkflowInvocationsRequest>
+                    for ListWorkflowInvocationsSvc<T> {
+                        type Response = super::ListWorkflowInvocationsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListWorkflowInvocationsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::list_workflow_invocations(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListWorkflowInvocationsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/GetWorkflowInvocation" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetWorkflowInvocationSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::GetWorkflowInvocationRequest>
+                    for GetWorkflowInvocationSvc<T> {
+                        type Response = super::WorkflowInvocation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetWorkflowInvocationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::get_workflow_invocation(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetWorkflowInvocationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/CreateWorkflowInvocation" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateWorkflowInvocationSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::CreateWorkflowInvocationRequest>
+                    for CreateWorkflowInvocationSvc<T> {
+                        type Response = super::WorkflowInvocation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateWorkflowInvocationRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::create_workflow_invocation(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateWorkflowInvocationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/DeleteWorkflowInvocation" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteWorkflowInvocationSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::DeleteWorkflowInvocationRequest>
+                    for DeleteWorkflowInvocationSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteWorkflowInvocationRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::delete_workflow_invocation(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteWorkflowInvocationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/CancelWorkflowInvocation" => {
+                    #[allow(non_camel_case_types)]
+                    struct CancelWorkflowInvocationSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<super::CancelWorkflowInvocationRequest>
+                    for CancelWorkflowInvocationSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CancelWorkflowInvocationRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::cancel_workflow_invocation(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CancelWorkflowInvocationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataform.v1beta1.Dataform/QueryWorkflowInvocationActions" => {
+                    #[allow(non_camel_case_types)]
+                    struct QueryWorkflowInvocationActionsSvc<T: Dataform>(pub Arc<T>);
+                    impl<
+                        T: Dataform,
+                    > tonic::server::UnaryService<
+                        super::QueryWorkflowInvocationActionsRequest,
+                    > for QueryWorkflowInvocationActionsSvc<T> {
+                        type Response = super::QueryWorkflowInvocationActionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::QueryWorkflowInvocationActionsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Dataform>::query_workflow_invocation_actions(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = QueryWorkflowInvocationActionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for DataformServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.dataform.v1beta1.Dataform";
+    impl<T> tonic::server::NamedService for DataformServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

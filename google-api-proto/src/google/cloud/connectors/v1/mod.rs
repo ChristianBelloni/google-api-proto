@@ -108,13 +108,13 @@ pub mod config_variable_template {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ValueType::Unspecified => "VALUE_TYPE_UNSPECIFIED",
-                ValueType::String => "STRING",
-                ValueType::Int => "INT",
-                ValueType::Bool => "BOOL",
-                ValueType::Secret => "SECRET",
-                ValueType::Enum => "ENUM",
-                ValueType::AuthorizationCode => "AUTHORIZATION_CODE",
+                Self::Unspecified => "VALUE_TYPE_UNSPECIFIED",
+                Self::String => "STRING",
+                Self::Int => "INT",
+                Self::Bool => "BOOL",
+                Self::Secret => "SECRET",
+                Self::Enum => "ENUM",
+                Self::AuthorizationCode => "AUTHORIZATION_CODE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -159,9 +159,9 @@ pub mod config_variable_template {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Active => "ACTIVE",
-                State::Deprecated => "DEPRECATED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Active => "ACTIVE",
+                Self::Deprecated => "DEPRECATED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -291,11 +291,11 @@ pub mod role_grant {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    Type::Unspecified => "TYPE_UNSPECIFIED",
-                    Type::GcpProject => "GCP_PROJECT",
-                    Type::GcpResource => "GCP_RESOURCE",
-                    Type::GcpSecretmanagerSecret => "GCP_SECRETMANAGER_SECRET",
-                    Type::GcpSecretmanagerSecretVersion => {
+                    Self::Unspecified => "TYPE_UNSPECIFIED",
+                    Self::GcpProject => "GCP_PROJECT",
+                    Self::GcpResource => "GCP_RESOURCE",
+                    Self::GcpSecretmanagerSecret => "GCP_SECRETMANAGER_SECRET",
+                    Self::GcpSecretmanagerSecretVersion => {
                         "GCP_SECRETMANAGER_SECRET_VERSION"
                     }
                 }
@@ -343,8 +343,8 @@ pub mod role_grant {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Principal::Unspecified => "PRINCIPAL_UNSPECIFIED",
-                Principal::ConnectorSa => "CONNECTOR_SA",
+                Self::Unspecified => "PRINCIPAL_UNSPECIFIED",
+                Self::ConnectorSa => "CONNECTOR_SA",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -400,11 +400,11 @@ impl LaunchStage {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            LaunchStage::Unspecified => "LAUNCH_STAGE_UNSPECIFIED",
-            LaunchStage::Preview => "PREVIEW",
-            LaunchStage::Ga => "GA",
-            LaunchStage::Deprecated => "DEPRECATED",
-            LaunchStage::PrivatePreview => "PRIVATE_PREVIEW",
+            Self::Unspecified => "LAUNCH_STAGE_UNSPECIFIED",
+            Self::Preview => "PREVIEW",
+            Self::Ga => "GA",
+            Self::Deprecated => "DEPRECATED",
+            Self::PrivatePreview => "PRIVATE_PREVIEW",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -560,12 +560,12 @@ impl AuthType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            AuthType::Unspecified => "AUTH_TYPE_UNSPECIFIED",
-            AuthType::UserPassword => "USER_PASSWORD",
-            AuthType::Oauth2JwtBearer => "OAUTH2_JWT_BEARER",
-            AuthType::Oauth2ClientCredentials => "OAUTH2_CLIENT_CREDENTIALS",
-            AuthType::SshPublicKey => "SSH_PUBLIC_KEY",
-            AuthType::Oauth2AuthCodeFlow => "OAUTH2_AUTH_CODE_FLOW",
+            Self::Unspecified => "AUTH_TYPE_UNSPECIFIED",
+            Self::UserPassword => "USER_PASSWORD",
+            Self::Oauth2JwtBearer => "OAUTH2_JWT_BEARER",
+            Self::Oauth2ClientCredentials => "OAUTH2_CLIENT_CREDENTIALS",
+            Self::SshPublicKey => "SSH_PUBLIC_KEY",
+            Self::Oauth2AuthCodeFlow => "OAUTH2_AUTH_CODE_FLOW",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -665,9 +665,9 @@ pub mod ssl_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                TrustModel::Public => "PUBLIC",
-                TrustModel::Private => "PRIVATE",
-                TrustModel::Insecure => "INSECURE",
+                Self::Public => "PUBLIC",
+                Self::Private => "PRIVATE",
+                Self::Insecure => "INSECURE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -699,9 +699,9 @@ impl SslType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            SslType::Unspecified => "SSL_TYPE_UNSPECIFIED",
-            SslType::Tls => "TLS",
-            SslType::Mtls => "MTLS",
+            Self::Unspecified => "SSL_TYPE_UNSPECIFIED",
+            Self::Tls => "TLS",
+            Self::Mtls => "MTLS",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -730,8 +730,8 @@ impl CertType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            CertType::Unspecified => "CERT_TYPE_UNSPECIFIED",
-            CertType::Pem => "PEM",
+            Self::Unspecified => "CERT_TYPE_UNSPECIFIED",
+            Self::Pem => "PEM",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -942,8 +942,8 @@ pub mod extraction_rule {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                SourceType::Unspecified => "SOURCE_TYPE_UNSPECIFIED",
-                SourceType::ConfigVariable => "CONFIG_VARIABLE",
+                Self::Unspecified => "SOURCE_TYPE_UNSPECIFIED",
+                Self::ConfigVariable => "CONFIG_VARIABLE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -974,9 +974,9 @@ impl ConnectorVersionView {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ConnectorVersionView::Unspecified => "CONNECTOR_VERSION_VIEW_UNSPECIFIED",
-            ConnectorVersionView::Basic => "CONNECTOR_VERSION_VIEW_BASIC",
-            ConnectorVersionView::Full => "CONNECTOR_VERSION_VIEW_FULL",
+            Self::Unspecified => "CONNECTOR_VERSION_VIEW_UNSPECIFIED",
+            Self::Basic => "CONNECTOR_VERSION_VIEW_BASIC",
+            Self::Full => "CONNECTOR_VERSION_VIEW_FULL",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -988,6 +988,85 @@ impl ConnectorVersionView {
             _ => None,
         }
     }
+}
+/// Connectors indicates a specific connector type, e.x. Salesforce, SAP etc.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Connector {
+    /// Output only. Resource name of the Connector.
+    /// Format:
+    /// projects/{project}/locations/{location}/providers/{provider}/connectors/{connector}
+    /// Only global location is supported for Connector resource.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// Output only. Created time.
+    #[prost(message, optional, tag = "2")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. Updated time.
+    #[prost(message, optional, tag = "3")]
+    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. Resource labels to represent user-provided metadata.
+    /// Refer to cloud documentation on labels for more details.
+    /// <https://cloud.google.com/compute/docs/labeling-resources>
+    #[prost(btree_map = "string, string", tag = "4")]
+    pub labels: ::prost::alloc::collections::BTreeMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+    /// Output only. Link to documentation page.
+    #[prost(string, tag = "6")]
+    pub documentation_uri: ::prost::alloc::string::String,
+    /// Output only. Link to external page.
+    #[prost(string, tag = "7")]
+    pub external_uri: ::prost::alloc::string::String,
+    /// Output only. Description of the resource.
+    #[prost(string, tag = "8")]
+    pub description: ::prost::alloc::string::String,
+    /// Output only. Cloud storage location of icons etc consumed by UI.
+    #[prost(string, tag = "9")]
+    pub web_assets_location: ::prost::alloc::string::String,
+    /// Output only. Display name.
+    #[prost(string, tag = "10")]
+    pub display_name: ::prost::alloc::string::String,
+    /// Output only. Flag to mark the version indicating the launch stage.
+    #[prost(enumeration = "LaunchStage", tag = "11")]
+    pub launch_stage: i32,
+}
+/// Request message for Connectors.GetConnector.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetConnectorRequest {
+    /// Required. Resource name of the form:
+    /// `projects/*/locations/*/providers/*/connectors/*`
+    /// Only global location is supported for Connector resource.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// Request message for Connectors.ListConnectors.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListConnectorsRequest {
+    /// Required. Parent resource of the connectors, of the form:
+    /// `projects/*/locations/*/providers/*`
+    /// Only global location is supported for Connector resource.
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// Page size.
+    #[prost(int32, tag = "2")]
+    pub page_size: i32,
+    /// Page token.
+    #[prost(string, tag = "3")]
+    pub page_token: ::prost::alloc::string::String,
+}
+/// Response message for Connectors.ListConnectors.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListConnectorsResponse {
+    /// A list of connectors.
+    #[prost(message, repeated, tag = "1")]
+    pub connectors: ::prost::alloc::vec::Vec<Connector>,
+    /// Next page token.
+    #[prost(string, tag = "2")]
+    pub next_page_token: ::prost::alloc::string::String,
+    /// Locations that could not be reached.
+    #[prost(string, repeated, tag = "3")]
+    pub unreachable: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// Request for \[GetGlobalSettingsRequest\].
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1009,120 +1088,6 @@ pub struct Settings {
     /// Output only. Flag indicates if user is in PayG model
     #[prost(bool, tag = "3")]
     pub payg: bool,
-}
-/// Request message for Connectors.GetRuntimeConfig.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetRuntimeConfigRequest {
-    /// Required. Resource name of the form:
-    /// `projects/*/locations/*/runtimeConfig`
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// RuntimeConfig is the singleton resource of each location.
-/// It includes generic resource configs consumed by control plane and runtime
-/// plane like: pub/sub topic/subscription resource name, Cloud Storage location
-/// storing schema etc.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RuntimeConfig {
-    /// Output only. location_id of the runtime location. E.g. "us-west1".
-    #[prost(string, tag = "1")]
-    pub location_id: ::prost::alloc::string::String,
-    /// Output only. Pub/Sub topic for connd to send message.
-    /// E.g. projects/{project-id}/topics/{topic-id}
-    #[prost(string, tag = "2")]
-    pub connd_topic: ::prost::alloc::string::String,
-    /// Output only. Pub/Sub subscription for connd to receive message.
-    /// E.g. projects/{project-id}/subscriptions/{topic-id}
-    #[prost(string, tag = "3")]
-    pub connd_subscription: ::prost::alloc::string::String,
-    /// Output only. Pub/Sub topic for control plne to send message.
-    /// communication.
-    /// E.g. projects/{project-id}/topics/{topic-id}
-    #[prost(string, tag = "4")]
-    pub control_plane_topic: ::prost::alloc::string::String,
-    /// Output only. Pub/Sub subscription for control plane to receive message.
-    /// E.g. projects/{project-id}/subscriptions/{topic-id}
-    #[prost(string, tag = "5")]
-    pub control_plane_subscription: ::prost::alloc::string::String,
-    /// Output only. The endpoint of the connectors runtime ingress.
-    #[prost(string, tag = "6")]
-    pub runtime_endpoint: ::prost::alloc::string::String,
-    /// Output only. The state of the location.
-    #[prost(enumeration = "runtime_config::State", tag = "7")]
-    pub state: i32,
-    /// Output only. The Cloud Storage bucket that stores connector's schema
-    /// reports.
-    #[prost(string, tag = "8")]
-    pub schema_gcs_bucket: ::prost::alloc::string::String,
-    /// Output only. The name of the Service Directory service name.
-    #[prost(string, tag = "9")]
-    pub service_directory: ::prost::alloc::string::String,
-    /// Output only. Name of the runtimeConfig resource.
-    /// Format: projects/{project}/locations/{location}/runtimeConfig
-    #[prost(string, tag = "11")]
-    pub name: ::prost::alloc::string::String,
-}
-/// Nested message and enum types in `RuntimeConfig`.
-pub mod runtime_config {
-    /// State of the location.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum State {
-        /// STATE_UNSPECIFIED.
-        Unspecified = 0,
-        /// INACTIVE.
-        Inactive = 1,
-        /// ACTIVATING.
-        Activating = 2,
-        /// ACTIVE.
-        Active = 3,
-        /// CREATING.
-        Creating = 4,
-        /// DELETING.
-        Deleting = 5,
-        /// UPDATING.
-        Updating = 6,
-    }
-    impl State {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Inactive => "INACTIVE",
-                State::Activating => "ACTIVATING",
-                State::Active => "ACTIVE",
-                State::Creating => "CREATING",
-                State::Deleting => "DELETING",
-                State::Updating => "UPDATING",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "STATE_UNSPECIFIED" => Some(Self::Unspecified),
-                "INACTIVE" => Some(Self::Inactive),
-                "ACTIVATING" => Some(Self::Activating),
-                "ACTIVE" => Some(Self::Active),
-                "CREATING" => Some(Self::Creating),
-                "DELETING" => Some(Self::Deleting),
-                "UPDATING" => Some(Self::Updating),
-                _ => None,
-            }
-        }
-    }
 }
 /// Define the Connectors target endpoint.
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1298,9 +1263,9 @@ pub mod connection_schema_metadata {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Refreshing => "REFRESHING",
-                State::Updated => "UPDATED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Refreshing => "REFRESHING",
+                Self::Updated => "UPDATED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1662,14 +1627,14 @@ pub mod connection_status {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Active => "ACTIVE",
-                State::Inactive => "INACTIVE",
-                State::Deleting => "DELETING",
-                State::Updating => "UPDATING",
-                State::Error => "ERROR",
-                State::AuthorizationRequired => "AUTHORIZATION_REQUIRED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Active => "ACTIVE",
+                Self::Inactive => "INACTIVE",
+                Self::Deleting => "DELETING",
+                Self::Updating => "UPDATING",
+                Self::Error => "ERROR",
+                Self::AuthorizationRequired => "AUTHORIZATION_REQUIRED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1790,51 +1755,51 @@ impl DataType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            DataType::Unspecified => "DATA_TYPE_UNSPECIFIED",
-            DataType::Int => "DATA_TYPE_INT",
-            DataType::Smallint => "DATA_TYPE_SMALLINT",
-            DataType::Double => "DATA_TYPE_DOUBLE",
-            DataType::Date => "DATA_TYPE_DATE",
-            DataType::Datetime => "DATA_TYPE_DATETIME",
-            DataType::Time => "DATA_TYPE_TIME",
-            DataType::String => "DATA_TYPE_STRING",
-            DataType::Long => "DATA_TYPE_LONG",
-            DataType::Boolean => "DATA_TYPE_BOOLEAN",
-            DataType::Decimal => "DATA_TYPE_DECIMAL",
-            DataType::Uuid => "DATA_TYPE_UUID",
-            DataType::Blob => "DATA_TYPE_BLOB",
-            DataType::Bit => "DATA_TYPE_BIT",
-            DataType::Tinyint => "DATA_TYPE_TINYINT",
-            DataType::Integer => "DATA_TYPE_INTEGER",
-            DataType::Bigint => "DATA_TYPE_BIGINT",
-            DataType::Float => "DATA_TYPE_FLOAT",
-            DataType::Real => "DATA_TYPE_REAL",
-            DataType::Numeric => "DATA_TYPE_NUMERIC",
-            DataType::Char => "DATA_TYPE_CHAR",
-            DataType::Varchar => "DATA_TYPE_VARCHAR",
-            DataType::Longvarchar => "DATA_TYPE_LONGVARCHAR",
-            DataType::Timestamp => "DATA_TYPE_TIMESTAMP",
-            DataType::Nchar => "DATA_TYPE_NCHAR",
-            DataType::Nvarchar => "DATA_TYPE_NVARCHAR",
-            DataType::Longnvarchar => "DATA_TYPE_LONGNVARCHAR",
-            DataType::Null => "DATA_TYPE_NULL",
-            DataType::Other => "DATA_TYPE_OTHER",
-            DataType::JavaObject => "DATA_TYPE_JAVA_OBJECT",
-            DataType::Distinct => "DATA_TYPE_DISTINCT",
-            DataType::Struct => "DATA_TYPE_STRUCT",
-            DataType::Array => "DATA_TYPE_ARRAY",
-            DataType::Clob => "DATA_TYPE_CLOB",
-            DataType::Ref => "DATA_TYPE_REF",
-            DataType::Datalink => "DATA_TYPE_DATALINK",
-            DataType::Rowid => "DATA_TYPE_ROWID",
-            DataType::Binary => "DATA_TYPE_BINARY",
-            DataType::Varbinary => "DATA_TYPE_VARBINARY",
-            DataType::Longvarbinary => "DATA_TYPE_LONGVARBINARY",
-            DataType::Nclob => "DATA_TYPE_NCLOB",
-            DataType::Sqlxml => "DATA_TYPE_SQLXML",
-            DataType::RefCursor => "DATA_TYPE_REF_CURSOR",
-            DataType::TimeWithTimezone => "DATA_TYPE_TIME_WITH_TIMEZONE",
-            DataType::TimestampWithTimezone => "DATA_TYPE_TIMESTAMP_WITH_TIMEZONE",
+            Self::Unspecified => "DATA_TYPE_UNSPECIFIED",
+            Self::Int => "DATA_TYPE_INT",
+            Self::Smallint => "DATA_TYPE_SMALLINT",
+            Self::Double => "DATA_TYPE_DOUBLE",
+            Self::Date => "DATA_TYPE_DATE",
+            Self::Datetime => "DATA_TYPE_DATETIME",
+            Self::Time => "DATA_TYPE_TIME",
+            Self::String => "DATA_TYPE_STRING",
+            Self::Long => "DATA_TYPE_LONG",
+            Self::Boolean => "DATA_TYPE_BOOLEAN",
+            Self::Decimal => "DATA_TYPE_DECIMAL",
+            Self::Uuid => "DATA_TYPE_UUID",
+            Self::Blob => "DATA_TYPE_BLOB",
+            Self::Bit => "DATA_TYPE_BIT",
+            Self::Tinyint => "DATA_TYPE_TINYINT",
+            Self::Integer => "DATA_TYPE_INTEGER",
+            Self::Bigint => "DATA_TYPE_BIGINT",
+            Self::Float => "DATA_TYPE_FLOAT",
+            Self::Real => "DATA_TYPE_REAL",
+            Self::Numeric => "DATA_TYPE_NUMERIC",
+            Self::Char => "DATA_TYPE_CHAR",
+            Self::Varchar => "DATA_TYPE_VARCHAR",
+            Self::Longvarchar => "DATA_TYPE_LONGVARCHAR",
+            Self::Timestamp => "DATA_TYPE_TIMESTAMP",
+            Self::Nchar => "DATA_TYPE_NCHAR",
+            Self::Nvarchar => "DATA_TYPE_NVARCHAR",
+            Self::Longnvarchar => "DATA_TYPE_LONGNVARCHAR",
+            Self::Null => "DATA_TYPE_NULL",
+            Self::Other => "DATA_TYPE_OTHER",
+            Self::JavaObject => "DATA_TYPE_JAVA_OBJECT",
+            Self::Distinct => "DATA_TYPE_DISTINCT",
+            Self::Struct => "DATA_TYPE_STRUCT",
+            Self::Array => "DATA_TYPE_ARRAY",
+            Self::Clob => "DATA_TYPE_CLOB",
+            Self::Ref => "DATA_TYPE_REF",
+            Self::Datalink => "DATA_TYPE_DATALINK",
+            Self::Rowid => "DATA_TYPE_ROWID",
+            Self::Binary => "DATA_TYPE_BINARY",
+            Self::Varbinary => "DATA_TYPE_VARBINARY",
+            Self::Longvarbinary => "DATA_TYPE_LONGVARBINARY",
+            Self::Nclob => "DATA_TYPE_NCLOB",
+            Self::Sqlxml => "DATA_TYPE_SQLXML",
+            Self::RefCursor => "DATA_TYPE_REF_CURSOR",
+            Self::TimeWithTimezone => "DATA_TYPE_TIME_WITH_TIMEZONE",
+            Self::TimestampWithTimezone => "DATA_TYPE_TIMESTAMP_WITH_TIMEZONE",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1907,9 +1872,9 @@ impl ConnectionView {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ConnectionView::Unspecified => "CONNECTION_VIEW_UNSPECIFIED",
-            ConnectionView::Basic => "BASIC",
-            ConnectionView::Full => "FULL",
+            Self::Unspecified => "CONNECTION_VIEW_UNSPECIFIED",
+            Self::Basic => "BASIC",
+            Self::Full => "FULL",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1921,85 +1886,6 @@ impl ConnectionView {
             _ => None,
         }
     }
-}
-/// Connectors indicates a specific connector type, e.x. Salesforce, SAP etc.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Connector {
-    /// Output only. Resource name of the Connector.
-    /// Format:
-    /// projects/{project}/locations/{location}/providers/{provider}/connectors/{connector}
-    /// Only global location is supported for Connector resource.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// Output only. Created time.
-    #[prost(message, optional, tag = "2")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. Updated time.
-    #[prost(message, optional, tag = "3")]
-    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. Resource labels to represent user-provided metadata.
-    /// Refer to cloud documentation on labels for more details.
-    /// <https://cloud.google.com/compute/docs/labeling-resources>
-    #[prost(btree_map = "string, string", tag = "4")]
-    pub labels: ::prost::alloc::collections::BTreeMap<
-        ::prost::alloc::string::String,
-        ::prost::alloc::string::String,
-    >,
-    /// Output only. Link to documentation page.
-    #[prost(string, tag = "6")]
-    pub documentation_uri: ::prost::alloc::string::String,
-    /// Output only. Link to external page.
-    #[prost(string, tag = "7")]
-    pub external_uri: ::prost::alloc::string::String,
-    /// Output only. Description of the resource.
-    #[prost(string, tag = "8")]
-    pub description: ::prost::alloc::string::String,
-    /// Output only. Cloud storage location of icons etc consumed by UI.
-    #[prost(string, tag = "9")]
-    pub web_assets_location: ::prost::alloc::string::String,
-    /// Output only. Display name.
-    #[prost(string, tag = "10")]
-    pub display_name: ::prost::alloc::string::String,
-    /// Output only. Flag to mark the version indicating the launch stage.
-    #[prost(enumeration = "LaunchStage", tag = "11")]
-    pub launch_stage: i32,
-}
-/// Request message for Connectors.GetConnector.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetConnectorRequest {
-    /// Required. Resource name of the form:
-    /// `projects/*/locations/*/providers/*/connectors/*`
-    /// Only global location is supported for Connector resource.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// Request message for Connectors.ListConnectors.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListConnectorsRequest {
-    /// Required. Parent resource of the connectors, of the form:
-    /// `projects/*/locations/*/providers/*`
-    /// Only global location is supported for Connector resource.
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// Page size.
-    #[prost(int32, tag = "2")]
-    pub page_size: i32,
-    /// Page token.
-    #[prost(string, tag = "3")]
-    pub page_token: ::prost::alloc::string::String,
-}
-/// Response message for Connectors.ListConnectors.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListConnectorsResponse {
-    /// A list of connectors.
-    #[prost(message, repeated, tag = "1")]
-    pub connectors: ::prost::alloc::vec::Vec<Connector>,
-    /// Next page token.
-    #[prost(string, tag = "2")]
-    pub next_page_token: ::prost::alloc::string::String,
-    /// Locations that could not be reached.
-    #[prost(string, repeated, tag = "3")]
-    pub unreachable: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
 }
 /// Provider indicates the owner who provides the connectors.
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -2078,6 +1964,120 @@ pub struct ListProvidersResponse {
     /// Locations that could not be reached.
     #[prost(string, repeated, tag = "3")]
     pub unreachable: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+/// Request message for Connectors.GetRuntimeConfig.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetRuntimeConfigRequest {
+    /// Required. Resource name of the form:
+    /// `projects/*/locations/*/runtimeConfig`
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// RuntimeConfig is the singleton resource of each location.
+/// It includes generic resource configs consumed by control plane and runtime
+/// plane like: pub/sub topic/subscription resource name, Cloud Storage location
+/// storing schema etc.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RuntimeConfig {
+    /// Output only. location_id of the runtime location. E.g. "us-west1".
+    #[prost(string, tag = "1")]
+    pub location_id: ::prost::alloc::string::String,
+    /// Output only. Pub/Sub topic for connd to send message.
+    /// E.g. projects/{project-id}/topics/{topic-id}
+    #[prost(string, tag = "2")]
+    pub connd_topic: ::prost::alloc::string::String,
+    /// Output only. Pub/Sub subscription for connd to receive message.
+    /// E.g. projects/{project-id}/subscriptions/{topic-id}
+    #[prost(string, tag = "3")]
+    pub connd_subscription: ::prost::alloc::string::String,
+    /// Output only. Pub/Sub topic for control plne to send message.
+    /// communication.
+    /// E.g. projects/{project-id}/topics/{topic-id}
+    #[prost(string, tag = "4")]
+    pub control_plane_topic: ::prost::alloc::string::String,
+    /// Output only. Pub/Sub subscription for control plane to receive message.
+    /// E.g. projects/{project-id}/subscriptions/{topic-id}
+    #[prost(string, tag = "5")]
+    pub control_plane_subscription: ::prost::alloc::string::String,
+    /// Output only. The endpoint of the connectors runtime ingress.
+    #[prost(string, tag = "6")]
+    pub runtime_endpoint: ::prost::alloc::string::String,
+    /// Output only. The state of the location.
+    #[prost(enumeration = "runtime_config::State", tag = "7")]
+    pub state: i32,
+    /// Output only. The Cloud Storage bucket that stores connector's schema
+    /// reports.
+    #[prost(string, tag = "8")]
+    pub schema_gcs_bucket: ::prost::alloc::string::String,
+    /// Output only. The name of the Service Directory service name.
+    #[prost(string, tag = "9")]
+    pub service_directory: ::prost::alloc::string::String,
+    /// Output only. Name of the runtimeConfig resource.
+    /// Format: projects/{project}/locations/{location}/runtimeConfig
+    #[prost(string, tag = "11")]
+    pub name: ::prost::alloc::string::String,
+}
+/// Nested message and enum types in `RuntimeConfig`.
+pub mod runtime_config {
+    /// State of the location.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum State {
+        /// STATE_UNSPECIFIED.
+        Unspecified = 0,
+        /// INACTIVE.
+        Inactive = 1,
+        /// ACTIVATING.
+        Activating = 2,
+        /// ACTIVE.
+        Active = 3,
+        /// CREATING.
+        Creating = 4,
+        /// DELETING.
+        Deleting = 5,
+        /// UPDATING.
+        Updating = 6,
+    }
+    impl State {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Inactive => "INACTIVE",
+                Self::Activating => "ACTIVATING",
+                Self::Active => "ACTIVE",
+                Self::Creating => "CREATING",
+                Self::Deleting => "DELETING",
+                Self::Updating => "UPDATING",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "STATE_UNSPECIFIED" => Some(Self::Unspecified),
+                "INACTIVE" => Some(Self::Inactive),
+                "ACTIVATING" => Some(Self::Activating),
+                "ACTIVE" => Some(Self::Active),
+                "CREATING" => Some(Self::Creating),
+                "DELETING" => Some(Self::Deleting),
+                "UPDATING" => Some(Self::Updating),
+                _ => None,
+            }
+        }
+    }
 }
 /// Generated client implementations.
 pub mod connectors_client {
@@ -2671,5 +2671,1044 @@ pub mod connectors_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod connectors_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with ConnectorsServer.
+    #[async_trait]
+    pub trait Connectors: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists Connections in a given project and location.
+        async fn list_connections(
+            &self,
+            request: tonic::Request<super::ListConnectionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListConnectionsResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single Connection.
+        async fn get_connection(
+            &self,
+            request: tonic::Request<super::GetConnectionRequest>,
+        ) -> std::result::Result<tonic::Response<super::Connection>, tonic::Status>;
+        /// Creates a new Connection in a given project and location.
+        async fn create_connection(
+            &self,
+            request: tonic::Request<super::CreateConnectionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the parameters of a single Connection.
+        async fn update_connection(
+            &self,
+            request: tonic::Request<super::UpdateConnectionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single Connection.
+        async fn delete_connection(
+            &self,
+            request: tonic::Request<super::DeleteConnectionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists Providers in a given project and location.
+        async fn list_providers(
+            &self,
+            request: tonic::Request<super::ListProvidersRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListProvidersResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a provider.
+        async fn get_provider(
+            &self,
+            request: tonic::Request<super::GetProviderRequest>,
+        ) -> std::result::Result<tonic::Response<super::Provider>, tonic::Status>;
+        /// Lists Connectors in a given project and location.
+        async fn list_connectors(
+            &self,
+            request: tonic::Request<super::ListConnectorsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListConnectorsResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single Connector.
+        async fn get_connector(
+            &self,
+            request: tonic::Request<super::GetConnectorRequest>,
+        ) -> std::result::Result<tonic::Response<super::Connector>, tonic::Status>;
+        /// Lists Connector Versions in a given project and location.
+        async fn list_connector_versions(
+            &self,
+            request: tonic::Request<super::ListConnectorVersionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListConnectorVersionsResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single connector version.
+        async fn get_connector_version(
+            &self,
+            request: tonic::Request<super::GetConnectorVersionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ConnectorVersion>,
+            tonic::Status,
+        >;
+        /// Gets schema metadata of a connection.
+        /// SchemaMetadata is a singleton resource for each connection.
+        async fn get_connection_schema_metadata(
+            &self,
+            request: tonic::Request<super::GetConnectionSchemaMetadataRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ConnectionSchemaMetadata>,
+            tonic::Status,
+        >;
+        /// Refresh runtime schema of a connection.
+        async fn refresh_connection_schema_metadata(
+            &self,
+            request: tonic::Request<super::RefreshConnectionSchemaMetadataRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// List schema of a runtime entities filtered by entity name.
+        async fn list_runtime_entity_schemas(
+            &self,
+            request: tonic::Request<super::ListRuntimeEntitySchemasRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListRuntimeEntitySchemasResponse>,
+            tonic::Status,
+        >;
+        /// List schema of a runtime actions filtered by action name.
+        async fn list_runtime_action_schemas(
+            &self,
+            request: tonic::Request<super::ListRuntimeActionSchemasRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListRuntimeActionSchemasResponse>,
+            tonic::Status,
+        >;
+        /// Gets the runtimeConfig of a location.
+        /// RuntimeConfig is a singleton resource for each location.
+        async fn get_runtime_config(
+            &self,
+            request: tonic::Request<super::GetRuntimeConfigRequest>,
+        ) -> std::result::Result<tonic::Response<super::RuntimeConfig>, tonic::Status>;
+        /// GetGlobalSettings gets settings of a project.
+        /// GlobalSettings is a singleton resource.
+        async fn get_global_settings(
+            &self,
+            request: tonic::Request<super::GetGlobalSettingsRequest>,
+        ) -> std::result::Result<tonic::Response<super::Settings>, tonic::Status>;
+    }
+    /// Connectors is the interface for managing Connectors.
+    #[derive(Debug)]
+    pub struct ConnectorsServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> ConnectorsServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for ConnectorsServer<T>
+    where
+        T: Connectors,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.connectors.v1.Connectors/ListConnections" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListConnectionsSvc<T: Connectors>(pub Arc<T>);
+                    impl<
+                        T: Connectors,
+                    > tonic::server::UnaryService<super::ListConnectionsRequest>
+                    for ListConnectionsSvc<T> {
+                        type Response = super::ListConnectionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListConnectionsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Connectors>::list_connections(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListConnectionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.connectors.v1.Connectors/GetConnection" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetConnectionSvc<T: Connectors>(pub Arc<T>);
+                    impl<
+                        T: Connectors,
+                    > tonic::server::UnaryService<super::GetConnectionRequest>
+                    for GetConnectionSvc<T> {
+                        type Response = super::Connection;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetConnectionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Connectors>::get_connection(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetConnectionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.connectors.v1.Connectors/CreateConnection" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateConnectionSvc<T: Connectors>(pub Arc<T>);
+                    impl<
+                        T: Connectors,
+                    > tonic::server::UnaryService<super::CreateConnectionRequest>
+                    for CreateConnectionSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateConnectionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Connectors>::create_connection(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateConnectionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.connectors.v1.Connectors/UpdateConnection" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateConnectionSvc<T: Connectors>(pub Arc<T>);
+                    impl<
+                        T: Connectors,
+                    > tonic::server::UnaryService<super::UpdateConnectionRequest>
+                    for UpdateConnectionSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateConnectionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Connectors>::update_connection(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateConnectionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.connectors.v1.Connectors/DeleteConnection" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteConnectionSvc<T: Connectors>(pub Arc<T>);
+                    impl<
+                        T: Connectors,
+                    > tonic::server::UnaryService<super::DeleteConnectionRequest>
+                    for DeleteConnectionSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteConnectionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Connectors>::delete_connection(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteConnectionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.connectors.v1.Connectors/ListProviders" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListProvidersSvc<T: Connectors>(pub Arc<T>);
+                    impl<
+                        T: Connectors,
+                    > tonic::server::UnaryService<super::ListProvidersRequest>
+                    for ListProvidersSvc<T> {
+                        type Response = super::ListProvidersResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListProvidersRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Connectors>::list_providers(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListProvidersSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.connectors.v1.Connectors/GetProvider" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetProviderSvc<T: Connectors>(pub Arc<T>);
+                    impl<
+                        T: Connectors,
+                    > tonic::server::UnaryService<super::GetProviderRequest>
+                    for GetProviderSvc<T> {
+                        type Response = super::Provider;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetProviderRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Connectors>::get_provider(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetProviderSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.connectors.v1.Connectors/ListConnectors" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListConnectorsSvc<T: Connectors>(pub Arc<T>);
+                    impl<
+                        T: Connectors,
+                    > tonic::server::UnaryService<super::ListConnectorsRequest>
+                    for ListConnectorsSvc<T> {
+                        type Response = super::ListConnectorsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListConnectorsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Connectors>::list_connectors(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListConnectorsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.connectors.v1.Connectors/GetConnector" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetConnectorSvc<T: Connectors>(pub Arc<T>);
+                    impl<
+                        T: Connectors,
+                    > tonic::server::UnaryService<super::GetConnectorRequest>
+                    for GetConnectorSvc<T> {
+                        type Response = super::Connector;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetConnectorRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Connectors>::get_connector(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetConnectorSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.connectors.v1.Connectors/ListConnectorVersions" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListConnectorVersionsSvc<T: Connectors>(pub Arc<T>);
+                    impl<
+                        T: Connectors,
+                    > tonic::server::UnaryService<super::ListConnectorVersionsRequest>
+                    for ListConnectorVersionsSvc<T> {
+                        type Response = super::ListConnectorVersionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListConnectorVersionsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Connectors>::list_connector_versions(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListConnectorVersionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.connectors.v1.Connectors/GetConnectorVersion" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetConnectorVersionSvc<T: Connectors>(pub Arc<T>);
+                    impl<
+                        T: Connectors,
+                    > tonic::server::UnaryService<super::GetConnectorVersionRequest>
+                    for GetConnectorVersionSvc<T> {
+                        type Response = super::ConnectorVersion;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetConnectorVersionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Connectors>::get_connector_version(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetConnectorVersionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.connectors.v1.Connectors/GetConnectionSchemaMetadata" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetConnectionSchemaMetadataSvc<T: Connectors>(pub Arc<T>);
+                    impl<
+                        T: Connectors,
+                    > tonic::server::UnaryService<
+                        super::GetConnectionSchemaMetadataRequest,
+                    > for GetConnectionSchemaMetadataSvc<T> {
+                        type Response = super::ConnectionSchemaMetadata;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetConnectionSchemaMetadataRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Connectors>::get_connection_schema_metadata(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetConnectionSchemaMetadataSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.connectors.v1.Connectors/RefreshConnectionSchemaMetadata" => {
+                    #[allow(non_camel_case_types)]
+                    struct RefreshConnectionSchemaMetadataSvc<T: Connectors>(pub Arc<T>);
+                    impl<
+                        T: Connectors,
+                    > tonic::server::UnaryService<
+                        super::RefreshConnectionSchemaMetadataRequest,
+                    > for RefreshConnectionSchemaMetadataSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::RefreshConnectionSchemaMetadataRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Connectors>::refresh_connection_schema_metadata(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RefreshConnectionSchemaMetadataSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.connectors.v1.Connectors/ListRuntimeEntitySchemas" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListRuntimeEntitySchemasSvc<T: Connectors>(pub Arc<T>);
+                    impl<
+                        T: Connectors,
+                    > tonic::server::UnaryService<super::ListRuntimeEntitySchemasRequest>
+                    for ListRuntimeEntitySchemasSvc<T> {
+                        type Response = super::ListRuntimeEntitySchemasResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListRuntimeEntitySchemasRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Connectors>::list_runtime_entity_schemas(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListRuntimeEntitySchemasSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.connectors.v1.Connectors/ListRuntimeActionSchemas" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListRuntimeActionSchemasSvc<T: Connectors>(pub Arc<T>);
+                    impl<
+                        T: Connectors,
+                    > tonic::server::UnaryService<super::ListRuntimeActionSchemasRequest>
+                    for ListRuntimeActionSchemasSvc<T> {
+                        type Response = super::ListRuntimeActionSchemasResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListRuntimeActionSchemasRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Connectors>::list_runtime_action_schemas(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListRuntimeActionSchemasSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.connectors.v1.Connectors/GetRuntimeConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetRuntimeConfigSvc<T: Connectors>(pub Arc<T>);
+                    impl<
+                        T: Connectors,
+                    > tonic::server::UnaryService<super::GetRuntimeConfigRequest>
+                    for GetRuntimeConfigSvc<T> {
+                        type Response = super::RuntimeConfig;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetRuntimeConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Connectors>::get_runtime_config(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetRuntimeConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.connectors.v1.Connectors/GetGlobalSettings" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetGlobalSettingsSvc<T: Connectors>(pub Arc<T>);
+                    impl<
+                        T: Connectors,
+                    > tonic::server::UnaryService<super::GetGlobalSettingsRequest>
+                    for GetGlobalSettingsSvc<T> {
+                        type Response = super::Settings;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetGlobalSettingsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Connectors>::get_global_settings(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetGlobalSettingsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for ConnectorsServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.connectors.v1.Connectors";
+    impl<T> tonic::server::NamedService for ConnectorsServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

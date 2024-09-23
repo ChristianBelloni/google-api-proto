@@ -69,11 +69,11 @@ pub mod replication_cycle {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Running => "RUNNING",
-                State::Paused => "PAUSED",
-                State::Failed => "FAILED",
-                State::Succeeded => "SUCCEEDED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Running => "RUNNING",
+                Self::Paused => "PAUSED",
+                Self::Failed => "FAILED",
+                Self::Succeeded => "SUCCEEDED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -281,18 +281,18 @@ pub mod migrating_vm {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Pending => "PENDING",
-                State::Ready => "READY",
-                State::FirstSync => "FIRST_SYNC",
-                State::Active => "ACTIVE",
-                State::CuttingOver => "CUTTING_OVER",
-                State::Cutover => "CUTOVER",
-                State::FinalSync => "FINAL_SYNC",
-                State::Paused => "PAUSED",
-                State::Finalizing => "FINALIZING",
-                State::Finalized => "FINALIZED",
-                State::Error => "ERROR",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Pending => "PENDING",
+                Self::Ready => "READY",
+                Self::FirstSync => "FIRST_SYNC",
+                Self::Active => "ACTIVE",
+                Self::CuttingOver => "CUTTING_OVER",
+                Self::Cutover => "CUTOVER",
+                Self::FinalSync => "FINAL_SYNC",
+                Self::Paused => "PAUSED",
+                Self::Finalizing => "FINALIZING",
+                Self::Finalized => "FINALIZED",
+                Self::Error => "ERROR",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -410,14 +410,14 @@ pub mod clone_job {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Pending => "PENDING",
-                State::Active => "ACTIVE",
-                State::Failed => "FAILED",
-                State::Succeeded => "SUCCEEDED",
-                State::Cancelled => "CANCELLED",
-                State::Cancelling => "CANCELLING",
-                State::AdaptingOs => "ADAPTING_OS",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Pending => "PENDING",
+                Self::Active => "ACTIVE",
+                Self::Failed => "FAILED",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Cancelled => "CANCELLED",
+                Self::Cancelling => "CANCELLING",
+                Self::AdaptingOs => "ADAPTING_OS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -559,14 +559,14 @@ pub mod cutover_job {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Pending => "PENDING",
-                State::Failed => "FAILED",
-                State::Succeeded => "SUCCEEDED",
-                State::Cancelled => "CANCELLED",
-                State::Cancelling => "CANCELLING",
-                State::Active => "ACTIVE",
-                State::AdaptingOs => "ADAPTING_OS",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Pending => "PENDING",
+                Self::Failed => "FAILED",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Cancelled => "CANCELLED",
+                Self::Cancelling => "CANCELLING",
+                Self::Active => "ACTIVE",
+                Self::AdaptingOs => "ADAPTING_OS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -862,10 +862,10 @@ pub mod aws_source_details {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Pending => "PENDING",
-                State::Failed => "FAILED",
-                State::Active => "ACTIVE",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Pending => "PENDING",
+                Self::Failed => "FAILED",
+                Self::Active => "ACTIVE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -984,11 +984,11 @@ pub mod datacenter_connector {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Pending => "PENDING",
-                State::Offline => "OFFLINE",
-                State::Failed => "FAILED",
-                State::Active => "ACTIVE",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Pending => "PENDING",
+                Self::Offline => "OFFLINE",
+                Self::Failed => "FAILED",
+                Self::Active => "ACTIVE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1055,10 +1055,10 @@ pub mod upgrade_status {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Running => "RUNNING",
-                State::Failed => "FAILED",
-                State::Succeeded => "SUCCEEDED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Running => "RUNNING",
+                Self::Failed => "FAILED",
+                Self::Succeeded => "SUCCEEDED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1316,10 +1316,10 @@ pub mod vmware_vm_details {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                PowerState::Unspecified => "POWER_STATE_UNSPECIFIED",
-                PowerState::On => "ON",
-                PowerState::Off => "OFF",
-                PowerState::Suspended => "SUSPENDED",
+                Self::Unspecified => "POWER_STATE_UNSPECIFIED",
+                Self::On => "ON",
+                Self::Off => "OFF",
+                Self::Suspended => "SUSPENDED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1361,9 +1361,9 @@ pub mod vmware_vm_details {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                BootOption::Unspecified => "BOOT_OPTION_UNSPECIFIED",
-                BootOption::Efi => "EFI",
-                BootOption::Bios => "BIOS",
+                Self::Unspecified => "BOOT_OPTION_UNSPECIFIED",
+                Self::Efi => "EFI",
+                Self::Bios => "BIOS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1473,11 +1473,11 @@ pub mod aws_vm_details {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                PowerState::Unspecified => "POWER_STATE_UNSPECIFIED",
-                PowerState::On => "ON",
-                PowerState::Off => "OFF",
-                PowerState::Suspended => "SUSPENDED",
-                PowerState::Pending => "PENDING",
+                Self::Unspecified => "POWER_STATE_UNSPECIFIED",
+                Self::On => "ON",
+                Self::Off => "OFF",
+                Self::Suspended => "SUSPENDED",
+                Self::Pending => "PENDING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1520,9 +1520,9 @@ pub mod aws_vm_details {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                BootOption::Unspecified => "BOOT_OPTION_UNSPECIFIED",
-                BootOption::Efi => "EFI",
-                BootOption::Bios => "BIOS",
+                Self::Unspecified => "BOOT_OPTION_UNSPECIFIED",
+                Self::Efi => "EFI",
+                Self::Bios => "BIOS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1563,9 +1563,9 @@ pub mod aws_vm_details {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                VmVirtualizationType::Unspecified => "VM_VIRTUALIZATION_TYPE_UNSPECIFIED",
-                VmVirtualizationType::Hvm => "HVM",
-                VmVirtualizationType::Paravirtual => "PARAVIRTUAL",
+                Self::Unspecified => "VM_VIRTUALIZATION_TYPE_UNSPECIFIED",
+                Self::Hvm => "HVM",
+                Self::Paravirtual => "PARAVIRTUAL",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1610,11 +1610,11 @@ pub mod aws_vm_details {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                VmArchitecture::Unspecified => "VM_ARCHITECTURE_UNSPECIFIED",
-                VmArchitecture::I386 => "I386",
-                VmArchitecture::X8664 => "X86_64",
-                VmArchitecture::Arm64 => "ARM64",
-                VmArchitecture::X8664Mac => "X86_64_MAC",
+                Self::Unspecified => "VM_ARCHITECTURE_UNSPECIFIED",
+                Self::I386 => "I386",
+                Self::X8664 => "X86_64",
+                Self::Arm64 => "ARM64",
+                Self::X8664Mac => "X86_64_MAC",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1752,10 +1752,10 @@ pub mod utilization_report {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Succeeded => "SUCCEEDED",
-                State::Failed => "FAILED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Failed => "FAILED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1799,10 +1799,10 @@ pub mod utilization_report {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                TimeFrame::Unspecified => "TIME_FRAME_UNSPECIFIED",
-                TimeFrame::Week => "WEEK",
-                TimeFrame::Month => "MONTH",
-                TimeFrame::Year => "YEAR",
+                Self::Unspecified => "TIME_FRAME_UNSPECIFIED",
+                Self::Week => "WEEK",
+                Self::Month => "MONTH",
+                Self::Year => "YEAR",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2297,10 +2297,10 @@ pub mod applied_license {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::None => "NONE",
-                Type::Payg => "PAYG",
-                Type::Byol => "BYOL",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::None => "NONE",
+                Self::Payg => "PAYG",
+                Self::Byol => "BYOL",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2362,9 +2362,9 @@ pub mod scheduling_node_affinity {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Operator::Unspecified => "OPERATOR_UNSPECIFIED",
-                Operator::In => "IN",
-                Operator::NotIn => "NOT_IN",
+                Self::Unspecified => "OPERATOR_UNSPECIFIED",
+                Self::In => "IN",
+                Self::NotIn => "NOT_IN",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2433,9 +2433,9 @@ pub mod compute_scheduling {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                OnHostMaintenance::Unspecified => "ON_HOST_MAINTENANCE_UNSPECIFIED",
-                OnHostMaintenance::Terminate => "TERMINATE",
-                OnHostMaintenance::Migrate => "MIGRATE",
+                Self::Unspecified => "ON_HOST_MAINTENANCE_UNSPECIFIED",
+                Self::Terminate => "TERMINATE",
+                Self::Migrate => "MIGRATE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2479,9 +2479,9 @@ pub mod compute_scheduling {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                RestartType::Unspecified => "RESTART_TYPE_UNSPECIFIED",
-                RestartType::AutomaticRestart => "AUTOMATIC_RESTART",
-                RestartType::NoAutomaticRestart => "NO_AUTOMATIC_RESTART",
+                Self::Unspecified => "RESTART_TYPE_UNSPECIFIED",
+                Self::AutomaticRestart => "AUTOMATIC_RESTART",
+                Self::NoAutomaticRestart => "NO_AUTOMATIC_RESTART",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -3167,16 +3167,16 @@ pub mod migration_error {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ErrorCode::Unspecified => "ERROR_CODE_UNSPECIFIED",
-                ErrorCode::UnknownError => "UNKNOWN_ERROR",
-                ErrorCode::SourceValidationError => "SOURCE_VALIDATION_ERROR",
-                ErrorCode::SourceReplicationError => "SOURCE_REPLICATION_ERROR",
-                ErrorCode::TargetReplicationError => "TARGET_REPLICATION_ERROR",
-                ErrorCode::OsAdaptationError => "OS_ADAPTATION_ERROR",
-                ErrorCode::CloneError => "CLONE_ERROR",
-                ErrorCode::CutoverError => "CUTOVER_ERROR",
-                ErrorCode::UtilizationReportError => "UTILIZATION_REPORT_ERROR",
-                ErrorCode::ApplianceUpgradeError => "APPLIANCE_UPGRADE_ERROR",
+                Self::Unspecified => "ERROR_CODE_UNSPECIFIED",
+                Self::UnknownError => "UNKNOWN_ERROR",
+                Self::SourceValidationError => "SOURCE_VALIDATION_ERROR",
+                Self::SourceReplicationError => "SOURCE_REPLICATION_ERROR",
+                Self::TargetReplicationError => "TARGET_REPLICATION_ERROR",
+                Self::OsAdaptationError => "OS_ADAPTATION_ERROR",
+                Self::CloneError => "CLONE_ERROR",
+                Self::CutoverError => "CUTOVER_ERROR",
+                Self::UtilizationReportError => "UTILIZATION_REPORT_ERROR",
+                Self::ApplianceUpgradeError => "APPLIANCE_UPGRADE_ERROR",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -3237,9 +3237,9 @@ pub mod aws_source_vm_details {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Firmware::Unspecified => "FIRMWARE_UNSPECIFIED",
-                Firmware::Efi => "EFI",
-                Firmware::Bios => "BIOS",
+                Self::Unspecified => "FIRMWARE_UNSPECIFIED",
+                Self::Efi => "EFI",
+                Self::Bios => "BIOS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -3321,9 +3321,9 @@ impl UtilizationReportView {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            UtilizationReportView::Unspecified => "UTILIZATION_REPORT_VIEW_UNSPECIFIED",
-            UtilizationReportView::Basic => "BASIC",
-            UtilizationReportView::Full => "FULL",
+            Self::Unspecified => "UTILIZATION_REPORT_VIEW_UNSPECIFIED",
+            Self::Basic => "BASIC",
+            Self::Full => "FULL",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -3356,9 +3356,9 @@ impl MigratingVmView {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            MigratingVmView::Unspecified => "MIGRATING_VM_VIEW_UNSPECIFIED",
-            MigratingVmView::Basic => "MIGRATING_VM_VIEW_BASIC",
-            MigratingVmView::Full => "MIGRATING_VM_VIEW_FULL",
+            Self::Unspecified => "MIGRATING_VM_VIEW_UNSPECIFIED",
+            Self::Basic => "MIGRATING_VM_VIEW_BASIC",
+            Self::Full => "MIGRATING_VM_VIEW_FULL",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -3392,10 +3392,10 @@ impl ComputeEngineDiskType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ComputeEngineDiskType::Unspecified => "COMPUTE_ENGINE_DISK_TYPE_UNSPECIFIED",
-            ComputeEngineDiskType::Standard => "COMPUTE_ENGINE_DISK_TYPE_STANDARD",
-            ComputeEngineDiskType::Ssd => "COMPUTE_ENGINE_DISK_TYPE_SSD",
-            ComputeEngineDiskType::Balanced => "COMPUTE_ENGINE_DISK_TYPE_BALANCED",
+            Self::Unspecified => "COMPUTE_ENGINE_DISK_TYPE_UNSPECIFIED",
+            Self::Standard => "COMPUTE_ENGINE_DISK_TYPE_STANDARD",
+            Self::Ssd => "COMPUTE_ENGINE_DISK_TYPE_SSD",
+            Self::Balanced => "COMPUTE_ENGINE_DISK_TYPE_BALANCED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -3427,9 +3427,9 @@ impl ComputeEngineLicenseType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ComputeEngineLicenseType::Default => "COMPUTE_ENGINE_LICENSE_TYPE_DEFAULT",
-            ComputeEngineLicenseType::Payg => "COMPUTE_ENGINE_LICENSE_TYPE_PAYG",
-            ComputeEngineLicenseType::Byol => "COMPUTE_ENGINE_LICENSE_TYPE_BYOL",
+            Self::Default => "COMPUTE_ENGINE_LICENSE_TYPE_DEFAULT",
+            Self::Payg => "COMPUTE_ENGINE_LICENSE_TYPE_PAYG",
+            Self::Byol => "COMPUTE_ENGINE_LICENSE_TYPE_BYOL",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -3460,11 +3460,9 @@ impl ComputeEngineBootOption {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ComputeEngineBootOption::Unspecified => {
-                "COMPUTE_ENGINE_BOOT_OPTION_UNSPECIFIED"
-            }
-            ComputeEngineBootOption::Efi => "COMPUTE_ENGINE_BOOT_OPTION_EFI",
-            ComputeEngineBootOption::Bios => "COMPUTE_ENGINE_BOOT_OPTION_BIOS",
+            Self::Unspecified => "COMPUTE_ENGINE_BOOT_OPTION_UNSPECIFIED",
+            Self::Efi => "COMPUTE_ENGINE_BOOT_OPTION_EFI",
+            Self::Bios => "COMPUTE_ENGINE_BOOT_OPTION_BIOS",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -4989,5 +4987,2632 @@ pub mod vm_migration_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod vm_migration_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with VmMigrationServer.
+    #[async_trait]
+    pub trait VmMigration: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists Sources in a given project and location.
+        async fn list_sources(
+            &self,
+            request: tonic::Request<super::ListSourcesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListSourcesResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single Source.
+        async fn get_source(
+            &self,
+            request: tonic::Request<super::GetSourceRequest>,
+        ) -> std::result::Result<tonic::Response<super::Source>, tonic::Status>;
+        /// Creates a new Source in a given project and location.
+        async fn create_source(
+            &self,
+            request: tonic::Request<super::CreateSourceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the parameters of a single Source.
+        async fn update_source(
+            &self,
+            request: tonic::Request<super::UpdateSourceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single Source.
+        async fn delete_source(
+            &self,
+            request: tonic::Request<super::DeleteSourceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// List remote source's inventory of VMs.
+        /// The remote source is the onprem vCenter (remote in the sense it's not in
+        /// Compute Engine). The inventory describes the list of existing VMs in that
+        /// source. Note that this operation lists the VMs on the remote source, as
+        /// opposed to listing the MigratingVms resources in the vmmigration service.
+        async fn fetch_inventory(
+            &self,
+            request: tonic::Request<super::FetchInventoryRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::FetchInventoryResponse>,
+            tonic::Status,
+        >;
+        /// Lists Utilization Reports of the given Source.
+        async fn list_utilization_reports(
+            &self,
+            request: tonic::Request<super::ListUtilizationReportsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListUtilizationReportsResponse>,
+            tonic::Status,
+        >;
+        /// Gets a single Utilization Report.
+        async fn get_utilization_report(
+            &self,
+            request: tonic::Request<super::GetUtilizationReportRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::UtilizationReport>,
+            tonic::Status,
+        >;
+        /// Creates a new UtilizationReport.
+        async fn create_utilization_report(
+            &self,
+            request: tonic::Request<super::CreateUtilizationReportRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single Utilization Report.
+        async fn delete_utilization_report(
+            &self,
+            request: tonic::Request<super::DeleteUtilizationReportRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists DatacenterConnectors in a given Source.
+        async fn list_datacenter_connectors(
+            &self,
+            request: tonic::Request<super::ListDatacenterConnectorsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDatacenterConnectorsResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single DatacenterConnector.
+        async fn get_datacenter_connector(
+            &self,
+            request: tonic::Request<super::GetDatacenterConnectorRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::DatacenterConnector>,
+            tonic::Status,
+        >;
+        /// Creates a new DatacenterConnector in a given Source.
+        async fn create_datacenter_connector(
+            &self,
+            request: tonic::Request<super::CreateDatacenterConnectorRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single DatacenterConnector.
+        async fn delete_datacenter_connector(
+            &self,
+            request: tonic::Request<super::DeleteDatacenterConnectorRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Upgrades the appliance relate to this DatacenterConnector to the in-place
+        /// updateable version.
+        async fn upgrade_appliance(
+            &self,
+            request: tonic::Request<super::UpgradeApplianceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Creates a new MigratingVm in a given Source.
+        async fn create_migrating_vm(
+            &self,
+            request: tonic::Request<super::CreateMigratingVmRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists MigratingVms in a given Source.
+        async fn list_migrating_vms(
+            &self,
+            request: tonic::Request<super::ListMigratingVmsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListMigratingVmsResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single MigratingVm.
+        async fn get_migrating_vm(
+            &self,
+            request: tonic::Request<super::GetMigratingVmRequest>,
+        ) -> std::result::Result<tonic::Response<super::MigratingVm>, tonic::Status>;
+        /// Updates the parameters of a single MigratingVm.
+        async fn update_migrating_vm(
+            &self,
+            request: tonic::Request<super::UpdateMigratingVmRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single MigratingVm.
+        async fn delete_migrating_vm(
+            &self,
+            request: tonic::Request<super::DeleteMigratingVmRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Starts migration for a VM. Starts the process of uploading
+        /// data and creating snapshots, in replication cycles scheduled by the policy.
+        async fn start_migration(
+            &self,
+            request: tonic::Request<super::StartMigrationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Resumes a migration for a VM. When called on a paused migration, will start
+        /// the process of uploading data and creating snapshots; when called on a
+        /// completed cut-over migration, will update the migration to active state and
+        /// start the process of uploading data and creating snapshots.
+        async fn resume_migration(
+            &self,
+            request: tonic::Request<super::ResumeMigrationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Pauses a migration for a VM. If cycle tasks are running they will be
+        /// cancelled, preserving source task data. Further replication cycles will not
+        /// be triggered while the VM is paused.
+        async fn pause_migration(
+            &self,
+            request: tonic::Request<super::PauseMigrationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Marks a migration as completed, deleting migration resources that are no
+        /// longer being used. Only applicable after cutover is done.
+        async fn finalize_migration(
+            &self,
+            request: tonic::Request<super::FinalizeMigrationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Initiates a Clone of a specific migrating VM.
+        async fn create_clone_job(
+            &self,
+            request: tonic::Request<super::CreateCloneJobRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Initiates the cancellation of a running clone job.
+        async fn cancel_clone_job(
+            &self,
+            request: tonic::Request<super::CancelCloneJobRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists CloneJobs of a given migrating VM.
+        async fn list_clone_jobs(
+            &self,
+            request: tonic::Request<super::ListCloneJobsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListCloneJobsResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single CloneJob.
+        async fn get_clone_job(
+            &self,
+            request: tonic::Request<super::GetCloneJobRequest>,
+        ) -> std::result::Result<tonic::Response<super::CloneJob>, tonic::Status>;
+        /// Initiates a Cutover of a specific migrating VM.
+        /// The returned LRO is completed when the cutover job resource is created
+        /// and the job is initiated.
+        async fn create_cutover_job(
+            &self,
+            request: tonic::Request<super::CreateCutoverJobRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Initiates the cancellation of a running cutover job.
+        async fn cancel_cutover_job(
+            &self,
+            request: tonic::Request<super::CancelCutoverJobRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists CutoverJobs of a given migrating VM.
+        async fn list_cutover_jobs(
+            &self,
+            request: tonic::Request<super::ListCutoverJobsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListCutoverJobsResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single CutoverJob.
+        async fn get_cutover_job(
+            &self,
+            request: tonic::Request<super::GetCutoverJobRequest>,
+        ) -> std::result::Result<tonic::Response<super::CutoverJob>, tonic::Status>;
+        /// Lists Groups in a given project and location.
+        async fn list_groups(
+            &self,
+            request: tonic::Request<super::ListGroupsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListGroupsResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single Group.
+        async fn get_group(
+            &self,
+            request: tonic::Request<super::GetGroupRequest>,
+        ) -> std::result::Result<tonic::Response<super::Group>, tonic::Status>;
+        /// Creates a new Group in a given project and location.
+        async fn create_group(
+            &self,
+            request: tonic::Request<super::CreateGroupRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the parameters of a single Group.
+        async fn update_group(
+            &self,
+            request: tonic::Request<super::UpdateGroupRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single Group.
+        async fn delete_group(
+            &self,
+            request: tonic::Request<super::DeleteGroupRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Adds a MigratingVm to a Group.
+        async fn add_group_migration(
+            &self,
+            request: tonic::Request<super::AddGroupMigrationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Removes a MigratingVm from a Group.
+        async fn remove_group_migration(
+            &self,
+            request: tonic::Request<super::RemoveGroupMigrationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists TargetProjects in a given project.
+        ///
+        /// NOTE: TargetProject is a global resource; hence the only supported value
+        /// for location is `global`.
+        async fn list_target_projects(
+            &self,
+            request: tonic::Request<super::ListTargetProjectsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListTargetProjectsResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single TargetProject.
+        ///
+        /// NOTE: TargetProject is a global resource; hence the only supported value
+        /// for location is `global`.
+        async fn get_target_project(
+            &self,
+            request: tonic::Request<super::GetTargetProjectRequest>,
+        ) -> std::result::Result<tonic::Response<super::TargetProject>, tonic::Status>;
+        /// Creates a new TargetProject in a given project.
+        ///
+        /// NOTE: TargetProject is a global resource; hence the only supported value
+        /// for location is `global`.
+        async fn create_target_project(
+            &self,
+            request: tonic::Request<super::CreateTargetProjectRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the parameters of a single TargetProject.
+        ///
+        /// NOTE: TargetProject is a global resource; hence the only supported value
+        /// for location is `global`.
+        async fn update_target_project(
+            &self,
+            request: tonic::Request<super::UpdateTargetProjectRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single TargetProject.
+        ///
+        /// NOTE: TargetProject is a global resource; hence the only supported value
+        /// for location is `global`.
+        async fn delete_target_project(
+            &self,
+            request: tonic::Request<super::DeleteTargetProjectRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists ReplicationCycles in a given MigratingVM.
+        async fn list_replication_cycles(
+            &self,
+            request: tonic::Request<super::ListReplicationCyclesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListReplicationCyclesResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single ReplicationCycle.
+        async fn get_replication_cycle(
+            &self,
+            request: tonic::Request<super::GetReplicationCycleRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ReplicationCycle>,
+            tonic::Status,
+        >;
+    }
+    /// VM Migration Service
+    #[derive(Debug)]
+    pub struct VmMigrationServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> VmMigrationServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for VmMigrationServer<T>
+    where
+        T: VmMigration,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.vmmigration.v1.VmMigration/ListSources" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListSourcesSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::ListSourcesRequest>
+                    for ListSourcesSvc<T> {
+                        type Response = super::ListSourcesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListSourcesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::list_sources(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListSourcesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/GetSource" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetSourceSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::GetSourceRequest>
+                    for GetSourceSvc<T> {
+                        type Response = super::Source;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetSourceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::get_source(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetSourceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/CreateSource" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateSourceSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::CreateSourceRequest>
+                    for CreateSourceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateSourceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::create_source(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateSourceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/UpdateSource" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateSourceSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::UpdateSourceRequest>
+                    for UpdateSourceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateSourceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::update_source(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateSourceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/DeleteSource" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteSourceSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::DeleteSourceRequest>
+                    for DeleteSourceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteSourceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::delete_source(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteSourceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/FetchInventory" => {
+                    #[allow(non_camel_case_types)]
+                    struct FetchInventorySvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::FetchInventoryRequest>
+                    for FetchInventorySvc<T> {
+                        type Response = super::FetchInventoryResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::FetchInventoryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::fetch_inventory(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = FetchInventorySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/ListUtilizationReports" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListUtilizationReportsSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::ListUtilizationReportsRequest>
+                    for ListUtilizationReportsSvc<T> {
+                        type Response = super::ListUtilizationReportsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListUtilizationReportsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::list_utilization_reports(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListUtilizationReportsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/GetUtilizationReport" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetUtilizationReportSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::GetUtilizationReportRequest>
+                    for GetUtilizationReportSvc<T> {
+                        type Response = super::UtilizationReport;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetUtilizationReportRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::get_utilization_report(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetUtilizationReportSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/CreateUtilizationReport" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateUtilizationReportSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::CreateUtilizationReportRequest>
+                    for CreateUtilizationReportSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateUtilizationReportRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::create_utilization_report(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateUtilizationReportSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/DeleteUtilizationReport" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteUtilizationReportSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::DeleteUtilizationReportRequest>
+                    for DeleteUtilizationReportSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteUtilizationReportRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::delete_utilization_report(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteUtilizationReportSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/ListDatacenterConnectors" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDatacenterConnectorsSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::ListDatacenterConnectorsRequest>
+                    for ListDatacenterConnectorsSvc<T> {
+                        type Response = super::ListDatacenterConnectorsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListDatacenterConnectorsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::list_datacenter_connectors(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDatacenterConnectorsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/GetDatacenterConnector" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetDatacenterConnectorSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::GetDatacenterConnectorRequest>
+                    for GetDatacenterConnectorSvc<T> {
+                        type Response = super::DatacenterConnector;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetDatacenterConnectorRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::get_datacenter_connector(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetDatacenterConnectorSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/CreateDatacenterConnector" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateDatacenterConnectorSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<
+                        super::CreateDatacenterConnectorRequest,
+                    > for CreateDatacenterConnectorSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateDatacenterConnectorRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::create_datacenter_connector(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateDatacenterConnectorSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/DeleteDatacenterConnector" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteDatacenterConnectorSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<
+                        super::DeleteDatacenterConnectorRequest,
+                    > for DeleteDatacenterConnectorSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteDatacenterConnectorRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::delete_datacenter_connector(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteDatacenterConnectorSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/UpgradeAppliance" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpgradeApplianceSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::UpgradeApplianceRequest>
+                    for UpgradeApplianceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpgradeApplianceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::upgrade_appliance(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpgradeApplianceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/CreateMigratingVm" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateMigratingVmSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::CreateMigratingVmRequest>
+                    for CreateMigratingVmSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateMigratingVmRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::create_migrating_vm(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateMigratingVmSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/ListMigratingVms" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListMigratingVmsSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::ListMigratingVmsRequest>
+                    for ListMigratingVmsSvc<T> {
+                        type Response = super::ListMigratingVmsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListMigratingVmsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::list_migrating_vms(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListMigratingVmsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/GetMigratingVm" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetMigratingVmSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::GetMigratingVmRequest>
+                    for GetMigratingVmSvc<T> {
+                        type Response = super::MigratingVm;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetMigratingVmRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::get_migrating_vm(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetMigratingVmSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/UpdateMigratingVm" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateMigratingVmSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::UpdateMigratingVmRequest>
+                    for UpdateMigratingVmSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateMigratingVmRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::update_migrating_vm(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateMigratingVmSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/DeleteMigratingVm" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteMigratingVmSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::DeleteMigratingVmRequest>
+                    for DeleteMigratingVmSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteMigratingVmRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::delete_migrating_vm(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteMigratingVmSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/StartMigration" => {
+                    #[allow(non_camel_case_types)]
+                    struct StartMigrationSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::StartMigrationRequest>
+                    for StartMigrationSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::StartMigrationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::start_migration(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = StartMigrationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/ResumeMigration" => {
+                    #[allow(non_camel_case_types)]
+                    struct ResumeMigrationSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::ResumeMigrationRequest>
+                    for ResumeMigrationSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ResumeMigrationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::resume_migration(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ResumeMigrationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/PauseMigration" => {
+                    #[allow(non_camel_case_types)]
+                    struct PauseMigrationSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::PauseMigrationRequest>
+                    for PauseMigrationSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::PauseMigrationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::pause_migration(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = PauseMigrationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/FinalizeMigration" => {
+                    #[allow(non_camel_case_types)]
+                    struct FinalizeMigrationSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::FinalizeMigrationRequest>
+                    for FinalizeMigrationSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::FinalizeMigrationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::finalize_migration(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = FinalizeMigrationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/CreateCloneJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateCloneJobSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::CreateCloneJobRequest>
+                    for CreateCloneJobSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateCloneJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::create_clone_job(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateCloneJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/CancelCloneJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct CancelCloneJobSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::CancelCloneJobRequest>
+                    for CancelCloneJobSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CancelCloneJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::cancel_clone_job(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CancelCloneJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/ListCloneJobs" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListCloneJobsSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::ListCloneJobsRequest>
+                    for ListCloneJobsSvc<T> {
+                        type Response = super::ListCloneJobsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListCloneJobsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::list_clone_jobs(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListCloneJobsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/GetCloneJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetCloneJobSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::GetCloneJobRequest>
+                    for GetCloneJobSvc<T> {
+                        type Response = super::CloneJob;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetCloneJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::get_clone_job(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetCloneJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/CreateCutoverJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateCutoverJobSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::CreateCutoverJobRequest>
+                    for CreateCutoverJobSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateCutoverJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::create_cutover_job(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateCutoverJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/CancelCutoverJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct CancelCutoverJobSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::CancelCutoverJobRequest>
+                    for CancelCutoverJobSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CancelCutoverJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::cancel_cutover_job(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CancelCutoverJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/ListCutoverJobs" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListCutoverJobsSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::ListCutoverJobsRequest>
+                    for ListCutoverJobsSvc<T> {
+                        type Response = super::ListCutoverJobsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListCutoverJobsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::list_cutover_jobs(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListCutoverJobsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/GetCutoverJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetCutoverJobSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::GetCutoverJobRequest>
+                    for GetCutoverJobSvc<T> {
+                        type Response = super::CutoverJob;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetCutoverJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::get_cutover_job(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetCutoverJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/ListGroups" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListGroupsSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::ListGroupsRequest>
+                    for ListGroupsSvc<T> {
+                        type Response = super::ListGroupsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListGroupsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::list_groups(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListGroupsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/GetGroup" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetGroupSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::GetGroupRequest>
+                    for GetGroupSvc<T> {
+                        type Response = super::Group;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetGroupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::get_group(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetGroupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/CreateGroup" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateGroupSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::CreateGroupRequest>
+                    for CreateGroupSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateGroupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::create_group(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateGroupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/UpdateGroup" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateGroupSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::UpdateGroupRequest>
+                    for UpdateGroupSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateGroupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::update_group(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateGroupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/DeleteGroup" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteGroupSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::DeleteGroupRequest>
+                    for DeleteGroupSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteGroupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::delete_group(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteGroupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/AddGroupMigration" => {
+                    #[allow(non_camel_case_types)]
+                    struct AddGroupMigrationSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::AddGroupMigrationRequest>
+                    for AddGroupMigrationSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::AddGroupMigrationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::add_group_migration(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = AddGroupMigrationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/RemoveGroupMigration" => {
+                    #[allow(non_camel_case_types)]
+                    struct RemoveGroupMigrationSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::RemoveGroupMigrationRequest>
+                    for RemoveGroupMigrationSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RemoveGroupMigrationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::remove_group_migration(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RemoveGroupMigrationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/ListTargetProjects" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListTargetProjectsSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::ListTargetProjectsRequest>
+                    for ListTargetProjectsSvc<T> {
+                        type Response = super::ListTargetProjectsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListTargetProjectsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::list_target_projects(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListTargetProjectsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/GetTargetProject" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetTargetProjectSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::GetTargetProjectRequest>
+                    for GetTargetProjectSvc<T> {
+                        type Response = super::TargetProject;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetTargetProjectRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::get_target_project(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetTargetProjectSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/CreateTargetProject" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateTargetProjectSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::CreateTargetProjectRequest>
+                    for CreateTargetProjectSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateTargetProjectRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::create_target_project(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateTargetProjectSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/UpdateTargetProject" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateTargetProjectSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::UpdateTargetProjectRequest>
+                    for UpdateTargetProjectSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateTargetProjectRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::update_target_project(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateTargetProjectSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/DeleteTargetProject" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteTargetProjectSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::DeleteTargetProjectRequest>
+                    for DeleteTargetProjectSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteTargetProjectRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::delete_target_project(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteTargetProjectSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/ListReplicationCycles" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListReplicationCyclesSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::ListReplicationCyclesRequest>
+                    for ListReplicationCyclesSvc<T> {
+                        type Response = super::ListReplicationCyclesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListReplicationCyclesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::list_replication_cycles(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListReplicationCyclesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.vmmigration.v1.VmMigration/GetReplicationCycle" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetReplicationCycleSvc<T: VmMigration>(pub Arc<T>);
+                    impl<
+                        T: VmMigration,
+                    > tonic::server::UnaryService<super::GetReplicationCycleRequest>
+                    for GetReplicationCycleSvc<T> {
+                        type Response = super::ReplicationCycle;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetReplicationCycleRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VmMigration>::get_replication_cycle(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetReplicationCycleSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for VmMigrationServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.vmmigration.v1.VmMigration";
+    impl<T> tonic::server::NamedService for VmMigrationServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

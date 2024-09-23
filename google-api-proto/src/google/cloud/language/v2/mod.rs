@@ -51,9 +51,9 @@ pub mod document {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::PlainText => "PLAIN_TEXT",
-                Type::Html => "HTML",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::PlainText => "PLAIN_TEXT",
+                Self::Html => "HTML",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -211,19 +211,19 @@ pub mod entity {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unknown => "UNKNOWN",
-                Type::Person => "PERSON",
-                Type::Location => "LOCATION",
-                Type::Organization => "ORGANIZATION",
-                Type::Event => "EVENT",
-                Type::WorkOfArt => "WORK_OF_ART",
-                Type::ConsumerGood => "CONSUMER_GOOD",
-                Type::Other => "OTHER",
-                Type::PhoneNumber => "PHONE_NUMBER",
-                Type::Address => "ADDRESS",
-                Type::Date => "DATE",
-                Type::Number => "NUMBER",
-                Type::Price => "PRICE",
+                Self::Unknown => "UNKNOWN",
+                Self::Person => "PERSON",
+                Self::Location => "LOCATION",
+                Self::Organization => "ORGANIZATION",
+                Self::Event => "EVENT",
+                Self::WorkOfArt => "WORK_OF_ART",
+                Self::ConsumerGood => "CONSUMER_GOOD",
+                Self::Other => "OTHER",
+                Self::PhoneNumber => "PHONE_NUMBER",
+                Self::Address => "ADDRESS",
+                Self::Date => "DATE",
+                Self::Number => "NUMBER",
+                Self::Price => "PRICE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -314,9 +314,9 @@ pub mod entity_mention {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unknown => "TYPE_UNKNOWN",
-                Type::Proper => "PROPER",
-                Type::Common => "COMMON",
+                Self::Unknown => "TYPE_UNKNOWN",
+                Self::Proper => "PROPER",
+                Self::Common => "COMMON",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -484,9 +484,9 @@ pub mod moderate_text_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ModelVersion::Unspecified => "MODEL_VERSION_UNSPECIFIED",
-                ModelVersion::ModelVersion1 => "MODEL_VERSION_1",
-                ModelVersion::ModelVersion2 => "MODEL_VERSION_2",
+                Self::Unspecified => "MODEL_VERSION_UNSPECIFIED",
+                Self::ModelVersion1 => "MODEL_VERSION_1",
+                Self::ModelVersion2 => "MODEL_VERSION_2",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -617,10 +617,10 @@ impl EncodingType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            EncodingType::None => "NONE",
-            EncodingType::Utf8 => "UTF8",
-            EncodingType::Utf16 => "UTF16",
-            EncodingType::Utf32 => "UTF32",
+            Self::None => "NONE",
+            Self::Utf8 => "UTF8",
+            Self::Utf16 => "UTF16",
+            Self::Utf32 => "UTF32",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -867,5 +867,396 @@ pub mod language_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod language_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with LanguageServiceServer.
+    #[async_trait]
+    pub trait LanguageService: std::marker::Send + std::marker::Sync + 'static {
+        /// Analyzes the sentiment of the provided text.
+        async fn analyze_sentiment(
+            &self,
+            request: tonic::Request<super::AnalyzeSentimentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AnalyzeSentimentResponse>,
+            tonic::Status,
+        >;
+        /// Finds named entities (currently proper names and common nouns) in the text
+        /// along with entity types, probability, mentions for each entity, and
+        /// other properties.
+        async fn analyze_entities(
+            &self,
+            request: tonic::Request<super::AnalyzeEntitiesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AnalyzeEntitiesResponse>,
+            tonic::Status,
+        >;
+        /// Classifies a document into categories.
+        async fn classify_text(
+            &self,
+            request: tonic::Request<super::ClassifyTextRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ClassifyTextResponse>,
+            tonic::Status,
+        >;
+        /// Moderates a document for harmful and sensitive categories.
+        async fn moderate_text(
+            &self,
+            request: tonic::Request<super::ModerateTextRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ModerateTextResponse>,
+            tonic::Status,
+        >;
+        /// A convenience method that provides all features in one call.
+        async fn annotate_text(
+            &self,
+            request: tonic::Request<super::AnnotateTextRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AnnotateTextResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Provides text analysis operations such as sentiment analysis and entity
+    /// recognition.
+    #[derive(Debug)]
+    pub struct LanguageServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> LanguageServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for LanguageServiceServer<T>
+    where
+        T: LanguageService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.language.v2.LanguageService/AnalyzeSentiment" => {
+                    #[allow(non_camel_case_types)]
+                    struct AnalyzeSentimentSvc<T: LanguageService>(pub Arc<T>);
+                    impl<
+                        T: LanguageService,
+                    > tonic::server::UnaryService<super::AnalyzeSentimentRequest>
+                    for AnalyzeSentimentSvc<T> {
+                        type Response = super::AnalyzeSentimentResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::AnalyzeSentimentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LanguageService>::analyze_sentiment(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = AnalyzeSentimentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.language.v2.LanguageService/AnalyzeEntities" => {
+                    #[allow(non_camel_case_types)]
+                    struct AnalyzeEntitiesSvc<T: LanguageService>(pub Arc<T>);
+                    impl<
+                        T: LanguageService,
+                    > tonic::server::UnaryService<super::AnalyzeEntitiesRequest>
+                    for AnalyzeEntitiesSvc<T> {
+                        type Response = super::AnalyzeEntitiesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::AnalyzeEntitiesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LanguageService>::analyze_entities(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = AnalyzeEntitiesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.language.v2.LanguageService/ClassifyText" => {
+                    #[allow(non_camel_case_types)]
+                    struct ClassifyTextSvc<T: LanguageService>(pub Arc<T>);
+                    impl<
+                        T: LanguageService,
+                    > tonic::server::UnaryService<super::ClassifyTextRequest>
+                    for ClassifyTextSvc<T> {
+                        type Response = super::ClassifyTextResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ClassifyTextRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LanguageService>::classify_text(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ClassifyTextSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.language.v2.LanguageService/ModerateText" => {
+                    #[allow(non_camel_case_types)]
+                    struct ModerateTextSvc<T: LanguageService>(pub Arc<T>);
+                    impl<
+                        T: LanguageService,
+                    > tonic::server::UnaryService<super::ModerateTextRequest>
+                    for ModerateTextSvc<T> {
+                        type Response = super::ModerateTextResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ModerateTextRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LanguageService>::moderate_text(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ModerateTextSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.language.v2.LanguageService/AnnotateText" => {
+                    #[allow(non_camel_case_types)]
+                    struct AnnotateTextSvc<T: LanguageService>(pub Arc<T>);
+                    impl<
+                        T: LanguageService,
+                    > tonic::server::UnaryService<super::AnnotateTextRequest>
+                    for AnnotateTextSvc<T> {
+                        type Response = super::AnnotateTextResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::AnnotateTextRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as LanguageService>::annotate_text(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = AnnotateTextSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for LanguageServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.language.v2.LanguageService";
+    impl<T> tonic::server::NamedService for LanguageServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

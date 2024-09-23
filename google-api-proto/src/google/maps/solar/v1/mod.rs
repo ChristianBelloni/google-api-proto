@@ -639,12 +639,12 @@ impl DataLayerView {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            DataLayerView::Unspecified => "DATA_LAYER_VIEW_UNSPECIFIED",
-            DataLayerView::DsmLayer => "DSM_LAYER",
-            DataLayerView::ImageryLayers => "IMAGERY_LAYERS",
-            DataLayerView::ImageryAndAnnualFluxLayers => "IMAGERY_AND_ANNUAL_FLUX_LAYERS",
-            DataLayerView::ImageryAndAllFluxLayers => "IMAGERY_AND_ALL_FLUX_LAYERS",
-            DataLayerView::FullLayers => "FULL_LAYERS",
+            Self::Unspecified => "DATA_LAYER_VIEW_UNSPECIFIED",
+            Self::DsmLayer => "DSM_LAYER",
+            Self::ImageryLayers => "IMAGERY_LAYERS",
+            Self::ImageryAndAnnualFluxLayers => "IMAGERY_AND_ANNUAL_FLUX_LAYERS",
+            Self::ImageryAndAllFluxLayers => "IMAGERY_AND_ALL_FLUX_LAYERS",
+            Self::FullLayers => "FULL_LAYERS",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -684,10 +684,10 @@ impl ImageryQuality {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ImageryQuality::Unspecified => "IMAGERY_QUALITY_UNSPECIFIED",
-            ImageryQuality::High => "HIGH",
-            ImageryQuality::Medium => "MEDIUM",
-            ImageryQuality::Low => "LOW",
+            Self::Unspecified => "IMAGERY_QUALITY_UNSPECIFIED",
+            Self::High => "HIGH",
+            Self::Medium => "MEDIUM",
+            Self::Low => "LOW",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -722,9 +722,9 @@ impl SolarPanelOrientation {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            SolarPanelOrientation::Unspecified => "SOLAR_PANEL_ORIENTATION_UNSPECIFIED",
-            SolarPanelOrientation::Landscape => "LANDSCAPE",
-            SolarPanelOrientation::Portrait => "PORTRAIT",
+            Self::Unspecified => "SOLAR_PANEL_ORIENTATION_UNSPECIFIED",
+            Self::Landscape => "LANDSCAPE",
+            Self::Portrait => "PORTRAIT",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -896,5 +896,291 @@ pub mod solar_client {
                 .insert(GrpcMethod::new("google.maps.solar.v1.Solar", "GetGeoTiff"));
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod solar_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with SolarServer.
+    #[async_trait]
+    pub trait Solar: std::marker::Send + std::marker::Sync + 'static {
+        /// Locates the closest building to a query point. Returns an error with
+        /// code `NOT_FOUND` if there are no buildings within approximately 50m of the
+        /// query point.
+        async fn find_closest_building_insights(
+            &self,
+            request: tonic::Request<super::FindClosestBuildingInsightsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::BuildingInsights>,
+            tonic::Status,
+        >;
+        /// Gets solar information for a region surrounding a location.
+        /// Returns an error with code `NOT_FOUND` if the location is outside
+        /// the coverage area.
+        async fn get_data_layers(
+            &self,
+            request: tonic::Request<super::GetDataLayersRequest>,
+        ) -> std::result::Result<tonic::Response<super::DataLayers>, tonic::Status>;
+        /// Returns an image by its ID.
+        async fn get_geo_tiff(
+            &self,
+            request: tonic::Request<super::GetGeoTiffRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::api::HttpBody>,
+            tonic::Status,
+        >;
+    }
+    /// Service definition for the Solar API.
+    #[derive(Debug)]
+    pub struct SolarServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> SolarServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for SolarServer<T>
+    where
+        T: Solar,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.maps.solar.v1.Solar/FindClosestBuildingInsights" => {
+                    #[allow(non_camel_case_types)]
+                    struct FindClosestBuildingInsightsSvc<T: Solar>(pub Arc<T>);
+                    impl<
+                        T: Solar,
+                    > tonic::server::UnaryService<
+                        super::FindClosestBuildingInsightsRequest,
+                    > for FindClosestBuildingInsightsSvc<T> {
+                        type Response = super::BuildingInsights;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::FindClosestBuildingInsightsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Solar>::find_closest_building_insights(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = FindClosestBuildingInsightsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.maps.solar.v1.Solar/GetDataLayers" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetDataLayersSvc<T: Solar>(pub Arc<T>);
+                    impl<
+                        T: Solar,
+                    > tonic::server::UnaryService<super::GetDataLayersRequest>
+                    for GetDataLayersSvc<T> {
+                        type Response = super::DataLayers;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetDataLayersRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Solar>::get_data_layers(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetDataLayersSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.maps.solar.v1.Solar/GetGeoTiff" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetGeoTiffSvc<T: Solar>(pub Arc<T>);
+                    impl<T: Solar> tonic::server::UnaryService<super::GetGeoTiffRequest>
+                    for GetGeoTiffSvc<T> {
+                        type Response = super::super::super::super::api::HttpBody;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetGeoTiffRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Solar>::get_geo_tiff(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetGeoTiffSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for SolarServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.maps.solar.v1.Solar";
+    impl<T> tonic::server::NamedService for SolarServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

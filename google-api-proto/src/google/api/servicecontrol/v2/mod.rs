@@ -284,3 +284,268 @@ pub mod service_controller_client {
         }
     }
 }
+/// Generated server implementations.
+pub mod service_controller_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with ServiceControllerServer.
+    #[async_trait]
+    pub trait ServiceController: std::marker::Send + std::marker::Sync + 'static {
+        /// Private Preview. This feature is only available for approved services.
+        ///
+        /// This method provides admission control for services that are integrated
+        /// with [Service
+        /// Infrastructure](https://cloud.google.com/service-infrastructure). It checks
+        /// whether an operation should be allowed based on the service configuration
+        /// and relevant policies. It must be called before the operation is executed.
+        /// For more information, see
+        /// [Admission
+        /// Control](https://cloud.google.com/service-infrastructure/docs/admission-control).
+        ///
+        /// NOTE: The admission control has an expected policy propagation delay of
+        /// 60s. The caller **must** not depend on the most recent policy changes.
+        ///
+        /// NOTE: The admission control has a hard limit of 1 referenced resources
+        /// per call. If an operation refers to more than 1 resources, the caller
+        /// must call the Check method multiple times.
+        ///
+        /// This method requires the `servicemanagement.services.check` permission
+        /// on the specified service. For more information, see
+        /// [Service Control API Access
+        /// Control](https://cloud.google.com/service-infrastructure/docs/service-control/access-control).
+        async fn check(
+            &self,
+            request: tonic::Request<super::CheckRequest>,
+        ) -> std::result::Result<tonic::Response<super::CheckResponse>, tonic::Status>;
+        /// Private Preview. This feature is only available for approved services.
+        ///
+        /// This method provides telemetry reporting for services that are integrated
+        /// with [Service
+        /// Infrastructure](https://cloud.google.com/service-infrastructure). It
+        /// reports a list of operations that have occurred on a service. It must be
+        /// called after the operations have been executed. For more information, see
+        /// [Telemetry
+        /// Reporting](https://cloud.google.com/service-infrastructure/docs/telemetry-reporting).
+        ///
+        /// NOTE: The telemetry reporting has a hard limit of 1000 operations and 1MB
+        /// per Report call. It is recommended to have no more than 100 operations per
+        /// call.
+        ///
+        /// This method requires the `servicemanagement.services.report` permission
+        /// on the specified service. For more information, see
+        /// [Service Control API Access
+        /// Control](https://cloud.google.com/service-infrastructure/docs/service-control/access-control).
+        async fn report(
+            &self,
+            request: tonic::Request<super::ReportRequest>,
+        ) -> std::result::Result<tonic::Response<super::ReportResponse>, tonic::Status>;
+    }
+    /// [Service Control API
+    /// v2](https://cloud.google.com/service-infrastructure/docs/service-control/access-control)
+    ///
+    /// Private Preview. This feature is only available for approved services.
+    ///
+    /// This API provides admission control and telemetry reporting for services
+    /// that are integrated with [Service
+    /// Infrastructure](https://cloud.google.com/service-infrastructure).
+    #[derive(Debug)]
+    pub struct ServiceControllerServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> ServiceControllerServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for ServiceControllerServer<T>
+    where
+        T: ServiceController,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.api.servicecontrol.v2.ServiceController/Check" => {
+                    #[allow(non_camel_case_types)]
+                    struct CheckSvc<T: ServiceController>(pub Arc<T>);
+                    impl<
+                        T: ServiceController,
+                    > tonic::server::UnaryService<super::CheckRequest> for CheckSvc<T> {
+                        type Response = super::CheckResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CheckRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ServiceController>::check(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CheckSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.api.servicecontrol.v2.ServiceController/Report" => {
+                    #[allow(non_camel_case_types)]
+                    struct ReportSvc<T: ServiceController>(pub Arc<T>);
+                    impl<
+                        T: ServiceController,
+                    > tonic::server::UnaryService<super::ReportRequest>
+                    for ReportSvc<T> {
+                        type Response = super::ReportResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ReportRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ServiceController>::report(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ReportSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for ServiceControllerServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.api.servicecontrol.v2.ServiceController";
+    impl<T> tonic::server::NamedService for ServiceControllerServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}

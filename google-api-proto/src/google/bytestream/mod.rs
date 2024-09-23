@@ -303,3 +303,344 @@ pub mod byte_stream_client {
         }
     }
 }
+/// Generated server implementations.
+pub mod byte_stream_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with ByteStreamServer.
+    #[async_trait]
+    pub trait ByteStream: std::marker::Send + std::marker::Sync + 'static {
+        /// Server streaming response type for the Read method.
+        type ReadStream: tonic::codegen::tokio_stream::Stream<
+                Item = std::result::Result<super::ReadResponse, tonic::Status>,
+            >
+            + std::marker::Send
+            + 'static;
+        /// `Read()` is used to retrieve the contents of a resource as a sequence
+        /// of bytes. The bytes are returned in a sequence of responses, and the
+        /// responses are delivered as the results of a server-side streaming RPC.
+        async fn read(
+            &self,
+            request: tonic::Request<super::ReadRequest>,
+        ) -> std::result::Result<tonic::Response<Self::ReadStream>, tonic::Status>;
+        /// `Write()` is used to send the contents of a resource as a sequence of
+        /// bytes. The bytes are sent in a sequence of request protos of a client-side
+        /// streaming RPC.
+        ///
+        /// A `Write()` action is resumable. If there is an error or the connection is
+        /// broken during the `Write()`, the client should check the status of the
+        /// `Write()` by calling `QueryWriteStatus()` and continue writing from the
+        /// returned `committed_size`. This may be less than the amount of data the
+        /// client previously sent.
+        ///
+        /// Calling `Write()` on a resource name that was previously written and
+        /// finalized could cause an error, depending on whether the underlying service
+        /// allows over-writing of previously written resources.
+        ///
+        /// When the client closes the request channel, the service will respond with
+        /// a `WriteResponse`. The service will not view the resource as `complete`
+        /// until the client has sent a `WriteRequest` with `finish_write` set to
+        /// `true`. Sending any requests on a stream after sending a request with
+        /// `finish_write` set to `true` will cause an error. The client **should**
+        /// check the `WriteResponse` it receives to determine how much data the
+        /// service was able to commit and whether the service views the resource as
+        /// `complete` or not.
+        async fn write(
+            &self,
+            request: tonic::Request<tonic::Streaming<super::WriteRequest>>,
+        ) -> std::result::Result<tonic::Response<super::WriteResponse>, tonic::Status>;
+        /// `QueryWriteStatus()` is used to find the `committed_size` for a resource
+        /// that is being written, which can then be used as the `write_offset` for
+        /// the next `Write()` call.
+        ///
+        /// If the resource does not exist (i.e., the resource has been deleted, or the
+        /// first `Write()` has not yet reached the service), this method returns the
+        /// error `NOT_FOUND`.
+        ///
+        /// The client **may** call `QueryWriteStatus()` at any time to determine how
+        /// much data has been processed for this resource. This is useful if the
+        /// client is buffering data and needs to know which data can be safely
+        /// evicted. For any sequence of `QueryWriteStatus()` calls for a given
+        /// resource name, the sequence of returned `committed_size` values will be
+        /// non-decreasing.
+        async fn query_write_status(
+            &self,
+            request: tonic::Request<super::QueryWriteStatusRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryWriteStatusResponse>,
+            tonic::Status,
+        >;
+    }
+    /// #### Introduction
+    ///
+    /// The Byte Stream API enables a client to read and write a stream of bytes to
+    /// and from a resource. Resources have names, and these names are supplied in
+    /// the API calls below to identify the resource that is being read from or
+    /// written to.
+    ///
+    /// All implementations of the Byte Stream API export the interface defined here:
+    ///
+    /// * `Read()`: Reads the contents of a resource.
+    ///
+    /// * `Write()`: Writes the contents of a resource. The client can call `Write()`
+    ///   multiple times with the same resource and can check the status of the write
+    ///   by calling `QueryWriteStatus()`.
+    ///
+    /// #### Service parameters and metadata
+    ///
+    /// The ByteStream API provides no direct way to access/modify any metadata
+    /// associated with the resource.
+    ///
+    /// #### Errors
+    ///
+    /// The errors returned by the service are in the Google canonical error space.
+    #[derive(Debug)]
+    pub struct ByteStreamServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> ByteStreamServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for ByteStreamServer<T>
+    where
+        T: ByteStream,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.bytestream.ByteStream/Read" => {
+                    #[allow(non_camel_case_types)]
+                    struct ReadSvc<T: ByteStream>(pub Arc<T>);
+                    impl<
+                        T: ByteStream,
+                    > tonic::server::ServerStreamingService<super::ReadRequest>
+                    for ReadSvc<T> {
+                        type Response = super::ReadResponse;
+                        type ResponseStream = T::ReadStream;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::ResponseStream>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ReadRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ByteStream>::read(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ReadSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.server_streaming(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bytestream.ByteStream/Write" => {
+                    #[allow(non_camel_case_types)]
+                    struct WriteSvc<T: ByteStream>(pub Arc<T>);
+                    impl<
+                        T: ByteStream,
+                    > tonic::server::ClientStreamingService<super::WriteRequest>
+                    for WriteSvc<T> {
+                        type Response = super::WriteResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                tonic::Streaming<super::WriteRequest>,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ByteStream>::write(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = WriteSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.client_streaming(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bytestream.ByteStream/QueryWriteStatus" => {
+                    #[allow(non_camel_case_types)]
+                    struct QueryWriteStatusSvc<T: ByteStream>(pub Arc<T>);
+                    impl<
+                        T: ByteStream,
+                    > tonic::server::UnaryService<super::QueryWriteStatusRequest>
+                    for QueryWriteStatusSvc<T> {
+                        type Response = super::QueryWriteStatusResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QueryWriteStatusRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ByteStream>::query_write_status(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = QueryWriteStatusSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for ByteStreamServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.bytestream.ByteStream";
+    impl<T> tonic::server::NamedService for ByteStreamServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}

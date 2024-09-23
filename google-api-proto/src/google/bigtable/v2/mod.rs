@@ -1389,9 +1389,9 @@ pub mod read_rows_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                RequestStatsView::Unspecified => "REQUEST_STATS_VIEW_UNSPECIFIED",
-                RequestStatsView::RequestStatsNone => "REQUEST_STATS_NONE",
-                RequestStatsView::RequestStatsFull => "REQUEST_STATS_FULL",
+                Self::Unspecified => "REQUEST_STATS_VIEW_UNSPECIFIED",
+                Self::RequestStatsNone => "REQUEST_STATS_NONE",
+                Self::RequestStatsFull => "REQUEST_STATS_FULL",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2004,10 +2004,10 @@ pub mod read_change_stream_response {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    Type::Unspecified => "TYPE_UNSPECIFIED",
-                    Type::User => "USER",
-                    Type::GarbageCollection => "GARBAGE_COLLECTION",
-                    Type::Continuation => "CONTINUATION",
+                    Self::Unspecified => "TYPE_UNSPECIFIED",
+                    Self::User => "USER",
+                    Self::GarbageCollection => "GARBAGE_COLLECTION",
+                    Self::Continuation => "CONTINUATION",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2559,6 +2559,731 @@ pub mod bigtable_client {
                 .insert(GrpcMethod::new("google.bigtable.v2.Bigtable", "ExecuteQuery"));
             self.inner.server_streaming(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod bigtable_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with BigtableServer.
+    #[async_trait]
+    pub trait Bigtable: std::marker::Send + std::marker::Sync + 'static {
+        /// Server streaming response type for the ReadRows method.
+        type ReadRowsStream: tonic::codegen::tokio_stream::Stream<
+                Item = std::result::Result<super::ReadRowsResponse, tonic::Status>,
+            >
+            + std::marker::Send
+            + 'static;
+        /// Streams back the contents of all requested rows in key order, optionally
+        /// applying the same Reader filter to each. Depending on their size,
+        /// rows and cells may be broken up across multiple responses, but
+        /// atomicity of each row will still be preserved. See the
+        /// ReadRowsResponse documentation for details.
+        async fn read_rows(
+            &self,
+            request: tonic::Request<super::ReadRowsRequest>,
+        ) -> std::result::Result<tonic::Response<Self::ReadRowsStream>, tonic::Status>;
+        /// Server streaming response type for the SampleRowKeys method.
+        type SampleRowKeysStream: tonic::codegen::tokio_stream::Stream<
+                Item = std::result::Result<super::SampleRowKeysResponse, tonic::Status>,
+            >
+            + std::marker::Send
+            + 'static;
+        /// Returns a sample of row keys in the table. The returned row keys will
+        /// delimit contiguous sections of the table of approximately equal size,
+        /// which can be used to break up the data for distributed tasks like
+        /// mapreduces.
+        async fn sample_row_keys(
+            &self,
+            request: tonic::Request<super::SampleRowKeysRequest>,
+        ) -> std::result::Result<
+            tonic::Response<Self::SampleRowKeysStream>,
+            tonic::Status,
+        >;
+        /// Mutates a row atomically. Cells already present in the row are left
+        /// unchanged unless explicitly changed by `mutation`.
+        async fn mutate_row(
+            &self,
+            request: tonic::Request<super::MutateRowRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::MutateRowResponse>,
+            tonic::Status,
+        >;
+        /// Server streaming response type for the MutateRows method.
+        type MutateRowsStream: tonic::codegen::tokio_stream::Stream<
+                Item = std::result::Result<super::MutateRowsResponse, tonic::Status>,
+            >
+            + std::marker::Send
+            + 'static;
+        /// Mutates multiple rows in a batch. Each individual row is mutated
+        /// atomically as in MutateRow, but the entire batch is not executed
+        /// atomically.
+        async fn mutate_rows(
+            &self,
+            request: tonic::Request<super::MutateRowsRequest>,
+        ) -> std::result::Result<tonic::Response<Self::MutateRowsStream>, tonic::Status>;
+        /// Mutates a row atomically based on the output of a predicate Reader filter.
+        async fn check_and_mutate_row(
+            &self,
+            request: tonic::Request<super::CheckAndMutateRowRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::CheckAndMutateRowResponse>,
+            tonic::Status,
+        >;
+        /// Warm up associated instance metadata for this connection.
+        /// This call is not required but may be useful for connection keep-alive.
+        async fn ping_and_warm(
+            &self,
+            request: tonic::Request<super::PingAndWarmRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::PingAndWarmResponse>,
+            tonic::Status,
+        >;
+        /// Modifies a row atomically on the server. The method reads the latest
+        /// existing timestamp and value from the specified columns and writes a new
+        /// entry based on pre-defined read/modify/write rules. The new value for the
+        /// timestamp is the greater of the existing timestamp or the current server
+        /// time. The method returns the new contents of all modified cells.
+        async fn read_modify_write_row(
+            &self,
+            request: tonic::Request<super::ReadModifyWriteRowRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ReadModifyWriteRowResponse>,
+            tonic::Status,
+        >;
+        /// Server streaming response type for the GenerateInitialChangeStreamPartitions method.
+        type GenerateInitialChangeStreamPartitionsStream: tonic::codegen::tokio_stream::Stream<
+                Item = std::result::Result<
+                    super::GenerateInitialChangeStreamPartitionsResponse,
+                    tonic::Status,
+                >,
+            >
+            + std::marker::Send
+            + 'static;
+        /// NOTE: This API is intended to be used by Apache Beam BigtableIO.
+        /// Returns the current list of partitions that make up the table's
+        /// change stream. The union of partitions will cover the entire keyspace.
+        /// Partitions can be read with `ReadChangeStream`.
+        async fn generate_initial_change_stream_partitions(
+            &self,
+            request: tonic::Request<super::GenerateInitialChangeStreamPartitionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<Self::GenerateInitialChangeStreamPartitionsStream>,
+            tonic::Status,
+        >;
+        /// Server streaming response type for the ReadChangeStream method.
+        type ReadChangeStreamStream: tonic::codegen::tokio_stream::Stream<
+                Item = std::result::Result<
+                    super::ReadChangeStreamResponse,
+                    tonic::Status,
+                >,
+            >
+            + std::marker::Send
+            + 'static;
+        /// NOTE: This API is intended to be used by Apache Beam BigtableIO.
+        /// Reads changes from a table's change stream. Changes will
+        /// reflect both user-initiated mutations and mutations that are caused by
+        /// garbage collection.
+        async fn read_change_stream(
+            &self,
+            request: tonic::Request<super::ReadChangeStreamRequest>,
+        ) -> std::result::Result<
+            tonic::Response<Self::ReadChangeStreamStream>,
+            tonic::Status,
+        >;
+        /// Server streaming response type for the ExecuteQuery method.
+        type ExecuteQueryStream: tonic::codegen::tokio_stream::Stream<
+                Item = std::result::Result<super::ExecuteQueryResponse, tonic::Status>,
+            >
+            + std::marker::Send
+            + 'static;
+        /// Executes a BTQL query against a particular Cloud Bigtable instance.
+        async fn execute_query(
+            &self,
+            request: tonic::Request<super::ExecuteQueryRequest>,
+        ) -> std::result::Result<
+            tonic::Response<Self::ExecuteQueryStream>,
+            tonic::Status,
+        >;
+    }
+    /// Service for reading from and writing to existing Bigtable tables.
+    #[derive(Debug)]
+    pub struct BigtableServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> BigtableServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for BigtableServer<T>
+    where
+        T: Bigtable,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.bigtable.v2.Bigtable/ReadRows" => {
+                    #[allow(non_camel_case_types)]
+                    struct ReadRowsSvc<T: Bigtable>(pub Arc<T>);
+                    impl<
+                        T: Bigtable,
+                    > tonic::server::ServerStreamingService<super::ReadRowsRequest>
+                    for ReadRowsSvc<T> {
+                        type Response = super::ReadRowsResponse;
+                        type ResponseStream = T::ReadRowsStream;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::ResponseStream>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ReadRowsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Bigtable>::read_rows(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ReadRowsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.server_streaming(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.v2.Bigtable/SampleRowKeys" => {
+                    #[allow(non_camel_case_types)]
+                    struct SampleRowKeysSvc<T: Bigtable>(pub Arc<T>);
+                    impl<
+                        T: Bigtable,
+                    > tonic::server::ServerStreamingService<super::SampleRowKeysRequest>
+                    for SampleRowKeysSvc<T> {
+                        type Response = super::SampleRowKeysResponse;
+                        type ResponseStream = T::SampleRowKeysStream;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::ResponseStream>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SampleRowKeysRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Bigtable>::sample_row_keys(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SampleRowKeysSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.server_streaming(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.v2.Bigtable/MutateRow" => {
+                    #[allow(non_camel_case_types)]
+                    struct MutateRowSvc<T: Bigtable>(pub Arc<T>);
+                    impl<
+                        T: Bigtable,
+                    > tonic::server::UnaryService<super::MutateRowRequest>
+                    for MutateRowSvc<T> {
+                        type Response = super::MutateRowResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MutateRowRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Bigtable>::mutate_row(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = MutateRowSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.v2.Bigtable/MutateRows" => {
+                    #[allow(non_camel_case_types)]
+                    struct MutateRowsSvc<T: Bigtable>(pub Arc<T>);
+                    impl<
+                        T: Bigtable,
+                    > tonic::server::ServerStreamingService<super::MutateRowsRequest>
+                    for MutateRowsSvc<T> {
+                        type Response = super::MutateRowsResponse;
+                        type ResponseStream = T::MutateRowsStream;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::ResponseStream>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MutateRowsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Bigtable>::mutate_rows(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = MutateRowsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.server_streaming(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.v2.Bigtable/CheckAndMutateRow" => {
+                    #[allow(non_camel_case_types)]
+                    struct CheckAndMutateRowSvc<T: Bigtable>(pub Arc<T>);
+                    impl<
+                        T: Bigtable,
+                    > tonic::server::UnaryService<super::CheckAndMutateRowRequest>
+                    for CheckAndMutateRowSvc<T> {
+                        type Response = super::CheckAndMutateRowResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CheckAndMutateRowRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Bigtable>::check_and_mutate_row(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CheckAndMutateRowSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.v2.Bigtable/PingAndWarm" => {
+                    #[allow(non_camel_case_types)]
+                    struct PingAndWarmSvc<T: Bigtable>(pub Arc<T>);
+                    impl<
+                        T: Bigtable,
+                    > tonic::server::UnaryService<super::PingAndWarmRequest>
+                    for PingAndWarmSvc<T> {
+                        type Response = super::PingAndWarmResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::PingAndWarmRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Bigtable>::ping_and_warm(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = PingAndWarmSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.v2.Bigtable/ReadModifyWriteRow" => {
+                    #[allow(non_camel_case_types)]
+                    struct ReadModifyWriteRowSvc<T: Bigtable>(pub Arc<T>);
+                    impl<
+                        T: Bigtable,
+                    > tonic::server::UnaryService<super::ReadModifyWriteRowRequest>
+                    for ReadModifyWriteRowSvc<T> {
+                        type Response = super::ReadModifyWriteRowResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ReadModifyWriteRowRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Bigtable>::read_modify_write_row(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ReadModifyWriteRowSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.v2.Bigtable/GenerateInitialChangeStreamPartitions" => {
+                    #[allow(non_camel_case_types)]
+                    struct GenerateInitialChangeStreamPartitionsSvc<T: Bigtable>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: Bigtable,
+                    > tonic::server::ServerStreamingService<
+                        super::GenerateInitialChangeStreamPartitionsRequest,
+                    > for GenerateInitialChangeStreamPartitionsSvc<T> {
+                        type Response = super::GenerateInitialChangeStreamPartitionsResponse;
+                        type ResponseStream = T::GenerateInitialChangeStreamPartitionsStream;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::ResponseStream>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GenerateInitialChangeStreamPartitionsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Bigtable>::generate_initial_change_stream_partitions(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GenerateInitialChangeStreamPartitionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.server_streaming(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.v2.Bigtable/ReadChangeStream" => {
+                    #[allow(non_camel_case_types)]
+                    struct ReadChangeStreamSvc<T: Bigtable>(pub Arc<T>);
+                    impl<
+                        T: Bigtable,
+                    > tonic::server::ServerStreamingService<
+                        super::ReadChangeStreamRequest,
+                    > for ReadChangeStreamSvc<T> {
+                        type Response = super::ReadChangeStreamResponse;
+                        type ResponseStream = T::ReadChangeStreamStream;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::ResponseStream>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ReadChangeStreamRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Bigtable>::read_change_stream(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ReadChangeStreamSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.server_streaming(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.bigtable.v2.Bigtable/ExecuteQuery" => {
+                    #[allow(non_camel_case_types)]
+                    struct ExecuteQuerySvc<T: Bigtable>(pub Arc<T>);
+                    impl<
+                        T: Bigtable,
+                    > tonic::server::ServerStreamingService<super::ExecuteQueryRequest>
+                    for ExecuteQuerySvc<T> {
+                        type Response = super::ExecuteQueryResponse;
+                        type ResponseStream = T::ExecuteQueryStream;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::ResponseStream>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ExecuteQueryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Bigtable>::execute_query(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ExecuteQuerySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.server_streaming(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for BigtableServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.bigtable.v2.Bigtable";
+    impl<T> tonic::server::NamedService for BigtableServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }
 /// Feature flags supported or enabled by a client.

@@ -173,11 +173,11 @@ pub mod installation_state {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Stage::Unspecified => "STAGE_UNSPECIFIED",
-                Stage::PendingCreateApp => "PENDING_CREATE_APP",
-                Stage::PendingUserOauth => "PENDING_USER_OAUTH",
-                Stage::PendingInstallApp => "PENDING_INSTALL_APP",
-                Stage::Complete => "COMPLETE",
+                Self::Unspecified => "STAGE_UNSPECIFIED",
+                Self::PendingCreateApp => "PENDING_CREATE_APP",
+                Self::PendingUserOauth => "PENDING_USER_OAUTH",
+                Self::PendingInstallApp => "PENDING_INSTALL_APP",
+                Self::Complete => "COMPLETE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -697,9 +697,9 @@ pub mod fetch_git_refs_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                RefType::Unspecified => "REF_TYPE_UNSPECIFIED",
-                RefType::Tag => "TAG",
-                RefType::Branch => "BRANCH",
+                Self::Unspecified => "REF_TYPE_UNSPECIFIED",
+                Self::Tag => "TAG",
+                Self::Branch => "BRANCH",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1224,5 +1224,893 @@ pub mod repository_manager_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod repository_manager_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with RepositoryManagerServer.
+    #[async_trait]
+    pub trait RepositoryManager: std::marker::Send + std::marker::Sync + 'static {
+        /// Creates a Connection.
+        async fn create_connection(
+            &self,
+            request: tonic::Request<super::CreateConnectionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Gets details of a single connection.
+        async fn get_connection(
+            &self,
+            request: tonic::Request<super::GetConnectionRequest>,
+        ) -> std::result::Result<tonic::Response<super::Connection>, tonic::Status>;
+        /// Lists Connections in a given project and location.
+        async fn list_connections(
+            &self,
+            request: tonic::Request<super::ListConnectionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListConnectionsResponse>,
+            tonic::Status,
+        >;
+        /// Updates a single connection.
+        async fn update_connection(
+            &self,
+            request: tonic::Request<super::UpdateConnectionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single connection.
+        async fn delete_connection(
+            &self,
+            request: tonic::Request<super::DeleteConnectionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Creates a Repository.
+        async fn create_repository(
+            &self,
+            request: tonic::Request<super::CreateRepositoryRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Creates multiple repositories inside a connection.
+        async fn batch_create_repositories(
+            &self,
+            request: tonic::Request<super::BatchCreateRepositoriesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Gets details of a single repository.
+        async fn get_repository(
+            &self,
+            request: tonic::Request<super::GetRepositoryRequest>,
+        ) -> std::result::Result<tonic::Response<super::Repository>, tonic::Status>;
+        /// Lists Repositories in a given connection.
+        async fn list_repositories(
+            &self,
+            request: tonic::Request<super::ListRepositoriesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListRepositoriesResponse>,
+            tonic::Status,
+        >;
+        /// Deletes a single repository.
+        async fn delete_repository(
+            &self,
+            request: tonic::Request<super::DeleteRepositoryRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Fetches read/write token of a given repository.
+        async fn fetch_read_write_token(
+            &self,
+            request: tonic::Request<super::FetchReadWriteTokenRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::FetchReadWriteTokenResponse>,
+            tonic::Status,
+        >;
+        /// Fetches read token of a given repository.
+        async fn fetch_read_token(
+            &self,
+            request: tonic::Request<super::FetchReadTokenRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::FetchReadTokenResponse>,
+            tonic::Status,
+        >;
+        /// FetchLinkableRepositories get repositories from SCM that are
+        /// accessible and could be added to the connection.
+        async fn fetch_linkable_repositories(
+            &self,
+            request: tonic::Request<super::FetchLinkableRepositoriesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::FetchLinkableRepositoriesResponse>,
+            tonic::Status,
+        >;
+        /// Fetch the list of branches or tags for a given repository.
+        async fn fetch_git_refs(
+            &self,
+            request: tonic::Request<super::FetchGitRefsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::FetchGitRefsResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Manages connections to source code repositories.
+    #[derive(Debug)]
+    pub struct RepositoryManagerServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> RepositoryManagerServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for RepositoryManagerServer<T>
+    where
+        T: RepositoryManager,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.devtools.cloudbuild.v2.RepositoryManager/CreateConnection" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateConnectionSvc<T: RepositoryManager>(pub Arc<T>);
+                    impl<
+                        T: RepositoryManager,
+                    > tonic::server::UnaryService<super::CreateConnectionRequest>
+                    for CreateConnectionSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateConnectionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RepositoryManager>::create_connection(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateConnectionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.cloudbuild.v2.RepositoryManager/GetConnection" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetConnectionSvc<T: RepositoryManager>(pub Arc<T>);
+                    impl<
+                        T: RepositoryManager,
+                    > tonic::server::UnaryService<super::GetConnectionRequest>
+                    for GetConnectionSvc<T> {
+                        type Response = super::Connection;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetConnectionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RepositoryManager>::get_connection(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetConnectionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.cloudbuild.v2.RepositoryManager/ListConnections" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListConnectionsSvc<T: RepositoryManager>(pub Arc<T>);
+                    impl<
+                        T: RepositoryManager,
+                    > tonic::server::UnaryService<super::ListConnectionsRequest>
+                    for ListConnectionsSvc<T> {
+                        type Response = super::ListConnectionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListConnectionsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RepositoryManager>::list_connections(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListConnectionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.cloudbuild.v2.RepositoryManager/UpdateConnection" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateConnectionSvc<T: RepositoryManager>(pub Arc<T>);
+                    impl<
+                        T: RepositoryManager,
+                    > tonic::server::UnaryService<super::UpdateConnectionRequest>
+                    for UpdateConnectionSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateConnectionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RepositoryManager>::update_connection(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateConnectionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.cloudbuild.v2.RepositoryManager/DeleteConnection" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteConnectionSvc<T: RepositoryManager>(pub Arc<T>);
+                    impl<
+                        T: RepositoryManager,
+                    > tonic::server::UnaryService<super::DeleteConnectionRequest>
+                    for DeleteConnectionSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteConnectionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RepositoryManager>::delete_connection(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteConnectionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.cloudbuild.v2.RepositoryManager/CreateRepository" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateRepositorySvc<T: RepositoryManager>(pub Arc<T>);
+                    impl<
+                        T: RepositoryManager,
+                    > tonic::server::UnaryService<super::CreateRepositoryRequest>
+                    for CreateRepositorySvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateRepositoryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RepositoryManager>::create_repository(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateRepositorySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.cloudbuild.v2.RepositoryManager/BatchCreateRepositories" => {
+                    #[allow(non_camel_case_types)]
+                    struct BatchCreateRepositoriesSvc<T: RepositoryManager>(pub Arc<T>);
+                    impl<
+                        T: RepositoryManager,
+                    > tonic::server::UnaryService<super::BatchCreateRepositoriesRequest>
+                    for BatchCreateRepositoriesSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::BatchCreateRepositoriesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RepositoryManager>::batch_create_repositories(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BatchCreateRepositoriesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.cloudbuild.v2.RepositoryManager/GetRepository" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetRepositorySvc<T: RepositoryManager>(pub Arc<T>);
+                    impl<
+                        T: RepositoryManager,
+                    > tonic::server::UnaryService<super::GetRepositoryRequest>
+                    for GetRepositorySvc<T> {
+                        type Response = super::Repository;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetRepositoryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RepositoryManager>::get_repository(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetRepositorySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.cloudbuild.v2.RepositoryManager/ListRepositories" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListRepositoriesSvc<T: RepositoryManager>(pub Arc<T>);
+                    impl<
+                        T: RepositoryManager,
+                    > tonic::server::UnaryService<super::ListRepositoriesRequest>
+                    for ListRepositoriesSvc<T> {
+                        type Response = super::ListRepositoriesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListRepositoriesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RepositoryManager>::list_repositories(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListRepositoriesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.cloudbuild.v2.RepositoryManager/DeleteRepository" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteRepositorySvc<T: RepositoryManager>(pub Arc<T>);
+                    impl<
+                        T: RepositoryManager,
+                    > tonic::server::UnaryService<super::DeleteRepositoryRequest>
+                    for DeleteRepositorySvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteRepositoryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RepositoryManager>::delete_repository(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteRepositorySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.cloudbuild.v2.RepositoryManager/FetchReadWriteToken" => {
+                    #[allow(non_camel_case_types)]
+                    struct FetchReadWriteTokenSvc<T: RepositoryManager>(pub Arc<T>);
+                    impl<
+                        T: RepositoryManager,
+                    > tonic::server::UnaryService<super::FetchReadWriteTokenRequest>
+                    for FetchReadWriteTokenSvc<T> {
+                        type Response = super::FetchReadWriteTokenResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::FetchReadWriteTokenRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RepositoryManager>::fetch_read_write_token(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = FetchReadWriteTokenSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.cloudbuild.v2.RepositoryManager/FetchReadToken" => {
+                    #[allow(non_camel_case_types)]
+                    struct FetchReadTokenSvc<T: RepositoryManager>(pub Arc<T>);
+                    impl<
+                        T: RepositoryManager,
+                    > tonic::server::UnaryService<super::FetchReadTokenRequest>
+                    for FetchReadTokenSvc<T> {
+                        type Response = super::FetchReadTokenResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::FetchReadTokenRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RepositoryManager>::fetch_read_token(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = FetchReadTokenSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.cloudbuild.v2.RepositoryManager/FetchLinkableRepositories" => {
+                    #[allow(non_camel_case_types)]
+                    struct FetchLinkableRepositoriesSvc<T: RepositoryManager>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: RepositoryManager,
+                    > tonic::server::UnaryService<
+                        super::FetchLinkableRepositoriesRequest,
+                    > for FetchLinkableRepositoriesSvc<T> {
+                        type Response = super::FetchLinkableRepositoriesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::FetchLinkableRepositoriesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RepositoryManager>::fetch_linkable_repositories(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = FetchLinkableRepositoriesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.cloudbuild.v2.RepositoryManager/FetchGitRefs" => {
+                    #[allow(non_camel_case_types)]
+                    struct FetchGitRefsSvc<T: RepositoryManager>(pub Arc<T>);
+                    impl<
+                        T: RepositoryManager,
+                    > tonic::server::UnaryService<super::FetchGitRefsRequest>
+                    for FetchGitRefsSvc<T> {
+                        type Response = super::FetchGitRefsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::FetchGitRefsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RepositoryManager>::fetch_git_refs(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = FetchGitRefsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for RepositoryManagerServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.devtools.cloudbuild.v2.RepositoryManager";
+    impl<T> tonic::server::NamedService for RepositoryManagerServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

@@ -80,6 +80,141 @@ pub struct ContentBlock {
     #[prost(message, optional, tag = "3")]
     pub references: ::core::option::Option<References>,
 }
+/// Information about a photo of a place.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Photo {
+    /// Identifier. A reference representing this place photo which may be used to
+    /// look up this place photo again (also called the API "resource" name:
+    /// `places/{place_id}/photos/{photo}`).
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// The maximum available width, in pixels.
+    #[prost(int32, tag = "2")]
+    pub width_px: i32,
+    /// The maximum available height, in pixels.
+    #[prost(int32, tag = "3")]
+    pub height_px: i32,
+    /// This photo's authors.
+    #[prost(message, repeated, tag = "4")]
+    pub author_attributions: ::prost::alloc::vec::Vec<AuthorAttribution>,
+}
+/// Experimental: See
+/// <https://developers.google.com/maps/documentation/places/web-service/experimental/places-generative>
+/// for more details.
+///
+/// Content that is contextual to the place query.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ContextualContent {
+    /// List of reviews about this place, contexual to the place query.
+    #[prost(message, repeated, tag = "1")]
+    pub reviews: ::prost::alloc::vec::Vec<Review>,
+    /// Information (including references) about photos of this place, contexual to
+    /// the place query.
+    #[prost(message, repeated, tag = "2")]
+    pub photos: ::prost::alloc::vec::Vec<Photo>,
+    /// Experimental: See
+    /// <https://developers.google.com/maps/documentation/places/web-service/experimental/places-generative>
+    /// for more details.
+    ///
+    /// Justifications for the place.
+    #[prost(message, repeated, tag = "3")]
+    pub justifications: ::prost::alloc::vec::Vec<contextual_content::Justification>,
+}
+/// Nested message and enum types in `ContextualContent`.
+pub mod contextual_content {
+    /// Experimental: See
+    /// <https://developers.google.com/maps/documentation/places/web-service/experimental/places-generative>
+    /// for more details.
+    ///
+    /// Justifications for the place. Justifications answers the question of why a
+    /// place could interest an end user.
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct Justification {
+        #[prost(oneof = "justification::Justification", tags = "1, 2")]
+        pub justification: ::core::option::Option<justification::Justification>,
+    }
+    /// Nested message and enum types in `Justification`.
+    pub mod justification {
+        /// Experimental: See
+        /// <https://developers.google.com/maps/documentation/places/web-service/experimental/places-generative>
+        /// for more details.
+        ///
+        /// User review justifications. This highlights a section of the user review
+        /// that would interest an end user. For instance, if the search query is
+        /// "firewood pizza", the review justification highlights the text relevant
+        /// to the search query.
+        #[derive(Clone, PartialEq, ::prost::Message)]
+        pub struct ReviewJustification {
+            #[prost(message, optional, tag = "1")]
+            pub highlighted_text: ::core::option::Option<
+                review_justification::HighlightedText,
+            >,
+            /// The review that the highlighted text is generated from.
+            #[prost(message, optional, tag = "2")]
+            pub review: ::core::option::Option<super::super::Review>,
+        }
+        /// Nested message and enum types in `ReviewJustification`.
+        pub mod review_justification {
+            /// The text highlighted by the justification. This is a subset of the
+            /// review itself. The exact word to highlight is marked by the
+            /// HighlightedTextRange. There could be several words in the text being
+            /// highlighted.
+            #[derive(Clone, PartialEq, ::prost::Message)]
+            pub struct HighlightedText {
+                #[prost(string, tag = "1")]
+                pub text: ::prost::alloc::string::String,
+                /// The list of the ranges of the highlighted text.
+                #[prost(message, repeated, tag = "2")]
+                pub highlighted_text_ranges: ::prost::alloc::vec::Vec<
+                    highlighted_text::HighlightedTextRange,
+                >,
+            }
+            /// Nested message and enum types in `HighlightedText`.
+            pub mod highlighted_text {
+                /// The range of highlighted text.
+                #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+                pub struct HighlightedTextRange {
+                    #[prost(int32, tag = "1")]
+                    pub start_index: i32,
+                    #[prost(int32, tag = "2")]
+                    pub end_index: i32,
+                }
+            }
+        }
+        /// Experimental: See
+        /// <https://developers.google.com/maps/documentation/places/web-service/experimental/places-generative>
+        /// for more details.
+        /// BusinessAvailabilityAttributes justifications. This shows some attributes
+        /// a business has that could interest an end user.
+        #[derive(Clone, Copy, PartialEq, ::prost::Message)]
+        pub struct BusinessAvailabilityAttributesJustification {
+            /// If a place provides takeout.
+            #[prost(bool, tag = "1")]
+            pub takeout: bool,
+            /// If a place provides delivery.
+            #[prost(bool, tag = "2")]
+            pub delivery: bool,
+            /// If a place provides dine-in.
+            #[prost(bool, tag = "3")]
+            pub dine_in: bool,
+        }
+        #[derive(Clone, PartialEq, ::prost::Oneof)]
+        pub enum Justification {
+            /// Experimental: See
+            /// <https://developers.google.com/maps/documentation/places/web-service/experimental/places-generative>
+            /// for more details.
+            #[prost(message, tag = "1")]
+            ReviewJustification(ReviewJustification),
+            /// Experimental: See
+            /// <https://developers.google.com/maps/documentation/places/web-service/experimental/places-generative>
+            /// for more details.
+            #[prost(message, tag = "2")]
+            BusinessAvailabilityAttributesJustification(
+                BusinessAvailabilityAttributesJustification,
+            ),
+        }
+    }
+}
 /// Information about the EV Charge Station hosted in Place.
 /// Terminology follows
 /// <https://afdc.energy.gov/fuels/electricity_infrastructure.html> One port
@@ -171,18 +306,16 @@ impl EvConnectorType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            EvConnectorType::Unspecified => "EV_CONNECTOR_TYPE_UNSPECIFIED",
-            EvConnectorType::Other => "EV_CONNECTOR_TYPE_OTHER",
-            EvConnectorType::J1772 => "EV_CONNECTOR_TYPE_J1772",
-            EvConnectorType::Type2 => "EV_CONNECTOR_TYPE_TYPE_2",
-            EvConnectorType::Chademo => "EV_CONNECTOR_TYPE_CHADEMO",
-            EvConnectorType::CcsCombo1 => "EV_CONNECTOR_TYPE_CCS_COMBO_1",
-            EvConnectorType::CcsCombo2 => "EV_CONNECTOR_TYPE_CCS_COMBO_2",
-            EvConnectorType::Tesla => "EV_CONNECTOR_TYPE_TESLA",
-            EvConnectorType::UnspecifiedGbT => "EV_CONNECTOR_TYPE_UNSPECIFIED_GB_T",
-            EvConnectorType::UnspecifiedWallOutlet => {
-                "EV_CONNECTOR_TYPE_UNSPECIFIED_WALL_OUTLET"
-            }
+            Self::Unspecified => "EV_CONNECTOR_TYPE_UNSPECIFIED",
+            Self::Other => "EV_CONNECTOR_TYPE_OTHER",
+            Self::J1772 => "EV_CONNECTOR_TYPE_J1772",
+            Self::Type2 => "EV_CONNECTOR_TYPE_TYPE_2",
+            Self::Chademo => "EV_CONNECTOR_TYPE_CHADEMO",
+            Self::CcsCombo1 => "EV_CONNECTOR_TYPE_CCS_COMBO_1",
+            Self::CcsCombo2 => "EV_CONNECTOR_TYPE_CCS_COMBO_2",
+            Self::Tesla => "EV_CONNECTOR_TYPE_TESLA",
+            Self::UnspecifiedGbT => "EV_CONNECTOR_TYPE_UNSPECIFIED_GB_T",
+            Self::UnspecifiedWallOutlet => "EV_CONNECTOR_TYPE_UNSPECIFIED_WALL_OUTLET",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -203,6 +336,20 @@ impl EvConnectorType {
             _ => None,
         }
     }
+}
+/// Circle with a LatLng as center and radius.
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct Circle {
+    /// Required. Center latitude and longitude.
+    ///
+    /// The range of latitude must be within \[-90.0, 90.0\]. The range of the
+    /// longitude must be within \[-180.0, 180.0\].
+    #[prost(message, optional, tag = "1")]
+    pub center: ::core::option::Option<super::super::super::r#type::LatLng>,
+    /// Required. Radius measured in meters. The radius must be within [0.0,
+    /// 50000.0].
+    #[prost(double, tag = "2")]
+    pub radius: f64,
 }
 /// The most recent information about fuel options in a gas station. This
 /// information is updated regularly.
@@ -290,25 +437,25 @@ pub mod fuel_options {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    FuelType::Unspecified => "FUEL_TYPE_UNSPECIFIED",
-                    FuelType::Diesel => "DIESEL",
-                    FuelType::RegularUnleaded => "REGULAR_UNLEADED",
-                    FuelType::Midgrade => "MIDGRADE",
-                    FuelType::Premium => "PREMIUM",
-                    FuelType::Sp91 => "SP91",
-                    FuelType::Sp91E10 => "SP91_E10",
-                    FuelType::Sp92 => "SP92",
-                    FuelType::Sp95 => "SP95",
-                    FuelType::Sp95E10 => "SP95_E10",
-                    FuelType::Sp98 => "SP98",
-                    FuelType::Sp99 => "SP99",
-                    FuelType::Sp100 => "SP100",
-                    FuelType::Lpg => "LPG",
-                    FuelType::E80 => "E80",
-                    FuelType::E85 => "E85",
-                    FuelType::Methane => "METHANE",
-                    FuelType::BioDiesel => "BIO_DIESEL",
-                    FuelType::TruckDiesel => "TRUCK_DIESEL",
+                    Self::Unspecified => "FUEL_TYPE_UNSPECIFIED",
+                    Self::Diesel => "DIESEL",
+                    Self::RegularUnleaded => "REGULAR_UNLEADED",
+                    Self::Midgrade => "MIDGRADE",
+                    Self::Premium => "PREMIUM",
+                    Self::Sp91 => "SP91",
+                    Self::Sp91E10 => "SP91_E10",
+                    Self::Sp92 => "SP92",
+                    Self::Sp95 => "SP95",
+                    Self::Sp95E10 => "SP95_E10",
+                    Self::Sp98 => "SP98",
+                    Self::Sp99 => "SP99",
+                    Self::Sp100 => "SP100",
+                    Self::Lpg => "LPG",
+                    Self::E80 => "E80",
+                    Self::E85 => "E85",
+                    Self::Methane => "METHANE",
+                    Self::BioDiesel => "BIO_DIESEL",
+                    Self::TruckDiesel => "TRUCK_DIESEL",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -338,24 +485,6 @@ pub mod fuel_options {
             }
         }
     }
-}
-/// Information about a photo of a place.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Photo {
-    /// Identifier. A reference representing this place photo which may be used to
-    /// look up this place photo again (also called the API "resource" name:
-    /// `places/{place_id}/photos/{photo}`).
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// The maximum available width, in pixels.
-    #[prost(int32, tag = "2")]
-    pub width_px: i32,
-    /// The maximum available height, in pixels.
-    #[prost(int32, tag = "3")]
-    pub height_px: i32,
-    /// This photo's authors.
-    #[prost(message, repeated, tag = "4")]
-    pub author_attributions: ::prost::alloc::vec::Vec<AuthorAttribution>,
 }
 /// All the information representing a Place.
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -785,20 +914,20 @@ pub mod place {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    SecondaryHoursType::Unspecified => "SECONDARY_HOURS_TYPE_UNSPECIFIED",
-                    SecondaryHoursType::DriveThrough => "DRIVE_THROUGH",
-                    SecondaryHoursType::HappyHour => "HAPPY_HOUR",
-                    SecondaryHoursType::Delivery => "DELIVERY",
-                    SecondaryHoursType::Takeout => "TAKEOUT",
-                    SecondaryHoursType::Kitchen => "KITCHEN",
-                    SecondaryHoursType::Breakfast => "BREAKFAST",
-                    SecondaryHoursType::Lunch => "LUNCH",
-                    SecondaryHoursType::Dinner => "DINNER",
-                    SecondaryHoursType::Brunch => "BRUNCH",
-                    SecondaryHoursType::Pickup => "PICKUP",
-                    SecondaryHoursType::Access => "ACCESS",
-                    SecondaryHoursType::SeniorHours => "SENIOR_HOURS",
-                    SecondaryHoursType::OnlineServiceHours => "ONLINE_SERVICE_HOURS",
+                    Self::Unspecified => "SECONDARY_HOURS_TYPE_UNSPECIFIED",
+                    Self::DriveThrough => "DRIVE_THROUGH",
+                    Self::HappyHour => "HAPPY_HOUR",
+                    Self::Delivery => "DELIVERY",
+                    Self::Takeout => "TAKEOUT",
+                    Self::Kitchen => "KITCHEN",
+                    Self::Breakfast => "BREAKFAST",
+                    Self::Lunch => "LUNCH",
+                    Self::Dinner => "DINNER",
+                    Self::Brunch => "BRUNCH",
+                    Self::Pickup => "PICKUP",
+                    Self::Access => "ACCESS",
+                    Self::SeniorHours => "SENIOR_HOURS",
+                    Self::OnlineServiceHours => "ONLINE_SERVICE_HOURS",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -966,10 +1095,10 @@ pub mod place {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                BusinessStatus::Unspecified => "BUSINESS_STATUS_UNSPECIFIED",
-                BusinessStatus::Operational => "OPERATIONAL",
-                BusinessStatus::ClosedTemporarily => "CLOSED_TEMPORARILY",
-                BusinessStatus::ClosedPermanently => "CLOSED_PERMANENTLY",
+                Self::Unspecified => "BUSINESS_STATUS_UNSPECIFIED",
+                Self::Operational => "OPERATIONAL",
+                Self::ClosedTemporarily => "CLOSED_TEMPORARILY",
+                Self::ClosedPermanently => "CLOSED_PERMANENTLY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1008,12 +1137,12 @@ impl PriceLevel {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            PriceLevel::Unspecified => "PRICE_LEVEL_UNSPECIFIED",
-            PriceLevel::Free => "PRICE_LEVEL_FREE",
-            PriceLevel::Inexpensive => "PRICE_LEVEL_INEXPENSIVE",
-            PriceLevel::Moderate => "PRICE_LEVEL_MODERATE",
-            PriceLevel::Expensive => "PRICE_LEVEL_EXPENSIVE",
-            PriceLevel::VeryExpensive => "PRICE_LEVEL_VERY_EXPENSIVE",
+            Self::Unspecified => "PRICE_LEVEL_UNSPECIFIED",
+            Self::Free => "PRICE_LEVEL_FREE",
+            Self::Inexpensive => "PRICE_LEVEL_INEXPENSIVE",
+            Self::Moderate => "PRICE_LEVEL_MODERATE",
+            Self::Expensive => "PRICE_LEVEL_EXPENSIVE",
+            Self::VeryExpensive => "PRICE_LEVEL_VERY_EXPENSIVE",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1028,137 +1157,6 @@ impl PriceLevel {
             _ => None,
         }
     }
-}
-/// Experimental: See
-/// <https://developers.google.com/maps/documentation/places/web-service/experimental/places-generative>
-/// for more details.
-///
-/// Content that is contextual to the place query.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ContextualContent {
-    /// List of reviews about this place, contexual to the place query.
-    #[prost(message, repeated, tag = "1")]
-    pub reviews: ::prost::alloc::vec::Vec<Review>,
-    /// Information (including references) about photos of this place, contexual to
-    /// the place query.
-    #[prost(message, repeated, tag = "2")]
-    pub photos: ::prost::alloc::vec::Vec<Photo>,
-    /// Experimental: See
-    /// <https://developers.google.com/maps/documentation/places/web-service/experimental/places-generative>
-    /// for more details.
-    ///
-    /// Justifications for the place.
-    #[prost(message, repeated, tag = "3")]
-    pub justifications: ::prost::alloc::vec::Vec<contextual_content::Justification>,
-}
-/// Nested message and enum types in `ContextualContent`.
-pub mod contextual_content {
-    /// Experimental: See
-    /// <https://developers.google.com/maps/documentation/places/web-service/experimental/places-generative>
-    /// for more details.
-    ///
-    /// Justifications for the place. Justifications answers the question of why a
-    /// place could interest an end user.
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct Justification {
-        #[prost(oneof = "justification::Justification", tags = "1, 2")]
-        pub justification: ::core::option::Option<justification::Justification>,
-    }
-    /// Nested message and enum types in `Justification`.
-    pub mod justification {
-        /// Experimental: See
-        /// <https://developers.google.com/maps/documentation/places/web-service/experimental/places-generative>
-        /// for more details.
-        ///
-        /// User review justifications. This highlights a section of the user review
-        /// that would interest an end user. For instance, if the search query is
-        /// "firewood pizza", the review justification highlights the text relevant
-        /// to the search query.
-        #[derive(Clone, PartialEq, ::prost::Message)]
-        pub struct ReviewJustification {
-            #[prost(message, optional, tag = "1")]
-            pub highlighted_text: ::core::option::Option<
-                review_justification::HighlightedText,
-            >,
-            /// The review that the highlighted text is generated from.
-            #[prost(message, optional, tag = "2")]
-            pub review: ::core::option::Option<super::super::Review>,
-        }
-        /// Nested message and enum types in `ReviewJustification`.
-        pub mod review_justification {
-            /// The text highlighted by the justification. This is a subset of the
-            /// review itself. The exact word to highlight is marked by the
-            /// HighlightedTextRange. There could be several words in the text being
-            /// highlighted.
-            #[derive(Clone, PartialEq, ::prost::Message)]
-            pub struct HighlightedText {
-                #[prost(string, tag = "1")]
-                pub text: ::prost::alloc::string::String,
-                /// The list of the ranges of the highlighted text.
-                #[prost(message, repeated, tag = "2")]
-                pub highlighted_text_ranges: ::prost::alloc::vec::Vec<
-                    highlighted_text::HighlightedTextRange,
-                >,
-            }
-            /// Nested message and enum types in `HighlightedText`.
-            pub mod highlighted_text {
-                /// The range of highlighted text.
-                #[derive(Clone, Copy, PartialEq, ::prost::Message)]
-                pub struct HighlightedTextRange {
-                    #[prost(int32, tag = "1")]
-                    pub start_index: i32,
-                    #[prost(int32, tag = "2")]
-                    pub end_index: i32,
-                }
-            }
-        }
-        /// Experimental: See
-        /// <https://developers.google.com/maps/documentation/places/web-service/experimental/places-generative>
-        /// for more details.
-        /// BusinessAvailabilityAttributes justifications. This shows some attributes
-        /// a business has that could interest an end user.
-        #[derive(Clone, Copy, PartialEq, ::prost::Message)]
-        pub struct BusinessAvailabilityAttributesJustification {
-            /// If a place provides takeout.
-            #[prost(bool, tag = "1")]
-            pub takeout: bool,
-            /// If a place provides delivery.
-            #[prost(bool, tag = "2")]
-            pub delivery: bool,
-            /// If a place provides dine-in.
-            #[prost(bool, tag = "3")]
-            pub dine_in: bool,
-        }
-        #[derive(Clone, PartialEq, ::prost::Oneof)]
-        pub enum Justification {
-            /// Experimental: See
-            /// <https://developers.google.com/maps/documentation/places/web-service/experimental/places-generative>
-            /// for more details.
-            #[prost(message, tag = "1")]
-            ReviewJustification(ReviewJustification),
-            /// Experimental: See
-            /// <https://developers.google.com/maps/documentation/places/web-service/experimental/places-generative>
-            /// for more details.
-            #[prost(message, tag = "2")]
-            BusinessAvailabilityAttributesJustification(
-                BusinessAvailabilityAttributesJustification,
-            ),
-        }
-    }
-}
-/// Circle with a LatLng as center and radius.
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
-pub struct Circle {
-    /// Required. Center latitude and longitude.
-    ///
-    /// The range of latitude must be within \[-90.0, 90.0\]. The range of the
-    /// longitude must be within \[-180.0, 180.0\].
-    #[prost(message, optional, tag = "1")]
-    pub center: ::core::option::Option<super::super::super::r#type::LatLng>,
-    /// Required. Radius measured in meters. The radius must be within [0.0,
-    /// 50000.0].
-    #[prost(double, tag = "2")]
-    pub radius: f64,
 }
 /// Request proto for Search Nearby.
 ///
@@ -1324,9 +1322,9 @@ pub mod search_nearby_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                RankPreference::Unspecified => "RANK_PREFERENCE_UNSPECIFIED",
-                RankPreference::Distance => "DISTANCE",
-                RankPreference::Popularity => "POPULARITY",
+                Self::Unspecified => "RANK_PREFERENCE_UNSPECIFIED",
+                Self::Distance => "DISTANCE",
+                Self::Popularity => "POPULARITY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1523,9 +1521,9 @@ pub mod search_text_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                RankPreference::Unspecified => "RANK_PREFERENCE_UNSPECIFIED",
-                RankPreference::Distance => "DISTANCE",
-                RankPreference::Relevance => "RELEVANCE",
+                Self::Unspecified => "RANK_PREFERENCE_UNSPECIFIED",
+                Self::Distance => "DISTANCE",
+                Self::Relevance => "RELEVANCE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2171,5 +2169,386 @@ pub mod places_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod places_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with PlacesServer.
+    #[async_trait]
+    pub trait Places: std::marker::Send + std::marker::Sync + 'static {
+        /// Search for places near locations.
+        async fn search_nearby(
+            &self,
+            request: tonic::Request<super::SearchNearbyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SearchNearbyResponse>,
+            tonic::Status,
+        >;
+        /// Text query based place search.
+        async fn search_text(
+            &self,
+            request: tonic::Request<super::SearchTextRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SearchTextResponse>,
+            tonic::Status,
+        >;
+        /// Get a photo media with a photo reference string.
+        async fn get_photo_media(
+            &self,
+            request: tonic::Request<super::GetPhotoMediaRequest>,
+        ) -> std::result::Result<tonic::Response<super::PhotoMedia>, tonic::Status>;
+        /// Get the details of a place based on its resource name, which is a string
+        /// in the `places/{place_id}` format.
+        async fn get_place(
+            &self,
+            request: tonic::Request<super::GetPlaceRequest>,
+        ) -> std::result::Result<tonic::Response<super::Place>, tonic::Status>;
+        /// Returns predictions for the given input.
+        async fn autocomplete_places(
+            &self,
+            request: tonic::Request<super::AutocompletePlacesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AutocompletePlacesResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Service definition for the Places API.
+    /// Note: every request (except for Autocomplete requests) requires a field mask
+    /// set outside of the request proto (`all/*`, is not assumed). The field mask
+    /// can be set via the HTTP header `X-Goog-FieldMask`. See:
+    /// https://developers.google.com/maps/documentation/places/web-service/choose-fields
+    #[derive(Debug)]
+    pub struct PlacesServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> PlacesServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for PlacesServer<T>
+    where
+        T: Places,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.maps.places.v1.Places/SearchNearby" => {
+                    #[allow(non_camel_case_types)]
+                    struct SearchNearbySvc<T: Places>(pub Arc<T>);
+                    impl<
+                        T: Places,
+                    > tonic::server::UnaryService<super::SearchNearbyRequest>
+                    for SearchNearbySvc<T> {
+                        type Response = super::SearchNearbyResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SearchNearbyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Places>::search_nearby(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SearchNearbySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.maps.places.v1.Places/SearchText" => {
+                    #[allow(non_camel_case_types)]
+                    struct SearchTextSvc<T: Places>(pub Arc<T>);
+                    impl<T: Places> tonic::server::UnaryService<super::SearchTextRequest>
+                    for SearchTextSvc<T> {
+                        type Response = super::SearchTextResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SearchTextRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Places>::search_text(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SearchTextSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.maps.places.v1.Places/GetPhotoMedia" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetPhotoMediaSvc<T: Places>(pub Arc<T>);
+                    impl<
+                        T: Places,
+                    > tonic::server::UnaryService<super::GetPhotoMediaRequest>
+                    for GetPhotoMediaSvc<T> {
+                        type Response = super::PhotoMedia;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetPhotoMediaRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Places>::get_photo_media(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetPhotoMediaSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.maps.places.v1.Places/GetPlace" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetPlaceSvc<T: Places>(pub Arc<T>);
+                    impl<T: Places> tonic::server::UnaryService<super::GetPlaceRequest>
+                    for GetPlaceSvc<T> {
+                        type Response = super::Place;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetPlaceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Places>::get_place(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetPlaceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.maps.places.v1.Places/AutocompletePlaces" => {
+                    #[allow(non_camel_case_types)]
+                    struct AutocompletePlacesSvc<T: Places>(pub Arc<T>);
+                    impl<
+                        T: Places,
+                    > tonic::server::UnaryService<super::AutocompletePlacesRequest>
+                    for AutocompletePlacesSvc<T> {
+                        type Response = super::AutocompletePlacesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::AutocompletePlacesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Places>::autocomplete_places(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = AutocompletePlacesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for PlacesServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.maps.places.v1.Places";
+    impl<T> tonic::server::NamedService for PlacesServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

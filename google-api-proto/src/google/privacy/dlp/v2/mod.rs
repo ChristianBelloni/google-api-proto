@@ -68,13 +68,11 @@ pub mod sensitivity_score {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                SensitivityScoreLevel::SensitivityScoreUnspecified => {
-                    "SENSITIVITY_SCORE_UNSPECIFIED"
-                }
-                SensitivityScoreLevel::SensitivityLow => "SENSITIVITY_LOW",
-                SensitivityScoreLevel::SensitivityUnknown => "SENSITIVITY_UNKNOWN",
-                SensitivityScoreLevel::SensitivityModerate => "SENSITIVITY_MODERATE",
-                SensitivityScoreLevel::SensitivityHigh => "SENSITIVITY_HIGH",
+                Self::SensitivityScoreUnspecified => "SENSITIVITY_SCORE_UNSPECIFIED",
+                Self::SensitivityLow => "SENSITIVITY_LOW",
+                Self::SensitivityUnknown => "SENSITIVITY_UNKNOWN",
+                Self::SensitivityModerate => "SENSITIVITY_MODERATE",
+                Self::SensitivityHigh => "SENSITIVITY_HIGH",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -335,8 +333,8 @@ pub mod custom_info_type {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ExclusionType::Unspecified => "EXCLUSION_TYPE_UNSPECIFIED",
-                ExclusionType::Exclude => "EXCLUSION_TYPE_EXCLUDE",
+                Self::Unspecified => "EXCLUSION_TYPE_UNSPECIFIED",
+                Self::Exclude => "EXCLUSION_TYPE_EXCLUDE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -562,9 +560,9 @@ pub mod cloud_storage_options {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                SampleMethod::Unspecified => "SAMPLE_METHOD_UNSPECIFIED",
-                SampleMethod::Top => "TOP",
-                SampleMethod::RandomStart => "RANDOM_START",
+                Self::Unspecified => "SAMPLE_METHOD_UNSPECIFIED",
+                Self::Top => "TOP",
+                Self::RandomStart => "RANDOM_START",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -676,9 +674,9 @@ pub mod big_query_options {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                SampleMethod::Unspecified => "SAMPLE_METHOD_UNSPECIFIED",
-                SampleMethod::Top => "TOP",
-                SampleMethod::RandomStart => "RANDOM_START",
+                Self::Unspecified => "SAMPLE_METHOD_UNSPECIFIED",
+                Self::Top => "TOP",
+                Self::RandomStart => "RANDOM_START",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1034,12 +1032,12 @@ impl Likelihood {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            Likelihood::Unspecified => "LIKELIHOOD_UNSPECIFIED",
-            Likelihood::VeryUnlikely => "VERY_UNLIKELY",
-            Likelihood::Unlikely => "UNLIKELY",
-            Likelihood::Possible => "POSSIBLE",
-            Likelihood::Likely => "LIKELY",
-            Likelihood::VeryLikely => "VERY_LIKELY",
+            Self::Unspecified => "LIKELIHOOD_UNSPECIFIED",
+            Self::VeryUnlikely => "VERY_UNLIKELY",
+            Self::Unlikely => "UNLIKELY",
+            Self::Possible => "POSSIBLE",
+            Self::Likely => "LIKELY",
+            Self::VeryLikely => "VERY_LIKELY",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1122,17 +1120,17 @@ impl FileType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            FileType::Unspecified => "FILE_TYPE_UNSPECIFIED",
-            FileType::BinaryFile => "BINARY_FILE",
-            FileType::TextFile => "TEXT_FILE",
-            FileType::Image => "IMAGE",
-            FileType::Word => "WORD",
-            FileType::Pdf => "PDF",
-            FileType::Avro => "AVRO",
-            FileType::Csv => "CSV",
-            FileType::Tsv => "TSV",
-            FileType::Powerpoint => "POWERPOINT",
-            FileType::Excel => "EXCEL",
+            Self::Unspecified => "FILE_TYPE_UNSPECIFIED",
+            Self::BinaryFile => "BINARY_FILE",
+            Self::TextFile => "TEXT_FILE",
+            Self::Image => "IMAGE",
+            Self::Word => "WORD",
+            Self::Pdf => "PDF",
+            Self::Avro => "AVRO",
+            Self::Csv => "CSV",
+            Self::Tsv => "TSV",
+            Self::Powerpoint => "POWERPOINT",
+            Self::Excel => "EXCEL",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1470,23 +1468,23 @@ pub mod byte_content_item {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                BytesType::Unspecified => "BYTES_TYPE_UNSPECIFIED",
-                BytesType::Image => "IMAGE",
-                BytesType::ImageJpeg => "IMAGE_JPEG",
-                BytesType::ImageBmp => "IMAGE_BMP",
-                BytesType::ImagePng => "IMAGE_PNG",
-                BytesType::ImageSvg => "IMAGE_SVG",
-                BytesType::TextUtf8 => "TEXT_UTF8",
-                BytesType::WordDocument => "WORD_DOCUMENT",
-                BytesType::Pdf => "PDF",
-                BytesType::PowerpointDocument => "POWERPOINT_DOCUMENT",
-                BytesType::ExcelDocument => "EXCEL_DOCUMENT",
-                BytesType::Avro => "AVRO",
-                BytesType::Csv => "CSV",
-                BytesType::Tsv => "TSV",
-                BytesType::Audio => "AUDIO",
-                BytesType::Video => "VIDEO",
-                BytesType::Executable => "EXECUTABLE",
+                Self::Unspecified => "BYTES_TYPE_UNSPECIFIED",
+                Self::Image => "IMAGE",
+                Self::ImageJpeg => "IMAGE_JPEG",
+                Self::ImageBmp => "IMAGE_BMP",
+                Self::ImagePng => "IMAGE_PNG",
+                Self::ImageSvg => "IMAGE_SVG",
+                Self::TextUtf8 => "TEXT_UTF8",
+                Self::WordDocument => "WORD_DOCUMENT",
+                Self::Pdf => "PDF",
+                Self::PowerpointDocument => "POWERPOINT_DOCUMENT",
+                Self::ExcelDocument => "EXCEL_DOCUMENT",
+                Self::Avro => "AVRO",
+                Self::Csv => "CSV",
+                Self::Tsv => "TSV",
+                Self::Audio => "AUDIO",
+                Self::Video => "VIDEO",
+                Self::Executable => "EXECUTABLE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2198,12 +2196,12 @@ pub mod output_storage_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                OutputSchema::Unspecified => "OUTPUT_SCHEMA_UNSPECIFIED",
-                OutputSchema::BasicColumns => "BASIC_COLUMNS",
-                OutputSchema::GcsColumns => "GCS_COLUMNS",
-                OutputSchema::DatastoreColumns => "DATASTORE_COLUMNS",
-                OutputSchema::BigQueryColumns => "BIG_QUERY_COLUMNS",
-                OutputSchema::AllColumns => "ALL_COLUMNS",
+                Self::Unspecified => "OUTPUT_SCHEMA_UNSPECIFIED",
+                Self::BasicColumns => "BASIC_COLUMNS",
+                Self::GcsColumns => "GCS_COLUMNS",
+                Self::DatastoreColumns => "DATASTORE_COLUMNS",
+                Self::BigQueryColumns => "BIG_QUERY_COLUMNS",
+                Self::AllColumns => "ALL_COLUMNS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2572,57 +2570,57 @@ pub mod info_type_category {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                LocationCategory::LocationUnspecified => "LOCATION_UNSPECIFIED",
-                LocationCategory::Global => "GLOBAL",
-                LocationCategory::Argentina => "ARGENTINA",
-                LocationCategory::Armenia => "ARMENIA",
-                LocationCategory::Australia => "AUSTRALIA",
-                LocationCategory::Azerbaijan => "AZERBAIJAN",
-                LocationCategory::Belarus => "BELARUS",
-                LocationCategory::Belgium => "BELGIUM",
-                LocationCategory::Brazil => "BRAZIL",
-                LocationCategory::Canada => "CANADA",
-                LocationCategory::Chile => "CHILE",
-                LocationCategory::China => "CHINA",
-                LocationCategory::Colombia => "COLOMBIA",
-                LocationCategory::Croatia => "CROATIA",
-                LocationCategory::Denmark => "DENMARK",
-                LocationCategory::France => "FRANCE",
-                LocationCategory::Finland => "FINLAND",
-                LocationCategory::Germany => "GERMANY",
-                LocationCategory::HongKong => "HONG_KONG",
-                LocationCategory::India => "INDIA",
-                LocationCategory::Indonesia => "INDONESIA",
-                LocationCategory::Ireland => "IRELAND",
-                LocationCategory::Israel => "ISRAEL",
-                LocationCategory::Italy => "ITALY",
-                LocationCategory::Japan => "JAPAN",
-                LocationCategory::Kazakhstan => "KAZAKHSTAN",
-                LocationCategory::Korea => "KOREA",
-                LocationCategory::Mexico => "MEXICO",
-                LocationCategory::TheNetherlands => "THE_NETHERLANDS",
-                LocationCategory::NewZealand => "NEW_ZEALAND",
-                LocationCategory::Norway => "NORWAY",
-                LocationCategory::Paraguay => "PARAGUAY",
-                LocationCategory::Peru => "PERU",
-                LocationCategory::Poland => "POLAND",
-                LocationCategory::Portugal => "PORTUGAL",
-                LocationCategory::Russia => "RUSSIA",
-                LocationCategory::Singapore => "SINGAPORE",
-                LocationCategory::SouthAfrica => "SOUTH_AFRICA",
-                LocationCategory::Spain => "SPAIN",
-                LocationCategory::Sweden => "SWEDEN",
-                LocationCategory::Switzerland => "SWITZERLAND",
-                LocationCategory::Taiwan => "TAIWAN",
-                LocationCategory::Thailand => "THAILAND",
-                LocationCategory::Turkey => "TURKEY",
-                LocationCategory::Ukraine => "UKRAINE",
-                LocationCategory::UnitedKingdom => "UNITED_KINGDOM",
-                LocationCategory::UnitedStates => "UNITED_STATES",
-                LocationCategory::Uruguay => "URUGUAY",
-                LocationCategory::Uzbekistan => "UZBEKISTAN",
-                LocationCategory::Venezuela => "VENEZUELA",
-                LocationCategory::Internal => "INTERNAL",
+                Self::LocationUnspecified => "LOCATION_UNSPECIFIED",
+                Self::Global => "GLOBAL",
+                Self::Argentina => "ARGENTINA",
+                Self::Armenia => "ARMENIA",
+                Self::Australia => "AUSTRALIA",
+                Self::Azerbaijan => "AZERBAIJAN",
+                Self::Belarus => "BELARUS",
+                Self::Belgium => "BELGIUM",
+                Self::Brazil => "BRAZIL",
+                Self::Canada => "CANADA",
+                Self::Chile => "CHILE",
+                Self::China => "CHINA",
+                Self::Colombia => "COLOMBIA",
+                Self::Croatia => "CROATIA",
+                Self::Denmark => "DENMARK",
+                Self::France => "FRANCE",
+                Self::Finland => "FINLAND",
+                Self::Germany => "GERMANY",
+                Self::HongKong => "HONG_KONG",
+                Self::India => "INDIA",
+                Self::Indonesia => "INDONESIA",
+                Self::Ireland => "IRELAND",
+                Self::Israel => "ISRAEL",
+                Self::Italy => "ITALY",
+                Self::Japan => "JAPAN",
+                Self::Kazakhstan => "KAZAKHSTAN",
+                Self::Korea => "KOREA",
+                Self::Mexico => "MEXICO",
+                Self::TheNetherlands => "THE_NETHERLANDS",
+                Self::NewZealand => "NEW_ZEALAND",
+                Self::Norway => "NORWAY",
+                Self::Paraguay => "PARAGUAY",
+                Self::Peru => "PERU",
+                Self::Poland => "POLAND",
+                Self::Portugal => "PORTUGAL",
+                Self::Russia => "RUSSIA",
+                Self::Singapore => "SINGAPORE",
+                Self::SouthAfrica => "SOUTH_AFRICA",
+                Self::Spain => "SPAIN",
+                Self::Sweden => "SWEDEN",
+                Self::Switzerland => "SWITZERLAND",
+                Self::Taiwan => "TAIWAN",
+                Self::Thailand => "THAILAND",
+                Self::Turkey => "TURKEY",
+                Self::Ukraine => "UKRAINE",
+                Self::UnitedKingdom => "UNITED_KINGDOM",
+                Self::UnitedStates => "UNITED_STATES",
+                Self::Uruguay => "URUGUAY",
+                Self::Uzbekistan => "UZBEKISTAN",
+                Self::Venezuela => "VENEZUELA",
+                Self::Internal => "INTERNAL",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2714,10 +2712,10 @@ pub mod info_type_category {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                IndustryCategory::IndustryUnspecified => "INDUSTRY_UNSPECIFIED",
-                IndustryCategory::Finance => "FINANCE",
-                IndustryCategory::Health => "HEALTH",
-                IndustryCategory::Telecommunications => "TELECOMMUNICATIONS",
+                Self::IndustryUnspecified => "INDUSTRY_UNSPECIFIED",
+                Self::Finance => "FINANCE",
+                Self::Health => "HEALTH",
+                Self::Telecommunications => "TELECOMMUNICATIONS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2774,14 +2772,14 @@ pub mod info_type_category {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                TypeCategory::TypeUnspecified => "TYPE_UNSPECIFIED",
-                TypeCategory::Pii => "PII",
-                TypeCategory::Spii => "SPII",
-                TypeCategory::Demographic => "DEMOGRAPHIC",
-                TypeCategory::Credential => "CREDENTIAL",
-                TypeCategory::GovernmentId => "GOVERNMENT_ID",
-                TypeCategory::Document => "DOCUMENT",
-                TypeCategory::ContextualInformation => "CONTEXTUAL_INFORMATION",
+                Self::TypeUnspecified => "TYPE_UNSPECIFIED",
+                Self::Pii => "PII",
+                Self::Spii => "SPII",
+                Self::Demographic => "DEMOGRAPHIC",
+                Self::Credential => "CREDENTIAL",
+                Self::GovernmentId => "GOVERNMENT_ID",
+                Self::Document => "DOCUMENT",
+                Self::ContextualInformation => "CONTEXTUAL_INFORMATION",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -3794,13 +3792,13 @@ pub mod time_part_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                TimePart::Unspecified => "TIME_PART_UNSPECIFIED",
-                TimePart::Year => "YEAR",
-                TimePart::Month => "MONTH",
-                TimePart::DayOfMonth => "DAY_OF_MONTH",
-                TimePart::DayOfWeek => "DAY_OF_WEEK",
-                TimePart::WeekOfYear => "WEEK_OF_YEAR",
-                TimePart::HourOfDay => "HOUR_OF_DAY",
+                Self::Unspecified => "TIME_PART_UNSPECIFIED",
+                Self::Year => "YEAR",
+                Self::Month => "MONTH",
+                Self::DayOfMonth => "DAY_OF_MONTH",
+                Self::DayOfWeek => "DAY_OF_WEEK",
+                Self::WeekOfYear => "WEEK_OF_YEAR",
+                Self::HourOfDay => "HOUR_OF_DAY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -3975,12 +3973,12 @@ pub mod chars_to_ignore {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                CommonCharsToIgnore::Unspecified => "COMMON_CHARS_TO_IGNORE_UNSPECIFIED",
-                CommonCharsToIgnore::Numeric => "NUMERIC",
-                CommonCharsToIgnore::AlphaUpperCase => "ALPHA_UPPER_CASE",
-                CommonCharsToIgnore::AlphaLowerCase => "ALPHA_LOWER_CASE",
-                CommonCharsToIgnore::Punctuation => "PUNCTUATION",
-                CommonCharsToIgnore::Whitespace => "WHITESPACE",
+                Self::Unspecified => "COMMON_CHARS_TO_IGNORE_UNSPECIFIED",
+                Self::Numeric => "NUMERIC",
+                Self::AlphaUpperCase => "ALPHA_UPPER_CASE",
+                Self::AlphaLowerCase => "ALPHA_LOWER_CASE",
+                Self::Punctuation => "PUNCTUATION",
+                Self::Whitespace => "WHITESPACE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -4235,15 +4233,11 @@ pub mod crypto_replace_ffx_fpe_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                FfxCommonNativeAlphabet::Unspecified => {
-                    "FFX_COMMON_NATIVE_ALPHABET_UNSPECIFIED"
-                }
-                FfxCommonNativeAlphabet::Numeric => "NUMERIC",
-                FfxCommonNativeAlphabet::Hexadecimal => "HEXADECIMAL",
-                FfxCommonNativeAlphabet::UpperCaseAlphaNumeric => {
-                    "UPPER_CASE_ALPHA_NUMERIC"
-                }
-                FfxCommonNativeAlphabet::AlphaNumeric => "ALPHA_NUMERIC",
+                Self::Unspecified => "FFX_COMMON_NATIVE_ALPHABET_UNSPECIFIED",
+                Self::Numeric => "NUMERIC",
+                Self::Hexadecimal => "HEXADECIMAL",
+                Self::UpperCaseAlphaNumeric => "UPPER_CASE_ALPHA_NUMERIC",
+                Self::AlphaNumeric => "ALPHA_NUMERIC",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -4566,8 +4560,8 @@ pub mod record_condition {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    LogicalOperator::Unspecified => "LOGICAL_OPERATOR_UNSPECIFIED",
-                    LogicalOperator::And => "AND",
+                    Self::Unspecified => "LOGICAL_OPERATOR_UNSPECIFIED",
+                    Self::And => "AND",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -4672,11 +4666,9 @@ pub mod transformation_summary {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                TransformationResultCode::Unspecified => {
-                    "TRANSFORMATION_RESULT_CODE_UNSPECIFIED"
-                }
-                TransformationResultCode::Success => "SUCCESS",
-                TransformationResultCode::Error => "ERROR",
+                Self::Unspecified => "TRANSFORMATION_RESULT_CODE_UNSPECIFIED",
+                Self::Success => "SUCCESS",
+                Self::Error => "ERROR",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -4959,13 +4951,9 @@ pub mod error {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ErrorExtraInfo::ErrorInfoUnspecified => "ERROR_INFO_UNSPECIFIED",
-                ErrorExtraInfo::ImageScanUnavailableInRegion => {
-                    "IMAGE_SCAN_UNAVAILABLE_IN_REGION"
-                }
-                ErrorExtraInfo::FileStoreClusterUnsupported => {
-                    "FILE_STORE_CLUSTER_UNSUPPORTED"
-                }
+                Self::ErrorInfoUnspecified => "ERROR_INFO_UNSPECIFIED",
+                Self::ImageScanUnavailableInRegion => "IMAGE_SCAN_UNAVAILABLE_IN_REGION",
+                Self::FileStoreClusterUnsupported => "FILE_STORE_CLUSTER_UNSUPPORTED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -5082,10 +5070,10 @@ pub mod job_trigger {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Status::Unspecified => "STATUS_UNSPECIFIED",
-                Status::Healthy => "HEALTHY",
-                Status::Paused => "PAUSED",
-                Status::Cancelled => "CANCELLED",
+                Self::Unspecified => "STATUS_UNSPECIFIED",
+                Self::Healthy => "HEALTHY",
+                Self::Paused => "PAUSED",
+                Self::Cancelled => "CANCELLED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -5853,10 +5841,10 @@ pub mod data_profile_action {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    DetailLevel::Unspecified => "DETAIL_LEVEL_UNSPECIFIED",
-                    DetailLevel::TableProfile => "TABLE_PROFILE",
-                    DetailLevel::ResourceName => "RESOURCE_NAME",
-                    DetailLevel::FileStoreProfile => "FILE_STORE_PROFILE",
+                    Self::Unspecified => "DETAIL_LEVEL_UNSPECIFIED",
+                    Self::TableProfile => "TABLE_PROFILE",
+                    Self::ResourceName => "RESOURCE_NAME",
+                    Self::FileStoreProfile => "FILE_STORE_PROFILE",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -5979,11 +5967,11 @@ pub mod data_profile_action {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                EventType::Unspecified => "EVENT_TYPE_UNSPECIFIED",
-                EventType::NewProfile => "NEW_PROFILE",
-                EventType::ChangedProfile => "CHANGED_PROFILE",
-                EventType::ScoreIncreased => "SCORE_INCREASED",
-                EventType::ErrorChanged => "ERROR_CHANGED",
+                Self::Unspecified => "EVENT_TYPE_UNSPECIFIED",
+                Self::NewProfile => "NEW_PROFILE",
+                Self::ChangedProfile => "CHANGED_PROFILE",
+                Self::ScoreIncreased => "SCORE_INCREASED",
+                Self::ErrorChanged => "ERROR_CHANGED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -6214,9 +6202,9 @@ pub mod discovery_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Status::Unspecified => "STATUS_UNSPECIFIED",
-                Status::Running => "RUNNING",
-                Status::Paused => "PAUSED",
+                Self::Unspecified => "STATUS_UNSPECIFIED",
+                Self::Running => "RUNNING",
+                Self::Paused => "PAUSED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -6665,12 +6653,10 @@ pub mod discovery_cloud_sql_conditions {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                DatabaseEngine::Unspecified => "DATABASE_ENGINE_UNSPECIFIED",
-                DatabaseEngine::AllSupportedDatabaseEngines => {
-                    "ALL_SUPPORTED_DATABASE_ENGINES"
-                }
-                DatabaseEngine::Mysql => "MYSQL",
-                DatabaseEngine::Postgres => "POSTGRES",
+                Self::Unspecified => "DATABASE_ENGINE_UNSPECIFIED",
+                Self::AllSupportedDatabaseEngines => "ALL_SUPPORTED_DATABASE_ENGINES",
+                Self::Mysql => "MYSQL",
+                Self::Postgres => "POSTGRES",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -6714,11 +6700,9 @@ pub mod discovery_cloud_sql_conditions {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                DatabaseResourceType::Unspecified => "DATABASE_RESOURCE_TYPE_UNSPECIFIED",
-                DatabaseResourceType::AllSupportedTypes => {
-                    "DATABASE_RESOURCE_TYPE_ALL_SUPPORTED_TYPES"
-                }
-                DatabaseResourceType::Table => "DATABASE_RESOURCE_TYPE_TABLE",
+                Self::Unspecified => "DATABASE_RESOURCE_TYPE_UNSPECIFIED",
+                Self::AllSupportedTypes => "DATABASE_RESOURCE_TYPE_ALL_SUPPORTED_TYPES",
+                Self::Table => "DATABASE_RESOURCE_TYPE_TABLE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -6806,11 +6790,11 @@ pub mod discovery_cloud_sql_generation_cadence {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    CloudSqlSchemaModification::SqlSchemaModificationUnspecified => {
+                    Self::SqlSchemaModificationUnspecified => {
                         "SQL_SCHEMA_MODIFICATION_UNSPECIFIED"
                     }
-                    CloudSqlSchemaModification::NewColumns => "NEW_COLUMNS",
-                    CloudSqlSchemaModification::RemovedColumns => "REMOVED_COLUMNS",
+                    Self::NewColumns => "NEW_COLUMNS",
+                    Self::RemovedColumns => "REMOVED_COLUMNS",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -7074,21 +7058,15 @@ pub mod discovery_cloud_storage_conditions {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                CloudStorageObjectAttribute::Unspecified => {
-                    "CLOUD_STORAGE_OBJECT_ATTRIBUTE_UNSPECIFIED"
-                }
-                CloudStorageObjectAttribute::AllSupportedObjects => {
-                    "ALL_SUPPORTED_OBJECTS"
-                }
-                CloudStorageObjectAttribute::Standard => "STANDARD",
-                CloudStorageObjectAttribute::Nearline => "NEARLINE",
-                CloudStorageObjectAttribute::Coldline => "COLDLINE",
-                CloudStorageObjectAttribute::Archive => "ARCHIVE",
-                CloudStorageObjectAttribute::Regional => "REGIONAL",
-                CloudStorageObjectAttribute::MultiRegional => "MULTI_REGIONAL",
-                CloudStorageObjectAttribute::DurableReducedAvailability => {
-                    "DURABLE_REDUCED_AVAILABILITY"
-                }
+                Self::Unspecified => "CLOUD_STORAGE_OBJECT_ATTRIBUTE_UNSPECIFIED",
+                Self::AllSupportedObjects => "ALL_SUPPORTED_OBJECTS",
+                Self::Standard => "STANDARD",
+                Self::Nearline => "NEARLINE",
+                Self::Coldline => "COLDLINE",
+                Self::Archive => "ARCHIVE",
+                Self::Regional => "REGIONAL",
+                Self::MultiRegional => "MULTI_REGIONAL",
+                Self::DurableReducedAvailability => "DURABLE_REDUCED_AVAILABILITY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -7142,14 +7120,10 @@ pub mod discovery_cloud_storage_conditions {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                CloudStorageBucketAttribute::Unspecified => {
-                    "CLOUD_STORAGE_BUCKET_ATTRIBUTE_UNSPECIFIED"
-                }
-                CloudStorageBucketAttribute::AllSupportedBuckets => {
-                    "ALL_SUPPORTED_BUCKETS"
-                }
-                CloudStorageBucketAttribute::AutoclassDisabled => "AUTOCLASS_DISABLED",
-                CloudStorageBucketAttribute::AutoclassEnabled => "AUTOCLASS_ENABLED",
+                Self::Unspecified => "CLOUD_STORAGE_BUCKET_ATTRIBUTE_UNSPECIFIED",
+                Self::AllSupportedBuckets => "ALL_SUPPORTED_BUCKETS",
+                Self::AutoclassDisabled => "AUTOCLASS_DISABLED",
+                Self::AutoclassEnabled => "AUTOCLASS_ENABLED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -7295,13 +7269,13 @@ pub mod dlp_job {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                JobState::Unspecified => "JOB_STATE_UNSPECIFIED",
-                JobState::Pending => "PENDING",
-                JobState::Running => "RUNNING",
-                JobState::Done => "DONE",
-                JobState::Canceled => "CANCELED",
-                JobState::Failed => "FAILED",
-                JobState::Active => "ACTIVE",
+                Self::Unspecified => "JOB_STATE_UNSPECIFIED",
+                Self::Pending => "PENDING",
+                Self::Running => "RUNNING",
+                Self::Done => "DONE",
+                Self::Canceled => "CANCELED",
+                Self::Failed => "FAILED",
+                Self::Active => "ACTIVE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -8205,11 +8179,11 @@ pub mod data_risk_level {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                DataRiskLevelScore::RiskScoreUnspecified => "RISK_SCORE_UNSPECIFIED",
-                DataRiskLevelScore::RiskLow => "RISK_LOW",
-                DataRiskLevelScore::RiskUnknown => "RISK_UNKNOWN",
-                DataRiskLevelScore::RiskModerate => "RISK_MODERATE",
-                DataRiskLevelScore::RiskHigh => "RISK_HIGH",
+                Self::RiskScoreUnspecified => "RISK_SCORE_UNSPECIFIED",
+                Self::RiskLow => "RISK_LOW",
+                Self::RiskUnknown => "RISK_UNKNOWN",
+                Self::RiskModerate => "RISK_MODERATE",
+                Self::RiskHigh => "RISK_HIGH",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -8402,9 +8376,9 @@ pub mod table_data_profile {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Running => "RUNNING",
-                State::Done => "DONE",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Running => "RUNNING",
+                Self::Done => "DONE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -8560,9 +8534,9 @@ pub mod column_data_profile {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Running => "RUNNING",
-                State::Done => "DONE",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Running => "RUNNING",
+                Self::Done => "DONE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -8636,25 +8610,25 @@ pub mod column_data_profile {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ColumnDataType::Unspecified => "COLUMN_DATA_TYPE_UNSPECIFIED",
-                ColumnDataType::TypeInt64 => "TYPE_INT64",
-                ColumnDataType::TypeBool => "TYPE_BOOL",
-                ColumnDataType::TypeFloat64 => "TYPE_FLOAT64",
-                ColumnDataType::TypeString => "TYPE_STRING",
-                ColumnDataType::TypeBytes => "TYPE_BYTES",
-                ColumnDataType::TypeTimestamp => "TYPE_TIMESTAMP",
-                ColumnDataType::TypeDate => "TYPE_DATE",
-                ColumnDataType::TypeTime => "TYPE_TIME",
-                ColumnDataType::TypeDatetime => "TYPE_DATETIME",
-                ColumnDataType::TypeGeography => "TYPE_GEOGRAPHY",
-                ColumnDataType::TypeNumeric => "TYPE_NUMERIC",
-                ColumnDataType::TypeRecord => "TYPE_RECORD",
-                ColumnDataType::TypeBignumeric => "TYPE_BIGNUMERIC",
-                ColumnDataType::TypeJson => "TYPE_JSON",
-                ColumnDataType::TypeInterval => "TYPE_INTERVAL",
-                ColumnDataType::TypeRangeDate => "TYPE_RANGE_DATE",
-                ColumnDataType::TypeRangeDatetime => "TYPE_RANGE_DATETIME",
-                ColumnDataType::TypeRangeTimestamp => "TYPE_RANGE_TIMESTAMP",
+                Self::Unspecified => "COLUMN_DATA_TYPE_UNSPECIFIED",
+                Self::TypeInt64 => "TYPE_INT64",
+                Self::TypeBool => "TYPE_BOOL",
+                Self::TypeFloat64 => "TYPE_FLOAT64",
+                Self::TypeString => "TYPE_STRING",
+                Self::TypeBytes => "TYPE_BYTES",
+                Self::TypeTimestamp => "TYPE_TIMESTAMP",
+                Self::TypeDate => "TYPE_DATE",
+                Self::TypeTime => "TYPE_TIME",
+                Self::TypeDatetime => "TYPE_DATETIME",
+                Self::TypeGeography => "TYPE_GEOGRAPHY",
+                Self::TypeNumeric => "TYPE_NUMERIC",
+                Self::TypeRecord => "TYPE_RECORD",
+                Self::TypeBignumeric => "TYPE_BIGNUMERIC",
+                Self::TypeJson => "TYPE_JSON",
+                Self::TypeInterval => "TYPE_INTERVAL",
+                Self::TypeRangeDate => "TYPE_RANGE_DATE",
+                Self::TypeRangeDatetime => "TYPE_RANGE_DATETIME",
+                Self::TypeRangeTimestamp => "TYPE_RANGE_TIMESTAMP",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -8709,8 +8683,8 @@ pub mod column_data_profile {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ColumnPolicyState::Unspecified => "COLUMN_POLICY_STATE_UNSPECIFIED",
-                ColumnPolicyState::ColumnPolicyTagged => "COLUMN_POLICY_TAGGED",
+                Self::Unspecified => "COLUMN_POLICY_STATE_UNSPECIFIED",
+                Self::ColumnPolicyTagged => "COLUMN_POLICY_TAGGED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -8857,9 +8831,9 @@ pub mod file_store_data_profile {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Running => "RUNNING",
-                State::Done => "DONE",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Running => "RUNNING",
+                Self::Done => "DONE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -9119,11 +9093,9 @@ pub mod data_profile_pub_sub_condition {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    PubSubLogicalOperator::LogicalOperatorUnspecified => {
-                        "LOGICAL_OPERATOR_UNSPECIFIED"
-                    }
-                    PubSubLogicalOperator::Or => "OR",
-                    PubSubLogicalOperator::And => "AND",
+                    Self::LogicalOperatorUnspecified => "LOGICAL_OPERATOR_UNSPECIFIED",
+                    Self::Or => "OR",
+                    Self::And => "AND",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -9167,9 +9139,9 @@ pub mod data_profile_pub_sub_condition {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ProfileScoreBucket::Unspecified => "PROFILE_SCORE_BUCKET_UNSPECIFIED",
-                ProfileScoreBucket::High => "HIGH",
-                ProfileScoreBucket::MediumOrHigh => "MEDIUM_OR_HIGH",
+                Self::Unspecified => "PROFILE_SCORE_BUCKET_UNSPECIFIED",
+                Self::High => "HIGH",
+                Self::MediumOrHigh => "MEDIUM_OR_HIGH",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -9419,9 +9391,9 @@ pub mod cloud_sql_properties {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                DatabaseEngine::Unknown => "DATABASE_ENGINE_UNKNOWN",
-                DatabaseEngine::Mysql => "DATABASE_ENGINE_MYSQL",
-                DatabaseEngine::Postgres => "DATABASE_ENGINE_POSTGRES",
+                Self::Unknown => "DATABASE_ENGINE_UNKNOWN",
+                Self::Mysql => "DATABASE_ENGINE_MYSQL",
+                Self::Postgres => "DATABASE_ENGINE_POSTGRES",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -9512,16 +9484,16 @@ pub mod file_cluster_type {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Cluster::Unspecified => "CLUSTER_UNSPECIFIED",
-                Cluster::Unknown => "CLUSTER_UNKNOWN",
-                Cluster::Text => "CLUSTER_TEXT",
-                Cluster::StructuredData => "CLUSTER_STRUCTURED_DATA",
-                Cluster::SourceCode => "CLUSTER_SOURCE_CODE",
-                Cluster::RichDocument => "CLUSTER_RICH_DOCUMENT",
-                Cluster::Image => "CLUSTER_IMAGE",
-                Cluster::Archive => "CLUSTER_ARCHIVE",
-                Cluster::Multimedia => "CLUSTER_MULTIMEDIA",
-                Cluster::Executable => "CLUSTER_EXECUTABLE",
+                Self::Unspecified => "CLUSTER_UNSPECIFIED",
+                Self::Unknown => "CLUSTER_UNKNOWN",
+                Self::Text => "CLUSTER_TEXT",
+                Self::StructuredData => "CLUSTER_STRUCTURED_DATA",
+                Self::SourceCode => "CLUSTER_SOURCE_CODE",
+                Self::RichDocument => "CLUSTER_RICH_DOCUMENT",
+                Self::Image => "CLUSTER_IMAGE",
+                Self::Archive => "CLUSTER_ARCHIVE",
+                Self::Multimedia => "CLUSTER_MULTIMEDIA",
+                Self::Executable => "CLUSTER_EXECUTABLE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -9578,17 +9550,11 @@ impl TransformationResultStatusType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            TransformationResultStatusType::StateTypeUnspecified => {
-                "STATE_TYPE_UNSPECIFIED"
-            }
-            TransformationResultStatusType::InvalidTransform => "INVALID_TRANSFORM",
-            TransformationResultStatusType::BigqueryMaxRowSizeExceeded => {
-                "BIGQUERY_MAX_ROW_SIZE_EXCEEDED"
-            }
-            TransformationResultStatusType::MetadataUnretrievable => {
-                "METADATA_UNRETRIEVABLE"
-            }
-            TransformationResultStatusType::Success => "SUCCESS",
+            Self::StateTypeUnspecified => "STATE_TYPE_UNSPECIFIED",
+            Self::InvalidTransform => "INVALID_TRANSFORM",
+            Self::BigqueryMaxRowSizeExceeded => "BIGQUERY_MAX_ROW_SIZE_EXCEEDED",
+            Self::MetadataUnretrievable => "METADATA_UNRETRIEVABLE",
+            Self::Success => "SUCCESS",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -9623,12 +9589,10 @@ impl TransformationContainerType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            TransformationContainerType::TransformUnknownContainer => {
-                "TRANSFORM_UNKNOWN_CONTAINER"
-            }
-            TransformationContainerType::TransformBody => "TRANSFORM_BODY",
-            TransformationContainerType::TransformMetadata => "TRANSFORM_METADATA",
-            TransformationContainerType::TransformTable => "TRANSFORM_TABLE",
+            Self::TransformUnknownContainer => "TRANSFORM_UNKNOWN_CONTAINER",
+            Self::TransformBody => "TRANSFORM_BODY",
+            Self::TransformMetadata => "TRANSFORM_METADATA",
+            Self::TransformTable => "TRANSFORM_TABLE",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -9686,23 +9650,21 @@ impl TransformationType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            TransformationType::Unspecified => "TRANSFORMATION_TYPE_UNSPECIFIED",
-            TransformationType::RecordSuppression => "RECORD_SUPPRESSION",
-            TransformationType::ReplaceValue => "REPLACE_VALUE",
-            TransformationType::ReplaceDictionary => "REPLACE_DICTIONARY",
-            TransformationType::Redact => "REDACT",
-            TransformationType::CharacterMask => "CHARACTER_MASK",
-            TransformationType::CryptoReplaceFfxFpe => "CRYPTO_REPLACE_FFX_FPE",
-            TransformationType::FixedSizeBucketing => "FIXED_SIZE_BUCKETING",
-            TransformationType::Bucketing => "BUCKETING",
-            TransformationType::ReplaceWithInfoType => "REPLACE_WITH_INFO_TYPE",
-            TransformationType::TimePart => "TIME_PART",
-            TransformationType::CryptoHash => "CRYPTO_HASH",
-            TransformationType::DateShift => "DATE_SHIFT",
-            TransformationType::CryptoDeterministicConfig => {
-                "CRYPTO_DETERMINISTIC_CONFIG"
-            }
-            TransformationType::RedactImage => "REDACT_IMAGE",
+            Self::Unspecified => "TRANSFORMATION_TYPE_UNSPECIFIED",
+            Self::RecordSuppression => "RECORD_SUPPRESSION",
+            Self::ReplaceValue => "REPLACE_VALUE",
+            Self::ReplaceDictionary => "REPLACE_DICTIONARY",
+            Self::Redact => "REDACT",
+            Self::CharacterMask => "CHARACTER_MASK",
+            Self::CryptoReplaceFfxFpe => "CRYPTO_REPLACE_FFX_FPE",
+            Self::FixedSizeBucketing => "FIXED_SIZE_BUCKETING",
+            Self::Bucketing => "BUCKETING",
+            Self::ReplaceWithInfoType => "REPLACE_WITH_INFO_TYPE",
+            Self::TimePart => "TIME_PART",
+            Self::CryptoHash => "CRYPTO_HASH",
+            Self::DateShift => "DATE_SHIFT",
+            Self::CryptoDeterministicConfig => "CRYPTO_DETERMINISTIC_CONFIG",
+            Self::RedactImage => "REDACT_IMAGE",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -9745,9 +9707,9 @@ impl ProfileGeneration {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ProfileGeneration::Unspecified => "PROFILE_GENERATION_UNSPECIFIED",
-            ProfileGeneration::New => "PROFILE_GENERATION_NEW",
-            ProfileGeneration::Update => "PROFILE_GENERATION_UPDATE",
+            Self::Unspecified => "PROFILE_GENERATION_UNSPECIFIED",
+            Self::New => "PROFILE_GENERATION_NEW",
+            Self::Update => "PROFILE_GENERATION_UPDATE",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -9785,13 +9747,9 @@ impl BigQueryTableTypeCollection {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            BigQueryTableTypeCollection::BigQueryCollectionUnspecified => {
-                "BIG_QUERY_COLLECTION_UNSPECIFIED"
-            }
-            BigQueryTableTypeCollection::BigQueryCollectionAllTypes => {
-                "BIG_QUERY_COLLECTION_ALL_TYPES"
-            }
-            BigQueryTableTypeCollection::BigQueryCollectionOnlySupportedTypes => {
+            Self::BigQueryCollectionUnspecified => "BIG_QUERY_COLLECTION_UNSPECIFIED",
+            Self::BigQueryCollectionAllTypes => "BIG_QUERY_COLLECTION_ALL_TYPES",
+            Self::BigQueryCollectionOnlySupportedTypes => {
                 "BIG_QUERY_COLLECTION_ONLY_SUPPORTED_TYPES"
             }
         }
@@ -9829,11 +9787,9 @@ impl BigQueryTableType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            BigQueryTableType::Unspecified => "BIG_QUERY_TABLE_TYPE_UNSPECIFIED",
-            BigQueryTableType::Table => "BIG_QUERY_TABLE_TYPE_TABLE",
-            BigQueryTableType::ExternalBigLake => {
-                "BIG_QUERY_TABLE_TYPE_EXTERNAL_BIG_LAKE"
-            }
+            Self::Unspecified => "BIG_QUERY_TABLE_TYPE_UNSPECIFIED",
+            Self::Table => "BIG_QUERY_TABLE_TYPE_TABLE",
+            Self::ExternalBigLake => "BIG_QUERY_TABLE_TYPE_EXTERNAL_BIG_LAKE",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -9867,14 +9823,10 @@ impl DataProfileUpdateFrequency {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            DataProfileUpdateFrequency::UpdateFrequencyUnspecified => {
-                "UPDATE_FREQUENCY_UNSPECIFIED"
-            }
-            DataProfileUpdateFrequency::UpdateFrequencyNever => "UPDATE_FREQUENCY_NEVER",
-            DataProfileUpdateFrequency::UpdateFrequencyDaily => "UPDATE_FREQUENCY_DAILY",
-            DataProfileUpdateFrequency::UpdateFrequencyMonthly => {
-                "UPDATE_FREQUENCY_MONTHLY"
-            }
+            Self::UpdateFrequencyUnspecified => "UPDATE_FREQUENCY_UNSPECIFIED",
+            Self::UpdateFrequencyNever => "UPDATE_FREQUENCY_NEVER",
+            Self::UpdateFrequencyDaily => "UPDATE_FREQUENCY_DAILY",
+            Self::UpdateFrequencyMonthly => "UPDATE_FREQUENCY_MONTHLY",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -9906,12 +9858,8 @@ impl BigQueryTableModification {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            BigQueryTableModification::TableModificationUnspecified => {
-                "TABLE_MODIFICATION_UNSPECIFIED"
-            }
-            BigQueryTableModification::TableModifiedTimestamp => {
-                "TABLE_MODIFIED_TIMESTAMP"
-            }
+            Self::TableModificationUnspecified => "TABLE_MODIFICATION_UNSPECIFIED",
+            Self::TableModifiedTimestamp => "TABLE_MODIFIED_TIMESTAMP",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -9943,11 +9891,9 @@ impl BigQuerySchemaModification {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            BigQuerySchemaModification::SchemaModificationUnspecified => {
-                "SCHEMA_MODIFICATION_UNSPECIFIED"
-            }
-            BigQuerySchemaModification::SchemaNewColumns => "SCHEMA_NEW_COLUMNS",
-            BigQuerySchemaModification::SchemaRemovedColumns => "SCHEMA_REMOVED_COLUMNS",
+            Self::SchemaModificationUnspecified => "SCHEMA_MODIFICATION_UNSPECIFIED",
+            Self::SchemaNewColumns => "SCHEMA_NEW_COLUMNS",
+            Self::SchemaRemovedColumns => "SCHEMA_REMOVED_COLUMNS",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -9990,14 +9936,14 @@ impl RelationalOperator {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            RelationalOperator::Unspecified => "RELATIONAL_OPERATOR_UNSPECIFIED",
-            RelationalOperator::EqualTo => "EQUAL_TO",
-            RelationalOperator::NotEqualTo => "NOT_EQUAL_TO",
-            RelationalOperator::GreaterThan => "GREATER_THAN",
-            RelationalOperator::LessThan => "LESS_THAN",
-            RelationalOperator::GreaterThanOrEquals => "GREATER_THAN_OR_EQUALS",
-            RelationalOperator::LessThanOrEquals => "LESS_THAN_OR_EQUALS",
-            RelationalOperator::Exists => "EXISTS",
+            Self::Unspecified => "RELATIONAL_OPERATOR_UNSPECIFIED",
+            Self::EqualTo => "EQUAL_TO",
+            Self::NotEqualTo => "NOT_EQUAL_TO",
+            Self::GreaterThan => "GREATER_THAN",
+            Self::LessThan => "LESS_THAN",
+            Self::GreaterThanOrEquals => "GREATER_THAN_OR_EQUALS",
+            Self::LessThanOrEquals => "LESS_THAN_OR_EQUALS",
+            Self::Exists => "EXISTS",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -10049,10 +9995,10 @@ impl MatchingType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            MatchingType::Unspecified => "MATCHING_TYPE_UNSPECIFIED",
-            MatchingType::FullMatch => "MATCHING_TYPE_FULL_MATCH",
-            MatchingType::PartialMatch => "MATCHING_TYPE_PARTIAL_MATCH",
-            MatchingType::InverseMatch => "MATCHING_TYPE_INVERSE_MATCH",
+            Self::Unspecified => "MATCHING_TYPE_UNSPECIFIED",
+            Self::FullMatch => "MATCHING_TYPE_FULL_MATCH",
+            Self::PartialMatch => "MATCHING_TYPE_PARTIAL_MATCH",
+            Self::InverseMatch => "MATCHING_TYPE_INVERSE_MATCH",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -10084,9 +10030,9 @@ impl ContentOption {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ContentOption::ContentUnspecified => "CONTENT_UNSPECIFIED",
-            ContentOption::ContentText => "CONTENT_TEXT",
-            ContentOption::ContentImage => "CONTENT_IMAGE",
+            Self::ContentUnspecified => "CONTENT_UNSPECIFIED",
+            Self::ContentText => "CONTENT_TEXT",
+            Self::ContentImage => "CONTENT_IMAGE",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -10115,8 +10061,8 @@ impl MetadataType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            MetadataType::MetadatatypeUnspecified => "METADATATYPE_UNSPECIFIED",
-            MetadataType::StorageMetadata => "STORAGE_METADATA",
+            Self::MetadatatypeUnspecified => "METADATATYPE_UNSPECIFIED",
+            Self::StorageMetadata => "STORAGE_METADATA",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -10146,9 +10092,9 @@ impl InfoTypeSupportedBy {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            InfoTypeSupportedBy::EnumTypeUnspecified => "ENUM_TYPE_UNSPECIFIED",
-            InfoTypeSupportedBy::Inspect => "INSPECT",
-            InfoTypeSupportedBy::RiskAnalysis => "RISK_ANALYSIS",
+            Self::EnumTypeUnspecified => "ENUM_TYPE_UNSPECIFIED",
+            Self::Inspect => "INSPECT",
+            Self::RiskAnalysis => "RISK_ANALYSIS",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -10179,9 +10125,9 @@ impl DlpJobType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            DlpJobType::Unspecified => "DLP_JOB_TYPE_UNSPECIFIED",
-            DlpJobType::InspectJob => "INSPECT_JOB",
-            DlpJobType::RiskAnalysisJob => "RISK_ANALYSIS_JOB",
+            Self::Unspecified => "DLP_JOB_TYPE_UNSPECIFIED",
+            Self::InspectJob => "INSPECT_JOB",
+            Self::RiskAnalysisJob => "RISK_ANALYSIS_JOB",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -10219,11 +10165,11 @@ impl StoredInfoTypeState {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            StoredInfoTypeState::Unspecified => "STORED_INFO_TYPE_STATE_UNSPECIFIED",
-            StoredInfoTypeState::Pending => "PENDING",
-            StoredInfoTypeState::Ready => "READY",
-            StoredInfoTypeState::Failed => "FAILED",
-            StoredInfoTypeState::Invalid => "INVALID",
+            Self::Unspecified => "STORED_INFO_TYPE_STATE_UNSPECIFIED",
+            Self::Pending => "PENDING",
+            Self::Ready => "READY",
+            Self::Failed => "FAILED",
+            Self::Invalid => "INVALID",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -10261,10 +10207,10 @@ impl ResourceVisibility {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ResourceVisibility::Unspecified => "RESOURCE_VISIBILITY_UNSPECIFIED",
-            ResourceVisibility::Public => "RESOURCE_VISIBILITY_PUBLIC",
-            ResourceVisibility::Inconclusive => "RESOURCE_VISIBILITY_INCONCLUSIVE",
-            ResourceVisibility::Restricted => "RESOURCE_VISIBILITY_RESTRICTED",
+            Self::Unspecified => "RESOURCE_VISIBILITY_UNSPECIFIED",
+            Self::Public => "RESOURCE_VISIBILITY_PUBLIC",
+            Self::Inconclusive => "RESOURCE_VISIBILITY_INCONCLUSIVE",
+            Self::Restricted => "RESOURCE_VISIBILITY_RESTRICTED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -10296,9 +10242,9 @@ impl EncryptionStatus {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            EncryptionStatus::Unspecified => "ENCRYPTION_STATUS_UNSPECIFIED",
-            EncryptionStatus::EncryptionGoogleManaged => "ENCRYPTION_GOOGLE_MANAGED",
-            EncryptionStatus::EncryptionCustomerManaged => "ENCRYPTION_CUSTOMER_MANAGED",
+            Self::Unspecified => "ENCRYPTION_STATUS_UNSPECIFIED",
+            Self::EncryptionGoogleManaged => "ENCRYPTION_GOOGLE_MANAGED",
+            Self::EncryptionCustomerManaged => "ENCRYPTION_CUSTOMER_MANAGED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -10334,11 +10280,11 @@ impl NullPercentageLevel {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            NullPercentageLevel::Unspecified => "NULL_PERCENTAGE_LEVEL_UNSPECIFIED",
-            NullPercentageLevel::NullPercentageVeryLow => "NULL_PERCENTAGE_VERY_LOW",
-            NullPercentageLevel::NullPercentageLow => "NULL_PERCENTAGE_LOW",
-            NullPercentageLevel::NullPercentageMedium => "NULL_PERCENTAGE_MEDIUM",
-            NullPercentageLevel::NullPercentageHigh => "NULL_PERCENTAGE_HIGH",
+            Self::Unspecified => "NULL_PERCENTAGE_LEVEL_UNSPECIFIED",
+            Self::NullPercentageVeryLow => "NULL_PERCENTAGE_VERY_LOW",
+            Self::NullPercentageLow => "NULL_PERCENTAGE_LOW",
+            Self::NullPercentageMedium => "NULL_PERCENTAGE_MEDIUM",
+            Self::NullPercentageHigh => "NULL_PERCENTAGE_HIGH",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -10377,10 +10323,10 @@ impl UniquenessScoreLevel {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            UniquenessScoreLevel::Unspecified => "UNIQUENESS_SCORE_LEVEL_UNSPECIFIED",
-            UniquenessScoreLevel::UniquenessScoreLow => "UNIQUENESS_SCORE_LOW",
-            UniquenessScoreLevel::UniquenessScoreMedium => "UNIQUENESS_SCORE_MEDIUM",
-            UniquenessScoreLevel::UniquenessScoreHigh => "UNIQUENESS_SCORE_HIGH",
+            Self::Unspecified => "UNIQUENESS_SCORE_LEVEL_UNSPECIFIED",
+            Self::UniquenessScoreLow => "UNIQUENESS_SCORE_LOW",
+            Self::UniquenessScoreMedium => "UNIQUENESS_SCORE_MEDIUM",
+            Self::UniquenessScoreHigh => "UNIQUENESS_SCORE_HIGH",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -10422,10 +10368,10 @@ impl ConnectionState {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ConnectionState::Unspecified => "CONNECTION_STATE_UNSPECIFIED",
-            ConnectionState::MissingCredentials => "MISSING_CREDENTIALS",
-            ConnectionState::Available => "AVAILABLE",
-            ConnectionState::Error => "ERROR",
+            Self::Unspecified => "CONNECTION_STATE_UNSPECIFIED",
+            Self::MissingCredentials => "MISSING_CREDENTIALS",
+            Self::Available => "AVAILABLE",
+            Self::Error => "ERROR",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -12263,5 +12209,3186 @@ pub mod dlp_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod dlp_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with DlpServiceServer.
+    #[async_trait]
+    pub trait DlpService: std::marker::Send + std::marker::Sync + 'static {
+        /// Finds potentially sensitive info in content.
+        /// This method has limits on input size, processing time, and output size.
+        ///
+        /// When no InfoTypes or CustomInfoTypes are specified in this request, the
+        /// system will automatically choose what detectors to run. By default this may
+        /// be all types, but may change over time as detectors are updated.
+        ///
+        /// For how to guides, see
+        /// https://cloud.google.com/sensitive-data-protection/docs/inspecting-images
+        /// and
+        /// https://cloud.google.com/sensitive-data-protection/docs/inspecting-text,
+        async fn inspect_content(
+            &self,
+            request: tonic::Request<super::InspectContentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::InspectContentResponse>,
+            tonic::Status,
+        >;
+        /// Redacts potentially sensitive info from an image.
+        /// This method has limits on input size, processing time, and output size.
+        /// See
+        /// https://cloud.google.com/sensitive-data-protection/docs/redacting-sensitive-data-images
+        /// to learn more.
+        ///
+        /// When no InfoTypes or CustomInfoTypes are specified in this request, the
+        /// system will automatically choose what detectors to run. By default this may
+        /// be all types, but may change over time as detectors are updated.
+        async fn redact_image(
+            &self,
+            request: tonic::Request<super::RedactImageRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::RedactImageResponse>,
+            tonic::Status,
+        >;
+        /// De-identifies potentially sensitive info from a ContentItem.
+        /// This method has limits on input size and output size.
+        /// See
+        /// https://cloud.google.com/sensitive-data-protection/docs/deidentify-sensitive-data
+        /// to learn more.
+        ///
+        /// When no InfoTypes or CustomInfoTypes are specified in this request, the
+        /// system will automatically choose what detectors to run. By default this may
+        /// be all types, but may change over time as detectors are updated.
+        async fn deidentify_content(
+            &self,
+            request: tonic::Request<super::DeidentifyContentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::DeidentifyContentResponse>,
+            tonic::Status,
+        >;
+        /// Re-identifies content that has been de-identified.
+        /// See
+        /// https://cloud.google.com/sensitive-data-protection/docs/pseudonymization#re-identification_in_free_text_code_example
+        /// to learn more.
+        async fn reidentify_content(
+            &self,
+            request: tonic::Request<super::ReidentifyContentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ReidentifyContentResponse>,
+            tonic::Status,
+        >;
+        /// Returns a list of the sensitive information types that DLP API
+        /// supports. See
+        /// https://cloud.google.com/sensitive-data-protection/docs/infotypes-reference
+        /// to learn more.
+        async fn list_info_types(
+            &self,
+            request: tonic::Request<super::ListInfoTypesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListInfoTypesResponse>,
+            tonic::Status,
+        >;
+        /// Creates an InspectTemplate for reusing frequently used configuration
+        /// for inspecting content, images, and storage.
+        /// See
+        /// https://cloud.google.com/sensitive-data-protection/docs/creating-templates
+        /// to learn more.
+        async fn create_inspect_template(
+            &self,
+            request: tonic::Request<super::CreateInspectTemplateRequest>,
+        ) -> std::result::Result<tonic::Response<super::InspectTemplate>, tonic::Status>;
+        /// Updates the InspectTemplate.
+        /// See
+        /// https://cloud.google.com/sensitive-data-protection/docs/creating-templates
+        /// to learn more.
+        async fn update_inspect_template(
+            &self,
+            request: tonic::Request<super::UpdateInspectTemplateRequest>,
+        ) -> std::result::Result<tonic::Response<super::InspectTemplate>, tonic::Status>;
+        /// Gets an InspectTemplate.
+        /// See
+        /// https://cloud.google.com/sensitive-data-protection/docs/creating-templates
+        /// to learn more.
+        async fn get_inspect_template(
+            &self,
+            request: tonic::Request<super::GetInspectTemplateRequest>,
+        ) -> std::result::Result<tonic::Response<super::InspectTemplate>, tonic::Status>;
+        /// Lists InspectTemplates.
+        /// See
+        /// https://cloud.google.com/sensitive-data-protection/docs/creating-templates
+        /// to learn more.
+        async fn list_inspect_templates(
+            &self,
+            request: tonic::Request<super::ListInspectTemplatesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListInspectTemplatesResponse>,
+            tonic::Status,
+        >;
+        /// Deletes an InspectTemplate.
+        /// See
+        /// https://cloud.google.com/sensitive-data-protection/docs/creating-templates
+        /// to learn more.
+        async fn delete_inspect_template(
+            &self,
+            request: tonic::Request<super::DeleteInspectTemplateRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Creates a DeidentifyTemplate for reusing frequently used configuration
+        /// for de-identifying content, images, and storage.
+        /// See
+        /// https://cloud.google.com/sensitive-data-protection/docs/creating-templates-deid
+        /// to learn more.
+        async fn create_deidentify_template(
+            &self,
+            request: tonic::Request<super::CreateDeidentifyTemplateRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::DeidentifyTemplate>,
+            tonic::Status,
+        >;
+        /// Updates the DeidentifyTemplate.
+        /// See
+        /// https://cloud.google.com/sensitive-data-protection/docs/creating-templates-deid
+        /// to learn more.
+        async fn update_deidentify_template(
+            &self,
+            request: tonic::Request<super::UpdateDeidentifyTemplateRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::DeidentifyTemplate>,
+            tonic::Status,
+        >;
+        /// Gets a DeidentifyTemplate.
+        /// See
+        /// https://cloud.google.com/sensitive-data-protection/docs/creating-templates-deid
+        /// to learn more.
+        async fn get_deidentify_template(
+            &self,
+            request: tonic::Request<super::GetDeidentifyTemplateRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::DeidentifyTemplate>,
+            tonic::Status,
+        >;
+        /// Lists DeidentifyTemplates.
+        /// See
+        /// https://cloud.google.com/sensitive-data-protection/docs/creating-templates-deid
+        /// to learn more.
+        async fn list_deidentify_templates(
+            &self,
+            request: tonic::Request<super::ListDeidentifyTemplatesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDeidentifyTemplatesResponse>,
+            tonic::Status,
+        >;
+        /// Deletes a DeidentifyTemplate.
+        /// See
+        /// https://cloud.google.com/sensitive-data-protection/docs/creating-templates-deid
+        /// to learn more.
+        async fn delete_deidentify_template(
+            &self,
+            request: tonic::Request<super::DeleteDeidentifyTemplateRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Creates a job trigger to run DLP actions such as scanning storage for
+        /// sensitive information on a set schedule.
+        /// See
+        /// https://cloud.google.com/sensitive-data-protection/docs/creating-job-triggers
+        /// to learn more.
+        async fn create_job_trigger(
+            &self,
+            request: tonic::Request<super::CreateJobTriggerRequest>,
+        ) -> std::result::Result<tonic::Response<super::JobTrigger>, tonic::Status>;
+        /// Updates a job trigger.
+        /// See
+        /// https://cloud.google.com/sensitive-data-protection/docs/creating-job-triggers
+        /// to learn more.
+        async fn update_job_trigger(
+            &self,
+            request: tonic::Request<super::UpdateJobTriggerRequest>,
+        ) -> std::result::Result<tonic::Response<super::JobTrigger>, tonic::Status>;
+        /// Inspect hybrid content and store findings to a trigger. The inspection
+        /// will be processed asynchronously. To review the findings monitor the
+        /// jobs within the trigger.
+        async fn hybrid_inspect_job_trigger(
+            &self,
+            request: tonic::Request<super::HybridInspectJobTriggerRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::HybridInspectResponse>,
+            tonic::Status,
+        >;
+        /// Gets a job trigger.
+        /// See
+        /// https://cloud.google.com/sensitive-data-protection/docs/creating-job-triggers
+        /// to learn more.
+        async fn get_job_trigger(
+            &self,
+            request: tonic::Request<super::GetJobTriggerRequest>,
+        ) -> std::result::Result<tonic::Response<super::JobTrigger>, tonic::Status>;
+        /// Lists job triggers.
+        /// See
+        /// https://cloud.google.com/sensitive-data-protection/docs/creating-job-triggers
+        /// to learn more.
+        async fn list_job_triggers(
+            &self,
+            request: tonic::Request<super::ListJobTriggersRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListJobTriggersResponse>,
+            tonic::Status,
+        >;
+        /// Deletes a job trigger.
+        /// See
+        /// https://cloud.google.com/sensitive-data-protection/docs/creating-job-triggers
+        /// to learn more.
+        async fn delete_job_trigger(
+            &self,
+            request: tonic::Request<super::DeleteJobTriggerRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Activate a job trigger. Causes the immediate execute of a trigger
+        /// instead of waiting on the trigger event to occur.
+        async fn activate_job_trigger(
+            &self,
+            request: tonic::Request<super::ActivateJobTriggerRequest>,
+        ) -> std::result::Result<tonic::Response<super::DlpJob>, tonic::Status>;
+        /// Creates a config for discovery to scan and profile storage.
+        async fn create_discovery_config(
+            &self,
+            request: tonic::Request<super::CreateDiscoveryConfigRequest>,
+        ) -> std::result::Result<tonic::Response<super::DiscoveryConfig>, tonic::Status>;
+        /// Updates a discovery configuration.
+        async fn update_discovery_config(
+            &self,
+            request: tonic::Request<super::UpdateDiscoveryConfigRequest>,
+        ) -> std::result::Result<tonic::Response<super::DiscoveryConfig>, tonic::Status>;
+        /// Gets a discovery configuration.
+        async fn get_discovery_config(
+            &self,
+            request: tonic::Request<super::GetDiscoveryConfigRequest>,
+        ) -> std::result::Result<tonic::Response<super::DiscoveryConfig>, tonic::Status>;
+        /// Lists discovery configurations.
+        async fn list_discovery_configs(
+            &self,
+            request: tonic::Request<super::ListDiscoveryConfigsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDiscoveryConfigsResponse>,
+            tonic::Status,
+        >;
+        /// Deletes a discovery configuration.
+        async fn delete_discovery_config(
+            &self,
+            request: tonic::Request<super::DeleteDiscoveryConfigRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Creates a new job to inspect storage or calculate risk metrics.
+        /// See
+        /// https://cloud.google.com/sensitive-data-protection/docs/inspecting-storage
+        /// and
+        /// https://cloud.google.com/sensitive-data-protection/docs/compute-risk-analysis
+        /// to learn more.
+        ///
+        /// When no InfoTypes or CustomInfoTypes are specified in inspect jobs, the
+        /// system will automatically choose what detectors to run. By default this may
+        /// be all types, but may change over time as detectors are updated.
+        async fn create_dlp_job(
+            &self,
+            request: tonic::Request<super::CreateDlpJobRequest>,
+        ) -> std::result::Result<tonic::Response<super::DlpJob>, tonic::Status>;
+        /// Lists DlpJobs that match the specified filter in the request.
+        /// See
+        /// https://cloud.google.com/sensitive-data-protection/docs/inspecting-storage
+        /// and
+        /// https://cloud.google.com/sensitive-data-protection/docs/compute-risk-analysis
+        /// to learn more.
+        async fn list_dlp_jobs(
+            &self,
+            request: tonic::Request<super::ListDlpJobsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDlpJobsResponse>,
+            tonic::Status,
+        >;
+        /// Gets the latest state of a long-running DlpJob.
+        /// See
+        /// https://cloud.google.com/sensitive-data-protection/docs/inspecting-storage
+        /// and
+        /// https://cloud.google.com/sensitive-data-protection/docs/compute-risk-analysis
+        /// to learn more.
+        async fn get_dlp_job(
+            &self,
+            request: tonic::Request<super::GetDlpJobRequest>,
+        ) -> std::result::Result<tonic::Response<super::DlpJob>, tonic::Status>;
+        /// Deletes a long-running DlpJob. This method indicates that the client is
+        /// no longer interested in the DlpJob result. The job will be canceled if
+        /// possible.
+        /// See
+        /// https://cloud.google.com/sensitive-data-protection/docs/inspecting-storage
+        /// and
+        /// https://cloud.google.com/sensitive-data-protection/docs/compute-risk-analysis
+        /// to learn more.
+        async fn delete_dlp_job(
+            &self,
+            request: tonic::Request<super::DeleteDlpJobRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Starts asynchronous cancellation on a long-running DlpJob. The server
+        /// makes a best effort to cancel the DlpJob, but success is not
+        /// guaranteed.
+        /// See
+        /// https://cloud.google.com/sensitive-data-protection/docs/inspecting-storage
+        /// and
+        /// https://cloud.google.com/sensitive-data-protection/docs/compute-risk-analysis
+        /// to learn more.
+        async fn cancel_dlp_job(
+            &self,
+            request: tonic::Request<super::CancelDlpJobRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Creates a pre-built stored infoType to be used for inspection.
+        /// See
+        /// https://cloud.google.com/sensitive-data-protection/docs/creating-stored-infotypes
+        /// to learn more.
+        async fn create_stored_info_type(
+            &self,
+            request: tonic::Request<super::CreateStoredInfoTypeRequest>,
+        ) -> std::result::Result<tonic::Response<super::StoredInfoType>, tonic::Status>;
+        /// Updates the stored infoType by creating a new version. The existing version
+        /// will continue to be used until the new version is ready.
+        /// See
+        /// https://cloud.google.com/sensitive-data-protection/docs/creating-stored-infotypes
+        /// to learn more.
+        async fn update_stored_info_type(
+            &self,
+            request: tonic::Request<super::UpdateStoredInfoTypeRequest>,
+        ) -> std::result::Result<tonic::Response<super::StoredInfoType>, tonic::Status>;
+        /// Gets a stored infoType.
+        /// See
+        /// https://cloud.google.com/sensitive-data-protection/docs/creating-stored-infotypes
+        /// to learn more.
+        async fn get_stored_info_type(
+            &self,
+            request: tonic::Request<super::GetStoredInfoTypeRequest>,
+        ) -> std::result::Result<tonic::Response<super::StoredInfoType>, tonic::Status>;
+        /// Lists stored infoTypes.
+        /// See
+        /// https://cloud.google.com/sensitive-data-protection/docs/creating-stored-infotypes
+        /// to learn more.
+        async fn list_stored_info_types(
+            &self,
+            request: tonic::Request<super::ListStoredInfoTypesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListStoredInfoTypesResponse>,
+            tonic::Status,
+        >;
+        /// Deletes a stored infoType.
+        /// See
+        /// https://cloud.google.com/sensitive-data-protection/docs/creating-stored-infotypes
+        /// to learn more.
+        async fn delete_stored_info_type(
+            &self,
+            request: tonic::Request<super::DeleteStoredInfoTypeRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Lists project data profiles for an organization.
+        async fn list_project_data_profiles(
+            &self,
+            request: tonic::Request<super::ListProjectDataProfilesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListProjectDataProfilesResponse>,
+            tonic::Status,
+        >;
+        /// Lists table data profiles for an organization.
+        async fn list_table_data_profiles(
+            &self,
+            request: tonic::Request<super::ListTableDataProfilesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListTableDataProfilesResponse>,
+            tonic::Status,
+        >;
+        /// Lists column data profiles for an organization.
+        async fn list_column_data_profiles(
+            &self,
+            request: tonic::Request<super::ListColumnDataProfilesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListColumnDataProfilesResponse>,
+            tonic::Status,
+        >;
+        /// Gets a project data profile.
+        async fn get_project_data_profile(
+            &self,
+            request: tonic::Request<super::GetProjectDataProfileRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ProjectDataProfile>,
+            tonic::Status,
+        >;
+        /// Lists file store data profiles for an organization.
+        async fn list_file_store_data_profiles(
+            &self,
+            request: tonic::Request<super::ListFileStoreDataProfilesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListFileStoreDataProfilesResponse>,
+            tonic::Status,
+        >;
+        /// Gets a file store data profile.
+        async fn get_file_store_data_profile(
+            &self,
+            request: tonic::Request<super::GetFileStoreDataProfileRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::FileStoreDataProfile>,
+            tonic::Status,
+        >;
+        /// Delete a FileStoreDataProfile. Will not prevent the profile from being
+        /// regenerated if the resource is still included in a discovery configuration.
+        async fn delete_file_store_data_profile(
+            &self,
+            request: tonic::Request<super::DeleteFileStoreDataProfileRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Gets a table data profile.
+        async fn get_table_data_profile(
+            &self,
+            request: tonic::Request<super::GetTableDataProfileRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::TableDataProfile>,
+            tonic::Status,
+        >;
+        /// Gets a column data profile.
+        async fn get_column_data_profile(
+            &self,
+            request: tonic::Request<super::GetColumnDataProfileRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ColumnDataProfile>,
+            tonic::Status,
+        >;
+        /// Delete a TableDataProfile. Will not prevent the profile from being
+        /// regenerated if the table is still included in a discovery configuration.
+        async fn delete_table_data_profile(
+            &self,
+            request: tonic::Request<super::DeleteTableDataProfileRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Inspect hybrid content and store findings to a job.
+        /// To review the findings, inspect the job. Inspection will occur
+        /// asynchronously.
+        async fn hybrid_inspect_dlp_job(
+            &self,
+            request: tonic::Request<super::HybridInspectDlpJobRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::HybridInspectResponse>,
+            tonic::Status,
+        >;
+        /// Finish a running hybrid DlpJob. Triggers the finalization steps and running
+        /// of any enabled actions that have not yet run.
+        async fn finish_dlp_job(
+            &self,
+            request: tonic::Request<super::FinishDlpJobRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Create a Connection to an external data source.
+        async fn create_connection(
+            &self,
+            request: tonic::Request<super::CreateConnectionRequest>,
+        ) -> std::result::Result<tonic::Response<super::Connection>, tonic::Status>;
+        /// Get a Connection by name.
+        async fn get_connection(
+            &self,
+            request: tonic::Request<super::GetConnectionRequest>,
+        ) -> std::result::Result<tonic::Response<super::Connection>, tonic::Status>;
+        /// Lists Connections in a parent. Use SearchConnections to see all connections
+        /// within an organization.
+        async fn list_connections(
+            &self,
+            request: tonic::Request<super::ListConnectionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListConnectionsResponse>,
+            tonic::Status,
+        >;
+        /// Searches for Connections in a parent.
+        async fn search_connections(
+            &self,
+            request: tonic::Request<super::SearchConnectionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SearchConnectionsResponse>,
+            tonic::Status,
+        >;
+        /// Delete a Connection.
+        async fn delete_connection(
+            &self,
+            request: tonic::Request<super::DeleteConnectionRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Update a Connection.
+        async fn update_connection(
+            &self,
+            request: tonic::Request<super::UpdateConnectionRequest>,
+        ) -> std::result::Result<tonic::Response<super::Connection>, tonic::Status>;
+    }
+    /// The Cloud Data Loss Prevention (DLP) API is a service that allows clients
+    /// to detect the presence of Personally Identifiable Information (PII) and other
+    /// privacy-sensitive data in user-supplied, unstructured data streams, like text
+    /// blocks or images.
+    /// The service also includes methods for sensitive data redaction and
+    /// scheduling of data scans on Google Cloud Platform based data sets.
+    ///
+    /// To learn more about concepts and find how-to guides see
+    /// https://cloud.google.com/sensitive-data-protection/docs/.
+    #[derive(Debug)]
+    pub struct DlpServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> DlpServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for DlpServiceServer<T>
+    where
+        T: DlpService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.privacy.dlp.v2.DlpService/InspectContent" => {
+                    #[allow(non_camel_case_types)]
+                    struct InspectContentSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::InspectContentRequest>
+                    for InspectContentSvc<T> {
+                        type Response = super::InspectContentResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::InspectContentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::inspect_content(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = InspectContentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/RedactImage" => {
+                    #[allow(non_camel_case_types)]
+                    struct RedactImageSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::RedactImageRequest>
+                    for RedactImageSvc<T> {
+                        type Response = super::RedactImageResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RedactImageRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::redact_image(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RedactImageSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/DeidentifyContent" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeidentifyContentSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::DeidentifyContentRequest>
+                    for DeidentifyContentSvc<T> {
+                        type Response = super::DeidentifyContentResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeidentifyContentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::deidentify_content(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeidentifyContentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/ReidentifyContent" => {
+                    #[allow(non_camel_case_types)]
+                    struct ReidentifyContentSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::ReidentifyContentRequest>
+                    for ReidentifyContentSvc<T> {
+                        type Response = super::ReidentifyContentResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ReidentifyContentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::reidentify_content(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ReidentifyContentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/ListInfoTypes" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListInfoTypesSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::ListInfoTypesRequest>
+                    for ListInfoTypesSvc<T> {
+                        type Response = super::ListInfoTypesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListInfoTypesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::list_info_types(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListInfoTypesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/CreateInspectTemplate" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateInspectTemplateSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::CreateInspectTemplateRequest>
+                    for CreateInspectTemplateSvc<T> {
+                        type Response = super::InspectTemplate;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateInspectTemplateRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::create_inspect_template(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateInspectTemplateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/UpdateInspectTemplate" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateInspectTemplateSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::UpdateInspectTemplateRequest>
+                    for UpdateInspectTemplateSvc<T> {
+                        type Response = super::InspectTemplate;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateInspectTemplateRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::update_inspect_template(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateInspectTemplateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/GetInspectTemplate" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetInspectTemplateSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::GetInspectTemplateRequest>
+                    for GetInspectTemplateSvc<T> {
+                        type Response = super::InspectTemplate;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetInspectTemplateRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::get_inspect_template(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetInspectTemplateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/ListInspectTemplates" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListInspectTemplatesSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::ListInspectTemplatesRequest>
+                    for ListInspectTemplatesSvc<T> {
+                        type Response = super::ListInspectTemplatesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListInspectTemplatesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::list_inspect_templates(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListInspectTemplatesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/DeleteInspectTemplate" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteInspectTemplateSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::DeleteInspectTemplateRequest>
+                    for DeleteInspectTemplateSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteInspectTemplateRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::delete_inspect_template(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteInspectTemplateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/CreateDeidentifyTemplate" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateDeidentifyTemplateSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::CreateDeidentifyTemplateRequest>
+                    for CreateDeidentifyTemplateSvc<T> {
+                        type Response = super::DeidentifyTemplate;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateDeidentifyTemplateRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::create_deidentify_template(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateDeidentifyTemplateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/UpdateDeidentifyTemplate" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateDeidentifyTemplateSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::UpdateDeidentifyTemplateRequest>
+                    for UpdateDeidentifyTemplateSvc<T> {
+                        type Response = super::DeidentifyTemplate;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::UpdateDeidentifyTemplateRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::update_deidentify_template(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateDeidentifyTemplateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/GetDeidentifyTemplate" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetDeidentifyTemplateSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::GetDeidentifyTemplateRequest>
+                    for GetDeidentifyTemplateSvc<T> {
+                        type Response = super::DeidentifyTemplate;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetDeidentifyTemplateRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::get_deidentify_template(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetDeidentifyTemplateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/ListDeidentifyTemplates" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDeidentifyTemplatesSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::ListDeidentifyTemplatesRequest>
+                    for ListDeidentifyTemplatesSvc<T> {
+                        type Response = super::ListDeidentifyTemplatesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListDeidentifyTemplatesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::list_deidentify_templates(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDeidentifyTemplatesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/DeleteDeidentifyTemplate" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteDeidentifyTemplateSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::DeleteDeidentifyTemplateRequest>
+                    for DeleteDeidentifyTemplateSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteDeidentifyTemplateRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::delete_deidentify_template(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteDeidentifyTemplateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/CreateJobTrigger" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateJobTriggerSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::CreateJobTriggerRequest>
+                    for CreateJobTriggerSvc<T> {
+                        type Response = super::JobTrigger;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateJobTriggerRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::create_job_trigger(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateJobTriggerSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/UpdateJobTrigger" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateJobTriggerSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::UpdateJobTriggerRequest>
+                    for UpdateJobTriggerSvc<T> {
+                        type Response = super::JobTrigger;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateJobTriggerRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::update_job_trigger(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateJobTriggerSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/HybridInspectJobTrigger" => {
+                    #[allow(non_camel_case_types)]
+                    struct HybridInspectJobTriggerSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::HybridInspectJobTriggerRequest>
+                    for HybridInspectJobTriggerSvc<T> {
+                        type Response = super::HybridInspectResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::HybridInspectJobTriggerRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::hybrid_inspect_job_trigger(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = HybridInspectJobTriggerSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/GetJobTrigger" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetJobTriggerSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::GetJobTriggerRequest>
+                    for GetJobTriggerSvc<T> {
+                        type Response = super::JobTrigger;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetJobTriggerRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::get_job_trigger(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetJobTriggerSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/ListJobTriggers" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListJobTriggersSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::ListJobTriggersRequest>
+                    for ListJobTriggersSvc<T> {
+                        type Response = super::ListJobTriggersResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListJobTriggersRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::list_job_triggers(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListJobTriggersSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/DeleteJobTrigger" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteJobTriggerSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::DeleteJobTriggerRequest>
+                    for DeleteJobTriggerSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteJobTriggerRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::delete_job_trigger(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteJobTriggerSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/ActivateJobTrigger" => {
+                    #[allow(non_camel_case_types)]
+                    struct ActivateJobTriggerSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::ActivateJobTriggerRequest>
+                    for ActivateJobTriggerSvc<T> {
+                        type Response = super::DlpJob;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ActivateJobTriggerRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::activate_job_trigger(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ActivateJobTriggerSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/CreateDiscoveryConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateDiscoveryConfigSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::CreateDiscoveryConfigRequest>
+                    for CreateDiscoveryConfigSvc<T> {
+                        type Response = super::DiscoveryConfig;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateDiscoveryConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::create_discovery_config(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateDiscoveryConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/UpdateDiscoveryConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateDiscoveryConfigSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::UpdateDiscoveryConfigRequest>
+                    for UpdateDiscoveryConfigSvc<T> {
+                        type Response = super::DiscoveryConfig;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateDiscoveryConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::update_discovery_config(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateDiscoveryConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/GetDiscoveryConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetDiscoveryConfigSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::GetDiscoveryConfigRequest>
+                    for GetDiscoveryConfigSvc<T> {
+                        type Response = super::DiscoveryConfig;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetDiscoveryConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::get_discovery_config(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetDiscoveryConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/ListDiscoveryConfigs" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDiscoveryConfigsSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::ListDiscoveryConfigsRequest>
+                    for ListDiscoveryConfigsSvc<T> {
+                        type Response = super::ListDiscoveryConfigsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListDiscoveryConfigsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::list_discovery_configs(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDiscoveryConfigsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/DeleteDiscoveryConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteDiscoveryConfigSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::DeleteDiscoveryConfigRequest>
+                    for DeleteDiscoveryConfigSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteDiscoveryConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::delete_discovery_config(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteDiscoveryConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/CreateDlpJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateDlpJobSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::CreateDlpJobRequest>
+                    for CreateDlpJobSvc<T> {
+                        type Response = super::DlpJob;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateDlpJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::create_dlp_job(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateDlpJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/ListDlpJobs" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDlpJobsSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::ListDlpJobsRequest>
+                    for ListDlpJobsSvc<T> {
+                        type Response = super::ListDlpJobsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListDlpJobsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::list_dlp_jobs(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDlpJobsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/GetDlpJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetDlpJobSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::GetDlpJobRequest>
+                    for GetDlpJobSvc<T> {
+                        type Response = super::DlpJob;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetDlpJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::get_dlp_job(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetDlpJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/DeleteDlpJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteDlpJobSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::DeleteDlpJobRequest>
+                    for DeleteDlpJobSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteDlpJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::delete_dlp_job(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteDlpJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/CancelDlpJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct CancelDlpJobSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::CancelDlpJobRequest>
+                    for CancelDlpJobSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CancelDlpJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::cancel_dlp_job(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CancelDlpJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/CreateStoredInfoType" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateStoredInfoTypeSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::CreateStoredInfoTypeRequest>
+                    for CreateStoredInfoTypeSvc<T> {
+                        type Response = super::StoredInfoType;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateStoredInfoTypeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::create_stored_info_type(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateStoredInfoTypeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/UpdateStoredInfoType" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateStoredInfoTypeSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::UpdateStoredInfoTypeRequest>
+                    for UpdateStoredInfoTypeSvc<T> {
+                        type Response = super::StoredInfoType;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateStoredInfoTypeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::update_stored_info_type(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateStoredInfoTypeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/GetStoredInfoType" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetStoredInfoTypeSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::GetStoredInfoTypeRequest>
+                    for GetStoredInfoTypeSvc<T> {
+                        type Response = super::StoredInfoType;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetStoredInfoTypeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::get_stored_info_type(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetStoredInfoTypeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/ListStoredInfoTypes" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListStoredInfoTypesSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::ListStoredInfoTypesRequest>
+                    for ListStoredInfoTypesSvc<T> {
+                        type Response = super::ListStoredInfoTypesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListStoredInfoTypesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::list_stored_info_types(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListStoredInfoTypesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/DeleteStoredInfoType" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteStoredInfoTypeSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::DeleteStoredInfoTypeRequest>
+                    for DeleteStoredInfoTypeSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteStoredInfoTypeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::delete_stored_info_type(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteStoredInfoTypeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/ListProjectDataProfiles" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListProjectDataProfilesSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::ListProjectDataProfilesRequest>
+                    for ListProjectDataProfilesSvc<T> {
+                        type Response = super::ListProjectDataProfilesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListProjectDataProfilesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::list_project_data_profiles(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListProjectDataProfilesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/ListTableDataProfiles" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListTableDataProfilesSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::ListTableDataProfilesRequest>
+                    for ListTableDataProfilesSvc<T> {
+                        type Response = super::ListTableDataProfilesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListTableDataProfilesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::list_table_data_profiles(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListTableDataProfilesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/ListColumnDataProfiles" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListColumnDataProfilesSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::ListColumnDataProfilesRequest>
+                    for ListColumnDataProfilesSvc<T> {
+                        type Response = super::ListColumnDataProfilesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListColumnDataProfilesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::list_column_data_profiles(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListColumnDataProfilesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/GetProjectDataProfile" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetProjectDataProfileSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::GetProjectDataProfileRequest>
+                    for GetProjectDataProfileSvc<T> {
+                        type Response = super::ProjectDataProfile;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetProjectDataProfileRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::get_project_data_profile(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetProjectDataProfileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/ListFileStoreDataProfiles" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListFileStoreDataProfilesSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<
+                        super::ListFileStoreDataProfilesRequest,
+                    > for ListFileStoreDataProfilesSvc<T> {
+                        type Response = super::ListFileStoreDataProfilesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListFileStoreDataProfilesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::list_file_store_data_profiles(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListFileStoreDataProfilesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/GetFileStoreDataProfile" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetFileStoreDataProfileSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::GetFileStoreDataProfileRequest>
+                    for GetFileStoreDataProfileSvc<T> {
+                        type Response = super::FileStoreDataProfile;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetFileStoreDataProfileRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::get_file_store_data_profile(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetFileStoreDataProfileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/DeleteFileStoreDataProfile" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteFileStoreDataProfileSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<
+                        super::DeleteFileStoreDataProfileRequest,
+                    > for DeleteFileStoreDataProfileSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteFileStoreDataProfileRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::delete_file_store_data_profile(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteFileStoreDataProfileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/GetTableDataProfile" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetTableDataProfileSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::GetTableDataProfileRequest>
+                    for GetTableDataProfileSvc<T> {
+                        type Response = super::TableDataProfile;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetTableDataProfileRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::get_table_data_profile(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetTableDataProfileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/GetColumnDataProfile" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetColumnDataProfileSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::GetColumnDataProfileRequest>
+                    for GetColumnDataProfileSvc<T> {
+                        type Response = super::ColumnDataProfile;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetColumnDataProfileRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::get_column_data_profile(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetColumnDataProfileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/DeleteTableDataProfile" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteTableDataProfileSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::DeleteTableDataProfileRequest>
+                    for DeleteTableDataProfileSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteTableDataProfileRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::delete_table_data_profile(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteTableDataProfileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/HybridInspectDlpJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct HybridInspectDlpJobSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::HybridInspectDlpJobRequest>
+                    for HybridInspectDlpJobSvc<T> {
+                        type Response = super::HybridInspectResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::HybridInspectDlpJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::hybrid_inspect_dlp_job(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = HybridInspectDlpJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/FinishDlpJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct FinishDlpJobSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::FinishDlpJobRequest>
+                    for FinishDlpJobSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::FinishDlpJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::finish_dlp_job(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = FinishDlpJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/CreateConnection" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateConnectionSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::CreateConnectionRequest>
+                    for CreateConnectionSvc<T> {
+                        type Response = super::Connection;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateConnectionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::create_connection(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateConnectionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/GetConnection" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetConnectionSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::GetConnectionRequest>
+                    for GetConnectionSvc<T> {
+                        type Response = super::Connection;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetConnectionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::get_connection(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetConnectionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/ListConnections" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListConnectionsSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::ListConnectionsRequest>
+                    for ListConnectionsSvc<T> {
+                        type Response = super::ListConnectionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListConnectionsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::list_connections(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListConnectionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/SearchConnections" => {
+                    #[allow(non_camel_case_types)]
+                    struct SearchConnectionsSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::SearchConnectionsRequest>
+                    for SearchConnectionsSvc<T> {
+                        type Response = super::SearchConnectionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SearchConnectionsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::search_connections(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SearchConnectionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/DeleteConnection" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteConnectionSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::DeleteConnectionRequest>
+                    for DeleteConnectionSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteConnectionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::delete_connection(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteConnectionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.privacy.dlp.v2.DlpService/UpdateConnection" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateConnectionSvc<T: DlpService>(pub Arc<T>);
+                    impl<
+                        T: DlpService,
+                    > tonic::server::UnaryService<super::UpdateConnectionRequest>
+                    for UpdateConnectionSvc<T> {
+                        type Response = super::Connection;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateConnectionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DlpService>::update_connection(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateConnectionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for DlpServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.privacy.dlp.v2.DlpService";
+    impl<T> tonic::server::NamedService for DlpServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

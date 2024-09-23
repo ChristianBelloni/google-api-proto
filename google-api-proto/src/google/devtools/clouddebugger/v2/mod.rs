@@ -72,13 +72,13 @@ pub mod status_message {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Reference::Unspecified => "UNSPECIFIED",
-                Reference::BreakpointSourceLocation => "BREAKPOINT_SOURCE_LOCATION",
-                Reference::BreakpointCondition => "BREAKPOINT_CONDITION",
-                Reference::BreakpointExpression => "BREAKPOINT_EXPRESSION",
-                Reference::BreakpointAge => "BREAKPOINT_AGE",
-                Reference::VariableName => "VARIABLE_NAME",
-                Reference::VariableValue => "VARIABLE_VALUE",
+                Self::Unspecified => "UNSPECIFIED",
+                Self::BreakpointSourceLocation => "BREAKPOINT_SOURCE_LOCATION",
+                Self::BreakpointCondition => "BREAKPOINT_CONDITION",
+                Self::BreakpointExpression => "BREAKPOINT_EXPRESSION",
+                Self::BreakpointAge => "BREAKPOINT_AGE",
+                Self::VariableName => "VARIABLE_NAME",
+                Self::VariableValue => "VARIABLE_VALUE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -417,8 +417,8 @@ pub mod breakpoint {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Action::Capture => "CAPTURE",
-                Action::Log => "LOG",
+                Self::Capture => "CAPTURE",
+                Self::Log => "LOG",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -458,9 +458,9 @@ pub mod breakpoint {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                LogLevel::Info => "INFO",
-                LogLevel::Warning => "WARNING",
-                LogLevel::Error => "ERROR",
+                Self::Info => "INFO",
+                Self::Warning => "WARNING",
+                Self::Error => "ERROR",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -539,297 +539,6 @@ pub struct Debuggee {
         ::prost::alloc::string::String,
         ::prost::alloc::string::String,
     >,
-}
-/// Request to register a debuggee.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RegisterDebuggeeRequest {
-    /// Required. Debuggee information to register.
-    /// The fields `project`, `uniquifier`, `description` and `agent_version`
-    /// of the debuggee must be set.
-    #[prost(message, optional, tag = "1")]
-    pub debuggee: ::core::option::Option<Debuggee>,
-}
-/// Response for registering a debuggee.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RegisterDebuggeeResponse {
-    /// Debuggee resource.
-    /// The field `id` is guaranteed to be set (in addition to the echoed fields).
-    /// If the field `is_disabled` is set to `true`, the agent should disable
-    /// itself by removing all breakpoints and detaching from the application.
-    /// It should however continue to poll `RegisterDebuggee` until reenabled.
-    #[prost(message, optional, tag = "1")]
-    pub debuggee: ::core::option::Option<Debuggee>,
-}
-/// Request to list active breakpoints.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListActiveBreakpointsRequest {
-    /// Required. Identifies the debuggee.
-    #[prost(string, tag = "1")]
-    pub debuggee_id: ::prost::alloc::string::String,
-    /// A token that, if specified, blocks the method call until the list
-    /// of active breakpoints has changed, or a server-selected timeout has
-    /// expired. The value should be set from the `next_wait_token` field in
-    /// the last response. The initial value should be set to `"init"`.
-    #[prost(string, tag = "2")]
-    pub wait_token: ::prost::alloc::string::String,
-    /// If set to `true` (recommended), returns `google.rpc.Code.OK` status and
-    /// sets the `wait_expired` response field to `true` when the server-selected
-    /// timeout has expired.
-    ///
-    /// If set to `false` (deprecated), returns `google.rpc.Code.ABORTED` status
-    /// when the server-selected timeout has expired.
-    #[prost(bool, tag = "3")]
-    pub success_on_timeout: bool,
-}
-/// Response for listing active breakpoints.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListActiveBreakpointsResponse {
-    /// List of all active breakpoints.
-    /// The fields `id` and `location` are guaranteed to be set on each breakpoint.
-    #[prost(message, repeated, tag = "1")]
-    pub breakpoints: ::prost::alloc::vec::Vec<Breakpoint>,
-    /// A token that can be used in the next method call to block until
-    /// the list of breakpoints changes.
-    #[prost(string, tag = "2")]
-    pub next_wait_token: ::prost::alloc::string::String,
-    /// If set to `true`, indicates that there is no change to the
-    /// list of active breakpoints and the server-selected timeout has expired.
-    /// The `breakpoints` field would be empty and should be ignored.
-    #[prost(bool, tag = "3")]
-    pub wait_expired: bool,
-}
-/// Request to update an active breakpoint.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UpdateActiveBreakpointRequest {
-    /// Required. Identifies the debuggee being debugged.
-    #[prost(string, tag = "1")]
-    pub debuggee_id: ::prost::alloc::string::String,
-    /// Required. Updated breakpoint information.
-    /// The field `id` must be set.
-    /// The agent must echo all Breakpoint specification fields in the update.
-    #[prost(message, optional, tag = "2")]
-    pub breakpoint: ::core::option::Option<Breakpoint>,
-}
-/// Response for updating an active breakpoint.
-/// The message is defined to allow future extensions.
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
-pub struct UpdateActiveBreakpointResponse {}
-/// Generated client implementations.
-pub mod controller2_client {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
-    use tonic::codegen::*;
-    use tonic::codegen::http::Uri;
-    /// The Controller service provides the API for orchestrating a collection of
-    /// debugger agents to perform debugging tasks. These agents are each attached
-    /// to a process of an application which may include one or more replicas.
-    ///
-    /// The debugger agents register with the Controller to identify the application
-    /// being debugged, the Debuggee. All agents that register with the same data,
-    /// represent the same Debuggee, and are assigned the same `debuggee_id`.
-    ///
-    /// The debugger agents call the Controller to retrieve  the list of active
-    /// Breakpoints. Agents with the same `debuggee_id` get the same breakpoints
-    /// list. An agent that can fulfill the breakpoint request updates the
-    /// Controller with the breakpoint result. The controller selects the first
-    /// result received and discards the rest of the results.
-    /// Agents that poll again for active breakpoints will no longer have
-    /// the completed breakpoint in the list and should remove that breakpoint from
-    /// their attached process.
-    ///
-    /// The Controller service does not provide a way to retrieve the results of
-    /// a completed breakpoint. This functionality is available using the Debugger
-    /// service.
-    #[derive(Debug, Clone)]
-    pub struct Controller2Client<T> {
-        inner: tonic::client::Grpc<T>,
-    }
-    impl<T> Controller2Client<T>
-    where
-        T: tonic::client::GrpcService<tonic::body::BoxBody>,
-        T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
-    {
-        pub fn new(inner: T) -> Self {
-            let inner = tonic::client::Grpc::new(inner);
-            Self { inner }
-        }
-        pub fn with_origin(inner: T, origin: Uri) -> Self {
-            let inner = tonic::client::Grpc::with_origin(inner, origin);
-            Self { inner }
-        }
-        pub fn with_interceptor<F>(
-            inner: T,
-            interceptor: F,
-        ) -> Controller2Client<InterceptedService<T, F>>
-        where
-            F: tonic::service::Interceptor,
-            T::ResponseBody: Default,
-            T: tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-                Response = http::Response<
-                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
-                >,
-            >,
-            <T as tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-            >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
-        {
-            Controller2Client::new(InterceptedService::new(inner, interceptor))
-        }
-        /// Compress requests with the given encoding.
-        ///
-        /// This requires the server to support it otherwise it might respond with an
-        /// error.
-        #[must_use]
-        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.send_compressed(encoding);
-            self
-        }
-        /// Enable decompressing responses.
-        #[must_use]
-        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.accept_compressed(encoding);
-            self
-        }
-        /// Limits the maximum size of a decoded message.
-        ///
-        /// Default: `4MB`
-        #[must_use]
-        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_decoding_message_size(limit);
-            self
-        }
-        /// Limits the maximum size of an encoded message.
-        ///
-        /// Default: `usize::MAX`
-        #[must_use]
-        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_encoding_message_size(limit);
-            self
-        }
-        /// Registers the debuggee with the controller service.
-        ///
-        /// All agents attached to the same application must call this method with
-        /// exactly the same request content to get back the same stable `debuggee_id`.
-        /// Agents should call this method again whenever `google.rpc.Code.NOT_FOUND`
-        /// is returned from any controller method.
-        ///
-        /// This protocol allows the controller service to disable debuggees, recover
-        /// from data loss, or change the `debuggee_id` format. Agents must handle
-        /// `debuggee_id` value changing upon re-registration.
-        pub async fn register_debuggee(
-            &mut self,
-            request: impl tonic::IntoRequest<super::RegisterDebuggeeRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::RegisterDebuggeeResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.devtools.clouddebugger.v2.Controller2/RegisterDebuggee",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.devtools.clouddebugger.v2.Controller2",
-                        "RegisterDebuggee",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Returns the list of all active breakpoints for the debuggee.
-        ///
-        /// The breakpoint specification (`location`, `condition`, and `expressions`
-        /// fields) is semantically immutable, although the field values may
-        /// change. For example, an agent may update the location line number
-        /// to reflect the actual line where the breakpoint was set, but this
-        /// doesn't change the breakpoint semantics.
-        ///
-        /// This means that an agent does not need to check if a breakpoint has changed
-        /// when it encounters the same breakpoint on a successive call.
-        /// Moreover, an agent should remember the breakpoints that are completed
-        /// until the controller removes them from the active list to avoid
-        /// setting those breakpoints again.
-        pub async fn list_active_breakpoints(
-            &mut self,
-            request: impl tonic::IntoRequest<super::ListActiveBreakpointsRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::ListActiveBreakpointsResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.devtools.clouddebugger.v2.Controller2/ListActiveBreakpoints",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.devtools.clouddebugger.v2.Controller2",
-                        "ListActiveBreakpoints",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Updates the breakpoint state or mutable fields.
-        /// The entire Breakpoint message must be sent back to the controller service.
-        ///
-        /// Updates to active breakpoint fields are only allowed if the new value
-        /// does not change the breakpoint specification. Updates to the `location`,
-        /// `condition` and `expressions` fields should not alter the breakpoint
-        /// semantics. These may only make changes such as canonicalizing a value
-        /// or snapping the location to the correct line of code.
-        pub async fn update_active_breakpoint(
-            &mut self,
-            request: impl tonic::IntoRequest<super::UpdateActiveBreakpointRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::UpdateActiveBreakpointResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.devtools.clouddebugger.v2.Controller2/UpdateActiveBreakpoint",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.devtools.clouddebugger.v2.Controller2",
-                        "UpdateActiveBreakpoint",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-    }
 }
 /// Request to set a breakpoint
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1212,5 +921,1022 @@ pub mod debugger2_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod debugger2_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with Debugger2Server.
+    #[async_trait]
+    pub trait Debugger2: std::marker::Send + std::marker::Sync + 'static {
+        /// Sets the breakpoint to the debuggee.
+        async fn set_breakpoint(
+            &self,
+            request: tonic::Request<super::SetBreakpointRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SetBreakpointResponse>,
+            tonic::Status,
+        >;
+        /// Gets breakpoint information.
+        async fn get_breakpoint(
+            &self,
+            request: tonic::Request<super::GetBreakpointRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::GetBreakpointResponse>,
+            tonic::Status,
+        >;
+        /// Deletes the breakpoint from the debuggee.
+        async fn delete_breakpoint(
+            &self,
+            request: tonic::Request<super::DeleteBreakpointRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Lists all breakpoints for the debuggee.
+        async fn list_breakpoints(
+            &self,
+            request: tonic::Request<super::ListBreakpointsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListBreakpointsResponse>,
+            tonic::Status,
+        >;
+        /// Lists all the debuggees that the user has access to.
+        async fn list_debuggees(
+            &self,
+            request: tonic::Request<super::ListDebuggeesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDebuggeesResponse>,
+            tonic::Status,
+        >;
+    }
+    /// The Debugger service provides the API that allows users to collect run-time
+    /// information from a running application, without stopping or slowing it down
+    /// and without modifying its state.  An application may include one or
+    /// more replicated processes performing the same work.
+    ///
+    /// A debugged application is represented using the Debuggee concept. The
+    /// Debugger service provides a way to query for available debuggees, but does
+    /// not provide a way to create one.  A debuggee is created using the Controller
+    /// service, usually by running a debugger agent with the application.
+    ///
+    /// The Debugger service enables the client to set one or more Breakpoints on a
+    /// Debuggee and collect the results of the set Breakpoints.
+    #[derive(Debug)]
+    pub struct Debugger2Server<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> Debugger2Server<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for Debugger2Server<T>
+    where
+        T: Debugger2,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.devtools.clouddebugger.v2.Debugger2/SetBreakpoint" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetBreakpointSvc<T: Debugger2>(pub Arc<T>);
+                    impl<
+                        T: Debugger2,
+                    > tonic::server::UnaryService<super::SetBreakpointRequest>
+                    for SetBreakpointSvc<T> {
+                        type Response = super::SetBreakpointResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SetBreakpointRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Debugger2>::set_breakpoint(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SetBreakpointSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.clouddebugger.v2.Debugger2/GetBreakpoint" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetBreakpointSvc<T: Debugger2>(pub Arc<T>);
+                    impl<
+                        T: Debugger2,
+                    > tonic::server::UnaryService<super::GetBreakpointRequest>
+                    for GetBreakpointSvc<T> {
+                        type Response = super::GetBreakpointResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetBreakpointRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Debugger2>::get_breakpoint(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetBreakpointSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.clouddebugger.v2.Debugger2/DeleteBreakpoint" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteBreakpointSvc<T: Debugger2>(pub Arc<T>);
+                    impl<
+                        T: Debugger2,
+                    > tonic::server::UnaryService<super::DeleteBreakpointRequest>
+                    for DeleteBreakpointSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteBreakpointRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Debugger2>::delete_breakpoint(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteBreakpointSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.clouddebugger.v2.Debugger2/ListBreakpoints" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListBreakpointsSvc<T: Debugger2>(pub Arc<T>);
+                    impl<
+                        T: Debugger2,
+                    > tonic::server::UnaryService<super::ListBreakpointsRequest>
+                    for ListBreakpointsSvc<T> {
+                        type Response = super::ListBreakpointsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListBreakpointsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Debugger2>::list_breakpoints(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListBreakpointsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.clouddebugger.v2.Debugger2/ListDebuggees" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDebuggeesSvc<T: Debugger2>(pub Arc<T>);
+                    impl<
+                        T: Debugger2,
+                    > tonic::server::UnaryService<super::ListDebuggeesRequest>
+                    for ListDebuggeesSvc<T> {
+                        type Response = super::ListDebuggeesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListDebuggeesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Debugger2>::list_debuggees(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDebuggeesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for Debugger2Server<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.devtools.clouddebugger.v2.Debugger2";
+    impl<T> tonic::server::NamedService for Debugger2Server<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}
+/// Request to register a debuggee.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RegisterDebuggeeRequest {
+    /// Required. Debuggee information to register.
+    /// The fields `project`, `uniquifier`, `description` and `agent_version`
+    /// of the debuggee must be set.
+    #[prost(message, optional, tag = "1")]
+    pub debuggee: ::core::option::Option<Debuggee>,
+}
+/// Response for registering a debuggee.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RegisterDebuggeeResponse {
+    /// Debuggee resource.
+    /// The field `id` is guaranteed to be set (in addition to the echoed fields).
+    /// If the field `is_disabled` is set to `true`, the agent should disable
+    /// itself by removing all breakpoints and detaching from the application.
+    /// It should however continue to poll `RegisterDebuggee` until reenabled.
+    #[prost(message, optional, tag = "1")]
+    pub debuggee: ::core::option::Option<Debuggee>,
+}
+/// Request to list active breakpoints.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListActiveBreakpointsRequest {
+    /// Required. Identifies the debuggee.
+    #[prost(string, tag = "1")]
+    pub debuggee_id: ::prost::alloc::string::String,
+    /// A token that, if specified, blocks the method call until the list
+    /// of active breakpoints has changed, or a server-selected timeout has
+    /// expired. The value should be set from the `next_wait_token` field in
+    /// the last response. The initial value should be set to `"init"`.
+    #[prost(string, tag = "2")]
+    pub wait_token: ::prost::alloc::string::String,
+    /// If set to `true` (recommended), returns `google.rpc.Code.OK` status and
+    /// sets the `wait_expired` response field to `true` when the server-selected
+    /// timeout has expired.
+    ///
+    /// If set to `false` (deprecated), returns `google.rpc.Code.ABORTED` status
+    /// when the server-selected timeout has expired.
+    #[prost(bool, tag = "3")]
+    pub success_on_timeout: bool,
+}
+/// Response for listing active breakpoints.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListActiveBreakpointsResponse {
+    /// List of all active breakpoints.
+    /// The fields `id` and `location` are guaranteed to be set on each breakpoint.
+    #[prost(message, repeated, tag = "1")]
+    pub breakpoints: ::prost::alloc::vec::Vec<Breakpoint>,
+    /// A token that can be used in the next method call to block until
+    /// the list of breakpoints changes.
+    #[prost(string, tag = "2")]
+    pub next_wait_token: ::prost::alloc::string::String,
+    /// If set to `true`, indicates that there is no change to the
+    /// list of active breakpoints and the server-selected timeout has expired.
+    /// The `breakpoints` field would be empty and should be ignored.
+    #[prost(bool, tag = "3")]
+    pub wait_expired: bool,
+}
+/// Request to update an active breakpoint.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateActiveBreakpointRequest {
+    /// Required. Identifies the debuggee being debugged.
+    #[prost(string, tag = "1")]
+    pub debuggee_id: ::prost::alloc::string::String,
+    /// Required. Updated breakpoint information.
+    /// The field `id` must be set.
+    /// The agent must echo all Breakpoint specification fields in the update.
+    #[prost(message, optional, tag = "2")]
+    pub breakpoint: ::core::option::Option<Breakpoint>,
+}
+/// Response for updating an active breakpoint.
+/// The message is defined to allow future extensions.
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct UpdateActiveBreakpointResponse {}
+/// Generated client implementations.
+pub mod controller2_client {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    use tonic::codegen::http::Uri;
+    /// The Controller service provides the API for orchestrating a collection of
+    /// debugger agents to perform debugging tasks. These agents are each attached
+    /// to a process of an application which may include one or more replicas.
+    ///
+    /// The debugger agents register with the Controller to identify the application
+    /// being debugged, the Debuggee. All agents that register with the same data,
+    /// represent the same Debuggee, and are assigned the same `debuggee_id`.
+    ///
+    /// The debugger agents call the Controller to retrieve  the list of active
+    /// Breakpoints. Agents with the same `debuggee_id` get the same breakpoints
+    /// list. An agent that can fulfill the breakpoint request updates the
+    /// Controller with the breakpoint result. The controller selects the first
+    /// result received and discards the rest of the results.
+    /// Agents that poll again for active breakpoints will no longer have
+    /// the completed breakpoint in the list and should remove that breakpoint from
+    /// their attached process.
+    ///
+    /// The Controller service does not provide a way to retrieve the results of
+    /// a completed breakpoint. This functionality is available using the Debugger
+    /// service.
+    #[derive(Debug, Clone)]
+    pub struct Controller2Client<T> {
+        inner: tonic::client::Grpc<T>,
+    }
+    impl<T> Controller2Client<T>
+    where
+        T: tonic::client::GrpcService<tonic::body::BoxBody>,
+        T::Error: Into<StdError>,
+        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
+    {
+        pub fn new(inner: T) -> Self {
+            let inner = tonic::client::Grpc::new(inner);
+            Self { inner }
+        }
+        pub fn with_origin(inner: T, origin: Uri) -> Self {
+            let inner = tonic::client::Grpc::with_origin(inner, origin);
+            Self { inner }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> Controller2Client<InterceptedService<T, F>>
+        where
+            F: tonic::service::Interceptor,
+            T::ResponseBody: Default,
+            T: tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+                Response = http::Response<
+                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
+                >,
+            >,
+            <T as tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+            >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
+        {
+            Controller2Client::new(InterceptedService::new(inner, interceptor))
+        }
+        /// Compress requests with the given encoding.
+        ///
+        /// This requires the server to support it otherwise it might respond with an
+        /// error.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.send_compressed(encoding);
+            self
+        }
+        /// Enable decompressing responses.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.accept_compressed(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
+        /// Registers the debuggee with the controller service.
+        ///
+        /// All agents attached to the same application must call this method with
+        /// exactly the same request content to get back the same stable `debuggee_id`.
+        /// Agents should call this method again whenever `google.rpc.Code.NOT_FOUND`
+        /// is returned from any controller method.
+        ///
+        /// This protocol allows the controller service to disable debuggees, recover
+        /// from data loss, or change the `debuggee_id` format. Agents must handle
+        /// `debuggee_id` value changing upon re-registration.
+        pub async fn register_debuggee(
+            &mut self,
+            request: impl tonic::IntoRequest<super::RegisterDebuggeeRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::RegisterDebuggeeResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.devtools.clouddebugger.v2.Controller2/RegisterDebuggee",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.devtools.clouddebugger.v2.Controller2",
+                        "RegisterDebuggee",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Returns the list of all active breakpoints for the debuggee.
+        ///
+        /// The breakpoint specification (`location`, `condition`, and `expressions`
+        /// fields) is semantically immutable, although the field values may
+        /// change. For example, an agent may update the location line number
+        /// to reflect the actual line where the breakpoint was set, but this
+        /// doesn't change the breakpoint semantics.
+        ///
+        /// This means that an agent does not need to check if a breakpoint has changed
+        /// when it encounters the same breakpoint on a successive call.
+        /// Moreover, an agent should remember the breakpoints that are completed
+        /// until the controller removes them from the active list to avoid
+        /// setting those breakpoints again.
+        pub async fn list_active_breakpoints(
+            &mut self,
+            request: impl tonic::IntoRequest<super::ListActiveBreakpointsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListActiveBreakpointsResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.devtools.clouddebugger.v2.Controller2/ListActiveBreakpoints",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.devtools.clouddebugger.v2.Controller2",
+                        "ListActiveBreakpoints",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Updates the breakpoint state or mutable fields.
+        /// The entire Breakpoint message must be sent back to the controller service.
+        ///
+        /// Updates to active breakpoint fields are only allowed if the new value
+        /// does not change the breakpoint specification. Updates to the `location`,
+        /// `condition` and `expressions` fields should not alter the breakpoint
+        /// semantics. These may only make changes such as canonicalizing a value
+        /// or snapping the location to the correct line of code.
+        pub async fn update_active_breakpoint(
+            &mut self,
+            request: impl tonic::IntoRequest<super::UpdateActiveBreakpointRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::UpdateActiveBreakpointResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.devtools.clouddebugger.v2.Controller2/UpdateActiveBreakpoint",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.devtools.clouddebugger.v2.Controller2",
+                        "UpdateActiveBreakpoint",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+    }
+}
+/// Generated server implementations.
+pub mod controller2_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with Controller2Server.
+    #[async_trait]
+    pub trait Controller2: std::marker::Send + std::marker::Sync + 'static {
+        /// Registers the debuggee with the controller service.
+        ///
+        /// All agents attached to the same application must call this method with
+        /// exactly the same request content to get back the same stable `debuggee_id`.
+        /// Agents should call this method again whenever `google.rpc.Code.NOT_FOUND`
+        /// is returned from any controller method.
+        ///
+        /// This protocol allows the controller service to disable debuggees, recover
+        /// from data loss, or change the `debuggee_id` format. Agents must handle
+        /// `debuggee_id` value changing upon re-registration.
+        async fn register_debuggee(
+            &self,
+            request: tonic::Request<super::RegisterDebuggeeRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::RegisterDebuggeeResponse>,
+            tonic::Status,
+        >;
+        /// Returns the list of all active breakpoints for the debuggee.
+        ///
+        /// The breakpoint specification (`location`, `condition`, and `expressions`
+        /// fields) is semantically immutable, although the field values may
+        /// change. For example, an agent may update the location line number
+        /// to reflect the actual line where the breakpoint was set, but this
+        /// doesn't change the breakpoint semantics.
+        ///
+        /// This means that an agent does not need to check if a breakpoint has changed
+        /// when it encounters the same breakpoint on a successive call.
+        /// Moreover, an agent should remember the breakpoints that are completed
+        /// until the controller removes them from the active list to avoid
+        /// setting those breakpoints again.
+        async fn list_active_breakpoints(
+            &self,
+            request: tonic::Request<super::ListActiveBreakpointsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListActiveBreakpointsResponse>,
+            tonic::Status,
+        >;
+        /// Updates the breakpoint state or mutable fields.
+        /// The entire Breakpoint message must be sent back to the controller service.
+        ///
+        /// Updates to active breakpoint fields are only allowed if the new value
+        /// does not change the breakpoint specification. Updates to the `location`,
+        /// `condition` and `expressions` fields should not alter the breakpoint
+        /// semantics. These may only make changes such as canonicalizing a value
+        /// or snapping the location to the correct line of code.
+        async fn update_active_breakpoint(
+            &self,
+            request: tonic::Request<super::UpdateActiveBreakpointRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::UpdateActiveBreakpointResponse>,
+            tonic::Status,
+        >;
+    }
+    /// The Controller service provides the API for orchestrating a collection of
+    /// debugger agents to perform debugging tasks. These agents are each attached
+    /// to a process of an application which may include one or more replicas.
+    ///
+    /// The debugger agents register with the Controller to identify the application
+    /// being debugged, the Debuggee. All agents that register with the same data,
+    /// represent the same Debuggee, and are assigned the same `debuggee_id`.
+    ///
+    /// The debugger agents call the Controller to retrieve  the list of active
+    /// Breakpoints. Agents with the same `debuggee_id` get the same breakpoints
+    /// list. An agent that can fulfill the breakpoint request updates the
+    /// Controller with the breakpoint result. The controller selects the first
+    /// result received and discards the rest of the results.
+    /// Agents that poll again for active breakpoints will no longer have
+    /// the completed breakpoint in the list and should remove that breakpoint from
+    /// their attached process.
+    ///
+    /// The Controller service does not provide a way to retrieve the results of
+    /// a completed breakpoint. This functionality is available using the Debugger
+    /// service.
+    #[derive(Debug)]
+    pub struct Controller2Server<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> Controller2Server<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for Controller2Server<T>
+    where
+        T: Controller2,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.devtools.clouddebugger.v2.Controller2/RegisterDebuggee" => {
+                    #[allow(non_camel_case_types)]
+                    struct RegisterDebuggeeSvc<T: Controller2>(pub Arc<T>);
+                    impl<
+                        T: Controller2,
+                    > tonic::server::UnaryService<super::RegisterDebuggeeRequest>
+                    for RegisterDebuggeeSvc<T> {
+                        type Response = super::RegisterDebuggeeResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RegisterDebuggeeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Controller2>::register_debuggee(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RegisterDebuggeeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.clouddebugger.v2.Controller2/ListActiveBreakpoints" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListActiveBreakpointsSvc<T: Controller2>(pub Arc<T>);
+                    impl<
+                        T: Controller2,
+                    > tonic::server::UnaryService<super::ListActiveBreakpointsRequest>
+                    for ListActiveBreakpointsSvc<T> {
+                        type Response = super::ListActiveBreakpointsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListActiveBreakpointsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Controller2>::list_active_breakpoints(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListActiveBreakpointsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.clouddebugger.v2.Controller2/UpdateActiveBreakpoint" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateActiveBreakpointSvc<T: Controller2>(pub Arc<T>);
+                    impl<
+                        T: Controller2,
+                    > tonic::server::UnaryService<super::UpdateActiveBreakpointRequest>
+                    for UpdateActiveBreakpointSvc<T> {
+                        type Response = super::UpdateActiveBreakpointResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateActiveBreakpointRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Controller2>::update_active_breakpoint(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateActiveBreakpointSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for Controller2Server<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.devtools.clouddebugger.v2.Controller2";
+    impl<T> tonic::server::NamedService for Controller2Server<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

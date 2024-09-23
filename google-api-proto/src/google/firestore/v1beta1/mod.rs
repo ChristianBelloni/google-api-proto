@@ -216,443 +216,6 @@ pub struct MapValue {
         Value,
     >,
 }
-/// A Firestore query.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct StructuredQuery {
-    /// The projection to return.
-    #[prost(message, optional, tag = "1")]
-    pub select: ::core::option::Option<structured_query::Projection>,
-    /// The collections to query.
-    #[prost(message, repeated, tag = "2")]
-    pub from: ::prost::alloc::vec::Vec<structured_query::CollectionSelector>,
-    /// The filter to apply.
-    #[prost(message, optional, tag = "3")]
-    pub r#where: ::core::option::Option<structured_query::Filter>,
-    /// The order to apply to the query results.
-    ///
-    /// Firestore guarantees a stable ordering through the following rules:
-    ///
-    ///   * Any field required to appear in `order_by`, that is not already
-    ///     specified in `order_by`, is appended to the order in field name order
-    ///     by default.
-    ///   * If an order on `__name__` is not specified, it is appended by default.
-    ///
-    /// Fields are appended with the same sort direction as the last order
-    /// specified, or 'ASCENDING' if no order was specified. For example:
-    ///
-    ///   * `SELECT * FROM Foo ORDER BY A` becomes
-    ///     `SELECT * FROM Foo ORDER BY A, __name__`
-    ///   * `SELECT * FROM Foo ORDER BY A DESC` becomes
-    ///     `SELECT * FROM Foo ORDER BY A DESC, __name__ DESC`
-    ///   * `SELECT * FROM Foo WHERE A > 1` becomes
-    ///     `SELECT * FROM Foo WHERE A > 1 ORDER BY A, __name__`
-    #[prost(message, repeated, tag = "4")]
-    pub order_by: ::prost::alloc::vec::Vec<structured_query::Order>,
-    /// A starting point for the query results.
-    #[prost(message, optional, tag = "7")]
-    pub start_at: ::core::option::Option<Cursor>,
-    /// A end point for the query results.
-    #[prost(message, optional, tag = "8")]
-    pub end_at: ::core::option::Option<Cursor>,
-    /// The number of results to skip.
-    ///
-    /// Applies before limit, but after all other constraints. Must be >= 0 if
-    /// specified.
-    #[prost(int32, tag = "6")]
-    pub offset: i32,
-    /// The maximum number of results to return.
-    ///
-    /// Applies after all other constraints.
-    /// Must be >= 0 if specified.
-    #[prost(message, optional, tag = "5")]
-    pub limit: ::core::option::Option<i32>,
-}
-/// Nested message and enum types in `StructuredQuery`.
-pub mod structured_query {
-    /// A selection of a collection, such as `messages as m1`.
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct CollectionSelector {
-        /// The collection ID.
-        /// When set, selects only collections with this ID.
-        #[prost(string, tag = "2")]
-        pub collection_id: ::prost::alloc::string::String,
-        /// When false, selects only collections that are immediate children of
-        /// the `parent` specified in the containing `RunQueryRequest`.
-        /// When true, selects all descendant collections.
-        #[prost(bool, tag = "3")]
-        pub all_descendants: bool,
-    }
-    /// A filter.
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct Filter {
-        /// The type of filter.
-        #[prost(oneof = "filter::FilterType", tags = "1, 2, 3")]
-        pub filter_type: ::core::option::Option<filter::FilterType>,
-    }
-    /// Nested message and enum types in `Filter`.
-    pub mod filter {
-        /// The type of filter.
-        #[derive(Clone, PartialEq, ::prost::Oneof)]
-        pub enum FilterType {
-            /// A composite filter.
-            #[prost(message, tag = "1")]
-            CompositeFilter(super::CompositeFilter),
-            /// A filter on a document field.
-            #[prost(message, tag = "2")]
-            FieldFilter(super::FieldFilter),
-            /// A filter that takes exactly one argument.
-            #[prost(message, tag = "3")]
-            UnaryFilter(super::UnaryFilter),
-        }
-    }
-    /// A filter that merges multiple other filters using the given operator.
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct CompositeFilter {
-        /// The operator for combining multiple filters.
-        #[prost(enumeration = "composite_filter::Operator", tag = "1")]
-        pub op: i32,
-        /// The list of filters to combine.
-        /// Must contain at least one filter.
-        #[prost(message, repeated, tag = "2")]
-        pub filters: ::prost::alloc::vec::Vec<Filter>,
-    }
-    /// Nested message and enum types in `CompositeFilter`.
-    pub mod composite_filter {
-        /// A composite filter operator.
-        #[derive(
-            Clone,
-            Copy,
-            Debug,
-            PartialEq,
-            Eq,
-            Hash,
-            PartialOrd,
-            Ord,
-            ::prost::Enumeration
-        )]
-        #[repr(i32)]
-        pub enum Operator {
-            /// Unspecified. This value must not be used.
-            Unspecified = 0,
-            /// The results are required to satisfy each of the combined filters.
-            And = 1,
-        }
-        impl Operator {
-            /// String value of the enum field names used in the ProtoBuf definition.
-            ///
-            /// The values are not transformed in any way and thus are considered stable
-            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-            pub fn as_str_name(&self) -> &'static str {
-                match self {
-                    Operator::Unspecified => "OPERATOR_UNSPECIFIED",
-                    Operator::And => "AND",
-                }
-            }
-            /// Creates an enum from field names used in the ProtoBuf definition.
-            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-                match value {
-                    "OPERATOR_UNSPECIFIED" => Some(Self::Unspecified),
-                    "AND" => Some(Self::And),
-                    _ => None,
-                }
-            }
-        }
-    }
-    /// A filter on a specific field.
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct FieldFilter {
-        /// The field to filter by.
-        #[prost(message, optional, tag = "1")]
-        pub field: ::core::option::Option<FieldReference>,
-        /// The operator to filter by.
-        #[prost(enumeration = "field_filter::Operator", tag = "2")]
-        pub op: i32,
-        /// The value to compare to.
-        #[prost(message, optional, tag = "3")]
-        pub value: ::core::option::Option<super::Value>,
-    }
-    /// Nested message and enum types in `FieldFilter`.
-    pub mod field_filter {
-        /// A field filter operator.
-        #[derive(
-            Clone,
-            Copy,
-            Debug,
-            PartialEq,
-            Eq,
-            Hash,
-            PartialOrd,
-            Ord,
-            ::prost::Enumeration
-        )]
-        #[repr(i32)]
-        pub enum Operator {
-            /// Unspecified. This value must not be used.
-            Unspecified = 0,
-            /// The given `field` is less than the given `value`.
-            ///
-            /// Requires:
-            ///
-            /// * That `field` come first in `order_by`.
-            LessThan = 1,
-            /// The given `field` is less than or equal to the given `value`.
-            ///
-            /// Requires:
-            ///
-            /// * That `field` come first in `order_by`.
-            LessThanOrEqual = 2,
-            /// The given `field` is greater than the given `value`.
-            ///
-            /// Requires:
-            ///
-            /// * That `field` come first in `order_by`.
-            GreaterThan = 3,
-            /// The given `field` is greater than or equal to the given `value`.
-            ///
-            /// Requires:
-            ///
-            /// * That `field` come first in `order_by`.
-            GreaterThanOrEqual = 4,
-            /// The given `field` is equal to the given `value`.
-            Equal = 5,
-            /// The given `field` is not equal to the given `value`.
-            ///
-            /// Requires:
-            ///
-            /// * No other `NOT_EQUAL`, `NOT_IN`, `IS_NOT_NULL`, or `IS_NOT_NAN`.
-            /// * That `field` comes first in the `order_by`.
-            NotEqual = 6,
-            /// The given `field` is an array that contains the given `value`.
-            ArrayContains = 7,
-            /// The given `field` is equal to at least one value in the given array.
-            ///
-            /// Requires:
-            ///
-            /// * That `value` is a non-empty `ArrayValue` with at most 10 values.
-            /// * No other `IN` or `ARRAY_CONTAINS_ANY` or `NOT_IN`.
-            In = 8,
-            /// The given `field` is an array that contains any of the values in the
-            /// given array.
-            ///
-            /// Requires:
-            ///
-            /// * That `value` is a non-empty `ArrayValue` with at most 10 values.
-            /// * No other `IN` or `ARRAY_CONTAINS_ANY` or `NOT_IN`.
-            ArrayContainsAny = 9,
-            /// The value of the `field` is not in the given array.
-            ///
-            /// Requires:
-            ///
-            /// * That `value` is a non-empty `ArrayValue` with at most 10 values.
-            /// * No other `IN`, `ARRAY_CONTAINS_ANY`, `NOT_IN`, `NOT_EQUAL`,
-            ///    `IS_NOT_NULL`, or `IS_NOT_NAN`.
-            /// * That `field` comes first in the `order_by`.
-            NotIn = 10,
-        }
-        impl Operator {
-            /// String value of the enum field names used in the ProtoBuf definition.
-            ///
-            /// The values are not transformed in any way and thus are considered stable
-            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-            pub fn as_str_name(&self) -> &'static str {
-                match self {
-                    Operator::Unspecified => "OPERATOR_UNSPECIFIED",
-                    Operator::LessThan => "LESS_THAN",
-                    Operator::LessThanOrEqual => "LESS_THAN_OR_EQUAL",
-                    Operator::GreaterThan => "GREATER_THAN",
-                    Operator::GreaterThanOrEqual => "GREATER_THAN_OR_EQUAL",
-                    Operator::Equal => "EQUAL",
-                    Operator::NotEqual => "NOT_EQUAL",
-                    Operator::ArrayContains => "ARRAY_CONTAINS",
-                    Operator::In => "IN",
-                    Operator::ArrayContainsAny => "ARRAY_CONTAINS_ANY",
-                    Operator::NotIn => "NOT_IN",
-                }
-            }
-            /// Creates an enum from field names used in the ProtoBuf definition.
-            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-                match value {
-                    "OPERATOR_UNSPECIFIED" => Some(Self::Unspecified),
-                    "LESS_THAN" => Some(Self::LessThan),
-                    "LESS_THAN_OR_EQUAL" => Some(Self::LessThanOrEqual),
-                    "GREATER_THAN" => Some(Self::GreaterThan),
-                    "GREATER_THAN_OR_EQUAL" => Some(Self::GreaterThanOrEqual),
-                    "EQUAL" => Some(Self::Equal),
-                    "NOT_EQUAL" => Some(Self::NotEqual),
-                    "ARRAY_CONTAINS" => Some(Self::ArrayContains),
-                    "IN" => Some(Self::In),
-                    "ARRAY_CONTAINS_ANY" => Some(Self::ArrayContainsAny),
-                    "NOT_IN" => Some(Self::NotIn),
-                    _ => None,
-                }
-            }
-        }
-    }
-    /// A filter with a single operand.
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct UnaryFilter {
-        /// The unary operator to apply.
-        #[prost(enumeration = "unary_filter::Operator", tag = "1")]
-        pub op: i32,
-        /// The argument to the filter.
-        #[prost(oneof = "unary_filter::OperandType", tags = "2")]
-        pub operand_type: ::core::option::Option<unary_filter::OperandType>,
-    }
-    /// Nested message and enum types in `UnaryFilter`.
-    pub mod unary_filter {
-        /// A unary operator.
-        #[derive(
-            Clone,
-            Copy,
-            Debug,
-            PartialEq,
-            Eq,
-            Hash,
-            PartialOrd,
-            Ord,
-            ::prost::Enumeration
-        )]
-        #[repr(i32)]
-        pub enum Operator {
-            /// Unspecified. This value must not be used.
-            Unspecified = 0,
-            /// The given `field` is equal to `NaN`.
-            IsNan = 2,
-            /// The given `field` is equal to `NULL`.
-            IsNull = 3,
-            /// The given `field` is not equal to `NaN`.
-            ///
-            /// Requires:
-            ///
-            /// * No other `NOT_EQUAL`, `NOT_IN`, `IS_NOT_NULL`, or `IS_NOT_NAN`.
-            /// * That `field` comes first in the `order_by`.
-            IsNotNan = 4,
-            /// The given `field` is not equal to `NULL`.
-            ///
-            /// Requires:
-            ///
-            /// * A single `NOT_EQUAL`, `NOT_IN`, `IS_NOT_NULL`, or `IS_NOT_NAN`.
-            /// * That `field` comes first in the `order_by`.
-            IsNotNull = 5,
-        }
-        impl Operator {
-            /// String value of the enum field names used in the ProtoBuf definition.
-            ///
-            /// The values are not transformed in any way and thus are considered stable
-            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-            pub fn as_str_name(&self) -> &'static str {
-                match self {
-                    Operator::Unspecified => "OPERATOR_UNSPECIFIED",
-                    Operator::IsNan => "IS_NAN",
-                    Operator::IsNull => "IS_NULL",
-                    Operator::IsNotNan => "IS_NOT_NAN",
-                    Operator::IsNotNull => "IS_NOT_NULL",
-                }
-            }
-            /// Creates an enum from field names used in the ProtoBuf definition.
-            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-                match value {
-                    "OPERATOR_UNSPECIFIED" => Some(Self::Unspecified),
-                    "IS_NAN" => Some(Self::IsNan),
-                    "IS_NULL" => Some(Self::IsNull),
-                    "IS_NOT_NAN" => Some(Self::IsNotNan),
-                    "IS_NOT_NULL" => Some(Self::IsNotNull),
-                    _ => None,
-                }
-            }
-        }
-        /// The argument to the filter.
-        #[derive(Clone, PartialEq, ::prost::Oneof)]
-        pub enum OperandType {
-            /// The field to which to apply the operator.
-            #[prost(message, tag = "2")]
-            Field(super::FieldReference),
-        }
-    }
-    /// A reference to a field, such as `max(messages.time) as max_time`.
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct FieldReference {
-        #[prost(string, tag = "2")]
-        pub field_path: ::prost::alloc::string::String,
-    }
-    /// An order on a field.
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct Order {
-        /// The field to order by.
-        #[prost(message, optional, tag = "1")]
-        pub field: ::core::option::Option<FieldReference>,
-        /// The direction to order by. Defaults to `ASCENDING`.
-        #[prost(enumeration = "Direction", tag = "2")]
-        pub direction: i32,
-    }
-    /// The projection of document's fields to return.
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct Projection {
-        /// The fields to return.
-        ///
-        /// If empty, all fields are returned. To only return the name
-        /// of the document, use `\['__name__'\]`.
-        #[prost(message, repeated, tag = "2")]
-        pub fields: ::prost::alloc::vec::Vec<FieldReference>,
-    }
-    /// A sort direction.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum Direction {
-        /// Unspecified.
-        Unspecified = 0,
-        /// Ascending.
-        Ascending = 1,
-        /// Descending.
-        Descending = 2,
-    }
-    impl Direction {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                Direction::Unspecified => "DIRECTION_UNSPECIFIED",
-                Direction::Ascending => "ASCENDING",
-                Direction::Descending => "DESCENDING",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "DIRECTION_UNSPECIFIED" => Some(Self::Unspecified),
-                "ASCENDING" => Some(Self::Ascending),
-                "DESCENDING" => Some(Self::Descending),
-                _ => None,
-            }
-        }
-    }
-}
-/// A position in a query result set.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Cursor {
-    /// The values that represent a position, in the order they appear in
-    /// the order by clause of a query.
-    ///
-    /// Can contain fewer values than specified in the order by clause.
-    #[prost(message, repeated, tag = "1")]
-    pub values: ::prost::alloc::vec::Vec<Value>,
-    /// If the position is just before or just after the given values, relative
-    /// to the sort order defined by the query.
-    #[prost(bool, tag = "2")]
-    pub before: bool,
-}
 /// A write on a document.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct Write {
@@ -756,8 +319,8 @@ pub mod document_transform {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    ServerValue::Unspecified => "SERVER_VALUE_UNSPECIFIED",
-                    ServerValue::RequestTime => "REQUEST_TIME",
+                    Self::Unspecified => "SERVER_VALUE_UNSPECIFIED",
+                    Self::RequestTime => "REQUEST_TIME",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -935,6 +498,560 @@ pub struct ExistenceFilter {
     /// client must manually determine which documents no longer match the target.
     #[prost(int32, tag = "2")]
     pub count: i32,
+}
+/// A message signifying an event that cannot be delivered to Cloud Functions
+/// from Firestore using [Cloud Firestore triggers 1st
+/// gen](<https://cloud.google.com/functions/docs/calling/cloud-firestore>)
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UndeliverableFirstGenEvent {
+    /// Error message for events being undeliverable.
+    #[prost(string, tag = "1")]
+    pub message: ::prost::alloc::string::String,
+    /// Reason for events being undeliverable.
+    #[prost(enumeration = "undeliverable_first_gen_event::Reason", tag = "2")]
+    pub reason: i32,
+    /// The resource name of the changed document, in the format of
+    /// `projects/{projectId}/databases/{databaseId}/documents/{document_path}`.
+    #[prost(string, tag = "3")]
+    pub document_name: ::prost::alloc::string::String,
+    /// The type of the document change.
+    #[prost(
+        enumeration = "undeliverable_first_gen_event::DocumentChangeType",
+        tag = "4"
+    )]
+    pub document_change_type: i32,
+    /// The names of the functions that were supposed to be triggered.
+    #[prost(string, repeated, tag = "5")]
+    pub function_name: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// The commit time of triggered write operation.
+    #[prost(message, optional, tag = "6")]
+    pub triggered_time: ::core::option::Option<::prost_types::Timestamp>,
+}
+/// Nested message and enum types in `UndeliverableFirstGenEvent`.
+pub mod undeliverable_first_gen_event {
+    /// Reason for events being undeliverable.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum Reason {
+        /// Unspecified.
+        Unspecified = 0,
+        /// Exceeding maximum event size limit
+        ExceedingSizeLimit = 1,
+    }
+    impl Reason {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "REASON_UNSPECIFIED",
+                Self::ExceedingSizeLimit => "EXCEEDING_SIZE_LIMIT",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "REASON_UNSPECIFIED" => Some(Self::Unspecified),
+                "EXCEEDING_SIZE_LIMIT" => Some(Self::ExceedingSizeLimit),
+                _ => None,
+            }
+        }
+    }
+    /// Document change type.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum DocumentChangeType {
+        /// Unspecified.
+        Unspecified = 0,
+        /// Represent creation operation.
+        Create = 1,
+        /// Represent delete operation.
+        Delete = 2,
+        /// Represent update operation.
+        Update = 3,
+    }
+    impl DocumentChangeType {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "DOCUMENT_CHANGE_TYPE_UNSPECIFIED",
+                Self::Create => "CREATE",
+                Self::Delete => "DELETE",
+                Self::Update => "UPDATE",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "DOCUMENT_CHANGE_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "CREATE" => Some(Self::Create),
+                "DELETE" => Some(Self::Delete),
+                "UPDATE" => Some(Self::Update),
+                _ => None,
+            }
+        }
+    }
+}
+/// A Firestore query.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct StructuredQuery {
+    /// The projection to return.
+    #[prost(message, optional, tag = "1")]
+    pub select: ::core::option::Option<structured_query::Projection>,
+    /// The collections to query.
+    #[prost(message, repeated, tag = "2")]
+    pub from: ::prost::alloc::vec::Vec<structured_query::CollectionSelector>,
+    /// The filter to apply.
+    #[prost(message, optional, tag = "3")]
+    pub r#where: ::core::option::Option<structured_query::Filter>,
+    /// The order to apply to the query results.
+    ///
+    /// Firestore guarantees a stable ordering through the following rules:
+    ///
+    ///   * Any field required to appear in `order_by`, that is not already
+    ///     specified in `order_by`, is appended to the order in field name order
+    ///     by default.
+    ///   * If an order on `__name__` is not specified, it is appended by default.
+    ///
+    /// Fields are appended with the same sort direction as the last order
+    /// specified, or 'ASCENDING' if no order was specified. For example:
+    ///
+    ///   * `SELECT * FROM Foo ORDER BY A` becomes
+    ///     `SELECT * FROM Foo ORDER BY A, __name__`
+    ///   * `SELECT * FROM Foo ORDER BY A DESC` becomes
+    ///     `SELECT * FROM Foo ORDER BY A DESC, __name__ DESC`
+    ///   * `SELECT * FROM Foo WHERE A > 1` becomes
+    ///     `SELECT * FROM Foo WHERE A > 1 ORDER BY A, __name__`
+    #[prost(message, repeated, tag = "4")]
+    pub order_by: ::prost::alloc::vec::Vec<structured_query::Order>,
+    /// A starting point for the query results.
+    #[prost(message, optional, tag = "7")]
+    pub start_at: ::core::option::Option<Cursor>,
+    /// A end point for the query results.
+    #[prost(message, optional, tag = "8")]
+    pub end_at: ::core::option::Option<Cursor>,
+    /// The number of results to skip.
+    ///
+    /// Applies before limit, but after all other constraints. Must be >= 0 if
+    /// specified.
+    #[prost(int32, tag = "6")]
+    pub offset: i32,
+    /// The maximum number of results to return.
+    ///
+    /// Applies after all other constraints.
+    /// Must be >= 0 if specified.
+    #[prost(message, optional, tag = "5")]
+    pub limit: ::core::option::Option<i32>,
+}
+/// Nested message and enum types in `StructuredQuery`.
+pub mod structured_query {
+    /// A selection of a collection, such as `messages as m1`.
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct CollectionSelector {
+        /// The collection ID.
+        /// When set, selects only collections with this ID.
+        #[prost(string, tag = "2")]
+        pub collection_id: ::prost::alloc::string::String,
+        /// When false, selects only collections that are immediate children of
+        /// the `parent` specified in the containing `RunQueryRequest`.
+        /// When true, selects all descendant collections.
+        #[prost(bool, tag = "3")]
+        pub all_descendants: bool,
+    }
+    /// A filter.
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct Filter {
+        /// The type of filter.
+        #[prost(oneof = "filter::FilterType", tags = "1, 2, 3")]
+        pub filter_type: ::core::option::Option<filter::FilterType>,
+    }
+    /// Nested message and enum types in `Filter`.
+    pub mod filter {
+        /// The type of filter.
+        #[derive(Clone, PartialEq, ::prost::Oneof)]
+        pub enum FilterType {
+            /// A composite filter.
+            #[prost(message, tag = "1")]
+            CompositeFilter(super::CompositeFilter),
+            /// A filter on a document field.
+            #[prost(message, tag = "2")]
+            FieldFilter(super::FieldFilter),
+            /// A filter that takes exactly one argument.
+            #[prost(message, tag = "3")]
+            UnaryFilter(super::UnaryFilter),
+        }
+    }
+    /// A filter that merges multiple other filters using the given operator.
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct CompositeFilter {
+        /// The operator for combining multiple filters.
+        #[prost(enumeration = "composite_filter::Operator", tag = "1")]
+        pub op: i32,
+        /// The list of filters to combine.
+        /// Must contain at least one filter.
+        #[prost(message, repeated, tag = "2")]
+        pub filters: ::prost::alloc::vec::Vec<Filter>,
+    }
+    /// Nested message and enum types in `CompositeFilter`.
+    pub mod composite_filter {
+        /// A composite filter operator.
+        #[derive(
+            Clone,
+            Copy,
+            Debug,
+            PartialEq,
+            Eq,
+            Hash,
+            PartialOrd,
+            Ord,
+            ::prost::Enumeration
+        )]
+        #[repr(i32)]
+        pub enum Operator {
+            /// Unspecified. This value must not be used.
+            Unspecified = 0,
+            /// The results are required to satisfy each of the combined filters.
+            And = 1,
+        }
+        impl Operator {
+            /// String value of the enum field names used in the ProtoBuf definition.
+            ///
+            /// The values are not transformed in any way and thus are considered stable
+            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+            pub fn as_str_name(&self) -> &'static str {
+                match self {
+                    Self::Unspecified => "OPERATOR_UNSPECIFIED",
+                    Self::And => "AND",
+                }
+            }
+            /// Creates an enum from field names used in the ProtoBuf definition.
+            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                match value {
+                    "OPERATOR_UNSPECIFIED" => Some(Self::Unspecified),
+                    "AND" => Some(Self::And),
+                    _ => None,
+                }
+            }
+        }
+    }
+    /// A filter on a specific field.
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct FieldFilter {
+        /// The field to filter by.
+        #[prost(message, optional, tag = "1")]
+        pub field: ::core::option::Option<FieldReference>,
+        /// The operator to filter by.
+        #[prost(enumeration = "field_filter::Operator", tag = "2")]
+        pub op: i32,
+        /// The value to compare to.
+        #[prost(message, optional, tag = "3")]
+        pub value: ::core::option::Option<super::Value>,
+    }
+    /// Nested message and enum types in `FieldFilter`.
+    pub mod field_filter {
+        /// A field filter operator.
+        #[derive(
+            Clone,
+            Copy,
+            Debug,
+            PartialEq,
+            Eq,
+            Hash,
+            PartialOrd,
+            Ord,
+            ::prost::Enumeration
+        )]
+        #[repr(i32)]
+        pub enum Operator {
+            /// Unspecified. This value must not be used.
+            Unspecified = 0,
+            /// The given `field` is less than the given `value`.
+            ///
+            /// Requires:
+            ///
+            /// * That `field` come first in `order_by`.
+            LessThan = 1,
+            /// The given `field` is less than or equal to the given `value`.
+            ///
+            /// Requires:
+            ///
+            /// * That `field` come first in `order_by`.
+            LessThanOrEqual = 2,
+            /// The given `field` is greater than the given `value`.
+            ///
+            /// Requires:
+            ///
+            /// * That `field` come first in `order_by`.
+            GreaterThan = 3,
+            /// The given `field` is greater than or equal to the given `value`.
+            ///
+            /// Requires:
+            ///
+            /// * That `field` come first in `order_by`.
+            GreaterThanOrEqual = 4,
+            /// The given `field` is equal to the given `value`.
+            Equal = 5,
+            /// The given `field` is not equal to the given `value`.
+            ///
+            /// Requires:
+            ///
+            /// * No other `NOT_EQUAL`, `NOT_IN`, `IS_NOT_NULL`, or `IS_NOT_NAN`.
+            /// * That `field` comes first in the `order_by`.
+            NotEqual = 6,
+            /// The given `field` is an array that contains the given `value`.
+            ArrayContains = 7,
+            /// The given `field` is equal to at least one value in the given array.
+            ///
+            /// Requires:
+            ///
+            /// * That `value` is a non-empty `ArrayValue` with at most 10 values.
+            /// * No other `IN` or `ARRAY_CONTAINS_ANY` or `NOT_IN`.
+            In = 8,
+            /// The given `field` is an array that contains any of the values in the
+            /// given array.
+            ///
+            /// Requires:
+            ///
+            /// * That `value` is a non-empty `ArrayValue` with at most 10 values.
+            /// * No other `IN` or `ARRAY_CONTAINS_ANY` or `NOT_IN`.
+            ArrayContainsAny = 9,
+            /// The value of the `field` is not in the given array.
+            ///
+            /// Requires:
+            ///
+            /// * That `value` is a non-empty `ArrayValue` with at most 10 values.
+            /// * No other `IN`, `ARRAY_CONTAINS_ANY`, `NOT_IN`, `NOT_EQUAL`,
+            ///    `IS_NOT_NULL`, or `IS_NOT_NAN`.
+            /// * That `field` comes first in the `order_by`.
+            NotIn = 10,
+        }
+        impl Operator {
+            /// String value of the enum field names used in the ProtoBuf definition.
+            ///
+            /// The values are not transformed in any way and thus are considered stable
+            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+            pub fn as_str_name(&self) -> &'static str {
+                match self {
+                    Self::Unspecified => "OPERATOR_UNSPECIFIED",
+                    Self::LessThan => "LESS_THAN",
+                    Self::LessThanOrEqual => "LESS_THAN_OR_EQUAL",
+                    Self::GreaterThan => "GREATER_THAN",
+                    Self::GreaterThanOrEqual => "GREATER_THAN_OR_EQUAL",
+                    Self::Equal => "EQUAL",
+                    Self::NotEqual => "NOT_EQUAL",
+                    Self::ArrayContains => "ARRAY_CONTAINS",
+                    Self::In => "IN",
+                    Self::ArrayContainsAny => "ARRAY_CONTAINS_ANY",
+                    Self::NotIn => "NOT_IN",
+                }
+            }
+            /// Creates an enum from field names used in the ProtoBuf definition.
+            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                match value {
+                    "OPERATOR_UNSPECIFIED" => Some(Self::Unspecified),
+                    "LESS_THAN" => Some(Self::LessThan),
+                    "LESS_THAN_OR_EQUAL" => Some(Self::LessThanOrEqual),
+                    "GREATER_THAN" => Some(Self::GreaterThan),
+                    "GREATER_THAN_OR_EQUAL" => Some(Self::GreaterThanOrEqual),
+                    "EQUAL" => Some(Self::Equal),
+                    "NOT_EQUAL" => Some(Self::NotEqual),
+                    "ARRAY_CONTAINS" => Some(Self::ArrayContains),
+                    "IN" => Some(Self::In),
+                    "ARRAY_CONTAINS_ANY" => Some(Self::ArrayContainsAny),
+                    "NOT_IN" => Some(Self::NotIn),
+                    _ => None,
+                }
+            }
+        }
+    }
+    /// A filter with a single operand.
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct UnaryFilter {
+        /// The unary operator to apply.
+        #[prost(enumeration = "unary_filter::Operator", tag = "1")]
+        pub op: i32,
+        /// The argument to the filter.
+        #[prost(oneof = "unary_filter::OperandType", tags = "2")]
+        pub operand_type: ::core::option::Option<unary_filter::OperandType>,
+    }
+    /// Nested message and enum types in `UnaryFilter`.
+    pub mod unary_filter {
+        /// A unary operator.
+        #[derive(
+            Clone,
+            Copy,
+            Debug,
+            PartialEq,
+            Eq,
+            Hash,
+            PartialOrd,
+            Ord,
+            ::prost::Enumeration
+        )]
+        #[repr(i32)]
+        pub enum Operator {
+            /// Unspecified. This value must not be used.
+            Unspecified = 0,
+            /// The given `field` is equal to `NaN`.
+            IsNan = 2,
+            /// The given `field` is equal to `NULL`.
+            IsNull = 3,
+            /// The given `field` is not equal to `NaN`.
+            ///
+            /// Requires:
+            ///
+            /// * No other `NOT_EQUAL`, `NOT_IN`, `IS_NOT_NULL`, or `IS_NOT_NAN`.
+            /// * That `field` comes first in the `order_by`.
+            IsNotNan = 4,
+            /// The given `field` is not equal to `NULL`.
+            ///
+            /// Requires:
+            ///
+            /// * A single `NOT_EQUAL`, `NOT_IN`, `IS_NOT_NULL`, or `IS_NOT_NAN`.
+            /// * That `field` comes first in the `order_by`.
+            IsNotNull = 5,
+        }
+        impl Operator {
+            /// String value of the enum field names used in the ProtoBuf definition.
+            ///
+            /// The values are not transformed in any way and thus are considered stable
+            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+            pub fn as_str_name(&self) -> &'static str {
+                match self {
+                    Self::Unspecified => "OPERATOR_UNSPECIFIED",
+                    Self::IsNan => "IS_NAN",
+                    Self::IsNull => "IS_NULL",
+                    Self::IsNotNan => "IS_NOT_NAN",
+                    Self::IsNotNull => "IS_NOT_NULL",
+                }
+            }
+            /// Creates an enum from field names used in the ProtoBuf definition.
+            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                match value {
+                    "OPERATOR_UNSPECIFIED" => Some(Self::Unspecified),
+                    "IS_NAN" => Some(Self::IsNan),
+                    "IS_NULL" => Some(Self::IsNull),
+                    "IS_NOT_NAN" => Some(Self::IsNotNan),
+                    "IS_NOT_NULL" => Some(Self::IsNotNull),
+                    _ => None,
+                }
+            }
+        }
+        /// The argument to the filter.
+        #[derive(Clone, PartialEq, ::prost::Oneof)]
+        pub enum OperandType {
+            /// The field to which to apply the operator.
+            #[prost(message, tag = "2")]
+            Field(super::FieldReference),
+        }
+    }
+    /// A reference to a field, such as `max(messages.time) as max_time`.
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct FieldReference {
+        #[prost(string, tag = "2")]
+        pub field_path: ::prost::alloc::string::String,
+    }
+    /// An order on a field.
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct Order {
+        /// The field to order by.
+        #[prost(message, optional, tag = "1")]
+        pub field: ::core::option::Option<FieldReference>,
+        /// The direction to order by. Defaults to `ASCENDING`.
+        #[prost(enumeration = "Direction", tag = "2")]
+        pub direction: i32,
+    }
+    /// The projection of document's fields to return.
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct Projection {
+        /// The fields to return.
+        ///
+        /// If empty, all fields are returned. To only return the name
+        /// of the document, use `\['__name__'\]`.
+        #[prost(message, repeated, tag = "2")]
+        pub fields: ::prost::alloc::vec::Vec<FieldReference>,
+    }
+    /// A sort direction.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum Direction {
+        /// Unspecified.
+        Unspecified = 0,
+        /// Ascending.
+        Ascending = 1,
+        /// Descending.
+        Descending = 2,
+    }
+    impl Direction {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "DIRECTION_UNSPECIFIED",
+                Self::Ascending => "ASCENDING",
+                Self::Descending => "DESCENDING",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "DIRECTION_UNSPECIFIED" => Some(Self::Unspecified),
+                "ASCENDING" => Some(Self::Ascending),
+                "DESCENDING" => Some(Self::Descending),
+                _ => None,
+            }
+        }
+    }
+}
+/// A position in a query result set.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Cursor {
+    /// The values that represent a position, in the order they appear in
+    /// the order by clause of a query.
+    ///
+    /// Can contain fewer values than specified in the order by clause.
+    #[prost(message, repeated, tag = "1")]
+    pub values: ::prost::alloc::vec::Vec<Value>,
+    /// If the position is just before or just after the given values, relative
+    /// to the sort order defined by the query.
+    #[prost(bool, tag = "2")]
+    pub before: bool,
 }
 /// The request for [Firestore.GetDocument][google.firestore.v1beta1.Firestore.GetDocument].
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1721,11 +1838,11 @@ pub mod target_change {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                TargetChangeType::NoChange => "NO_CHANGE",
-                TargetChangeType::Add => "ADD",
-                TargetChangeType::Remove => "REMOVE",
-                TargetChangeType::Current => "CURRENT",
-                TargetChangeType::Reset => "RESET",
+                Self::NoChange => "NO_CHANGE",
+                Self::Add => "ADD",
+                Self::Remove => "REMOVE",
+                Self::Current => "CURRENT",
+                Self::Reset => "RESET",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2322,120 +2439,946 @@ pub mod firestore_client {
         }
     }
 }
-/// A message signifying an event that cannot be delivered to Cloud Functions
-/// from Firestore using [Cloud Firestore triggers 1st
-/// gen](<https://cloud.google.com/functions/docs/calling/cloud-firestore>)
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UndeliverableFirstGenEvent {
-    /// Error message for events being undeliverable.
-    #[prost(string, tag = "1")]
-    pub message: ::prost::alloc::string::String,
-    /// Reason for events being undeliverable.
-    #[prost(enumeration = "undeliverable_first_gen_event::Reason", tag = "2")]
-    pub reason: i32,
-    /// The resource name of the changed document, in the format of
-    /// `projects/{projectId}/databases/{databaseId}/documents/{document_path}`.
-    #[prost(string, tag = "3")]
-    pub document_name: ::prost::alloc::string::String,
-    /// The type of the document change.
-    #[prost(
-        enumeration = "undeliverable_first_gen_event::DocumentChangeType",
-        tag = "4"
-    )]
-    pub document_change_type: i32,
-    /// The names of the functions that were supposed to be triggered.
-    #[prost(string, repeated, tag = "5")]
-    pub function_name: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    /// The commit time of triggered write operation.
-    #[prost(message, optional, tag = "6")]
-    pub triggered_time: ::core::option::Option<::prost_types::Timestamp>,
-}
-/// Nested message and enum types in `UndeliverableFirstGenEvent`.
-pub mod undeliverable_first_gen_event {
-    /// Reason for events being undeliverable.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum Reason {
-        /// Unspecified.
-        Unspecified = 0,
-        /// Exceeding maximum event size limit
-        ExceedingSizeLimit = 1,
-    }
-    impl Reason {
-        /// String value of the enum field names used in the ProtoBuf definition.
+/// Generated server implementations.
+pub mod firestore_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with FirestoreServer.
+    #[async_trait]
+    pub trait Firestore: std::marker::Send + std::marker::Sync + 'static {
+        /// Gets a single document.
+        async fn get_document(
+            &self,
+            request: tonic::Request<super::GetDocumentRequest>,
+        ) -> std::result::Result<tonic::Response<super::Document>, tonic::Status>;
+        /// Lists documents.
+        async fn list_documents(
+            &self,
+            request: tonic::Request<super::ListDocumentsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDocumentsResponse>,
+            tonic::Status,
+        >;
+        /// Updates or inserts a document.
+        async fn update_document(
+            &self,
+            request: tonic::Request<super::UpdateDocumentRequest>,
+        ) -> std::result::Result<tonic::Response<super::Document>, tonic::Status>;
+        /// Deletes a document.
+        async fn delete_document(
+            &self,
+            request: tonic::Request<super::DeleteDocumentRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Server streaming response type for the BatchGetDocuments method.
+        type BatchGetDocumentsStream: tonic::codegen::tokio_stream::Stream<
+                Item = std::result::Result<
+                    super::BatchGetDocumentsResponse,
+                    tonic::Status,
+                >,
+            >
+            + std::marker::Send
+            + 'static;
+        /// Gets multiple documents.
         ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                Reason::Unspecified => "REASON_UNSPECIFIED",
-                Reason::ExceedingSizeLimit => "EXCEEDING_SIZE_LIMIT",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "REASON_UNSPECIFIED" => Some(Self::Unspecified),
-                "EXCEEDING_SIZE_LIMIT" => Some(Self::ExceedingSizeLimit),
-                _ => None,
-            }
-        }
-    }
-    /// Document change type.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum DocumentChangeType {
-        /// Unspecified.
-        Unspecified = 0,
-        /// Represent creation operation.
-        Create = 1,
-        /// Represent delete operation.
-        Delete = 2,
-        /// Represent update operation.
-        Update = 3,
-    }
-    impl DocumentChangeType {
-        /// String value of the enum field names used in the ProtoBuf definition.
+        /// Documents returned by this method are not guaranteed to be returned in the
+        /// same order that they were requested.
+        async fn batch_get_documents(
+            &self,
+            request: tonic::Request<super::BatchGetDocumentsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<Self::BatchGetDocumentsStream>,
+            tonic::Status,
+        >;
+        /// Starts a new transaction.
+        async fn begin_transaction(
+            &self,
+            request: tonic::Request<super::BeginTransactionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::BeginTransactionResponse>,
+            tonic::Status,
+        >;
+        /// Commits a transaction, while optionally updating documents.
+        async fn commit(
+            &self,
+            request: tonic::Request<super::CommitRequest>,
+        ) -> std::result::Result<tonic::Response<super::CommitResponse>, tonic::Status>;
+        /// Rolls back a transaction.
+        async fn rollback(
+            &self,
+            request: tonic::Request<super::RollbackRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Server streaming response type for the RunQuery method.
+        type RunQueryStream: tonic::codegen::tokio_stream::Stream<
+                Item = std::result::Result<super::RunQueryResponse, tonic::Status>,
+            >
+            + std::marker::Send
+            + 'static;
+        /// Runs a query.
+        async fn run_query(
+            &self,
+            request: tonic::Request<super::RunQueryRequest>,
+        ) -> std::result::Result<tonic::Response<Self::RunQueryStream>, tonic::Status>;
+        /// Partitions a query by returning partition cursors that can be used to run
+        /// the query in parallel. The returned partition cursors are split points that
+        /// can be used by RunQuery as starting/end points for the query results.
+        async fn partition_query(
+            &self,
+            request: tonic::Request<super::PartitionQueryRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::PartitionQueryResponse>,
+            tonic::Status,
+        >;
+        /// Server streaming response type for the Write method.
+        type WriteStream: tonic::codegen::tokio_stream::Stream<
+                Item = std::result::Result<super::WriteResponse, tonic::Status>,
+            >
+            + std::marker::Send
+            + 'static;
+        /// Streams batches of document updates and deletes, in order.
+        async fn write(
+            &self,
+            request: tonic::Request<tonic::Streaming<super::WriteRequest>>,
+        ) -> std::result::Result<tonic::Response<Self::WriteStream>, tonic::Status>;
+        /// Server streaming response type for the Listen method.
+        type ListenStream: tonic::codegen::tokio_stream::Stream<
+                Item = std::result::Result<super::ListenResponse, tonic::Status>,
+            >
+            + std::marker::Send
+            + 'static;
+        /// Listens to changes.
+        async fn listen(
+            &self,
+            request: tonic::Request<tonic::Streaming<super::ListenRequest>>,
+        ) -> std::result::Result<tonic::Response<Self::ListenStream>, tonic::Status>;
+        /// Lists all the collection IDs underneath a document.
+        async fn list_collection_ids(
+            &self,
+            request: tonic::Request<super::ListCollectionIdsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListCollectionIdsResponse>,
+            tonic::Status,
+        >;
+        /// Applies a batch of write operations.
         ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                DocumentChangeType::Unspecified => "DOCUMENT_CHANGE_TYPE_UNSPECIFIED",
-                DocumentChangeType::Create => "CREATE",
-                DocumentChangeType::Delete => "DELETE",
-                DocumentChangeType::Update => "UPDATE",
+        /// The BatchWrite method does not apply the write operations atomically
+        /// and can apply them out of order. Method does not allow more than one write
+        /// per document. Each write succeeds or fails independently. See the
+        /// [BatchWriteResponse][google.firestore.v1beta1.BatchWriteResponse] for the success status of each write.
+        ///
+        /// If you require an atomically applied set of writes, use
+        /// [Commit][google.firestore.v1beta1.Firestore.Commit] instead.
+        async fn batch_write(
+            &self,
+            request: tonic::Request<super::BatchWriteRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::BatchWriteResponse>,
+            tonic::Status,
+        >;
+        /// Creates a new document.
+        async fn create_document(
+            &self,
+            request: tonic::Request<super::CreateDocumentRequest>,
+        ) -> std::result::Result<tonic::Response<super::Document>, tonic::Status>;
+    }
+    /// The Cloud Firestore service.
+    ///
+    /// Cloud Firestore is a fast, fully managed, serverless, cloud-native NoSQL
+    /// document database that simplifies storing, syncing, and querying data for
+    /// your mobile, web, and IoT apps at global scale. Its client libraries provide
+    /// live synchronization and offline support, while its security features and
+    /// integrations with Firebase and Google Cloud Platform (GCP) accelerate
+    /// building truly serverless apps.
+    #[derive(Debug)]
+    pub struct FirestoreServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> FirestoreServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
             }
         }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "DOCUMENT_CHANGE_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
-                "CREATE" => Some(Self::Create),
-                "DELETE" => Some(Self::Delete),
-                "UPDATE" => Some(Self::Update),
-                _ => None,
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for FirestoreServer<T>
+    where
+        T: Firestore,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.firestore.v1beta1.Firestore/GetDocument" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetDocumentSvc<T: Firestore>(pub Arc<T>);
+                    impl<
+                        T: Firestore,
+                    > tonic::server::UnaryService<super::GetDocumentRequest>
+                    for GetDocumentSvc<T> {
+                        type Response = super::Document;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetDocumentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Firestore>::get_document(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetDocumentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.firestore.v1beta1.Firestore/ListDocuments" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDocumentsSvc<T: Firestore>(pub Arc<T>);
+                    impl<
+                        T: Firestore,
+                    > tonic::server::UnaryService<super::ListDocumentsRequest>
+                    for ListDocumentsSvc<T> {
+                        type Response = super::ListDocumentsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListDocumentsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Firestore>::list_documents(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDocumentsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.firestore.v1beta1.Firestore/UpdateDocument" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateDocumentSvc<T: Firestore>(pub Arc<T>);
+                    impl<
+                        T: Firestore,
+                    > tonic::server::UnaryService<super::UpdateDocumentRequest>
+                    for UpdateDocumentSvc<T> {
+                        type Response = super::Document;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateDocumentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Firestore>::update_document(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateDocumentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.firestore.v1beta1.Firestore/DeleteDocument" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteDocumentSvc<T: Firestore>(pub Arc<T>);
+                    impl<
+                        T: Firestore,
+                    > tonic::server::UnaryService<super::DeleteDocumentRequest>
+                    for DeleteDocumentSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteDocumentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Firestore>::delete_document(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteDocumentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.firestore.v1beta1.Firestore/BatchGetDocuments" => {
+                    #[allow(non_camel_case_types)]
+                    struct BatchGetDocumentsSvc<T: Firestore>(pub Arc<T>);
+                    impl<
+                        T: Firestore,
+                    > tonic::server::ServerStreamingService<
+                        super::BatchGetDocumentsRequest,
+                    > for BatchGetDocumentsSvc<T> {
+                        type Response = super::BatchGetDocumentsResponse;
+                        type ResponseStream = T::BatchGetDocumentsStream;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::ResponseStream>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::BatchGetDocumentsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Firestore>::batch_get_documents(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BatchGetDocumentsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.server_streaming(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.firestore.v1beta1.Firestore/BeginTransaction" => {
+                    #[allow(non_camel_case_types)]
+                    struct BeginTransactionSvc<T: Firestore>(pub Arc<T>);
+                    impl<
+                        T: Firestore,
+                    > tonic::server::UnaryService<super::BeginTransactionRequest>
+                    for BeginTransactionSvc<T> {
+                        type Response = super::BeginTransactionResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::BeginTransactionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Firestore>::begin_transaction(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BeginTransactionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.firestore.v1beta1.Firestore/Commit" => {
+                    #[allow(non_camel_case_types)]
+                    struct CommitSvc<T: Firestore>(pub Arc<T>);
+                    impl<T: Firestore> tonic::server::UnaryService<super::CommitRequest>
+                    for CommitSvc<T> {
+                        type Response = super::CommitResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CommitRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Firestore>::commit(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CommitSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.firestore.v1beta1.Firestore/Rollback" => {
+                    #[allow(non_camel_case_types)]
+                    struct RollbackSvc<T: Firestore>(pub Arc<T>);
+                    impl<
+                        T: Firestore,
+                    > tonic::server::UnaryService<super::RollbackRequest>
+                    for RollbackSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RollbackRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Firestore>::rollback(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RollbackSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.firestore.v1beta1.Firestore/RunQuery" => {
+                    #[allow(non_camel_case_types)]
+                    struct RunQuerySvc<T: Firestore>(pub Arc<T>);
+                    impl<
+                        T: Firestore,
+                    > tonic::server::ServerStreamingService<super::RunQueryRequest>
+                    for RunQuerySvc<T> {
+                        type Response = super::RunQueryResponse;
+                        type ResponseStream = T::RunQueryStream;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::ResponseStream>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RunQueryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Firestore>::run_query(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RunQuerySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.server_streaming(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.firestore.v1beta1.Firestore/PartitionQuery" => {
+                    #[allow(non_camel_case_types)]
+                    struct PartitionQuerySvc<T: Firestore>(pub Arc<T>);
+                    impl<
+                        T: Firestore,
+                    > tonic::server::UnaryService<super::PartitionQueryRequest>
+                    for PartitionQuerySvc<T> {
+                        type Response = super::PartitionQueryResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::PartitionQueryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Firestore>::partition_query(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = PartitionQuerySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.firestore.v1beta1.Firestore/Write" => {
+                    #[allow(non_camel_case_types)]
+                    struct WriteSvc<T: Firestore>(pub Arc<T>);
+                    impl<
+                        T: Firestore,
+                    > tonic::server::StreamingService<super::WriteRequest>
+                    for WriteSvc<T> {
+                        type Response = super::WriteResponse;
+                        type ResponseStream = T::WriteStream;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::ResponseStream>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                tonic::Streaming<super::WriteRequest>,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Firestore>::write(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = WriteSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.streaming(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.firestore.v1beta1.Firestore/Listen" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListenSvc<T: Firestore>(pub Arc<T>);
+                    impl<
+                        T: Firestore,
+                    > tonic::server::StreamingService<super::ListenRequest>
+                    for ListenSvc<T> {
+                        type Response = super::ListenResponse;
+                        type ResponseStream = T::ListenStream;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::ResponseStream>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                tonic::Streaming<super::ListenRequest>,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Firestore>::listen(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListenSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.streaming(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.firestore.v1beta1.Firestore/ListCollectionIds" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListCollectionIdsSvc<T: Firestore>(pub Arc<T>);
+                    impl<
+                        T: Firestore,
+                    > tonic::server::UnaryService<super::ListCollectionIdsRequest>
+                    for ListCollectionIdsSvc<T> {
+                        type Response = super::ListCollectionIdsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListCollectionIdsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Firestore>::list_collection_ids(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListCollectionIdsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.firestore.v1beta1.Firestore/BatchWrite" => {
+                    #[allow(non_camel_case_types)]
+                    struct BatchWriteSvc<T: Firestore>(pub Arc<T>);
+                    impl<
+                        T: Firestore,
+                    > tonic::server::UnaryService<super::BatchWriteRequest>
+                    for BatchWriteSvc<T> {
+                        type Response = super::BatchWriteResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::BatchWriteRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Firestore>::batch_write(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BatchWriteSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.firestore.v1beta1.Firestore/CreateDocument" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateDocumentSvc<T: Firestore>(pub Arc<T>);
+                    impl<
+                        T: Firestore,
+                    > tonic::server::UnaryService<super::CreateDocumentRequest>
+                    for CreateDocumentSvc<T> {
+                        type Response = super::Document;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateDocumentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Firestore>::create_document(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateDocumentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
             }
         }
+    }
+    impl<T> Clone for FirestoreServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.firestore.v1beta1.Firestore";
+    impl<T> tonic::server::NamedService for FirestoreServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

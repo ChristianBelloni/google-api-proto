@@ -60,9 +60,9 @@ pub mod workload_identity_pool {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Active => "ACTIVE",
-                State::Deleted => "DELETED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Active => "ACTIVE",
+                Self::Deleted => "DELETED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -279,9 +279,9 @@ pub mod workload_identity_pool_provider {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Active => "ACTIVE",
-                State::Deleted => "DELETED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Active => "ACTIVE",
+                Self::Deleted => "DELETED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -970,5 +970,918 @@ pub mod workload_identity_pools_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod workload_identity_pools_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with WorkloadIdentityPoolsServer.
+    #[async_trait]
+    pub trait WorkloadIdentityPools: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists all non-deleted
+        /// [WorkloadIdentityPool][google.iam.v1beta.WorkloadIdentityPool]s in a
+        /// project. If `show_deleted` is set to `true`, then deleted pools are also
+        /// listed.
+        async fn list_workload_identity_pools(
+            &self,
+            request: tonic::Request<super::ListWorkloadIdentityPoolsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListWorkloadIdentityPoolsResponse>,
+            tonic::Status,
+        >;
+        /// Gets an individual
+        /// [WorkloadIdentityPool][google.iam.v1beta.WorkloadIdentityPool].
+        async fn get_workload_identity_pool(
+            &self,
+            request: tonic::Request<super::GetWorkloadIdentityPoolRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::WorkloadIdentityPool>,
+            tonic::Status,
+        >;
+        /// Creates a new
+        /// [WorkloadIdentityPool][google.iam.v1beta.WorkloadIdentityPool].
+        ///
+        /// You cannot reuse the name of a deleted pool until 30 days after deletion.
+        async fn create_workload_identity_pool(
+            &self,
+            request: tonic::Request<super::CreateWorkloadIdentityPoolRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates an existing
+        /// [WorkloadIdentityPool][google.iam.v1beta.WorkloadIdentityPool].
+        async fn update_workload_identity_pool(
+            &self,
+            request: tonic::Request<super::UpdateWorkloadIdentityPoolRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a
+        /// [WorkloadIdentityPool][google.iam.v1beta.WorkloadIdentityPool].
+        ///
+        /// You cannot use a deleted pool to exchange external
+        /// credentials for Google Cloud credentials. However, deletion does
+        /// not revoke credentials that have already been issued.
+        /// Credentials issued for a deleted pool do not grant access to resources.
+        /// If the pool is undeleted, and the credentials are not expired, they
+        /// grant access again.
+        /// You can undelete a pool for 30 days. After 30 days, deletion is
+        /// permanent.
+        /// You cannot update deleted pools. However, you can view and list them.
+        async fn delete_workload_identity_pool(
+            &self,
+            request: tonic::Request<super::DeleteWorkloadIdentityPoolRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Undeletes a [WorkloadIdentityPool][google.iam.v1beta.WorkloadIdentityPool],
+        /// as long as it was deleted fewer than 30 days ago.
+        async fn undelete_workload_identity_pool(
+            &self,
+            request: tonic::Request<super::UndeleteWorkloadIdentityPoolRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists all non-deleted
+        /// [WorkloadIdentityPoolProvider][google.iam.v1beta.WorkloadIdentityPoolProvider]s
+        /// in a [WorkloadIdentityPool][google.iam.v1beta.WorkloadIdentityPool].
+        /// If `show_deleted` is set to `true`, then deleted providers are also listed.
+        async fn list_workload_identity_pool_providers(
+            &self,
+            request: tonic::Request<super::ListWorkloadIdentityPoolProvidersRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListWorkloadIdentityPoolProvidersResponse>,
+            tonic::Status,
+        >;
+        /// Gets an individual
+        /// [WorkloadIdentityPoolProvider][google.iam.v1beta.WorkloadIdentityPoolProvider].
+        async fn get_workload_identity_pool_provider(
+            &self,
+            request: tonic::Request<super::GetWorkloadIdentityPoolProviderRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::WorkloadIdentityPoolProvider>,
+            tonic::Status,
+        >;
+        /// Creates a new
+        /// [WorkloadIdentityPoolProvider][google.iam.v1beta.WorkloadIdentityProvider]
+        /// in a [WorkloadIdentityPool][google.iam.v1beta.WorkloadIdentityPool].
+        ///
+        /// You cannot reuse the name of a deleted provider until 30 days after
+        /// deletion.
+        async fn create_workload_identity_pool_provider(
+            &self,
+            request: tonic::Request<super::CreateWorkloadIdentityPoolProviderRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates an existing
+        /// [WorkloadIdentityPoolProvider][google.iam.v1beta.WorkloadIdentityProvider].
+        async fn update_workload_identity_pool_provider(
+            &self,
+            request: tonic::Request<super::UpdateWorkloadIdentityPoolProviderRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a
+        /// [WorkloadIdentityPoolProvider][google.iam.v1beta.WorkloadIdentityProvider].
+        /// Deleting a provider does not revoke credentials that have already been
+        /// issued; they continue to grant access.
+        /// You can undelete a provider for 30 days. After 30 days, deletion is
+        /// permanent.
+        /// You cannot update deleted providers. However, you can view and list them.
+        async fn delete_workload_identity_pool_provider(
+            &self,
+            request: tonic::Request<super::DeleteWorkloadIdentityPoolProviderRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Undeletes a
+        /// [WorkloadIdentityPoolProvider][google.iam.v1beta.WorkloadIdentityProvider],
+        /// as long as it was deleted fewer than 30 days ago.
+        async fn undelete_workload_identity_pool_provider(
+            &self,
+            request: tonic::Request<super::UndeleteWorkloadIdentityPoolProviderRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// Manages WorkloadIdentityPools.
+    #[derive(Debug)]
+    pub struct WorkloadIdentityPoolsServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> WorkloadIdentityPoolsServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for WorkloadIdentityPoolsServer<T>
+    where
+        T: WorkloadIdentityPools,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.iam.v1beta.WorkloadIdentityPools/ListWorkloadIdentityPools" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListWorkloadIdentityPoolsSvc<T: WorkloadIdentityPools>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: WorkloadIdentityPools,
+                    > tonic::server::UnaryService<
+                        super::ListWorkloadIdentityPoolsRequest,
+                    > for ListWorkloadIdentityPoolsSvc<T> {
+                        type Response = super::ListWorkloadIdentityPoolsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListWorkloadIdentityPoolsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as WorkloadIdentityPools>::list_workload_identity_pools(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListWorkloadIdentityPoolsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.iam.v1beta.WorkloadIdentityPools/GetWorkloadIdentityPool" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetWorkloadIdentityPoolSvc<T: WorkloadIdentityPools>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: WorkloadIdentityPools,
+                    > tonic::server::UnaryService<super::GetWorkloadIdentityPoolRequest>
+                    for GetWorkloadIdentityPoolSvc<T> {
+                        type Response = super::WorkloadIdentityPool;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetWorkloadIdentityPoolRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as WorkloadIdentityPools>::get_workload_identity_pool(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetWorkloadIdentityPoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.iam.v1beta.WorkloadIdentityPools/CreateWorkloadIdentityPool" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateWorkloadIdentityPoolSvc<T: WorkloadIdentityPools>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: WorkloadIdentityPools,
+                    > tonic::server::UnaryService<
+                        super::CreateWorkloadIdentityPoolRequest,
+                    > for CreateWorkloadIdentityPoolSvc<T> {
+                        type Response = super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateWorkloadIdentityPoolRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as WorkloadIdentityPools>::create_workload_identity_pool(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateWorkloadIdentityPoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.iam.v1beta.WorkloadIdentityPools/UpdateWorkloadIdentityPool" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateWorkloadIdentityPoolSvc<T: WorkloadIdentityPools>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: WorkloadIdentityPools,
+                    > tonic::server::UnaryService<
+                        super::UpdateWorkloadIdentityPoolRequest,
+                    > for UpdateWorkloadIdentityPoolSvc<T> {
+                        type Response = super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::UpdateWorkloadIdentityPoolRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as WorkloadIdentityPools>::update_workload_identity_pool(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateWorkloadIdentityPoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.iam.v1beta.WorkloadIdentityPools/DeleteWorkloadIdentityPool" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteWorkloadIdentityPoolSvc<T: WorkloadIdentityPools>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: WorkloadIdentityPools,
+                    > tonic::server::UnaryService<
+                        super::DeleteWorkloadIdentityPoolRequest,
+                    > for DeleteWorkloadIdentityPoolSvc<T> {
+                        type Response = super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteWorkloadIdentityPoolRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as WorkloadIdentityPools>::delete_workload_identity_pool(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteWorkloadIdentityPoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.iam.v1beta.WorkloadIdentityPools/UndeleteWorkloadIdentityPool" => {
+                    #[allow(non_camel_case_types)]
+                    struct UndeleteWorkloadIdentityPoolSvc<T: WorkloadIdentityPools>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: WorkloadIdentityPools,
+                    > tonic::server::UnaryService<
+                        super::UndeleteWorkloadIdentityPoolRequest,
+                    > for UndeleteWorkloadIdentityPoolSvc<T> {
+                        type Response = super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::UndeleteWorkloadIdentityPoolRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as WorkloadIdentityPools>::undelete_workload_identity_pool(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UndeleteWorkloadIdentityPoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.iam.v1beta.WorkloadIdentityPools/ListWorkloadIdentityPoolProviders" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListWorkloadIdentityPoolProvidersSvc<
+                        T: WorkloadIdentityPools,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: WorkloadIdentityPools,
+                    > tonic::server::UnaryService<
+                        super::ListWorkloadIdentityPoolProvidersRequest,
+                    > for ListWorkloadIdentityPoolProvidersSvc<T> {
+                        type Response = super::ListWorkloadIdentityPoolProvidersResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListWorkloadIdentityPoolProvidersRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as WorkloadIdentityPools>::list_workload_identity_pool_providers(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListWorkloadIdentityPoolProvidersSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.iam.v1beta.WorkloadIdentityPools/GetWorkloadIdentityPoolProvider" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetWorkloadIdentityPoolProviderSvc<T: WorkloadIdentityPools>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: WorkloadIdentityPools,
+                    > tonic::server::UnaryService<
+                        super::GetWorkloadIdentityPoolProviderRequest,
+                    > for GetWorkloadIdentityPoolProviderSvc<T> {
+                        type Response = super::WorkloadIdentityPoolProvider;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetWorkloadIdentityPoolProviderRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as WorkloadIdentityPools>::get_workload_identity_pool_provider(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetWorkloadIdentityPoolProviderSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.iam.v1beta.WorkloadIdentityPools/CreateWorkloadIdentityPoolProvider" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateWorkloadIdentityPoolProviderSvc<
+                        T: WorkloadIdentityPools,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: WorkloadIdentityPools,
+                    > tonic::server::UnaryService<
+                        super::CreateWorkloadIdentityPoolProviderRequest,
+                    > for CreateWorkloadIdentityPoolProviderSvc<T> {
+                        type Response = super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateWorkloadIdentityPoolProviderRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as WorkloadIdentityPools>::create_workload_identity_pool_provider(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateWorkloadIdentityPoolProviderSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.iam.v1beta.WorkloadIdentityPools/UpdateWorkloadIdentityPoolProvider" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateWorkloadIdentityPoolProviderSvc<
+                        T: WorkloadIdentityPools,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: WorkloadIdentityPools,
+                    > tonic::server::UnaryService<
+                        super::UpdateWorkloadIdentityPoolProviderRequest,
+                    > for UpdateWorkloadIdentityPoolProviderSvc<T> {
+                        type Response = super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::UpdateWorkloadIdentityPoolProviderRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as WorkloadIdentityPools>::update_workload_identity_pool_provider(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateWorkloadIdentityPoolProviderSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.iam.v1beta.WorkloadIdentityPools/DeleteWorkloadIdentityPoolProvider" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteWorkloadIdentityPoolProviderSvc<
+                        T: WorkloadIdentityPools,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: WorkloadIdentityPools,
+                    > tonic::server::UnaryService<
+                        super::DeleteWorkloadIdentityPoolProviderRequest,
+                    > for DeleteWorkloadIdentityPoolProviderSvc<T> {
+                        type Response = super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteWorkloadIdentityPoolProviderRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as WorkloadIdentityPools>::delete_workload_identity_pool_provider(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteWorkloadIdentityPoolProviderSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.iam.v1beta.WorkloadIdentityPools/UndeleteWorkloadIdentityPoolProvider" => {
+                    #[allow(non_camel_case_types)]
+                    struct UndeleteWorkloadIdentityPoolProviderSvc<
+                        T: WorkloadIdentityPools,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: WorkloadIdentityPools,
+                    > tonic::server::UnaryService<
+                        super::UndeleteWorkloadIdentityPoolProviderRequest,
+                    > for UndeleteWorkloadIdentityPoolProviderSvc<T> {
+                        type Response = super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::UndeleteWorkloadIdentityPoolProviderRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as WorkloadIdentityPools>::undelete_workload_identity_pool_provider(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UndeleteWorkloadIdentityPoolProviderSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for WorkloadIdentityPoolsServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.iam.v1beta.WorkloadIdentityPools";
+    impl<T> tonic::server::NamedService for WorkloadIdentityPoolsServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

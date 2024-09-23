@@ -367,14 +367,14 @@ impl HttpMethod {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            HttpMethod::Unspecified => "HTTP_METHOD_UNSPECIFIED",
-            HttpMethod::Post => "POST",
-            HttpMethod::Get => "GET",
-            HttpMethod::Head => "HEAD",
-            HttpMethod::Put => "PUT",
-            HttpMethod::Delete => "DELETE",
-            HttpMethod::Patch => "PATCH",
-            HttpMethod::Options => "OPTIONS",
+            Self::Unspecified => "HTTP_METHOD_UNSPECIFIED",
+            Self::Post => "POST",
+            Self::Get => "GET",
+            Self::Head => "HEAD",
+            Self::Put => "PUT",
+            Self::Delete => "DELETE",
+            Self::Patch => "PATCH",
+            Self::Options => "OPTIONS",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -561,11 +561,11 @@ pub mod job {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Enabled => "ENABLED",
-                State::Paused => "PAUSED",
-                State::Disabled => "DISABLED",
-                State::UpdateFailed => "UPDATE_FAILED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Enabled => "ENABLED",
+                Self::Paused => "PAUSED",
+                Self::Disabled => "DISABLED",
+                Self::UpdateFailed => "UPDATE_FAILED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1154,5 +1154,562 @@ pub mod cloud_scheduler_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod cloud_scheduler_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with CloudSchedulerServer.
+    #[async_trait]
+    pub trait CloudScheduler: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists jobs.
+        async fn list_jobs(
+            &self,
+            request: tonic::Request<super::ListJobsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListJobsResponse>,
+            tonic::Status,
+        >;
+        /// Gets a job.
+        async fn get_job(
+            &self,
+            request: tonic::Request<super::GetJobRequest>,
+        ) -> std::result::Result<tonic::Response<super::Job>, tonic::Status>;
+        /// Creates a job.
+        async fn create_job(
+            &self,
+            request: tonic::Request<super::CreateJobRequest>,
+        ) -> std::result::Result<tonic::Response<super::Job>, tonic::Status>;
+        /// Updates a job.
+        ///
+        /// If successful, the updated [Job][google.cloud.scheduler.v1beta1.Job] is
+        /// returned. If the job does not exist, `NOT_FOUND` is returned.
+        ///
+        /// If UpdateJob does not successfully return, it is possible for the
+        /// job to be in an
+        /// [Job.State.UPDATE_FAILED][google.cloud.scheduler.v1beta1.Job.State.UPDATE_FAILED]
+        /// state. A job in this state may not be executed. If this happens, retry the
+        /// UpdateJob request until a successful response is received.
+        async fn update_job(
+            &self,
+            request: tonic::Request<super::UpdateJobRequest>,
+        ) -> std::result::Result<tonic::Response<super::Job>, tonic::Status>;
+        /// Deletes a job.
+        async fn delete_job(
+            &self,
+            request: tonic::Request<super::DeleteJobRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Pauses a job.
+        ///
+        /// If a job is paused then the system will stop executing the job
+        /// until it is re-enabled via
+        /// [ResumeJob][google.cloud.scheduler.v1beta1.CloudScheduler.ResumeJob]. The
+        /// state of the job is stored in
+        /// [state][google.cloud.scheduler.v1beta1.Job.state]; if paused it will be set
+        /// to [Job.State.PAUSED][google.cloud.scheduler.v1beta1.Job.State.PAUSED]. A
+        /// job must be in
+        /// [Job.State.ENABLED][google.cloud.scheduler.v1beta1.Job.State.ENABLED] to be
+        /// paused.
+        async fn pause_job(
+            &self,
+            request: tonic::Request<super::PauseJobRequest>,
+        ) -> std::result::Result<tonic::Response<super::Job>, tonic::Status>;
+        /// Resume a job.
+        ///
+        /// This method reenables a job after it has been
+        /// [Job.State.PAUSED][google.cloud.scheduler.v1beta1.Job.State.PAUSED]. The
+        /// state of a job is stored in
+        /// [Job.state][google.cloud.scheduler.v1beta1.Job.state]; after calling this
+        /// method it will be set to
+        /// [Job.State.ENABLED][google.cloud.scheduler.v1beta1.Job.State.ENABLED]. A
+        /// job must be in
+        /// [Job.State.PAUSED][google.cloud.scheduler.v1beta1.Job.State.PAUSED] to be
+        /// resumed.
+        async fn resume_job(
+            &self,
+            request: tonic::Request<super::ResumeJobRequest>,
+        ) -> std::result::Result<tonic::Response<super::Job>, tonic::Status>;
+        /// Forces a job to run now.
+        ///
+        /// When this method is called, Cloud Scheduler will dispatch the job, even
+        /// if the job is already running.
+        async fn run_job(
+            &self,
+            request: tonic::Request<super::RunJobRequest>,
+        ) -> std::result::Result<tonic::Response<super::Job>, tonic::Status>;
+    }
+    /// The Cloud Scheduler API allows external entities to reliably
+    /// schedule asynchronous jobs.
+    #[derive(Debug)]
+    pub struct CloudSchedulerServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> CloudSchedulerServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for CloudSchedulerServer<T>
+    where
+        T: CloudScheduler,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.scheduler.v1beta1.CloudScheduler/ListJobs" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListJobsSvc<T: CloudScheduler>(pub Arc<T>);
+                    impl<
+                        T: CloudScheduler,
+                    > tonic::server::UnaryService<super::ListJobsRequest>
+                    for ListJobsSvc<T> {
+                        type Response = super::ListJobsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListJobsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudScheduler>::list_jobs(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListJobsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.scheduler.v1beta1.CloudScheduler/GetJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetJobSvc<T: CloudScheduler>(pub Arc<T>);
+                    impl<
+                        T: CloudScheduler,
+                    > tonic::server::UnaryService<super::GetJobRequest>
+                    for GetJobSvc<T> {
+                        type Response = super::Job;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudScheduler>::get_job(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.scheduler.v1beta1.CloudScheduler/CreateJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateJobSvc<T: CloudScheduler>(pub Arc<T>);
+                    impl<
+                        T: CloudScheduler,
+                    > tonic::server::UnaryService<super::CreateJobRequest>
+                    for CreateJobSvc<T> {
+                        type Response = super::Job;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudScheduler>::create_job(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.scheduler.v1beta1.CloudScheduler/UpdateJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateJobSvc<T: CloudScheduler>(pub Arc<T>);
+                    impl<
+                        T: CloudScheduler,
+                    > tonic::server::UnaryService<super::UpdateJobRequest>
+                    for UpdateJobSvc<T> {
+                        type Response = super::Job;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudScheduler>::update_job(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.scheduler.v1beta1.CloudScheduler/DeleteJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteJobSvc<T: CloudScheduler>(pub Arc<T>);
+                    impl<
+                        T: CloudScheduler,
+                    > tonic::server::UnaryService<super::DeleteJobRequest>
+                    for DeleteJobSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudScheduler>::delete_job(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.scheduler.v1beta1.CloudScheduler/PauseJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct PauseJobSvc<T: CloudScheduler>(pub Arc<T>);
+                    impl<
+                        T: CloudScheduler,
+                    > tonic::server::UnaryService<super::PauseJobRequest>
+                    for PauseJobSvc<T> {
+                        type Response = super::Job;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::PauseJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudScheduler>::pause_job(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = PauseJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.scheduler.v1beta1.CloudScheduler/ResumeJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct ResumeJobSvc<T: CloudScheduler>(pub Arc<T>);
+                    impl<
+                        T: CloudScheduler,
+                    > tonic::server::UnaryService<super::ResumeJobRequest>
+                    for ResumeJobSvc<T> {
+                        type Response = super::Job;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ResumeJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudScheduler>::resume_job(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ResumeJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.scheduler.v1beta1.CloudScheduler/RunJob" => {
+                    #[allow(non_camel_case_types)]
+                    struct RunJobSvc<T: CloudScheduler>(pub Arc<T>);
+                    impl<
+                        T: CloudScheduler,
+                    > tonic::server::UnaryService<super::RunJobRequest>
+                    for RunJobSvc<T> {
+                        type Response = super::Job;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RunJobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudScheduler>::run_job(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RunJobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for CloudSchedulerServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.scheduler.v1beta1.CloudScheduler";
+    impl<T> tonic::server::NamedService for CloudSchedulerServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

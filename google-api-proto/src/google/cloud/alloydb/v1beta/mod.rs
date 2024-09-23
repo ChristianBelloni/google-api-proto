@@ -54,8 +54,8 @@ pub mod migration_source {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                MigrationSourceType::Unspecified => "MIGRATION_SOURCE_TYPE_UNSPECIFIED",
-                MigrationSourceType::Dms => "DMS",
+                Self::Unspecified => "MIGRATION_SOURCE_TYPE_UNSPECIFIED",
+                Self::Dms => "DMS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -121,9 +121,9 @@ pub mod encryption_info {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::GoogleDefaultEncryption => "GOOGLE_DEFAULT_ENCRYPTION",
-                Type::CustomerManagedEncryption => "CUSTOMER_MANAGED_ENCRYPTION",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::GoogleDefaultEncryption => "GOOGLE_DEFAULT_ENCRYPTION",
+                Self::CustomerManagedEncryption => "CUSTOMER_MANAGED_ENCRYPTION",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -188,14 +188,12 @@ pub mod ssl_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                SslMode::Unspecified => "SSL_MODE_UNSPECIFIED",
-                SslMode::Allow => "SSL_MODE_ALLOW",
-                SslMode::Require => "SSL_MODE_REQUIRE",
-                SslMode::VerifyCa => "SSL_MODE_VERIFY_CA",
-                SslMode::AllowUnencryptedAndEncrypted => {
-                    "ALLOW_UNENCRYPTED_AND_ENCRYPTED"
-                }
-                SslMode::EncryptedOnly => "ENCRYPTED_ONLY",
+                Self::Unspecified => "SSL_MODE_UNSPECIFIED",
+                Self::Allow => "SSL_MODE_ALLOW",
+                Self::Require => "SSL_MODE_REQUIRE",
+                Self::VerifyCa => "SSL_MODE_VERIFY_CA",
+                Self::AllowUnencryptedAndEncrypted => "ALLOW_UNENCRYPTED_AND_ENCRYPTED",
+                Self::EncryptedOnly => "ENCRYPTED_ONLY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -240,8 +238,8 @@ pub mod ssl_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                CaSource::Unspecified => "CA_SOURCE_UNSPECIFIED",
-                CaSource::Managed => "CA_SOURCE_MANAGED",
+                Self::Unspecified => "CA_SOURCE_UNSPECIFIED",
+                Self::Managed => "CA_SOURCE_MANAGED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -726,16 +724,16 @@ pub mod cluster {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Ready => "READY",
-                State::Stopped => "STOPPED",
-                State::Empty => "EMPTY",
-                State::Creating => "CREATING",
-                State::Deleting => "DELETING",
-                State::Failed => "FAILED",
-                State::Bootstrapping => "BOOTSTRAPPING",
-                State::Maintenance => "MAINTENANCE",
-                State::Promoting => "PROMOTING",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Ready => "READY",
+                Self::Stopped => "STOPPED",
+                Self::Empty => "EMPTY",
+                Self::Creating => "CREATING",
+                Self::Deleting => "DELETING",
+                Self::Failed => "FAILED",
+                Self::Bootstrapping => "BOOTSTRAPPING",
+                Self::Maintenance => "MAINTENANCE",
+                Self::Promoting => "PROMOTING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -784,9 +782,9 @@ pub mod cluster {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ClusterType::Unspecified => "CLUSTER_TYPE_UNSPECIFIED",
-                ClusterType::Primary => "PRIMARY",
-                ClusterType::Secondary => "SECONDARY",
+                Self::Unspecified => "CLUSTER_TYPE_UNSPECIFIED",
+                Self::Primary => "PRIMARY",
+                Self::Secondary => "SECONDARY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1060,9 +1058,9 @@ pub mod instance {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    Mode::Unspecified => "MODE_UNSPECIFIED",
-                    Mode::Default => "DEFAULT",
-                    Mode::ForceApply => "FORCE_APPLY",
+                    Self::Unspecified => "MODE_UNSPECIFIED",
+                    Self::Default => "DEFAULT",
+                    Self::ForceApply => "FORCE_APPLY",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1221,15 +1219,15 @@ pub mod instance {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Ready => "READY",
-                State::Stopped => "STOPPED",
-                State::Creating => "CREATING",
-                State::Deleting => "DELETING",
-                State::Maintenance => "MAINTENANCE",
-                State::Failed => "FAILED",
-                State::Bootstrapping => "BOOTSTRAPPING",
-                State::Promoting => "PROMOTING",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Ready => "READY",
+                Self::Stopped => "STOPPED",
+                Self::Creating => "CREATING",
+                Self::Deleting => "DELETING",
+                Self::Maintenance => "MAINTENANCE",
+                Self::Failed => "FAILED",
+                Self::Bootstrapping => "BOOTSTRAPPING",
+                Self::Promoting => "PROMOTING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1283,10 +1281,10 @@ pub mod instance {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                InstanceType::Unspecified => "INSTANCE_TYPE_UNSPECIFIED",
-                InstanceType::Primary => "PRIMARY",
-                InstanceType::ReadPool => "READ_POOL",
-                InstanceType::Secondary => "SECONDARY",
+                Self::Unspecified => "INSTANCE_TYPE_UNSPECIFIED",
+                Self::Primary => "PRIMARY",
+                Self::ReadPool => "READ_POOL",
+                Self::Secondary => "SECONDARY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1333,9 +1331,9 @@ pub mod instance {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                AvailabilityType::Unspecified => "AVAILABILITY_TYPE_UNSPECIFIED",
-                AvailabilityType::Zonal => "ZONAL",
-                AvailabilityType::Regional => "REGIONAL",
+                Self::Unspecified => "AVAILABILITY_TYPE_UNSPECIFIED",
+                Self::Zonal => "ZONAL",
+                Self::Regional => "REGIONAL",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1539,11 +1537,11 @@ pub mod backup {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Ready => "READY",
-                State::Creating => "CREATING",
-                State::Failed => "FAILED",
-                State::Deleting => "DELETING",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Ready => "READY",
+                Self::Creating => "CREATING",
+                Self::Failed => "FAILED",
+                Self::Deleting => "DELETING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1591,10 +1589,10 @@ pub mod backup {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::OnDemand => "ON_DEMAND",
-                Type::Automated => "AUTOMATED",
-                Type::Continuous => "CONTINUOUS",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::OnDemand => "ON_DEMAND",
+                Self::Automated => "AUTOMATED",
+                Self::Continuous => "CONTINUOUS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1698,11 +1696,11 @@ pub mod supported_database_flag {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ValueType::Unspecified => "VALUE_TYPE_UNSPECIFIED",
-                ValueType::String => "STRING",
-                ValueType::Integer => "INTEGER",
-                ValueType::Float => "FLOAT",
-                ValueType::None => "NONE",
+                Self::Unspecified => "VALUE_TYPE_UNSPECIFIED",
+                Self::String => "STRING",
+                Self::Integer => "INTEGER",
+                Self::Float => "FLOAT",
+                Self::None => "NONE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1777,9 +1775,9 @@ pub mod user {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                UserType::Unspecified => "USER_TYPE_UNSPECIFIED",
-                UserType::AlloydbBuiltIn => "ALLOYDB_BUILT_IN",
-                UserType::AlloydbIamUser => "ALLOYDB_IAM_USER",
+                Self::Unspecified => "USER_TYPE_UNSPECIFIED",
+                Self::AlloydbBuiltIn => "ALLOYDB_BUILT_IN",
+                Self::AlloydbIamUser => "ALLOYDB_IAM_USER",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1833,9 +1831,9 @@ impl InstanceView {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            InstanceView::Unspecified => "INSTANCE_VIEW_UNSPECIFIED",
-            InstanceView::Basic => "INSTANCE_VIEW_BASIC",
-            InstanceView::Full => "INSTANCE_VIEW_FULL",
+            Self::Unspecified => "INSTANCE_VIEW_UNSPECIFIED",
+            Self::Basic => "INSTANCE_VIEW_BASIC",
+            Self::Full => "INSTANCE_VIEW_FULL",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1871,9 +1869,9 @@ impl ClusterView {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ClusterView::Unspecified => "CLUSTER_VIEW_UNSPECIFIED",
-            ClusterView::Basic => "CLUSTER_VIEW_BASIC",
-            ClusterView::ContinuousBackup => "CLUSTER_VIEW_CONTINUOUS_BACKUP",
+            Self::Unspecified => "CLUSTER_VIEW_UNSPECIFIED",
+            Self::Basic => "CLUSTER_VIEW_BASIC",
+            Self::ContinuousBackup => "CLUSTER_VIEW_CONTINUOUS_BACKUP",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1906,10 +1904,10 @@ impl DatabaseVersion {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            DatabaseVersion::Unspecified => "DATABASE_VERSION_UNSPECIFIED",
-            DatabaseVersion::Postgres13 => "POSTGRES_13",
-            DatabaseVersion::Postgres14 => "POSTGRES_14",
-            DatabaseVersion::Postgres15 => "POSTGRES_15",
+            Self::Unspecified => "DATABASE_VERSION_UNSPECIFIED",
+            Self::Postgres13 => "POSTGRES_13",
+            Self::Postgres14 => "POSTGRES_14",
+            Self::Postgres15 => "POSTGRES_15",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2457,13 +2455,13 @@ pub mod batch_create_instance_status {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::PendingCreate => "PENDING_CREATE",
-                State::Ready => "READY",
-                State::Creating => "CREATING",
-                State::Deleting => "DELETING",
-                State::Failed => "FAILED",
-                State::RolledBack => "ROLLED_BACK",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::PendingCreate => "PENDING_CREATE",
+                Self::Ready => "READY",
+                Self::Creating => "CREATING",
+                Self::Deleting => "DELETING",
+                Self::Failed => "FAILED",
+                Self::RolledBack => "ROLLED_BACK",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2638,8 +2636,8 @@ pub mod inject_fault_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                FaultType::Unspecified => "FAULT_TYPE_UNSPECIFIED",
-                FaultType::StopVm => "STOP_VM",
+                Self::Unspecified => "FAULT_TYPE_UNSPECIFIED",
+                Self::StopVm => "STOP_VM",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -4208,5 +4206,1848 @@ pub mod alloy_db_admin_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod alloy_db_admin_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with AlloyDbAdminServer.
+    #[async_trait]
+    pub trait AlloyDbAdmin: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists Clusters in a given project and location.
+        async fn list_clusters(
+            &self,
+            request: tonic::Request<super::ListClustersRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListClustersResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single Cluster.
+        async fn get_cluster(
+            &self,
+            request: tonic::Request<super::GetClusterRequest>,
+        ) -> std::result::Result<tonic::Response<super::Cluster>, tonic::Status>;
+        /// Creates a new Cluster in a given project and location.
+        async fn create_cluster(
+            &self,
+            request: tonic::Request<super::CreateClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the parameters of a single Cluster.
+        async fn update_cluster(
+            &self,
+            request: tonic::Request<super::UpdateClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single Cluster.
+        async fn delete_cluster(
+            &self,
+            request: tonic::Request<super::DeleteClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Promotes a SECONDARY cluster. This turns down replication
+        /// from the PRIMARY cluster and promotes a secondary cluster
+        /// into its own standalone cluster.
+        /// Imperative only.
+        async fn promote_cluster(
+            &self,
+            request: tonic::Request<super::PromoteClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Creates a new Cluster in a given project and location, with a volume
+        /// restored from the provided source, either a backup ID or a point-in-time
+        /// and a source cluster.
+        async fn restore_cluster(
+            &self,
+            request: tonic::Request<super::RestoreClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Creates a cluster of type SECONDARY in the given location using
+        /// the primary cluster as the source.
+        async fn create_secondary_cluster(
+            &self,
+            request: tonic::Request<super::CreateSecondaryClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists Instances in a given project and location.
+        async fn list_instances(
+            &self,
+            request: tonic::Request<super::ListInstancesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListInstancesResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single Instance.
+        async fn get_instance(
+            &self,
+            request: tonic::Request<super::GetInstanceRequest>,
+        ) -> std::result::Result<tonic::Response<super::Instance>, tonic::Status>;
+        /// Creates a new Instance in a given project and location.
+        async fn create_instance(
+            &self,
+            request: tonic::Request<super::CreateInstanceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Creates a new SECONDARY Instance in a given project and location.
+        async fn create_secondary_instance(
+            &self,
+            request: tonic::Request<super::CreateSecondaryInstanceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Creates new instances under the given project, location and cluster.
+        /// There can be only one primary instance in a cluster. If the primary
+        /// instance exists in the cluster as well as this request, then API will
+        /// throw an error.
+        /// The primary instance should exist before any read pool instance is
+        /// created. If the primary instance is a part of the request payload, then
+        /// the API will take care of creating instances in the correct order.
+        /// This method is here to support Google-internal use cases, and is not meant
+        /// for external customers to consume. Please do not start relying on it; its
+        /// behavior is subject to change without notice.
+        async fn batch_create_instances(
+            &self,
+            request: tonic::Request<super::BatchCreateInstancesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the parameters of a single Instance.
+        async fn update_instance(
+            &self,
+            request: tonic::Request<super::UpdateInstanceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single Instance.
+        async fn delete_instance(
+            &self,
+            request: tonic::Request<super::DeleteInstanceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Forces a Failover for a highly available instance.
+        /// Failover promotes the HA standby instance as the new primary.
+        /// Imperative only.
+        async fn failover_instance(
+            &self,
+            request: tonic::Request<super::FailoverInstanceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Injects fault in an instance.
+        /// Imperative only.
+        async fn inject_fault(
+            &self,
+            request: tonic::Request<super::InjectFaultRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Restart an Instance in a cluster.
+        /// Imperative only.
+        async fn restart_instance(
+            &self,
+            request: tonic::Request<super::RestartInstanceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists Backups in a given project and location.
+        async fn list_backups(
+            &self,
+            request: tonic::Request<super::ListBackupsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListBackupsResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single Backup.
+        async fn get_backup(
+            &self,
+            request: tonic::Request<super::GetBackupRequest>,
+        ) -> std::result::Result<tonic::Response<super::Backup>, tonic::Status>;
+        /// Creates a new Backup in a given project and location.
+        async fn create_backup(
+            &self,
+            request: tonic::Request<super::CreateBackupRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the parameters of a single Backup.
+        async fn update_backup(
+            &self,
+            request: tonic::Request<super::UpdateBackupRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single Backup.
+        async fn delete_backup(
+            &self,
+            request: tonic::Request<super::DeleteBackupRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists SupportedDatabaseFlags for a given project and location.
+        async fn list_supported_database_flags(
+            &self,
+            request: tonic::Request<super::ListSupportedDatabaseFlagsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListSupportedDatabaseFlagsResponse>,
+            tonic::Status,
+        >;
+        /// Generate a client certificate signed by a Cluster CA.
+        /// The sole purpose of this endpoint is to support AlloyDB connectors and the
+        /// Auth Proxy client. The endpoint's behavior is subject to change without
+        /// notice, so do not rely on its behavior remaining constant. Future changes
+        /// will not break AlloyDB connectors or the Auth Proxy client.
+        async fn generate_client_certificate(
+            &self,
+            request: tonic::Request<super::GenerateClientCertificateRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::GenerateClientCertificateResponse>,
+            tonic::Status,
+        >;
+        /// Get instance metadata used for a connection.
+        async fn get_connection_info(
+            &self,
+            request: tonic::Request<super::GetConnectionInfoRequest>,
+        ) -> std::result::Result<tonic::Response<super::ConnectionInfo>, tonic::Status>;
+        /// Lists Users in a given project and location.
+        async fn list_users(
+            &self,
+            request: tonic::Request<super::ListUsersRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListUsersResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single User.
+        async fn get_user(
+            &self,
+            request: tonic::Request<super::GetUserRequest>,
+        ) -> std::result::Result<tonic::Response<super::User>, tonic::Status>;
+        /// Creates a new User in a given project, location, and cluster.
+        async fn create_user(
+            &self,
+            request: tonic::Request<super::CreateUserRequest>,
+        ) -> std::result::Result<tonic::Response<super::User>, tonic::Status>;
+        /// Updates the parameters of a single User.
+        async fn update_user(
+            &self,
+            request: tonic::Request<super::UpdateUserRequest>,
+        ) -> std::result::Result<tonic::Response<super::User>, tonic::Status>;
+        /// Deletes a single User.
+        async fn delete_user(
+            &self,
+            request: tonic::Request<super::DeleteUserRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Lists Databases in a given project and location.
+        async fn list_databases(
+            &self,
+            request: tonic::Request<super::ListDatabasesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDatabasesResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Service describing handlers for resources
+    #[derive(Debug)]
+    pub struct AlloyDbAdminServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> AlloyDbAdminServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for AlloyDbAdminServer<T>
+    where
+        T: AlloyDbAdmin,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.alloydb.v1beta.AlloyDBAdmin/ListClusters" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListClustersSvc<T: AlloyDbAdmin>(pub Arc<T>);
+                    impl<
+                        T: AlloyDbAdmin,
+                    > tonic::server::UnaryService<super::ListClustersRequest>
+                    for ListClustersSvc<T> {
+                        type Response = super::ListClustersResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListClustersRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlloyDbAdmin>::list_clusters(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListClustersSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.alloydb.v1beta.AlloyDBAdmin/GetCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetClusterSvc<T: AlloyDbAdmin>(pub Arc<T>);
+                    impl<
+                        T: AlloyDbAdmin,
+                    > tonic::server::UnaryService<super::GetClusterRequest>
+                    for GetClusterSvc<T> {
+                        type Response = super::Cluster;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlloyDbAdmin>::get_cluster(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.alloydb.v1beta.AlloyDBAdmin/CreateCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateClusterSvc<T: AlloyDbAdmin>(pub Arc<T>);
+                    impl<
+                        T: AlloyDbAdmin,
+                    > tonic::server::UnaryService<super::CreateClusterRequest>
+                    for CreateClusterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlloyDbAdmin>::create_cluster(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.alloydb.v1beta.AlloyDBAdmin/UpdateCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateClusterSvc<T: AlloyDbAdmin>(pub Arc<T>);
+                    impl<
+                        T: AlloyDbAdmin,
+                    > tonic::server::UnaryService<super::UpdateClusterRequest>
+                    for UpdateClusterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlloyDbAdmin>::update_cluster(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.alloydb.v1beta.AlloyDBAdmin/DeleteCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteClusterSvc<T: AlloyDbAdmin>(pub Arc<T>);
+                    impl<
+                        T: AlloyDbAdmin,
+                    > tonic::server::UnaryService<super::DeleteClusterRequest>
+                    for DeleteClusterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlloyDbAdmin>::delete_cluster(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.alloydb.v1beta.AlloyDBAdmin/PromoteCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct PromoteClusterSvc<T: AlloyDbAdmin>(pub Arc<T>);
+                    impl<
+                        T: AlloyDbAdmin,
+                    > tonic::server::UnaryService<super::PromoteClusterRequest>
+                    for PromoteClusterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::PromoteClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlloyDbAdmin>::promote_cluster(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = PromoteClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.alloydb.v1beta.AlloyDBAdmin/RestoreCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct RestoreClusterSvc<T: AlloyDbAdmin>(pub Arc<T>);
+                    impl<
+                        T: AlloyDbAdmin,
+                    > tonic::server::UnaryService<super::RestoreClusterRequest>
+                    for RestoreClusterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RestoreClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlloyDbAdmin>::restore_cluster(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RestoreClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.alloydb.v1beta.AlloyDBAdmin/CreateSecondaryCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateSecondaryClusterSvc<T: AlloyDbAdmin>(pub Arc<T>);
+                    impl<
+                        T: AlloyDbAdmin,
+                    > tonic::server::UnaryService<super::CreateSecondaryClusterRequest>
+                    for CreateSecondaryClusterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateSecondaryClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlloyDbAdmin>::create_secondary_cluster(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateSecondaryClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.alloydb.v1beta.AlloyDBAdmin/ListInstances" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListInstancesSvc<T: AlloyDbAdmin>(pub Arc<T>);
+                    impl<
+                        T: AlloyDbAdmin,
+                    > tonic::server::UnaryService<super::ListInstancesRequest>
+                    for ListInstancesSvc<T> {
+                        type Response = super::ListInstancesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListInstancesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlloyDbAdmin>::list_instances(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListInstancesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.alloydb.v1beta.AlloyDBAdmin/GetInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetInstanceSvc<T: AlloyDbAdmin>(pub Arc<T>);
+                    impl<
+                        T: AlloyDbAdmin,
+                    > tonic::server::UnaryService<super::GetInstanceRequest>
+                    for GetInstanceSvc<T> {
+                        type Response = super::Instance;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetInstanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlloyDbAdmin>::get_instance(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.alloydb.v1beta.AlloyDBAdmin/CreateInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateInstanceSvc<T: AlloyDbAdmin>(pub Arc<T>);
+                    impl<
+                        T: AlloyDbAdmin,
+                    > tonic::server::UnaryService<super::CreateInstanceRequest>
+                    for CreateInstanceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateInstanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlloyDbAdmin>::create_instance(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.alloydb.v1beta.AlloyDBAdmin/CreateSecondaryInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateSecondaryInstanceSvc<T: AlloyDbAdmin>(pub Arc<T>);
+                    impl<
+                        T: AlloyDbAdmin,
+                    > tonic::server::UnaryService<super::CreateSecondaryInstanceRequest>
+                    for CreateSecondaryInstanceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateSecondaryInstanceRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlloyDbAdmin>::create_secondary_instance(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateSecondaryInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.alloydb.v1beta.AlloyDBAdmin/BatchCreateInstances" => {
+                    #[allow(non_camel_case_types)]
+                    struct BatchCreateInstancesSvc<T: AlloyDbAdmin>(pub Arc<T>);
+                    impl<
+                        T: AlloyDbAdmin,
+                    > tonic::server::UnaryService<super::BatchCreateInstancesRequest>
+                    for BatchCreateInstancesSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::BatchCreateInstancesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlloyDbAdmin>::batch_create_instances(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BatchCreateInstancesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.alloydb.v1beta.AlloyDBAdmin/UpdateInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateInstanceSvc<T: AlloyDbAdmin>(pub Arc<T>);
+                    impl<
+                        T: AlloyDbAdmin,
+                    > tonic::server::UnaryService<super::UpdateInstanceRequest>
+                    for UpdateInstanceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateInstanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlloyDbAdmin>::update_instance(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.alloydb.v1beta.AlloyDBAdmin/DeleteInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteInstanceSvc<T: AlloyDbAdmin>(pub Arc<T>);
+                    impl<
+                        T: AlloyDbAdmin,
+                    > tonic::server::UnaryService<super::DeleteInstanceRequest>
+                    for DeleteInstanceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteInstanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlloyDbAdmin>::delete_instance(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.alloydb.v1beta.AlloyDBAdmin/FailoverInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct FailoverInstanceSvc<T: AlloyDbAdmin>(pub Arc<T>);
+                    impl<
+                        T: AlloyDbAdmin,
+                    > tonic::server::UnaryService<super::FailoverInstanceRequest>
+                    for FailoverInstanceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::FailoverInstanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlloyDbAdmin>::failover_instance(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = FailoverInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.alloydb.v1beta.AlloyDBAdmin/InjectFault" => {
+                    #[allow(non_camel_case_types)]
+                    struct InjectFaultSvc<T: AlloyDbAdmin>(pub Arc<T>);
+                    impl<
+                        T: AlloyDbAdmin,
+                    > tonic::server::UnaryService<super::InjectFaultRequest>
+                    for InjectFaultSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::InjectFaultRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlloyDbAdmin>::inject_fault(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = InjectFaultSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.alloydb.v1beta.AlloyDBAdmin/RestartInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct RestartInstanceSvc<T: AlloyDbAdmin>(pub Arc<T>);
+                    impl<
+                        T: AlloyDbAdmin,
+                    > tonic::server::UnaryService<super::RestartInstanceRequest>
+                    for RestartInstanceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RestartInstanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlloyDbAdmin>::restart_instance(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RestartInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.alloydb.v1beta.AlloyDBAdmin/ListBackups" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListBackupsSvc<T: AlloyDbAdmin>(pub Arc<T>);
+                    impl<
+                        T: AlloyDbAdmin,
+                    > tonic::server::UnaryService<super::ListBackupsRequest>
+                    for ListBackupsSvc<T> {
+                        type Response = super::ListBackupsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListBackupsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlloyDbAdmin>::list_backups(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListBackupsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.alloydb.v1beta.AlloyDBAdmin/GetBackup" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetBackupSvc<T: AlloyDbAdmin>(pub Arc<T>);
+                    impl<
+                        T: AlloyDbAdmin,
+                    > tonic::server::UnaryService<super::GetBackupRequest>
+                    for GetBackupSvc<T> {
+                        type Response = super::Backup;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetBackupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlloyDbAdmin>::get_backup(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetBackupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.alloydb.v1beta.AlloyDBAdmin/CreateBackup" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateBackupSvc<T: AlloyDbAdmin>(pub Arc<T>);
+                    impl<
+                        T: AlloyDbAdmin,
+                    > tonic::server::UnaryService<super::CreateBackupRequest>
+                    for CreateBackupSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateBackupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlloyDbAdmin>::create_backup(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateBackupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.alloydb.v1beta.AlloyDBAdmin/UpdateBackup" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateBackupSvc<T: AlloyDbAdmin>(pub Arc<T>);
+                    impl<
+                        T: AlloyDbAdmin,
+                    > tonic::server::UnaryService<super::UpdateBackupRequest>
+                    for UpdateBackupSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateBackupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlloyDbAdmin>::update_backup(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateBackupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.alloydb.v1beta.AlloyDBAdmin/DeleteBackup" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteBackupSvc<T: AlloyDbAdmin>(pub Arc<T>);
+                    impl<
+                        T: AlloyDbAdmin,
+                    > tonic::server::UnaryService<super::DeleteBackupRequest>
+                    for DeleteBackupSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteBackupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlloyDbAdmin>::delete_backup(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteBackupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.alloydb.v1beta.AlloyDBAdmin/ListSupportedDatabaseFlags" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListSupportedDatabaseFlagsSvc<T: AlloyDbAdmin>(pub Arc<T>);
+                    impl<
+                        T: AlloyDbAdmin,
+                    > tonic::server::UnaryService<
+                        super::ListSupportedDatabaseFlagsRequest,
+                    > for ListSupportedDatabaseFlagsSvc<T> {
+                        type Response = super::ListSupportedDatabaseFlagsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListSupportedDatabaseFlagsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlloyDbAdmin>::list_supported_database_flags(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListSupportedDatabaseFlagsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.alloydb.v1beta.AlloyDBAdmin/GenerateClientCertificate" => {
+                    #[allow(non_camel_case_types)]
+                    struct GenerateClientCertificateSvc<T: AlloyDbAdmin>(pub Arc<T>);
+                    impl<
+                        T: AlloyDbAdmin,
+                    > tonic::server::UnaryService<
+                        super::GenerateClientCertificateRequest,
+                    > for GenerateClientCertificateSvc<T> {
+                        type Response = super::GenerateClientCertificateResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GenerateClientCertificateRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlloyDbAdmin>::generate_client_certificate(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GenerateClientCertificateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.alloydb.v1beta.AlloyDBAdmin/GetConnectionInfo" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetConnectionInfoSvc<T: AlloyDbAdmin>(pub Arc<T>);
+                    impl<
+                        T: AlloyDbAdmin,
+                    > tonic::server::UnaryService<super::GetConnectionInfoRequest>
+                    for GetConnectionInfoSvc<T> {
+                        type Response = super::ConnectionInfo;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetConnectionInfoRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlloyDbAdmin>::get_connection_info(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetConnectionInfoSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.alloydb.v1beta.AlloyDBAdmin/ListUsers" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListUsersSvc<T: AlloyDbAdmin>(pub Arc<T>);
+                    impl<
+                        T: AlloyDbAdmin,
+                    > tonic::server::UnaryService<super::ListUsersRequest>
+                    for ListUsersSvc<T> {
+                        type Response = super::ListUsersResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListUsersRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlloyDbAdmin>::list_users(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListUsersSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.alloydb.v1beta.AlloyDBAdmin/GetUser" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetUserSvc<T: AlloyDbAdmin>(pub Arc<T>);
+                    impl<
+                        T: AlloyDbAdmin,
+                    > tonic::server::UnaryService<super::GetUserRequest>
+                    for GetUserSvc<T> {
+                        type Response = super::User;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetUserRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlloyDbAdmin>::get_user(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetUserSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.alloydb.v1beta.AlloyDBAdmin/CreateUser" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateUserSvc<T: AlloyDbAdmin>(pub Arc<T>);
+                    impl<
+                        T: AlloyDbAdmin,
+                    > tonic::server::UnaryService<super::CreateUserRequest>
+                    for CreateUserSvc<T> {
+                        type Response = super::User;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateUserRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlloyDbAdmin>::create_user(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateUserSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.alloydb.v1beta.AlloyDBAdmin/UpdateUser" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateUserSvc<T: AlloyDbAdmin>(pub Arc<T>);
+                    impl<
+                        T: AlloyDbAdmin,
+                    > tonic::server::UnaryService<super::UpdateUserRequest>
+                    for UpdateUserSvc<T> {
+                        type Response = super::User;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateUserRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlloyDbAdmin>::update_user(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateUserSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.alloydb.v1beta.AlloyDBAdmin/DeleteUser" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteUserSvc<T: AlloyDbAdmin>(pub Arc<T>);
+                    impl<
+                        T: AlloyDbAdmin,
+                    > tonic::server::UnaryService<super::DeleteUserRequest>
+                    for DeleteUserSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteUserRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlloyDbAdmin>::delete_user(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteUserSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.alloydb.v1beta.AlloyDBAdmin/ListDatabases" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDatabasesSvc<T: AlloyDbAdmin>(pub Arc<T>);
+                    impl<
+                        T: AlloyDbAdmin,
+                    > tonic::server::UnaryService<super::ListDatabasesRequest>
+                    for ListDatabasesSvc<T> {
+                        type Response = super::ListDatabasesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListDatabasesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlloyDbAdmin>::list_databases(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDatabasesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for AlloyDbAdminServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.alloydb.v1beta.AlloyDBAdmin";
+    impl<T> tonic::server::NamedService for AlloyDbAdminServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

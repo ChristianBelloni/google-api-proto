@@ -1027,10 +1027,10 @@ impl LabelDetectionMode {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            LabelDetectionMode::Unspecified => "LABEL_DETECTION_MODE_UNSPECIFIED",
-            LabelDetectionMode::ShotMode => "SHOT_MODE",
-            LabelDetectionMode::FrameMode => "FRAME_MODE",
-            LabelDetectionMode::ShotAndFrameMode => "SHOT_AND_FRAME_MODE",
+            Self::Unspecified => "LABEL_DETECTION_MODE_UNSPECIFIED",
+            Self::ShotMode => "SHOT_MODE",
+            Self::FrameMode => "FRAME_MODE",
+            Self::ShotAndFrameMode => "SHOT_AND_FRAME_MODE",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1068,12 +1068,12 @@ impl Likelihood {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            Likelihood::Unspecified => "LIKELIHOOD_UNSPECIFIED",
-            Likelihood::VeryUnlikely => "VERY_UNLIKELY",
-            Likelihood::Unlikely => "UNLIKELY",
-            Likelihood::Possible => "POSSIBLE",
-            Likelihood::Likely => "LIKELY",
-            Likelihood::VeryLikely => "VERY_LIKELY",
+            Self::Unspecified => "LIKELIHOOD_UNSPECIFIED",
+            Self::VeryUnlikely => "VERY_UNLIKELY",
+            Self::Unlikely => "UNLIKELY",
+            Self::Possible => "POSSIBLE",
+            Self::Likely => "LIKELY",
+            Self::VeryLikely => "VERY_LIKELY",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1117,24 +1117,18 @@ impl StreamingFeature {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            StreamingFeature::Unspecified => "STREAMING_FEATURE_UNSPECIFIED",
-            StreamingFeature::StreamingLabelDetection => "STREAMING_LABEL_DETECTION",
-            StreamingFeature::StreamingShotChangeDetection => {
-                "STREAMING_SHOT_CHANGE_DETECTION"
-            }
-            StreamingFeature::StreamingExplicitContentDetection => {
+            Self::Unspecified => "STREAMING_FEATURE_UNSPECIFIED",
+            Self::StreamingLabelDetection => "STREAMING_LABEL_DETECTION",
+            Self::StreamingShotChangeDetection => "STREAMING_SHOT_CHANGE_DETECTION",
+            Self::StreamingExplicitContentDetection => {
                 "STREAMING_EXPLICIT_CONTENT_DETECTION"
             }
-            StreamingFeature::StreamingObjectTracking => "STREAMING_OBJECT_TRACKING",
-            StreamingFeature::StreamingAutomlActionRecognition => {
+            Self::StreamingObjectTracking => "STREAMING_OBJECT_TRACKING",
+            Self::StreamingAutomlActionRecognition => {
                 "STREAMING_AUTOML_ACTION_RECOGNITION"
             }
-            StreamingFeature::StreamingAutomlClassification => {
-                "STREAMING_AUTOML_CLASSIFICATION"
-            }
-            StreamingFeature::StreamingAutomlObjectTracking => {
-                "STREAMING_AUTOML_OBJECT_TRACKING"
-            }
+            Self::StreamingAutomlClassification => "STREAMING_AUTOML_CLASSIFICATION",
+            Self::StreamingAutomlObjectTracking => "STREAMING_AUTOML_OBJECT_TRACKING",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1194,17 +1188,17 @@ impl Feature {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            Feature::Unspecified => "FEATURE_UNSPECIFIED",
-            Feature::LabelDetection => "LABEL_DETECTION",
-            Feature::ShotChangeDetection => "SHOT_CHANGE_DETECTION",
-            Feature::ExplicitContentDetection => "EXPLICIT_CONTENT_DETECTION",
-            Feature::FaceDetection => "FACE_DETECTION",
-            Feature::SpeechTranscription => "SPEECH_TRANSCRIPTION",
-            Feature::TextDetection => "TEXT_DETECTION",
-            Feature::ObjectTracking => "OBJECT_TRACKING",
-            Feature::LogoRecognition => "LOGO_RECOGNITION",
-            Feature::CelebrityRecognition => "CELEBRITY_RECOGNITION",
-            Feature::PersonDetection => "PERSON_DETECTION",
+            Self::Unspecified => "FEATURE_UNSPECIFIED",
+            Self::LabelDetection => "LABEL_DETECTION",
+            Self::ShotChangeDetection => "SHOT_CHANGE_DETECTION",
+            Self::ExplicitContentDetection => "EXPLICIT_CONTENT_DETECTION",
+            Self::FaceDetection => "FACE_DETECTION",
+            Self::SpeechTranscription => "SPEECH_TRANSCRIPTION",
+            Self::TextDetection => "TEXT_DETECTION",
+            Self::ObjectTracking => "OBJECT_TRACKING",
+            Self::LogoRecognition => "LOGO_RECOGNITION",
+            Self::CelebrityRecognition => "CELEBRITY_RECOGNITION",
+            Self::PersonDetection => "PERSON_DETECTION",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1452,5 +1446,387 @@ pub mod streaming_video_intelligence_service_client {
                 );
             self.inner.streaming(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod video_intelligence_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with VideoIntelligenceServiceServer.
+    #[async_trait]
+    pub trait VideoIntelligenceService: std::marker::Send + std::marker::Sync + 'static {
+        /// Performs asynchronous video annotation. Progress and results can be
+        /// retrieved through the `google.longrunning.Operations` interface.
+        /// `Operation.metadata` contains `AnnotateVideoProgress` (progress).
+        /// `Operation.response` contains `AnnotateVideoResponse` (results).
+        async fn annotate_video(
+            &self,
+            request: tonic::Request<super::AnnotateVideoRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// Service that implements the Video Intelligence API.
+    #[derive(Debug)]
+    pub struct VideoIntelligenceServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> VideoIntelligenceServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for VideoIntelligenceServiceServer<T>
+    where
+        T: VideoIntelligenceService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.videointelligence.v1p3beta1.VideoIntelligenceService/AnnotateVideo" => {
+                    #[allow(non_camel_case_types)]
+                    struct AnnotateVideoSvc<T: VideoIntelligenceService>(pub Arc<T>);
+                    impl<
+                        T: VideoIntelligenceService,
+                    > tonic::server::UnaryService<super::AnnotateVideoRequest>
+                    for AnnotateVideoSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::AnnotateVideoRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as VideoIntelligenceService>::annotate_video(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = AnnotateVideoSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for VideoIntelligenceServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.videointelligence.v1p3beta1.VideoIntelligenceService";
+    impl<T> tonic::server::NamedService for VideoIntelligenceServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}
+/// Generated server implementations.
+pub mod streaming_video_intelligence_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with StreamingVideoIntelligenceServiceServer.
+    #[async_trait]
+    pub trait StreamingVideoIntelligenceService: std::marker::Send + std::marker::Sync + 'static {
+        /// Server streaming response type for the StreamingAnnotateVideo method.
+        type StreamingAnnotateVideoStream: tonic::codegen::tokio_stream::Stream<
+                Item = std::result::Result<
+                    super::StreamingAnnotateVideoResponse,
+                    tonic::Status,
+                >,
+            >
+            + std::marker::Send
+            + 'static;
+        /// Performs video annotation with bidirectional streaming: emitting results
+        /// while sending video/audio bytes.
+        /// This method is only available via the gRPC API (not REST).
+        async fn streaming_annotate_video(
+            &self,
+            request: tonic::Request<
+                tonic::Streaming<super::StreamingAnnotateVideoRequest>,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<Self::StreamingAnnotateVideoStream>,
+            tonic::Status,
+        >;
+    }
+    /// Service that implements streaming Video Intelligence API.
+    #[derive(Debug)]
+    pub struct StreamingVideoIntelligenceServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> StreamingVideoIntelligenceServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for StreamingVideoIntelligenceServiceServer<T>
+    where
+        T: StreamingVideoIntelligenceService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.videointelligence.v1p3beta1.StreamingVideoIntelligenceService/StreamingAnnotateVideo" => {
+                    #[allow(non_camel_case_types)]
+                    struct StreamingAnnotateVideoSvc<
+                        T: StreamingVideoIntelligenceService,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: StreamingVideoIntelligenceService,
+                    > tonic::server::StreamingService<
+                        super::StreamingAnnotateVideoRequest,
+                    > for StreamingAnnotateVideoSvc<T> {
+                        type Response = super::StreamingAnnotateVideoResponse;
+                        type ResponseStream = T::StreamingAnnotateVideoStream;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::ResponseStream>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                tonic::Streaming<super::StreamingAnnotateVideoRequest>,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StreamingVideoIntelligenceService>::streaming_annotate_video(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = StreamingAnnotateVideoSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.streaming(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for StreamingVideoIntelligenceServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.videointelligence.v1p3beta1.StreamingVideoIntelligenceService";
+    impl<T> tonic::server::NamedService for StreamingVideoIntelligenceServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

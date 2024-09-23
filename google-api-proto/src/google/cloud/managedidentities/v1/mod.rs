@@ -99,14 +99,14 @@ pub mod domain {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Ready => "READY",
-                State::Updating => "UPDATING",
-                State::Deleting => "DELETING",
-                State::Repairing => "REPAIRING",
-                State::PerformingMaintenance => "PERFORMING_MAINTENANCE",
-                State::Unavailable => "UNAVAILABLE",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Ready => "READY",
+                Self::Updating => "UPDATING",
+                Self::Deleting => "DELETING",
+                Self::Repairing => "REPAIRING",
+                Self::PerformingMaintenance => "PERFORMING_MAINTENANCE",
+                Self::Unavailable => "UNAVAILABLE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -207,12 +207,12 @@ pub mod trust {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Updating => "UPDATING",
-                State::Deleting => "DELETING",
-                State::Connected => "CONNECTED",
-                State::Disconnected => "DISCONNECTED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Updating => "UPDATING",
+                Self::Deleting => "DELETING",
+                Self::Connected => "CONNECTED",
+                Self::Disconnected => "DISCONNECTED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -256,9 +256,9 @@ pub mod trust {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                TrustType::Unspecified => "TRUST_TYPE_UNSPECIFIED",
-                TrustType::Forest => "FOREST",
-                TrustType::External => "EXTERNAL",
+                Self::Unspecified => "TRUST_TYPE_UNSPECIFIED",
+                Self::Forest => "FOREST",
+                Self::External => "EXTERNAL",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -304,10 +304,10 @@ pub mod trust {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                TrustDirection::Unspecified => "TRUST_DIRECTION_UNSPECIFIED",
-                TrustDirection::Inbound => "INBOUND",
-                TrustDirection::Outbound => "OUTBOUND",
-                TrustDirection::Bidirectional => "BIDIRECTIONAL",
+                Self::Unspecified => "TRUST_DIRECTION_UNSPECIFIED",
+                Self::Inbound => "INBOUND",
+                Self::Outbound => "OUTBOUND",
+                Self::Bidirectional => "BIDIRECTIONAL",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -941,5 +941,729 @@ pub mod managed_identities_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod managed_identities_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with ManagedIdentitiesServiceServer.
+    #[async_trait]
+    pub trait ManagedIdentitiesService: std::marker::Send + std::marker::Sync + 'static {
+        /// Creates a Microsoft AD domain.
+        async fn create_microsoft_ad_domain(
+            &self,
+            request: tonic::Request<super::CreateMicrosoftAdDomainRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Resets a domain's administrator password.
+        async fn reset_admin_password(
+            &self,
+            request: tonic::Request<super::ResetAdminPasswordRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ResetAdminPasswordResponse>,
+            tonic::Status,
+        >;
+        /// Lists domains in a project.
+        async fn list_domains(
+            &self,
+            request: tonic::Request<super::ListDomainsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDomainsResponse>,
+            tonic::Status,
+        >;
+        /// Gets information about a domain.
+        async fn get_domain(
+            &self,
+            request: tonic::Request<super::GetDomainRequest>,
+        ) -> std::result::Result<tonic::Response<super::Domain>, tonic::Status>;
+        /// Updates the metadata and configuration of a domain.
+        async fn update_domain(
+            &self,
+            request: tonic::Request<super::UpdateDomainRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a domain.
+        async fn delete_domain(
+            &self,
+            request: tonic::Request<super::DeleteDomainRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Adds an AD trust to a domain.
+        async fn attach_trust(
+            &self,
+            request: tonic::Request<super::AttachTrustRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the DNS conditional forwarder.
+        async fn reconfigure_trust(
+            &self,
+            request: tonic::Request<super::ReconfigureTrustRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Removes an AD trust.
+        async fn detach_trust(
+            &self,
+            request: tonic::Request<super::DetachTrustRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Validates a trust state, that the target domain is reachable, and that the
+        /// target domain is able to accept incoming trust requests.
+        async fn validate_trust(
+            &self,
+            request: tonic::Request<super::ValidateTrustRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// API Overview
+    ///
+    /// The `managedidentites.googleapis.com` service implements the Google Cloud
+    /// Managed Identites API for identity services
+    /// (e.g. Microsoft Active Directory).
+    ///
+    /// The Managed Identities service provides methods to manage
+    /// (create/read/update/delete) domains, reset managed identities admin password,
+    /// add/remove domain controllers in GCP regions and add/remove VPC peering.
+    ///
+    /// Data Model
+    ///
+    /// The Managed Identities service exposes the following resources:
+    ///
+    /// * Locations as global, named as follows:
+    ///   `projects/{project_id}/locations/global`.
+    ///
+    /// * Domains, named as follows:
+    ///   `/projects/{project_id}/locations/global/domain/{domain_name}`.
+    ///
+    /// The `{domain_name}` refers to fully qualified domain name in the customer
+    /// project e.g. mydomain.myorganization.com, with the following restrictions:
+    ///
+    ///  * Must contain only lowercase letters, numbers, periods and hyphens.
+    ///  * Must start with a letter.
+    ///  * Must contain between 2-64 characters.
+    ///  * Must end with a number or a letter.
+    ///  * Must not start with period.
+    ///  * First segement length (mydomain form example above) shouldn't exceed
+    ///    15 chars.
+    ///  * The last segment cannot be fully numeric.
+    ///  * Must be unique within the customer project.
+    #[derive(Debug)]
+    pub struct ManagedIdentitiesServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> ManagedIdentitiesServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for ManagedIdentitiesServiceServer<T>
+    where
+        T: ManagedIdentitiesService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.managedidentities.v1.ManagedIdentitiesService/CreateMicrosoftAdDomain" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateMicrosoftAdDomainSvc<T: ManagedIdentitiesService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: ManagedIdentitiesService,
+                    > tonic::server::UnaryService<super::CreateMicrosoftAdDomainRequest>
+                    for CreateMicrosoftAdDomainSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateMicrosoftAdDomainRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ManagedIdentitiesService>::create_microsoft_ad_domain(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateMicrosoftAdDomainSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.managedidentities.v1.ManagedIdentitiesService/ResetAdminPassword" => {
+                    #[allow(non_camel_case_types)]
+                    struct ResetAdminPasswordSvc<T: ManagedIdentitiesService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: ManagedIdentitiesService,
+                    > tonic::server::UnaryService<super::ResetAdminPasswordRequest>
+                    for ResetAdminPasswordSvc<T> {
+                        type Response = super::ResetAdminPasswordResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ResetAdminPasswordRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ManagedIdentitiesService>::reset_admin_password(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ResetAdminPasswordSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.managedidentities.v1.ManagedIdentitiesService/ListDomains" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDomainsSvc<T: ManagedIdentitiesService>(pub Arc<T>);
+                    impl<
+                        T: ManagedIdentitiesService,
+                    > tonic::server::UnaryService<super::ListDomainsRequest>
+                    for ListDomainsSvc<T> {
+                        type Response = super::ListDomainsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListDomainsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ManagedIdentitiesService>::list_domains(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDomainsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.managedidentities.v1.ManagedIdentitiesService/GetDomain" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetDomainSvc<T: ManagedIdentitiesService>(pub Arc<T>);
+                    impl<
+                        T: ManagedIdentitiesService,
+                    > tonic::server::UnaryService<super::GetDomainRequest>
+                    for GetDomainSvc<T> {
+                        type Response = super::Domain;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetDomainRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ManagedIdentitiesService>::get_domain(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetDomainSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.managedidentities.v1.ManagedIdentitiesService/UpdateDomain" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateDomainSvc<T: ManagedIdentitiesService>(pub Arc<T>);
+                    impl<
+                        T: ManagedIdentitiesService,
+                    > tonic::server::UnaryService<super::UpdateDomainRequest>
+                    for UpdateDomainSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateDomainRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ManagedIdentitiesService>::update_domain(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateDomainSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.managedidentities.v1.ManagedIdentitiesService/DeleteDomain" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteDomainSvc<T: ManagedIdentitiesService>(pub Arc<T>);
+                    impl<
+                        T: ManagedIdentitiesService,
+                    > tonic::server::UnaryService<super::DeleteDomainRequest>
+                    for DeleteDomainSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteDomainRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ManagedIdentitiesService>::delete_domain(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteDomainSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.managedidentities.v1.ManagedIdentitiesService/AttachTrust" => {
+                    #[allow(non_camel_case_types)]
+                    struct AttachTrustSvc<T: ManagedIdentitiesService>(pub Arc<T>);
+                    impl<
+                        T: ManagedIdentitiesService,
+                    > tonic::server::UnaryService<super::AttachTrustRequest>
+                    for AttachTrustSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::AttachTrustRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ManagedIdentitiesService>::attach_trust(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = AttachTrustSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.managedidentities.v1.ManagedIdentitiesService/ReconfigureTrust" => {
+                    #[allow(non_camel_case_types)]
+                    struct ReconfigureTrustSvc<T: ManagedIdentitiesService>(pub Arc<T>);
+                    impl<
+                        T: ManagedIdentitiesService,
+                    > tonic::server::UnaryService<super::ReconfigureTrustRequest>
+                    for ReconfigureTrustSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ReconfigureTrustRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ManagedIdentitiesService>::reconfigure_trust(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ReconfigureTrustSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.managedidentities.v1.ManagedIdentitiesService/DetachTrust" => {
+                    #[allow(non_camel_case_types)]
+                    struct DetachTrustSvc<T: ManagedIdentitiesService>(pub Arc<T>);
+                    impl<
+                        T: ManagedIdentitiesService,
+                    > tonic::server::UnaryService<super::DetachTrustRequest>
+                    for DetachTrustSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DetachTrustRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ManagedIdentitiesService>::detach_trust(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DetachTrustSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.managedidentities.v1.ManagedIdentitiesService/ValidateTrust" => {
+                    #[allow(non_camel_case_types)]
+                    struct ValidateTrustSvc<T: ManagedIdentitiesService>(pub Arc<T>);
+                    impl<
+                        T: ManagedIdentitiesService,
+                    > tonic::server::UnaryService<super::ValidateTrustRequest>
+                    for ValidateTrustSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ValidateTrustRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ManagedIdentitiesService>::validate_trust(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ValidateTrustSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for ManagedIdentitiesServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.managedidentities.v1.ManagedIdentitiesService";
+    impl<T> tonic::server::NamedService for ManagedIdentitiesServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

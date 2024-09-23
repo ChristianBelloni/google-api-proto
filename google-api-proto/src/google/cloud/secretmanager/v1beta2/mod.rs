@@ -246,10 +246,10 @@ pub mod secret_version {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Enabled => "ENABLED",
-                State::Disabled => "DISABLED",
-                State::Destroyed => "DESTROYED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Enabled => "ENABLED",
+                Self::Disabled => "DISABLED",
+                Self::Destroyed => "DESTROYED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1367,5 +1367,1003 @@ pub mod secret_manager_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod secret_manager_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with SecretManagerServiceServer.
+    #[async_trait]
+    pub trait SecretManagerService: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists [Secrets][google.cloud.secretmanager.v1beta2.Secret].
+        async fn list_secrets(
+            &self,
+            request: tonic::Request<super::ListSecretsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListSecretsResponse>,
+            tonic::Status,
+        >;
+        /// Creates a new [Secret][google.cloud.secretmanager.v1beta2.Secret]
+        /// containing no
+        /// [SecretVersions][google.cloud.secretmanager.v1beta2.SecretVersion].
+        async fn create_secret(
+            &self,
+            request: tonic::Request<super::CreateSecretRequest>,
+        ) -> std::result::Result<tonic::Response<super::Secret>, tonic::Status>;
+        /// Creates a new
+        /// [SecretVersion][google.cloud.secretmanager.v1beta2.SecretVersion]
+        /// containing secret data and attaches it to an existing
+        /// [Secret][google.cloud.secretmanager.v1beta2.Secret].
+        async fn add_secret_version(
+            &self,
+            request: tonic::Request<super::AddSecretVersionRequest>,
+        ) -> std::result::Result<tonic::Response<super::SecretVersion>, tonic::Status>;
+        /// Gets metadata for a given
+        /// [Secret][google.cloud.secretmanager.v1beta2.Secret].
+        async fn get_secret(
+            &self,
+            request: tonic::Request<super::GetSecretRequest>,
+        ) -> std::result::Result<tonic::Response<super::Secret>, tonic::Status>;
+        /// Updates metadata of an existing
+        /// [Secret][google.cloud.secretmanager.v1beta2.Secret].
+        async fn update_secret(
+            &self,
+            request: tonic::Request<super::UpdateSecretRequest>,
+        ) -> std::result::Result<tonic::Response<super::Secret>, tonic::Status>;
+        /// Deletes a [Secret][google.cloud.secretmanager.v1beta2.Secret].
+        async fn delete_secret(
+            &self,
+            request: tonic::Request<super::DeleteSecretRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Lists [SecretVersions][google.cloud.secretmanager.v1beta2.SecretVersion].
+        /// This call does not return secret data.
+        async fn list_secret_versions(
+            &self,
+            request: tonic::Request<super::ListSecretVersionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListSecretVersionsResponse>,
+            tonic::Status,
+        >;
+        /// Gets metadata for a
+        /// [SecretVersion][google.cloud.secretmanager.v1beta2.SecretVersion].
+        ///
+        /// `projects/*/secrets/*/versions/latest` is an alias to the most recently
+        /// created [SecretVersion][google.cloud.secretmanager.v1beta2.SecretVersion].
+        async fn get_secret_version(
+            &self,
+            request: tonic::Request<super::GetSecretVersionRequest>,
+        ) -> std::result::Result<tonic::Response<super::SecretVersion>, tonic::Status>;
+        /// Accesses a
+        /// [SecretVersion][google.cloud.secretmanager.v1beta2.SecretVersion]. This
+        /// call returns the secret data.
+        ///
+        /// `projects/*/secrets/*/versions/latest` is an alias to the most recently
+        /// created [SecretVersion][google.cloud.secretmanager.v1beta2.SecretVersion].
+        async fn access_secret_version(
+            &self,
+            request: tonic::Request<super::AccessSecretVersionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AccessSecretVersionResponse>,
+            tonic::Status,
+        >;
+        /// Disables a
+        /// [SecretVersion][google.cloud.secretmanager.v1beta2.SecretVersion].
+        ///
+        /// Sets the [state][google.cloud.secretmanager.v1beta2.SecretVersion.state] of
+        /// the [SecretVersion][google.cloud.secretmanager.v1beta2.SecretVersion] to
+        /// [DISABLED][google.cloud.secretmanager.v1beta2.SecretVersion.State.DISABLED].
+        async fn disable_secret_version(
+            &self,
+            request: tonic::Request<super::DisableSecretVersionRequest>,
+        ) -> std::result::Result<tonic::Response<super::SecretVersion>, tonic::Status>;
+        /// Enables a
+        /// [SecretVersion][google.cloud.secretmanager.v1beta2.SecretVersion].
+        ///
+        /// Sets the [state][google.cloud.secretmanager.v1beta2.SecretVersion.state] of
+        /// the [SecretVersion][google.cloud.secretmanager.v1beta2.SecretVersion] to
+        /// [ENABLED][google.cloud.secretmanager.v1beta2.SecretVersion.State.ENABLED].
+        async fn enable_secret_version(
+            &self,
+            request: tonic::Request<super::EnableSecretVersionRequest>,
+        ) -> std::result::Result<tonic::Response<super::SecretVersion>, tonic::Status>;
+        /// Destroys a
+        /// [SecretVersion][google.cloud.secretmanager.v1beta2.SecretVersion].
+        ///
+        /// Sets the [state][google.cloud.secretmanager.v1beta2.SecretVersion.state] of
+        /// the [SecretVersion][google.cloud.secretmanager.v1beta2.SecretVersion] to
+        /// [DESTROYED][google.cloud.secretmanager.v1beta2.SecretVersion.State.DESTROYED]
+        /// and irrevocably destroys the secret data.
+        async fn destroy_secret_version(
+            &self,
+            request: tonic::Request<super::DestroySecretVersionRequest>,
+        ) -> std::result::Result<tonic::Response<super::SecretVersion>, tonic::Status>;
+        /// Sets the access control policy on the specified secret. Replaces any
+        /// existing policy.
+        ///
+        /// Permissions on
+        /// [SecretVersions][google.cloud.secretmanager.v1beta2.SecretVersion] are
+        /// enforced according to the policy set on the associated
+        /// [Secret][google.cloud.secretmanager.v1beta2.Secret].
+        async fn set_iam_policy(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::iam::v1::SetIamPolicyRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::iam::v1::Policy>,
+            tonic::Status,
+        >;
+        /// Gets the access control policy for a secret.
+        /// Returns empty policy if the secret exists and does not have a policy set.
+        async fn get_iam_policy(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::iam::v1::GetIamPolicyRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::iam::v1::Policy>,
+            tonic::Status,
+        >;
+        /// Returns permissions that a caller has for the specified secret.
+        /// If the secret does not exist, this call returns an empty set of
+        /// permissions, not a NOT_FOUND error.
+        ///
+        /// Note: This operation is designed to be used for building permission-aware
+        /// UIs and command-line tools, not for authorization checking. This operation
+        /// may "fail open" without warning.
+        async fn test_iam_permissions(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::iam::v1::TestIamPermissionsRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<
+                super::super::super::super::iam::v1::TestIamPermissionsResponse,
+            >,
+            tonic::Status,
+        >;
+    }
+    /// Secret Manager Service
+    ///
+    /// Manages secrets and operations using those secrets. Implements a REST
+    /// model with the following objects:
+    ///
+    /// * [Secret][google.cloud.secretmanager.v1beta2.Secret]
+    /// * [SecretVersion][google.cloud.secretmanager.v1beta2.SecretVersion]
+    #[derive(Debug)]
+    pub struct SecretManagerServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> SecretManagerServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for SecretManagerServiceServer<T>
+    where
+        T: SecretManagerService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.secretmanager.v1beta2.SecretManagerService/ListSecrets" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListSecretsSvc<T: SecretManagerService>(pub Arc<T>);
+                    impl<
+                        T: SecretManagerService,
+                    > tonic::server::UnaryService<super::ListSecretsRequest>
+                    for ListSecretsSvc<T> {
+                        type Response = super::ListSecretsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListSecretsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecretManagerService>::list_secrets(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListSecretsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.secretmanager.v1beta2.SecretManagerService/CreateSecret" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateSecretSvc<T: SecretManagerService>(pub Arc<T>);
+                    impl<
+                        T: SecretManagerService,
+                    > tonic::server::UnaryService<super::CreateSecretRequest>
+                    for CreateSecretSvc<T> {
+                        type Response = super::Secret;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateSecretRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecretManagerService>::create_secret(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateSecretSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.secretmanager.v1beta2.SecretManagerService/AddSecretVersion" => {
+                    #[allow(non_camel_case_types)]
+                    struct AddSecretVersionSvc<T: SecretManagerService>(pub Arc<T>);
+                    impl<
+                        T: SecretManagerService,
+                    > tonic::server::UnaryService<super::AddSecretVersionRequest>
+                    for AddSecretVersionSvc<T> {
+                        type Response = super::SecretVersion;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::AddSecretVersionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecretManagerService>::add_secret_version(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = AddSecretVersionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.secretmanager.v1beta2.SecretManagerService/GetSecret" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetSecretSvc<T: SecretManagerService>(pub Arc<T>);
+                    impl<
+                        T: SecretManagerService,
+                    > tonic::server::UnaryService<super::GetSecretRequest>
+                    for GetSecretSvc<T> {
+                        type Response = super::Secret;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetSecretRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecretManagerService>::get_secret(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetSecretSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.secretmanager.v1beta2.SecretManagerService/UpdateSecret" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateSecretSvc<T: SecretManagerService>(pub Arc<T>);
+                    impl<
+                        T: SecretManagerService,
+                    > tonic::server::UnaryService<super::UpdateSecretRequest>
+                    for UpdateSecretSvc<T> {
+                        type Response = super::Secret;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateSecretRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecretManagerService>::update_secret(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateSecretSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.secretmanager.v1beta2.SecretManagerService/DeleteSecret" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteSecretSvc<T: SecretManagerService>(pub Arc<T>);
+                    impl<
+                        T: SecretManagerService,
+                    > tonic::server::UnaryService<super::DeleteSecretRequest>
+                    for DeleteSecretSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteSecretRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecretManagerService>::delete_secret(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteSecretSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.secretmanager.v1beta2.SecretManagerService/ListSecretVersions" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListSecretVersionsSvc<T: SecretManagerService>(pub Arc<T>);
+                    impl<
+                        T: SecretManagerService,
+                    > tonic::server::UnaryService<super::ListSecretVersionsRequest>
+                    for ListSecretVersionsSvc<T> {
+                        type Response = super::ListSecretVersionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListSecretVersionsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecretManagerService>::list_secret_versions(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListSecretVersionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.secretmanager.v1beta2.SecretManagerService/GetSecretVersion" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetSecretVersionSvc<T: SecretManagerService>(pub Arc<T>);
+                    impl<
+                        T: SecretManagerService,
+                    > tonic::server::UnaryService<super::GetSecretVersionRequest>
+                    for GetSecretVersionSvc<T> {
+                        type Response = super::SecretVersion;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetSecretVersionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecretManagerService>::get_secret_version(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetSecretVersionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.secretmanager.v1beta2.SecretManagerService/AccessSecretVersion" => {
+                    #[allow(non_camel_case_types)]
+                    struct AccessSecretVersionSvc<T: SecretManagerService>(pub Arc<T>);
+                    impl<
+                        T: SecretManagerService,
+                    > tonic::server::UnaryService<super::AccessSecretVersionRequest>
+                    for AccessSecretVersionSvc<T> {
+                        type Response = super::AccessSecretVersionResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::AccessSecretVersionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecretManagerService>::access_secret_version(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = AccessSecretVersionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.secretmanager.v1beta2.SecretManagerService/DisableSecretVersion" => {
+                    #[allow(non_camel_case_types)]
+                    struct DisableSecretVersionSvc<T: SecretManagerService>(pub Arc<T>);
+                    impl<
+                        T: SecretManagerService,
+                    > tonic::server::UnaryService<super::DisableSecretVersionRequest>
+                    for DisableSecretVersionSvc<T> {
+                        type Response = super::SecretVersion;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DisableSecretVersionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecretManagerService>::disable_secret_version(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DisableSecretVersionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.secretmanager.v1beta2.SecretManagerService/EnableSecretVersion" => {
+                    #[allow(non_camel_case_types)]
+                    struct EnableSecretVersionSvc<T: SecretManagerService>(pub Arc<T>);
+                    impl<
+                        T: SecretManagerService,
+                    > tonic::server::UnaryService<super::EnableSecretVersionRequest>
+                    for EnableSecretVersionSvc<T> {
+                        type Response = super::SecretVersion;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::EnableSecretVersionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecretManagerService>::enable_secret_version(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = EnableSecretVersionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.secretmanager.v1beta2.SecretManagerService/DestroySecretVersion" => {
+                    #[allow(non_camel_case_types)]
+                    struct DestroySecretVersionSvc<T: SecretManagerService>(pub Arc<T>);
+                    impl<
+                        T: SecretManagerService,
+                    > tonic::server::UnaryService<super::DestroySecretVersionRequest>
+                    for DestroySecretVersionSvc<T> {
+                        type Response = super::SecretVersion;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DestroySecretVersionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecretManagerService>::destroy_secret_version(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DestroySecretVersionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.secretmanager.v1beta2.SecretManagerService/SetIamPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetIamPolicySvc<T: SecretManagerService>(pub Arc<T>);
+                    impl<
+                        T: SecretManagerService,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::iam::v1::SetIamPolicyRequest,
+                    > for SetIamPolicySvc<T> {
+                        type Response = super::super::super::super::iam::v1::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::iam::v1::SetIamPolicyRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecretManagerService>::set_iam_policy(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SetIamPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.secretmanager.v1beta2.SecretManagerService/GetIamPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetIamPolicySvc<T: SecretManagerService>(pub Arc<T>);
+                    impl<
+                        T: SecretManagerService,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::iam::v1::GetIamPolicyRequest,
+                    > for GetIamPolicySvc<T> {
+                        type Response = super::super::super::super::iam::v1::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::iam::v1::GetIamPolicyRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecretManagerService>::get_iam_policy(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetIamPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.secretmanager.v1beta2.SecretManagerService/TestIamPermissions" => {
+                    #[allow(non_camel_case_types)]
+                    struct TestIamPermissionsSvc<T: SecretManagerService>(pub Arc<T>);
+                    impl<
+                        T: SecretManagerService,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::iam::v1::TestIamPermissionsRequest,
+                    > for TestIamPermissionsSvc<T> {
+                        type Response = super::super::super::super::iam::v1::TestIamPermissionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::iam::v1::TestIamPermissionsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SecretManagerService>::test_iam_permissions(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = TestIamPermissionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for SecretManagerServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.secretmanager.v1beta2.SecretManagerService";
+    impl<T> tonic::server::NamedService for SecretManagerServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

@@ -155,14 +155,14 @@ pub mod deployment {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Active => "ACTIVE",
-                State::Updating => "UPDATING",
-                State::Deleting => "DELETING",
-                State::Failed => "FAILED",
-                State::Suspended => "SUSPENDED",
-                State::Deleted => "DELETED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Active => "ACTIVE",
+                Self::Updating => "UPDATING",
+                Self::Deleting => "DELETING",
+                Self::Failed => "FAILED",
+                Self::Suspended => "SUSPENDED",
+                Self::Deleted => "DELETED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -219,15 +219,15 @@ pub mod deployment {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ErrorCode::Unspecified => "ERROR_CODE_UNSPECIFIED",
-                ErrorCode::RevisionFailed => "REVISION_FAILED",
-                ErrorCode::CloudBuildPermissionDenied => "CLOUD_BUILD_PERMISSION_DENIED",
-                ErrorCode::DeleteBuildApiFailed => "DELETE_BUILD_API_FAILED",
-                ErrorCode::DeleteBuildRunFailed => "DELETE_BUILD_RUN_FAILED",
-                ErrorCode::BucketCreationPermissionDenied => {
+                Self::Unspecified => "ERROR_CODE_UNSPECIFIED",
+                Self::RevisionFailed => "REVISION_FAILED",
+                Self::CloudBuildPermissionDenied => "CLOUD_BUILD_PERMISSION_DENIED",
+                Self::DeleteBuildApiFailed => "DELETE_BUILD_API_FAILED",
+                Self::DeleteBuildRunFailed => "DELETE_BUILD_RUN_FAILED",
+                Self::BucketCreationPermissionDenied => {
                     "BUCKET_CREATION_PERMISSION_DENIED"
                 }
-                ErrorCode::BucketCreationFailed => "BUCKET_CREATION_FAILED",
+                Self::BucketCreationFailed => "BUCKET_CREATION_FAILED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -282,13 +282,13 @@ pub mod deployment {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                LockState::Unspecified => "LOCK_STATE_UNSPECIFIED",
-                LockState::Locked => "LOCKED",
-                LockState::Unlocked => "UNLOCKED",
-                LockState::Locking => "LOCKING",
-                LockState::Unlocking => "UNLOCKING",
-                LockState::LockFailed => "LOCK_FAILED",
-                LockState::UnlockFailed => "UNLOCK_FAILED",
+                Self::Unspecified => "LOCK_STATE_UNSPECIFIED",
+                Self::Locked => "LOCKED",
+                Self::Unlocked => "UNLOCKED",
+                Self::Locking => "LOCKING",
+                Self::Unlocking => "UNLOCKING",
+                Self::LockFailed => "LOCK_FAILED",
+                Self::UnlockFailed => "UNLOCK_FAILED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -635,9 +635,9 @@ pub mod delete_deployment_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                DeletePolicy::Unspecified => "DELETE_POLICY_UNSPECIFIED",
-                DeletePolicy::Delete => "DELETE",
-                DeletePolicy::Abandon => "ABANDON",
+                Self::Unspecified => "DELETE_POLICY_UNSPECIFIED",
+                Self::Delete => "DELETE",
+                Self::Abandon => "ABANDON",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -820,10 +820,10 @@ pub mod revision {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Action::Unspecified => "ACTION_UNSPECIFIED",
-                Action::Create => "CREATE",
-                Action::Update => "UPDATE",
-                Action::Delete => "DELETE",
+                Self::Unspecified => "ACTION_UNSPECIFIED",
+                Self::Create => "CREATE",
+                Self::Update => "UPDATE",
+                Self::Delete => "DELETE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -867,10 +867,10 @@ pub mod revision {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Applying => "APPLYING",
-                State::Applied => "APPLIED",
-                State::Failed => "FAILED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Applying => "APPLYING",
+                Self::Applied => "APPLIED",
+                Self::Failed => "FAILED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -919,11 +919,11 @@ pub mod revision {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ErrorCode::Unspecified => "ERROR_CODE_UNSPECIFIED",
-                ErrorCode::CloudBuildPermissionDenied => "CLOUD_BUILD_PERMISSION_DENIED",
-                ErrorCode::ApplyBuildApiFailed => "APPLY_BUILD_API_FAILED",
-                ErrorCode::ApplyBuildRunFailed => "APPLY_BUILD_RUN_FAILED",
-                ErrorCode::QuotaValidationFailed => "QUOTA_VALIDATION_FAILED",
+                Self::Unspecified => "ERROR_CODE_UNSPECIFIED",
+                Self::CloudBuildPermissionDenied => "CLOUD_BUILD_PERMISSION_DENIED",
+                Self::ApplyBuildApiFailed => "APPLY_BUILD_API_FAILED",
+                Self::ApplyBuildRunFailed => "APPLY_BUILD_RUN_FAILED",
+                Self::QuotaValidationFailed => "QUOTA_VALIDATION_FAILED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1049,19 +1049,19 @@ pub mod deployment_operation_metadata {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                DeploymentStep::Unspecified => "DEPLOYMENT_STEP_UNSPECIFIED",
-                DeploymentStep::PreparingStorageBucket => "PREPARING_STORAGE_BUCKET",
-                DeploymentStep::DownloadingBlueprint => "DOWNLOADING_BLUEPRINT",
-                DeploymentStep::RunningTfInit => "RUNNING_TF_INIT",
-                DeploymentStep::RunningTfPlan => "RUNNING_TF_PLAN",
-                DeploymentStep::RunningTfApply => "RUNNING_TF_APPLY",
-                DeploymentStep::RunningTfDestroy => "RUNNING_TF_DESTROY",
-                DeploymentStep::RunningTfValidate => "RUNNING_TF_VALIDATE",
-                DeploymentStep::UnlockingDeployment => "UNLOCKING_DEPLOYMENT",
-                DeploymentStep::Succeeded => "SUCCEEDED",
-                DeploymentStep::Failed => "FAILED",
-                DeploymentStep::ValidatingRepository => "VALIDATING_REPOSITORY",
-                DeploymentStep::RunningQuotaValidation => "RUNNING_QUOTA_VALIDATION",
+                Self::Unspecified => "DEPLOYMENT_STEP_UNSPECIFIED",
+                Self::PreparingStorageBucket => "PREPARING_STORAGE_BUCKET",
+                Self::DownloadingBlueprint => "DOWNLOADING_BLUEPRINT",
+                Self::RunningTfInit => "RUNNING_TF_INIT",
+                Self::RunningTfPlan => "RUNNING_TF_PLAN",
+                Self::RunningTfApply => "RUNNING_TF_APPLY",
+                Self::RunningTfDestroy => "RUNNING_TF_DESTROY",
+                Self::RunningTfValidate => "RUNNING_TF_VALIDATE",
+                Self::UnlockingDeployment => "UNLOCKING_DEPLOYMENT",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Failed => "FAILED",
+                Self::ValidatingRepository => "VALIDATING_REPOSITORY",
+                Self::RunningQuotaValidation => "RUNNING_QUOTA_VALIDATION",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1149,12 +1149,12 @@ pub mod resource {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Intent::Unspecified => "INTENT_UNSPECIFIED",
-                Intent::Create => "CREATE",
-                Intent::Update => "UPDATE",
-                Intent::Delete => "DELETE",
-                Intent::Recreate => "RECREATE",
-                Intent::Unchanged => "UNCHANGED",
+                Self::Unspecified => "INTENT_UNSPECIFIED",
+                Self::Create => "CREATE",
+                Self::Update => "UPDATE",
+                Self::Delete => "DELETE",
+                Self::Recreate => "RECREATE",
+                Self::Unchanged => "UNCHANGED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1202,11 +1202,11 @@ pub mod resource {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Planned => "PLANNED",
-                State::InProgress => "IN_PROGRESS",
-                State::Reconciled => "RECONCILED",
-                State::Failed => "FAILED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Planned => "PLANNED",
+                Self::InProgress => "IN_PROGRESS",
+                Self::Reconciled => "RECONCILED",
+                Self::Failed => "FAILED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1546,14 +1546,14 @@ pub mod preview {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Succeeded => "SUCCEEDED",
-                State::Applying => "APPLYING",
-                State::Stale => "STALE",
-                State::Deleting => "DELETING",
-                State::Failed => "FAILED",
-                State::Deleted => "DELETED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Applying => "APPLYING",
+                Self::Stale => "STALE",
+                Self::Deleting => "DELETING",
+                Self::Failed => "FAILED",
+                Self::Deleted => "DELETED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1600,9 +1600,9 @@ pub mod preview {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                PreviewMode::Unspecified => "PREVIEW_MODE_UNSPECIFIED",
-                PreviewMode::Default => "DEFAULT",
-                PreviewMode::Delete => "DELETE",
+                Self::Unspecified => "PREVIEW_MODE_UNSPECIFIED",
+                Self::Default => "DEFAULT",
+                Self::Delete => "DELETE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1651,17 +1651,15 @@ pub mod preview {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ErrorCode::Unspecified => "ERROR_CODE_UNSPECIFIED",
-                ErrorCode::CloudBuildPermissionDenied => "CLOUD_BUILD_PERMISSION_DENIED",
-                ErrorCode::BucketCreationPermissionDenied => {
+                Self::Unspecified => "ERROR_CODE_UNSPECIFIED",
+                Self::CloudBuildPermissionDenied => "CLOUD_BUILD_PERMISSION_DENIED",
+                Self::BucketCreationPermissionDenied => {
                     "BUCKET_CREATION_PERMISSION_DENIED"
                 }
-                ErrorCode::BucketCreationFailed => "BUCKET_CREATION_FAILED",
-                ErrorCode::DeploymentLockAcquireFailed => {
-                    "DEPLOYMENT_LOCK_ACQUIRE_FAILED"
-                }
-                ErrorCode::PreviewBuildApiFailed => "PREVIEW_BUILD_API_FAILED",
-                ErrorCode::PreviewBuildRunFailed => "PREVIEW_BUILD_RUN_FAILED",
+                Self::BucketCreationFailed => "BUCKET_CREATION_FAILED",
+                Self::DeploymentLockAcquireFailed => "DEPLOYMENT_LOCK_ACQUIRE_FAILED",
+                Self::PreviewBuildApiFailed => "PREVIEW_BUILD_API_FAILED",
+                Self::PreviewBuildRunFailed => "PREVIEW_BUILD_RUN_FAILED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1753,17 +1751,17 @@ pub mod preview_operation_metadata {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                PreviewStep::Unspecified => "PREVIEW_STEP_UNSPECIFIED",
-                PreviewStep::PreparingStorageBucket => "PREPARING_STORAGE_BUCKET",
-                PreviewStep::DownloadingBlueprint => "DOWNLOADING_BLUEPRINT",
-                PreviewStep::RunningTfInit => "RUNNING_TF_INIT",
-                PreviewStep::RunningTfPlan => "RUNNING_TF_PLAN",
-                PreviewStep::FetchingDeployment => "FETCHING_DEPLOYMENT",
-                PreviewStep::LockingDeployment => "LOCKING_DEPLOYMENT",
-                PreviewStep::UnlockingDeployment => "UNLOCKING_DEPLOYMENT",
-                PreviewStep::Succeeded => "SUCCEEDED",
-                PreviewStep::Failed => "FAILED",
-                PreviewStep::ValidatingRepository => "VALIDATING_REPOSITORY",
+                Self::Unspecified => "PREVIEW_STEP_UNSPECIFIED",
+                Self::PreparingStorageBucket => "PREPARING_STORAGE_BUCKET",
+                Self::DownloadingBlueprint => "DOWNLOADING_BLUEPRINT",
+                Self::RunningTfInit => "RUNNING_TF_INIT",
+                Self::RunningTfPlan => "RUNNING_TF_PLAN",
+                Self::FetchingDeployment => "FETCHING_DEPLOYMENT",
+                Self::LockingDeployment => "LOCKING_DEPLOYMENT",
+                Self::UnlockingDeployment => "UNLOCKING_DEPLOYMENT",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Failed => "FAILED",
+                Self::ValidatingRepository => "VALIDATING_REPOSITORY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2048,10 +2046,10 @@ pub mod terraform_version {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Active => "ACTIVE",
-                State::Deprecated => "DEPRECATED",
-                State::Obsolete => "OBSOLETE",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Active => "ACTIVE",
+                Self::Deprecated => "DEPRECATED",
+                Self::Obsolete => "OBSOLETE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2089,9 +2087,9 @@ impl QuotaValidation {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            QuotaValidation::Unspecified => "QUOTA_VALIDATION_UNSPECIFIED",
-            QuotaValidation::Enabled => "ENABLED",
-            QuotaValidation::Enforced => "ENFORCED",
+            Self::Unspecified => "QUOTA_VALIDATION_UNSPECIFIED",
+            Self::Enabled => "ENABLED",
+            Self::Enforced => "ENFORCED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2812,5 +2810,1331 @@ pub mod config_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod config_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with ConfigServer.
+    #[async_trait]
+    pub trait Config: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists [Deployment][google.cloud.config.v1.Deployment]s in a given project
+        /// and location.
+        async fn list_deployments(
+            &self,
+            request: tonic::Request<super::ListDeploymentsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDeploymentsResponse>,
+            tonic::Status,
+        >;
+        /// Gets details about a [Deployment][google.cloud.config.v1.Deployment].
+        async fn get_deployment(
+            &self,
+            request: tonic::Request<super::GetDeploymentRequest>,
+        ) -> std::result::Result<tonic::Response<super::Deployment>, tonic::Status>;
+        /// Creates a [Deployment][google.cloud.config.v1.Deployment].
+        async fn create_deployment(
+            &self,
+            request: tonic::Request<super::CreateDeploymentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates a [Deployment][google.cloud.config.v1.Deployment].
+        async fn update_deployment(
+            &self,
+            request: tonic::Request<super::UpdateDeploymentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a [Deployment][google.cloud.config.v1.Deployment].
+        async fn delete_deployment(
+            &self,
+            request: tonic::Request<super::DeleteDeploymentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists [Revision][google.cloud.config.v1.Revision]s of a deployment.
+        async fn list_revisions(
+            &self,
+            request: tonic::Request<super::ListRevisionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListRevisionsResponse>,
+            tonic::Status,
+        >;
+        /// Gets details about a [Revision][google.cloud.config.v1.Revision].
+        async fn get_revision(
+            &self,
+            request: tonic::Request<super::GetRevisionRequest>,
+        ) -> std::result::Result<tonic::Response<super::Revision>, tonic::Status>;
+        /// Gets details about a [Resource][google.cloud.config.v1.Resource] deployed
+        /// by Infra Manager.
+        async fn get_resource(
+            &self,
+            request: tonic::Request<super::GetResourceRequest>,
+        ) -> std::result::Result<tonic::Response<super::Resource>, tonic::Status>;
+        /// Lists [Resource][google.cloud.config.v1.Resource]s in a given revision.
+        async fn list_resources(
+            &self,
+            request: tonic::Request<super::ListResourcesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListResourcesResponse>,
+            tonic::Status,
+        >;
+        /// Exports Terraform state file from a given deployment.
+        async fn export_deployment_statefile(
+            &self,
+            request: tonic::Request<super::ExportDeploymentStatefileRequest>,
+        ) -> std::result::Result<tonic::Response<super::Statefile>, tonic::Status>;
+        /// Exports Terraform state file from a given revision.
+        async fn export_revision_statefile(
+            &self,
+            request: tonic::Request<super::ExportRevisionStatefileRequest>,
+        ) -> std::result::Result<tonic::Response<super::Statefile>, tonic::Status>;
+        /// Imports Terraform state file in a given deployment. The state file does not
+        /// take effect until the Deployment has been unlocked.
+        async fn import_statefile(
+            &self,
+            request: tonic::Request<super::ImportStatefileRequest>,
+        ) -> std::result::Result<tonic::Response<super::Statefile>, tonic::Status>;
+        /// Deletes Terraform state file in a given deployment.
+        async fn delete_statefile(
+            &self,
+            request: tonic::Request<super::DeleteStatefileRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Locks a deployment.
+        async fn lock_deployment(
+            &self,
+            request: tonic::Request<super::LockDeploymentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Unlocks a locked deployment.
+        async fn unlock_deployment(
+            &self,
+            request: tonic::Request<super::UnlockDeploymentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Exports the lock info on a locked deployment.
+        async fn export_lock_info(
+            &self,
+            request: tonic::Request<super::ExportLockInfoRequest>,
+        ) -> std::result::Result<tonic::Response<super::LockInfo>, tonic::Status>;
+        /// Creates a [Preview][google.cloud.config.v1.Preview].
+        async fn create_preview(
+            &self,
+            request: tonic::Request<super::CreatePreviewRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Gets details about a [Preview][google.cloud.config.v1.Preview].
+        async fn get_preview(
+            &self,
+            request: tonic::Request<super::GetPreviewRequest>,
+        ) -> std::result::Result<tonic::Response<super::Preview>, tonic::Status>;
+        /// Lists [Preview][google.cloud.config.v1.Preview]s in a given project and
+        /// location.
+        async fn list_previews(
+            &self,
+            request: tonic::Request<super::ListPreviewsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListPreviewsResponse>,
+            tonic::Status,
+        >;
+        /// Deletes a [Preview][google.cloud.config.v1.Preview].
+        async fn delete_preview(
+            &self,
+            request: tonic::Request<super::DeletePreviewRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Export [Preview][google.cloud.config.v1.Preview] results.
+        async fn export_preview_result(
+            &self,
+            request: tonic::Request<super::ExportPreviewResultRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ExportPreviewResultResponse>,
+            tonic::Status,
+        >;
+        /// Lists [TerraformVersion][google.cloud.config.v1.TerraformVersion]s in a
+        /// given project and location.
+        async fn list_terraform_versions(
+            &self,
+            request: tonic::Request<super::ListTerraformVersionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListTerraformVersionsResponse>,
+            tonic::Status,
+        >;
+        /// Gets details about a
+        /// [TerraformVersion][google.cloud.config.v1.TerraformVersion].
+        async fn get_terraform_version(
+            &self,
+            request: tonic::Request<super::GetTerraformVersionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::TerraformVersion>,
+            tonic::Status,
+        >;
+    }
+    /// Infrastructure Manager is a managed service that automates the deployment and
+    /// management of Google Cloud infrastructure resources.
+    #[derive(Debug)]
+    pub struct ConfigServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> ConfigServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for ConfigServer<T>
+    where
+        T: Config,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.config.v1.Config/ListDeployments" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDeploymentsSvc<T: Config>(pub Arc<T>);
+                    impl<
+                        T: Config,
+                    > tonic::server::UnaryService<super::ListDeploymentsRequest>
+                    for ListDeploymentsSvc<T> {
+                        type Response = super::ListDeploymentsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListDeploymentsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Config>::list_deployments(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDeploymentsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.config.v1.Config/GetDeployment" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetDeploymentSvc<T: Config>(pub Arc<T>);
+                    impl<
+                        T: Config,
+                    > tonic::server::UnaryService<super::GetDeploymentRequest>
+                    for GetDeploymentSvc<T> {
+                        type Response = super::Deployment;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetDeploymentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Config>::get_deployment(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetDeploymentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.config.v1.Config/CreateDeployment" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateDeploymentSvc<T: Config>(pub Arc<T>);
+                    impl<
+                        T: Config,
+                    > tonic::server::UnaryService<super::CreateDeploymentRequest>
+                    for CreateDeploymentSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateDeploymentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Config>::create_deployment(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateDeploymentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.config.v1.Config/UpdateDeployment" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateDeploymentSvc<T: Config>(pub Arc<T>);
+                    impl<
+                        T: Config,
+                    > tonic::server::UnaryService<super::UpdateDeploymentRequest>
+                    for UpdateDeploymentSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateDeploymentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Config>::update_deployment(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateDeploymentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.config.v1.Config/DeleteDeployment" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteDeploymentSvc<T: Config>(pub Arc<T>);
+                    impl<
+                        T: Config,
+                    > tonic::server::UnaryService<super::DeleteDeploymentRequest>
+                    for DeleteDeploymentSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteDeploymentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Config>::delete_deployment(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteDeploymentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.config.v1.Config/ListRevisions" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListRevisionsSvc<T: Config>(pub Arc<T>);
+                    impl<
+                        T: Config,
+                    > tonic::server::UnaryService<super::ListRevisionsRequest>
+                    for ListRevisionsSvc<T> {
+                        type Response = super::ListRevisionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListRevisionsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Config>::list_revisions(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListRevisionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.config.v1.Config/GetRevision" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetRevisionSvc<T: Config>(pub Arc<T>);
+                    impl<
+                        T: Config,
+                    > tonic::server::UnaryService<super::GetRevisionRequest>
+                    for GetRevisionSvc<T> {
+                        type Response = super::Revision;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetRevisionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Config>::get_revision(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetRevisionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.config.v1.Config/GetResource" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetResourceSvc<T: Config>(pub Arc<T>);
+                    impl<
+                        T: Config,
+                    > tonic::server::UnaryService<super::GetResourceRequest>
+                    for GetResourceSvc<T> {
+                        type Response = super::Resource;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetResourceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Config>::get_resource(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetResourceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.config.v1.Config/ListResources" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListResourcesSvc<T: Config>(pub Arc<T>);
+                    impl<
+                        T: Config,
+                    > tonic::server::UnaryService<super::ListResourcesRequest>
+                    for ListResourcesSvc<T> {
+                        type Response = super::ListResourcesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListResourcesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Config>::list_resources(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListResourcesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.config.v1.Config/ExportDeploymentStatefile" => {
+                    #[allow(non_camel_case_types)]
+                    struct ExportDeploymentStatefileSvc<T: Config>(pub Arc<T>);
+                    impl<
+                        T: Config,
+                    > tonic::server::UnaryService<
+                        super::ExportDeploymentStatefileRequest,
+                    > for ExportDeploymentStatefileSvc<T> {
+                        type Response = super::Statefile;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ExportDeploymentStatefileRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Config>::export_deployment_statefile(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ExportDeploymentStatefileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.config.v1.Config/ExportRevisionStatefile" => {
+                    #[allow(non_camel_case_types)]
+                    struct ExportRevisionStatefileSvc<T: Config>(pub Arc<T>);
+                    impl<
+                        T: Config,
+                    > tonic::server::UnaryService<super::ExportRevisionStatefileRequest>
+                    for ExportRevisionStatefileSvc<T> {
+                        type Response = super::Statefile;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ExportRevisionStatefileRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Config>::export_revision_statefile(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ExportRevisionStatefileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.config.v1.Config/ImportStatefile" => {
+                    #[allow(non_camel_case_types)]
+                    struct ImportStatefileSvc<T: Config>(pub Arc<T>);
+                    impl<
+                        T: Config,
+                    > tonic::server::UnaryService<super::ImportStatefileRequest>
+                    for ImportStatefileSvc<T> {
+                        type Response = super::Statefile;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ImportStatefileRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Config>::import_statefile(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ImportStatefileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.config.v1.Config/DeleteStatefile" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteStatefileSvc<T: Config>(pub Arc<T>);
+                    impl<
+                        T: Config,
+                    > tonic::server::UnaryService<super::DeleteStatefileRequest>
+                    for DeleteStatefileSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteStatefileRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Config>::delete_statefile(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteStatefileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.config.v1.Config/LockDeployment" => {
+                    #[allow(non_camel_case_types)]
+                    struct LockDeploymentSvc<T: Config>(pub Arc<T>);
+                    impl<
+                        T: Config,
+                    > tonic::server::UnaryService<super::LockDeploymentRequest>
+                    for LockDeploymentSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::LockDeploymentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Config>::lock_deployment(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = LockDeploymentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.config.v1.Config/UnlockDeployment" => {
+                    #[allow(non_camel_case_types)]
+                    struct UnlockDeploymentSvc<T: Config>(pub Arc<T>);
+                    impl<
+                        T: Config,
+                    > tonic::server::UnaryService<super::UnlockDeploymentRequest>
+                    for UnlockDeploymentSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UnlockDeploymentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Config>::unlock_deployment(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UnlockDeploymentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.config.v1.Config/ExportLockInfo" => {
+                    #[allow(non_camel_case_types)]
+                    struct ExportLockInfoSvc<T: Config>(pub Arc<T>);
+                    impl<
+                        T: Config,
+                    > tonic::server::UnaryService<super::ExportLockInfoRequest>
+                    for ExportLockInfoSvc<T> {
+                        type Response = super::LockInfo;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ExportLockInfoRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Config>::export_lock_info(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ExportLockInfoSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.config.v1.Config/CreatePreview" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreatePreviewSvc<T: Config>(pub Arc<T>);
+                    impl<
+                        T: Config,
+                    > tonic::server::UnaryService<super::CreatePreviewRequest>
+                    for CreatePreviewSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreatePreviewRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Config>::create_preview(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreatePreviewSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.config.v1.Config/GetPreview" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetPreviewSvc<T: Config>(pub Arc<T>);
+                    impl<T: Config> tonic::server::UnaryService<super::GetPreviewRequest>
+                    for GetPreviewSvc<T> {
+                        type Response = super::Preview;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetPreviewRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Config>::get_preview(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetPreviewSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.config.v1.Config/ListPreviews" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListPreviewsSvc<T: Config>(pub Arc<T>);
+                    impl<
+                        T: Config,
+                    > tonic::server::UnaryService<super::ListPreviewsRequest>
+                    for ListPreviewsSvc<T> {
+                        type Response = super::ListPreviewsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListPreviewsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Config>::list_previews(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListPreviewsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.config.v1.Config/DeletePreview" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeletePreviewSvc<T: Config>(pub Arc<T>);
+                    impl<
+                        T: Config,
+                    > tonic::server::UnaryService<super::DeletePreviewRequest>
+                    for DeletePreviewSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeletePreviewRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Config>::delete_preview(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeletePreviewSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.config.v1.Config/ExportPreviewResult" => {
+                    #[allow(non_camel_case_types)]
+                    struct ExportPreviewResultSvc<T: Config>(pub Arc<T>);
+                    impl<
+                        T: Config,
+                    > tonic::server::UnaryService<super::ExportPreviewResultRequest>
+                    for ExportPreviewResultSvc<T> {
+                        type Response = super::ExportPreviewResultResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ExportPreviewResultRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Config>::export_preview_result(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ExportPreviewResultSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.config.v1.Config/ListTerraformVersions" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListTerraformVersionsSvc<T: Config>(pub Arc<T>);
+                    impl<
+                        T: Config,
+                    > tonic::server::UnaryService<super::ListTerraformVersionsRequest>
+                    for ListTerraformVersionsSvc<T> {
+                        type Response = super::ListTerraformVersionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListTerraformVersionsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Config>::list_terraform_versions(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListTerraformVersionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.config.v1.Config/GetTerraformVersion" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetTerraformVersionSvc<T: Config>(pub Arc<T>);
+                    impl<
+                        T: Config,
+                    > tonic::server::UnaryService<super::GetTerraformVersionRequest>
+                    for GetTerraformVersionSvc<T> {
+                        type Response = super::TerraformVersion;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetTerraformVersionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Config>::get_terraform_version(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetTerraformVersionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for ConfigServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.config.v1.Config";
+    impl<T> tonic::server::NamedService for ConfigServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

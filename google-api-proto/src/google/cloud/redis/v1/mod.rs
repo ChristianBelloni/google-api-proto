@@ -259,15 +259,15 @@ pub mod instance {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Ready => "READY",
-                State::Updating => "UPDATING",
-                State::Deleting => "DELETING",
-                State::Repairing => "REPAIRING",
-                State::Maintenance => "MAINTENANCE",
-                State::Importing => "IMPORTING",
-                State::FailingOver => "FAILING_OVER",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Ready => "READY",
+                Self::Updating => "UPDATING",
+                Self::Deleting => "DELETING",
+                Self::Repairing => "REPAIRING",
+                Self::Maintenance => "MAINTENANCE",
+                Self::Importing => "IMPORTING",
+                Self::FailingOver => "FAILING_OVER",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -314,9 +314,9 @@ pub mod instance {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Tier::Unspecified => "TIER_UNSPECIFIED",
-                Tier::Basic => "BASIC",
-                Tier::StandardHa => "STANDARD_HA",
+                Self::Unspecified => "TIER_UNSPECIFIED",
+                Self::Basic => "BASIC",
+                Self::StandardHa => "STANDARD_HA",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -359,9 +359,9 @@ pub mod instance {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ConnectMode::Unspecified => "CONNECT_MODE_UNSPECIFIED",
-                ConnectMode::DirectPeering => "DIRECT_PEERING",
-                ConnectMode::PrivateServiceAccess => "PRIVATE_SERVICE_ACCESS",
+                Self::Unspecified => "CONNECT_MODE_UNSPECIFIED",
+                Self::DirectPeering => "DIRECT_PEERING",
+                Self::PrivateServiceAccess => "PRIVATE_SERVICE_ACCESS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -402,11 +402,9 @@ pub mod instance {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                TransitEncryptionMode::Unspecified => {
-                    "TRANSIT_ENCRYPTION_MODE_UNSPECIFIED"
-                }
-                TransitEncryptionMode::ServerAuthentication => "SERVER_AUTHENTICATION",
-                TransitEncryptionMode::Disabled => "DISABLED",
+                Self::Unspecified => "TRANSIT_ENCRYPTION_MODE_UNSPECIFIED",
+                Self::ServerAuthentication => "SERVER_AUTHENTICATION",
+                Self::Disabled => "DISABLED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -450,9 +448,9 @@ pub mod instance {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ReadReplicasMode::Unspecified => "READ_REPLICAS_MODE_UNSPECIFIED",
-                ReadReplicasMode::ReadReplicasDisabled => "READ_REPLICAS_DISABLED",
-                ReadReplicasMode::ReadReplicasEnabled => "READ_REPLICAS_ENABLED",
+                Self::Unspecified => "READ_REPLICAS_MODE_UNSPECIFIED",
+                Self::ReadReplicasDisabled => "READ_REPLICAS_DISABLED",
+                Self::ReadReplicasEnabled => "READ_REPLICAS_ENABLED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -491,8 +489,8 @@ pub mod instance {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                SuspensionReason::Unspecified => "SUSPENSION_REASON_UNSPECIFIED",
-                SuspensionReason::CustomerManagedKeyIssue => "CUSTOMER_MANAGED_KEY_ISSUE",
+                Self::Unspecified => "SUSPENSION_REASON_UNSPECIFIED",
+                Self::CustomerManagedKeyIssue => "CUSTOMER_MANAGED_KEY_ISSUE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -560,9 +558,9 @@ pub mod persistence_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                PersistenceMode::Unspecified => "PERSISTENCE_MODE_UNSPECIFIED",
-                PersistenceMode::Disabled => "DISABLED",
-                PersistenceMode::Rdb => "RDB",
+                Self::Unspecified => "PERSISTENCE_MODE_UNSPECIFIED",
+                Self::Disabled => "DISABLED",
+                Self::Rdb => "RDB",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -607,11 +605,11 @@ pub mod persistence_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                SnapshotPeriod::Unspecified => "SNAPSHOT_PERIOD_UNSPECIFIED",
-                SnapshotPeriod::OneHour => "ONE_HOUR",
-                SnapshotPeriod::SixHours => "SIX_HOURS",
-                SnapshotPeriod::TwelveHours => "TWELVE_HOURS",
-                SnapshotPeriod::TwentyFourHours => "TWENTY_FOUR_HOURS",
+                Self::Unspecified => "SNAPSHOT_PERIOD_UNSPECIFIED",
+                Self::OneHour => "ONE_HOUR",
+                Self::SixHours => "SIX_HOURS",
+                Self::TwelveHours => "TWELVE_HOURS",
+                Self::TwentyFourHours => "TWENTY_FOUR_HOURS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -679,10 +677,10 @@ pub mod reschedule_maintenance_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                RescheduleType::Unspecified => "RESCHEDULE_TYPE_UNSPECIFIED",
-                RescheduleType::Immediate => "IMMEDIATE",
-                RescheduleType::NextAvailableWindow => "NEXT_AVAILABLE_WINDOW",
-                RescheduleType::SpecificTime => "SPECIFIC_TIME",
+                Self::Unspecified => "RESCHEDULE_TYPE_UNSPECIFIED",
+                Self::Immediate => "IMMEDIATE",
+                Self::NextAvailableWindow => "NEXT_AVAILABLE_WINDOW",
+                Self::SpecificTime => "SPECIFIC_TIME",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1011,9 +1009,9 @@ pub mod failover_instance_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                DataProtectionMode::Unspecified => "DATA_PROTECTION_MODE_UNSPECIFIED",
-                DataProtectionMode::LimitedDataLoss => "LIMITED_DATA_LOSS",
-                DataProtectionMode::ForceDataLoss => "FORCE_DATA_LOSS",
+                Self::Unspecified => "DATA_PROTECTION_MODE_UNSPECIFIED",
+                Self::LimitedDataLoss => "LIMITED_DATA_LOSS",
+                Self::ForceDataLoss => "FORCE_DATA_LOSS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1542,5 +1540,763 @@ pub mod cloud_redis_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod cloud_redis_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with CloudRedisServer.
+    #[async_trait]
+    pub trait CloudRedis: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists all Redis instances owned by a project in either the specified
+        /// location (region) or all locations.
+        ///
+        /// The location should have the following format:
+        ///
+        /// * `projects/{project_id}/locations/{location_id}`
+        ///
+        /// If `location_id` is specified as `-` (wildcard), then all regions
+        /// available to the project are queried, and the results are aggregated.
+        async fn list_instances(
+            &self,
+            request: tonic::Request<super::ListInstancesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListInstancesResponse>,
+            tonic::Status,
+        >;
+        /// Gets the details of a specific Redis instance.
+        async fn get_instance(
+            &self,
+            request: tonic::Request<super::GetInstanceRequest>,
+        ) -> std::result::Result<tonic::Response<super::Instance>, tonic::Status>;
+        /// Gets the AUTH string for a Redis instance. If AUTH is not enabled for the
+        /// instance the response will be empty. This information is not included in
+        /// the details returned to GetInstance.
+        async fn get_instance_auth_string(
+            &self,
+            request: tonic::Request<super::GetInstanceAuthStringRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::InstanceAuthString>,
+            tonic::Status,
+        >;
+        /// Creates a Redis instance based on the specified tier and memory size.
+        ///
+        /// By default, the instance is accessible from the project's
+        /// [default network](https://cloud.google.com/vpc/docs/vpc).
+        ///
+        /// The creation is executed asynchronously and callers may check the returned
+        /// operation to track its progress. Once the operation is completed the Redis
+        /// instance will be fully functional. Completed longrunning.Operation will
+        /// contain the new instance object in the response field.
+        ///
+        /// The returned operation is automatically deleted after a few hours, so there
+        /// is no need to call DeleteOperation.
+        async fn create_instance(
+            &self,
+            request: tonic::Request<super::CreateInstanceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the metadata and configuration of a specific Redis instance.
+        ///
+        /// Completed longrunning.Operation will contain the new instance object
+        /// in the response field. The returned operation is automatically deleted
+        /// after a few hours, so there is no need to call DeleteOperation.
+        async fn update_instance(
+            &self,
+            request: tonic::Request<super::UpdateInstanceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Upgrades Redis instance to the newer Redis version specified in the
+        /// request.
+        async fn upgrade_instance(
+            &self,
+            request: tonic::Request<super::UpgradeInstanceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Import a Redis RDB snapshot file from Cloud Storage into a Redis instance.
+        ///
+        /// Redis may stop serving during this operation. Instance state will be
+        /// IMPORTING for entire operation. When complete, the instance will contain
+        /// only data from the imported file.
+        ///
+        /// The returned operation is automatically deleted after a few hours, so
+        /// there is no need to call DeleteOperation.
+        async fn import_instance(
+            &self,
+            request: tonic::Request<super::ImportInstanceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Export Redis instance data into a Redis RDB format file in Cloud Storage.
+        ///
+        /// Redis will continue serving during this operation.
+        ///
+        /// The returned operation is automatically deleted after a few hours, so
+        /// there is no need to call DeleteOperation.
+        async fn export_instance(
+            &self,
+            request: tonic::Request<super::ExportInstanceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Initiates a failover of the primary node to current replica node for a
+        /// specific STANDARD tier Cloud Memorystore for Redis instance.
+        async fn failover_instance(
+            &self,
+            request: tonic::Request<super::FailoverInstanceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a specific Redis instance.  Instance stops serving and data is
+        /// deleted.
+        async fn delete_instance(
+            &self,
+            request: tonic::Request<super::DeleteInstanceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Reschedule maintenance for a given instance in a given project and
+        /// location.
+        async fn reschedule_maintenance(
+            &self,
+            request: tonic::Request<super::RescheduleMaintenanceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// Configures and manages Cloud Memorystore for Redis instances
+    ///
+    /// Google Cloud Memorystore for Redis v1
+    ///
+    /// The `redis.googleapis.com` service implements the Google Cloud Memorystore
+    /// for Redis API and defines the following resource model for managing Redis
+    /// instances:
+    /// * The service works with a collection of cloud projects, named: `/projects/*`
+    /// * Each project has a collection of available locations, named: `/locations/*`
+    /// * Each location has a collection of Redis instances, named: `/instances/*`
+    /// * As such, Redis instances are resources of the form:
+    ///   `/projects/{project_id}/locations/{location_id}/instances/{instance_id}`
+    ///
+    /// Note that location_id must be referring to a GCP `region`; for example:
+    /// * `projects/redpepper-1290/locations/us-central1/instances/my-redis`
+    #[derive(Debug)]
+    pub struct CloudRedisServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> CloudRedisServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for CloudRedisServer<T>
+    where
+        T: CloudRedis,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.redis.v1.CloudRedis/ListInstances" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListInstancesSvc<T: CloudRedis>(pub Arc<T>);
+                    impl<
+                        T: CloudRedis,
+                    > tonic::server::UnaryService<super::ListInstancesRequest>
+                    for ListInstancesSvc<T> {
+                        type Response = super::ListInstancesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListInstancesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudRedis>::list_instances(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListInstancesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.redis.v1.CloudRedis/GetInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetInstanceSvc<T: CloudRedis>(pub Arc<T>);
+                    impl<
+                        T: CloudRedis,
+                    > tonic::server::UnaryService<super::GetInstanceRequest>
+                    for GetInstanceSvc<T> {
+                        type Response = super::Instance;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetInstanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudRedis>::get_instance(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.redis.v1.CloudRedis/GetInstanceAuthString" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetInstanceAuthStringSvc<T: CloudRedis>(pub Arc<T>);
+                    impl<
+                        T: CloudRedis,
+                    > tonic::server::UnaryService<super::GetInstanceAuthStringRequest>
+                    for GetInstanceAuthStringSvc<T> {
+                        type Response = super::InstanceAuthString;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetInstanceAuthStringRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudRedis>::get_instance_auth_string(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetInstanceAuthStringSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.redis.v1.CloudRedis/CreateInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateInstanceSvc<T: CloudRedis>(pub Arc<T>);
+                    impl<
+                        T: CloudRedis,
+                    > tonic::server::UnaryService<super::CreateInstanceRequest>
+                    for CreateInstanceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateInstanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudRedis>::create_instance(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.redis.v1.CloudRedis/UpdateInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateInstanceSvc<T: CloudRedis>(pub Arc<T>);
+                    impl<
+                        T: CloudRedis,
+                    > tonic::server::UnaryService<super::UpdateInstanceRequest>
+                    for UpdateInstanceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateInstanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudRedis>::update_instance(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.redis.v1.CloudRedis/UpgradeInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpgradeInstanceSvc<T: CloudRedis>(pub Arc<T>);
+                    impl<
+                        T: CloudRedis,
+                    > tonic::server::UnaryService<super::UpgradeInstanceRequest>
+                    for UpgradeInstanceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpgradeInstanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudRedis>::upgrade_instance(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpgradeInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.redis.v1.CloudRedis/ImportInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct ImportInstanceSvc<T: CloudRedis>(pub Arc<T>);
+                    impl<
+                        T: CloudRedis,
+                    > tonic::server::UnaryService<super::ImportInstanceRequest>
+                    for ImportInstanceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ImportInstanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudRedis>::import_instance(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ImportInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.redis.v1.CloudRedis/ExportInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct ExportInstanceSvc<T: CloudRedis>(pub Arc<T>);
+                    impl<
+                        T: CloudRedis,
+                    > tonic::server::UnaryService<super::ExportInstanceRequest>
+                    for ExportInstanceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ExportInstanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudRedis>::export_instance(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ExportInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.redis.v1.CloudRedis/FailoverInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct FailoverInstanceSvc<T: CloudRedis>(pub Arc<T>);
+                    impl<
+                        T: CloudRedis,
+                    > tonic::server::UnaryService<super::FailoverInstanceRequest>
+                    for FailoverInstanceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::FailoverInstanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudRedis>::failover_instance(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = FailoverInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.redis.v1.CloudRedis/DeleteInstance" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteInstanceSvc<T: CloudRedis>(pub Arc<T>);
+                    impl<
+                        T: CloudRedis,
+                    > tonic::server::UnaryService<super::DeleteInstanceRequest>
+                    for DeleteInstanceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteInstanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudRedis>::delete_instance(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteInstanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.redis.v1.CloudRedis/RescheduleMaintenance" => {
+                    #[allow(non_camel_case_types)]
+                    struct RescheduleMaintenanceSvc<T: CloudRedis>(pub Arc<T>);
+                    impl<
+                        T: CloudRedis,
+                    > tonic::server::UnaryService<super::RescheduleMaintenanceRequest>
+                    for RescheduleMaintenanceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RescheduleMaintenanceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CloudRedis>::reschedule_maintenance(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RescheduleMaintenanceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for CloudRedisServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.redis.v1.CloudRedis";
+    impl<T> tonic::server::NamedService for CloudRedisServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

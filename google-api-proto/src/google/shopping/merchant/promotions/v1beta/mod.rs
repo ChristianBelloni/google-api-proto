@@ -293,13 +293,13 @@ pub mod promotion_status {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    State::Unspecified => "STATE_UNSPECIFIED",
-                    State::InReview => "IN_REVIEW",
-                    State::Rejected => "REJECTED",
-                    State::Live => "LIVE",
-                    State::Stopped => "STOPPED",
-                    State::Expired => "EXPIRED",
-                    State::Pending => "PENDING",
+                    Self::Unspecified => "STATE_UNSPECIFIED",
+                    Self::InReview => "IN_REVIEW",
+                    Self::Rejected => "REJECTED",
+                    Self::Live => "LIVE",
+                    Self::Stopped => "STOPPED",
+                    Self::Expired => "EXPIRED",
+                    Self::Pending => "PENDING",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -389,10 +389,10 @@ pub mod promotion_status {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    Severity::Unspecified => "SEVERITY_UNSPECIFIED",
-                    Severity::NotImpacted => "NOT_IMPACTED",
-                    Severity::Demoted => "DEMOTED",
-                    Severity::Disapproved => "DISAPPROVED",
+                    Self::Unspecified => "SEVERITY_UNSPECIFIED",
+                    Self::NotImpacted => "NOT_IMPACTED",
+                    Self::Demoted => "DEMOTED",
+                    Self::Disapproved => "DISAPPROVED",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -426,9 +426,9 @@ impl ProductApplicability {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ProductApplicability::Unspecified => "PRODUCT_APPLICABILITY_UNSPECIFIED",
-            ProductApplicability::AllProducts => "ALL_PRODUCTS",
-            ProductApplicability::SpecificProducts => "SPECIFIC_PRODUCTS",
+            Self::Unspecified => "PRODUCT_APPLICABILITY_UNSPECIFIED",
+            Self::AllProducts => "ALL_PRODUCTS",
+            Self::SpecificProducts => "SPECIFIC_PRODUCTS",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -460,9 +460,9 @@ impl StoreApplicability {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            StoreApplicability::Unspecified => "STORE_APPLICABILITY_UNSPECIFIED",
-            StoreApplicability::AllStores => "ALL_STORES",
-            StoreApplicability::SpecificStores => "SPECIFIC_STORES",
+            Self::Unspecified => "STORE_APPLICABILITY_UNSPECIFIED",
+            Self::AllStores => "ALL_STORES",
+            Self::SpecificStores => "SPECIFIC_STORES",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -494,9 +494,9 @@ impl OfferType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            OfferType::Unspecified => "OFFER_TYPE_UNSPECIFIED",
-            OfferType::NoCode => "NO_CODE",
-            OfferType::GenericCode => "GENERIC_CODE",
+            Self::Unspecified => "OFFER_TYPE_UNSPECIFIED",
+            Self::NoCode => "NO_CODE",
+            Self::GenericCode => "GENERIC_CODE",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -528,9 +528,9 @@ impl RedemptionChannel {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            RedemptionChannel::Unspecified => "REDEMPTION_CHANNEL_UNSPECIFIED",
-            RedemptionChannel::InStore => "IN_STORE",
-            RedemptionChannel::Online => "ONLINE",
+            Self::Unspecified => "REDEMPTION_CHANNEL_UNSPECIFIED",
+            Self::InStore => "IN_STORE",
+            Self::Online => "ONLINE",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -589,19 +589,19 @@ impl CouponValueType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            CouponValueType::Unspecified => "COUPON_VALUE_TYPE_UNSPECIFIED",
-            CouponValueType::MoneyOff => "MONEY_OFF",
-            CouponValueType::PercentOff => "PERCENT_OFF",
-            CouponValueType::BuyMGetNMoneyOff => "BUY_M_GET_N_MONEY_OFF",
-            CouponValueType::BuyMGetNPercentOff => "BUY_M_GET_N_PERCENT_OFF",
-            CouponValueType::BuyMGetMoneyOff => "BUY_M_GET_MONEY_OFF",
-            CouponValueType::BuyMGetPercentOff => "BUY_M_GET_PERCENT_OFF",
-            CouponValueType::FreeGift => "FREE_GIFT",
-            CouponValueType::FreeGiftWithValue => "FREE_GIFT_WITH_VALUE",
-            CouponValueType::FreeGiftWithItemId => "FREE_GIFT_WITH_ITEM_ID",
-            CouponValueType::FreeShippingStandard => "FREE_SHIPPING_STANDARD",
-            CouponValueType::FreeShippingOvernight => "FREE_SHIPPING_OVERNIGHT",
-            CouponValueType::FreeShippingTwoDay => "FREE_SHIPPING_TWO_DAY",
+            Self::Unspecified => "COUPON_VALUE_TYPE_UNSPECIFIED",
+            Self::MoneyOff => "MONEY_OFF",
+            Self::PercentOff => "PERCENT_OFF",
+            Self::BuyMGetNMoneyOff => "BUY_M_GET_N_MONEY_OFF",
+            Self::BuyMGetNPercentOff => "BUY_M_GET_N_PERCENT_OFF",
+            Self::BuyMGetMoneyOff => "BUY_M_GET_MONEY_OFF",
+            Self::BuyMGetPercentOff => "BUY_M_GET_PERCENT_OFF",
+            Self::FreeGift => "FREE_GIFT",
+            Self::FreeGiftWithValue => "FREE_GIFT_WITH_VALUE",
+            Self::FreeGiftWithItemId => "FREE_GIFT_WITH_ITEM_ID",
+            Self::FreeShippingStandard => "FREE_SHIPPING_STANDARD",
+            Self::FreeShippingOvernight => "FREE_SHIPPING_OVERNIGHT",
+            Self::FreeShippingTwoDay => "FREE_SHIPPING_TWO_DAY",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -935,5 +935,291 @@ pub mod promotions_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod promotions_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with PromotionsServiceServer.
+    #[async_trait]
+    pub trait PromotionsService: std::marker::Send + std::marker::Sync + 'static {
+        /// Inserts a promotion for your Merchant Center account. If the promotion
+        /// already exists, then it updates the promotion instead.
+        async fn insert_promotion(
+            &self,
+            request: tonic::Request<super::InsertPromotionRequest>,
+        ) -> std::result::Result<tonic::Response<super::Promotion>, tonic::Status>;
+        /// Retrieves the promotion from your Merchant Center account.
+        ///
+        /// After inserting or updating a promotion input, it may take several
+        /// minutes before the updated promotion can be retrieved.
+        async fn get_promotion(
+            &self,
+            request: tonic::Request<super::GetPromotionRequest>,
+        ) -> std::result::Result<tonic::Response<super::Promotion>, tonic::Status>;
+        /// Lists the promotions in your Merchant Center account. The
+        /// response might contain fewer items than specified by `pageSize`. Rely on
+        /// `pageToken` to determine if there are more items to be requested.
+        ///
+        /// After inserting or updating a promotion, it may take several minutes before
+        /// the updated processed promotion can be retrieved.
+        async fn list_promotions(
+            &self,
+            request: tonic::Request<super::ListPromotionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListPromotionsResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Service to manage promotions for products.
+    #[derive(Debug)]
+    pub struct PromotionsServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> PromotionsServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for PromotionsServiceServer<T>
+    where
+        T: PromotionsService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.shopping.merchant.promotions.v1beta.PromotionsService/InsertPromotion" => {
+                    #[allow(non_camel_case_types)]
+                    struct InsertPromotionSvc<T: PromotionsService>(pub Arc<T>);
+                    impl<
+                        T: PromotionsService,
+                    > tonic::server::UnaryService<super::InsertPromotionRequest>
+                    for InsertPromotionSvc<T> {
+                        type Response = super::Promotion;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::InsertPromotionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as PromotionsService>::insert_promotion(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = InsertPromotionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.shopping.merchant.promotions.v1beta.PromotionsService/GetPromotion" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetPromotionSvc<T: PromotionsService>(pub Arc<T>);
+                    impl<
+                        T: PromotionsService,
+                    > tonic::server::UnaryService<super::GetPromotionRequest>
+                    for GetPromotionSvc<T> {
+                        type Response = super::Promotion;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetPromotionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as PromotionsService>::get_promotion(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetPromotionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.shopping.merchant.promotions.v1beta.PromotionsService/ListPromotions" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListPromotionsSvc<T: PromotionsService>(pub Arc<T>);
+                    impl<
+                        T: PromotionsService,
+                    > tonic::server::UnaryService<super::ListPromotionsRequest>
+                    for ListPromotionsSvc<T> {
+                        type Response = super::ListPromotionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListPromotionsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as PromotionsService>::list_promotions(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListPromotionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for PromotionsServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.shopping.merchant.promotions.v1beta.PromotionsService";
+    impl<T> tonic::server::NamedService for PromotionsServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

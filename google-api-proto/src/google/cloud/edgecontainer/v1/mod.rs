@@ -163,11 +163,9 @@ pub mod cluster {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    SharedDeploymentPolicy::Unspecified => {
-                        "SHARED_DEPLOYMENT_POLICY_UNSPECIFIED"
-                    }
-                    SharedDeploymentPolicy::Allowed => "ALLOWED",
-                    SharedDeploymentPolicy::Disallowed => "DISALLOWED",
+                    Self::Unspecified => "SHARED_DEPLOYMENT_POLICY_UNSPECIFIED",
+                    Self::Allowed => "ALLOWED",
+                    Self::Disallowed => "DISALLOWED",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -317,9 +315,9 @@ pub mod cluster {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    Type::Unspecified => "TYPE_UNSPECIFIED",
-                    Type::UserInitiatedUpgrade => "USER_INITIATED_UPGRADE",
-                    Type::GoogleDrivenUpgrade => "GOOGLE_DRIVEN_UPGRADE",
+                    Self::Unspecified => "TYPE_UNSPECIFIED",
+                    Self::UserInitiatedUpgrade => "USER_INITIATED_UPGRADE",
+                    Self::GoogleDrivenUpgrade => "GOOGLE_DRIVEN_UPGRADE",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -358,8 +356,8 @@ pub mod cluster {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    Schedule::Unspecified => "SCHEDULE_UNSPECIFIED",
-                    Schedule::Immediately => "IMMEDIATELY",
+                    Self::Unspecified => "SCHEDULE_UNSPECIFIED",
+                    Self::Immediately => "IMMEDIATELY",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -401,10 +399,10 @@ pub mod cluster {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    State::Unspecified => "STATE_UNSPECIFIED",
-                    State::Reconciling => "RECONCILING",
-                    State::Succeeded => "SUCCEEDED",
-                    State::Failed => "FAILED",
+                    Self::Unspecified => "STATE_UNSPECIFIED",
+                    Self::Reconciling => "RECONCILING",
+                    Self::Succeeded => "SUCCEEDED",
+                    Self::Failed => "FAILED",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -464,12 +462,12 @@ pub mod cluster {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Status::Unspecified => "STATUS_UNSPECIFIED",
-                Status::Provisioning => "PROVISIONING",
-                Status::Running => "RUNNING",
-                Status::Deleting => "DELETING",
-                Status::Error => "ERROR",
-                Status::Reconciling => "RECONCILING",
+                Self::Unspecified => "STATUS_UNSPECIFIED",
+                Self::Provisioning => "PROVISIONING",
+                Self::Running => "RUNNING",
+                Self::Deleting => "DELETING",
+                Self::Error => "ERROR",
+                Self::Reconciling => "RECONCILING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -513,9 +511,9 @@ pub mod cluster {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ReleaseChannel::Unspecified => "RELEASE_CHANNEL_UNSPECIFIED",
-                ReleaseChannel::None => "NONE",
-                ReleaseChannel::Regular => "REGULAR",
+                Self::Unspecified => "RELEASE_CHANNEL_UNSPECIFIED",
+                Self::None => "NONE",
+                Self::Regular => "REGULAR",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -836,10 +834,10 @@ pub mod vpn_connection {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    State::Unspecified => "STATE_UNSPECIFIED",
-                    State::Connected => "STATE_CONNECTED",
-                    State::Connecting => "STATE_CONNECTING",
-                    State::Error => "STATE_ERROR",
+                    Self::Unspecified => "STATE_UNSPECIFIED",
+                    Self::Connected => "STATE_CONNECTED",
+                    Self::Connecting => "STATE_CONNECTING",
+                    Self::Error => "STATE_ERROR",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -882,9 +880,9 @@ pub mod vpn_connection {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                BgpRoutingMode::Unspecified => "BGP_ROUTING_MODE_UNSPECIFIED",
-                BgpRoutingMode::Regional => "REGIONAL",
-                BgpRoutingMode::Global => "GLOBAL",
+                Self::Unspecified => "BGP_ROUTING_MODE_UNSPECIFIED",
+                Self::Regional => "REGIONAL",
+                Self::Global => "GLOBAL",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -955,9 +953,9 @@ pub mod zone_metadata {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                RackType::Unspecified => "RACK_TYPE_UNSPECIFIED",
-                RackType::Base => "BASE",
-                RackType::Expansion => "EXPANSION",
+                Self::Unspecified => "RACK_TYPE_UNSPECIFIED",
+                Self::Base => "BASE",
+                Self::Expansion => "EXPANSION",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1071,9 +1069,9 @@ impl KmsKeyState {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            KmsKeyState::Unspecified => "KMS_KEY_STATE_UNSPECIFIED",
-            KmsKeyState::KeyAvailable => "KMS_KEY_STATE_KEY_AVAILABLE",
-            KmsKeyState::KeyUnavailable => "KMS_KEY_STATE_KEY_UNAVAILABLE",
+            Self::Unspecified => "KMS_KEY_STATE_UNSPECIFIED",
+            Self::KeyAvailable => "KMS_KEY_STATE_KEY_AVAILABLE",
+            Self::KeyUnavailable => "KMS_KEY_STATE_KEY_UNAVAILABLE",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1243,8 +1241,8 @@ pub mod upgrade_cluster_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Schedule::Unspecified => "SCHEDULE_UNSPECIFIED",
-                Schedule::Immediately => "IMMEDIATELY",
+                Self::Unspecified => "SCHEDULE_UNSPECIFIED",
+                Self::Immediately => "IMMEDIATELY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2195,5 +2193,1188 @@ pub mod edge_container_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod edge_container_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with EdgeContainerServer.
+    #[async_trait]
+    pub trait EdgeContainer: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists Clusters in a given project and location.
+        async fn list_clusters(
+            &self,
+            request: tonic::Request<super::ListClustersRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListClustersResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single Cluster.
+        async fn get_cluster(
+            &self,
+            request: tonic::Request<super::GetClusterRequest>,
+        ) -> std::result::Result<tonic::Response<super::Cluster>, tonic::Status>;
+        /// Creates a new Cluster in a given project and location.
+        async fn create_cluster(
+            &self,
+            request: tonic::Request<super::CreateClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the parameters of a single Cluster.
+        async fn update_cluster(
+            &self,
+            request: tonic::Request<super::UpdateClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Upgrades a single cluster.
+        async fn upgrade_cluster(
+            &self,
+            request: tonic::Request<super::UpgradeClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single Cluster.
+        async fn delete_cluster(
+            &self,
+            request: tonic::Request<super::DeleteClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Generates an access token for a Cluster.
+        async fn generate_access_token(
+            &self,
+            request: tonic::Request<super::GenerateAccessTokenRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::GenerateAccessTokenResponse>,
+            tonic::Status,
+        >;
+        /// Generates an offline credential for a Cluster.
+        async fn generate_offline_credential(
+            &self,
+            request: tonic::Request<super::GenerateOfflineCredentialRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::GenerateOfflineCredentialResponse>,
+            tonic::Status,
+        >;
+        /// Lists NodePools in a given project and location.
+        async fn list_node_pools(
+            &self,
+            request: tonic::Request<super::ListNodePoolsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListNodePoolsResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single NodePool.
+        async fn get_node_pool(
+            &self,
+            request: tonic::Request<super::GetNodePoolRequest>,
+        ) -> std::result::Result<tonic::Response<super::NodePool>, tonic::Status>;
+        /// Creates a new NodePool in a given project and location.
+        async fn create_node_pool(
+            &self,
+            request: tonic::Request<super::CreateNodePoolRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the parameters of a single NodePool.
+        async fn update_node_pool(
+            &self,
+            request: tonic::Request<super::UpdateNodePoolRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single NodePool.
+        async fn delete_node_pool(
+            &self,
+            request: tonic::Request<super::DeleteNodePoolRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists Machines in a given project and location.
+        async fn list_machines(
+            &self,
+            request: tonic::Request<super::ListMachinesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListMachinesResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single Machine.
+        async fn get_machine(
+            &self,
+            request: tonic::Request<super::GetMachineRequest>,
+        ) -> std::result::Result<tonic::Response<super::Machine>, tonic::Status>;
+        /// Lists VPN connections in a given project and location.
+        async fn list_vpn_connections(
+            &self,
+            request: tonic::Request<super::ListVpnConnectionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListVpnConnectionsResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single VPN connection.
+        async fn get_vpn_connection(
+            &self,
+            request: tonic::Request<super::GetVpnConnectionRequest>,
+        ) -> std::result::Result<tonic::Response<super::VpnConnection>, tonic::Status>;
+        /// Creates a new VPN connection in a given project and location.
+        async fn create_vpn_connection(
+            &self,
+            request: tonic::Request<super::CreateVpnConnectionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single VPN connection.
+        async fn delete_vpn_connection(
+            &self,
+            request: tonic::Request<super::DeleteVpnConnectionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Gets the server config.
+        async fn get_server_config(
+            &self,
+            request: tonic::Request<super::GetServerConfigRequest>,
+        ) -> std::result::Result<tonic::Response<super::ServerConfig>, tonic::Status>;
+    }
+    /// EdgeContainer API provides management of Kubernetes Clusters on Google Edge
+    /// Cloud deployments.
+    #[derive(Debug)]
+    pub struct EdgeContainerServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> EdgeContainerServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for EdgeContainerServer<T>
+    where
+        T: EdgeContainer,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.edgecontainer.v1.EdgeContainer/ListClusters" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListClustersSvc<T: EdgeContainer>(pub Arc<T>);
+                    impl<
+                        T: EdgeContainer,
+                    > tonic::server::UnaryService<super::ListClustersRequest>
+                    for ListClustersSvc<T> {
+                        type Response = super::ListClustersResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListClustersRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeContainer>::list_clusters(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListClustersSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgecontainer.v1.EdgeContainer/GetCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetClusterSvc<T: EdgeContainer>(pub Arc<T>);
+                    impl<
+                        T: EdgeContainer,
+                    > tonic::server::UnaryService<super::GetClusterRequest>
+                    for GetClusterSvc<T> {
+                        type Response = super::Cluster;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeContainer>::get_cluster(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgecontainer.v1.EdgeContainer/CreateCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateClusterSvc<T: EdgeContainer>(pub Arc<T>);
+                    impl<
+                        T: EdgeContainer,
+                    > tonic::server::UnaryService<super::CreateClusterRequest>
+                    for CreateClusterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeContainer>::create_cluster(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgecontainer.v1.EdgeContainer/UpdateCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateClusterSvc<T: EdgeContainer>(pub Arc<T>);
+                    impl<
+                        T: EdgeContainer,
+                    > tonic::server::UnaryService<super::UpdateClusterRequest>
+                    for UpdateClusterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeContainer>::update_cluster(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgecontainer.v1.EdgeContainer/UpgradeCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpgradeClusterSvc<T: EdgeContainer>(pub Arc<T>);
+                    impl<
+                        T: EdgeContainer,
+                    > tonic::server::UnaryService<super::UpgradeClusterRequest>
+                    for UpgradeClusterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpgradeClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeContainer>::upgrade_cluster(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpgradeClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgecontainer.v1.EdgeContainer/DeleteCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteClusterSvc<T: EdgeContainer>(pub Arc<T>);
+                    impl<
+                        T: EdgeContainer,
+                    > tonic::server::UnaryService<super::DeleteClusterRequest>
+                    for DeleteClusterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeContainer>::delete_cluster(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgecontainer.v1.EdgeContainer/GenerateAccessToken" => {
+                    #[allow(non_camel_case_types)]
+                    struct GenerateAccessTokenSvc<T: EdgeContainer>(pub Arc<T>);
+                    impl<
+                        T: EdgeContainer,
+                    > tonic::server::UnaryService<super::GenerateAccessTokenRequest>
+                    for GenerateAccessTokenSvc<T> {
+                        type Response = super::GenerateAccessTokenResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GenerateAccessTokenRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeContainer>::generate_access_token(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GenerateAccessTokenSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgecontainer.v1.EdgeContainer/GenerateOfflineCredential" => {
+                    #[allow(non_camel_case_types)]
+                    struct GenerateOfflineCredentialSvc<T: EdgeContainer>(pub Arc<T>);
+                    impl<
+                        T: EdgeContainer,
+                    > tonic::server::UnaryService<
+                        super::GenerateOfflineCredentialRequest,
+                    > for GenerateOfflineCredentialSvc<T> {
+                        type Response = super::GenerateOfflineCredentialResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GenerateOfflineCredentialRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeContainer>::generate_offline_credential(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GenerateOfflineCredentialSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgecontainer.v1.EdgeContainer/ListNodePools" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListNodePoolsSvc<T: EdgeContainer>(pub Arc<T>);
+                    impl<
+                        T: EdgeContainer,
+                    > tonic::server::UnaryService<super::ListNodePoolsRequest>
+                    for ListNodePoolsSvc<T> {
+                        type Response = super::ListNodePoolsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListNodePoolsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeContainer>::list_node_pools(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListNodePoolsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgecontainer.v1.EdgeContainer/GetNodePool" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetNodePoolSvc<T: EdgeContainer>(pub Arc<T>);
+                    impl<
+                        T: EdgeContainer,
+                    > tonic::server::UnaryService<super::GetNodePoolRequest>
+                    for GetNodePoolSvc<T> {
+                        type Response = super::NodePool;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetNodePoolRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeContainer>::get_node_pool(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetNodePoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgecontainer.v1.EdgeContainer/CreateNodePool" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateNodePoolSvc<T: EdgeContainer>(pub Arc<T>);
+                    impl<
+                        T: EdgeContainer,
+                    > tonic::server::UnaryService<super::CreateNodePoolRequest>
+                    for CreateNodePoolSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateNodePoolRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeContainer>::create_node_pool(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateNodePoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgecontainer.v1.EdgeContainer/UpdateNodePool" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateNodePoolSvc<T: EdgeContainer>(pub Arc<T>);
+                    impl<
+                        T: EdgeContainer,
+                    > tonic::server::UnaryService<super::UpdateNodePoolRequest>
+                    for UpdateNodePoolSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateNodePoolRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeContainer>::update_node_pool(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateNodePoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgecontainer.v1.EdgeContainer/DeleteNodePool" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteNodePoolSvc<T: EdgeContainer>(pub Arc<T>);
+                    impl<
+                        T: EdgeContainer,
+                    > tonic::server::UnaryService<super::DeleteNodePoolRequest>
+                    for DeleteNodePoolSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteNodePoolRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeContainer>::delete_node_pool(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteNodePoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgecontainer.v1.EdgeContainer/ListMachines" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListMachinesSvc<T: EdgeContainer>(pub Arc<T>);
+                    impl<
+                        T: EdgeContainer,
+                    > tonic::server::UnaryService<super::ListMachinesRequest>
+                    for ListMachinesSvc<T> {
+                        type Response = super::ListMachinesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListMachinesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeContainer>::list_machines(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListMachinesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgecontainer.v1.EdgeContainer/GetMachine" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetMachineSvc<T: EdgeContainer>(pub Arc<T>);
+                    impl<
+                        T: EdgeContainer,
+                    > tonic::server::UnaryService<super::GetMachineRequest>
+                    for GetMachineSvc<T> {
+                        type Response = super::Machine;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetMachineRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeContainer>::get_machine(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetMachineSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgecontainer.v1.EdgeContainer/ListVpnConnections" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListVpnConnectionsSvc<T: EdgeContainer>(pub Arc<T>);
+                    impl<
+                        T: EdgeContainer,
+                    > tonic::server::UnaryService<super::ListVpnConnectionsRequest>
+                    for ListVpnConnectionsSvc<T> {
+                        type Response = super::ListVpnConnectionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListVpnConnectionsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeContainer>::list_vpn_connections(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListVpnConnectionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgecontainer.v1.EdgeContainer/GetVpnConnection" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetVpnConnectionSvc<T: EdgeContainer>(pub Arc<T>);
+                    impl<
+                        T: EdgeContainer,
+                    > tonic::server::UnaryService<super::GetVpnConnectionRequest>
+                    for GetVpnConnectionSvc<T> {
+                        type Response = super::VpnConnection;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetVpnConnectionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeContainer>::get_vpn_connection(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetVpnConnectionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgecontainer.v1.EdgeContainer/CreateVpnConnection" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateVpnConnectionSvc<T: EdgeContainer>(pub Arc<T>);
+                    impl<
+                        T: EdgeContainer,
+                    > tonic::server::UnaryService<super::CreateVpnConnectionRequest>
+                    for CreateVpnConnectionSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateVpnConnectionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeContainer>::create_vpn_connection(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateVpnConnectionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgecontainer.v1.EdgeContainer/DeleteVpnConnection" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteVpnConnectionSvc<T: EdgeContainer>(pub Arc<T>);
+                    impl<
+                        T: EdgeContainer,
+                    > tonic::server::UnaryService<super::DeleteVpnConnectionRequest>
+                    for DeleteVpnConnectionSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteVpnConnectionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeContainer>::delete_vpn_connection(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteVpnConnectionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.edgecontainer.v1.EdgeContainer/GetServerConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetServerConfigSvc<T: EdgeContainer>(pub Arc<T>);
+                    impl<
+                        T: EdgeContainer,
+                    > tonic::server::UnaryService<super::GetServerConfigRequest>
+                    for GetServerConfigSvc<T> {
+                        type Response = super::ServerConfig;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetServerConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as EdgeContainer>::get_server_config(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetServerConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for EdgeContainerServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.edgecontainer.v1.EdgeContainer";
+    impl<T> tonic::server::NamedService for EdgeContainerServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

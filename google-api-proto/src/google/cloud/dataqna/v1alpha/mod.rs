@@ -44,9 +44,9 @@ pub mod user_feedback {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                UserFeedbackRating::Unspecified => "USER_FEEDBACK_RATING_UNSPECIFIED",
-                UserFeedbackRating::Positive => "POSITIVE",
-                UserFeedbackRating::Negative => "NEGATIVE",
+                Self::Unspecified => "USER_FEEDBACK_RATING_UNSPECIFIED",
+                Self::Positive => "POSITIVE",
+                Self::Negative => "NEGATIVE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -154,13 +154,13 @@ pub mod annotated_string {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                SemanticMarkupType::MarkupTypeUnspecified => "MARKUP_TYPE_UNSPECIFIED",
-                SemanticMarkupType::Metric => "METRIC",
-                SemanticMarkupType::Dimension => "DIMENSION",
-                SemanticMarkupType::Filter => "FILTER",
-                SemanticMarkupType::Unused => "UNUSED",
-                SemanticMarkupType::Blocked => "BLOCKED",
-                SemanticMarkupType::Row => "ROW",
+                Self::MarkupTypeUnspecified => "MARKUP_TYPE_UNSPECIFIED",
+                Self::Metric => "METRIC",
+                Self::Dimension => "DIMENSION",
+                Self::Filter => "FILTER",
+                Self::Unused => "UNUSED",
+                Self::Blocked => "BLOCKED",
+                Self::Row => "ROW",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -291,9 +291,9 @@ impl SuggestionType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            SuggestionType::Unspecified => "SUGGESTION_TYPE_UNSPECIFIED",
-            SuggestionType::Entity => "ENTITY",
-            SuggestionType::Template => "TEMPLATE",
+            Self::Unspecified => "SUGGESTION_TYPE_UNSPECIFIED",
+            Self::Entity => "ENTITY",
+            Self::Template => "TEMPLATE",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -480,6 +480,251 @@ pub mod auto_suggestion_service_client {
         }
     }
 }
+/// Generated server implementations.
+pub mod auto_suggestion_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with AutoSuggestionServiceServer.
+    #[async_trait]
+    pub trait AutoSuggestionService: std::marker::Send + std::marker::Sync + 'static {
+        /// Gets a list of suggestions based on a prefix string.
+        /// AutoSuggestion tolerance should be less than 1 second.
+        async fn suggest_queries(
+            &self,
+            request: tonic::Request<super::SuggestQueriesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SuggestQueriesResponse>,
+            tonic::Status,
+        >;
+    }
+    /// This stateless API provides automatic suggestions for natural language
+    /// queries for the data sources in the provided project and location.
+    ///
+    /// The service provides a resourceless operation `suggestQueries` that can be
+    /// called to get a list of suggestions for a given incomplete query and scope
+    /// (or list of scopes) under which the query is to be interpreted.
+    ///
+    /// There are two types of suggestions, ENTITY for single entity suggestions
+    /// and TEMPLATE for full sentences. By default, both types are returned.
+    ///
+    /// Example Request:
+    /// ```
+    /// GetSuggestions({
+    ///   parent: "locations/us/projects/my-project"
+    ///   scopes:
+    ///   "//bigquery.googleapis.com/projects/my-project/datasets/my-dataset/tables/my-table"
+    ///   query: "top it"
+    /// })
+    /// ```
+    ///
+    /// The service will retrieve information based on the given scope(s) and give
+    /// suggestions based on that (e.g. "top item" for "top it" if "item" is a known
+    /// dimension for the provided scope).
+    /// ```
+    /// suggestions {
+    ///   suggestion_info {
+    ///     annotated_suggestion {
+    ///       text_formatted: "top item by sum of usd_revenue_net"
+    ///       markups {
+    ///         type: DIMENSION
+    ///         start_char_index: 4
+    ///         length: 4
+    ///       }
+    ///       markups {
+    ///         type: METRIC
+    ///         start_char_index: 19
+    ///         length: 15
+    ///       }
+    ///     }
+    ///     query_matches {
+    ///       start_char_index: 0
+    ///       length: 6
+    ///     }
+    ///   }
+    ///   suggestion_type: TEMPLATE
+    ///   ranking_score: 0.9
+    /// }
+    /// suggestions {
+    ///   suggestion_info {
+    ///     annotated_suggestion {
+    ///       text_formatted: "item"
+    ///       markups {
+    ///         type: DIMENSION
+    ///         start_char_index: 4
+    ///         length: 2
+    ///       }
+    ///     }
+    ///     query_matches {
+    ///       start_char_index: 0
+    ///       length: 6
+    ///     }
+    ///   }
+    ///   suggestion_type: ENTITY
+    ///   ranking_score: 0.8
+    /// }
+    /// ```
+    #[derive(Debug)]
+    pub struct AutoSuggestionServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> AutoSuggestionServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for AutoSuggestionServiceServer<T>
+    where
+        T: AutoSuggestionService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.dataqna.v1alpha.AutoSuggestionService/SuggestQueries" => {
+                    #[allow(non_camel_case_types)]
+                    struct SuggestQueriesSvc<T: AutoSuggestionService>(pub Arc<T>);
+                    impl<
+                        T: AutoSuggestionService,
+                    > tonic::server::UnaryService<super::SuggestQueriesRequest>
+                    for SuggestQueriesSvc<T> {
+                        type Response = super::SuggestQueriesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SuggestQueriesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AutoSuggestionService>::suggest_queries(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SuggestQueriesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for AutoSuggestionServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.dataqna.v1alpha.AutoSuggestionService";
+    impl<T> tonic::server::NamedService for AutoSuggestionServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}
 /// The question resource represents a natural language query, its settings,
 /// understanding generated by the system, and answer retrieval status.
 /// A question cannot be modified.
@@ -621,10 +866,10 @@ pub mod interpret_error {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                InterpretErrorCode::Unspecified => "INTERPRET_ERROR_CODE_UNSPECIFIED",
-                InterpretErrorCode::InvalidQuery => "INVALID_QUERY",
-                InterpretErrorCode::FailedToUnderstand => "FAILED_TO_UNDERSTAND",
-                InterpretErrorCode::FailedToAnswer => "FAILED_TO_ANSWER",
+                Self::Unspecified => "INTERPRET_ERROR_CODE_UNSPECIFIED",
+                Self::InvalidQuery => "INVALID_QUERY",
+                Self::FailedToUnderstand => "FAILED_TO_UNDERSTAND",
+                Self::FailedToAnswer => "FAILED_TO_ANSWER",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -691,11 +936,11 @@ pub mod execution_info {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                JobExecutionState::Unspecified => "JOB_EXECUTION_STATE_UNSPECIFIED",
-                JobExecutionState::NotExecuted => "NOT_EXECUTED",
-                JobExecutionState::Running => "RUNNING",
-                JobExecutionState::Succeeded => "SUCCEEDED",
-                JobExecutionState::Failed => "FAILED",
+                Self::Unspecified => "JOB_EXECUTION_STATE_UNSPECIFIED",
+                Self::NotExecuted => "NOT_EXECUTED",
+                Self::Running => "RUNNING",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Failed => "FAILED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -870,19 +1115,19 @@ pub mod interpretation_structure {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                VisualizationType::Unspecified => "VISUALIZATION_TYPE_UNSPECIFIED",
-                VisualizationType::Table => "TABLE",
-                VisualizationType::BarChart => "BAR_CHART",
-                VisualizationType::ColumnChart => "COLUMN_CHART",
-                VisualizationType::Timeline => "TIMELINE",
-                VisualizationType::ScatterPlot => "SCATTER_PLOT",
-                VisualizationType::PieChart => "PIE_CHART",
-                VisualizationType::LineChart => "LINE_CHART",
-                VisualizationType::AreaChart => "AREA_CHART",
-                VisualizationType::ComboChart => "COMBO_CHART",
-                VisualizationType::Histogram => "HISTOGRAM",
-                VisualizationType::GenericChart => "GENERIC_CHART",
-                VisualizationType::ChartNotUnderstood => "CHART_NOT_UNDERSTOOD",
+                Self::Unspecified => "VISUALIZATION_TYPE_UNSPECIFIED",
+                Self::Table => "TABLE",
+                Self::BarChart => "BAR_CHART",
+                Self::ColumnChart => "COLUMN_CHART",
+                Self::Timeline => "TIMELINE",
+                Self::ScatterPlot => "SCATTER_PLOT",
+                Self::PieChart => "PIE_CHART",
+                Self::LineChart => "LINE_CHART",
+                Self::AreaChart => "AREA_CHART",
+                Self::ComboChart => "COMBO_CHART",
+                Self::Histogram => "HISTOGRAM",
+                Self::GenericChart => "GENERIC_CHART",
+                Self::ChartNotUnderstood => "CHART_NOT_UNDERSTOOD",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -972,9 +1217,9 @@ impl InterpretEntity {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            InterpretEntity::Unspecified => "INTERPRET_ENTITY_UNSPECIFIED",
-            InterpretEntity::Dimension => "DIMENSION",
-            InterpretEntity::Metric => "METRIC",
+            Self::Unspecified => "INTERPRET_ENTITY_UNSPECIFIED",
+            Self::Dimension => "DIMENSION",
+            Self::Metric => "METRIC",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1272,5 +1517,398 @@ pub mod question_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod question_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with QuestionServiceServer.
+    #[async_trait]
+    pub trait QuestionService: std::marker::Send + std::marker::Sync + 'static {
+        /// Gets a previously created question.
+        async fn get_question(
+            &self,
+            request: tonic::Request<super::GetQuestionRequest>,
+        ) -> std::result::Result<tonic::Response<super::Question>, tonic::Status>;
+        /// Creates a question.
+        async fn create_question(
+            &self,
+            request: tonic::Request<super::CreateQuestionRequest>,
+        ) -> std::result::Result<tonic::Response<super::Question>, tonic::Status>;
+        /// Executes an interpretation.
+        async fn execute_question(
+            &self,
+            request: tonic::Request<super::ExecuteQuestionRequest>,
+        ) -> std::result::Result<tonic::Response<super::Question>, tonic::Status>;
+        /// Gets previously created user feedback.
+        async fn get_user_feedback(
+            &self,
+            request: tonic::Request<super::GetUserFeedbackRequest>,
+        ) -> std::result::Result<tonic::Response<super::UserFeedback>, tonic::Status>;
+        /// Updates user feedback. This creates user feedback if there was none before
+        /// (upsert).
+        async fn update_user_feedback(
+            &self,
+            request: tonic::Request<super::UpdateUserFeedbackRequest>,
+        ) -> std::result::Result<tonic::Response<super::UserFeedback>, tonic::Status>;
+    }
+    /// Service to interpret natural language queries.
+    /// The service allows to create `Question` resources that are interpreted and
+    /// are filled with one or more interpretations if the question could be
+    /// interpreted. Once a `Question` resource is created and has at least one
+    /// interpretation, an interpretation can be chosen for execution, which
+    /// triggers a query to the backend (for BigQuery, it will create a job).
+    /// Upon successful execution of that interpretation, backend specific
+    /// information will be returned so that the client can retrieve the results
+    /// from the backend.
+    ///
+    /// The `Question` resources are named `projects/*/locations/*/questions/*`.
+    ///
+    /// The `Question` resource has a singletion sub-resource `UserFeedback` named
+    /// `projects/*/locations/*/questions/*/userFeedback`, which allows access to
+    /// user feedback.
+    #[derive(Debug)]
+    pub struct QuestionServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> QuestionServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for QuestionServiceServer<T>
+    where
+        T: QuestionService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.dataqna.v1alpha.QuestionService/GetQuestion" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetQuestionSvc<T: QuestionService>(pub Arc<T>);
+                    impl<
+                        T: QuestionService,
+                    > tonic::server::UnaryService<super::GetQuestionRequest>
+                    for GetQuestionSvc<T> {
+                        type Response = super::Question;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetQuestionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as QuestionService>::get_question(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetQuestionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataqna.v1alpha.QuestionService/CreateQuestion" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateQuestionSvc<T: QuestionService>(pub Arc<T>);
+                    impl<
+                        T: QuestionService,
+                    > tonic::server::UnaryService<super::CreateQuestionRequest>
+                    for CreateQuestionSvc<T> {
+                        type Response = super::Question;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateQuestionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as QuestionService>::create_question(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateQuestionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataqna.v1alpha.QuestionService/ExecuteQuestion" => {
+                    #[allow(non_camel_case_types)]
+                    struct ExecuteQuestionSvc<T: QuestionService>(pub Arc<T>);
+                    impl<
+                        T: QuestionService,
+                    > tonic::server::UnaryService<super::ExecuteQuestionRequest>
+                    for ExecuteQuestionSvc<T> {
+                        type Response = super::Question;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ExecuteQuestionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as QuestionService>::execute_question(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ExecuteQuestionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataqna.v1alpha.QuestionService/GetUserFeedback" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetUserFeedbackSvc<T: QuestionService>(pub Arc<T>);
+                    impl<
+                        T: QuestionService,
+                    > tonic::server::UnaryService<super::GetUserFeedbackRequest>
+                    for GetUserFeedbackSvc<T> {
+                        type Response = super::UserFeedback;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetUserFeedbackRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as QuestionService>::get_user_feedback(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetUserFeedbackSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.dataqna.v1alpha.QuestionService/UpdateUserFeedback" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateUserFeedbackSvc<T: QuestionService>(pub Arc<T>);
+                    impl<
+                        T: QuestionService,
+                    > tonic::server::UnaryService<super::UpdateUserFeedbackRequest>
+                    for UpdateUserFeedbackSvc<T> {
+                        type Response = super::UserFeedback;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateUserFeedbackRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as QuestionService>::update_user_feedback(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateUserFeedbackSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for QuestionServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.dataqna.v1alpha.QuestionService";
+    impl<T> tonic::server::NamedService for QuestionServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

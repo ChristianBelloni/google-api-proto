@@ -163,21 +163,21 @@ pub mod node {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Ready => "READY",
-                State::Restarting => "RESTARTING",
-                State::Reimaging => "REIMAGING",
-                State::Deleting => "DELETING",
-                State::Repairing => "REPAIRING",
-                State::Stopped => "STOPPED",
-                State::Stopping => "STOPPING",
-                State::Starting => "STARTING",
-                State::Preempted => "PREEMPTED",
-                State::Terminated => "TERMINATED",
-                State::Hiding => "HIDING",
-                State::Hidden => "HIDDEN",
-                State::Unhiding => "UNHIDING",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Ready => "READY",
+                Self::Restarting => "RESTARTING",
+                Self::Reimaging => "REIMAGING",
+                Self::Deleting => "DELETING",
+                Self::Repairing => "REPAIRING",
+                Self::Stopped => "STOPPED",
+                Self::Stopping => "STOPPING",
+                Self::Starting => "STARTING",
+                Self::Preempted => "PREEMPTED",
+                Self::Terminated => "TERMINATED",
+                Self::Hiding => "HIDING",
+                Self::Hidden => "HIDDEN",
+                Self::Unhiding => "UNHIDING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -238,12 +238,12 @@ pub mod node {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Health::Unspecified => "HEALTH_UNSPECIFIED",
-                Health::Healthy => "HEALTHY",
-                Health::DeprecatedUnhealthy => "DEPRECATED_UNHEALTHY",
-                Health::Timeout => "TIMEOUT",
-                Health::UnhealthyTensorflow => "UNHEALTHY_TENSORFLOW",
-                Health::UnhealthyMaintenance => "UNHEALTHY_MAINTENANCE",
+                Self::Unspecified => "HEALTH_UNSPECIFIED",
+                Self::Healthy => "HEALTHY",
+                Self::DeprecatedUnhealthy => "DEPRECATED_UNHEALTHY",
+                Self::Timeout => "TIMEOUT",
+                Self::UnhealthyTensorflow => "UNHEALTHY_TENSORFLOW",
+                Self::UnhealthyMaintenance => "UNHEALTHY_MAINTENANCE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -289,10 +289,10 @@ pub mod node {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ApiVersion::Unspecified => "API_VERSION_UNSPECIFIED",
-                ApiVersion::V1Alpha1 => "V1_ALPHA1",
-                ApiVersion::V1 => "V1",
-                ApiVersion::V2Alpha1 => "V2_ALPHA1",
+                Self::Unspecified => "API_VERSION_UNSPECIFIED",
+                Self::V1Alpha1 => "V1_ALPHA1",
+                Self::V1 => "V1",
+                Self::V2Alpha1 => "V2_ALPHA1",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -569,13 +569,13 @@ pub mod symptom {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                SymptomType::Unspecified => "SYMPTOM_TYPE_UNSPECIFIED",
-                SymptomType::LowMemory => "LOW_MEMORY",
-                SymptomType::OutOfMemory => "OUT_OF_MEMORY",
-                SymptomType::ExecuteTimedOut => "EXECUTE_TIMED_OUT",
-                SymptomType::MeshBuildFail => "MESH_BUILD_FAIL",
-                SymptomType::HbmOutOfMemory => "HBM_OUT_OF_MEMORY",
-                SymptomType::ProjectAbuse => "PROJECT_ABUSE",
+                Self::Unspecified => "SYMPTOM_TYPE_UNSPECIFIED",
+                Self::LowMemory => "LOW_MEMORY",
+                Self::OutOfMemory => "OUT_OF_MEMORY",
+                Self::ExecuteTimedOut => "EXECUTE_TIMED_OUT",
+                Self::MeshBuildFail => "MESH_BUILD_FAIL",
+                Self::HbmOutOfMemory => "HBM_OUT_OF_MEMORY",
+                Self::ProjectAbuse => "PROJECT_ABUSE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -961,5 +961,691 @@ pub mod tpu_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod tpu_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with TpuServer.
+    #[async_trait]
+    pub trait Tpu: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists nodes.
+        async fn list_nodes(
+            &self,
+            request: tonic::Request<super::ListNodesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListNodesResponse>,
+            tonic::Status,
+        >;
+        /// Gets the details of a node.
+        async fn get_node(
+            &self,
+            request: tonic::Request<super::GetNodeRequest>,
+        ) -> std::result::Result<tonic::Response<super::Node>, tonic::Status>;
+        /// Creates a node.
+        async fn create_node(
+            &self,
+            request: tonic::Request<super::CreateNodeRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a node.
+        async fn delete_node(
+            &self,
+            request: tonic::Request<super::DeleteNodeRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Reimages a node's OS.
+        async fn reimage_node(
+            &self,
+            request: tonic::Request<super::ReimageNodeRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Stops a node, this operation is only available with single TPU nodes.
+        async fn stop_node(
+            &self,
+            request: tonic::Request<super::StopNodeRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Starts a node.
+        async fn start_node(
+            &self,
+            request: tonic::Request<super::StartNodeRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// List TensorFlow versions supported by this API.
+        async fn list_tensor_flow_versions(
+            &self,
+            request: tonic::Request<super::ListTensorFlowVersionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListTensorFlowVersionsResponse>,
+            tonic::Status,
+        >;
+        /// Gets TensorFlow Version.
+        async fn get_tensor_flow_version(
+            &self,
+            request: tonic::Request<super::GetTensorFlowVersionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::TensorFlowVersion>,
+            tonic::Status,
+        >;
+        /// Lists accelerator types supported by this API.
+        async fn list_accelerator_types(
+            &self,
+            request: tonic::Request<super::ListAcceleratorTypesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAcceleratorTypesResponse>,
+            tonic::Status,
+        >;
+        /// Gets AcceleratorType.
+        async fn get_accelerator_type(
+            &self,
+            request: tonic::Request<super::GetAcceleratorTypeRequest>,
+        ) -> std::result::Result<tonic::Response<super::AcceleratorType>, tonic::Status>;
+    }
+    /// Manages TPU nodes and other resources
+    ///
+    /// TPU API v1
+    #[derive(Debug)]
+    pub struct TpuServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> TpuServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for TpuServer<T>
+    where
+        T: Tpu,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.tpu.v1.Tpu/ListNodes" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListNodesSvc<T: Tpu>(pub Arc<T>);
+                    impl<T: Tpu> tonic::server::UnaryService<super::ListNodesRequest>
+                    for ListNodesSvc<T> {
+                        type Response = super::ListNodesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListNodesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Tpu>::list_nodes(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListNodesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.tpu.v1.Tpu/GetNode" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetNodeSvc<T: Tpu>(pub Arc<T>);
+                    impl<T: Tpu> tonic::server::UnaryService<super::GetNodeRequest>
+                    for GetNodeSvc<T> {
+                        type Response = super::Node;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetNodeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Tpu>::get_node(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetNodeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.tpu.v1.Tpu/CreateNode" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateNodeSvc<T: Tpu>(pub Arc<T>);
+                    impl<T: Tpu> tonic::server::UnaryService<super::CreateNodeRequest>
+                    for CreateNodeSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateNodeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Tpu>::create_node(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateNodeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.tpu.v1.Tpu/DeleteNode" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteNodeSvc<T: Tpu>(pub Arc<T>);
+                    impl<T: Tpu> tonic::server::UnaryService<super::DeleteNodeRequest>
+                    for DeleteNodeSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteNodeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Tpu>::delete_node(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteNodeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.tpu.v1.Tpu/ReimageNode" => {
+                    #[allow(non_camel_case_types)]
+                    struct ReimageNodeSvc<T: Tpu>(pub Arc<T>);
+                    impl<T: Tpu> tonic::server::UnaryService<super::ReimageNodeRequest>
+                    for ReimageNodeSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ReimageNodeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Tpu>::reimage_node(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ReimageNodeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.tpu.v1.Tpu/StopNode" => {
+                    #[allow(non_camel_case_types)]
+                    struct StopNodeSvc<T: Tpu>(pub Arc<T>);
+                    impl<T: Tpu> tonic::server::UnaryService<super::StopNodeRequest>
+                    for StopNodeSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::StopNodeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Tpu>::stop_node(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = StopNodeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.tpu.v1.Tpu/StartNode" => {
+                    #[allow(non_camel_case_types)]
+                    struct StartNodeSvc<T: Tpu>(pub Arc<T>);
+                    impl<T: Tpu> tonic::server::UnaryService<super::StartNodeRequest>
+                    for StartNodeSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::StartNodeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Tpu>::start_node(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = StartNodeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.tpu.v1.Tpu/ListTensorFlowVersions" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListTensorFlowVersionsSvc<T: Tpu>(pub Arc<T>);
+                    impl<
+                        T: Tpu,
+                    > tonic::server::UnaryService<super::ListTensorFlowVersionsRequest>
+                    for ListTensorFlowVersionsSvc<T> {
+                        type Response = super::ListTensorFlowVersionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListTensorFlowVersionsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Tpu>::list_tensor_flow_versions(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListTensorFlowVersionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.tpu.v1.Tpu/GetTensorFlowVersion" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetTensorFlowVersionSvc<T: Tpu>(pub Arc<T>);
+                    impl<
+                        T: Tpu,
+                    > tonic::server::UnaryService<super::GetTensorFlowVersionRequest>
+                    for GetTensorFlowVersionSvc<T> {
+                        type Response = super::TensorFlowVersion;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetTensorFlowVersionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Tpu>::get_tensor_flow_version(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetTensorFlowVersionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.tpu.v1.Tpu/ListAcceleratorTypes" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAcceleratorTypesSvc<T: Tpu>(pub Arc<T>);
+                    impl<
+                        T: Tpu,
+                    > tonic::server::UnaryService<super::ListAcceleratorTypesRequest>
+                    for ListAcceleratorTypesSvc<T> {
+                        type Response = super::ListAcceleratorTypesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListAcceleratorTypesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Tpu>::list_accelerator_types(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAcceleratorTypesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.tpu.v1.Tpu/GetAcceleratorType" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAcceleratorTypeSvc<T: Tpu>(pub Arc<T>);
+                    impl<
+                        T: Tpu,
+                    > tonic::server::UnaryService<super::GetAcceleratorTypeRequest>
+                    for GetAcceleratorTypeSvc<T> {
+                        type Response = super::AcceleratorType;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAcceleratorTypeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Tpu>::get_accelerator_type(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAcceleratorTypeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for TpuServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.tpu.v1.Tpu";
+    impl<T> tonic::server::NamedService for TpuServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

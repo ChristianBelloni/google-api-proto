@@ -109,11 +109,11 @@ pub mod async_model_metadata {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Running => "RUNNING",
-                State::Succeeded => "SUCCEEDED",
-                State::Cancelled => "CANCELLED",
-                State::Failed => "FAILED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Running => "RUNNING",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Cancelled => "CANCELLED",
+                Self::Failed => "FAILED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -147,9 +147,9 @@ impl DataFormat {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            DataFormat::Unspecified => "DATA_FORMAT_UNSPECIFIED",
-            DataFormat::Json => "JSON",
-            DataFormat::String => "STRING",
+            Self::Unspecified => "DATA_FORMAT_UNSPECIFIED",
+            Self::Json => "JSON",
+            Self::String => "STRING",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -425,11 +425,9 @@ pub mod optimize_tours_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                SolvingMode::DefaultSolve => "DEFAULT_SOLVE",
-                SolvingMode::ValidateOnly => "VALIDATE_ONLY",
-                SolvingMode::DetectSomeInfeasibleShipments => {
-                    "DETECT_SOME_INFEASIBLE_SHIPMENTS"
-                }
+                Self::DefaultSolve => "DEFAULT_SOLVE",
+                Self::ValidateOnly => "VALIDATE_ONLY",
+                Self::DetectSomeInfeasibleShipments => "DETECT_SOME_INFEASIBLE_SHIPMENTS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -473,9 +471,9 @@ pub mod optimize_tours_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                SearchMode::Unspecified => "SEARCH_MODE_UNSPECIFIED",
-                SearchMode::ReturnFast => "RETURN_FAST",
-                SearchMode::ConsumeAllAvailableTime => "CONSUME_ALL_AVAILABLE_TIME",
+                Self::Unspecified => "SEARCH_MODE_UNSPECIFIED",
+                Self::ReturnFast => "RETURN_FAST",
+                Self::ConsumeAllAvailableTime => "CONSUME_ALL_AVAILABLE_TIME",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1289,11 +1287,9 @@ pub mod shipment_type_incompatibility {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                IncompatibilityMode::Unspecified => "INCOMPATIBILITY_MODE_UNSPECIFIED",
-                IncompatibilityMode::NotPerformedBySameVehicle => {
-                    "NOT_PERFORMED_BY_SAME_VEHICLE"
-                }
-                IncompatibilityMode::NotInSameVehicleSimultaneously => {
+                Self::Unspecified => "INCOMPATIBILITY_MODE_UNSPECIFIED",
+                Self::NotPerformedBySameVehicle => "NOT_PERFORMED_BY_SAME_VEHICLE",
+                Self::NotInSameVehicleSimultaneously => {
                     "NOT_IN_SAME_VEHICLE_SIMULTANEOUSLY"
                 }
             }
@@ -1378,14 +1374,10 @@ pub mod shipment_type_requirement {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                RequirementMode::Unspecified => "REQUIREMENT_MODE_UNSPECIFIED",
-                RequirementMode::PerformedBySameVehicle => "PERFORMED_BY_SAME_VEHICLE",
-                RequirementMode::InSameVehicleAtPickupTime => {
-                    "IN_SAME_VEHICLE_AT_PICKUP_TIME"
-                }
-                RequirementMode::InSameVehicleAtDeliveryTime => {
-                    "IN_SAME_VEHICLE_AT_DELIVERY_TIME"
-                }
+                Self::Unspecified => "REQUIREMENT_MODE_UNSPECIFIED",
+                Self::PerformedBySameVehicle => "PERFORMED_BY_SAME_VEHICLE",
+                Self::InSameVehicleAtPickupTime => "IN_SAME_VEHICLE_AT_PICKUP_TIME",
+                Self::InSameVehicleAtDeliveryTime => "IN_SAME_VEHICLE_AT_DELIVERY_TIME",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1796,9 +1788,9 @@ pub mod vehicle {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                TravelMode::Unspecified => "TRAVEL_MODE_UNSPECIFIED",
-                TravelMode::Driving => "DRIVING",
-                TravelMode::Walking => "WALKING",
+                Self::Unspecified => "TRAVEL_MODE_UNSPECIFIED",
+                Self::Driving => "DRIVING",
+                Self::Walking => "WALKING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1844,9 +1836,9 @@ pub mod vehicle {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                UnloadingPolicy::Unspecified => "UNLOADING_POLICY_UNSPECIFIED",
-                UnloadingPolicy::LastInFirstOut => "LAST_IN_FIRST_OUT",
-                UnloadingPolicy::FirstInFirstOut => "FIRST_IN_FIRST_OUT",
+                Self::Unspecified => "UNLOADING_POLICY_UNSPECIFIED",
+                Self::LastInFirstOut => "LAST_IN_FIRST_OUT",
+                Self::FirstInFirstOut => "FIRST_IN_FIRST_OUT",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2734,24 +2726,24 @@ pub mod skipped_shipment {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    Code::Unspecified => "CODE_UNSPECIFIED",
-                    Code::NoVehicle => "NO_VEHICLE",
-                    Code::DemandExceedsVehicleCapacity => {
+                    Self::Unspecified => "CODE_UNSPECIFIED",
+                    Self::NoVehicle => "NO_VEHICLE",
+                    Self::DemandExceedsVehicleCapacity => {
                         "DEMAND_EXCEEDS_VEHICLE_CAPACITY"
                     }
-                    Code::CannotBePerformedWithinVehicleDistanceLimit => {
+                    Self::CannotBePerformedWithinVehicleDistanceLimit => {
                         "CANNOT_BE_PERFORMED_WITHIN_VEHICLE_DISTANCE_LIMIT"
                     }
-                    Code::CannotBePerformedWithinVehicleDurationLimit => {
+                    Self::CannotBePerformedWithinVehicleDurationLimit => {
                         "CANNOT_BE_PERFORMED_WITHIN_VEHICLE_DURATION_LIMIT"
                     }
-                    Code::CannotBePerformedWithinVehicleTravelDurationLimit => {
+                    Self::CannotBePerformedWithinVehicleTravelDurationLimit => {
                         "CANNOT_BE_PERFORMED_WITHIN_VEHICLE_TRAVEL_DURATION_LIMIT"
                     }
-                    Code::CannotBePerformedWithinVehicleTimeWindows => {
+                    Self::CannotBePerformedWithinVehicleTimeWindows => {
                         "CANNOT_BE_PERFORMED_WITHIN_VEHICLE_TIME_WINDOWS"
                     }
-                    Code::VehicleNotAllowed => "VEHICLE_NOT_ALLOWED",
+                    Self::VehicleNotAllowed => "VEHICLE_NOT_ALLOWED",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2999,14 +2991,14 @@ pub mod injected_solution_constraint {
                 /// (if the ProtoBuf definition does not change) and safe for programmatic use.
                 pub fn as_str_name(&self) -> &'static str {
                     match self {
-                        Level::Unspecified => "LEVEL_UNSPECIFIED",
-                        Level::RelaxVisitTimesAfterThreshold => {
+                        Self::Unspecified => "LEVEL_UNSPECIFIED",
+                        Self::RelaxVisitTimesAfterThreshold => {
                             "RELAX_VISIT_TIMES_AFTER_THRESHOLD"
                         }
-                        Level::RelaxVisitTimesAndSequenceAfterThreshold => {
+                        Self::RelaxVisitTimesAndSequenceAfterThreshold => {
                             "RELAX_VISIT_TIMES_AND_SEQUENCE_AFTER_THRESHOLD"
                         }
-                        Level::RelaxAllAfterThreshold => "RELAX_ALL_AFTER_THRESHOLD",
+                        Self::RelaxAllAfterThreshold => "RELAX_ALL_AFTER_THRESHOLD",
                     }
                 }
                 /// Creates an enum from field names used in the ProtoBuf definition.
@@ -3518,5 +3510,271 @@ pub mod fleet_routing_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod fleet_routing_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with FleetRoutingServer.
+    #[async_trait]
+    pub trait FleetRouting: std::marker::Send + std::marker::Sync + 'static {
+        /// Sends an `OptimizeToursRequest` containing a `ShipmentModel` and returns an
+        /// `OptimizeToursResponse` containing `ShipmentRoute`s, which are a set of
+        /// routes to be performed by vehicles minimizing the overall cost.
+        ///
+        /// A `ShipmentModel` model consists mainly of `Shipment`s that need to be
+        /// carried out and `Vehicle`s that can be used to transport the `Shipment`s.
+        /// The `ShipmentRoute`s assign `Shipment`s to `Vehicle`s. More specifically,
+        /// they assign a series of `Visit`s to each vehicle, where a `Visit`
+        /// corresponds to a `VisitRequest`, which is a pickup or delivery for a
+        /// `Shipment`.
+        ///
+        /// The goal is to provide an assignment of `ShipmentRoute`s to `Vehicle`s that
+        /// minimizes the total cost where cost has many components defined in the
+        /// `ShipmentModel`.
+        async fn optimize_tours(
+            &self,
+            request: tonic::Request<super::OptimizeToursRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::OptimizeToursResponse>,
+            tonic::Status,
+        >;
+        /// Optimizes vehicle tours for one or more `OptimizeToursRequest`
+        /// messages as a batch.
+        ///
+        /// This method is a Long Running Operation (LRO). The inputs for optimization
+        /// (`OptimizeToursRequest` messages) and outputs (`OptimizeToursResponse`
+        /// messages) are read/written from/to Cloud Storage in user-specified
+        /// format. Like the `OptimizeTours` method, each `OptimizeToursRequest`
+        /// contains a `ShipmentModel` and returns an `OptimizeToursResponse`
+        /// containing `ShipmentRoute`s, which are a set of routes to be performed by
+        /// vehicles minimizing the overall cost.
+        async fn batch_optimize_tours(
+            &self,
+            request: tonic::Request<super::BatchOptimizeToursRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// A service for optimizing vehicle tours.
+    ///
+    /// Validity of certain types of fields:
+    ///
+    ///   * `google.protobuf.Timestamp`
+    ///     * Times are in Unix time: seconds since 1970-01-01T00:00:00+00:00.
+    ///     * seconds must be in [0, 253402300799],
+    ///       i.e. in [1970-01-01T00:00:00+00:00, 9999-12-31T23:59:59+00:00].
+    ///     * nanos must be unset or set to 0.
+    ///   * `google.protobuf.Duration`
+    ///     * seconds must be in [0, 253402300799],
+    ///       i.e. in [1970-01-01T00:00:00+00:00, 9999-12-31T23:59:59+00:00].
+    ///     * nanos must be unset or set to 0.
+    ///   * `google.type.LatLng`
+    ///     * latitude must be in [-90.0, 90.0].
+    ///     * longitude must be in [-180.0, 180.0].
+    ///     * at least one of latitude and longitude must be non-zero.
+    #[derive(Debug)]
+    pub struct FleetRoutingServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> FleetRoutingServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for FleetRoutingServer<T>
+    where
+        T: FleetRouting,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.optimization.v1.FleetRouting/OptimizeTours" => {
+                    #[allow(non_camel_case_types)]
+                    struct OptimizeToursSvc<T: FleetRouting>(pub Arc<T>);
+                    impl<
+                        T: FleetRouting,
+                    > tonic::server::UnaryService<super::OptimizeToursRequest>
+                    for OptimizeToursSvc<T> {
+                        type Response = super::OptimizeToursResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::OptimizeToursRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as FleetRouting>::optimize_tours(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = OptimizeToursSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.optimization.v1.FleetRouting/BatchOptimizeTours" => {
+                    #[allow(non_camel_case_types)]
+                    struct BatchOptimizeToursSvc<T: FleetRouting>(pub Arc<T>);
+                    impl<
+                        T: FleetRouting,
+                    > tonic::server::UnaryService<super::BatchOptimizeToursRequest>
+                    for BatchOptimizeToursSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::BatchOptimizeToursRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as FleetRouting>::batch_optimize_tours(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BatchOptimizeToursSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for FleetRoutingServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.optimization.v1.FleetRouting";
+    impl<T> tonic::server::NamedService for FleetRoutingServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

@@ -98,11 +98,11 @@ pub mod run {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unknown => "UNKNOWN",
-                State::Started => "STARTED",
-                State::Completed => "COMPLETED",
-                State::Failed => "FAILED",
-                State::Aborted => "ABORTED",
+                Self::Unknown => "UNKNOWN",
+                Self::Started => "STARTED",
+                Self::Completed => "COMPLETED",
+                Self::Failed => "FAILED",
+                Self::Aborted => "ABORTED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -222,11 +222,11 @@ pub mod operation_metadata {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Pending => "PENDING",
-                State::Running => "RUNNING",
-                State::Succeeded => "SUCCEEDED",
-                State::Failed => "FAILED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Pending => "PENDING",
+                Self::Running => "RUNNING",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Failed => "FAILED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -269,9 +269,9 @@ pub mod operation_metadata {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::Delete => "DELETE",
-                Type::Create => "CREATE",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::Delete => "DELETE",
+                Self::Create => "CREATE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -779,13 +779,13 @@ pub mod origin {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                SourceType::Unspecified => "SOURCE_TYPE_UNSPECIFIED",
-                SourceType::Custom => "CUSTOM",
-                SourceType::Bigquery => "BIGQUERY",
-                SourceType::DataFusion => "DATA_FUSION",
-                SourceType::Composer => "COMPOSER",
-                SourceType::LookerStudio => "LOOKER_STUDIO",
-                SourceType::Dataproc => "DATAPROC",
+                Self::Unspecified => "SOURCE_TYPE_UNSPECIFIED",
+                Self::Custom => "CUSTOM",
+                Self::Bigquery => "BIGQUERY",
+                Self::DataFusion => "DATA_FUSION",
+                Self::Composer => "COMPOSER",
+                Self::LookerStudio => "LOOKER_STUDIO",
+                Self::Dataproc => "DATAPROC",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1408,5 +1408,1030 @@ pub mod lineage_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod lineage_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with LineageServer.
+    #[async_trait]
+    pub trait Lineage: std::marker::Send + std::marker::Sync + 'static {
+        /// Creates new lineage events together with their parents: process and run.
+        /// Updates the process and run if they already exist.
+        /// Mapped from Open Lineage specification:
+        /// https://github.com/OpenLineage/OpenLineage/blob/main/spec/OpenLineage.json.
+        async fn process_open_lineage_run_event(
+            &self,
+            request: tonic::Request<super::ProcessOpenLineageRunEventRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ProcessOpenLineageRunEventResponse>,
+            tonic::Status,
+        >;
+        /// Creates a new process.
+        async fn create_process(
+            &self,
+            request: tonic::Request<super::CreateProcessRequest>,
+        ) -> std::result::Result<tonic::Response<super::Process>, tonic::Status>;
+        /// Updates a process.
+        async fn update_process(
+            &self,
+            request: tonic::Request<super::UpdateProcessRequest>,
+        ) -> std::result::Result<tonic::Response<super::Process>, tonic::Status>;
+        /// Gets the details of the specified process.
+        async fn get_process(
+            &self,
+            request: tonic::Request<super::GetProcessRequest>,
+        ) -> std::result::Result<tonic::Response<super::Process>, tonic::Status>;
+        /// List processes in the given project and location. List order is descending
+        /// by insertion time.
+        async fn list_processes(
+            &self,
+            request: tonic::Request<super::ListProcessesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListProcessesResponse>,
+            tonic::Status,
+        >;
+        /// Deletes the process with the specified name.
+        async fn delete_process(
+            &self,
+            request: tonic::Request<super::DeleteProcessRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Creates a new run.
+        async fn create_run(
+            &self,
+            request: tonic::Request<super::CreateRunRequest>,
+        ) -> std::result::Result<tonic::Response<super::Run>, tonic::Status>;
+        /// Updates a run.
+        async fn update_run(
+            &self,
+            request: tonic::Request<super::UpdateRunRequest>,
+        ) -> std::result::Result<tonic::Response<super::Run>, tonic::Status>;
+        /// Gets the details of the specified run.
+        async fn get_run(
+            &self,
+            request: tonic::Request<super::GetRunRequest>,
+        ) -> std::result::Result<tonic::Response<super::Run>, tonic::Status>;
+        /// Lists runs in the given project and location. List order is descending by
+        /// `start_time`.
+        async fn list_runs(
+            &self,
+            request: tonic::Request<super::ListRunsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListRunsResponse>,
+            tonic::Status,
+        >;
+        /// Deletes the run with the specified name.
+        async fn delete_run(
+            &self,
+            request: tonic::Request<super::DeleteRunRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Creates a new lineage event.
+        async fn create_lineage_event(
+            &self,
+            request: tonic::Request<super::CreateLineageEventRequest>,
+        ) -> std::result::Result<tonic::Response<super::LineageEvent>, tonic::Status>;
+        /// Gets details of a specified lineage event.
+        async fn get_lineage_event(
+            &self,
+            request: tonic::Request<super::GetLineageEventRequest>,
+        ) -> std::result::Result<tonic::Response<super::LineageEvent>, tonic::Status>;
+        /// Lists lineage events in the given project and location. The list order is
+        /// not defined.
+        async fn list_lineage_events(
+            &self,
+            request: tonic::Request<super::ListLineageEventsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListLineageEventsResponse>,
+            tonic::Status,
+        >;
+        /// Deletes the lineage event with the specified name.
+        async fn delete_lineage_event(
+            &self,
+            request: tonic::Request<super::DeleteLineageEventRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Retrieve a list of links connected to a specific asset.
+        /// Links represent the data flow between **source** (upstream)
+        /// and **target** (downstream) assets in transformation pipelines.
+        /// Links are stored in the same project as the Lineage Events that create
+        /// them.
+        ///
+        /// You can retrieve links in every project where you have the
+        /// `datalineage.events.get` permission. The project provided in the URL
+        /// is used for Billing and Quota.
+        async fn search_links(
+            &self,
+            request: tonic::Request<super::SearchLinksRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SearchLinksResponse>,
+            tonic::Status,
+        >;
+        /// Retrieve information about LineageProcesses associated with specific
+        /// links. LineageProcesses are transformation pipelines that result in data
+        /// flowing from **source** to **target** assets. Links between assets
+        /// represent this operation.
+        ///
+        /// If you have specific link names, you can use this method to
+        /// verify which LineageProcesses contribute to creating those links.
+        /// See the
+        /// [SearchLinks][google.cloud.datacatalog.lineage.v1.Lineage.SearchLinks]
+        /// method for more information on how to retrieve link name.
+        ///
+        /// You can retrieve the LineageProcess information in every project where you
+        /// have the `datalineage.events.get` permission. The project provided in the
+        /// URL is used for Billing and Quota.
+        async fn batch_search_link_processes(
+            &self,
+            request: tonic::Request<super::BatchSearchLinkProcessesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::BatchSearchLinkProcessesResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Lineage is used to track data flows between assets over time. You can
+    /// create [LineageEvents][google.cloud.datacatalog.lineage.v1.LineageEvent]
+    /// to record lineage between multiple sources and a single target, for
+    /// example, when table data is based on data from multiple tables.
+    #[derive(Debug)]
+    pub struct LineageServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> LineageServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for LineageServer<T>
+    where
+        T: Lineage,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.datacatalog.lineage.v1.Lineage/ProcessOpenLineageRunEvent" => {
+                    #[allow(non_camel_case_types)]
+                    struct ProcessOpenLineageRunEventSvc<T: Lineage>(pub Arc<T>);
+                    impl<
+                        T: Lineage,
+                    > tonic::server::UnaryService<
+                        super::ProcessOpenLineageRunEventRequest,
+                    > for ProcessOpenLineageRunEventSvc<T> {
+                        type Response = super::ProcessOpenLineageRunEventResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ProcessOpenLineageRunEventRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Lineage>::process_open_lineage_run_event(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ProcessOpenLineageRunEventSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datacatalog.lineage.v1.Lineage/CreateProcess" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateProcessSvc<T: Lineage>(pub Arc<T>);
+                    impl<
+                        T: Lineage,
+                    > tonic::server::UnaryService<super::CreateProcessRequest>
+                    for CreateProcessSvc<T> {
+                        type Response = super::Process;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateProcessRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Lineage>::create_process(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateProcessSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datacatalog.lineage.v1.Lineage/UpdateProcess" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateProcessSvc<T: Lineage>(pub Arc<T>);
+                    impl<
+                        T: Lineage,
+                    > tonic::server::UnaryService<super::UpdateProcessRequest>
+                    for UpdateProcessSvc<T> {
+                        type Response = super::Process;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateProcessRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Lineage>::update_process(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateProcessSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datacatalog.lineage.v1.Lineage/GetProcess" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetProcessSvc<T: Lineage>(pub Arc<T>);
+                    impl<
+                        T: Lineage,
+                    > tonic::server::UnaryService<super::GetProcessRequest>
+                    for GetProcessSvc<T> {
+                        type Response = super::Process;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetProcessRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Lineage>::get_process(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetProcessSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datacatalog.lineage.v1.Lineage/ListProcesses" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListProcessesSvc<T: Lineage>(pub Arc<T>);
+                    impl<
+                        T: Lineage,
+                    > tonic::server::UnaryService<super::ListProcessesRequest>
+                    for ListProcessesSvc<T> {
+                        type Response = super::ListProcessesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListProcessesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Lineage>::list_processes(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListProcessesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datacatalog.lineage.v1.Lineage/DeleteProcess" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteProcessSvc<T: Lineage>(pub Arc<T>);
+                    impl<
+                        T: Lineage,
+                    > tonic::server::UnaryService<super::DeleteProcessRequest>
+                    for DeleteProcessSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteProcessRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Lineage>::delete_process(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteProcessSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datacatalog.lineage.v1.Lineage/CreateRun" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateRunSvc<T: Lineage>(pub Arc<T>);
+                    impl<T: Lineage> tonic::server::UnaryService<super::CreateRunRequest>
+                    for CreateRunSvc<T> {
+                        type Response = super::Run;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateRunRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Lineage>::create_run(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateRunSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datacatalog.lineage.v1.Lineage/UpdateRun" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateRunSvc<T: Lineage>(pub Arc<T>);
+                    impl<T: Lineage> tonic::server::UnaryService<super::UpdateRunRequest>
+                    for UpdateRunSvc<T> {
+                        type Response = super::Run;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateRunRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Lineage>::update_run(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateRunSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datacatalog.lineage.v1.Lineage/GetRun" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetRunSvc<T: Lineage>(pub Arc<T>);
+                    impl<T: Lineage> tonic::server::UnaryService<super::GetRunRequest>
+                    for GetRunSvc<T> {
+                        type Response = super::Run;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetRunRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Lineage>::get_run(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetRunSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datacatalog.lineage.v1.Lineage/ListRuns" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListRunsSvc<T: Lineage>(pub Arc<T>);
+                    impl<T: Lineage> tonic::server::UnaryService<super::ListRunsRequest>
+                    for ListRunsSvc<T> {
+                        type Response = super::ListRunsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListRunsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Lineage>::list_runs(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListRunsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datacatalog.lineage.v1.Lineage/DeleteRun" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteRunSvc<T: Lineage>(pub Arc<T>);
+                    impl<T: Lineage> tonic::server::UnaryService<super::DeleteRunRequest>
+                    for DeleteRunSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteRunRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Lineage>::delete_run(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteRunSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datacatalog.lineage.v1.Lineage/CreateLineageEvent" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateLineageEventSvc<T: Lineage>(pub Arc<T>);
+                    impl<
+                        T: Lineage,
+                    > tonic::server::UnaryService<super::CreateLineageEventRequest>
+                    for CreateLineageEventSvc<T> {
+                        type Response = super::LineageEvent;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateLineageEventRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Lineage>::create_lineage_event(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateLineageEventSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datacatalog.lineage.v1.Lineage/GetLineageEvent" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetLineageEventSvc<T: Lineage>(pub Arc<T>);
+                    impl<
+                        T: Lineage,
+                    > tonic::server::UnaryService<super::GetLineageEventRequest>
+                    for GetLineageEventSvc<T> {
+                        type Response = super::LineageEvent;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetLineageEventRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Lineage>::get_lineage_event(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetLineageEventSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datacatalog.lineage.v1.Lineage/ListLineageEvents" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListLineageEventsSvc<T: Lineage>(pub Arc<T>);
+                    impl<
+                        T: Lineage,
+                    > tonic::server::UnaryService<super::ListLineageEventsRequest>
+                    for ListLineageEventsSvc<T> {
+                        type Response = super::ListLineageEventsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListLineageEventsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Lineage>::list_lineage_events(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListLineageEventsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datacatalog.lineage.v1.Lineage/DeleteLineageEvent" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteLineageEventSvc<T: Lineage>(pub Arc<T>);
+                    impl<
+                        T: Lineage,
+                    > tonic::server::UnaryService<super::DeleteLineageEventRequest>
+                    for DeleteLineageEventSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteLineageEventRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Lineage>::delete_lineage_event(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteLineageEventSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datacatalog.lineage.v1.Lineage/SearchLinks" => {
+                    #[allow(non_camel_case_types)]
+                    struct SearchLinksSvc<T: Lineage>(pub Arc<T>);
+                    impl<
+                        T: Lineage,
+                    > tonic::server::UnaryService<super::SearchLinksRequest>
+                    for SearchLinksSvc<T> {
+                        type Response = super::SearchLinksResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SearchLinksRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Lineage>::search_links(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SearchLinksSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.datacatalog.lineage.v1.Lineage/BatchSearchLinkProcesses" => {
+                    #[allow(non_camel_case_types)]
+                    struct BatchSearchLinkProcessesSvc<T: Lineage>(pub Arc<T>);
+                    impl<
+                        T: Lineage,
+                    > tonic::server::UnaryService<super::BatchSearchLinkProcessesRequest>
+                    for BatchSearchLinkProcessesSvc<T> {
+                        type Response = super::BatchSearchLinkProcessesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::BatchSearchLinkProcessesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Lineage>::batch_search_link_processes(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BatchSearchLinkProcessesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for LineageServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.datacatalog.lineage.v1.Lineage";
+    impl<T> tonic::server::NamedService for LineageServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

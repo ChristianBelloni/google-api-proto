@@ -166,11 +166,9 @@ pub mod blockchain_node {
                 /// (if the ProtoBuf definition does not change) and safe for programmatic use.
                 pub fn as_str_name(&self) -> &'static str {
                     match self {
-                        GarbageCollectionMode::Unspecified => {
-                            "GARBAGE_COLLECTION_MODE_UNSPECIFIED"
-                        }
-                        GarbageCollectionMode::Full => "FULL",
-                        GarbageCollectionMode::Archive => "ARCHIVE",
+                        Self::Unspecified => "GARBAGE_COLLECTION_MODE_UNSPECIFIED",
+                        Self::Full => "FULL",
+                        Self::Archive => "ARCHIVE",
                     }
                 }
                 /// Creates an enum from field names used in the ProtoBuf definition.
@@ -266,11 +264,11 @@ pub mod blockchain_node {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    Network::Unspecified => "NETWORK_UNSPECIFIED",
-                    Network::Mainnet => "MAINNET",
-                    Network::TestnetGoerliPrater => "TESTNET_GOERLI_PRATER",
-                    Network::TestnetSepolia => "TESTNET_SEPOLIA",
-                    Network::TestnetHolesky => "TESTNET_HOLESKY",
+                    Self::Unspecified => "NETWORK_UNSPECIFIED",
+                    Self::Mainnet => "MAINNET",
+                    Self::TestnetGoerliPrater => "TESTNET_GOERLI_PRATER",
+                    Self::TestnetSepolia => "TESTNET_SEPOLIA",
+                    Self::TestnetHolesky => "TESTNET_HOLESKY",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -322,10 +320,10 @@ pub mod blockchain_node {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    NodeType::Unspecified => "NODE_TYPE_UNSPECIFIED",
-                    NodeType::Light => "LIGHT",
-                    NodeType::Full => "FULL",
-                    NodeType::Archive => "ARCHIVE",
+                    Self::Unspecified => "NODE_TYPE_UNSPECIFIED",
+                    Self::Light => "LIGHT",
+                    Self::Full => "FULL",
+                    Self::Archive => "ARCHIVE",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -377,9 +375,9 @@ pub mod blockchain_node {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    ExecutionClient::Unspecified => "EXECUTION_CLIENT_UNSPECIFIED",
-                    ExecutionClient::Geth => "GETH",
-                    ExecutionClient::Erigon => "ERIGON",
+                    Self::Unspecified => "EXECUTION_CLIENT_UNSPECIFIED",
+                    Self::Geth => "GETH",
+                    Self::Erigon => "ERIGON",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -428,8 +426,8 @@ pub mod blockchain_node {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    ConsensusClient::Unspecified => "CONSENSUS_CLIENT_UNSPECIFIED",
-                    ConsensusClient::Lighthouse => "LIGHTHOUSE",
+                    Self::Unspecified => "CONSENSUS_CLIENT_UNSPECIFIED",
+                    Self::Lighthouse => "LIGHTHOUSE",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -475,8 +473,8 @@ pub mod blockchain_node {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                BlockchainType::Unspecified => "BLOCKCHAIN_TYPE_UNSPECIFIED",
-                BlockchainType::Ethereum => "ETHEREUM",
+                Self::Unspecified => "BLOCKCHAIN_TYPE_UNSPECIFIED",
+                Self::Ethereum => "ETHEREUM",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -529,15 +527,15 @@ pub mod blockchain_node {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Deleting => "DELETING",
-                State::Running => "RUNNING",
-                State::Error => "ERROR",
-                State::Updating => "UPDATING",
-                State::Repairing => "REPAIRING",
-                State::Reconciling => "RECONCILING",
-                State::Syncing => "SYNCING",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Deleting => "DELETING",
+                Self::Running => "RUNNING",
+                Self::Error => "ERROR",
+                Self::Updating => "UPDATING",
+                Self::Repairing => "REPAIRING",
+                Self::Reconciling => "RECONCILING",
+                Self::Syncing => "SYNCING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -942,5 +940,410 @@ pub mod blockchain_node_engine_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod blockchain_node_engine_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with BlockchainNodeEngineServer.
+    #[async_trait]
+    pub trait BlockchainNodeEngine: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists blockchain nodes in a given project and location.
+        async fn list_blockchain_nodes(
+            &self,
+            request: tonic::Request<super::ListBlockchainNodesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListBlockchainNodesResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single blockchain node.
+        async fn get_blockchain_node(
+            &self,
+            request: tonic::Request<super::GetBlockchainNodeRequest>,
+        ) -> std::result::Result<tonic::Response<super::BlockchainNode>, tonic::Status>;
+        /// Creates a new blockchain node in a given project and location.
+        async fn create_blockchain_node(
+            &self,
+            request: tonic::Request<super::CreateBlockchainNodeRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the parameters of a single blockchain node.
+        async fn update_blockchain_node(
+            &self,
+            request: tonic::Request<super::UpdateBlockchainNodeRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single blockchain node.
+        async fn delete_blockchain_node(
+            &self,
+            request: tonic::Request<super::DeleteBlockchainNodeRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// This service is the control plane API for Blockchain Node Engine,
+    /// and can be used to create, read, and delete blockchain nodes.
+    #[derive(Debug)]
+    pub struct BlockchainNodeEngineServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> BlockchainNodeEngineServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for BlockchainNodeEngineServer<T>
+    where
+        T: BlockchainNodeEngine,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.blockchainnodeengine.v1.BlockchainNodeEngine/ListBlockchainNodes" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListBlockchainNodesSvc<T: BlockchainNodeEngine>(pub Arc<T>);
+                    impl<
+                        T: BlockchainNodeEngine,
+                    > tonic::server::UnaryService<super::ListBlockchainNodesRequest>
+                    for ListBlockchainNodesSvc<T> {
+                        type Response = super::ListBlockchainNodesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListBlockchainNodesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BlockchainNodeEngine>::list_blockchain_nodes(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListBlockchainNodesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.blockchainnodeengine.v1.BlockchainNodeEngine/GetBlockchainNode" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetBlockchainNodeSvc<T: BlockchainNodeEngine>(pub Arc<T>);
+                    impl<
+                        T: BlockchainNodeEngine,
+                    > tonic::server::UnaryService<super::GetBlockchainNodeRequest>
+                    for GetBlockchainNodeSvc<T> {
+                        type Response = super::BlockchainNode;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetBlockchainNodeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BlockchainNodeEngine>::get_blockchain_node(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetBlockchainNodeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.blockchainnodeengine.v1.BlockchainNodeEngine/CreateBlockchainNode" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateBlockchainNodeSvc<T: BlockchainNodeEngine>(pub Arc<T>);
+                    impl<
+                        T: BlockchainNodeEngine,
+                    > tonic::server::UnaryService<super::CreateBlockchainNodeRequest>
+                    for CreateBlockchainNodeSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateBlockchainNodeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BlockchainNodeEngine>::create_blockchain_node(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateBlockchainNodeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.blockchainnodeengine.v1.BlockchainNodeEngine/UpdateBlockchainNode" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateBlockchainNodeSvc<T: BlockchainNodeEngine>(pub Arc<T>);
+                    impl<
+                        T: BlockchainNodeEngine,
+                    > tonic::server::UnaryService<super::UpdateBlockchainNodeRequest>
+                    for UpdateBlockchainNodeSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateBlockchainNodeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BlockchainNodeEngine>::update_blockchain_node(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateBlockchainNodeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.blockchainnodeengine.v1.BlockchainNodeEngine/DeleteBlockchainNode" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteBlockchainNodeSvc<T: BlockchainNodeEngine>(pub Arc<T>);
+                    impl<
+                        T: BlockchainNodeEngine,
+                    > tonic::server::UnaryService<super::DeleteBlockchainNodeRequest>
+                    for DeleteBlockchainNodeSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteBlockchainNodeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BlockchainNodeEngine>::delete_blockchain_node(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteBlockchainNodeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for BlockchainNodeEngineServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.blockchainnodeengine.v1.BlockchainNodeEngine";
+    impl<T> tonic::server::NamedService for BlockchainNodeEngineServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

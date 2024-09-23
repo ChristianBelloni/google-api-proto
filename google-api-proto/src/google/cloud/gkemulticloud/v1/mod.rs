@@ -133,10 +133,10 @@ pub mod node_taint {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Effect::Unspecified => "EFFECT_UNSPECIFIED",
-                Effect::NoSchedule => "NO_SCHEDULE",
-                Effect::PreferNoSchedule => "PREFER_NO_SCHEDULE",
-                Effect::NoExecute => "NO_EXECUTE",
+                Self::Unspecified => "EFFECT_UNSPECIFIED",
+                Self::NoSchedule => "NO_SCHEDULE",
+                Self::PreferNoSchedule => "PREFER_NO_SCHEDULE",
+                Self::NoExecute => "NO_EXECUTE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -221,9 +221,9 @@ pub mod logging_component_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Component::Unspecified => "COMPONENT_UNSPECIFIED",
-                Component::SystemComponents => "SYSTEM_COMPONENTS",
-                Component::Workloads => "WORKLOADS",
+                Self::Unspecified => "COMPONENT_UNSPECIFIED",
+                Self::SystemComponents => "SYSTEM_COMPONENTS",
+                Self::Workloads => "WORKLOADS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -291,11 +291,9 @@ pub mod binary_authorization {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                EvaluationMode::Unspecified => "EVALUATION_MODE_UNSPECIFIED",
-                EvaluationMode::Disabled => "DISABLED",
-                EvaluationMode::ProjectSingletonPolicyEnforce => {
-                    "PROJECT_SINGLETON_POLICY_ENFORCE"
-                }
+                Self::Unspecified => "EVALUATION_MODE_UNSPECIFIED",
+                Self::Disabled => "DISABLED",
+                Self::ProjectSingletonPolicyEnforce => "PROJECT_SINGLETON_POLICY_ENFORCE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -447,13 +445,13 @@ pub mod aws_cluster {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Provisioning => "PROVISIONING",
-                State::Running => "RUNNING",
-                State::Reconciling => "RECONCILING",
-                State::Stopping => "STOPPING",
-                State::Error => "ERROR",
-                State::Degraded => "DEGRADED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Provisioning => "PROVISIONING",
+                Self::Running => "RUNNING",
+                Self::Reconciling => "RECONCILING",
+                Self::Stopping => "STOPPING",
+                Self::Error => "ERROR",
+                Self::Degraded => "DEGRADED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -672,9 +670,9 @@ pub mod aws_volume_template {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                VolumeType::Unspecified => "VOLUME_TYPE_UNSPECIFIED",
-                VolumeType::Gp2 => "GP2",
-                VolumeType::Gp3 => "GP3",
+                Self::Unspecified => "VOLUME_TYPE_UNSPECIFIED",
+                Self::Gp2 => "GP2",
+                Self::Gp3 => "GP3",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -843,13 +841,13 @@ pub mod aws_node_pool {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Provisioning => "PROVISIONING",
-                State::Running => "RUNNING",
-                State::Reconciling => "RECONCILING",
-                State::Stopping => "STOPPING",
-                State::Error => "ERROR",
-                State::Degraded => "DEGRADED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Provisioning => "PROVISIONING",
+                Self::Running => "RUNNING",
+                Self::Reconciling => "RECONCILING",
+                Self::Stopping => "STOPPING",
+                Self::Error => "ERROR",
+                Self::Degraded => "DEGRADED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1169,10 +1167,10 @@ pub mod aws_instance_placement {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Tenancy::Unspecified => "TENANCY_UNSPECIFIED",
-                Tenancy::Default => "DEFAULT",
-                Tenancy::Dedicated => "DEDICATED",
-                Tenancy::Host => "HOST",
+                Self::Unspecified => "TENANCY_UNSPECIFIED",
+                Self::Default => "DEFAULT",
+                Self::Dedicated => "DEDICATED",
+                Self::Host => "HOST",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1222,1351 +1220,6 @@ pub struct AwsNodePoolError {
     /// Human-friendly description of the error.
     #[prost(string, tag = "1")]
     pub message: ::prost::alloc::string::String,
-}
-/// Request message for `AwsClusters.CreateAwsCluster` method.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CreateAwsClusterRequest {
-    /// Required. The parent location where this
-    /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resource will be
-    /// created.
-    ///
-    /// Location names are formatted as `projects/<project-id>/locations/<region>`.
-    ///
-    /// See [Resource Names](<https://cloud.google.com/apis/design/resource_names>)
-    /// for more details on Google Cloud resource names.
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// Required. The specification of the
-    /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] to create.
-    #[prost(message, optional, tag = "2")]
-    pub aws_cluster: ::core::option::Option<AwsCluster>,
-    /// Required. A client provided ID the resource. Must be unique within the
-    /// parent resource.
-    ///
-    /// The provided ID will be part of the
-    /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resource name
-    /// formatted as
-    /// `projects/<project-id>/locations/<region>/awsClusters/<cluster-id>`.
-    ///
-    /// Valid characters are `/[a-z][0-9]-/`. Cannot be longer than 63 characters.
-    #[prost(string, tag = "3")]
-    pub aws_cluster_id: ::prost::alloc::string::String,
-    /// If set, only validate the request, but do not actually create the cluster.
-    #[prost(bool, tag = "4")]
-    pub validate_only: bool,
-}
-/// Request message for `AwsClusters.UpdateAwsCluster` method.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UpdateAwsClusterRequest {
-    /// Required. The [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster]
-    /// resource to update.
-    #[prost(message, optional, tag = "1")]
-    pub aws_cluster: ::core::option::Option<AwsCluster>,
-    /// If set, only validate the request, but do not actually update the cluster.
-    #[prost(bool, tag = "2")]
-    pub validate_only: bool,
-    /// Required. Mask of fields to update. At least one path must be supplied in
-    /// this field. The elements of the repeated paths field can only include these
-    /// fields from [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster]:
-    ///
-    ///   *   `description`.
-    ///   *   `annotations`.
-    ///   *   `control_plane.version`.
-    ///   *   `authorization.admin_users`.
-    ///   *   `authorization.admin_groups`.
-    ///   *   `binary_authorization.evaluation_mode`.
-    ///   *   `control_plane.aws_services_authentication.role_arn`.
-    ///   *   `control_plane.aws_services_authentication.role_session_name`.
-    ///   *   `control_plane.config_encryption.kms_key_arn`.
-    ///   *   `control_plane.instance_type`.
-    ///   *   `control_plane.security_group_ids`.
-    ///   *   `control_plane.proxy_config`.
-    ///   *   `control_plane.proxy_config.secret_arn`.
-    ///   *   `control_plane.proxy_config.secret_version`.
-    ///   *   `control_plane.root_volume.size_gib`.
-    ///   *   `control_plane.root_volume.volume_type`.
-    ///   *   `control_plane.root_volume.iops`.
-    ///   *   `control_plane.root_volume.throughput`.
-    ///   *   `control_plane.root_volume.kms_key_arn`.
-    ///   *   `control_plane.ssh_config`.
-    ///   *   `control_plane.ssh_config.ec2_key_pair`.
-    ///   *   `control_plane.instance_placement.tenancy`.
-    ///   *   `control_plane.iam_instance_profile`.
-    ///   *   `logging_config.component_config.enable_components`.
-    ///   *   `control_plane.tags`.
-    ///   *   `monitoring_config.managed_prometheus_config.enabled`.
-    ///   *   `networking.per_node_pool_sg_rules_disabled`.
-    #[prost(message, optional, tag = "4")]
-    pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
-}
-/// Request message for `AwsClusters.GetAwsCluster` method.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetAwsClusterRequest {
-    /// Required. The name of the
-    /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resource to
-    /// describe.
-    ///
-    /// `AwsCluster` names are formatted as
-    /// `projects/<project-id>/locations/<region>/awsClusters/<cluster-id>`.
-    ///
-    /// See [Resource Names](<https://cloud.google.com/apis/design/resource_names>)
-    /// for more details on Google Cloud Platform resource names.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// Request message for `AwsClusters.ListAwsClusters` method.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListAwsClustersRequest {
-    /// Required. The parent location which owns this collection of
-    /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resources.
-    ///
-    /// Location names are formatted as `projects/<project-id>/locations/<region>`.
-    ///
-    /// See [Resource Names](<https://cloud.google.com/apis/design/resource_names>)
-    /// for more details on Google Cloud Platform resource names.
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// The maximum number of items to return.
-    ///
-    /// If not specified, a default value of 50 will be used by the service.
-    /// Regardless of the pageSize value, the response can include a partial list
-    /// and a caller should only rely on response's
-    /// [nextPageToken][google.cloud.gkemulticloud.v1.ListAwsClustersResponse.next_page_token]
-    /// to determine if there are more instances left to be queried.
-    #[prost(int32, tag = "2")]
-    pub page_size: i32,
-    /// The `nextPageToken` value returned from a previous
-    /// [awsClusters.list][google.cloud.gkemulticloud.v1.AwsClusters.ListAwsClusters]
-    /// request, if any.
-    #[prost(string, tag = "3")]
-    pub page_token: ::prost::alloc::string::String,
-}
-/// Response message for `AwsClusters.ListAwsClusters` method.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListAwsClustersResponse {
-    /// A list of [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resources
-    /// in the specified Google Cloud Platform project and region region.
-    #[prost(message, repeated, tag = "1")]
-    pub aws_clusters: ::prost::alloc::vec::Vec<AwsCluster>,
-    /// Token to retrieve the next page of results, or empty if there are no more
-    /// results in the list.
-    #[prost(string, tag = "2")]
-    pub next_page_token: ::prost::alloc::string::String,
-}
-/// Request message for `AwsClusters.DeleteAwsCluster` method.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DeleteAwsClusterRequest {
-    /// Required. The resource name the
-    /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] to delete.
-    ///
-    /// `AwsCluster` names are formatted as
-    /// `projects/<project-id>/locations/<region>/awsClusters/<cluster-id>`.
-    ///
-    /// See [Resource Names](<https://cloud.google.com/apis/design/resource_names>)
-    /// for more details on Google Cloud Platform resource names.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// If set, only validate the request, but do not actually delete the resource.
-    #[prost(bool, tag = "2")]
-    pub validate_only: bool,
-    /// If set to true, and the
-    /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resource is not
-    /// found, the request will succeed but no action will be taken on the server
-    /// and a completed [Operation][google.longrunning.Operation] will be returned.
-    ///
-    /// Useful for idempotent deletion.
-    #[prost(bool, tag = "3")]
-    pub allow_missing: bool,
-    /// Optional. If set to true, the deletion of
-    /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resource will
-    /// succeed even if errors occur during deleting in cluster resources. Using
-    /// this parameter may result in orphaned resources in the cluster.
-    #[prost(bool, tag = "5")]
-    pub ignore_errors: bool,
-    /// The current etag of the
-    /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster].
-    ///
-    /// Allows clients to perform deletions through optimistic concurrency control.
-    ///
-    /// If the provided etag does not match the current etag of the cluster,
-    /// the request will fail and an ABORTED error will be returned.
-    #[prost(string, tag = "4")]
-    pub etag: ::prost::alloc::string::String,
-}
-/// Response message for `AwsClusters.CreateAwsNodePool` method.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CreateAwsNodePoolRequest {
-    /// Required. The [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster]
-    /// resource where this node pool will be created.
-    ///
-    /// `AwsCluster` names are formatted as
-    /// `projects/<project-id>/locations/<region>/awsClusters/<cluster-id>`.
-    ///
-    /// See [Resource Names](<https://cloud.google.com/apis/design/resource_names>)
-    /// for more details on Google Cloud resource names.
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// Required. The specification of the
-    /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] to create.
-    #[prost(message, optional, tag = "2")]
-    pub aws_node_pool: ::core::option::Option<AwsNodePool>,
-    /// Required. A client provided ID the resource. Must be unique within the
-    /// parent resource.
-    ///
-    /// The provided ID will be part of the
-    /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] resource name
-    /// formatted as
-    /// `projects/<project-id>/locations/<region>/awsClusters/<cluster-id>/awsNodePools/<node-pool-id>`.
-    ///
-    /// Valid characters are `/[a-z][0-9]-/`. Cannot be longer than 63 characters.
-    #[prost(string, tag = "3")]
-    pub aws_node_pool_id: ::prost::alloc::string::String,
-    /// If set, only validate the request, but do not actually create the node
-    /// pool.
-    #[prost(bool, tag = "4")]
-    pub validate_only: bool,
-}
-/// Request message for `AwsClusters.UpdateAwsNodePool` method.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UpdateAwsNodePoolRequest {
-    /// Required. The [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool]
-    /// resource to update.
-    #[prost(message, optional, tag = "1")]
-    pub aws_node_pool: ::core::option::Option<AwsNodePool>,
-    /// If set, only validate the request, but don't actually update the node pool.
-    #[prost(bool, tag = "2")]
-    pub validate_only: bool,
-    /// Required. Mask of fields to update. At least one path must be supplied in
-    /// this field. The elements of the repeated paths field can only include these
-    /// fields from [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool]:
-    ///
-    ///   *   `annotations`.
-    ///   *   `version`.
-    ///   *   `autoscaling.min_node_count`.
-    ///   *   `autoscaling.max_node_count`.
-    ///   *   `config.config_encryption.kms_key_arn`.
-    ///   *   `config.security_group_ids`.
-    ///   *   `config.root_volume.iops`.
-    ///   *   `config.root_volume.throughput`.
-    ///   *   `config.root_volume.kms_key_arn`.
-    ///   *   `config.root_volume.volume_type`.
-    ///   *   `config.root_volume.size_gib`.
-    ///   *   `config.proxy_config`.
-    ///   *   `config.proxy_config.secret_arn`.
-    ///   *   `config.proxy_config.secret_version`.
-    ///   *   `config.ssh_config`.
-    ///   *   `config.ssh_config.ec2_key_pair`.
-    ///   *   `config.instance_placement.tenancy`.
-    ///   *   `config.iam_instance_profile`.
-    ///   *   `config.labels`.
-    ///   *   `config.tags`.
-    ///   *   `config.autoscaling_metrics_collection`.
-    ///   *   `config.autoscaling_metrics_collection.granularity`.
-    ///   *   `config.autoscaling_metrics_collection.metrics`.
-    ///   *   `config.instance_type`.
-    ///   *   `management.auto_repair`.
-    ///   *   `management`.
-    ///   *   `update_settings`.
-    ///   *   `update_settings.surge_settings`.
-    ///   *   `update_settings.surge_settings.max_surge`.
-    ///   *   `update_settings.surge_settings.max_unavailable`.
-    #[prost(message, optional, tag = "3")]
-    pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
-}
-/// Request message for `AwsClusters.RollbackAwsNodePoolUpdate` method.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct RollbackAwsNodePoolUpdateRequest {
-    /// Required. The name of the
-    /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] resource to
-    /// rollback.
-    ///
-    /// `AwsNodePool` names are formatted as
-    /// `projects/<project-id>/locations/<region>/awsClusters/<cluster-id>/awsNodePools/<node-pool-id>`.
-    ///
-    /// See [Resource Names](<https://cloud.google.com/apis/design/resource_names>)
-    /// for more details on Google Cloud resource names.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// Optional. Option for rollback to ignore the PodDisruptionBudget when
-    /// draining the node pool nodes. Default value is false.
-    #[prost(bool, tag = "2")]
-    pub respect_pdb: bool,
-}
-/// Request message for `AwsClusters.GetAwsNodePool` method.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetAwsNodePoolRequest {
-    /// Required. The name of the
-    /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] resource to
-    /// describe.
-    ///
-    /// `AwsNodePool` names are formatted as
-    /// `projects/<project-id>/locations/<region>/awsClusters/<cluster-id>/awsNodePools/<node-pool-id>`.
-    ///
-    /// See [Resource Names](<https://cloud.google.com/apis/design/resource_names>)
-    /// for more details on Google Cloud resource names.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// Request message for `AwsClusters.ListAwsNodePools` method.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListAwsNodePoolsRequest {
-    /// Required. The parent `AwsCluster` which owns this collection of
-    /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] resources.
-    ///
-    /// `AwsCluster` names are formatted as
-    /// `projects/<project-id>/locations/<region>/awsClusters/<cluster-id>`.
-    ///
-    /// See [Resource Names](<https://cloud.google.com/apis/design/resource_names>)
-    /// for more details on Google Cloud resource names.
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// The maximum number of items to return.
-    ///
-    /// If not specified, a default value of 50 will be used by the service.
-    /// Regardless of the pageSize value, the response can include a partial list
-    /// and a caller should only rely on response's
-    /// [nextPageToken][google.cloud.gkemulticloud.v1.ListAwsNodePoolsResponse.next_page_token]
-    /// to determine if there are more instances left to be queried.
-    #[prost(int32, tag = "2")]
-    pub page_size: i32,
-    /// The `nextPageToken` value returned from a previous
-    /// [awsNodePools.list][google.cloud.gkemulticloud.v1.AwsClusters.ListAwsNodePools]
-    /// request, if any.
-    #[prost(string, tag = "3")]
-    pub page_token: ::prost::alloc::string::String,
-}
-/// Response message for `AwsClusters.ListAwsNodePools` method.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListAwsNodePoolsResponse {
-    /// A list of [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool]
-    /// resources in the specified `AwsCluster`.
-    #[prost(message, repeated, tag = "1")]
-    pub aws_node_pools: ::prost::alloc::vec::Vec<AwsNodePool>,
-    /// Token to retrieve the next page of results, or empty if there are no more
-    /// results in the list.
-    #[prost(string, tag = "2")]
-    pub next_page_token: ::prost::alloc::string::String,
-}
-/// Request message for `AwsClusters.DeleteAwsNodePool` method.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DeleteAwsNodePoolRequest {
-    /// Required. The resource name the
-    /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] to delete.
-    ///
-    /// `AwsNodePool` names are formatted as
-    /// `projects/<project-id>/locations/<region>/awsClusters/<cluster-id>/awsNodePools/<node-pool-id>`.
-    ///
-    /// See [Resource Names](<https://cloud.google.com/apis/design/resource_names>)
-    /// for more details on Google Cloud resource names.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// If set, only validate the request, but do not actually delete the node
-    /// pool.
-    #[prost(bool, tag = "2")]
-    pub validate_only: bool,
-    /// If set to true, and the
-    /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] resource is not
-    /// found, the request will succeed but no action will be taken on the server
-    /// and a completed [Operation][google.longrunning.Operation] will be returned.
-    ///
-    /// Useful for idempotent deletion.
-    #[prost(bool, tag = "3")]
-    pub allow_missing: bool,
-    /// Optional. If set to true, the deletion of
-    /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] resource will
-    /// succeed even if errors occur during deleting in node pool resources. Using
-    /// this parameter may result in orphaned resources in the node pool.
-    #[prost(bool, tag = "5")]
-    pub ignore_errors: bool,
-    /// The current ETag of the
-    /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool].
-    ///
-    /// Allows clients to perform deletions through optimistic concurrency control.
-    ///
-    /// If the provided ETag does not match the current etag of the node pool,
-    /// the request will fail and an ABORTED error will be returned.
-    #[prost(string, tag = "4")]
-    pub etag: ::prost::alloc::string::String,
-}
-/// GetAwsOpenIdConfigRequest gets the OIDC discovery document for the
-/// cluster. See the OpenID Connect Discovery 1.0 specification for details.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetAwsOpenIdConfigRequest {
-    /// Required. The AwsCluster, which owns the OIDC discovery document.
-    /// Format:
-    /// projects/{project}/locations/{location}/awsClusters/{cluster}
-    #[prost(string, tag = "1")]
-    pub aws_cluster: ::prost::alloc::string::String,
-}
-/// GetAwsJsonWebKeysRequest gets the public component of the keys used by the
-/// cluster to sign token requests. This will be the jwks_uri for the discover
-/// document returned by getOpenIDConfig. See the OpenID Connect
-/// Discovery 1.0 specification for details.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetAwsJsonWebKeysRequest {
-    /// Required. The AwsCluster, which owns the JsonWebKeys.
-    /// Format:
-    /// projects/{project}/locations/{location}/awsClusters/{cluster}
-    #[prost(string, tag = "1")]
-    pub aws_cluster: ::prost::alloc::string::String,
-}
-/// GetAwsServerConfigRequest gets the server config of GKE cluster on AWS.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetAwsServerConfigRequest {
-    /// Required. The name of the
-    /// [AwsServerConfig][google.cloud.gkemulticloud.v1.AwsServerConfig] resource
-    /// to describe.
-    ///
-    /// `AwsServerConfig` names are formatted as
-    /// `projects/<project-id>/locations/<region>/awsServerConfig`.
-    ///
-    /// See [Resource Names](<https://cloud.google.com/apis/design/resource_names>)
-    /// for more details on Google Cloud resource names.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// Request message for `AwsClusters.GenerateAwsAccessToken` method.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GenerateAwsAccessTokenRequest {
-    /// Required. The name of the
-    /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resource to
-    /// authenticate to.
-    ///
-    /// `AwsCluster` names are formatted as
-    /// `projects/<project-id>/locations/<region>/awsClusters/<cluster-id>`.
-    ///
-    /// See [Resource Names](<https://cloud.google.com/apis/design/resource_names>)
-    /// for more details on Google Cloud resource names.
-    #[prost(string, tag = "1")]
-    pub aws_cluster: ::prost::alloc::string::String,
-}
-/// Response message for `AwsClusters.GenerateAwsAccessToken` method.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GenerateAwsAccessTokenResponse {
-    /// Output only. Access token to authenticate to k8s api-server.
-    #[prost(string, tag = "1")]
-    pub access_token: ::prost::alloc::string::String,
-    /// Output only. Timestamp at which the token will expire.
-    #[prost(message, optional, tag = "2")]
-    pub expiration_time: ::core::option::Option<::prost_types::Timestamp>,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GenerateAwsClusterAgentTokenRequest {
-    /// Required.
-    #[prost(string, tag = "1")]
-    pub aws_cluster: ::prost::alloc::string::String,
-    /// Required.
-    #[prost(string, tag = "2")]
-    pub subject_token: ::prost::alloc::string::String,
-    /// Required.
-    #[prost(string, tag = "3")]
-    pub subject_token_type: ::prost::alloc::string::String,
-    /// Required.
-    #[prost(string, tag = "4")]
-    pub version: ::prost::alloc::string::String,
-    /// Optional.
-    #[prost(string, tag = "5")]
-    pub node_pool_id: ::prost::alloc::string::String,
-    /// Optional.
-    #[prost(string, tag = "6")]
-    pub grant_type: ::prost::alloc::string::String,
-    /// Optional.
-    #[prost(string, tag = "7")]
-    pub audience: ::prost::alloc::string::String,
-    /// Optional.
-    #[prost(string, tag = "8")]
-    pub scope: ::prost::alloc::string::String,
-    /// Optional.
-    #[prost(string, tag = "9")]
-    pub requested_token_type: ::prost::alloc::string::String,
-    /// Optional.
-    #[prost(string, tag = "10")]
-    pub options: ::prost::alloc::string::String,
-}
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GenerateAwsClusterAgentTokenResponse {
-    #[prost(string, tag = "1")]
-    pub access_token: ::prost::alloc::string::String,
-    #[prost(int32, tag = "2")]
-    pub expires_in: i32,
-    #[prost(string, tag = "3")]
-    pub token_type: ::prost::alloc::string::String,
-}
-/// Generated client implementations.
-pub mod aws_clusters_client {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
-    use tonic::codegen::*;
-    use tonic::codegen::http::Uri;
-    /// The AwsClusters API provides a single centrally managed service
-    /// to create and manage Anthos clusters that run on AWS infrastructure.
-    #[derive(Debug, Clone)]
-    pub struct AwsClustersClient<T> {
-        inner: tonic::client::Grpc<T>,
-    }
-    impl<T> AwsClustersClient<T>
-    where
-        T: tonic::client::GrpcService<tonic::body::BoxBody>,
-        T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
-    {
-        pub fn new(inner: T) -> Self {
-            let inner = tonic::client::Grpc::new(inner);
-            Self { inner }
-        }
-        pub fn with_origin(inner: T, origin: Uri) -> Self {
-            let inner = tonic::client::Grpc::with_origin(inner, origin);
-            Self { inner }
-        }
-        pub fn with_interceptor<F>(
-            inner: T,
-            interceptor: F,
-        ) -> AwsClustersClient<InterceptedService<T, F>>
-        where
-            F: tonic::service::Interceptor,
-            T::ResponseBody: Default,
-            T: tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-                Response = http::Response<
-                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
-                >,
-            >,
-            <T as tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-            >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
-        {
-            AwsClustersClient::new(InterceptedService::new(inner, interceptor))
-        }
-        /// Compress requests with the given encoding.
-        ///
-        /// This requires the server to support it otherwise it might respond with an
-        /// error.
-        #[must_use]
-        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.send_compressed(encoding);
-            self
-        }
-        /// Enable decompressing responses.
-        #[must_use]
-        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.accept_compressed(encoding);
-            self
-        }
-        /// Limits the maximum size of a decoded message.
-        ///
-        /// Default: `4MB`
-        #[must_use]
-        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_decoding_message_size(limit);
-            self
-        }
-        /// Limits the maximum size of an encoded message.
-        ///
-        /// Default: `usize::MAX`
-        #[must_use]
-        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_encoding_message_size(limit);
-            self
-        }
-        /// Creates a new [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster]
-        /// resource on a given Google Cloud Platform project and region.
-        ///
-        /// If successful, the response contains a newly created
-        /// [Operation][google.longrunning.Operation] resource that can be
-        /// described to track the status of the operation.
-        pub async fn create_aws_cluster(
-            &mut self,
-            request: impl tonic::IntoRequest<super::CreateAwsClusterRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::super::super::super::longrunning::Operation>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.gkemulticloud.v1.AwsClusters/CreateAwsCluster",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.gkemulticloud.v1.AwsClusters",
-                        "CreateAwsCluster",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Updates an [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster].
-        pub async fn update_aws_cluster(
-            &mut self,
-            request: impl tonic::IntoRequest<super::UpdateAwsClusterRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::super::super::super::longrunning::Operation>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.gkemulticloud.v1.AwsClusters/UpdateAwsCluster",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.gkemulticloud.v1.AwsClusters",
-                        "UpdateAwsCluster",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Describes a specific [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster]
-        /// resource.
-        pub async fn get_aws_cluster(
-            &mut self,
-            request: impl tonic::IntoRequest<super::GetAwsClusterRequest>,
-        ) -> std::result::Result<tonic::Response<super::AwsCluster>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.gkemulticloud.v1.AwsClusters/GetAwsCluster",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.gkemulticloud.v1.AwsClusters",
-                        "GetAwsCluster",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Lists all [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resources
-        /// on a given Google Cloud project and region.
-        pub async fn list_aws_clusters(
-            &mut self,
-            request: impl tonic::IntoRequest<super::ListAwsClustersRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::ListAwsClustersResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.gkemulticloud.v1.AwsClusters/ListAwsClusters",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.gkemulticloud.v1.AwsClusters",
-                        "ListAwsClusters",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Deletes a specific [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster]
-        /// resource.
-        ///
-        /// Fails if the cluster has one or more associated
-        /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] resources.
-        ///
-        /// If successful, the response contains a newly created
-        /// [Operation][google.longrunning.Operation] resource that can be
-        /// described to track the status of the operation.
-        pub async fn delete_aws_cluster(
-            &mut self,
-            request: impl tonic::IntoRequest<super::DeleteAwsClusterRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::super::super::super::longrunning::Operation>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.gkemulticloud.v1.AwsClusters/DeleteAwsCluster",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.gkemulticloud.v1.AwsClusters",
-                        "DeleteAwsCluster",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Generates an access token for a cluster agent.
-        pub async fn generate_aws_cluster_agent_token(
-            &mut self,
-            request: impl tonic::IntoRequest<super::GenerateAwsClusterAgentTokenRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::GenerateAwsClusterAgentTokenResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.gkemulticloud.v1.AwsClusters/GenerateAwsClusterAgentToken",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.gkemulticloud.v1.AwsClusters",
-                        "GenerateAwsClusterAgentToken",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Generates a short-lived access token to authenticate to a given
-        /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resource.
-        pub async fn generate_aws_access_token(
-            &mut self,
-            request: impl tonic::IntoRequest<super::GenerateAwsAccessTokenRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::GenerateAwsAccessTokenResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.gkemulticloud.v1.AwsClusters/GenerateAwsAccessToken",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.gkemulticloud.v1.AwsClusters",
-                        "GenerateAwsAccessToken",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Creates a new [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool],
-        /// attached to a given [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster].
-        ///
-        /// If successful, the response contains a newly created
-        /// [Operation][google.longrunning.Operation] resource that can be
-        /// described to track the status of the operation.
-        pub async fn create_aws_node_pool(
-            &mut self,
-            request: impl tonic::IntoRequest<super::CreateAwsNodePoolRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::super::super::super::longrunning::Operation>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.gkemulticloud.v1.AwsClusters/CreateAwsNodePool",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.gkemulticloud.v1.AwsClusters",
-                        "CreateAwsNodePool",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Updates an [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool].
-        pub async fn update_aws_node_pool(
-            &mut self,
-            request: impl tonic::IntoRequest<super::UpdateAwsNodePoolRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::super::super::super::longrunning::Operation>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.gkemulticloud.v1.AwsClusters/UpdateAwsNodePool",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.gkemulticloud.v1.AwsClusters",
-                        "UpdateAwsNodePool",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Rolls back a previously aborted or failed
-        /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] update request.
-        /// Makes no changes if the last update request successfully finished.
-        /// If an update request is in progress, you cannot rollback the update.
-        /// You must first cancel or let it finish unsuccessfully before you can
-        /// rollback.
-        pub async fn rollback_aws_node_pool_update(
-            &mut self,
-            request: impl tonic::IntoRequest<super::RollbackAwsNodePoolUpdateRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::super::super::super::longrunning::Operation>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.gkemulticloud.v1.AwsClusters/RollbackAwsNodePoolUpdate",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.gkemulticloud.v1.AwsClusters",
-                        "RollbackAwsNodePoolUpdate",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Describes a specific
-        /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] resource.
-        pub async fn get_aws_node_pool(
-            &mut self,
-            request: impl tonic::IntoRequest<super::GetAwsNodePoolRequest>,
-        ) -> std::result::Result<tonic::Response<super::AwsNodePool>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.gkemulticloud.v1.AwsClusters/GetAwsNodePool",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.gkemulticloud.v1.AwsClusters",
-                        "GetAwsNodePool",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Lists all [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool]
-        /// resources on a given
-        /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster].
-        pub async fn list_aws_node_pools(
-            &mut self,
-            request: impl tonic::IntoRequest<super::ListAwsNodePoolsRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::ListAwsNodePoolsResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.gkemulticloud.v1.AwsClusters/ListAwsNodePools",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.gkemulticloud.v1.AwsClusters",
-                        "ListAwsNodePools",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Deletes a specific [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool]
-        /// resource.
-        ///
-        /// If successful, the response contains a newly created
-        /// [Operation][google.longrunning.Operation] resource that can be
-        /// described to track the status of the operation.
-        pub async fn delete_aws_node_pool(
-            &mut self,
-            request: impl tonic::IntoRequest<super::DeleteAwsNodePoolRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::super::super::super::longrunning::Operation>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.gkemulticloud.v1.AwsClusters/DeleteAwsNodePool",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.gkemulticloud.v1.AwsClusters",
-                        "DeleteAwsNodePool",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Gets the OIDC discovery document for the cluster.
-        /// See the
-        /// [OpenID Connect Discovery 1.0
-        /// specification](https://openid.net/specs/openid-connect-discovery-1_0.html)
-        /// for details.
-        pub async fn get_aws_open_id_config(
-            &mut self,
-            request: impl tonic::IntoRequest<super::GetAwsOpenIdConfigRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::AwsOpenIdConfig>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.gkemulticloud.v1.AwsClusters/GetAwsOpenIdConfig",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.gkemulticloud.v1.AwsClusters",
-                        "GetAwsOpenIdConfig",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Gets the public component of the cluster signing keys in
-        /// JSON Web Key format.
-        pub async fn get_aws_json_web_keys(
-            &mut self,
-            request: impl tonic::IntoRequest<super::GetAwsJsonWebKeysRequest>,
-        ) -> std::result::Result<tonic::Response<super::AwsJsonWebKeys>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.gkemulticloud.v1.AwsClusters/GetAwsJsonWebKeys",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.gkemulticloud.v1.AwsClusters",
-                        "GetAwsJsonWebKeys",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-        /// Returns information, such as supported AWS regions and Kubernetes
-        /// versions, on a given Google Cloud location.
-        pub async fn get_aws_server_config(
-            &mut self,
-            request: impl tonic::IntoRequest<super::GetAwsServerConfigRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::AwsServerConfig>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.gkemulticloud.v1.AwsClusters/GetAwsServerConfig",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.gkemulticloud.v1.AwsClusters",
-                        "GetAwsServerConfig",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
-        }
-    }
-}
-/// An Anthos cluster running on customer own infrastructure.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AttachedCluster {
-    /// The name of this resource.
-    ///
-    /// Cluster names are formatted as
-    /// `projects/<project-number>/locations/<region>/attachedClusters/<cluster-id>`.
-    ///
-    /// See [Resource Names](<https://cloud.google.com/apis/design/resource_names>)
-    /// for more details on Google Cloud Platform resource names.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// Optional. A human readable description of this cluster.
-    /// Cannot be longer than 255 UTF-8 encoded bytes.
-    #[prost(string, tag = "2")]
-    pub description: ::prost::alloc::string::String,
-    /// Required. OpenID Connect (OIDC) configuration for the cluster.
-    #[prost(message, optional, tag = "3")]
-    pub oidc_config: ::core::option::Option<AttachedOidcConfig>,
-    /// Required. The platform version for the cluster (e.g. `1.19.0-gke.1000`).
-    ///
-    /// You can list all supported versions on a given Google Cloud region by
-    /// calling
-    /// [GetAttachedServerConfig][google.cloud.gkemulticloud.v1.AttachedClusters.GetAttachedServerConfig].
-    #[prost(string, tag = "4")]
-    pub platform_version: ::prost::alloc::string::String,
-    /// Required. The Kubernetes distribution of the underlying attached cluster.
-    ///
-    /// Supported values: \["eks", "aks", "generic"\].
-    #[prost(string, tag = "16")]
-    pub distribution: ::prost::alloc::string::String,
-    /// Output only. The region where this cluster runs.
-    ///
-    /// For EKS clusters, this is a AWS region. For AKS clusters,
-    /// this is an Azure region.
-    #[prost(string, tag = "22")]
-    pub cluster_region: ::prost::alloc::string::String,
-    /// Required. Fleet configuration.
-    #[prost(message, optional, tag = "5")]
-    pub fleet: ::core::option::Option<Fleet>,
-    /// Output only. The current state of the cluster.
-    #[prost(enumeration = "attached_cluster::State", tag = "6")]
-    pub state: i32,
-    /// Output only. A globally unique identifier for the cluster.
-    #[prost(string, tag = "7")]
-    pub uid: ::prost::alloc::string::String,
-    /// Output only. If set, there are currently changes in flight to the cluster.
-    #[prost(bool, tag = "8")]
-    pub reconciling: bool,
-    /// Output only. The time at which this cluster was registered.
-    #[prost(message, optional, tag = "9")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. The time at which this cluster was last updated.
-    #[prost(message, optional, tag = "10")]
-    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Allows clients to perform consistent read-modify-writes
-    /// through optimistic concurrency control.
-    ///
-    /// Can be sent on update and delete requests to ensure the
-    /// client has an up-to-date value before proceeding.
-    #[prost(string, tag = "11")]
-    pub etag: ::prost::alloc::string::String,
-    /// Output only. The Kubernetes version of the cluster.
-    #[prost(string, tag = "12")]
-    pub kubernetes_version: ::prost::alloc::string::String,
-    /// Optional. Annotations on the cluster.
-    ///
-    /// This field has the same restrictions as Kubernetes annotations.
-    /// The total size of all keys and values combined is limited to 256k.
-    /// Key can have 2 segments: prefix (optional) and name (required),
-    /// separated by a slash (/).
-    /// Prefix must be a DNS subdomain.
-    /// Name must be 63 characters or less, begin and end with alphanumerics,
-    /// with dashes (-), underscores (_), dots (.), and alphanumerics between.
-    #[prost(btree_map = "string, string", tag = "13")]
-    pub annotations: ::prost::alloc::collections::BTreeMap<
-        ::prost::alloc::string::String,
-        ::prost::alloc::string::String,
-    >,
-    /// Output only. Workload Identity settings.
-    #[prost(message, optional, tag = "14")]
-    pub workload_identity_config: ::core::option::Option<WorkloadIdentityConfig>,
-    /// Optional. Logging configuration for this cluster.
-    #[prost(message, optional, tag = "15")]
-    pub logging_config: ::core::option::Option<LoggingConfig>,
-    /// Output only. A set of errors found in the cluster.
-    #[prost(message, repeated, tag = "20")]
-    pub errors: ::prost::alloc::vec::Vec<AttachedClusterError>,
-    /// Optional. Configuration related to the cluster RBAC settings.
-    #[prost(message, optional, tag = "21")]
-    pub authorization: ::core::option::Option<AttachedClustersAuthorization>,
-    /// Optional. Monitoring configuration for this cluster.
-    #[prost(message, optional, tag = "23")]
-    pub monitoring_config: ::core::option::Option<MonitoringConfig>,
-    /// Optional. Proxy configuration for outbound HTTP(S) traffic.
-    #[prost(message, optional, tag = "24")]
-    pub proxy_config: ::core::option::Option<AttachedProxyConfig>,
-    /// Optional. Binary Authorization configuration for this cluster.
-    #[prost(message, optional, tag = "25")]
-    pub binary_authorization: ::core::option::Option<BinaryAuthorization>,
-}
-/// Nested message and enum types in `AttachedCluster`.
-pub mod attached_cluster {
-    /// The lifecycle state of the cluster.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum State {
-        /// Not set.
-        Unspecified = 0,
-        /// The PROVISIONING state indicates the cluster is being registered.
-        Provisioning = 1,
-        /// The RUNNING state indicates the cluster has been register and is fully
-        /// usable.
-        Running = 2,
-        /// The RECONCILING state indicates that some work is actively being done on
-        /// the cluster, such as upgrading software components.
-        Reconciling = 3,
-        /// The STOPPING state indicates the cluster is being de-registered.
-        Stopping = 4,
-        /// The ERROR state indicates the cluster is in a broken unrecoverable
-        /// state.
-        Error = 5,
-        /// The DEGRADED state indicates the cluster requires user action to
-        /// restore full functionality.
-        Degraded = 6,
-    }
-    impl State {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Provisioning => "PROVISIONING",
-                State::Running => "RUNNING",
-                State::Reconciling => "RECONCILING",
-                State::Stopping => "STOPPING",
-                State::Error => "ERROR",
-                State::Degraded => "DEGRADED",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "STATE_UNSPECIFIED" => Some(Self::Unspecified),
-                "PROVISIONING" => Some(Self::Provisioning),
-                "RUNNING" => Some(Self::Running),
-                "RECONCILING" => Some(Self::Reconciling),
-                "STOPPING" => Some(Self::Stopping),
-                "ERROR" => Some(Self::Error),
-                "DEGRADED" => Some(Self::Degraded),
-                _ => None,
-            }
-        }
-    }
-}
-/// Configuration related to the cluster RBAC settings.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AttachedClustersAuthorization {
-    /// Optional. Users that can perform operations as a cluster admin. A managed
-    /// ClusterRoleBinding will be created to grant the `cluster-admin` ClusterRole
-    /// to the users. Up to ten admin users can be provided.
-    ///
-    /// For more info on RBAC, see
-    /// <https://kubernetes.io/docs/reference/access-authn-authz/rbac/#user-facing-roles>
-    #[prost(message, repeated, tag = "1")]
-    pub admin_users: ::prost::alloc::vec::Vec<AttachedClusterUser>,
-    /// Optional. Groups of users that can perform operations as a cluster admin. A
-    /// managed ClusterRoleBinding will be created to grant the `cluster-admin`
-    /// ClusterRole to the groups. Up to ten admin groups can be provided.
-    ///
-    /// For more info on RBAC, see
-    /// <https://kubernetes.io/docs/reference/access-authn-authz/rbac/#user-facing-roles>
-    #[prost(message, repeated, tag = "2")]
-    pub admin_groups: ::prost::alloc::vec::Vec<AttachedClusterGroup>,
-}
-/// Identities of a user-type subject for Attached clusters.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AttachedClusterUser {
-    /// Required. The name of the user, e.g. `my-gcp-id@gmail.com`.
-    #[prost(string, tag = "1")]
-    pub username: ::prost::alloc::string::String,
-}
-/// Identities of a group-type subject for Attached clusters.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AttachedClusterGroup {
-    /// Required. The name of the group, e.g. `my-group@domain.com`.
-    #[prost(string, tag = "1")]
-    pub group: ::prost::alloc::string::String,
-}
-/// OIDC discovery information of the target cluster.
-///
-/// Kubernetes Service Account (KSA) tokens are JWT tokens signed by the cluster
-/// API server. This fields indicates how Google Cloud Platform services
-/// validate KSA tokens in order to allow system workloads (such as GKE Connect
-/// and telemetry agents) to authenticate back to Google Cloud Platform.
-///
-/// Both clusters with public and private issuer URLs are supported.
-/// Clusters with public issuers only need to specify the `issuer_url` field
-/// while clusters with private issuers need to provide both
-/// `issuer_url` and `oidc_jwks`.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AttachedOidcConfig {
-    /// A JSON Web Token (JWT) issuer URI. `issuer` must start with `<https://`.>
-    #[prost(string, tag = "1")]
-    pub issuer_url: ::prost::alloc::string::String,
-    /// Optional. OIDC verification keys in JWKS format (RFC 7517).
-    /// It contains a list of OIDC verification keys that can be used to verify
-    /// OIDC JWTs.
-    ///
-    /// This field is required for cluster that doesn't have a publicly available
-    /// discovery endpoint. When provided, it will be directly used
-    /// to verify the OIDC JWT asserted by the IDP.
-    #[prost(bytes = "bytes", tag = "2")]
-    pub jwks: ::prost::bytes::Bytes,
-}
-/// AttachedServerConfig provides information about supported
-/// Kubernetes versions
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AttachedServerConfig {
-    /// The resource name of the config.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// List of valid platform versions.
-    #[prost(message, repeated, tag = "2")]
-    pub valid_versions: ::prost::alloc::vec::Vec<AttachedPlatformVersionInfo>,
-}
-/// Information about a supported Attached Clusters platform version.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AttachedPlatformVersionInfo {
-    /// Platform version name.
-    #[prost(string, tag = "1")]
-    pub version: ::prost::alloc::string::String,
-}
-/// AttachedClusterError describes errors found on attached clusters.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AttachedClusterError {
-    /// Human-friendly description of the error.
-    #[prost(string, tag = "1")]
-    pub message: ::prost::alloc::string::String,
-}
-/// Details of a proxy config.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AttachedProxyConfig {
-    /// The Kubernetes Secret resource that contains the HTTP(S) proxy
-    /// configuration. The secret must be a JSON encoded proxy configuration
-    /// as described in
-    #[prost(message, optional, tag = "1")]
-    pub kubernetes_secret: ::core::option::Option<KubernetesSecret>,
-}
-/// Information about a Kubernetes Secret
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct KubernetesSecret {
-    /// Name of the kubernetes secret.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// Namespace in which the kubernetes secret is stored.
-    #[prost(string, tag = "2")]
-    pub namespace: ::prost::alloc::string::String,
 }
 /// An Anthos cluster running on Azure.
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -2733,13 +1386,13 @@ pub mod azure_cluster {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Provisioning => "PROVISIONING",
-                State::Running => "RUNNING",
-                State::Reconciling => "RECONCILING",
-                State::Stopping => "STOPPING",
-                State::Error => "ERROR",
-                State::Degraded => "DEGRADED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Provisioning => "PROVISIONING",
+                Self::Running => "RUNNING",
+                Self::Reconciling => "RECONCILING",
+                Self::Stopping => "STOPPING",
+                Self::Error => "ERROR",
+                Self::Degraded => "DEGRADED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -3185,13 +1838,13 @@ pub mod azure_node_pool {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Provisioning => "PROVISIONING",
-                State::Running => "RUNNING",
-                State::Reconciling => "RECONCILING",
-                State::Stopping => "STOPPING",
-                State::Error => "ERROR",
-                State::Degraded => "DEGRADED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Provisioning => "PROVISIONING",
+                Self::Running => "RUNNING",
+                Self::Reconciling => "RECONCILING",
+                Self::Stopping => "STOPPING",
+                Self::Error => "ERROR",
+                Self::Degraded => "DEGRADED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -4664,6 +3317,3599 @@ pub mod azure_clusters_client {
         }
     }
 }
+/// Generated server implementations.
+pub mod azure_clusters_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with AzureClustersServer.
+    #[async_trait]
+    pub trait AzureClusters: std::marker::Send + std::marker::Sync + 'static {
+        /// Creates a new [AzureClient][google.cloud.gkemulticloud.v1.AzureClient]
+        /// resource on a given Google Cloud project and region.
+        ///
+        /// `AzureClient` resources hold client authentication
+        /// information needed by the Anthos Multicloud API to manage Azure resources
+        /// on your Azure subscription on your behalf.
+        ///
+        /// If successful, the response contains a newly created
+        /// [Operation][google.longrunning.Operation] resource that can be
+        /// described to track the status of the operation.
+        async fn create_azure_client(
+            &self,
+            request: tonic::Request<super::CreateAzureClientRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Describes a specific
+        /// [AzureClient][google.cloud.gkemulticloud.v1.AzureClient] resource.
+        async fn get_azure_client(
+            &self,
+            request: tonic::Request<super::GetAzureClientRequest>,
+        ) -> std::result::Result<tonic::Response<super::AzureClient>, tonic::Status>;
+        /// Lists all [AzureClient][google.cloud.gkemulticloud.v1.AzureClient]
+        /// resources on a given Google Cloud project and region.
+        async fn list_azure_clients(
+            &self,
+            request: tonic::Request<super::ListAzureClientsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAzureClientsResponse>,
+            tonic::Status,
+        >;
+        /// Deletes a specific [AzureClient][google.cloud.gkemulticloud.v1.AzureClient]
+        /// resource.
+        ///
+        /// If the client is used by one or more clusters, deletion will
+        /// fail and a `FAILED_PRECONDITION` error will be returned.
+        ///
+        /// If successful, the response contains a newly created
+        /// [Operation][google.longrunning.Operation] resource that can be
+        /// described to track the status of the operation.
+        async fn delete_azure_client(
+            &self,
+            request: tonic::Request<super::DeleteAzureClientRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Creates a new [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster]
+        /// resource on a given Google Cloud Platform project and region.
+        ///
+        /// If successful, the response contains a newly created
+        /// [Operation][google.longrunning.Operation] resource that can be
+        /// described to track the status of the operation.
+        async fn create_azure_cluster(
+            &self,
+            request: tonic::Request<super::CreateAzureClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates an [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster].
+        async fn update_azure_cluster(
+            &self,
+            request: tonic::Request<super::UpdateAzureClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Describes a specific
+        /// [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster] resource.
+        async fn get_azure_cluster(
+            &self,
+            request: tonic::Request<super::GetAzureClusterRequest>,
+        ) -> std::result::Result<tonic::Response<super::AzureCluster>, tonic::Status>;
+        /// Lists all [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster]
+        /// resources on a given Google Cloud project and region.
+        async fn list_azure_clusters(
+            &self,
+            request: tonic::Request<super::ListAzureClustersRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAzureClustersResponse>,
+            tonic::Status,
+        >;
+        /// Deletes a specific
+        /// [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster] resource.
+        ///
+        /// Fails if the cluster has one or more associated
+        /// [AzureNodePool][google.cloud.gkemulticloud.v1.AzureNodePool] resources.
+        ///
+        /// If successful, the response contains a newly created
+        /// [Operation][google.longrunning.Operation] resource that can be
+        /// described to track the status of the operation.
+        async fn delete_azure_cluster(
+            &self,
+            request: tonic::Request<super::DeleteAzureClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Generates an access token for a cluster agent.
+        async fn generate_azure_cluster_agent_token(
+            &self,
+            request: tonic::Request<super::GenerateAzureClusterAgentTokenRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::GenerateAzureClusterAgentTokenResponse>,
+            tonic::Status,
+        >;
+        /// Generates a short-lived access token to authenticate to a given
+        /// [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster] resource.
+        async fn generate_azure_access_token(
+            &self,
+            request: tonic::Request<super::GenerateAzureAccessTokenRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::GenerateAzureAccessTokenResponse>,
+            tonic::Status,
+        >;
+        /// Creates a new [AzureNodePool][google.cloud.gkemulticloud.v1.AzureNodePool],
+        /// attached to a given
+        /// [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster].
+        ///
+        /// If successful, the response contains a newly created
+        /// [Operation][google.longrunning.Operation] resource that can be
+        /// described to track the status of the operation.
+        async fn create_azure_node_pool(
+            &self,
+            request: tonic::Request<super::CreateAzureNodePoolRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates an [AzureNodePool][google.cloud.gkemulticloud.v1.AzureNodePool].
+        async fn update_azure_node_pool(
+            &self,
+            request: tonic::Request<super::UpdateAzureNodePoolRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Describes a specific
+        /// [AzureNodePool][google.cloud.gkemulticloud.v1.AzureNodePool] resource.
+        async fn get_azure_node_pool(
+            &self,
+            request: tonic::Request<super::GetAzureNodePoolRequest>,
+        ) -> std::result::Result<tonic::Response<super::AzureNodePool>, tonic::Status>;
+        /// Lists all [AzureNodePool][google.cloud.gkemulticloud.v1.AzureNodePool]
+        /// resources on a given
+        /// [AzureCluster][google.cloud.gkemulticloud.v1.AzureCluster].
+        async fn list_azure_node_pools(
+            &self,
+            request: tonic::Request<super::ListAzureNodePoolsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAzureNodePoolsResponse>,
+            tonic::Status,
+        >;
+        /// Deletes a specific
+        /// [AzureNodePool][google.cloud.gkemulticloud.v1.AzureNodePool] resource.
+        ///
+        /// If successful, the response contains a newly created
+        /// [Operation][google.longrunning.Operation] resource that can be
+        /// described to track the status of the operation.
+        async fn delete_azure_node_pool(
+            &self,
+            request: tonic::Request<super::DeleteAzureNodePoolRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Gets the OIDC discovery document for the cluster.
+        /// See the
+        /// [OpenID Connect Discovery 1.0
+        /// specification](https://openid.net/specs/openid-connect-discovery-1_0.html)
+        /// for details.
+        async fn get_azure_open_id_config(
+            &self,
+            request: tonic::Request<super::GetAzureOpenIdConfigRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AzureOpenIdConfig>,
+            tonic::Status,
+        >;
+        /// Gets the public component of the cluster signing keys in
+        /// JSON Web Key format.
+        async fn get_azure_json_web_keys(
+            &self,
+            request: tonic::Request<super::GetAzureJsonWebKeysRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AzureJsonWebKeys>,
+            tonic::Status,
+        >;
+        /// Returns information, such as supported Azure regions and Kubernetes
+        /// versions, on a given Google Cloud location.
+        async fn get_azure_server_config(
+            &self,
+            request: tonic::Request<super::GetAzureServerConfigRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AzureServerConfig>,
+            tonic::Status,
+        >;
+    }
+    /// The AzureClusters API provides a single centrally managed service
+    /// to create and manage Anthos clusters that run on Azure infrastructure.
+    #[derive(Debug)]
+    pub struct AzureClustersServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> AzureClustersServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for AzureClustersServer<T>
+    where
+        T: AzureClusters,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.gkemulticloud.v1.AzureClusters/CreateAzureClient" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateAzureClientSvc<T: AzureClusters>(pub Arc<T>);
+                    impl<
+                        T: AzureClusters,
+                    > tonic::server::UnaryService<super::CreateAzureClientRequest>
+                    for CreateAzureClientSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateAzureClientRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AzureClusters>::create_azure_client(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateAzureClientSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AzureClusters/GetAzureClient" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAzureClientSvc<T: AzureClusters>(pub Arc<T>);
+                    impl<
+                        T: AzureClusters,
+                    > tonic::server::UnaryService<super::GetAzureClientRequest>
+                    for GetAzureClientSvc<T> {
+                        type Response = super::AzureClient;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAzureClientRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AzureClusters>::get_azure_client(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAzureClientSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AzureClusters/ListAzureClients" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAzureClientsSvc<T: AzureClusters>(pub Arc<T>);
+                    impl<
+                        T: AzureClusters,
+                    > tonic::server::UnaryService<super::ListAzureClientsRequest>
+                    for ListAzureClientsSvc<T> {
+                        type Response = super::ListAzureClientsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListAzureClientsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AzureClusters>::list_azure_clients(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAzureClientsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AzureClusters/DeleteAzureClient" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteAzureClientSvc<T: AzureClusters>(pub Arc<T>);
+                    impl<
+                        T: AzureClusters,
+                    > tonic::server::UnaryService<super::DeleteAzureClientRequest>
+                    for DeleteAzureClientSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteAzureClientRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AzureClusters>::delete_azure_client(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteAzureClientSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AzureClusters/CreateAzureCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateAzureClusterSvc<T: AzureClusters>(pub Arc<T>);
+                    impl<
+                        T: AzureClusters,
+                    > tonic::server::UnaryService<super::CreateAzureClusterRequest>
+                    for CreateAzureClusterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateAzureClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AzureClusters>::create_azure_cluster(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateAzureClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AzureClusters/UpdateAzureCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateAzureClusterSvc<T: AzureClusters>(pub Arc<T>);
+                    impl<
+                        T: AzureClusters,
+                    > tonic::server::UnaryService<super::UpdateAzureClusterRequest>
+                    for UpdateAzureClusterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateAzureClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AzureClusters>::update_azure_cluster(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateAzureClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AzureClusters/GetAzureCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAzureClusterSvc<T: AzureClusters>(pub Arc<T>);
+                    impl<
+                        T: AzureClusters,
+                    > tonic::server::UnaryService<super::GetAzureClusterRequest>
+                    for GetAzureClusterSvc<T> {
+                        type Response = super::AzureCluster;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAzureClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AzureClusters>::get_azure_cluster(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAzureClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AzureClusters/ListAzureClusters" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAzureClustersSvc<T: AzureClusters>(pub Arc<T>);
+                    impl<
+                        T: AzureClusters,
+                    > tonic::server::UnaryService<super::ListAzureClustersRequest>
+                    for ListAzureClustersSvc<T> {
+                        type Response = super::ListAzureClustersResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListAzureClustersRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AzureClusters>::list_azure_clusters(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAzureClustersSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AzureClusters/DeleteAzureCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteAzureClusterSvc<T: AzureClusters>(pub Arc<T>);
+                    impl<
+                        T: AzureClusters,
+                    > tonic::server::UnaryService<super::DeleteAzureClusterRequest>
+                    for DeleteAzureClusterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteAzureClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AzureClusters>::delete_azure_cluster(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteAzureClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AzureClusters/GenerateAzureClusterAgentToken" => {
+                    #[allow(non_camel_case_types)]
+                    struct GenerateAzureClusterAgentTokenSvc<T: AzureClusters>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AzureClusters,
+                    > tonic::server::UnaryService<
+                        super::GenerateAzureClusterAgentTokenRequest,
+                    > for GenerateAzureClusterAgentTokenSvc<T> {
+                        type Response = super::GenerateAzureClusterAgentTokenResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GenerateAzureClusterAgentTokenRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AzureClusters>::generate_azure_cluster_agent_token(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GenerateAzureClusterAgentTokenSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AzureClusters/GenerateAzureAccessToken" => {
+                    #[allow(non_camel_case_types)]
+                    struct GenerateAzureAccessTokenSvc<T: AzureClusters>(pub Arc<T>);
+                    impl<
+                        T: AzureClusters,
+                    > tonic::server::UnaryService<super::GenerateAzureAccessTokenRequest>
+                    for GenerateAzureAccessTokenSvc<T> {
+                        type Response = super::GenerateAzureAccessTokenResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GenerateAzureAccessTokenRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AzureClusters>::generate_azure_access_token(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GenerateAzureAccessTokenSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AzureClusters/CreateAzureNodePool" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateAzureNodePoolSvc<T: AzureClusters>(pub Arc<T>);
+                    impl<
+                        T: AzureClusters,
+                    > tonic::server::UnaryService<super::CreateAzureNodePoolRequest>
+                    for CreateAzureNodePoolSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateAzureNodePoolRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AzureClusters>::create_azure_node_pool(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateAzureNodePoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AzureClusters/UpdateAzureNodePool" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateAzureNodePoolSvc<T: AzureClusters>(pub Arc<T>);
+                    impl<
+                        T: AzureClusters,
+                    > tonic::server::UnaryService<super::UpdateAzureNodePoolRequest>
+                    for UpdateAzureNodePoolSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateAzureNodePoolRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AzureClusters>::update_azure_node_pool(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateAzureNodePoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AzureClusters/GetAzureNodePool" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAzureNodePoolSvc<T: AzureClusters>(pub Arc<T>);
+                    impl<
+                        T: AzureClusters,
+                    > tonic::server::UnaryService<super::GetAzureNodePoolRequest>
+                    for GetAzureNodePoolSvc<T> {
+                        type Response = super::AzureNodePool;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAzureNodePoolRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AzureClusters>::get_azure_node_pool(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAzureNodePoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AzureClusters/ListAzureNodePools" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAzureNodePoolsSvc<T: AzureClusters>(pub Arc<T>);
+                    impl<
+                        T: AzureClusters,
+                    > tonic::server::UnaryService<super::ListAzureNodePoolsRequest>
+                    for ListAzureNodePoolsSvc<T> {
+                        type Response = super::ListAzureNodePoolsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListAzureNodePoolsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AzureClusters>::list_azure_node_pools(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAzureNodePoolsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AzureClusters/DeleteAzureNodePool" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteAzureNodePoolSvc<T: AzureClusters>(pub Arc<T>);
+                    impl<
+                        T: AzureClusters,
+                    > tonic::server::UnaryService<super::DeleteAzureNodePoolRequest>
+                    for DeleteAzureNodePoolSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteAzureNodePoolRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AzureClusters>::delete_azure_node_pool(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteAzureNodePoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AzureClusters/GetAzureOpenIdConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAzureOpenIdConfigSvc<T: AzureClusters>(pub Arc<T>);
+                    impl<
+                        T: AzureClusters,
+                    > tonic::server::UnaryService<super::GetAzureOpenIdConfigRequest>
+                    for GetAzureOpenIdConfigSvc<T> {
+                        type Response = super::AzureOpenIdConfig;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAzureOpenIdConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AzureClusters>::get_azure_open_id_config(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAzureOpenIdConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AzureClusters/GetAzureJsonWebKeys" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAzureJsonWebKeysSvc<T: AzureClusters>(pub Arc<T>);
+                    impl<
+                        T: AzureClusters,
+                    > tonic::server::UnaryService<super::GetAzureJsonWebKeysRequest>
+                    for GetAzureJsonWebKeysSvc<T> {
+                        type Response = super::AzureJsonWebKeys;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAzureJsonWebKeysRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AzureClusters>::get_azure_json_web_keys(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAzureJsonWebKeysSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AzureClusters/GetAzureServerConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAzureServerConfigSvc<T: AzureClusters>(pub Arc<T>);
+                    impl<
+                        T: AzureClusters,
+                    > tonic::server::UnaryService<super::GetAzureServerConfigRequest>
+                    for GetAzureServerConfigSvc<T> {
+                        type Response = super::AzureServerConfig;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAzureServerConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AzureClusters>::get_azure_server_config(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAzureServerConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for AzureClustersServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.gkemulticloud.v1.AzureClusters";
+    impl<T> tonic::server::NamedService for AzureClustersServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}
+/// Request message for `AwsClusters.CreateAwsCluster` method.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateAwsClusterRequest {
+    /// Required. The parent location where this
+    /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resource will be
+    /// created.
+    ///
+    /// Location names are formatted as `projects/<project-id>/locations/<region>`.
+    ///
+    /// See [Resource Names](<https://cloud.google.com/apis/design/resource_names>)
+    /// for more details on Google Cloud resource names.
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// Required. The specification of the
+    /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] to create.
+    #[prost(message, optional, tag = "2")]
+    pub aws_cluster: ::core::option::Option<AwsCluster>,
+    /// Required. A client provided ID the resource. Must be unique within the
+    /// parent resource.
+    ///
+    /// The provided ID will be part of the
+    /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resource name
+    /// formatted as
+    /// `projects/<project-id>/locations/<region>/awsClusters/<cluster-id>`.
+    ///
+    /// Valid characters are `/[a-z][0-9]-/`. Cannot be longer than 63 characters.
+    #[prost(string, tag = "3")]
+    pub aws_cluster_id: ::prost::alloc::string::String,
+    /// If set, only validate the request, but do not actually create the cluster.
+    #[prost(bool, tag = "4")]
+    pub validate_only: bool,
+}
+/// Request message for `AwsClusters.UpdateAwsCluster` method.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateAwsClusterRequest {
+    /// Required. The [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster]
+    /// resource to update.
+    #[prost(message, optional, tag = "1")]
+    pub aws_cluster: ::core::option::Option<AwsCluster>,
+    /// If set, only validate the request, but do not actually update the cluster.
+    #[prost(bool, tag = "2")]
+    pub validate_only: bool,
+    /// Required. Mask of fields to update. At least one path must be supplied in
+    /// this field. The elements of the repeated paths field can only include these
+    /// fields from [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster]:
+    ///
+    ///   *   `description`.
+    ///   *   `annotations`.
+    ///   *   `control_plane.version`.
+    ///   *   `authorization.admin_users`.
+    ///   *   `authorization.admin_groups`.
+    ///   *   `binary_authorization.evaluation_mode`.
+    ///   *   `control_plane.aws_services_authentication.role_arn`.
+    ///   *   `control_plane.aws_services_authentication.role_session_name`.
+    ///   *   `control_plane.config_encryption.kms_key_arn`.
+    ///   *   `control_plane.instance_type`.
+    ///   *   `control_plane.security_group_ids`.
+    ///   *   `control_plane.proxy_config`.
+    ///   *   `control_plane.proxy_config.secret_arn`.
+    ///   *   `control_plane.proxy_config.secret_version`.
+    ///   *   `control_plane.root_volume.size_gib`.
+    ///   *   `control_plane.root_volume.volume_type`.
+    ///   *   `control_plane.root_volume.iops`.
+    ///   *   `control_plane.root_volume.throughput`.
+    ///   *   `control_plane.root_volume.kms_key_arn`.
+    ///   *   `control_plane.ssh_config`.
+    ///   *   `control_plane.ssh_config.ec2_key_pair`.
+    ///   *   `control_plane.instance_placement.tenancy`.
+    ///   *   `control_plane.iam_instance_profile`.
+    ///   *   `logging_config.component_config.enable_components`.
+    ///   *   `control_plane.tags`.
+    ///   *   `monitoring_config.managed_prometheus_config.enabled`.
+    ///   *   `networking.per_node_pool_sg_rules_disabled`.
+    #[prost(message, optional, tag = "4")]
+    pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
+}
+/// Request message for `AwsClusters.GetAwsCluster` method.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetAwsClusterRequest {
+    /// Required. The name of the
+    /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resource to
+    /// describe.
+    ///
+    /// `AwsCluster` names are formatted as
+    /// `projects/<project-id>/locations/<region>/awsClusters/<cluster-id>`.
+    ///
+    /// See [Resource Names](<https://cloud.google.com/apis/design/resource_names>)
+    /// for more details on Google Cloud Platform resource names.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// Request message for `AwsClusters.ListAwsClusters` method.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListAwsClustersRequest {
+    /// Required. The parent location which owns this collection of
+    /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resources.
+    ///
+    /// Location names are formatted as `projects/<project-id>/locations/<region>`.
+    ///
+    /// See [Resource Names](<https://cloud.google.com/apis/design/resource_names>)
+    /// for more details on Google Cloud Platform resource names.
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// The maximum number of items to return.
+    ///
+    /// If not specified, a default value of 50 will be used by the service.
+    /// Regardless of the pageSize value, the response can include a partial list
+    /// and a caller should only rely on response's
+    /// [nextPageToken][google.cloud.gkemulticloud.v1.ListAwsClustersResponse.next_page_token]
+    /// to determine if there are more instances left to be queried.
+    #[prost(int32, tag = "2")]
+    pub page_size: i32,
+    /// The `nextPageToken` value returned from a previous
+    /// [awsClusters.list][google.cloud.gkemulticloud.v1.AwsClusters.ListAwsClusters]
+    /// request, if any.
+    #[prost(string, tag = "3")]
+    pub page_token: ::prost::alloc::string::String,
+}
+/// Response message for `AwsClusters.ListAwsClusters` method.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListAwsClustersResponse {
+    /// A list of [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resources
+    /// in the specified Google Cloud Platform project and region region.
+    #[prost(message, repeated, tag = "1")]
+    pub aws_clusters: ::prost::alloc::vec::Vec<AwsCluster>,
+    /// Token to retrieve the next page of results, or empty if there are no more
+    /// results in the list.
+    #[prost(string, tag = "2")]
+    pub next_page_token: ::prost::alloc::string::String,
+}
+/// Request message for `AwsClusters.DeleteAwsCluster` method.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteAwsClusterRequest {
+    /// Required. The resource name the
+    /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] to delete.
+    ///
+    /// `AwsCluster` names are formatted as
+    /// `projects/<project-id>/locations/<region>/awsClusters/<cluster-id>`.
+    ///
+    /// See [Resource Names](<https://cloud.google.com/apis/design/resource_names>)
+    /// for more details on Google Cloud Platform resource names.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// If set, only validate the request, but do not actually delete the resource.
+    #[prost(bool, tag = "2")]
+    pub validate_only: bool,
+    /// If set to true, and the
+    /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resource is not
+    /// found, the request will succeed but no action will be taken on the server
+    /// and a completed [Operation][google.longrunning.Operation] will be returned.
+    ///
+    /// Useful for idempotent deletion.
+    #[prost(bool, tag = "3")]
+    pub allow_missing: bool,
+    /// Optional. If set to true, the deletion of
+    /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resource will
+    /// succeed even if errors occur during deleting in cluster resources. Using
+    /// this parameter may result in orphaned resources in the cluster.
+    #[prost(bool, tag = "5")]
+    pub ignore_errors: bool,
+    /// The current etag of the
+    /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster].
+    ///
+    /// Allows clients to perform deletions through optimistic concurrency control.
+    ///
+    /// If the provided etag does not match the current etag of the cluster,
+    /// the request will fail and an ABORTED error will be returned.
+    #[prost(string, tag = "4")]
+    pub etag: ::prost::alloc::string::String,
+}
+/// Response message for `AwsClusters.CreateAwsNodePool` method.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateAwsNodePoolRequest {
+    /// Required. The [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster]
+    /// resource where this node pool will be created.
+    ///
+    /// `AwsCluster` names are formatted as
+    /// `projects/<project-id>/locations/<region>/awsClusters/<cluster-id>`.
+    ///
+    /// See [Resource Names](<https://cloud.google.com/apis/design/resource_names>)
+    /// for more details on Google Cloud resource names.
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// Required. The specification of the
+    /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] to create.
+    #[prost(message, optional, tag = "2")]
+    pub aws_node_pool: ::core::option::Option<AwsNodePool>,
+    /// Required. A client provided ID the resource. Must be unique within the
+    /// parent resource.
+    ///
+    /// The provided ID will be part of the
+    /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] resource name
+    /// formatted as
+    /// `projects/<project-id>/locations/<region>/awsClusters/<cluster-id>/awsNodePools/<node-pool-id>`.
+    ///
+    /// Valid characters are `/[a-z][0-9]-/`. Cannot be longer than 63 characters.
+    #[prost(string, tag = "3")]
+    pub aws_node_pool_id: ::prost::alloc::string::String,
+    /// If set, only validate the request, but do not actually create the node
+    /// pool.
+    #[prost(bool, tag = "4")]
+    pub validate_only: bool,
+}
+/// Request message for `AwsClusters.UpdateAwsNodePool` method.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateAwsNodePoolRequest {
+    /// Required. The [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool]
+    /// resource to update.
+    #[prost(message, optional, tag = "1")]
+    pub aws_node_pool: ::core::option::Option<AwsNodePool>,
+    /// If set, only validate the request, but don't actually update the node pool.
+    #[prost(bool, tag = "2")]
+    pub validate_only: bool,
+    /// Required. Mask of fields to update. At least one path must be supplied in
+    /// this field. The elements of the repeated paths field can only include these
+    /// fields from [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool]:
+    ///
+    ///   *   `annotations`.
+    ///   *   `version`.
+    ///   *   `autoscaling.min_node_count`.
+    ///   *   `autoscaling.max_node_count`.
+    ///   *   `config.config_encryption.kms_key_arn`.
+    ///   *   `config.security_group_ids`.
+    ///   *   `config.root_volume.iops`.
+    ///   *   `config.root_volume.throughput`.
+    ///   *   `config.root_volume.kms_key_arn`.
+    ///   *   `config.root_volume.volume_type`.
+    ///   *   `config.root_volume.size_gib`.
+    ///   *   `config.proxy_config`.
+    ///   *   `config.proxy_config.secret_arn`.
+    ///   *   `config.proxy_config.secret_version`.
+    ///   *   `config.ssh_config`.
+    ///   *   `config.ssh_config.ec2_key_pair`.
+    ///   *   `config.instance_placement.tenancy`.
+    ///   *   `config.iam_instance_profile`.
+    ///   *   `config.labels`.
+    ///   *   `config.tags`.
+    ///   *   `config.autoscaling_metrics_collection`.
+    ///   *   `config.autoscaling_metrics_collection.granularity`.
+    ///   *   `config.autoscaling_metrics_collection.metrics`.
+    ///   *   `config.instance_type`.
+    ///   *   `management.auto_repair`.
+    ///   *   `management`.
+    ///   *   `update_settings`.
+    ///   *   `update_settings.surge_settings`.
+    ///   *   `update_settings.surge_settings.max_surge`.
+    ///   *   `update_settings.surge_settings.max_unavailable`.
+    #[prost(message, optional, tag = "3")]
+    pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
+}
+/// Request message for `AwsClusters.RollbackAwsNodePoolUpdate` method.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct RollbackAwsNodePoolUpdateRequest {
+    /// Required. The name of the
+    /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] resource to
+    /// rollback.
+    ///
+    /// `AwsNodePool` names are formatted as
+    /// `projects/<project-id>/locations/<region>/awsClusters/<cluster-id>/awsNodePools/<node-pool-id>`.
+    ///
+    /// See [Resource Names](<https://cloud.google.com/apis/design/resource_names>)
+    /// for more details on Google Cloud resource names.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// Optional. Option for rollback to ignore the PodDisruptionBudget when
+    /// draining the node pool nodes. Default value is false.
+    #[prost(bool, tag = "2")]
+    pub respect_pdb: bool,
+}
+/// Request message for `AwsClusters.GetAwsNodePool` method.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetAwsNodePoolRequest {
+    /// Required. The name of the
+    /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] resource to
+    /// describe.
+    ///
+    /// `AwsNodePool` names are formatted as
+    /// `projects/<project-id>/locations/<region>/awsClusters/<cluster-id>/awsNodePools/<node-pool-id>`.
+    ///
+    /// See [Resource Names](<https://cloud.google.com/apis/design/resource_names>)
+    /// for more details on Google Cloud resource names.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// Request message for `AwsClusters.ListAwsNodePools` method.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListAwsNodePoolsRequest {
+    /// Required. The parent `AwsCluster` which owns this collection of
+    /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] resources.
+    ///
+    /// `AwsCluster` names are formatted as
+    /// `projects/<project-id>/locations/<region>/awsClusters/<cluster-id>`.
+    ///
+    /// See [Resource Names](<https://cloud.google.com/apis/design/resource_names>)
+    /// for more details on Google Cloud resource names.
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// The maximum number of items to return.
+    ///
+    /// If not specified, a default value of 50 will be used by the service.
+    /// Regardless of the pageSize value, the response can include a partial list
+    /// and a caller should only rely on response's
+    /// [nextPageToken][google.cloud.gkemulticloud.v1.ListAwsNodePoolsResponse.next_page_token]
+    /// to determine if there are more instances left to be queried.
+    #[prost(int32, tag = "2")]
+    pub page_size: i32,
+    /// The `nextPageToken` value returned from a previous
+    /// [awsNodePools.list][google.cloud.gkemulticloud.v1.AwsClusters.ListAwsNodePools]
+    /// request, if any.
+    #[prost(string, tag = "3")]
+    pub page_token: ::prost::alloc::string::String,
+}
+/// Response message for `AwsClusters.ListAwsNodePools` method.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListAwsNodePoolsResponse {
+    /// A list of [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool]
+    /// resources in the specified `AwsCluster`.
+    #[prost(message, repeated, tag = "1")]
+    pub aws_node_pools: ::prost::alloc::vec::Vec<AwsNodePool>,
+    /// Token to retrieve the next page of results, or empty if there are no more
+    /// results in the list.
+    #[prost(string, tag = "2")]
+    pub next_page_token: ::prost::alloc::string::String,
+}
+/// Request message for `AwsClusters.DeleteAwsNodePool` method.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteAwsNodePoolRequest {
+    /// Required. The resource name the
+    /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] to delete.
+    ///
+    /// `AwsNodePool` names are formatted as
+    /// `projects/<project-id>/locations/<region>/awsClusters/<cluster-id>/awsNodePools/<node-pool-id>`.
+    ///
+    /// See [Resource Names](<https://cloud.google.com/apis/design/resource_names>)
+    /// for more details on Google Cloud resource names.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// If set, only validate the request, but do not actually delete the node
+    /// pool.
+    #[prost(bool, tag = "2")]
+    pub validate_only: bool,
+    /// If set to true, and the
+    /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] resource is not
+    /// found, the request will succeed but no action will be taken on the server
+    /// and a completed [Operation][google.longrunning.Operation] will be returned.
+    ///
+    /// Useful for idempotent deletion.
+    #[prost(bool, tag = "3")]
+    pub allow_missing: bool,
+    /// Optional. If set to true, the deletion of
+    /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] resource will
+    /// succeed even if errors occur during deleting in node pool resources. Using
+    /// this parameter may result in orphaned resources in the node pool.
+    #[prost(bool, tag = "5")]
+    pub ignore_errors: bool,
+    /// The current ETag of the
+    /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool].
+    ///
+    /// Allows clients to perform deletions through optimistic concurrency control.
+    ///
+    /// If the provided ETag does not match the current etag of the node pool,
+    /// the request will fail and an ABORTED error will be returned.
+    #[prost(string, tag = "4")]
+    pub etag: ::prost::alloc::string::String,
+}
+/// GetAwsOpenIdConfigRequest gets the OIDC discovery document for the
+/// cluster. See the OpenID Connect Discovery 1.0 specification for details.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetAwsOpenIdConfigRequest {
+    /// Required. The AwsCluster, which owns the OIDC discovery document.
+    /// Format:
+    /// projects/{project}/locations/{location}/awsClusters/{cluster}
+    #[prost(string, tag = "1")]
+    pub aws_cluster: ::prost::alloc::string::String,
+}
+/// GetAwsJsonWebKeysRequest gets the public component of the keys used by the
+/// cluster to sign token requests. This will be the jwks_uri for the discover
+/// document returned by getOpenIDConfig. See the OpenID Connect
+/// Discovery 1.0 specification for details.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetAwsJsonWebKeysRequest {
+    /// Required. The AwsCluster, which owns the JsonWebKeys.
+    /// Format:
+    /// projects/{project}/locations/{location}/awsClusters/{cluster}
+    #[prost(string, tag = "1")]
+    pub aws_cluster: ::prost::alloc::string::String,
+}
+/// GetAwsServerConfigRequest gets the server config of GKE cluster on AWS.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetAwsServerConfigRequest {
+    /// Required. The name of the
+    /// [AwsServerConfig][google.cloud.gkemulticloud.v1.AwsServerConfig] resource
+    /// to describe.
+    ///
+    /// `AwsServerConfig` names are formatted as
+    /// `projects/<project-id>/locations/<region>/awsServerConfig`.
+    ///
+    /// See [Resource Names](<https://cloud.google.com/apis/design/resource_names>)
+    /// for more details on Google Cloud resource names.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// Request message for `AwsClusters.GenerateAwsAccessToken` method.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GenerateAwsAccessTokenRequest {
+    /// Required. The name of the
+    /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resource to
+    /// authenticate to.
+    ///
+    /// `AwsCluster` names are formatted as
+    /// `projects/<project-id>/locations/<region>/awsClusters/<cluster-id>`.
+    ///
+    /// See [Resource Names](<https://cloud.google.com/apis/design/resource_names>)
+    /// for more details on Google Cloud resource names.
+    #[prost(string, tag = "1")]
+    pub aws_cluster: ::prost::alloc::string::String,
+}
+/// Response message for `AwsClusters.GenerateAwsAccessToken` method.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GenerateAwsAccessTokenResponse {
+    /// Output only. Access token to authenticate to k8s api-server.
+    #[prost(string, tag = "1")]
+    pub access_token: ::prost::alloc::string::String,
+    /// Output only. Timestamp at which the token will expire.
+    #[prost(message, optional, tag = "2")]
+    pub expiration_time: ::core::option::Option<::prost_types::Timestamp>,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GenerateAwsClusterAgentTokenRequest {
+    /// Required.
+    #[prost(string, tag = "1")]
+    pub aws_cluster: ::prost::alloc::string::String,
+    /// Required.
+    #[prost(string, tag = "2")]
+    pub subject_token: ::prost::alloc::string::String,
+    /// Required.
+    #[prost(string, tag = "3")]
+    pub subject_token_type: ::prost::alloc::string::String,
+    /// Required.
+    #[prost(string, tag = "4")]
+    pub version: ::prost::alloc::string::String,
+    /// Optional.
+    #[prost(string, tag = "5")]
+    pub node_pool_id: ::prost::alloc::string::String,
+    /// Optional.
+    #[prost(string, tag = "6")]
+    pub grant_type: ::prost::alloc::string::String,
+    /// Optional.
+    #[prost(string, tag = "7")]
+    pub audience: ::prost::alloc::string::String,
+    /// Optional.
+    #[prost(string, tag = "8")]
+    pub scope: ::prost::alloc::string::String,
+    /// Optional.
+    #[prost(string, tag = "9")]
+    pub requested_token_type: ::prost::alloc::string::String,
+    /// Optional.
+    #[prost(string, tag = "10")]
+    pub options: ::prost::alloc::string::String,
+}
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GenerateAwsClusterAgentTokenResponse {
+    #[prost(string, tag = "1")]
+    pub access_token: ::prost::alloc::string::String,
+    #[prost(int32, tag = "2")]
+    pub expires_in: i32,
+    #[prost(string, tag = "3")]
+    pub token_type: ::prost::alloc::string::String,
+}
+/// Generated client implementations.
+pub mod aws_clusters_client {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    use tonic::codegen::http::Uri;
+    /// The AwsClusters API provides a single centrally managed service
+    /// to create and manage Anthos clusters that run on AWS infrastructure.
+    #[derive(Debug, Clone)]
+    pub struct AwsClustersClient<T> {
+        inner: tonic::client::Grpc<T>,
+    }
+    impl<T> AwsClustersClient<T>
+    where
+        T: tonic::client::GrpcService<tonic::body::BoxBody>,
+        T::Error: Into<StdError>,
+        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
+    {
+        pub fn new(inner: T) -> Self {
+            let inner = tonic::client::Grpc::new(inner);
+            Self { inner }
+        }
+        pub fn with_origin(inner: T, origin: Uri) -> Self {
+            let inner = tonic::client::Grpc::with_origin(inner, origin);
+            Self { inner }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> AwsClustersClient<InterceptedService<T, F>>
+        where
+            F: tonic::service::Interceptor,
+            T::ResponseBody: Default,
+            T: tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+                Response = http::Response<
+                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
+                >,
+            >,
+            <T as tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+            >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
+        {
+            AwsClustersClient::new(InterceptedService::new(inner, interceptor))
+        }
+        /// Compress requests with the given encoding.
+        ///
+        /// This requires the server to support it otherwise it might respond with an
+        /// error.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.send_compressed(encoding);
+            self
+        }
+        /// Enable decompressing responses.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.accept_compressed(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
+        /// Creates a new [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster]
+        /// resource on a given Google Cloud Platform project and region.
+        ///
+        /// If successful, the response contains a newly created
+        /// [Operation][google.longrunning.Operation] resource that can be
+        /// described to track the status of the operation.
+        pub async fn create_aws_cluster(
+            &mut self,
+            request: impl tonic::IntoRequest<super::CreateAwsClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.gkemulticloud.v1.AwsClusters/CreateAwsCluster",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.gkemulticloud.v1.AwsClusters",
+                        "CreateAwsCluster",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Updates an [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster].
+        pub async fn update_aws_cluster(
+            &mut self,
+            request: impl tonic::IntoRequest<super::UpdateAwsClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.gkemulticloud.v1.AwsClusters/UpdateAwsCluster",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.gkemulticloud.v1.AwsClusters",
+                        "UpdateAwsCluster",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Describes a specific [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster]
+        /// resource.
+        pub async fn get_aws_cluster(
+            &mut self,
+            request: impl tonic::IntoRequest<super::GetAwsClusterRequest>,
+        ) -> std::result::Result<tonic::Response<super::AwsCluster>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.gkemulticloud.v1.AwsClusters/GetAwsCluster",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.gkemulticloud.v1.AwsClusters",
+                        "GetAwsCluster",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Lists all [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resources
+        /// on a given Google Cloud project and region.
+        pub async fn list_aws_clusters(
+            &mut self,
+            request: impl tonic::IntoRequest<super::ListAwsClustersRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAwsClustersResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.gkemulticloud.v1.AwsClusters/ListAwsClusters",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.gkemulticloud.v1.AwsClusters",
+                        "ListAwsClusters",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Deletes a specific [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster]
+        /// resource.
+        ///
+        /// Fails if the cluster has one or more associated
+        /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] resources.
+        ///
+        /// If successful, the response contains a newly created
+        /// [Operation][google.longrunning.Operation] resource that can be
+        /// described to track the status of the operation.
+        pub async fn delete_aws_cluster(
+            &mut self,
+            request: impl tonic::IntoRequest<super::DeleteAwsClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.gkemulticloud.v1.AwsClusters/DeleteAwsCluster",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.gkemulticloud.v1.AwsClusters",
+                        "DeleteAwsCluster",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Generates an access token for a cluster agent.
+        pub async fn generate_aws_cluster_agent_token(
+            &mut self,
+            request: impl tonic::IntoRequest<super::GenerateAwsClusterAgentTokenRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::GenerateAwsClusterAgentTokenResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.gkemulticloud.v1.AwsClusters/GenerateAwsClusterAgentToken",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.gkemulticloud.v1.AwsClusters",
+                        "GenerateAwsClusterAgentToken",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Generates a short-lived access token to authenticate to a given
+        /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resource.
+        pub async fn generate_aws_access_token(
+            &mut self,
+            request: impl tonic::IntoRequest<super::GenerateAwsAccessTokenRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::GenerateAwsAccessTokenResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.gkemulticloud.v1.AwsClusters/GenerateAwsAccessToken",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.gkemulticloud.v1.AwsClusters",
+                        "GenerateAwsAccessToken",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Creates a new [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool],
+        /// attached to a given [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster].
+        ///
+        /// If successful, the response contains a newly created
+        /// [Operation][google.longrunning.Operation] resource that can be
+        /// described to track the status of the operation.
+        pub async fn create_aws_node_pool(
+            &mut self,
+            request: impl tonic::IntoRequest<super::CreateAwsNodePoolRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.gkemulticloud.v1.AwsClusters/CreateAwsNodePool",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.gkemulticloud.v1.AwsClusters",
+                        "CreateAwsNodePool",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Updates an [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool].
+        pub async fn update_aws_node_pool(
+            &mut self,
+            request: impl tonic::IntoRequest<super::UpdateAwsNodePoolRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.gkemulticloud.v1.AwsClusters/UpdateAwsNodePool",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.gkemulticloud.v1.AwsClusters",
+                        "UpdateAwsNodePool",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Rolls back a previously aborted or failed
+        /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] update request.
+        /// Makes no changes if the last update request successfully finished.
+        /// If an update request is in progress, you cannot rollback the update.
+        /// You must first cancel or let it finish unsuccessfully before you can
+        /// rollback.
+        pub async fn rollback_aws_node_pool_update(
+            &mut self,
+            request: impl tonic::IntoRequest<super::RollbackAwsNodePoolUpdateRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.gkemulticloud.v1.AwsClusters/RollbackAwsNodePoolUpdate",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.gkemulticloud.v1.AwsClusters",
+                        "RollbackAwsNodePoolUpdate",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Describes a specific
+        /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] resource.
+        pub async fn get_aws_node_pool(
+            &mut self,
+            request: impl tonic::IntoRequest<super::GetAwsNodePoolRequest>,
+        ) -> std::result::Result<tonic::Response<super::AwsNodePool>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.gkemulticloud.v1.AwsClusters/GetAwsNodePool",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.gkemulticloud.v1.AwsClusters",
+                        "GetAwsNodePool",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Lists all [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool]
+        /// resources on a given
+        /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster].
+        pub async fn list_aws_node_pools(
+            &mut self,
+            request: impl tonic::IntoRequest<super::ListAwsNodePoolsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAwsNodePoolsResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.gkemulticloud.v1.AwsClusters/ListAwsNodePools",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.gkemulticloud.v1.AwsClusters",
+                        "ListAwsNodePools",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Deletes a specific [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool]
+        /// resource.
+        ///
+        /// If successful, the response contains a newly created
+        /// [Operation][google.longrunning.Operation] resource that can be
+        /// described to track the status of the operation.
+        pub async fn delete_aws_node_pool(
+            &mut self,
+            request: impl tonic::IntoRequest<super::DeleteAwsNodePoolRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.gkemulticloud.v1.AwsClusters/DeleteAwsNodePool",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.gkemulticloud.v1.AwsClusters",
+                        "DeleteAwsNodePool",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Gets the OIDC discovery document for the cluster.
+        /// See the
+        /// [OpenID Connect Discovery 1.0
+        /// specification](https://openid.net/specs/openid-connect-discovery-1_0.html)
+        /// for details.
+        pub async fn get_aws_open_id_config(
+            &mut self,
+            request: impl tonic::IntoRequest<super::GetAwsOpenIdConfigRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AwsOpenIdConfig>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.gkemulticloud.v1.AwsClusters/GetAwsOpenIdConfig",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.gkemulticloud.v1.AwsClusters",
+                        "GetAwsOpenIdConfig",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Gets the public component of the cluster signing keys in
+        /// JSON Web Key format.
+        pub async fn get_aws_json_web_keys(
+            &mut self,
+            request: impl tonic::IntoRequest<super::GetAwsJsonWebKeysRequest>,
+        ) -> std::result::Result<tonic::Response<super::AwsJsonWebKeys>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.gkemulticloud.v1.AwsClusters/GetAwsJsonWebKeys",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.gkemulticloud.v1.AwsClusters",
+                        "GetAwsJsonWebKeys",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Returns information, such as supported AWS regions and Kubernetes
+        /// versions, on a given Google Cloud location.
+        pub async fn get_aws_server_config(
+            &mut self,
+            request: impl tonic::IntoRequest<super::GetAwsServerConfigRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AwsServerConfig>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.gkemulticloud.v1.AwsClusters/GetAwsServerConfig",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.gkemulticloud.v1.AwsClusters",
+                        "GetAwsServerConfig",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+    }
+}
+/// Generated server implementations.
+pub mod aws_clusters_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with AwsClustersServer.
+    #[async_trait]
+    pub trait AwsClusters: std::marker::Send + std::marker::Sync + 'static {
+        /// Creates a new [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster]
+        /// resource on a given Google Cloud Platform project and region.
+        ///
+        /// If successful, the response contains a newly created
+        /// [Operation][google.longrunning.Operation] resource that can be
+        /// described to track the status of the operation.
+        async fn create_aws_cluster(
+            &self,
+            request: tonic::Request<super::CreateAwsClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates an [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster].
+        async fn update_aws_cluster(
+            &self,
+            request: tonic::Request<super::UpdateAwsClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Describes a specific [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster]
+        /// resource.
+        async fn get_aws_cluster(
+            &self,
+            request: tonic::Request<super::GetAwsClusterRequest>,
+        ) -> std::result::Result<tonic::Response<super::AwsCluster>, tonic::Status>;
+        /// Lists all [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resources
+        /// on a given Google Cloud project and region.
+        async fn list_aws_clusters(
+            &self,
+            request: tonic::Request<super::ListAwsClustersRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAwsClustersResponse>,
+            tonic::Status,
+        >;
+        /// Deletes a specific [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster]
+        /// resource.
+        ///
+        /// Fails if the cluster has one or more associated
+        /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] resources.
+        ///
+        /// If successful, the response contains a newly created
+        /// [Operation][google.longrunning.Operation] resource that can be
+        /// described to track the status of the operation.
+        async fn delete_aws_cluster(
+            &self,
+            request: tonic::Request<super::DeleteAwsClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Generates an access token for a cluster agent.
+        async fn generate_aws_cluster_agent_token(
+            &self,
+            request: tonic::Request<super::GenerateAwsClusterAgentTokenRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::GenerateAwsClusterAgentTokenResponse>,
+            tonic::Status,
+        >;
+        /// Generates a short-lived access token to authenticate to a given
+        /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster] resource.
+        async fn generate_aws_access_token(
+            &self,
+            request: tonic::Request<super::GenerateAwsAccessTokenRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::GenerateAwsAccessTokenResponse>,
+            tonic::Status,
+        >;
+        /// Creates a new [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool],
+        /// attached to a given [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster].
+        ///
+        /// If successful, the response contains a newly created
+        /// [Operation][google.longrunning.Operation] resource that can be
+        /// described to track the status of the operation.
+        async fn create_aws_node_pool(
+            &self,
+            request: tonic::Request<super::CreateAwsNodePoolRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates an [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool].
+        async fn update_aws_node_pool(
+            &self,
+            request: tonic::Request<super::UpdateAwsNodePoolRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Rolls back a previously aborted or failed
+        /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] update request.
+        /// Makes no changes if the last update request successfully finished.
+        /// If an update request is in progress, you cannot rollback the update.
+        /// You must first cancel or let it finish unsuccessfully before you can
+        /// rollback.
+        async fn rollback_aws_node_pool_update(
+            &self,
+            request: tonic::Request<super::RollbackAwsNodePoolUpdateRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Describes a specific
+        /// [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool] resource.
+        async fn get_aws_node_pool(
+            &self,
+            request: tonic::Request<super::GetAwsNodePoolRequest>,
+        ) -> std::result::Result<tonic::Response<super::AwsNodePool>, tonic::Status>;
+        /// Lists all [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool]
+        /// resources on a given
+        /// [AwsCluster][google.cloud.gkemulticloud.v1.AwsCluster].
+        async fn list_aws_node_pools(
+            &self,
+            request: tonic::Request<super::ListAwsNodePoolsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAwsNodePoolsResponse>,
+            tonic::Status,
+        >;
+        /// Deletes a specific [AwsNodePool][google.cloud.gkemulticloud.v1.AwsNodePool]
+        /// resource.
+        ///
+        /// If successful, the response contains a newly created
+        /// [Operation][google.longrunning.Operation] resource that can be
+        /// described to track the status of the operation.
+        async fn delete_aws_node_pool(
+            &self,
+            request: tonic::Request<super::DeleteAwsNodePoolRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Gets the OIDC discovery document for the cluster.
+        /// See the
+        /// [OpenID Connect Discovery 1.0
+        /// specification](https://openid.net/specs/openid-connect-discovery-1_0.html)
+        /// for details.
+        async fn get_aws_open_id_config(
+            &self,
+            request: tonic::Request<super::GetAwsOpenIdConfigRequest>,
+        ) -> std::result::Result<tonic::Response<super::AwsOpenIdConfig>, tonic::Status>;
+        /// Gets the public component of the cluster signing keys in
+        /// JSON Web Key format.
+        async fn get_aws_json_web_keys(
+            &self,
+            request: tonic::Request<super::GetAwsJsonWebKeysRequest>,
+        ) -> std::result::Result<tonic::Response<super::AwsJsonWebKeys>, tonic::Status>;
+        /// Returns information, such as supported AWS regions and Kubernetes
+        /// versions, on a given Google Cloud location.
+        async fn get_aws_server_config(
+            &self,
+            request: tonic::Request<super::GetAwsServerConfigRequest>,
+        ) -> std::result::Result<tonic::Response<super::AwsServerConfig>, tonic::Status>;
+    }
+    /// The AwsClusters API provides a single centrally managed service
+    /// to create and manage Anthos clusters that run on AWS infrastructure.
+    #[derive(Debug)]
+    pub struct AwsClustersServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> AwsClustersServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for AwsClustersServer<T>
+    where
+        T: AwsClusters,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.gkemulticloud.v1.AwsClusters/CreateAwsCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateAwsClusterSvc<T: AwsClusters>(pub Arc<T>);
+                    impl<
+                        T: AwsClusters,
+                    > tonic::server::UnaryService<super::CreateAwsClusterRequest>
+                    for CreateAwsClusterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateAwsClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AwsClusters>::create_aws_cluster(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateAwsClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AwsClusters/UpdateAwsCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateAwsClusterSvc<T: AwsClusters>(pub Arc<T>);
+                    impl<
+                        T: AwsClusters,
+                    > tonic::server::UnaryService<super::UpdateAwsClusterRequest>
+                    for UpdateAwsClusterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateAwsClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AwsClusters>::update_aws_cluster(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateAwsClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AwsClusters/GetAwsCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAwsClusterSvc<T: AwsClusters>(pub Arc<T>);
+                    impl<
+                        T: AwsClusters,
+                    > tonic::server::UnaryService<super::GetAwsClusterRequest>
+                    for GetAwsClusterSvc<T> {
+                        type Response = super::AwsCluster;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAwsClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AwsClusters>::get_aws_cluster(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAwsClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AwsClusters/ListAwsClusters" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAwsClustersSvc<T: AwsClusters>(pub Arc<T>);
+                    impl<
+                        T: AwsClusters,
+                    > tonic::server::UnaryService<super::ListAwsClustersRequest>
+                    for ListAwsClustersSvc<T> {
+                        type Response = super::ListAwsClustersResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListAwsClustersRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AwsClusters>::list_aws_clusters(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAwsClustersSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AwsClusters/DeleteAwsCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteAwsClusterSvc<T: AwsClusters>(pub Arc<T>);
+                    impl<
+                        T: AwsClusters,
+                    > tonic::server::UnaryService<super::DeleteAwsClusterRequest>
+                    for DeleteAwsClusterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteAwsClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AwsClusters>::delete_aws_cluster(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteAwsClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AwsClusters/GenerateAwsClusterAgentToken" => {
+                    #[allow(non_camel_case_types)]
+                    struct GenerateAwsClusterAgentTokenSvc<T: AwsClusters>(pub Arc<T>);
+                    impl<
+                        T: AwsClusters,
+                    > tonic::server::UnaryService<
+                        super::GenerateAwsClusterAgentTokenRequest,
+                    > for GenerateAwsClusterAgentTokenSvc<T> {
+                        type Response = super::GenerateAwsClusterAgentTokenResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GenerateAwsClusterAgentTokenRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AwsClusters>::generate_aws_cluster_agent_token(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GenerateAwsClusterAgentTokenSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AwsClusters/GenerateAwsAccessToken" => {
+                    #[allow(non_camel_case_types)]
+                    struct GenerateAwsAccessTokenSvc<T: AwsClusters>(pub Arc<T>);
+                    impl<
+                        T: AwsClusters,
+                    > tonic::server::UnaryService<super::GenerateAwsAccessTokenRequest>
+                    for GenerateAwsAccessTokenSvc<T> {
+                        type Response = super::GenerateAwsAccessTokenResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GenerateAwsAccessTokenRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AwsClusters>::generate_aws_access_token(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GenerateAwsAccessTokenSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AwsClusters/CreateAwsNodePool" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateAwsNodePoolSvc<T: AwsClusters>(pub Arc<T>);
+                    impl<
+                        T: AwsClusters,
+                    > tonic::server::UnaryService<super::CreateAwsNodePoolRequest>
+                    for CreateAwsNodePoolSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateAwsNodePoolRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AwsClusters>::create_aws_node_pool(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateAwsNodePoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AwsClusters/UpdateAwsNodePool" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateAwsNodePoolSvc<T: AwsClusters>(pub Arc<T>);
+                    impl<
+                        T: AwsClusters,
+                    > tonic::server::UnaryService<super::UpdateAwsNodePoolRequest>
+                    for UpdateAwsNodePoolSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateAwsNodePoolRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AwsClusters>::update_aws_node_pool(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateAwsNodePoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AwsClusters/RollbackAwsNodePoolUpdate" => {
+                    #[allow(non_camel_case_types)]
+                    struct RollbackAwsNodePoolUpdateSvc<T: AwsClusters>(pub Arc<T>);
+                    impl<
+                        T: AwsClusters,
+                    > tonic::server::UnaryService<
+                        super::RollbackAwsNodePoolUpdateRequest,
+                    > for RollbackAwsNodePoolUpdateSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::RollbackAwsNodePoolUpdateRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AwsClusters>::rollback_aws_node_pool_update(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RollbackAwsNodePoolUpdateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AwsClusters/GetAwsNodePool" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAwsNodePoolSvc<T: AwsClusters>(pub Arc<T>);
+                    impl<
+                        T: AwsClusters,
+                    > tonic::server::UnaryService<super::GetAwsNodePoolRequest>
+                    for GetAwsNodePoolSvc<T> {
+                        type Response = super::AwsNodePool;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAwsNodePoolRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AwsClusters>::get_aws_node_pool(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAwsNodePoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AwsClusters/ListAwsNodePools" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAwsNodePoolsSvc<T: AwsClusters>(pub Arc<T>);
+                    impl<
+                        T: AwsClusters,
+                    > tonic::server::UnaryService<super::ListAwsNodePoolsRequest>
+                    for ListAwsNodePoolsSvc<T> {
+                        type Response = super::ListAwsNodePoolsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListAwsNodePoolsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AwsClusters>::list_aws_node_pools(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAwsNodePoolsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AwsClusters/DeleteAwsNodePool" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteAwsNodePoolSvc<T: AwsClusters>(pub Arc<T>);
+                    impl<
+                        T: AwsClusters,
+                    > tonic::server::UnaryService<super::DeleteAwsNodePoolRequest>
+                    for DeleteAwsNodePoolSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteAwsNodePoolRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AwsClusters>::delete_aws_node_pool(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteAwsNodePoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AwsClusters/GetAwsOpenIdConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAwsOpenIdConfigSvc<T: AwsClusters>(pub Arc<T>);
+                    impl<
+                        T: AwsClusters,
+                    > tonic::server::UnaryService<super::GetAwsOpenIdConfigRequest>
+                    for GetAwsOpenIdConfigSvc<T> {
+                        type Response = super::AwsOpenIdConfig;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAwsOpenIdConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AwsClusters>::get_aws_open_id_config(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAwsOpenIdConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AwsClusters/GetAwsJsonWebKeys" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAwsJsonWebKeysSvc<T: AwsClusters>(pub Arc<T>);
+                    impl<
+                        T: AwsClusters,
+                    > tonic::server::UnaryService<super::GetAwsJsonWebKeysRequest>
+                    for GetAwsJsonWebKeysSvc<T> {
+                        type Response = super::AwsJsonWebKeys;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAwsJsonWebKeysRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AwsClusters>::get_aws_json_web_keys(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAwsJsonWebKeysSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AwsClusters/GetAwsServerConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAwsServerConfigSvc<T: AwsClusters>(pub Arc<T>);
+                    impl<
+                        T: AwsClusters,
+                    > tonic::server::UnaryService<super::GetAwsServerConfigRequest>
+                    for GetAwsServerConfigSvc<T> {
+                        type Response = super::AwsServerConfig;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAwsServerConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AwsClusters>::get_aws_server_config(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAwsServerConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for AwsClustersServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.gkemulticloud.v1.AwsClusters";
+    impl<T> tonic::server::NamedService for AwsClustersServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}
+/// An Anthos cluster running on customer own infrastructure.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AttachedCluster {
+    /// The name of this resource.
+    ///
+    /// Cluster names are formatted as
+    /// `projects/<project-number>/locations/<region>/attachedClusters/<cluster-id>`.
+    ///
+    /// See [Resource Names](<https://cloud.google.com/apis/design/resource_names>)
+    /// for more details on Google Cloud Platform resource names.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// Optional. A human readable description of this cluster.
+    /// Cannot be longer than 255 UTF-8 encoded bytes.
+    #[prost(string, tag = "2")]
+    pub description: ::prost::alloc::string::String,
+    /// Required. OpenID Connect (OIDC) configuration for the cluster.
+    #[prost(message, optional, tag = "3")]
+    pub oidc_config: ::core::option::Option<AttachedOidcConfig>,
+    /// Required. The platform version for the cluster (e.g. `1.19.0-gke.1000`).
+    ///
+    /// You can list all supported versions on a given Google Cloud region by
+    /// calling
+    /// [GetAttachedServerConfig][google.cloud.gkemulticloud.v1.AttachedClusters.GetAttachedServerConfig].
+    #[prost(string, tag = "4")]
+    pub platform_version: ::prost::alloc::string::String,
+    /// Required. The Kubernetes distribution of the underlying attached cluster.
+    ///
+    /// Supported values: \["eks", "aks", "generic"\].
+    #[prost(string, tag = "16")]
+    pub distribution: ::prost::alloc::string::String,
+    /// Output only. The region where this cluster runs.
+    ///
+    /// For EKS clusters, this is a AWS region. For AKS clusters,
+    /// this is an Azure region.
+    #[prost(string, tag = "22")]
+    pub cluster_region: ::prost::alloc::string::String,
+    /// Required. Fleet configuration.
+    #[prost(message, optional, tag = "5")]
+    pub fleet: ::core::option::Option<Fleet>,
+    /// Output only. The current state of the cluster.
+    #[prost(enumeration = "attached_cluster::State", tag = "6")]
+    pub state: i32,
+    /// Output only. A globally unique identifier for the cluster.
+    #[prost(string, tag = "7")]
+    pub uid: ::prost::alloc::string::String,
+    /// Output only. If set, there are currently changes in flight to the cluster.
+    #[prost(bool, tag = "8")]
+    pub reconciling: bool,
+    /// Output only. The time at which this cluster was registered.
+    #[prost(message, optional, tag = "9")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. The time at which this cluster was last updated.
+    #[prost(message, optional, tag = "10")]
+    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Allows clients to perform consistent read-modify-writes
+    /// through optimistic concurrency control.
+    ///
+    /// Can be sent on update and delete requests to ensure the
+    /// client has an up-to-date value before proceeding.
+    #[prost(string, tag = "11")]
+    pub etag: ::prost::alloc::string::String,
+    /// Output only. The Kubernetes version of the cluster.
+    #[prost(string, tag = "12")]
+    pub kubernetes_version: ::prost::alloc::string::String,
+    /// Optional. Annotations on the cluster.
+    ///
+    /// This field has the same restrictions as Kubernetes annotations.
+    /// The total size of all keys and values combined is limited to 256k.
+    /// Key can have 2 segments: prefix (optional) and name (required),
+    /// separated by a slash (/).
+    /// Prefix must be a DNS subdomain.
+    /// Name must be 63 characters or less, begin and end with alphanumerics,
+    /// with dashes (-), underscores (_), dots (.), and alphanumerics between.
+    #[prost(btree_map = "string, string", tag = "13")]
+    pub annotations: ::prost::alloc::collections::BTreeMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+    /// Output only. Workload Identity settings.
+    #[prost(message, optional, tag = "14")]
+    pub workload_identity_config: ::core::option::Option<WorkloadIdentityConfig>,
+    /// Optional. Logging configuration for this cluster.
+    #[prost(message, optional, tag = "15")]
+    pub logging_config: ::core::option::Option<LoggingConfig>,
+    /// Output only. A set of errors found in the cluster.
+    #[prost(message, repeated, tag = "20")]
+    pub errors: ::prost::alloc::vec::Vec<AttachedClusterError>,
+    /// Optional. Configuration related to the cluster RBAC settings.
+    #[prost(message, optional, tag = "21")]
+    pub authorization: ::core::option::Option<AttachedClustersAuthorization>,
+    /// Optional. Monitoring configuration for this cluster.
+    #[prost(message, optional, tag = "23")]
+    pub monitoring_config: ::core::option::Option<MonitoringConfig>,
+    /// Optional. Proxy configuration for outbound HTTP(S) traffic.
+    #[prost(message, optional, tag = "24")]
+    pub proxy_config: ::core::option::Option<AttachedProxyConfig>,
+    /// Optional. Binary Authorization configuration for this cluster.
+    #[prost(message, optional, tag = "25")]
+    pub binary_authorization: ::core::option::Option<BinaryAuthorization>,
+}
+/// Nested message and enum types in `AttachedCluster`.
+pub mod attached_cluster {
+    /// The lifecycle state of the cluster.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum State {
+        /// Not set.
+        Unspecified = 0,
+        /// The PROVISIONING state indicates the cluster is being registered.
+        Provisioning = 1,
+        /// The RUNNING state indicates the cluster has been register and is fully
+        /// usable.
+        Running = 2,
+        /// The RECONCILING state indicates that some work is actively being done on
+        /// the cluster, such as upgrading software components.
+        Reconciling = 3,
+        /// The STOPPING state indicates the cluster is being de-registered.
+        Stopping = 4,
+        /// The ERROR state indicates the cluster is in a broken unrecoverable
+        /// state.
+        Error = 5,
+        /// The DEGRADED state indicates the cluster requires user action to
+        /// restore full functionality.
+        Degraded = 6,
+    }
+    impl State {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Provisioning => "PROVISIONING",
+                Self::Running => "RUNNING",
+                Self::Reconciling => "RECONCILING",
+                Self::Stopping => "STOPPING",
+                Self::Error => "ERROR",
+                Self::Degraded => "DEGRADED",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "STATE_UNSPECIFIED" => Some(Self::Unspecified),
+                "PROVISIONING" => Some(Self::Provisioning),
+                "RUNNING" => Some(Self::Running),
+                "RECONCILING" => Some(Self::Reconciling),
+                "STOPPING" => Some(Self::Stopping),
+                "ERROR" => Some(Self::Error),
+                "DEGRADED" => Some(Self::Degraded),
+                _ => None,
+            }
+        }
+    }
+}
+/// Configuration related to the cluster RBAC settings.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AttachedClustersAuthorization {
+    /// Optional. Users that can perform operations as a cluster admin. A managed
+    /// ClusterRoleBinding will be created to grant the `cluster-admin` ClusterRole
+    /// to the users. Up to ten admin users can be provided.
+    ///
+    /// For more info on RBAC, see
+    /// <https://kubernetes.io/docs/reference/access-authn-authz/rbac/#user-facing-roles>
+    #[prost(message, repeated, tag = "1")]
+    pub admin_users: ::prost::alloc::vec::Vec<AttachedClusterUser>,
+    /// Optional. Groups of users that can perform operations as a cluster admin. A
+    /// managed ClusterRoleBinding will be created to grant the `cluster-admin`
+    /// ClusterRole to the groups. Up to ten admin groups can be provided.
+    ///
+    /// For more info on RBAC, see
+    /// <https://kubernetes.io/docs/reference/access-authn-authz/rbac/#user-facing-roles>
+    #[prost(message, repeated, tag = "2")]
+    pub admin_groups: ::prost::alloc::vec::Vec<AttachedClusterGroup>,
+}
+/// Identities of a user-type subject for Attached clusters.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AttachedClusterUser {
+    /// Required. The name of the user, e.g. `my-gcp-id@gmail.com`.
+    #[prost(string, tag = "1")]
+    pub username: ::prost::alloc::string::String,
+}
+/// Identities of a group-type subject for Attached clusters.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AttachedClusterGroup {
+    /// Required. The name of the group, e.g. `my-group@domain.com`.
+    #[prost(string, tag = "1")]
+    pub group: ::prost::alloc::string::String,
+}
+/// OIDC discovery information of the target cluster.
+///
+/// Kubernetes Service Account (KSA) tokens are JWT tokens signed by the cluster
+/// API server. This fields indicates how Google Cloud Platform services
+/// validate KSA tokens in order to allow system workloads (such as GKE Connect
+/// and telemetry agents) to authenticate back to Google Cloud Platform.
+///
+/// Both clusters with public and private issuer URLs are supported.
+/// Clusters with public issuers only need to specify the `issuer_url` field
+/// while clusters with private issuers need to provide both
+/// `issuer_url` and `oidc_jwks`.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AttachedOidcConfig {
+    /// A JSON Web Token (JWT) issuer URI. `issuer` must start with `<https://`.>
+    #[prost(string, tag = "1")]
+    pub issuer_url: ::prost::alloc::string::String,
+    /// Optional. OIDC verification keys in JWKS format (RFC 7517).
+    /// It contains a list of OIDC verification keys that can be used to verify
+    /// OIDC JWTs.
+    ///
+    /// This field is required for cluster that doesn't have a publicly available
+    /// discovery endpoint. When provided, it will be directly used
+    /// to verify the OIDC JWT asserted by the IDP.
+    #[prost(bytes = "bytes", tag = "2")]
+    pub jwks: ::prost::bytes::Bytes,
+}
+/// AttachedServerConfig provides information about supported
+/// Kubernetes versions
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AttachedServerConfig {
+    /// The resource name of the config.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// List of valid platform versions.
+    #[prost(message, repeated, tag = "2")]
+    pub valid_versions: ::prost::alloc::vec::Vec<AttachedPlatformVersionInfo>,
+}
+/// Information about a supported Attached Clusters platform version.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AttachedPlatformVersionInfo {
+    /// Platform version name.
+    #[prost(string, tag = "1")]
+    pub version: ::prost::alloc::string::String,
+}
+/// AttachedClusterError describes errors found on attached clusters.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AttachedClusterError {
+    /// Human-friendly description of the error.
+    #[prost(string, tag = "1")]
+    pub message: ::prost::alloc::string::String,
+}
+/// Details of a proxy config.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AttachedProxyConfig {
+    /// The Kubernetes Secret resource that contains the HTTP(S) proxy
+    /// configuration. The secret must be a JSON encoded proxy configuration
+    /// as described in
+    #[prost(message, optional, tag = "1")]
+    pub kubernetes_secret: ::core::option::Option<KubernetesSecret>,
+}
+/// Information about a Kubernetes Secret
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct KubernetesSecret {
+    /// Name of the kubernetes secret.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// Namespace in which the kubernetes secret is stored.
+    #[prost(string, tag = "2")]
+    pub namespace: ::prost::alloc::string::String,
+}
 /// Request message for `AttachedClusters.GenerateAttachedClusterInstallManifest`
 /// method.
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -5345,5 +7591,676 @@ pub mod attached_clusters_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod attached_clusters_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with AttachedClustersServer.
+    #[async_trait]
+    pub trait AttachedClusters: std::marker::Send + std::marker::Sync + 'static {
+        /// Creates a new
+        /// [AttachedCluster][google.cloud.gkemulticloud.v1.AttachedCluster] resource
+        /// on a given Google Cloud Platform project and region.
+        ///
+        /// If successful, the response contains a newly created
+        /// [Operation][google.longrunning.Operation] resource that can be
+        /// described to track the status of the operation.
+        async fn create_attached_cluster(
+            &self,
+            request: tonic::Request<super::CreateAttachedClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates an
+        /// [AttachedCluster][google.cloud.gkemulticloud.v1.AttachedCluster].
+        async fn update_attached_cluster(
+            &self,
+            request: tonic::Request<super::UpdateAttachedClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Imports creates a new
+        /// [AttachedCluster][google.cloud.gkemulticloud.v1.AttachedCluster] resource
+        /// by importing an existing Fleet Membership resource.
+        ///
+        /// Attached Clusters created before the introduction of the Anthos Multi-Cloud
+        /// API can be imported through this method.
+        ///
+        /// If successful, the response contains a newly created
+        /// [Operation][google.longrunning.Operation] resource that can be
+        /// described to track the status of the operation.
+        async fn import_attached_cluster(
+            &self,
+            request: tonic::Request<super::ImportAttachedClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Describes a specific
+        /// [AttachedCluster][google.cloud.gkemulticloud.v1.AttachedCluster] resource.
+        async fn get_attached_cluster(
+            &self,
+            request: tonic::Request<super::GetAttachedClusterRequest>,
+        ) -> std::result::Result<tonic::Response<super::AttachedCluster>, tonic::Status>;
+        /// Lists all [AttachedCluster][google.cloud.gkemulticloud.v1.AttachedCluster]
+        /// resources on a given Google Cloud project and region.
+        async fn list_attached_clusters(
+            &self,
+            request: tonic::Request<super::ListAttachedClustersRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAttachedClustersResponse>,
+            tonic::Status,
+        >;
+        /// Deletes a specific
+        /// [AttachedCluster][google.cloud.gkemulticloud.v1.AttachedCluster] resource.
+        ///
+        /// If successful, the response contains a newly created
+        /// [Operation][google.longrunning.Operation] resource that can be
+        /// described to track the status of the operation.
+        async fn delete_attached_cluster(
+            &self,
+            request: tonic::Request<super::DeleteAttachedClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Returns information, such as supported Kubernetes versions, on a given
+        /// Google Cloud location.
+        async fn get_attached_server_config(
+            &self,
+            request: tonic::Request<super::GetAttachedServerConfigRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AttachedServerConfig>,
+            tonic::Status,
+        >;
+        /// Generates the install manifest to be installed on the target cluster.
+        async fn generate_attached_cluster_install_manifest(
+            &self,
+            request: tonic::Request<super::GenerateAttachedClusterInstallManifestRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::GenerateAttachedClusterInstallManifestResponse>,
+            tonic::Status,
+        >;
+        /// Generates an access token for a cluster agent.
+        async fn generate_attached_cluster_agent_token(
+            &self,
+            request: tonic::Request<super::GenerateAttachedClusterAgentTokenRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::GenerateAttachedClusterAgentTokenResponse>,
+            tonic::Status,
+        >;
+    }
+    /// The AttachedClusters API provides a single centrally managed service
+    /// to register and manage Anthos attached clusters that run on customer's owned
+    /// infrastructure.
+    #[derive(Debug)]
+    pub struct AttachedClustersServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> AttachedClustersServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for AttachedClustersServer<T>
+    where
+        T: AttachedClusters,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.gkemulticloud.v1.AttachedClusters/CreateAttachedCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateAttachedClusterSvc<T: AttachedClusters>(pub Arc<T>);
+                    impl<
+                        T: AttachedClusters,
+                    > tonic::server::UnaryService<super::CreateAttachedClusterRequest>
+                    for CreateAttachedClusterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateAttachedClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AttachedClusters>::create_attached_cluster(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateAttachedClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AttachedClusters/UpdateAttachedCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateAttachedClusterSvc<T: AttachedClusters>(pub Arc<T>);
+                    impl<
+                        T: AttachedClusters,
+                    > tonic::server::UnaryService<super::UpdateAttachedClusterRequest>
+                    for UpdateAttachedClusterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateAttachedClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AttachedClusters>::update_attached_cluster(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateAttachedClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AttachedClusters/ImportAttachedCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct ImportAttachedClusterSvc<T: AttachedClusters>(pub Arc<T>);
+                    impl<
+                        T: AttachedClusters,
+                    > tonic::server::UnaryService<super::ImportAttachedClusterRequest>
+                    for ImportAttachedClusterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ImportAttachedClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AttachedClusters>::import_attached_cluster(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ImportAttachedClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AttachedClusters/GetAttachedCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAttachedClusterSvc<T: AttachedClusters>(pub Arc<T>);
+                    impl<
+                        T: AttachedClusters,
+                    > tonic::server::UnaryService<super::GetAttachedClusterRequest>
+                    for GetAttachedClusterSvc<T> {
+                        type Response = super::AttachedCluster;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAttachedClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AttachedClusters>::get_attached_cluster(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAttachedClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AttachedClusters/ListAttachedClusters" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAttachedClustersSvc<T: AttachedClusters>(pub Arc<T>);
+                    impl<
+                        T: AttachedClusters,
+                    > tonic::server::UnaryService<super::ListAttachedClustersRequest>
+                    for ListAttachedClustersSvc<T> {
+                        type Response = super::ListAttachedClustersResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListAttachedClustersRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AttachedClusters>::list_attached_clusters(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAttachedClustersSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AttachedClusters/DeleteAttachedCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteAttachedClusterSvc<T: AttachedClusters>(pub Arc<T>);
+                    impl<
+                        T: AttachedClusters,
+                    > tonic::server::UnaryService<super::DeleteAttachedClusterRequest>
+                    for DeleteAttachedClusterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteAttachedClusterRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AttachedClusters>::delete_attached_cluster(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteAttachedClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AttachedClusters/GetAttachedServerConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAttachedServerConfigSvc<T: AttachedClusters>(pub Arc<T>);
+                    impl<
+                        T: AttachedClusters,
+                    > tonic::server::UnaryService<super::GetAttachedServerConfigRequest>
+                    for GetAttachedServerConfigSvc<T> {
+                        type Response = super::AttachedServerConfig;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetAttachedServerConfigRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AttachedClusters>::get_attached_server_config(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAttachedServerConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AttachedClusters/GenerateAttachedClusterInstallManifest" => {
+                    #[allow(non_camel_case_types)]
+                    struct GenerateAttachedClusterInstallManifestSvc<
+                        T: AttachedClusters,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AttachedClusters,
+                    > tonic::server::UnaryService<
+                        super::GenerateAttachedClusterInstallManifestRequest,
+                    > for GenerateAttachedClusterInstallManifestSvc<T> {
+                        type Response = super::GenerateAttachedClusterInstallManifestResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GenerateAttachedClusterInstallManifestRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AttachedClusters>::generate_attached_cluster_install_manifest(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GenerateAttachedClusterInstallManifestSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkemulticloud.v1.AttachedClusters/GenerateAttachedClusterAgentToken" => {
+                    #[allow(non_camel_case_types)]
+                    struct GenerateAttachedClusterAgentTokenSvc<T: AttachedClusters>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AttachedClusters,
+                    > tonic::server::UnaryService<
+                        super::GenerateAttachedClusterAgentTokenRequest,
+                    > for GenerateAttachedClusterAgentTokenSvc<T> {
+                        type Response = super::GenerateAttachedClusterAgentTokenResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GenerateAttachedClusterAgentTokenRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AttachedClusters>::generate_attached_cluster_agent_token(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GenerateAttachedClusterAgentTokenSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for AttachedClustersServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.gkemulticloud.v1.AttachedClusters";
+    impl<T> tonic::server::NamedService for AttachedClustersServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

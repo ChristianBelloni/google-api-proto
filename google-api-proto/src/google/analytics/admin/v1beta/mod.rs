@@ -155,13 +155,13 @@ pub mod access_string_filter {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                MatchType::Unspecified => "MATCH_TYPE_UNSPECIFIED",
-                MatchType::Exact => "EXACT",
-                MatchType::BeginsWith => "BEGINS_WITH",
-                MatchType::EndsWith => "ENDS_WITH",
-                MatchType::Contains => "CONTAINS",
-                MatchType::FullRegexp => "FULL_REGEXP",
-                MatchType::PartialRegexp => "PARTIAL_REGEXP",
+                Self::Unspecified => "MATCH_TYPE_UNSPECIFIED",
+                Self::Exact => "EXACT",
+                Self::BeginsWith => "BEGINS_WITH",
+                Self::EndsWith => "ENDS_WITH",
+                Self::Contains => "CONTAINS",
+                Self::FullRegexp => "FULL_REGEXP",
+                Self::PartialRegexp => "PARTIAL_REGEXP",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -235,12 +235,12 @@ pub mod access_numeric_filter {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Operation::Unspecified => "OPERATION_UNSPECIFIED",
-                Operation::Equal => "EQUAL",
-                Operation::LessThan => "LESS_THAN",
-                Operation::LessThanOrEqual => "LESS_THAN_OR_EQUAL",
-                Operation::GreaterThan => "GREATER_THAN",
-                Operation::GreaterThanOrEqual => "GREATER_THAN_OR_EQUAL",
+                Self::Unspecified => "OPERATION_UNSPECIFIED",
+                Self::Equal => "EQUAL",
+                Self::LessThan => "LESS_THAN",
+                Self::LessThanOrEqual => "LESS_THAN_OR_EQUAL",
+                Self::GreaterThan => "GREATER_THAN",
+                Self::GreaterThanOrEqual => "GREATER_THAN_OR_EQUAL",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -356,12 +356,10 @@ pub mod access_order_by {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    OrderType::Unspecified => "ORDER_TYPE_UNSPECIFIED",
-                    OrderType::Alphanumeric => "ALPHANUMERIC",
-                    OrderType::CaseInsensitiveAlphanumeric => {
-                        "CASE_INSENSITIVE_ALPHANUMERIC"
-                    }
-                    OrderType::Numeric => "NUMERIC",
+                    Self::Unspecified => "ORDER_TYPE_UNSPECIFIED",
+                    Self::Alphanumeric => "ALPHANUMERIC",
+                    Self::CaseInsensitiveAlphanumeric => "CASE_INSENSITIVE_ALPHANUMERIC",
+                    Self::Numeric => "NUMERIC",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -678,10 +676,10 @@ pub mod data_stream {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                DataStreamType::Unspecified => "DATA_STREAM_TYPE_UNSPECIFIED",
-                DataStreamType::WebDataStream => "WEB_DATA_STREAM",
-                DataStreamType::AndroidAppDataStream => "ANDROID_APP_DATA_STREAM",
-                DataStreamType::IosAppDataStream => "IOS_APP_DATA_STREAM",
+                Self::Unspecified => "DATA_STREAM_TYPE_UNSPECIFIED",
+                Self::WebDataStream => "WEB_DATA_STREAM",
+                Self::AndroidAppDataStream => "ANDROID_APP_DATA_STREAM",
+                Self::IosAppDataStream => "IOS_APP_DATA_STREAM",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1031,11 +1029,9 @@ pub mod conversion_event {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ConversionCountingMethod::Unspecified => {
-                    "CONVERSION_COUNTING_METHOD_UNSPECIFIED"
-                }
-                ConversionCountingMethod::OncePerEvent => "ONCE_PER_EVENT",
-                ConversionCountingMethod::OncePerSession => "ONCE_PER_SESSION",
+                Self::Unspecified => "CONVERSION_COUNTING_METHOD_UNSPECIFIED",
+                Self::OncePerEvent => "ONCE_PER_EVENT",
+                Self::OncePerSession => "ONCE_PER_SESSION",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1130,9 +1126,9 @@ pub mod key_event {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                CountingMethod::Unspecified => "COUNTING_METHOD_UNSPECIFIED",
-                CountingMethod::OncePerEvent => "ONCE_PER_EVENT",
-                CountingMethod::OncePerSession => "ONCE_PER_SESSION",
+                Self::Unspecified => "COUNTING_METHOD_UNSPECIFIED",
+                Self::OncePerEvent => "ONCE_PER_EVENT",
+                Self::OncePerSession => "ONCE_PER_SESSION",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1220,10 +1216,10 @@ pub mod custom_dimension {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                DimensionScope::Unspecified => "DIMENSION_SCOPE_UNSPECIFIED",
-                DimensionScope::Event => "EVENT",
-                DimensionScope::User => "USER",
-                DimensionScope::Item => "ITEM",
+                Self::Unspecified => "DIMENSION_SCOPE_UNSPECIFIED",
+                Self::Event => "EVENT",
+                Self::User => "USER",
+                Self::Item => "ITEM",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1331,17 +1327,17 @@ pub mod custom_metric {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                MeasurementUnit::Unspecified => "MEASUREMENT_UNIT_UNSPECIFIED",
-                MeasurementUnit::Standard => "STANDARD",
-                MeasurementUnit::Currency => "CURRENCY",
-                MeasurementUnit::Feet => "FEET",
-                MeasurementUnit::Meters => "METERS",
-                MeasurementUnit::Kilometers => "KILOMETERS",
-                MeasurementUnit::Miles => "MILES",
-                MeasurementUnit::Milliseconds => "MILLISECONDS",
-                MeasurementUnit::Seconds => "SECONDS",
-                MeasurementUnit::Minutes => "MINUTES",
-                MeasurementUnit::Hours => "HOURS",
+                Self::Unspecified => "MEASUREMENT_UNIT_UNSPECIFIED",
+                Self::Standard => "STANDARD",
+                Self::Currency => "CURRENCY",
+                Self::Feet => "FEET",
+                Self::Meters => "METERS",
+                Self::Kilometers => "KILOMETERS",
+                Self::Miles => "MILES",
+                Self::Milliseconds => "MILLISECONDS",
+                Self::Seconds => "SECONDS",
+                Self::Minutes => "MINUTES",
+                Self::Hours => "HOURS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1388,8 +1384,8 @@ pub mod custom_metric {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                MetricScope::Unspecified => "METRIC_SCOPE_UNSPECIFIED",
-                MetricScope::Event => "EVENT",
+                Self::Unspecified => "METRIC_SCOPE_UNSPECIFIED",
+                Self::Event => "EVENT",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1430,9 +1426,9 @@ pub mod custom_metric {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                RestrictedMetricType::Unspecified => "RESTRICTED_METRIC_TYPE_UNSPECIFIED",
-                RestrictedMetricType::CostData => "COST_DATA",
-                RestrictedMetricType::RevenueData => "REVENUE_DATA",
+                Self::Unspecified => "RESTRICTED_METRIC_TYPE_UNSPECIFIED",
+                Self::CostData => "COST_DATA",
+                Self::RevenueData => "REVENUE_DATA",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1500,12 +1496,12 @@ pub mod data_retention_settings {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                RetentionDuration::Unspecified => "RETENTION_DURATION_UNSPECIFIED",
-                RetentionDuration::TwoMonths => "TWO_MONTHS",
-                RetentionDuration::FourteenMonths => "FOURTEEN_MONTHS",
-                RetentionDuration::TwentySixMonths => "TWENTY_SIX_MONTHS",
-                RetentionDuration::ThirtyEightMonths => "THIRTY_EIGHT_MONTHS",
-                RetentionDuration::FiftyMonths => "FIFTY_MONTHS",
+                Self::Unspecified => "RETENTION_DURATION_UNSPECIFIED",
+                Self::TwoMonths => "TWO_MONTHS",
+                Self::FourteenMonths => "FOURTEEN_MONTHS",
+                Self::TwentySixMonths => "TWENTY_SIX_MONTHS",
+                Self::ThirtyEightMonths => "THIRTY_EIGHT_MONTHS",
+                Self::FiftyMonths => "FIFTY_MONTHS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1588,35 +1584,33 @@ impl IndustryCategory {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            IndustryCategory::Unspecified => "INDUSTRY_CATEGORY_UNSPECIFIED",
-            IndustryCategory::Automotive => "AUTOMOTIVE",
-            IndustryCategory::BusinessAndIndustrialMarkets => {
-                "BUSINESS_AND_INDUSTRIAL_MARKETS"
-            }
-            IndustryCategory::Finance => "FINANCE",
-            IndustryCategory::Healthcare => "HEALTHCARE",
-            IndustryCategory::Technology => "TECHNOLOGY",
-            IndustryCategory::Travel => "TRAVEL",
-            IndustryCategory::Other => "OTHER",
-            IndustryCategory::ArtsAndEntertainment => "ARTS_AND_ENTERTAINMENT",
-            IndustryCategory::BeautyAndFitness => "BEAUTY_AND_FITNESS",
-            IndustryCategory::BooksAndLiterature => "BOOKS_AND_LITERATURE",
-            IndustryCategory::FoodAndDrink => "FOOD_AND_DRINK",
-            IndustryCategory::Games => "GAMES",
-            IndustryCategory::HobbiesAndLeisure => "HOBBIES_AND_LEISURE",
-            IndustryCategory::HomeAndGarden => "HOME_AND_GARDEN",
-            IndustryCategory::InternetAndTelecom => "INTERNET_AND_TELECOM",
-            IndustryCategory::LawAndGovernment => "LAW_AND_GOVERNMENT",
-            IndustryCategory::News => "NEWS",
-            IndustryCategory::OnlineCommunities => "ONLINE_COMMUNITIES",
-            IndustryCategory::PeopleAndSociety => "PEOPLE_AND_SOCIETY",
-            IndustryCategory::PetsAndAnimals => "PETS_AND_ANIMALS",
-            IndustryCategory::RealEstate => "REAL_ESTATE",
-            IndustryCategory::Reference => "REFERENCE",
-            IndustryCategory::Science => "SCIENCE",
-            IndustryCategory::Sports => "SPORTS",
-            IndustryCategory::JobsAndEducation => "JOBS_AND_EDUCATION",
-            IndustryCategory::Shopping => "SHOPPING",
+            Self::Unspecified => "INDUSTRY_CATEGORY_UNSPECIFIED",
+            Self::Automotive => "AUTOMOTIVE",
+            Self::BusinessAndIndustrialMarkets => "BUSINESS_AND_INDUSTRIAL_MARKETS",
+            Self::Finance => "FINANCE",
+            Self::Healthcare => "HEALTHCARE",
+            Self::Technology => "TECHNOLOGY",
+            Self::Travel => "TRAVEL",
+            Self::Other => "OTHER",
+            Self::ArtsAndEntertainment => "ARTS_AND_ENTERTAINMENT",
+            Self::BeautyAndFitness => "BEAUTY_AND_FITNESS",
+            Self::BooksAndLiterature => "BOOKS_AND_LITERATURE",
+            Self::FoodAndDrink => "FOOD_AND_DRINK",
+            Self::Games => "GAMES",
+            Self::HobbiesAndLeisure => "HOBBIES_AND_LEISURE",
+            Self::HomeAndGarden => "HOME_AND_GARDEN",
+            Self::InternetAndTelecom => "INTERNET_AND_TELECOM",
+            Self::LawAndGovernment => "LAW_AND_GOVERNMENT",
+            Self::News => "NEWS",
+            Self::OnlineCommunities => "ONLINE_COMMUNITIES",
+            Self::PeopleAndSociety => "PEOPLE_AND_SOCIETY",
+            Self::PetsAndAnimals => "PETS_AND_ANIMALS",
+            Self::RealEstate => "REAL_ESTATE",
+            Self::Reference => "REFERENCE",
+            Self::Science => "SCIENCE",
+            Self::Sports => "SPORTS",
+            Self::JobsAndEducation => "JOBS_AND_EDUCATION",
+            Self::Shopping => "SHOPPING",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1671,9 +1665,9 @@ impl ServiceLevel {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ServiceLevel::Unspecified => "SERVICE_LEVEL_UNSPECIFIED",
-            ServiceLevel::GoogleAnalyticsStandard => "GOOGLE_ANALYTICS_STANDARD",
-            ServiceLevel::GoogleAnalytics360 => "GOOGLE_ANALYTICS_360",
+            Self::Unspecified => "SERVICE_LEVEL_UNSPECIFIED",
+            Self::GoogleAnalyticsStandard => "GOOGLE_ANALYTICS_STANDARD",
+            Self::GoogleAnalytics360 => "GOOGLE_ANALYTICS_360",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1707,10 +1701,10 @@ impl ActorType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ActorType::Unspecified => "ACTOR_TYPE_UNSPECIFIED",
-            ActorType::User => "USER",
-            ActorType::System => "SYSTEM",
-            ActorType::Support => "SUPPORT",
+            Self::Unspecified => "ACTOR_TYPE_UNSPECIFIED",
+            Self::User => "USER",
+            Self::System => "SYSTEM",
+            Self::Support => "SUPPORT",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1744,10 +1738,10 @@ impl ActionType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ActionType::Unspecified => "ACTION_TYPE_UNSPECIFIED",
-            ActionType::Created => "CREATED",
-            ActionType::Updated => "UPDATED",
-            ActionType::Deleted => "DELETED",
+            Self::Unspecified => "ACTION_TYPE_UNSPECIFIED",
+            Self::Created => "CREATED",
+            Self::Updated => "UPDATED",
+            Self::Deleted => "DELETED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1799,27 +1793,21 @@ impl ChangeHistoryResourceType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ChangeHistoryResourceType::Unspecified => {
-                "CHANGE_HISTORY_RESOURCE_TYPE_UNSPECIFIED"
-            }
-            ChangeHistoryResourceType::Account => "ACCOUNT",
-            ChangeHistoryResourceType::Property => "PROPERTY",
-            ChangeHistoryResourceType::FirebaseLink => "FIREBASE_LINK",
-            ChangeHistoryResourceType::GoogleAdsLink => "GOOGLE_ADS_LINK",
-            ChangeHistoryResourceType::GoogleSignalsSettings => "GOOGLE_SIGNALS_SETTINGS",
-            ChangeHistoryResourceType::ConversionEvent => "CONVERSION_EVENT",
-            ChangeHistoryResourceType::MeasurementProtocolSecret => {
-                "MEASUREMENT_PROTOCOL_SECRET"
-            }
-            ChangeHistoryResourceType::DataRetentionSettings => "DATA_RETENTION_SETTINGS",
-            ChangeHistoryResourceType::DisplayVideo360AdvertiserLink => {
-                "DISPLAY_VIDEO_360_ADVERTISER_LINK"
-            }
-            ChangeHistoryResourceType::DisplayVideo360AdvertiserLinkProposal => {
+            Self::Unspecified => "CHANGE_HISTORY_RESOURCE_TYPE_UNSPECIFIED",
+            Self::Account => "ACCOUNT",
+            Self::Property => "PROPERTY",
+            Self::FirebaseLink => "FIREBASE_LINK",
+            Self::GoogleAdsLink => "GOOGLE_ADS_LINK",
+            Self::GoogleSignalsSettings => "GOOGLE_SIGNALS_SETTINGS",
+            Self::ConversionEvent => "CONVERSION_EVENT",
+            Self::MeasurementProtocolSecret => "MEASUREMENT_PROTOCOL_SECRET",
+            Self::DataRetentionSettings => "DATA_RETENTION_SETTINGS",
+            Self::DisplayVideo360AdvertiserLink => "DISPLAY_VIDEO_360_ADVERTISER_LINK",
+            Self::DisplayVideo360AdvertiserLinkProposal => {
                 "DISPLAY_VIDEO_360_ADVERTISER_LINK_PROPOSAL"
             }
-            ChangeHistoryResourceType::DataStream => "DATA_STREAM",
-            ChangeHistoryResourceType::AttributionSettings => "ATTRIBUTION_SETTINGS",
+            Self::DataStream => "DATA_STREAM",
+            Self::AttributionSettings => "ATTRIBUTION_SETTINGS",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1866,10 +1854,10 @@ impl PropertyType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            PropertyType::Unspecified => "PROPERTY_TYPE_UNSPECIFIED",
-            PropertyType::Ordinary => "PROPERTY_TYPE_ORDINARY",
-            PropertyType::Subproperty => "PROPERTY_TYPE_SUBPROPERTY",
-            PropertyType::Rollup => "PROPERTY_TYPE_ROLLUP",
+            Self::Unspecified => "PROPERTY_TYPE_UNSPECIFIED",
+            Self::Ordinary => "PROPERTY_TYPE_ORDINARY",
+            Self::Subproperty => "PROPERTY_TYPE_SUBPROPERTY",
+            Self::Rollup => "PROPERTY_TYPE_ROLLUP",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -4601,5 +4589,3215 @@ pub mod analytics_admin_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod analytics_admin_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with AnalyticsAdminServiceServer.
+    #[async_trait]
+    pub trait AnalyticsAdminService: std::marker::Send + std::marker::Sync + 'static {
+        /// Lookup for a single Account.
+        async fn get_account(
+            &self,
+            request: tonic::Request<super::GetAccountRequest>,
+        ) -> std::result::Result<tonic::Response<super::Account>, tonic::Status>;
+        /// Returns all accounts accessible by the caller.
+        ///
+        /// Note that these accounts might not currently have GA4 properties.
+        /// Soft-deleted (ie: "trashed") accounts are excluded by default.
+        /// Returns an empty list if no relevant accounts are found.
+        async fn list_accounts(
+            &self,
+            request: tonic::Request<super::ListAccountsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAccountsResponse>,
+            tonic::Status,
+        >;
+        /// Marks target Account as soft-deleted (ie: "trashed") and returns it.
+        ///
+        /// This API does not have a method to restore soft-deleted accounts.
+        /// However, they can be restored using the Trash Can UI.
+        ///
+        /// If the accounts are not restored before the expiration time, the account
+        /// and all child resources (eg: Properties, GoogleAdsLinks, Streams,
+        /// AccessBindings) will be permanently purged.
+        /// https://support.google.com/analytics/answer/6154772
+        ///
+        /// Returns an error if the target is not found.
+        async fn delete_account(
+            &self,
+            request: tonic::Request<super::DeleteAccountRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Updates an account.
+        async fn update_account(
+            &self,
+            request: tonic::Request<super::UpdateAccountRequest>,
+        ) -> std::result::Result<tonic::Response<super::Account>, tonic::Status>;
+        /// Requests a ticket for creating an account.
+        async fn provision_account_ticket(
+            &self,
+            request: tonic::Request<super::ProvisionAccountTicketRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ProvisionAccountTicketResponse>,
+            tonic::Status,
+        >;
+        /// Returns summaries of all accounts accessible by the caller.
+        async fn list_account_summaries(
+            &self,
+            request: tonic::Request<super::ListAccountSummariesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAccountSummariesResponse>,
+            tonic::Status,
+        >;
+        /// Lookup for a single "GA4" Property.
+        async fn get_property(
+            &self,
+            request: tonic::Request<super::GetPropertyRequest>,
+        ) -> std::result::Result<tonic::Response<super::Property>, tonic::Status>;
+        /// Returns child Properties under the specified parent Account.
+        ///
+        /// Only "GA4" properties will be returned.
+        /// Properties will be excluded if the caller does not have access.
+        /// Soft-deleted (ie: "trashed") properties are excluded by default.
+        /// Returns an empty list if no relevant properties are found.
+        async fn list_properties(
+            &self,
+            request: tonic::Request<super::ListPropertiesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListPropertiesResponse>,
+            tonic::Status,
+        >;
+        /// Creates an "GA4" property with the specified location and attributes.
+        async fn create_property(
+            &self,
+            request: tonic::Request<super::CreatePropertyRequest>,
+        ) -> std::result::Result<tonic::Response<super::Property>, tonic::Status>;
+        /// Marks target Property as soft-deleted (ie: "trashed") and returns it.
+        ///
+        /// This API does not have a method to restore soft-deleted properties.
+        /// However, they can be restored using the Trash Can UI.
+        ///
+        /// If the properties are not restored before the expiration time, the Property
+        /// and all child resources (eg: GoogleAdsLinks, Streams, AccessBindings)
+        /// will be permanently purged.
+        /// https://support.google.com/analytics/answer/6154772
+        ///
+        /// Returns an error if the target is not found, or is not a GA4 Property.
+        async fn delete_property(
+            &self,
+            request: tonic::Request<super::DeletePropertyRequest>,
+        ) -> std::result::Result<tonic::Response<super::Property>, tonic::Status>;
+        /// Updates a property.
+        async fn update_property(
+            &self,
+            request: tonic::Request<super::UpdatePropertyRequest>,
+        ) -> std::result::Result<tonic::Response<super::Property>, tonic::Status>;
+        /// Creates a FirebaseLink.
+        ///
+        /// Properties can have at most one FirebaseLink.
+        async fn create_firebase_link(
+            &self,
+            request: tonic::Request<super::CreateFirebaseLinkRequest>,
+        ) -> std::result::Result<tonic::Response<super::FirebaseLink>, tonic::Status>;
+        /// Deletes a FirebaseLink on a property
+        async fn delete_firebase_link(
+            &self,
+            request: tonic::Request<super::DeleteFirebaseLinkRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Lists FirebaseLinks on a property.
+        /// Properties can have at most one FirebaseLink.
+        async fn list_firebase_links(
+            &self,
+            request: tonic::Request<super::ListFirebaseLinksRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListFirebaseLinksResponse>,
+            tonic::Status,
+        >;
+        /// Creates a GoogleAdsLink.
+        async fn create_google_ads_link(
+            &self,
+            request: tonic::Request<super::CreateGoogleAdsLinkRequest>,
+        ) -> std::result::Result<tonic::Response<super::GoogleAdsLink>, tonic::Status>;
+        /// Updates a GoogleAdsLink on a property
+        async fn update_google_ads_link(
+            &self,
+            request: tonic::Request<super::UpdateGoogleAdsLinkRequest>,
+        ) -> std::result::Result<tonic::Response<super::GoogleAdsLink>, tonic::Status>;
+        /// Deletes a GoogleAdsLink on a property
+        async fn delete_google_ads_link(
+            &self,
+            request: tonic::Request<super::DeleteGoogleAdsLinkRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Lists GoogleAdsLinks on a property.
+        async fn list_google_ads_links(
+            &self,
+            request: tonic::Request<super::ListGoogleAdsLinksRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListGoogleAdsLinksResponse>,
+            tonic::Status,
+        >;
+        /// Get data sharing settings on an account.
+        /// Data sharing settings are singletons.
+        async fn get_data_sharing_settings(
+            &self,
+            request: tonic::Request<super::GetDataSharingSettingsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::DataSharingSettings>,
+            tonic::Status,
+        >;
+        /// Lookup for a single "GA4" MeasurementProtocolSecret.
+        async fn get_measurement_protocol_secret(
+            &self,
+            request: tonic::Request<super::GetMeasurementProtocolSecretRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::MeasurementProtocolSecret>,
+            tonic::Status,
+        >;
+        /// Returns child MeasurementProtocolSecrets under the specified parent
+        /// Property.
+        async fn list_measurement_protocol_secrets(
+            &self,
+            request: tonic::Request<super::ListMeasurementProtocolSecretsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListMeasurementProtocolSecretsResponse>,
+            tonic::Status,
+        >;
+        /// Creates a measurement protocol secret.
+        async fn create_measurement_protocol_secret(
+            &self,
+            request: tonic::Request<super::CreateMeasurementProtocolSecretRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::MeasurementProtocolSecret>,
+            tonic::Status,
+        >;
+        /// Deletes target MeasurementProtocolSecret.
+        async fn delete_measurement_protocol_secret(
+            &self,
+            request: tonic::Request<super::DeleteMeasurementProtocolSecretRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Updates a measurement protocol secret.
+        async fn update_measurement_protocol_secret(
+            &self,
+            request: tonic::Request<super::UpdateMeasurementProtocolSecretRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::MeasurementProtocolSecret>,
+            tonic::Status,
+        >;
+        /// Acknowledges the terms of user data collection for the specified property.
+        ///
+        /// This acknowledgement must be completed (either in the Google Analytics UI
+        /// or through this API) before MeasurementProtocolSecret resources may be
+        /// created.
+        async fn acknowledge_user_data_collection(
+            &self,
+            request: tonic::Request<super::AcknowledgeUserDataCollectionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AcknowledgeUserDataCollectionResponse>,
+            tonic::Status,
+        >;
+        /// Searches through all changes to an account or its children given the
+        /// specified set of filters.
+        async fn search_change_history_events(
+            &self,
+            request: tonic::Request<super::SearchChangeHistoryEventsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SearchChangeHistoryEventsResponse>,
+            tonic::Status,
+        >;
+        /// Deprecated: Use `CreateKeyEvent` instead.
+        /// Creates a conversion event with the specified attributes.
+        async fn create_conversion_event(
+            &self,
+            request: tonic::Request<super::CreateConversionEventRequest>,
+        ) -> std::result::Result<tonic::Response<super::ConversionEvent>, tonic::Status>;
+        /// Deprecated: Use `UpdateKeyEvent` instead.
+        /// Updates a conversion event with the specified attributes.
+        async fn update_conversion_event(
+            &self,
+            request: tonic::Request<super::UpdateConversionEventRequest>,
+        ) -> std::result::Result<tonic::Response<super::ConversionEvent>, tonic::Status>;
+        /// Deprecated: Use `GetKeyEvent` instead.
+        /// Retrieve a single conversion event.
+        async fn get_conversion_event(
+            &self,
+            request: tonic::Request<super::GetConversionEventRequest>,
+        ) -> std::result::Result<tonic::Response<super::ConversionEvent>, tonic::Status>;
+        /// Deprecated: Use `DeleteKeyEvent` instead.
+        /// Deletes a conversion event in a property.
+        async fn delete_conversion_event(
+            &self,
+            request: tonic::Request<super::DeleteConversionEventRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Deprecated: Use `ListKeyEvents` instead.
+        /// Returns a list of conversion events in the specified parent property.
+        ///
+        /// Returns an empty list if no conversion events are found.
+        async fn list_conversion_events(
+            &self,
+            request: tonic::Request<super::ListConversionEventsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListConversionEventsResponse>,
+            tonic::Status,
+        >;
+        /// Creates a Key Event.
+        async fn create_key_event(
+            &self,
+            request: tonic::Request<super::CreateKeyEventRequest>,
+        ) -> std::result::Result<tonic::Response<super::KeyEvent>, tonic::Status>;
+        /// Updates a Key Event.
+        async fn update_key_event(
+            &self,
+            request: tonic::Request<super::UpdateKeyEventRequest>,
+        ) -> std::result::Result<tonic::Response<super::KeyEvent>, tonic::Status>;
+        /// Retrieve a single Key Event.
+        async fn get_key_event(
+            &self,
+            request: tonic::Request<super::GetKeyEventRequest>,
+        ) -> std::result::Result<tonic::Response<super::KeyEvent>, tonic::Status>;
+        /// Deletes a Key Event.
+        async fn delete_key_event(
+            &self,
+            request: tonic::Request<super::DeleteKeyEventRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Returns a list of Key Events in the specified parent property.
+        /// Returns an empty list if no Key Events are found.
+        async fn list_key_events(
+            &self,
+            request: tonic::Request<super::ListKeyEventsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListKeyEventsResponse>,
+            tonic::Status,
+        >;
+        /// Creates a CustomDimension.
+        async fn create_custom_dimension(
+            &self,
+            request: tonic::Request<super::CreateCustomDimensionRequest>,
+        ) -> std::result::Result<tonic::Response<super::CustomDimension>, tonic::Status>;
+        /// Updates a CustomDimension on a property.
+        async fn update_custom_dimension(
+            &self,
+            request: tonic::Request<super::UpdateCustomDimensionRequest>,
+        ) -> std::result::Result<tonic::Response<super::CustomDimension>, tonic::Status>;
+        /// Lists CustomDimensions on a property.
+        async fn list_custom_dimensions(
+            &self,
+            request: tonic::Request<super::ListCustomDimensionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListCustomDimensionsResponse>,
+            tonic::Status,
+        >;
+        /// Archives a CustomDimension on a property.
+        async fn archive_custom_dimension(
+            &self,
+            request: tonic::Request<super::ArchiveCustomDimensionRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Lookup for a single CustomDimension.
+        async fn get_custom_dimension(
+            &self,
+            request: tonic::Request<super::GetCustomDimensionRequest>,
+        ) -> std::result::Result<tonic::Response<super::CustomDimension>, tonic::Status>;
+        /// Creates a CustomMetric.
+        async fn create_custom_metric(
+            &self,
+            request: tonic::Request<super::CreateCustomMetricRequest>,
+        ) -> std::result::Result<tonic::Response<super::CustomMetric>, tonic::Status>;
+        /// Updates a CustomMetric on a property.
+        async fn update_custom_metric(
+            &self,
+            request: tonic::Request<super::UpdateCustomMetricRequest>,
+        ) -> std::result::Result<tonic::Response<super::CustomMetric>, tonic::Status>;
+        /// Lists CustomMetrics on a property.
+        async fn list_custom_metrics(
+            &self,
+            request: tonic::Request<super::ListCustomMetricsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListCustomMetricsResponse>,
+            tonic::Status,
+        >;
+        /// Archives a CustomMetric on a property.
+        async fn archive_custom_metric(
+            &self,
+            request: tonic::Request<super::ArchiveCustomMetricRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Lookup for a single CustomMetric.
+        async fn get_custom_metric(
+            &self,
+            request: tonic::Request<super::GetCustomMetricRequest>,
+        ) -> std::result::Result<tonic::Response<super::CustomMetric>, tonic::Status>;
+        /// Returns the singleton data retention settings for this property.
+        async fn get_data_retention_settings(
+            &self,
+            request: tonic::Request<super::GetDataRetentionSettingsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::DataRetentionSettings>,
+            tonic::Status,
+        >;
+        /// Updates the singleton data retention settings for this property.
+        async fn update_data_retention_settings(
+            &self,
+            request: tonic::Request<super::UpdateDataRetentionSettingsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::DataRetentionSettings>,
+            tonic::Status,
+        >;
+        /// Creates a DataStream.
+        async fn create_data_stream(
+            &self,
+            request: tonic::Request<super::CreateDataStreamRequest>,
+        ) -> std::result::Result<tonic::Response<super::DataStream>, tonic::Status>;
+        /// Deletes a DataStream on a property.
+        async fn delete_data_stream(
+            &self,
+            request: tonic::Request<super::DeleteDataStreamRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Updates a DataStream on a property.
+        async fn update_data_stream(
+            &self,
+            request: tonic::Request<super::UpdateDataStreamRequest>,
+        ) -> std::result::Result<tonic::Response<super::DataStream>, tonic::Status>;
+        /// Lists DataStreams on a property.
+        async fn list_data_streams(
+            &self,
+            request: tonic::Request<super::ListDataStreamsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDataStreamsResponse>,
+            tonic::Status,
+        >;
+        /// Lookup for a single DataStream.
+        async fn get_data_stream(
+            &self,
+            request: tonic::Request<super::GetDataStreamRequest>,
+        ) -> std::result::Result<tonic::Response<super::DataStream>, tonic::Status>;
+        /// Returns a customized report of data access records. The report provides
+        /// records of each time a user reads Google Analytics reporting data. Access
+        /// records are retained for up to 2 years.
+        ///
+        /// Data Access Reports can be requested for a property. Reports may be
+        /// requested for any property, but dimensions that aren't related to quota can
+        /// only be requested on Google Analytics 360 properties. This method is only
+        /// available to Administrators.
+        ///
+        /// These data access records include GA4 UI Reporting, GA4 UI Explorations,
+        /// GA4 Data API, and other products like Firebase & Admob that can retrieve
+        /// data from Google Analytics through a linkage. These records don't include
+        /// property configuration changes like adding a stream or changing a
+        /// property's time zone. For configuration change history, see
+        /// [searchChangeHistoryEvents](https://developers.google.com/analytics/devguides/config/admin/v1/rest/v1alpha/accounts/searchChangeHistoryEvents).
+        async fn run_access_report(
+            &self,
+            request: tonic::Request<super::RunAccessReportRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::RunAccessReportResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Service Interface for the Analytics Admin API (GA4).
+    #[derive(Debug)]
+    pub struct AnalyticsAdminServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> AnalyticsAdminServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for AnalyticsAdminServiceServer<T>
+    where
+        T: AnalyticsAdminService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/GetAccount" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAccountSvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::GetAccountRequest>
+                    for GetAccountSvc<T> {
+                        type Response = super::Account;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAccountRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::get_account(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAccountSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/ListAccounts" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAccountsSvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::ListAccountsRequest>
+                    for ListAccountsSvc<T> {
+                        type Response = super::ListAccountsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListAccountsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::list_accounts(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAccountsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/DeleteAccount" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteAccountSvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::DeleteAccountRequest>
+                    for DeleteAccountSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteAccountRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::delete_account(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteAccountSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/UpdateAccount" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateAccountSvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::UpdateAccountRequest>
+                    for UpdateAccountSvc<T> {
+                        type Response = super::Account;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateAccountRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::update_account(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateAccountSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/ProvisionAccountTicket" => {
+                    #[allow(non_camel_case_types)]
+                    struct ProvisionAccountTicketSvc<T: AnalyticsAdminService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::ProvisionAccountTicketRequest>
+                    for ProvisionAccountTicketSvc<T> {
+                        type Response = super::ProvisionAccountTicketResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ProvisionAccountTicketRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::provision_account_ticket(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ProvisionAccountTicketSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/ListAccountSummaries" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAccountSummariesSvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::ListAccountSummariesRequest>
+                    for ListAccountSummariesSvc<T> {
+                        type Response = super::ListAccountSummariesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListAccountSummariesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::list_account_summaries(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAccountSummariesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/GetProperty" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetPropertySvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::GetPropertyRequest>
+                    for GetPropertySvc<T> {
+                        type Response = super::Property;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetPropertyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::get_property(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetPropertySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/ListProperties" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListPropertiesSvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::ListPropertiesRequest>
+                    for ListPropertiesSvc<T> {
+                        type Response = super::ListPropertiesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListPropertiesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::list_properties(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListPropertiesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/CreateProperty" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreatePropertySvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::CreatePropertyRequest>
+                    for CreatePropertySvc<T> {
+                        type Response = super::Property;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreatePropertyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::create_property(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreatePropertySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/DeleteProperty" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeletePropertySvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::DeletePropertyRequest>
+                    for DeletePropertySvc<T> {
+                        type Response = super::Property;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeletePropertyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::delete_property(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeletePropertySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/UpdateProperty" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdatePropertySvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::UpdatePropertyRequest>
+                    for UpdatePropertySvc<T> {
+                        type Response = super::Property;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdatePropertyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::update_property(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdatePropertySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/CreateFirebaseLink" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateFirebaseLinkSvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::CreateFirebaseLinkRequest>
+                    for CreateFirebaseLinkSvc<T> {
+                        type Response = super::FirebaseLink;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateFirebaseLinkRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::create_firebase_link(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateFirebaseLinkSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/DeleteFirebaseLink" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteFirebaseLinkSvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::DeleteFirebaseLinkRequest>
+                    for DeleteFirebaseLinkSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteFirebaseLinkRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::delete_firebase_link(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteFirebaseLinkSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/ListFirebaseLinks" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListFirebaseLinksSvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::ListFirebaseLinksRequest>
+                    for ListFirebaseLinksSvc<T> {
+                        type Response = super::ListFirebaseLinksResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListFirebaseLinksRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::list_firebase_links(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListFirebaseLinksSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/CreateGoogleAdsLink" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateGoogleAdsLinkSvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::CreateGoogleAdsLinkRequest>
+                    for CreateGoogleAdsLinkSvc<T> {
+                        type Response = super::GoogleAdsLink;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateGoogleAdsLinkRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::create_google_ads_link(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateGoogleAdsLinkSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/UpdateGoogleAdsLink" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateGoogleAdsLinkSvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::UpdateGoogleAdsLinkRequest>
+                    for UpdateGoogleAdsLinkSvc<T> {
+                        type Response = super::GoogleAdsLink;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateGoogleAdsLinkRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::update_google_ads_link(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateGoogleAdsLinkSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/DeleteGoogleAdsLink" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteGoogleAdsLinkSvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::DeleteGoogleAdsLinkRequest>
+                    for DeleteGoogleAdsLinkSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteGoogleAdsLinkRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::delete_google_ads_link(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteGoogleAdsLinkSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/ListGoogleAdsLinks" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListGoogleAdsLinksSvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::ListGoogleAdsLinksRequest>
+                    for ListGoogleAdsLinksSvc<T> {
+                        type Response = super::ListGoogleAdsLinksResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListGoogleAdsLinksRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::list_google_ads_links(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListGoogleAdsLinksSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/GetDataSharingSettings" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetDataSharingSettingsSvc<T: AnalyticsAdminService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::GetDataSharingSettingsRequest>
+                    for GetDataSharingSettingsSvc<T> {
+                        type Response = super::DataSharingSettings;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetDataSharingSettingsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::get_data_sharing_settings(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetDataSharingSettingsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/GetMeasurementProtocolSecret" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetMeasurementProtocolSecretSvc<T: AnalyticsAdminService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<
+                        super::GetMeasurementProtocolSecretRequest,
+                    > for GetMeasurementProtocolSecretSvc<T> {
+                        type Response = super::MeasurementProtocolSecret;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetMeasurementProtocolSecretRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::get_measurement_protocol_secret(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetMeasurementProtocolSecretSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/ListMeasurementProtocolSecrets" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListMeasurementProtocolSecretsSvc<T: AnalyticsAdminService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<
+                        super::ListMeasurementProtocolSecretsRequest,
+                    > for ListMeasurementProtocolSecretsSvc<T> {
+                        type Response = super::ListMeasurementProtocolSecretsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListMeasurementProtocolSecretsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::list_measurement_protocol_secrets(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListMeasurementProtocolSecretsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/CreateMeasurementProtocolSecret" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateMeasurementProtocolSecretSvc<T: AnalyticsAdminService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<
+                        super::CreateMeasurementProtocolSecretRequest,
+                    > for CreateMeasurementProtocolSecretSvc<T> {
+                        type Response = super::MeasurementProtocolSecret;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateMeasurementProtocolSecretRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::create_measurement_protocol_secret(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateMeasurementProtocolSecretSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/DeleteMeasurementProtocolSecret" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteMeasurementProtocolSecretSvc<T: AnalyticsAdminService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<
+                        super::DeleteMeasurementProtocolSecretRequest,
+                    > for DeleteMeasurementProtocolSecretSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteMeasurementProtocolSecretRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::delete_measurement_protocol_secret(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteMeasurementProtocolSecretSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/UpdateMeasurementProtocolSecret" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateMeasurementProtocolSecretSvc<T: AnalyticsAdminService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<
+                        super::UpdateMeasurementProtocolSecretRequest,
+                    > for UpdateMeasurementProtocolSecretSvc<T> {
+                        type Response = super::MeasurementProtocolSecret;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::UpdateMeasurementProtocolSecretRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::update_measurement_protocol_secret(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateMeasurementProtocolSecretSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/AcknowledgeUserDataCollection" => {
+                    #[allow(non_camel_case_types)]
+                    struct AcknowledgeUserDataCollectionSvc<T: AnalyticsAdminService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<
+                        super::AcknowledgeUserDataCollectionRequest,
+                    > for AcknowledgeUserDataCollectionSvc<T> {
+                        type Response = super::AcknowledgeUserDataCollectionResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::AcknowledgeUserDataCollectionRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::acknowledge_user_data_collection(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = AcknowledgeUserDataCollectionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/SearchChangeHistoryEvents" => {
+                    #[allow(non_camel_case_types)]
+                    struct SearchChangeHistoryEventsSvc<T: AnalyticsAdminService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<
+                        super::SearchChangeHistoryEventsRequest,
+                    > for SearchChangeHistoryEventsSvc<T> {
+                        type Response = super::SearchChangeHistoryEventsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::SearchChangeHistoryEventsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::search_change_history_events(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SearchChangeHistoryEventsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/CreateConversionEvent" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateConversionEventSvc<T: AnalyticsAdminService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::CreateConversionEventRequest>
+                    for CreateConversionEventSvc<T> {
+                        type Response = super::ConversionEvent;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateConversionEventRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::create_conversion_event(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateConversionEventSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/UpdateConversionEvent" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateConversionEventSvc<T: AnalyticsAdminService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::UpdateConversionEventRequest>
+                    for UpdateConversionEventSvc<T> {
+                        type Response = super::ConversionEvent;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateConversionEventRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::update_conversion_event(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateConversionEventSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/GetConversionEvent" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetConversionEventSvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::GetConversionEventRequest>
+                    for GetConversionEventSvc<T> {
+                        type Response = super::ConversionEvent;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetConversionEventRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::get_conversion_event(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetConversionEventSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/DeleteConversionEvent" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteConversionEventSvc<T: AnalyticsAdminService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::DeleteConversionEventRequest>
+                    for DeleteConversionEventSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteConversionEventRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::delete_conversion_event(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteConversionEventSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/ListConversionEvents" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListConversionEventsSvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::ListConversionEventsRequest>
+                    for ListConversionEventsSvc<T> {
+                        type Response = super::ListConversionEventsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListConversionEventsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::list_conversion_events(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListConversionEventsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/CreateKeyEvent" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateKeyEventSvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::CreateKeyEventRequest>
+                    for CreateKeyEventSvc<T> {
+                        type Response = super::KeyEvent;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateKeyEventRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::create_key_event(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateKeyEventSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/UpdateKeyEvent" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateKeyEventSvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::UpdateKeyEventRequest>
+                    for UpdateKeyEventSvc<T> {
+                        type Response = super::KeyEvent;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateKeyEventRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::update_key_event(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateKeyEventSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/GetKeyEvent" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetKeyEventSvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::GetKeyEventRequest>
+                    for GetKeyEventSvc<T> {
+                        type Response = super::KeyEvent;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetKeyEventRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::get_key_event(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetKeyEventSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/DeleteKeyEvent" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteKeyEventSvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::DeleteKeyEventRequest>
+                    for DeleteKeyEventSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteKeyEventRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::delete_key_event(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteKeyEventSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/ListKeyEvents" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListKeyEventsSvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::ListKeyEventsRequest>
+                    for ListKeyEventsSvc<T> {
+                        type Response = super::ListKeyEventsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListKeyEventsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::list_key_events(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListKeyEventsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/CreateCustomDimension" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateCustomDimensionSvc<T: AnalyticsAdminService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::CreateCustomDimensionRequest>
+                    for CreateCustomDimensionSvc<T> {
+                        type Response = super::CustomDimension;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateCustomDimensionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::create_custom_dimension(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateCustomDimensionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/UpdateCustomDimension" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateCustomDimensionSvc<T: AnalyticsAdminService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::UpdateCustomDimensionRequest>
+                    for UpdateCustomDimensionSvc<T> {
+                        type Response = super::CustomDimension;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateCustomDimensionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::update_custom_dimension(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateCustomDimensionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/ListCustomDimensions" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListCustomDimensionsSvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::ListCustomDimensionsRequest>
+                    for ListCustomDimensionsSvc<T> {
+                        type Response = super::ListCustomDimensionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListCustomDimensionsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::list_custom_dimensions(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListCustomDimensionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/ArchiveCustomDimension" => {
+                    #[allow(non_camel_case_types)]
+                    struct ArchiveCustomDimensionSvc<T: AnalyticsAdminService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::ArchiveCustomDimensionRequest>
+                    for ArchiveCustomDimensionSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ArchiveCustomDimensionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::archive_custom_dimension(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ArchiveCustomDimensionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/GetCustomDimension" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetCustomDimensionSvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::GetCustomDimensionRequest>
+                    for GetCustomDimensionSvc<T> {
+                        type Response = super::CustomDimension;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetCustomDimensionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::get_custom_dimension(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetCustomDimensionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/CreateCustomMetric" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateCustomMetricSvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::CreateCustomMetricRequest>
+                    for CreateCustomMetricSvc<T> {
+                        type Response = super::CustomMetric;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateCustomMetricRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::create_custom_metric(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateCustomMetricSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/UpdateCustomMetric" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateCustomMetricSvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::UpdateCustomMetricRequest>
+                    for UpdateCustomMetricSvc<T> {
+                        type Response = super::CustomMetric;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateCustomMetricRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::update_custom_metric(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateCustomMetricSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/ListCustomMetrics" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListCustomMetricsSvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::ListCustomMetricsRequest>
+                    for ListCustomMetricsSvc<T> {
+                        type Response = super::ListCustomMetricsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListCustomMetricsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::list_custom_metrics(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListCustomMetricsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/ArchiveCustomMetric" => {
+                    #[allow(non_camel_case_types)]
+                    struct ArchiveCustomMetricSvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::ArchiveCustomMetricRequest>
+                    for ArchiveCustomMetricSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ArchiveCustomMetricRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::archive_custom_metric(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ArchiveCustomMetricSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/GetCustomMetric" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetCustomMetricSvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::GetCustomMetricRequest>
+                    for GetCustomMetricSvc<T> {
+                        type Response = super::CustomMetric;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetCustomMetricRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::get_custom_metric(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetCustomMetricSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/GetDataRetentionSettings" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetDataRetentionSettingsSvc<T: AnalyticsAdminService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::GetDataRetentionSettingsRequest>
+                    for GetDataRetentionSettingsSvc<T> {
+                        type Response = super::DataRetentionSettings;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetDataRetentionSettingsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::get_data_retention_settings(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetDataRetentionSettingsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/UpdateDataRetentionSettings" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateDataRetentionSettingsSvc<T: AnalyticsAdminService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<
+                        super::UpdateDataRetentionSettingsRequest,
+                    > for UpdateDataRetentionSettingsSvc<T> {
+                        type Response = super::DataRetentionSettings;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::UpdateDataRetentionSettingsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::update_data_retention_settings(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateDataRetentionSettingsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/CreateDataStream" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateDataStreamSvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::CreateDataStreamRequest>
+                    for CreateDataStreamSvc<T> {
+                        type Response = super::DataStream;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateDataStreamRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::create_data_stream(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateDataStreamSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/DeleteDataStream" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteDataStreamSvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::DeleteDataStreamRequest>
+                    for DeleteDataStreamSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteDataStreamRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::delete_data_stream(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteDataStreamSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/UpdateDataStream" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateDataStreamSvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::UpdateDataStreamRequest>
+                    for UpdateDataStreamSvc<T> {
+                        type Response = super::DataStream;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateDataStreamRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::update_data_stream(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateDataStreamSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/ListDataStreams" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDataStreamsSvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::ListDataStreamsRequest>
+                    for ListDataStreamsSvc<T> {
+                        type Response = super::ListDataStreamsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListDataStreamsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::list_data_streams(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDataStreamsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/GetDataStream" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetDataStreamSvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::GetDataStreamRequest>
+                    for GetDataStreamSvc<T> {
+                        type Response = super::DataStream;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetDataStreamRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::get_data_stream(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetDataStreamSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.admin.v1beta.AnalyticsAdminService/RunAccessReport" => {
+                    #[allow(non_camel_case_types)]
+                    struct RunAccessReportSvc<T: AnalyticsAdminService>(pub Arc<T>);
+                    impl<
+                        T: AnalyticsAdminService,
+                    > tonic::server::UnaryService<super::RunAccessReportRequest>
+                    for RunAccessReportSvc<T> {
+                        type Response = super::RunAccessReportResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RunAccessReportRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AnalyticsAdminService>::run_access_report(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RunAccessReportSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for AnalyticsAdminServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.analytics.admin.v1beta.AnalyticsAdminService";
+    impl<T> tonic::server::NamedService for AnalyticsAdminServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

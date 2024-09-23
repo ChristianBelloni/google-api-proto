@@ -208,8 +208,8 @@ pub mod settings {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    PayloadFormat::Unspecified => "PAYLOAD_FORMAT_UNSPECIFIED",
-                    PayloadFormat::Json => "JSON",
+                    Self::Unspecified => "PAYLOAD_FORMAT_UNSPECIFIED",
+                    Self::Json => "JSON",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -483,10 +483,10 @@ impl AlertFeedbackType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            AlertFeedbackType::Unspecified => "ALERT_FEEDBACK_TYPE_UNSPECIFIED",
-            AlertFeedbackType::NotUseful => "NOT_USEFUL",
-            AlertFeedbackType::SomewhatUseful => "SOMEWHAT_USEFUL",
-            AlertFeedbackType::VeryUseful => "VERY_USEFUL",
+            Self::Unspecified => "ALERT_FEEDBACK_TYPE_UNSPECIFIED",
+            Self::NotUseful => "NOT_USEFUL",
+            Self::SomewhatUseful => "SOMEWHAT_USEFUL",
+            Self::VeryUseful => "VERY_USEFUL",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -909,5 +909,727 @@ pub mod alert_center_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod alert_center_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with AlertCenterServiceServer.
+    #[async_trait]
+    pub trait AlertCenterService: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists the alerts.
+        async fn list_alerts(
+            &self,
+            request: tonic::Request<super::ListAlertsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAlertsResponse>,
+            tonic::Status,
+        >;
+        /// Gets the specified alert. Attempting to get a nonexistent alert returns
+        /// `NOT_FOUND` error.
+        async fn get_alert(
+            &self,
+            request: tonic::Request<super::GetAlertRequest>,
+        ) -> std::result::Result<tonic::Response<super::Alert>, tonic::Status>;
+        /// Marks the specified alert for deletion. An alert that has been marked for
+        /// deletion is removed from Alert Center after 30 days.
+        /// Marking an alert for deletion has no effect on an alert which has
+        /// already been marked for deletion. Attempting to mark a nonexistent alert
+        /// for deletion results in a `NOT_FOUND` error.
+        async fn delete_alert(
+            &self,
+            request: tonic::Request<super::DeleteAlertRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Restores, or "undeletes", an alert that was marked for deletion within the
+        /// past 30 days. Attempting to undelete an alert which was marked for deletion
+        /// over 30 days ago (which has been removed from the Alert Center database) or
+        /// a nonexistent alert returns a `NOT_FOUND` error. Attempting to
+        /// undelete an alert which has not been marked for deletion has no effect.
+        async fn undelete_alert(
+            &self,
+            request: tonic::Request<super::UndeleteAlertRequest>,
+        ) -> std::result::Result<tonic::Response<super::Alert>, tonic::Status>;
+        /// Creates new feedback for an alert. Attempting to create a feedback for
+        /// a non-existent alert returns `NOT_FOUND` error. Attempting to create a
+        /// feedback for an alert that is marked for deletion returns
+        /// `FAILED_PRECONDITION' error.
+        async fn create_alert_feedback(
+            &self,
+            request: tonic::Request<super::CreateAlertFeedbackRequest>,
+        ) -> std::result::Result<tonic::Response<super::AlertFeedback>, tonic::Status>;
+        /// Lists all the feedback for an alert. Attempting to list feedbacks for
+        /// a non-existent alert returns `NOT_FOUND` error.
+        async fn list_alert_feedback(
+            &self,
+            request: tonic::Request<super::ListAlertFeedbackRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAlertFeedbackResponse>,
+            tonic::Status,
+        >;
+        /// Returns the metadata of an alert. Attempting to get metadata for
+        /// a non-existent alert returns `NOT_FOUND` error.
+        async fn get_alert_metadata(
+            &self,
+            request: tonic::Request<super::GetAlertMetadataRequest>,
+        ) -> std::result::Result<tonic::Response<super::AlertMetadata>, tonic::Status>;
+        /// Returns customer-level settings.
+        async fn get_settings(
+            &self,
+            request: tonic::Request<super::GetSettingsRequest>,
+        ) -> std::result::Result<tonic::Response<super::Settings>, tonic::Status>;
+        /// Updates the customer-level settings.
+        async fn update_settings(
+            &self,
+            request: tonic::Request<super::UpdateSettingsRequest>,
+        ) -> std::result::Result<tonic::Response<super::Settings>, tonic::Status>;
+        /// Performs batch delete operation on alerts.
+        async fn batch_delete_alerts(
+            &self,
+            request: tonic::Request<super::BatchDeleteAlertsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::BatchDeleteAlertsResponse>,
+            tonic::Status,
+        >;
+        /// Performs batch undelete operation on alerts.
+        async fn batch_undelete_alerts(
+            &self,
+            request: tonic::Request<super::BatchUndeleteAlertsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::BatchUndeleteAlertsResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Google Workspace Alert Center API (beta).
+    #[derive(Debug)]
+    pub struct AlertCenterServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> AlertCenterServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for AlertCenterServiceServer<T>
+    where
+        T: AlertCenterService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.apps.alertcenter.v1beta1.AlertCenterService/ListAlerts" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAlertsSvc<T: AlertCenterService>(pub Arc<T>);
+                    impl<
+                        T: AlertCenterService,
+                    > tonic::server::UnaryService<super::ListAlertsRequest>
+                    for ListAlertsSvc<T> {
+                        type Response = super::ListAlertsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListAlertsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlertCenterService>::list_alerts(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAlertsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.apps.alertcenter.v1beta1.AlertCenterService/GetAlert" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAlertSvc<T: AlertCenterService>(pub Arc<T>);
+                    impl<
+                        T: AlertCenterService,
+                    > tonic::server::UnaryService<super::GetAlertRequest>
+                    for GetAlertSvc<T> {
+                        type Response = super::Alert;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAlertRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlertCenterService>::get_alert(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAlertSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.apps.alertcenter.v1beta1.AlertCenterService/DeleteAlert" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteAlertSvc<T: AlertCenterService>(pub Arc<T>);
+                    impl<
+                        T: AlertCenterService,
+                    > tonic::server::UnaryService<super::DeleteAlertRequest>
+                    for DeleteAlertSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteAlertRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlertCenterService>::delete_alert(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteAlertSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.apps.alertcenter.v1beta1.AlertCenterService/UndeleteAlert" => {
+                    #[allow(non_camel_case_types)]
+                    struct UndeleteAlertSvc<T: AlertCenterService>(pub Arc<T>);
+                    impl<
+                        T: AlertCenterService,
+                    > tonic::server::UnaryService<super::UndeleteAlertRequest>
+                    for UndeleteAlertSvc<T> {
+                        type Response = super::Alert;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UndeleteAlertRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlertCenterService>::undelete_alert(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UndeleteAlertSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.apps.alertcenter.v1beta1.AlertCenterService/CreateAlertFeedback" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateAlertFeedbackSvc<T: AlertCenterService>(pub Arc<T>);
+                    impl<
+                        T: AlertCenterService,
+                    > tonic::server::UnaryService<super::CreateAlertFeedbackRequest>
+                    for CreateAlertFeedbackSvc<T> {
+                        type Response = super::AlertFeedback;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateAlertFeedbackRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlertCenterService>::create_alert_feedback(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateAlertFeedbackSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.apps.alertcenter.v1beta1.AlertCenterService/ListAlertFeedback" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAlertFeedbackSvc<T: AlertCenterService>(pub Arc<T>);
+                    impl<
+                        T: AlertCenterService,
+                    > tonic::server::UnaryService<super::ListAlertFeedbackRequest>
+                    for ListAlertFeedbackSvc<T> {
+                        type Response = super::ListAlertFeedbackResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListAlertFeedbackRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlertCenterService>::list_alert_feedback(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAlertFeedbackSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.apps.alertcenter.v1beta1.AlertCenterService/GetAlertMetadata" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAlertMetadataSvc<T: AlertCenterService>(pub Arc<T>);
+                    impl<
+                        T: AlertCenterService,
+                    > tonic::server::UnaryService<super::GetAlertMetadataRequest>
+                    for GetAlertMetadataSvc<T> {
+                        type Response = super::AlertMetadata;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAlertMetadataRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlertCenterService>::get_alert_metadata(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAlertMetadataSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.apps.alertcenter.v1beta1.AlertCenterService/GetSettings" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetSettingsSvc<T: AlertCenterService>(pub Arc<T>);
+                    impl<
+                        T: AlertCenterService,
+                    > tonic::server::UnaryService<super::GetSettingsRequest>
+                    for GetSettingsSvc<T> {
+                        type Response = super::Settings;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetSettingsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlertCenterService>::get_settings(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetSettingsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.apps.alertcenter.v1beta1.AlertCenterService/UpdateSettings" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateSettingsSvc<T: AlertCenterService>(pub Arc<T>);
+                    impl<
+                        T: AlertCenterService,
+                    > tonic::server::UnaryService<super::UpdateSettingsRequest>
+                    for UpdateSettingsSvc<T> {
+                        type Response = super::Settings;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateSettingsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlertCenterService>::update_settings(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateSettingsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.apps.alertcenter.v1beta1.AlertCenterService/BatchDeleteAlerts" => {
+                    #[allow(non_camel_case_types)]
+                    struct BatchDeleteAlertsSvc<T: AlertCenterService>(pub Arc<T>);
+                    impl<
+                        T: AlertCenterService,
+                    > tonic::server::UnaryService<super::BatchDeleteAlertsRequest>
+                    for BatchDeleteAlertsSvc<T> {
+                        type Response = super::BatchDeleteAlertsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::BatchDeleteAlertsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlertCenterService>::batch_delete_alerts(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BatchDeleteAlertsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.apps.alertcenter.v1beta1.AlertCenterService/BatchUndeleteAlerts" => {
+                    #[allow(non_camel_case_types)]
+                    struct BatchUndeleteAlertsSvc<T: AlertCenterService>(pub Arc<T>);
+                    impl<
+                        T: AlertCenterService,
+                    > tonic::server::UnaryService<super::BatchUndeleteAlertsRequest>
+                    for BatchUndeleteAlertsSvc<T> {
+                        type Response = super::BatchUndeleteAlertsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::BatchUndeleteAlertsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AlertCenterService>::batch_undelete_alerts(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BatchUndeleteAlertsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for AlertCenterServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.apps.alertcenter.v1beta1.AlertCenterService";
+    impl<T> tonic::server::NamedService for AlertCenterServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

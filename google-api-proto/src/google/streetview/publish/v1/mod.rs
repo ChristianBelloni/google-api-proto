@@ -243,14 +243,14 @@ pub mod photo {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                TransferStatus::Unknown => "TRANSFER_STATUS_UNKNOWN",
-                TransferStatus::NeverTransferred => "NEVER_TRANSFERRED",
-                TransferStatus::Pending => "PENDING",
-                TransferStatus::Completed => "COMPLETED",
-                TransferStatus::Rejected => "REJECTED",
-                TransferStatus::Expired => "EXPIRED",
-                TransferStatus::Cancelled => "CANCELLED",
-                TransferStatus::ReceivedViaTransfer => "RECEIVED_VIA_TRANSFER",
+                Self::Unknown => "TRANSFER_STATUS_UNKNOWN",
+                Self::NeverTransferred => "NEVER_TRANSFERRED",
+                Self::Pending => "PENDING",
+                Self::Completed => "COMPLETED",
+                Self::Rejected => "REJECTED",
+                Self::Expired => "EXPIRED",
+                Self::Cancelled => "CANCELLED",
+                Self::ReceivedViaTransfer => "RECEIVED_VIA_TRANSFER",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -296,11 +296,9 @@ pub mod photo {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                MapsPublishStatus::UnspecifiedMapsPublishStatus => {
-                    "UNSPECIFIED_MAPS_PUBLISH_STATUS"
-                }
-                MapsPublishStatus::Published => "PUBLISHED",
-                MapsPublishStatus::RejectedUnknown => "REJECTED_UNKNOWN",
+                Self::UnspecifiedMapsPublishStatus => "UNSPECIFIED_MAPS_PUBLISH_STATUS",
+                Self::Published => "PUBLISHED",
+                Self::RejectedUnknown => "REJECTED_UNKNOWN",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -417,8 +415,8 @@ pub mod photo_sequence {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                GpsSource::PhotoSequence => "PHOTO_SEQUENCE",
-                GpsSource::CameraMotionMetadataTrack => "CAMERA_MOTION_METADATA_TRACK",
+                Self::PhotoSequence => "PHOTO_SEQUENCE",
+                Self::CameraMotionMetadataTrack => "CAMERA_MOTION_METADATA_TRACK",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -568,11 +566,11 @@ impl ProcessingState {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ProcessingState::Unspecified => "PROCESSING_STATE_UNSPECIFIED",
-            ProcessingState::Pending => "PENDING",
-            ProcessingState::Processing => "PROCESSING",
-            ProcessingState::Processed => "PROCESSED",
-            ProcessingState::Failed => "FAILED",
+            Self::Unspecified => "PROCESSING_STATE_UNSPECIFIED",
+            Self::Pending => "PENDING",
+            Self::Processing => "PROCESSING",
+            Self::Processed => "PROCESSED",
+            Self::Failed => "FAILED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -655,39 +653,31 @@ impl ProcessingFailureReason {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ProcessingFailureReason::Unspecified => {
-                "PROCESSING_FAILURE_REASON_UNSPECIFIED"
-            }
-            ProcessingFailureReason::LowResolution => "LOW_RESOLUTION",
-            ProcessingFailureReason::Duplicate => "DUPLICATE",
-            ProcessingFailureReason::InsufficientGps => "INSUFFICIENT_GPS",
-            ProcessingFailureReason::NoOverlapGps => "NO_OVERLAP_GPS",
-            ProcessingFailureReason::InvalidGps => "INVALID_GPS",
-            ProcessingFailureReason::FailedToRefinePositions => {
-                "FAILED_TO_REFINE_POSITIONS"
-            }
-            ProcessingFailureReason::Takedown => "TAKEDOWN",
-            ProcessingFailureReason::CorruptVideo => "CORRUPT_VIDEO",
-            ProcessingFailureReason::Internal => "INTERNAL",
-            ProcessingFailureReason::InvalidVideoFormat => "INVALID_VIDEO_FORMAT",
-            ProcessingFailureReason::InvalidVideoDimensions => "INVALID_VIDEO_DIMENSIONS",
-            ProcessingFailureReason::InvalidCaptureTime => "INVALID_CAPTURE_TIME",
-            ProcessingFailureReason::GpsDataGap => "GPS_DATA_GAP",
-            ProcessingFailureReason::JumpyGps => "JUMPY_GPS",
-            ProcessingFailureReason::InvalidImu => "INVALID_IMU",
-            ProcessingFailureReason::InsufficientImu => "INSUFFICIENT_IMU",
-            ProcessingFailureReason::InsufficientOverlapTimeSeries => {
-                "INSUFFICIENT_OVERLAP_TIME_SERIES"
-            }
-            ProcessingFailureReason::ImuDataGap => "IMU_DATA_GAP",
-            ProcessingFailureReason::UnsupportedCamera => "UNSUPPORTED_CAMERA",
-            ProcessingFailureReason::NotOutdoors => "NOT_OUTDOORS",
-            ProcessingFailureReason::InsufficientVideoFrames => {
-                "INSUFFICIENT_VIDEO_FRAMES"
-            }
-            ProcessingFailureReason::InsufficientMovement => "INSUFFICIENT_MOVEMENT",
-            ProcessingFailureReason::MastDown => "MAST_DOWN",
-            ProcessingFailureReason::CameraCovered => "CAMERA_COVERED",
+            Self::Unspecified => "PROCESSING_FAILURE_REASON_UNSPECIFIED",
+            Self::LowResolution => "LOW_RESOLUTION",
+            Self::Duplicate => "DUPLICATE",
+            Self::InsufficientGps => "INSUFFICIENT_GPS",
+            Self::NoOverlapGps => "NO_OVERLAP_GPS",
+            Self::InvalidGps => "INVALID_GPS",
+            Self::FailedToRefinePositions => "FAILED_TO_REFINE_POSITIONS",
+            Self::Takedown => "TAKEDOWN",
+            Self::CorruptVideo => "CORRUPT_VIDEO",
+            Self::Internal => "INTERNAL",
+            Self::InvalidVideoFormat => "INVALID_VIDEO_FORMAT",
+            Self::InvalidVideoDimensions => "INVALID_VIDEO_DIMENSIONS",
+            Self::InvalidCaptureTime => "INVALID_CAPTURE_TIME",
+            Self::GpsDataGap => "GPS_DATA_GAP",
+            Self::JumpyGps => "JUMPY_GPS",
+            Self::InvalidImu => "INVALID_IMU",
+            Self::InsufficientImu => "INSUFFICIENT_IMU",
+            Self::InsufficientOverlapTimeSeries => "INSUFFICIENT_OVERLAP_TIME_SERIES",
+            Self::ImuDataGap => "IMU_DATA_GAP",
+            Self::UnsupportedCamera => "UNSUPPORTED_CAMERA",
+            Self::NotOutdoors => "NOT_OUTDOORS",
+            Self::InsufficientVideoFrames => "INSUFFICIENT_VIDEO_FRAMES",
+            Self::InsufficientMovement => "INSUFFICIENT_MOVEMENT",
+            Self::MastDown => "MAST_DOWN",
+            Self::CameraCovered => "CAMERA_COVERED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -992,9 +982,9 @@ pub mod create_photo_sequence_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                InputType::Unspecified => "INPUT_TYPE_UNSPECIFIED",
-                InputType::Video => "VIDEO",
-                InputType::Xdm => "XDM",
+                Self::Unspecified => "INPUT_TYPE_UNSPECIFIED",
+                Self::Video => "VIDEO",
+                Self::Xdm => "XDM",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1143,8 +1133,8 @@ impl PhotoView {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            PhotoView::Basic => "BASIC",
-            PhotoView::IncludeDownloadUrl => "INCLUDE_DOWNLOAD_URL",
+            Self::Basic => "BASIC",
+            Self::IncludeDownloadUrl => "INCLUDE_DOWNLOAD_URL",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1846,5 +1836,1099 @@ pub mod street_view_publish_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod street_view_publish_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with StreetViewPublishServiceServer.
+    #[async_trait]
+    pub trait StreetViewPublishService: std::marker::Send + std::marker::Sync + 'static {
+        /// Creates an upload session to start uploading photo bytes.  The method uses
+        /// the upload URL of the returned
+        /// [UploadRef][google.streetview.publish.v1.UploadRef] to upload the bytes for
+        /// the [Photo][google.streetview.publish.v1.Photo].
+        ///
+        /// In addition to the photo requirements shown in
+        /// https://support.google.com/maps/answer/7012050?ref_topic=6275604,
+        /// the photo must meet the following requirements:
+        ///
+        /// * Photo Sphere XMP metadata must be included in the photo metadata. See
+        /// https://developers.google.com/streetview/spherical-metadata for the
+        /// required fields.
+        /// * The pixel size of the photo must meet the size requirements listed in
+        /// https://support.google.com/maps/answer/7012050?ref_topic=6275604, and
+        /// the photo must be a full 360 horizontally.
+        ///
+        /// After the upload completes, the method uses
+        /// [UploadRef][google.streetview.publish.v1.UploadRef] with
+        /// [CreatePhoto][google.streetview.publish.v1.StreetViewPublishService.CreatePhoto]
+        /// to create the [Photo][google.streetview.publish.v1.Photo] object entry.
+        async fn start_upload(
+            &self,
+            request: tonic::Request<()>,
+        ) -> std::result::Result<tonic::Response<super::UploadRef>, tonic::Status>;
+        /// After the client finishes uploading the photo with the returned
+        /// [UploadRef][google.streetview.publish.v1.UploadRef],
+        /// [CreatePhoto][google.streetview.publish.v1.StreetViewPublishService.CreatePhoto]
+        /// publishes the uploaded [Photo][google.streetview.publish.v1.Photo] to
+        /// Street View on Google Maps.
+        ///
+        /// Currently, the only way to set heading, pitch, and roll in CreatePhoto is
+        /// through the [Photo Sphere XMP
+        /// metadata](https://developers.google.com/streetview/spherical-metadata) in
+        /// the photo bytes. CreatePhoto ignores the  `pose.heading`, `pose.pitch`,
+        /// `pose.roll`, `pose.altitude`, and `pose.level` fields in Pose.
+        ///
+        /// This method returns the following error codes:
+        ///
+        /// * [google.rpc.Code.INVALID_ARGUMENT][google.rpc.Code.INVALID_ARGUMENT] if
+        /// the request is malformed or if the uploaded photo is not a 360 photo.
+        /// * [google.rpc.Code.NOT_FOUND][google.rpc.Code.NOT_FOUND] if the upload
+        /// reference does not exist.
+        /// * [google.rpc.Code.RESOURCE_EXHAUSTED][google.rpc.Code.RESOURCE_EXHAUSTED]
+        /// if the account has reached the storage limit.
+        async fn create_photo(
+            &self,
+            request: tonic::Request<super::CreatePhotoRequest>,
+        ) -> std::result::Result<tonic::Response<super::Photo>, tonic::Status>;
+        /// Gets the metadata of the specified
+        /// [Photo][google.streetview.publish.v1.Photo].
+        ///
+        /// This method returns the following error codes:
+        ///
+        /// * [google.rpc.Code.PERMISSION_DENIED][google.rpc.Code.PERMISSION_DENIED] if
+        /// the requesting user did not create the requested
+        /// [Photo][google.streetview.publish.v1.Photo].
+        /// * [google.rpc.Code.NOT_FOUND][google.rpc.Code.NOT_FOUND] if the requested
+        /// [Photo][google.streetview.publish.v1.Photo] does not exist.
+        /// * [google.rpc.Code.UNAVAILABLE][google.rpc.Code.UNAVAILABLE] if the
+        /// requested [Photo][google.streetview.publish.v1.Photo] is still being
+        /// indexed.
+        async fn get_photo(
+            &self,
+            request: tonic::Request<super::GetPhotoRequest>,
+        ) -> std::result::Result<tonic::Response<super::Photo>, tonic::Status>;
+        /// Gets the metadata of the specified
+        /// [Photo][google.streetview.publish.v1.Photo] batch.
+        ///
+        /// Note that if
+        /// [BatchGetPhotos][google.streetview.publish.v1.StreetViewPublishService.BatchGetPhotos]
+        /// fails, either critical fields are missing or there is an authentication
+        /// error. Even if
+        /// [BatchGetPhotos][google.streetview.publish.v1.StreetViewPublishService.BatchGetPhotos]
+        /// succeeds, individual photos in the batch may have failures.
+        /// These failures are specified in each
+        /// [PhotoResponse.status][google.streetview.publish.v1.PhotoResponse.status]
+        /// in
+        /// [BatchGetPhotosResponse.results][google.streetview.publish.v1.BatchGetPhotosResponse.results].
+        /// See
+        /// [GetPhoto][google.streetview.publish.v1.StreetViewPublishService.GetPhoto]
+        /// for specific failures that can occur per photo.
+        async fn batch_get_photos(
+            &self,
+            request: tonic::Request<super::BatchGetPhotosRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::BatchGetPhotosResponse>,
+            tonic::Status,
+        >;
+        /// Lists all the [Photos][google.streetview.publish.v1.Photo] that belong to
+        /// the user.
+        ///
+        /// > Note: Recently created photos that are still
+        /// being indexed are not returned in the response.
+        async fn list_photos(
+            &self,
+            request: tonic::Request<super::ListPhotosRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListPhotosResponse>,
+            tonic::Status,
+        >;
+        /// Updates the metadata of a [Photo][google.streetview.publish.v1.Photo], such
+        /// as pose, place association, connections, etc. Changing the pixels of a
+        /// photo is not supported.
+        ///
+        /// Only the fields specified in the
+        /// [updateMask][google.streetview.publish.v1.UpdatePhotoRequest.update_mask]
+        /// field are used. If `updateMask` is not present, the update applies to all
+        /// fields.
+        ///
+        /// This method returns the following error codes:
+        ///
+        /// * [google.rpc.Code.PERMISSION_DENIED][google.rpc.Code.PERMISSION_DENIED] if
+        /// the requesting user did not create the requested photo.
+        /// * [google.rpc.Code.INVALID_ARGUMENT][google.rpc.Code.INVALID_ARGUMENT] if
+        /// the request is malformed.
+        /// * [google.rpc.Code.NOT_FOUND][google.rpc.Code.NOT_FOUND] if the requested
+        /// photo does not exist.
+        /// * [google.rpc.Code.UNAVAILABLE][google.rpc.Code.UNAVAILABLE] if the
+        /// requested [Photo][google.streetview.publish.v1.Photo] is still being
+        /// indexed.
+        async fn update_photo(
+            &self,
+            request: tonic::Request<super::UpdatePhotoRequest>,
+        ) -> std::result::Result<tonic::Response<super::Photo>, tonic::Status>;
+        /// Updates the metadata of [Photos][google.streetview.publish.v1.Photo], such
+        /// as pose, place association, connections, etc. Changing the pixels of photos
+        /// is not supported.
+        ///
+        /// Note that if
+        /// [BatchUpdatePhotos][google.streetview.publish.v1.StreetViewPublishService.BatchUpdatePhotos]
+        /// fails, either critical fields are missing or there is an authentication
+        /// error. Even if
+        /// [BatchUpdatePhotos][google.streetview.publish.v1.StreetViewPublishService.BatchUpdatePhotos]
+        /// succeeds, individual photos in the batch may have failures.
+        /// These failures are specified in each
+        /// [PhotoResponse.status][google.streetview.publish.v1.PhotoResponse.status]
+        /// in
+        /// [BatchUpdatePhotosResponse.results][google.streetview.publish.v1.BatchUpdatePhotosResponse.results].
+        /// See
+        /// [UpdatePhoto][google.streetview.publish.v1.StreetViewPublishService.UpdatePhoto]
+        /// for specific failures that can occur per photo.
+        ///
+        /// Only the fields specified in
+        /// [updateMask][google.streetview.publish.v1.UpdatePhotoRequest.update_mask]
+        /// field are used. If `updateMask` is not present, the update applies to all
+        /// fields.
+        ///
+        /// The number of
+        /// [UpdatePhotoRequest][google.streetview.publish.v1.UpdatePhotoRequest]
+        /// messages in a
+        /// [BatchUpdatePhotosRequest][google.streetview.publish.v1.BatchUpdatePhotosRequest]
+        /// must not exceed 20.
+        ///
+        /// > Note: To update
+        /// [Pose.altitude][google.streetview.publish.v1.Pose.altitude],
+        /// [Pose.latLngPair][google.streetview.publish.v1.Pose.lat_lng_pair] has to be
+        /// filled as well. Otherwise, the request will fail.
+        async fn batch_update_photos(
+            &self,
+            request: tonic::Request<super::BatchUpdatePhotosRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::BatchUpdatePhotosResponse>,
+            tonic::Status,
+        >;
+        /// Deletes a [Photo][google.streetview.publish.v1.Photo] and its metadata.
+        ///
+        /// This method returns the following error codes:
+        ///
+        /// * [google.rpc.Code.PERMISSION_DENIED][google.rpc.Code.PERMISSION_DENIED] if
+        /// the requesting user did not create the requested photo.
+        /// * [google.rpc.Code.NOT_FOUND][google.rpc.Code.NOT_FOUND] if the photo ID
+        /// does not exist.
+        async fn delete_photo(
+            &self,
+            request: tonic::Request<super::DeletePhotoRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Deletes a list of [Photos][google.streetview.publish.v1.Photo] and their
+        /// metadata.
+        ///
+        /// Note that if
+        /// [BatchDeletePhotos][google.streetview.publish.v1.StreetViewPublishService.BatchDeletePhotos]
+        /// fails, either critical fields are missing or there is an authentication
+        /// error. Even if
+        /// [BatchDeletePhotos][google.streetview.publish.v1.StreetViewPublishService.BatchDeletePhotos]
+        /// succeeds, individual photos in the batch may have failures.
+        /// These failures are specified in each
+        /// [PhotoResponse.status][google.streetview.publish.v1.PhotoResponse.status]
+        /// in
+        /// [BatchDeletePhotosResponse.results][google.streetview.publish.v1.BatchDeletePhotosResponse.status].
+        /// See
+        /// [DeletePhoto][google.streetview.publish.v1.StreetViewPublishService.DeletePhoto]
+        /// for specific failures that can occur per photo.
+        async fn batch_delete_photos(
+            &self,
+            request: tonic::Request<super::BatchDeletePhotosRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::BatchDeletePhotosResponse>,
+            tonic::Status,
+        >;
+        /// Creates an upload session to start uploading photo sequence data.
+        /// The upload URL of the returned
+        /// [UploadRef][google.streetview.publish.v1.UploadRef] is used to upload the
+        /// data for the `photoSequence`.
+        ///
+        /// After the upload is complete, the
+        /// [UploadRef][google.streetview.publish.v1.UploadRef] is used with
+        /// [CreatePhotoSequence][google.streetview.publish.v1.StreetViewPublishService.CreatePhotoSequence]
+        /// to create the [PhotoSequence][google.streetview.publish.v1.PhotoSequence]
+        /// object entry.
+        async fn start_photo_sequence_upload(
+            &self,
+            request: tonic::Request<()>,
+        ) -> std::result::Result<tonic::Response<super::UploadRef>, tonic::Status>;
+        /// After the client finishes uploading the
+        /// [PhotoSequence][google.streetview.publish.v1.PhotoSequence] with the
+        /// returned [UploadRef][google.streetview.publish.v1.UploadRef],
+        /// [CreatePhotoSequence][google.streetview.publish.v1.StreetViewPublishService.CreatePhotoSequence]
+        /// extracts a sequence of 360 photos from a video or Extensible Device
+        /// Metadata (XDM, http://www.xdm.org/) to be published to Street View on
+        /// Google Maps.
+        ///
+        /// `CreatePhotoSequence` returns an [Operation][google.longrunning.Operation],
+        /// with the [PhotoSequence][google.streetview.publish.v1.PhotoSequence] Id set
+        /// in the `Operation.name` field.
+        ///
+        /// This method returns the following error codes:
+        ///
+        /// * [google.rpc.Code.INVALID_ARGUMENT][google.rpc.Code.INVALID_ARGUMENT] if
+        /// the request is malformed.
+        /// * [google.rpc.Code.NOT_FOUND][google.rpc.Code.NOT_FOUND] if the upload
+        /// reference does not exist.
+        async fn create_photo_sequence(
+            &self,
+            request: tonic::Request<super::CreatePhotoSequenceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Gets the metadata of the specified
+        /// [PhotoSequence][google.streetview.publish.v1.PhotoSequence] via the
+        /// [Operation][google.longrunning.Operation] interface.
+        ///
+        /// This method returns the following three types of responses:
+        ///
+        /// * `Operation.done` = false, if the processing of
+        ///   [PhotoSequence][google.streetview.publish.v1.PhotoSequence] is not
+        ///   finished yet.
+        /// * `Operation.done` = true and `Operation.error` is populated, if there was
+        ///   an error in processing.
+        /// * `Operation.done` = true and `Operation.response` is poulated, which
+        ///   contains a [PhotoSequence][google.streetview.publish.v1.PhotoSequence]
+        ///   message.
+        ///
+        /// This method returns the following error codes:
+        ///
+        /// * [google.rpc.Code.PERMISSION_DENIED][google.rpc.Code.PERMISSION_DENIED] if
+        /// the requesting user did not create the requested
+        /// [PhotoSequence][google.streetview.publish.v1.PhotoSequence].
+        /// * [google.rpc.Code.NOT_FOUND][google.rpc.Code.NOT_FOUND] if the requested
+        /// [PhotoSequence][google.streetview.publish.v1.PhotoSequence] does not exist.
+        async fn get_photo_sequence(
+            &self,
+            request: tonic::Request<super::GetPhotoSequenceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists all the [PhotoSequences][google.streetview.publish.v1.PhotoSequence]
+        /// that belong to the user, in descending CreatePhotoSequence timestamp order.
+        async fn list_photo_sequences(
+            &self,
+            request: tonic::Request<super::ListPhotoSequencesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListPhotoSequencesResponse>,
+            tonic::Status,
+        >;
+        /// Deletes a [PhotoSequence][google.streetview.publish.v1.PhotoSequence] and
+        /// its metadata.
+        ///
+        /// This method returns the following error codes:
+        ///
+        /// * [google.rpc.Code.PERMISSION_DENIED][google.rpc.Code.PERMISSION_DENIED] if
+        /// the requesting user did not create the requested photo sequence.
+        /// * [google.rpc.Code.NOT_FOUND][google.rpc.Code.NOT_FOUND] if the photo
+        /// sequence ID does not exist.
+        /// * [google.rpc.Code.FAILED_PRECONDITION][google.rpc.Code.FAILED_PRECONDITION] if the photo sequence ID is not
+        /// yet finished processing.
+        async fn delete_photo_sequence(
+            &self,
+            request: tonic::Request<super::DeletePhotoSequenceRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+    }
+    /// Publishes and connects user-contributed photos on Street View.
+    #[derive(Debug)]
+    pub struct StreetViewPublishServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> StreetViewPublishServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for StreetViewPublishServiceServer<T>
+    where
+        T: StreetViewPublishService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.streetview.publish.v1.StreetViewPublishService/StartUpload" => {
+                    #[allow(non_camel_case_types)]
+                    struct StartUploadSvc<T: StreetViewPublishService>(pub Arc<T>);
+                    impl<T: StreetViewPublishService> tonic::server::UnaryService<()>
+                    for StartUploadSvc<T> {
+                        type Response = super::UploadRef;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(&mut self, request: tonic::Request<()>) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StreetViewPublishService>::start_upload(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = StartUploadSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.streetview.publish.v1.StreetViewPublishService/CreatePhoto" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreatePhotoSvc<T: StreetViewPublishService>(pub Arc<T>);
+                    impl<
+                        T: StreetViewPublishService,
+                    > tonic::server::UnaryService<super::CreatePhotoRequest>
+                    for CreatePhotoSvc<T> {
+                        type Response = super::Photo;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreatePhotoRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StreetViewPublishService>::create_photo(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreatePhotoSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.streetview.publish.v1.StreetViewPublishService/GetPhoto" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetPhotoSvc<T: StreetViewPublishService>(pub Arc<T>);
+                    impl<
+                        T: StreetViewPublishService,
+                    > tonic::server::UnaryService<super::GetPhotoRequest>
+                    for GetPhotoSvc<T> {
+                        type Response = super::Photo;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetPhotoRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StreetViewPublishService>::get_photo(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetPhotoSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.streetview.publish.v1.StreetViewPublishService/BatchGetPhotos" => {
+                    #[allow(non_camel_case_types)]
+                    struct BatchGetPhotosSvc<T: StreetViewPublishService>(pub Arc<T>);
+                    impl<
+                        T: StreetViewPublishService,
+                    > tonic::server::UnaryService<super::BatchGetPhotosRequest>
+                    for BatchGetPhotosSvc<T> {
+                        type Response = super::BatchGetPhotosResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::BatchGetPhotosRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StreetViewPublishService>::batch_get_photos(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BatchGetPhotosSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.streetview.publish.v1.StreetViewPublishService/ListPhotos" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListPhotosSvc<T: StreetViewPublishService>(pub Arc<T>);
+                    impl<
+                        T: StreetViewPublishService,
+                    > tonic::server::UnaryService<super::ListPhotosRequest>
+                    for ListPhotosSvc<T> {
+                        type Response = super::ListPhotosResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListPhotosRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StreetViewPublishService>::list_photos(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListPhotosSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.streetview.publish.v1.StreetViewPublishService/UpdatePhoto" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdatePhotoSvc<T: StreetViewPublishService>(pub Arc<T>);
+                    impl<
+                        T: StreetViewPublishService,
+                    > tonic::server::UnaryService<super::UpdatePhotoRequest>
+                    for UpdatePhotoSvc<T> {
+                        type Response = super::Photo;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdatePhotoRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StreetViewPublishService>::update_photo(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdatePhotoSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.streetview.publish.v1.StreetViewPublishService/BatchUpdatePhotos" => {
+                    #[allow(non_camel_case_types)]
+                    struct BatchUpdatePhotosSvc<T: StreetViewPublishService>(pub Arc<T>);
+                    impl<
+                        T: StreetViewPublishService,
+                    > tonic::server::UnaryService<super::BatchUpdatePhotosRequest>
+                    for BatchUpdatePhotosSvc<T> {
+                        type Response = super::BatchUpdatePhotosResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::BatchUpdatePhotosRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StreetViewPublishService>::batch_update_photos(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BatchUpdatePhotosSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.streetview.publish.v1.StreetViewPublishService/DeletePhoto" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeletePhotoSvc<T: StreetViewPublishService>(pub Arc<T>);
+                    impl<
+                        T: StreetViewPublishService,
+                    > tonic::server::UnaryService<super::DeletePhotoRequest>
+                    for DeletePhotoSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeletePhotoRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StreetViewPublishService>::delete_photo(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeletePhotoSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.streetview.publish.v1.StreetViewPublishService/BatchDeletePhotos" => {
+                    #[allow(non_camel_case_types)]
+                    struct BatchDeletePhotosSvc<T: StreetViewPublishService>(pub Arc<T>);
+                    impl<
+                        T: StreetViewPublishService,
+                    > tonic::server::UnaryService<super::BatchDeletePhotosRequest>
+                    for BatchDeletePhotosSvc<T> {
+                        type Response = super::BatchDeletePhotosResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::BatchDeletePhotosRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StreetViewPublishService>::batch_delete_photos(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BatchDeletePhotosSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.streetview.publish.v1.StreetViewPublishService/StartPhotoSequenceUpload" => {
+                    #[allow(non_camel_case_types)]
+                    struct StartPhotoSequenceUploadSvc<T: StreetViewPublishService>(
+                        pub Arc<T>,
+                    );
+                    impl<T: StreetViewPublishService> tonic::server::UnaryService<()>
+                    for StartPhotoSequenceUploadSvc<T> {
+                        type Response = super::UploadRef;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(&mut self, request: tonic::Request<()>) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StreetViewPublishService>::start_photo_sequence_upload(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = StartPhotoSequenceUploadSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.streetview.publish.v1.StreetViewPublishService/CreatePhotoSequence" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreatePhotoSequenceSvc<T: StreetViewPublishService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: StreetViewPublishService,
+                    > tonic::server::UnaryService<super::CreatePhotoSequenceRequest>
+                    for CreatePhotoSequenceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreatePhotoSequenceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StreetViewPublishService>::create_photo_sequence(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreatePhotoSequenceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.streetview.publish.v1.StreetViewPublishService/GetPhotoSequence" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetPhotoSequenceSvc<T: StreetViewPublishService>(pub Arc<T>);
+                    impl<
+                        T: StreetViewPublishService,
+                    > tonic::server::UnaryService<super::GetPhotoSequenceRequest>
+                    for GetPhotoSequenceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetPhotoSequenceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StreetViewPublishService>::get_photo_sequence(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetPhotoSequenceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.streetview.publish.v1.StreetViewPublishService/ListPhotoSequences" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListPhotoSequencesSvc<T: StreetViewPublishService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: StreetViewPublishService,
+                    > tonic::server::UnaryService<super::ListPhotoSequencesRequest>
+                    for ListPhotoSequencesSvc<T> {
+                        type Response = super::ListPhotoSequencesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListPhotoSequencesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StreetViewPublishService>::list_photo_sequences(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListPhotoSequencesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.streetview.publish.v1.StreetViewPublishService/DeletePhotoSequence" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeletePhotoSequenceSvc<T: StreetViewPublishService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: StreetViewPublishService,
+                    > tonic::server::UnaryService<super::DeletePhotoSequenceRequest>
+                    for DeletePhotoSequenceSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeletePhotoSequenceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as StreetViewPublishService>::delete_photo_sequence(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeletePhotoSequenceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for StreetViewPublishServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.streetview.publish.v1.StreetViewPublishService";
+    impl<T> tonic::server::NamedService for StreetViewPublishServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

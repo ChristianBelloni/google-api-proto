@@ -186,14 +186,14 @@ impl ProfileType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ProfileType::Unspecified => "PROFILE_TYPE_UNSPECIFIED",
-            ProfileType::Cpu => "CPU",
-            ProfileType::Wall => "WALL",
-            ProfileType::Heap => "HEAP",
-            ProfileType::Threads => "THREADS",
-            ProfileType::Contention => "CONTENTION",
-            ProfileType::PeakHeap => "PEAK_HEAP",
-            ProfileType::HeapAlloc => "HEAP_ALLOC",
+            Self::Unspecified => "PROFILE_TYPE_UNSPECIFIED",
+            Self::Cpu => "CPU",
+            Self::Wall => "WALL",
+            Self::Heap => "HEAP",
+            Self::Threads => "THREADS",
+            Self::Contention => "CONTENTION",
+            Self::PeakHeap => "PEAK_HEAP",
+            Self::HeapAlloc => "HEAP_ALLOC",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -517,5 +517,495 @@ pub mod export_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod profiler_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with ProfilerServiceServer.
+    #[async_trait]
+    pub trait ProfilerService: std::marker::Send + std::marker::Sync + 'static {
+        /// CreateProfile creates a new profile resource in the online mode.
+        ///
+        /// _Direct use of this API is discouraged, please use a [supported
+        /// profiler
+        /// agent](https://cloud.google.com/profiler/docs/about-profiler#profiling_agent)
+        /// instead for profile collection._
+        ///
+        /// The server ensures that the new profiles are created at a constant rate per
+        /// deployment, so the creation request may hang for some time until the next
+        /// profile session is available.
+        ///
+        /// The request may fail with ABORTED error if the creation is not available
+        /// within ~1m, the response will indicate the duration of the backoff the
+        /// client should take before attempting creating a profile again. The backoff
+        /// duration is returned in google.rpc.RetryInfo extension on the response
+        /// status. To a gRPC client, the extension will be return as a
+        /// binary-serialized proto in the trailing metadata item named
+        /// "google.rpc.retryinfo-bin".
+        ///
+        async fn create_profile(
+            &self,
+            request: tonic::Request<super::CreateProfileRequest>,
+        ) -> std::result::Result<tonic::Response<super::Profile>, tonic::Status>;
+        /// CreateOfflineProfile creates a new profile resource in the offline
+        /// mode. The client provides the profile to create along with the profile
+        /// bytes, the server records it.
+        ///
+        /// _Direct use of this API is discouraged, please use a [supported
+        /// profiler
+        /// agent](https://cloud.google.com/profiler/docs/about-profiler#profiling_agent)
+        /// instead for profile collection._
+        async fn create_offline_profile(
+            &self,
+            request: tonic::Request<super::CreateOfflineProfileRequest>,
+        ) -> std::result::Result<tonic::Response<super::Profile>, tonic::Status>;
+        /// UpdateProfile updates the profile bytes and labels on the profile resource
+        /// created in the online mode. Updating the bytes for profiles created in the
+        /// offline mode is currently not supported: the profile content must be
+        /// provided at the time of the profile creation.
+        ///
+        /// _Direct use of this API is discouraged, please use a [supported
+        /// profiler
+        /// agent](https://cloud.google.com/profiler/docs/about-profiler#profiling_agent)
+        /// instead for profile collection._
+        async fn update_profile(
+            &self,
+            request: tonic::Request<super::UpdateProfileRequest>,
+        ) -> std::result::Result<tonic::Response<super::Profile>, tonic::Status>;
+    }
+    /// Manage the collection of continuous profiling data provided by profiling
+    /// agents running in the cloud or by an offline provider of profiling data.
+    ///
+    /// __The APIs listed in this service are intended for use within our profiler
+    /// agents only.__
+    #[derive(Debug)]
+    pub struct ProfilerServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> ProfilerServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for ProfilerServiceServer<T>
+    where
+        T: ProfilerService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.devtools.cloudprofiler.v2.ProfilerService/CreateProfile" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateProfileSvc<T: ProfilerService>(pub Arc<T>);
+                    impl<
+                        T: ProfilerService,
+                    > tonic::server::UnaryService<super::CreateProfileRequest>
+                    for CreateProfileSvc<T> {
+                        type Response = super::Profile;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateProfileRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ProfilerService>::create_profile(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateProfileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.cloudprofiler.v2.ProfilerService/CreateOfflineProfile" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateOfflineProfileSvc<T: ProfilerService>(pub Arc<T>);
+                    impl<
+                        T: ProfilerService,
+                    > tonic::server::UnaryService<super::CreateOfflineProfileRequest>
+                    for CreateOfflineProfileSvc<T> {
+                        type Response = super::Profile;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateOfflineProfileRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ProfilerService>::create_offline_profile(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateOfflineProfileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.cloudprofiler.v2.ProfilerService/UpdateProfile" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateProfileSvc<T: ProfilerService>(pub Arc<T>);
+                    impl<
+                        T: ProfilerService,
+                    > tonic::server::UnaryService<super::UpdateProfileRequest>
+                    for UpdateProfileSvc<T> {
+                        type Response = super::Profile;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateProfileRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ProfilerService>::update_profile(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateProfileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for ProfilerServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.devtools.cloudprofiler.v2.ProfilerService";
+    impl<T> tonic::server::NamedService for ProfilerServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}
+/// Generated server implementations.
+pub mod export_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with ExportServiceServer.
+    #[async_trait]
+    pub trait ExportService: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists profiles which have been collected so far and for which the caller
+        /// has permission to view.
+        async fn list_profiles(
+            &self,
+            request: tonic::Request<super::ListProfilesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListProfilesResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Service allows existing Cloud Profiler customers to export their profile data
+    /// out of Google Cloud.
+    #[derive(Debug)]
+    pub struct ExportServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> ExportServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for ExportServiceServer<T>
+    where
+        T: ExportService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.devtools.cloudprofiler.v2.ExportService/ListProfiles" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListProfilesSvc<T: ExportService>(pub Arc<T>);
+                    impl<
+                        T: ExportService,
+                    > tonic::server::UnaryService<super::ListProfilesRequest>
+                    for ListProfilesSvc<T> {
+                        type Response = super::ListProfilesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListProfilesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ExportService>::list_profiles(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListProfilesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for ExportServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.devtools.cloudprofiler.v2.ExportService";
+    impl<T> tonic::server::NamedService for ExportServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

@@ -477,3 +477,520 @@ pub mod smart_device_management_service_client {
         }
     }
 }
+/// Generated server implementations.
+pub mod smart_device_management_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with SmartDeviceManagementServiceServer.
+    #[async_trait]
+    pub trait SmartDeviceManagementService: std::marker::Send + std::marker::Sync + 'static {
+        /// Gets a device managed by the enterprise.
+        async fn get_device(
+            &self,
+            request: tonic::Request<super::GetDeviceRequest>,
+        ) -> std::result::Result<tonic::Response<super::Device>, tonic::Status>;
+        /// Lists devices managed by the enterprise.
+        async fn list_devices(
+            &self,
+            request: tonic::Request<super::ListDevicesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDevicesResponse>,
+            tonic::Status,
+        >;
+        /// Executes a command to device managed by the enterprise.
+        async fn execute_device_command(
+            &self,
+            request: tonic::Request<super::ExecuteDeviceCommandRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ExecuteDeviceCommandResponse>,
+            tonic::Status,
+        >;
+        /// Gets a structure managed by the enterprise.
+        async fn get_structure(
+            &self,
+            request: tonic::Request<super::GetStructureRequest>,
+        ) -> std::result::Result<tonic::Response<super::Structure>, tonic::Status>;
+        /// Lists structures managed by the enterprise.
+        async fn list_structures(
+            &self,
+            request: tonic::Request<super::ListStructuresRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListStructuresResponse>,
+            tonic::Status,
+        >;
+        /// Gets a room managed by the enterprise.
+        async fn get_room(
+            &self,
+            request: tonic::Request<super::GetRoomRequest>,
+        ) -> std::result::Result<tonic::Response<super::Room>, tonic::Status>;
+        /// Lists rooms managed by the enterprise.
+        async fn list_rooms(
+            &self,
+            request: tonic::Request<super::ListRoomsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListRoomsResponse>,
+            tonic::Status,
+        >;
+    }
+    /// A service that allows API consumers to provision and manage Google
+    /// Home structures and devices for enterprise use cases.
+    #[derive(Debug)]
+    pub struct SmartDeviceManagementServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> SmartDeviceManagementServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for SmartDeviceManagementServiceServer<T>
+    where
+        T: SmartDeviceManagementService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.home.enterprise.sdm.v1.SmartDeviceManagementService/GetDevice" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetDeviceSvc<T: SmartDeviceManagementService>(pub Arc<T>);
+                    impl<
+                        T: SmartDeviceManagementService,
+                    > tonic::server::UnaryService<super::GetDeviceRequest>
+                    for GetDeviceSvc<T> {
+                        type Response = super::Device;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetDeviceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SmartDeviceManagementService>::get_device(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetDeviceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.home.enterprise.sdm.v1.SmartDeviceManagementService/ListDevices" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDevicesSvc<T: SmartDeviceManagementService>(pub Arc<T>);
+                    impl<
+                        T: SmartDeviceManagementService,
+                    > tonic::server::UnaryService<super::ListDevicesRequest>
+                    for ListDevicesSvc<T> {
+                        type Response = super::ListDevicesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListDevicesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SmartDeviceManagementService>::list_devices(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDevicesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.home.enterprise.sdm.v1.SmartDeviceManagementService/ExecuteDeviceCommand" => {
+                    #[allow(non_camel_case_types)]
+                    struct ExecuteDeviceCommandSvc<T: SmartDeviceManagementService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: SmartDeviceManagementService,
+                    > tonic::server::UnaryService<super::ExecuteDeviceCommandRequest>
+                    for ExecuteDeviceCommandSvc<T> {
+                        type Response = super::ExecuteDeviceCommandResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ExecuteDeviceCommandRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SmartDeviceManagementService>::execute_device_command(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ExecuteDeviceCommandSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.home.enterprise.sdm.v1.SmartDeviceManagementService/GetStructure" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetStructureSvc<T: SmartDeviceManagementService>(pub Arc<T>);
+                    impl<
+                        T: SmartDeviceManagementService,
+                    > tonic::server::UnaryService<super::GetStructureRequest>
+                    for GetStructureSvc<T> {
+                        type Response = super::Structure;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetStructureRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SmartDeviceManagementService>::get_structure(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetStructureSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.home.enterprise.sdm.v1.SmartDeviceManagementService/ListStructures" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListStructuresSvc<T: SmartDeviceManagementService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: SmartDeviceManagementService,
+                    > tonic::server::UnaryService<super::ListStructuresRequest>
+                    for ListStructuresSvc<T> {
+                        type Response = super::ListStructuresResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListStructuresRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SmartDeviceManagementService>::list_structures(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListStructuresSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.home.enterprise.sdm.v1.SmartDeviceManagementService/GetRoom" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetRoomSvc<T: SmartDeviceManagementService>(pub Arc<T>);
+                    impl<
+                        T: SmartDeviceManagementService,
+                    > tonic::server::UnaryService<super::GetRoomRequest>
+                    for GetRoomSvc<T> {
+                        type Response = super::Room;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetRoomRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SmartDeviceManagementService>::get_room(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetRoomSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.home.enterprise.sdm.v1.SmartDeviceManagementService/ListRooms" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListRoomsSvc<T: SmartDeviceManagementService>(pub Arc<T>);
+                    impl<
+                        T: SmartDeviceManagementService,
+                    > tonic::server::UnaryService<super::ListRoomsRequest>
+                    for ListRoomsSvc<T> {
+                        type Response = super::ListRoomsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListRoomsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SmartDeviceManagementService>::list_rooms(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListRoomsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for SmartDeviceManagementServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.home.enterprise.sdm.v1.SmartDeviceManagementService";
+    impl<T> tonic::server::NamedService for SmartDeviceManagementServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}

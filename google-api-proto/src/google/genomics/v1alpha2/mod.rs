@@ -459,10 +459,10 @@ pub mod pipeline_resources {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    Type::Unspecified => "TYPE_UNSPECIFIED",
-                    Type::PersistentHdd => "PERSISTENT_HDD",
-                    Type::PersistentSsd => "PERSISTENT_SSD",
-                    Type::LocalSsd => "LOCAL_SSD",
+                    Self::Unspecified => "TYPE_UNSPECIFIED",
+                    Self::PersistentHdd => "PERSISTENT_HDD",
+                    Self::PersistentSsd => "PERSISTENT_SSD",
+                    Self::LocalSsd => "LOCAL_SSD",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -926,5 +926,518 @@ pub mod pipelines_v1_alpha2_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod pipelines_v1_alpha2_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with PipelinesV1Alpha2Server.
+    #[async_trait]
+    pub trait PipelinesV1Alpha2: std::marker::Send + std::marker::Sync + 'static {
+        /// Creates a pipeline that can be run later. Create takes a Pipeline that
+        /// has all fields other than `pipelineId` populated, and then returns
+        /// the same pipeline with `pipelineId` populated. This id can be used
+        /// to run the pipeline.
+        ///
+        /// Caller must have WRITE permission to the project.
+        async fn create_pipeline(
+            &self,
+            request: tonic::Request<super::CreatePipelineRequest>,
+        ) -> std::result::Result<tonic::Response<super::Pipeline>, tonic::Status>;
+        /// Runs a pipeline. If `pipelineId` is specified in the request, then
+        /// run a saved pipeline. If `ephemeralPipeline` is specified, then run
+        /// that pipeline once without saving a copy.
+        ///
+        /// The caller must have READ permission to the project where the pipeline
+        /// is stored and WRITE permission to the project where the pipeline will be
+        /// run, as VMs will be created and storage will be used.
+        async fn run_pipeline(
+            &self,
+            request: tonic::Request<super::RunPipelineRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Retrieves a pipeline based on ID.
+        ///
+        /// Caller must have READ permission to the project.
+        async fn get_pipeline(
+            &self,
+            request: tonic::Request<super::GetPipelineRequest>,
+        ) -> std::result::Result<tonic::Response<super::Pipeline>, tonic::Status>;
+        /// Lists pipelines.
+        ///
+        /// Caller must have READ permission to the project.
+        async fn list_pipelines(
+            &self,
+            request: tonic::Request<super::ListPipelinesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListPipelinesResponse>,
+            tonic::Status,
+        >;
+        /// Deletes a pipeline based on ID.
+        ///
+        /// Caller must have WRITE permission to the project.
+        async fn delete_pipeline(
+            &self,
+            request: tonic::Request<super::DeletePipelineRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Gets controller configuration information. Should only be called
+        /// by VMs created by the Pipelines Service and not by end users.
+        async fn get_controller_config(
+            &self,
+            request: tonic::Request<super::GetControllerConfigRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ControllerConfig>,
+            tonic::Status,
+        >;
+        /// Sets status of a given operation. Any new timestamps (as determined by
+        /// description) are appended to TimestampEvents. Should only be called by VMs
+        /// created by the Pipelines Service and not by end users.
+        async fn set_operation_status(
+            &self,
+            request: tonic::Request<super::SetOperationStatusRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+    }
+    /// A service for running genomics pipelines.
+    #[derive(Debug)]
+    pub struct PipelinesV1Alpha2Server<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> PipelinesV1Alpha2Server<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for PipelinesV1Alpha2Server<T>
+    where
+        T: PipelinesV1Alpha2,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.genomics.v1alpha2.PipelinesV1Alpha2/CreatePipeline" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreatePipelineSvc<T: PipelinesV1Alpha2>(pub Arc<T>);
+                    impl<
+                        T: PipelinesV1Alpha2,
+                    > tonic::server::UnaryService<super::CreatePipelineRequest>
+                    for CreatePipelineSvc<T> {
+                        type Response = super::Pipeline;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreatePipelineRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as PipelinesV1Alpha2>::create_pipeline(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreatePipelineSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.genomics.v1alpha2.PipelinesV1Alpha2/RunPipeline" => {
+                    #[allow(non_camel_case_types)]
+                    struct RunPipelineSvc<T: PipelinesV1Alpha2>(pub Arc<T>);
+                    impl<
+                        T: PipelinesV1Alpha2,
+                    > tonic::server::UnaryService<super::RunPipelineRequest>
+                    for RunPipelineSvc<T> {
+                        type Response = super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RunPipelineRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as PipelinesV1Alpha2>::run_pipeline(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RunPipelineSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.genomics.v1alpha2.PipelinesV1Alpha2/GetPipeline" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetPipelineSvc<T: PipelinesV1Alpha2>(pub Arc<T>);
+                    impl<
+                        T: PipelinesV1Alpha2,
+                    > tonic::server::UnaryService<super::GetPipelineRequest>
+                    for GetPipelineSvc<T> {
+                        type Response = super::Pipeline;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetPipelineRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as PipelinesV1Alpha2>::get_pipeline(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetPipelineSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.genomics.v1alpha2.PipelinesV1Alpha2/ListPipelines" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListPipelinesSvc<T: PipelinesV1Alpha2>(pub Arc<T>);
+                    impl<
+                        T: PipelinesV1Alpha2,
+                    > tonic::server::UnaryService<super::ListPipelinesRequest>
+                    for ListPipelinesSvc<T> {
+                        type Response = super::ListPipelinesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListPipelinesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as PipelinesV1Alpha2>::list_pipelines(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListPipelinesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.genomics.v1alpha2.PipelinesV1Alpha2/DeletePipeline" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeletePipelineSvc<T: PipelinesV1Alpha2>(pub Arc<T>);
+                    impl<
+                        T: PipelinesV1Alpha2,
+                    > tonic::server::UnaryService<super::DeletePipelineRequest>
+                    for DeletePipelineSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeletePipelineRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as PipelinesV1Alpha2>::delete_pipeline(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeletePipelineSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.genomics.v1alpha2.PipelinesV1Alpha2/GetControllerConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetControllerConfigSvc<T: PipelinesV1Alpha2>(pub Arc<T>);
+                    impl<
+                        T: PipelinesV1Alpha2,
+                    > tonic::server::UnaryService<super::GetControllerConfigRequest>
+                    for GetControllerConfigSvc<T> {
+                        type Response = super::ControllerConfig;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetControllerConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as PipelinesV1Alpha2>::get_controller_config(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetControllerConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.genomics.v1alpha2.PipelinesV1Alpha2/SetOperationStatus" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetOperationStatusSvc<T: PipelinesV1Alpha2>(pub Arc<T>);
+                    impl<
+                        T: PipelinesV1Alpha2,
+                    > tonic::server::UnaryService<super::SetOperationStatusRequest>
+                    for SetOperationStatusSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SetOperationStatusRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as PipelinesV1Alpha2>::set_operation_status(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SetOperationStatusSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for PipelinesV1Alpha2Server<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.genomics.v1alpha2.PipelinesV1Alpha2";
+    impl<T> tonic::server::NamedService for PipelinesV1Alpha2Server<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

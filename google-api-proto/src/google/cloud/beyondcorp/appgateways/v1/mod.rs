@@ -200,8 +200,8 @@ pub mod app_gateway {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::TcpProxy => "TCP_PROXY",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::TcpProxy => "TCP_PROXY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -248,12 +248,12 @@ pub mod app_gateway {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Created => "CREATED",
-                State::Updating => "UPDATING",
-                State::Deleting => "DELETING",
-                State::Down => "DOWN",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Created => "CREATED",
+                Self::Updating => "UPDATING",
+                Self::Deleting => "DELETING",
+                Self::Down => "DOWN",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -296,8 +296,8 @@ pub mod app_gateway {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                HostType::Unspecified => "HOST_TYPE_UNSPECIFIED",
-                HostType::GcpRegionalMig => "GCP_REGIONAL_MIG",
+                Self::Unspecified => "HOST_TYPE_UNSPECIFIED",
+                Self::GcpRegionalMig => "GCP_REGIONAL_MIG",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -548,5 +548,361 @@ pub mod app_gateways_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod app_gateways_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with AppGatewaysServiceServer.
+    #[async_trait]
+    pub trait AppGatewaysService: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists AppGateways in a given project and location.
+        async fn list_app_gateways(
+            &self,
+            request: tonic::Request<super::ListAppGatewaysRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAppGatewaysResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single AppGateway.
+        async fn get_app_gateway(
+            &self,
+            request: tonic::Request<super::GetAppGatewayRequest>,
+        ) -> std::result::Result<tonic::Response<super::AppGateway>, tonic::Status>;
+        /// Creates a new AppGateway in a given project and location.
+        async fn create_app_gateway(
+            &self,
+            request: tonic::Request<super::CreateAppGatewayRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single AppGateway.
+        async fn delete_app_gateway(
+            &self,
+            request: tonic::Request<super::DeleteAppGatewayRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// API Overview:
+    ///
+    /// The `beyondcorp.googleapis.com` service implements the Google Cloud
+    /// BeyondCorp API.
+    ///
+    /// Data Model:
+    ///
+    /// The AppGatewaysService exposes the following resources:
+    ///
+    /// * AppGateways, named as follows:
+    ///   `projects/{project_id}/locations/{location_id}/appGateways/{app_gateway_id}`.
+    ///
+    /// The AppGatewaysService service provides methods to manage
+    /// (create/read/update/delete) BeyondCorp AppGateways.
+    #[derive(Debug)]
+    pub struct AppGatewaysServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> AppGatewaysServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for AppGatewaysServiceServer<T>
+    where
+        T: AppGatewaysService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.beyondcorp.appgateways.v1.AppGatewaysService/ListAppGateways" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAppGatewaysSvc<T: AppGatewaysService>(pub Arc<T>);
+                    impl<
+                        T: AppGatewaysService,
+                    > tonic::server::UnaryService<super::ListAppGatewaysRequest>
+                    for ListAppGatewaysSvc<T> {
+                        type Response = super::ListAppGatewaysResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListAppGatewaysRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppGatewaysService>::list_app_gateways(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAppGatewaysSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.beyondcorp.appgateways.v1.AppGatewaysService/GetAppGateway" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAppGatewaySvc<T: AppGatewaysService>(pub Arc<T>);
+                    impl<
+                        T: AppGatewaysService,
+                    > tonic::server::UnaryService<super::GetAppGatewayRequest>
+                    for GetAppGatewaySvc<T> {
+                        type Response = super::AppGateway;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAppGatewayRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppGatewaysService>::get_app_gateway(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAppGatewaySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.beyondcorp.appgateways.v1.AppGatewaysService/CreateAppGateway" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateAppGatewaySvc<T: AppGatewaysService>(pub Arc<T>);
+                    impl<
+                        T: AppGatewaysService,
+                    > tonic::server::UnaryService<super::CreateAppGatewayRequest>
+                    for CreateAppGatewaySvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateAppGatewayRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppGatewaysService>::create_app_gateway(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateAppGatewaySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.beyondcorp.appgateways.v1.AppGatewaysService/DeleteAppGateway" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteAppGatewaySvc<T: AppGatewaysService>(pub Arc<T>);
+                    impl<
+                        T: AppGatewaysService,
+                    > tonic::server::UnaryService<super::DeleteAppGatewayRequest>
+                    for DeleteAppGatewaySvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteAppGatewayRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppGatewaysService>::delete_app_gateway(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteAppGatewaySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for AppGatewaysServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.beyondcorp.appgateways.v1.AppGatewaysService";
+    impl<T> tonic::server::NamedService for AppGatewaysServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

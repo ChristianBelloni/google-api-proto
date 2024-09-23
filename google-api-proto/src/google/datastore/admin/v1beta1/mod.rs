@@ -65,14 +65,14 @@ pub mod common_metadata {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Initializing => "INITIALIZING",
-                State::Processing => "PROCESSING",
-                State::Cancelling => "CANCELLING",
-                State::Finalizing => "FINALIZING",
-                State::Successful => "SUCCESSFUL",
-                State::Failed => "FAILED",
-                State::Cancelled => "CANCELLED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Initializing => "INITIALIZING",
+                Self::Processing => "PROCESSING",
+                Self::Cancelling => "CANCELLING",
+                Self::Finalizing => "FINALIZING",
+                Self::Successful => "SUCCESSFUL",
+                Self::Failed => "FAILED",
+                Self::Cancelled => "CANCELLED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -283,9 +283,9 @@ impl OperationType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            OperationType::Unspecified => "OPERATION_TYPE_UNSPECIFIED",
-            OperationType::ExportEntities => "EXPORT_ENTITIES",
-            OperationType::ImportEntities => "IMPORT_ENTITIES",
+            Self::Unspecified => "OPERATION_TYPE_UNSPECIFIED",
+            Self::ExportEntities => "EXPORT_ENTITIES",
+            Self::ImportEntities => "IMPORT_ENTITIES",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -496,5 +496,295 @@ pub mod datastore_admin_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod datastore_admin_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with DatastoreAdminServer.
+    #[async_trait]
+    pub trait DatastoreAdmin: std::marker::Send + std::marker::Sync + 'static {
+        /// Exports a copy of all or a subset of entities from Google Cloud Datastore
+        /// to another storage system, such as Google Cloud Storage. Recent updates to
+        /// entities may not be reflected in the export. The export occurs in the
+        /// background and its progress can be monitored and managed via the
+        /// Operation resource that is created. The output of an export may only be
+        /// used once the associated operation is done. If an export operation is
+        /// cancelled before completion it may leave partial data behind in Google
+        /// Cloud Storage.
+        async fn export_entities(
+            &self,
+            request: tonic::Request<super::ExportEntitiesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Imports entities into Google Cloud Datastore. Existing entities with the
+        /// same key are overwritten. The import occurs in the background and its
+        /// progress can be monitored and managed via the Operation resource that is
+        /// created. If an ImportEntities operation is cancelled, it is possible
+        /// that a subset of the data has already been imported to Cloud Datastore.
+        async fn import_entities(
+            &self,
+            request: tonic::Request<super::ImportEntitiesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// Google Cloud Datastore Admin API
+    ///
+    /// The Datastore Admin API provides several admin services for Cloud Datastore.
+    ///
+    /// -----------------------------------------------------------------------------
+    /// ## Concepts
+    ///
+    /// Project, namespace, kind, and entity as defined in the Google Cloud Datastore
+    /// API.
+    ///
+    /// Operation: An Operation represents work being performed in the background.
+    ///
+    /// EntityFilter: Allows specifying a subset of entities in a project. This is
+    /// specified as a combination of kinds and namespaces (either or both of which
+    /// may be all).
+    ///
+    /// -----------------------------------------------------------------------------
+    /// ## Services
+    ///
+    /// # Export/Import
+    ///
+    /// The Export/Import service provides the ability to copy all or a subset of
+    /// entities to/from Google Cloud Storage.
+    ///
+    /// Exported data may be imported into Cloud Datastore for any Google Cloud
+    /// Platform project. It is not restricted to the export source project. It is
+    /// possible to export from one project and then import into another.
+    ///
+    /// Exported data can also be loaded into Google BigQuery for analysis.
+    ///
+    /// Exports and imports are performed asynchronously. An Operation resource is
+    /// created for each export/import. The state (including any errors encountered)
+    /// of the export/import may be queried via the Operation resource.
+    ///
+    /// # Operation
+    ///
+    /// The Operations collection provides a record of actions performed for the
+    /// specified project (including any operations in progress). Operations are not
+    /// created directly but through calls on other collections or resources.
+    ///
+    /// An operation that is not yet done may be cancelled. The request to cancel is
+    /// asynchronous and the operation may continue to run for some time after the
+    /// request to cancel is made.
+    ///
+    /// An operation that is done may be deleted so that it is no longer listed as
+    /// part of the Operation collection.
+    ///
+    /// ListOperations returns all pending operations, but not completed operations.
+    ///
+    /// Operations are created by service DatastoreAdmin,
+    /// but are accessed via service google.longrunning.Operations.
+    #[derive(Debug)]
+    pub struct DatastoreAdminServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> DatastoreAdminServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for DatastoreAdminServer<T>
+    where
+        T: DatastoreAdmin,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.datastore.admin.v1beta1.DatastoreAdmin/ExportEntities" => {
+                    #[allow(non_camel_case_types)]
+                    struct ExportEntitiesSvc<T: DatastoreAdmin>(pub Arc<T>);
+                    impl<
+                        T: DatastoreAdmin,
+                    > tonic::server::UnaryService<super::ExportEntitiesRequest>
+                    for ExportEntitiesSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ExportEntitiesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DatastoreAdmin>::export_entities(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ExportEntitiesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.datastore.admin.v1beta1.DatastoreAdmin/ImportEntities" => {
+                    #[allow(non_camel_case_types)]
+                    struct ImportEntitiesSvc<T: DatastoreAdmin>(pub Arc<T>);
+                    impl<
+                        T: DatastoreAdmin,
+                    > tonic::server::UnaryService<super::ImportEntitiesRequest>
+                    for ImportEntitiesSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ImportEntitiesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DatastoreAdmin>::import_entities(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ImportEntitiesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for DatastoreAdminServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.datastore.admin.v1beta1.DatastoreAdmin";
+    impl<T> tonic::server::NamedService for DatastoreAdminServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

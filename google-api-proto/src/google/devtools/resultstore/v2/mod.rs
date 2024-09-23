@@ -82,10 +82,10 @@ pub mod file {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                HashType::Unspecified => "HASH_TYPE_UNSPECIFIED",
-                HashType::Md5 => "MD5",
-                HashType::Sha1 => "SHA1",
-                HashType::Sha256 => "SHA256",
+                Self::Unspecified => "HASH_TYPE_UNSPECIFIED",
+                Self::Md5 => "MD5",
+                Self::Sha1 => "SHA1",
+                Self::Sha256 => "SHA256",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -261,28 +261,28 @@ impl Language {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            Language::Unspecified => "LANGUAGE_UNSPECIFIED",
-            Language::None => "NONE",
-            Language::Android => "ANDROID",
-            Language::As => "AS",
-            Language::Cc => "CC",
-            Language::Css => "CSS",
-            Language::Dart => "DART",
-            Language::Go => "GO",
-            Language::Gwt => "GWT",
-            Language::Haskell => "HASKELL",
-            Language::Java => "JAVA",
-            Language::Js => "JS",
-            Language::Lisp => "LISP",
-            Language::Objc => "OBJC",
-            Language::Py => "PY",
-            Language::Sh => "SH",
-            Language::Swift => "SWIFT",
-            Language::Ts => "TS",
-            Language::Web => "WEB",
-            Language::Scala => "SCALA",
-            Language::Proto => "PROTO",
-            Language::Xml => "XML",
+            Self::Unspecified => "LANGUAGE_UNSPECIFIED",
+            Self::None => "NONE",
+            Self::Android => "ANDROID",
+            Self::As => "AS",
+            Self::Cc => "CC",
+            Self::Css => "CSS",
+            Self::Dart => "DART",
+            Self::Go => "GO",
+            Self::Gwt => "GWT",
+            Self::Haskell => "HASKELL",
+            Self::Java => "JAVA",
+            Self::Js => "JS",
+            Self::Lisp => "LISP",
+            Self::Objc => "OBJC",
+            Self::Py => "PY",
+            Self::Sh => "SH",
+            Self::Swift => "SWIFT",
+            Self::Ts => "TS",
+            Self::Web => "WEB",
+            Self::Scala => "SCALA",
+            Self::Proto => "PROTO",
+            Self::Xml => "XML",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -364,20 +364,20 @@ impl Status {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            Status::Unspecified => "STATUS_UNSPECIFIED",
-            Status::Building => "BUILDING",
-            Status::Built => "BUILT",
-            Status::FailedToBuild => "FAILED_TO_BUILD",
-            Status::Testing => "TESTING",
-            Status::Passed => "PASSED",
-            Status::Failed => "FAILED",
-            Status::TimedOut => "TIMED_OUT",
-            Status::Cancelled => "CANCELLED",
-            Status::ToolFailed => "TOOL_FAILED",
-            Status::Incomplete => "INCOMPLETE",
-            Status::Flaky => "FLAKY",
-            Status::Unknown => "UNKNOWN",
-            Status::Skipped => "SKIPPED",
+            Self::Unspecified => "STATUS_UNSPECIFIED",
+            Self::Building => "BUILDING",
+            Self::Built => "BUILT",
+            Self::FailedToBuild => "FAILED_TO_BUILD",
+            Self::Testing => "TESTING",
+            Self::Passed => "PASSED",
+            Self::Failed => "FAILED",
+            Self::TimedOut => "TIMED_OUT",
+            Self::Cancelled => "CANCELLED",
+            Self::ToolFailed => "TOOL_FAILED",
+            Self::Incomplete => "INCOMPLETE",
+            Self::Flaky => "FLAKY",
+            Self::Unknown => "UNKNOWN",
+            Self::Skipped => "SKIPPED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -424,10 +424,10 @@ impl UploadStatus {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            UploadStatus::Unspecified => "UPLOAD_STATUS_UNSPECIFIED",
-            UploadStatus::Uploading => "UPLOADING",
-            UploadStatus::PostProcessing => "POST_PROCESSING",
-            UploadStatus::Immutable => "IMMUTABLE",
+            Self::Unspecified => "UPLOAD_STATUS_UNSPECIFIED",
+            Self::Uploading => "UPLOADING",
+            Self::PostProcessing => "POST_PROCESSING",
+            Self::Immutable => "IMMUTABLE",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -438,433 +438,6 @@ impl UploadStatus {
             "POST_PROCESSING" => Some(Self::PostProcessing),
             "IMMUTABLE" => Some(Self::Immutable),
             _ => None,
-        }
-    }
-}
-/// Each ConfiguredTarget represents data for a given configuration of a given
-/// target in a given Invocation.
-/// Every ConfiguredTarget should have at least one Action as a child resource
-/// before the invocation is finalized. Refer to the Action's documentation for
-/// more info on this.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ConfiguredTarget {
-    /// The resource name.  Its format must be:
-    /// invocations/${INVOCATION_ID}/targets/${url_encode(TARGET_ID)}/configuredTargets/${url_encode(CONFIG_ID)}
-    /// where ${CONFIG_ID} must match the ID of an existing Configuration under
-    /// this Invocation.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// The resource ID components that identify the ConfiguredTarget. They must
-    /// match the resource name after proper encoding.
-    #[prost(message, optional, tag = "2")]
-    pub id: ::core::option::Option<configured_target::Id>,
-    /// The aggregate status for this configuration of this target. If testing
-    /// was not requested, set this to the build status (e.g. BUILT or
-    /// FAILED_TO_BUILD).
-    #[prost(message, optional, tag = "3")]
-    pub status_attributes: ::core::option::Option<StatusAttributes>,
-    /// Captures the start time and duration of this configured target.
-    #[prost(message, optional, tag = "4")]
-    pub timing: ::core::option::Option<Timing>,
-    /// Test specific attributes for this ConfiguredTarget.
-    #[prost(message, optional, tag = "6")]
-    pub test_attributes: ::core::option::Option<ConfiguredTestAttributes>,
-    /// Arbitrary name-value pairs.
-    /// This is implemented as a multi-map. Multiple properties are allowed with
-    /// the same key. Properties will be returned in lexicographical order by key.
-    #[prost(message, repeated, tag = "7")]
-    pub properties: ::prost::alloc::vec::Vec<Property>,
-    /// A list of file references for configured target level files.
-    /// The file IDs must be unique within this list. Duplicate file IDs will
-    /// result in an error. Files will be returned in lexicographical order by ID.
-    #[prost(message, repeated, tag = "8")]
-    pub files: ::prost::alloc::vec::Vec<File>,
-}
-/// Nested message and enum types in `ConfiguredTarget`.
-pub mod configured_target {
-    /// The resource ID components that identify the ConfiguredTarget.
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct Id {
-        /// The Invocation ID.
-        #[prost(string, tag = "1")]
-        pub invocation_id: ::prost::alloc::string::String,
-        /// The Target ID.
-        #[prost(string, tag = "2")]
-        pub target_id: ::prost::alloc::string::String,
-        /// The Configuration ID.
-        #[prost(string, tag = "3")]
-        pub configuration_id: ::prost::alloc::string::String,
-    }
-}
-/// Attributes that apply only to test actions under this configured target.
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
-pub struct ConfiguredTestAttributes {
-    /// Total number of test runs. For example, in bazel this is specified with
-    /// --runs_per_test. Zero if runs_per_test is not used.
-    #[prost(int32, tag = "2")]
-    pub total_run_count: i32,
-    /// Total number of test shards. Zero if shard count was not specified.
-    #[prost(int32, tag = "3")]
-    pub total_shard_count: i32,
-    /// How long test is allowed to run.
-    #[prost(message, optional, tag = "5")]
-    pub timeout_duration: ::core::option::Option<::prost_types::Duration>,
-}
-/// Stores errors reading or parsing a file during post-processing.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct FileProcessingErrors {
-    /// The uid of the File being read or parsed.
-    #[prost(string, tag = "1")]
-    pub file_uid: ::prost::alloc::string::String,
-    /// What went wrong.
-    #[prost(message, repeated, tag = "3")]
-    pub file_processing_errors: ::prost::alloc::vec::Vec<FileProcessingError>,
-}
-/// Stores an error reading or parsing a file during post-processing.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct FileProcessingError {
-    /// The type of error that occurred.
-    #[prost(enumeration = "FileProcessingErrorType", tag = "1")]
-    pub r#type: i32,
-    /// Error message describing the problem.
-    #[prost(string, tag = "2")]
-    pub message: ::prost::alloc::string::String,
-}
-/// Errors in file post-processing are categorized using this enum.
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
-#[repr(i32)]
-pub enum FileProcessingErrorType {
-    /// Type unspecified or not listed here.
-    Unspecified = 0,
-    /// A read error occurred trying to read the file.
-    GenericReadError = 1,
-    /// There was an error trying to parse the file.
-    GenericParseError = 2,
-    /// File is exceeds size limit.
-    FileTooLarge = 3,
-    /// The result of parsing the file exceeded size limit.
-    OutputTooLarge = 4,
-    /// Read access to the file was denied by file system.
-    AccessDenied = 5,
-    /// Deadline exceeded trying to read the file.
-    DeadlineExceeded = 6,
-    /// File not found.
-    NotFound = 7,
-    /// File is empty but was expected to have content.
-    FileEmpty = 8,
-}
-impl FileProcessingErrorType {
-    /// String value of the enum field names used in the ProtoBuf definition.
-    ///
-    /// The values are not transformed in any way and thus are considered stable
-    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-    pub fn as_str_name(&self) -> &'static str {
-        match self {
-            FileProcessingErrorType::Unspecified => {
-                "FILE_PROCESSING_ERROR_TYPE_UNSPECIFIED"
-            }
-            FileProcessingErrorType::GenericReadError => "GENERIC_READ_ERROR",
-            FileProcessingErrorType::GenericParseError => "GENERIC_PARSE_ERROR",
-            FileProcessingErrorType::FileTooLarge => "FILE_TOO_LARGE",
-            FileProcessingErrorType::OutputTooLarge => "OUTPUT_TOO_LARGE",
-            FileProcessingErrorType::AccessDenied => "ACCESS_DENIED",
-            FileProcessingErrorType::DeadlineExceeded => "DEADLINE_EXCEEDED",
-            FileProcessingErrorType::NotFound => "NOT_FOUND",
-            FileProcessingErrorType::FileEmpty => "FILE_EMPTY",
-        }
-    }
-    /// Creates an enum from field names used in the ProtoBuf definition.
-    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-        match value {
-            "FILE_PROCESSING_ERROR_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
-            "GENERIC_READ_ERROR" => Some(Self::GenericReadError),
-            "GENERIC_PARSE_ERROR" => Some(Self::GenericParseError),
-            "FILE_TOO_LARGE" => Some(Self::FileTooLarge),
-            "OUTPUT_TOO_LARGE" => Some(Self::OutputTooLarge),
-            "ACCESS_DENIED" => Some(Self::AccessDenied),
-            "DEADLINE_EXCEEDED" => Some(Self::DeadlineExceeded),
-            "NOT_FOUND" => Some(Self::NotFound),
-            "FILE_EMPTY" => Some(Self::FileEmpty),
-            _ => None,
-        }
-    }
-}
-/// Represents a configuration within an Invocation associated with one or more
-/// ConfiguredTargets. It captures the environment and other settings that
-/// were used.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Configuration {
-    /// The format of this Configuration resource name must be:
-    /// invocations/${INVOCATION_ID}/configs/${CONFIG_ID}
-    /// The configuration ID of "default" should be preferred for the default
-    /// configuration in a single-config invocation.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// The resource ID components that identify the Configuration. They must match
-    /// the resource name after proper encoding.
-    #[prost(message, optional, tag = "2")]
-    pub id: ::core::option::Option<configuration::Id>,
-    /// The aggregate status for this configuration.
-    #[prost(message, optional, tag = "3")]
-    pub status_attributes: ::core::option::Option<StatusAttributes>,
-    /// Attributes that apply only to this configuration.
-    #[prost(message, optional, tag = "5")]
-    pub configuration_attributes: ::core::option::Option<ConfigurationAttributes>,
-    /// Arbitrary name-value pairs.
-    /// This is implemented as a multi-map. Multiple properties are allowed with
-    /// the same key. Properties will be returned in lexicographical order by key.
-    #[prost(message, repeated, tag = "6")]
-    pub properties: ::prost::alloc::vec::Vec<Property>,
-    /// A human-readable name for Configuration for UIs.
-    /// It is recommended that this name be unique.
-    /// If omitted, UIs should default to configuration_id.
-    #[prost(string, tag = "8")]
-    pub display_name: ::prost::alloc::string::String,
-}
-/// Nested message and enum types in `Configuration`.
-pub mod configuration {
-    /// The resource ID components that identify the Configuration.
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct Id {
-        /// The Invocation ID.
-        #[prost(string, tag = "1")]
-        pub invocation_id: ::prost::alloc::string::String,
-        /// The Configuration ID.
-        #[prost(string, tag = "2")]
-        pub configuration_id: ::prost::alloc::string::String,
-    }
-}
-/// Attributes that apply only to the configuration.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ConfigurationAttributes {
-    /// The type of cpu. (e.g. "x86", "powerpc")
-    #[prost(string, tag = "1")]
-    pub cpu: ::prost::alloc::string::String,
-}
-/// Request object for GetFile
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetFileRequest {
-    /// This corresponds to the uri field in the File message: for an obfuscated
-    /// File.uri like
-    /// CglidWlsZC5sb2cSJDI3YmI5ZWQxLTVjYzEtNGFlNi1iMWRkLTVlODY0YWEzYmE2ZQ, the
-    /// value here should be
-    /// files/CglidWlsZC5sb2cSJDI3YmI5ZWQxLTVjYzEtNGFlNi1iMWRkLTVlODY0YWEzYmE2ZQ
-    #[prost(string, tag = "1")]
-    pub uri: ::prost::alloc::string::String,
-    /// The offset for the first byte to return in the read, relative to the start
-    /// of the resource.
-    ///
-    /// A `read_offset` that is negative or greater than the size of the resource
-    /// will cause an `OUT_OF_RANGE` error.
-    #[prost(int64, tag = "2")]
-    pub read_offset: i64,
-    /// The maximum number of `data` bytes the server is allowed to return in the
-    /// sum of all `ReadResponse` messages. A `read_limit` of zero indicates that
-    /// there is no limit, and a negative `read_limit` will cause an error.
-    ///
-    /// If the stream returns fewer bytes than allowed by the `read_limit` and no
-    /// error occurred, the stream includes all data from the `read_offset` to the
-    /// end of the resource.
-    #[prost(int64, tag = "3")]
-    pub read_limit: i64,
-    /// Only applies if the referenced file is a known archive type (ar, jar, zip)
-    /// The above read_offset and read_limit fields are applied to this entry.
-    /// If this file is not an archive, INVALID_ARGUMENT is thrown.
-    #[prost(string, tag = "4")]
-    pub archive_entry: ::prost::alloc::string::String,
-}
-/// Response object for GetFile
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetFileResponse {
-    /// The file data.
-    #[prost(bytes = "bytes", tag = "1")]
-    pub data: ::prost::bytes::Bytes,
-}
-/// Request object for GetFileTail
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetFileTailRequest {
-    /// This corresponds to the uri field in the File message: for an obfuscated
-    /// File.uri like
-    /// CglidWlsZC5sb2cSJDI3YmI5ZWQxLTVjYzEtNGFlNi1iMWRkLTVlODY0YWEzYmE2ZQ, the
-    /// value here should be
-    /// files/CglidWlsZC5sb2cSJDI3YmI5ZWQxLTVjYzEtNGFlNi1iMWRkLTVlODY0YWEzYmE2ZQ
-    #[prost(string, tag = "1")]
-    pub uri: ::prost::alloc::string::String,
-    /// The offset for the first byte to return in the read, relative to the end
-    /// of the resource.
-    ///
-    /// A `read_offset` that is negative or greater than the size of the resource
-    /// will cause an `OUT_OF_RANGE` error.
-    #[prost(int64, tag = "2")]
-    pub read_offset: i64,
-    /// The maximum number of `data` bytes the server is allowed to return. The
-    /// server will return bytes starting from the tail of the file.
-    ///
-    /// A `read_limit` of zero indicates that there is no limit, and a negative
-    /// `read_limit` will cause an error.
-    #[prost(int64, tag = "3")]
-    pub read_limit: i64,
-    /// Only applies if the referenced file is a known archive type (ar, jar, zip)
-    /// The above read_offset and read_limit fields are applied to this entry.
-    /// If this file is not an archive, INVALID_ARGUMENT is thrown.
-    #[prost(string, tag = "4")]
-    pub archive_entry: ::prost::alloc::string::String,
-}
-/// Response object for GetFileTail
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetFileTailResponse {
-    /// The file data, encoded with UTF-8.
-    #[prost(bytes = "bytes", tag = "1")]
-    pub data: ::prost::bytes::Bytes,
-}
-/// Generated client implementations.
-pub mod result_store_file_download_client {
-    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
-    use tonic::codegen::*;
-    use tonic::codegen::http::Uri;
-    /// This API allows download of File messages referenced in
-    /// ResultStore resources.
-    #[derive(Debug, Clone)]
-    pub struct ResultStoreFileDownloadClient<T> {
-        inner: tonic::client::Grpc<T>,
-    }
-    impl<T> ResultStoreFileDownloadClient<T>
-    where
-        T: tonic::client::GrpcService<tonic::body::BoxBody>,
-        T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
-    {
-        pub fn new(inner: T) -> Self {
-            let inner = tonic::client::Grpc::new(inner);
-            Self { inner }
-        }
-        pub fn with_origin(inner: T, origin: Uri) -> Self {
-            let inner = tonic::client::Grpc::with_origin(inner, origin);
-            Self { inner }
-        }
-        pub fn with_interceptor<F>(
-            inner: T,
-            interceptor: F,
-        ) -> ResultStoreFileDownloadClient<InterceptedService<T, F>>
-        where
-            F: tonic::service::Interceptor,
-            T::ResponseBody: Default,
-            T: tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-                Response = http::Response<
-                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
-                >,
-            >,
-            <T as tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-            >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
-        {
-            ResultStoreFileDownloadClient::new(
-                InterceptedService::new(inner, interceptor),
-            )
-        }
-        /// Compress requests with the given encoding.
-        ///
-        /// This requires the server to support it otherwise it might respond with an
-        /// error.
-        #[must_use]
-        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.send_compressed(encoding);
-            self
-        }
-        /// Enable decompressing responses.
-        #[must_use]
-        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.accept_compressed(encoding);
-            self
-        }
-        /// Limits the maximum size of a decoded message.
-        ///
-        /// Default: `4MB`
-        #[must_use]
-        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_decoding_message_size(limit);
-            self
-        }
-        /// Limits the maximum size of an encoded message.
-        ///
-        /// Default: `usize::MAX`
-        #[must_use]
-        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_encoding_message_size(limit);
-            self
-        }
-        /// Retrieves the File with the given uri.
-        /// returns a stream of bytes to be stitched together in order.
-        ///
-        /// An error will be reported in the following cases:
-        /// - If the File is not found.
-        /// - If the given File uri is badly formatted.
-        pub async fn get_file(
-            &mut self,
-            request: impl tonic::IntoRequest<super::GetFileRequest>,
-        ) -> std::result::Result<
-            tonic::Response<tonic::codec::Streaming<super::GetFileResponse>>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.devtools.resultstore.v2.ResultStoreFileDownload/GetFile",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.devtools.resultstore.v2.ResultStoreFileDownload",
-                        "GetFile",
-                    ),
-                );
-            self.inner.server_streaming(req, path, codec).await
-        }
-        /// Retrieves the tail of a File with the given uri.
-        ///
-        /// An error will be reported in the following cases:
-        /// - If the File is not found.
-        /// - If the given File uri is badly formatted.
-        pub async fn get_file_tail(
-            &mut self,
-            request: impl tonic::IntoRequest<super::GetFileTailRequest>,
-        ) -> std::result::Result<
-            tonic::Response<super::GetFileTailResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.devtools.resultstore.v2.ResultStoreFileDownload/GetFileTail",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.devtools.resultstore.v2.ResultStoreFileDownload",
-                        "GetFileTail",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
         }
     }
 }
@@ -960,6 +533,83 @@ pub struct AggregateCoverage {
     /// Aggregated coverage info for all source files that the actions cover.
     #[prost(message, repeated, tag = "1")]
     pub file_coverages: ::prost::alloc::vec::Vec<FileCoverage>,
+}
+/// Stores errors reading or parsing a file during post-processing.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct FileProcessingErrors {
+    /// The uid of the File being read or parsed.
+    #[prost(string, tag = "1")]
+    pub file_uid: ::prost::alloc::string::String,
+    /// What went wrong.
+    #[prost(message, repeated, tag = "3")]
+    pub file_processing_errors: ::prost::alloc::vec::Vec<FileProcessingError>,
+}
+/// Stores an error reading or parsing a file during post-processing.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct FileProcessingError {
+    /// The type of error that occurred.
+    #[prost(enumeration = "FileProcessingErrorType", tag = "1")]
+    pub r#type: i32,
+    /// Error message describing the problem.
+    #[prost(string, tag = "2")]
+    pub message: ::prost::alloc::string::String,
+}
+/// Errors in file post-processing are categorized using this enum.
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, ::prost::Enumeration)]
+#[repr(i32)]
+pub enum FileProcessingErrorType {
+    /// Type unspecified or not listed here.
+    Unspecified = 0,
+    /// A read error occurred trying to read the file.
+    GenericReadError = 1,
+    /// There was an error trying to parse the file.
+    GenericParseError = 2,
+    /// File is exceeds size limit.
+    FileTooLarge = 3,
+    /// The result of parsing the file exceeded size limit.
+    OutputTooLarge = 4,
+    /// Read access to the file was denied by file system.
+    AccessDenied = 5,
+    /// Deadline exceeded trying to read the file.
+    DeadlineExceeded = 6,
+    /// File not found.
+    NotFound = 7,
+    /// File is empty but was expected to have content.
+    FileEmpty = 8,
+}
+impl FileProcessingErrorType {
+    /// String value of the enum field names used in the ProtoBuf definition.
+    ///
+    /// The values are not transformed in any way and thus are considered stable
+    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+    pub fn as_str_name(&self) -> &'static str {
+        match self {
+            Self::Unspecified => "FILE_PROCESSING_ERROR_TYPE_UNSPECIFIED",
+            Self::GenericReadError => "GENERIC_READ_ERROR",
+            Self::GenericParseError => "GENERIC_PARSE_ERROR",
+            Self::FileTooLarge => "FILE_TOO_LARGE",
+            Self::OutputTooLarge => "OUTPUT_TOO_LARGE",
+            Self::AccessDenied => "ACCESS_DENIED",
+            Self::DeadlineExceeded => "DEADLINE_EXCEEDED",
+            Self::NotFound => "NOT_FOUND",
+            Self::FileEmpty => "FILE_EMPTY",
+        }
+    }
+    /// Creates an enum from field names used in the ProtoBuf definition.
+    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+        match value {
+            "FILE_PROCESSING_ERROR_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+            "GENERIC_READ_ERROR" => Some(Self::GenericReadError),
+            "GENERIC_PARSE_ERROR" => Some(Self::GenericParseError),
+            "FILE_TOO_LARGE" => Some(Self::FileTooLarge),
+            "OUTPUT_TOO_LARGE" => Some(Self::OutputTooLarge),
+            "ACCESS_DENIED" => Some(Self::AccessDenied),
+            "DEADLINE_EXCEEDED" => Some(Self::DeadlineExceeded),
+            "NOT_FOUND" => Some(Self::NotFound),
+            "FILE_EMPTY" => Some(Self::FileEmpty),
+            _ => None,
+        }
+    }
 }
 /// The result of running a test suite, as reported in a <testsuite> element of
 /// an XML log.
@@ -1112,13 +762,13 @@ pub mod test_case {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Result::Unspecified => "RESULT_UNSPECIFIED",
-                Result::Completed => "COMPLETED",
-                Result::Interrupted => "INTERRUPTED",
-                Result::Cancelled => "CANCELLED",
-                Result::Filtered => "FILTERED",
-                Result::Skipped => "SKIPPED",
-                Result::Suppressed => "SUPPRESSED",
+                Self::Unspecified => "RESULT_UNSPECIFIED",
+                Self::Completed => "COMPLETED",
+                Self::Interrupted => "INTERRUPTED",
+                Self::Cancelled => "CANCELLED",
+                Self::Filtered => "FILTERED",
+                Self::Skipped => "SKIPPED",
+                Self::Suppressed => "SUPPRESSED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1530,11 +1180,11 @@ impl ExecutionStrategy {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ExecutionStrategy::Unspecified => "EXECUTION_STRATEGY_UNSPECIFIED",
-            ExecutionStrategy::OtherEnvironment => "OTHER_ENVIRONMENT",
-            ExecutionStrategy::RemoteService => "REMOTE_SERVICE",
-            ExecutionStrategy::LocalParallel => "LOCAL_PARALLEL",
-            ExecutionStrategy::LocalSequential => "LOCAL_SEQUENTIAL",
+            Self::Unspecified => "EXECUTION_STRATEGY_UNSPECIFIED",
+            Self::OtherEnvironment => "OTHER_ENVIRONMENT",
+            Self::RemoteService => "REMOTE_SERVICE",
+            Self::LocalParallel => "LOCAL_PARALLEL",
+            Self::LocalSequential => "LOCAL_SEQUENTIAL",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1571,10 +1221,10 @@ impl TestCaching {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            TestCaching::Unspecified => "TEST_CACHING_UNSPECIFIED",
-            TestCaching::LocalCacheHit => "LOCAL_CACHE_HIT",
-            TestCaching::RemoteCacheHit => "REMOTE_CACHE_HIT",
-            TestCaching::CacheMiss => "CACHE_MISS",
+            Self::Unspecified => "TEST_CACHING_UNSPECIFIED",
+            Self::LocalCacheHit => "LOCAL_CACHE_HIT",
+            Self::RemoteCacheHit => "REMOTE_CACHE_HIT",
+            Self::CacheMiss => "CACHE_MISS",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1587,6 +1237,127 @@ impl TestCaching {
             _ => None,
         }
     }
+}
+/// Represents a configuration within an Invocation associated with one or more
+/// ConfiguredTargets. It captures the environment and other settings that
+/// were used.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Configuration {
+    /// The format of this Configuration resource name must be:
+    /// invocations/${INVOCATION_ID}/configs/${CONFIG_ID}
+    /// The configuration ID of "default" should be preferred for the default
+    /// configuration in a single-config invocation.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// The resource ID components that identify the Configuration. They must match
+    /// the resource name after proper encoding.
+    #[prost(message, optional, tag = "2")]
+    pub id: ::core::option::Option<configuration::Id>,
+    /// The aggregate status for this configuration.
+    #[prost(message, optional, tag = "3")]
+    pub status_attributes: ::core::option::Option<StatusAttributes>,
+    /// Attributes that apply only to this configuration.
+    #[prost(message, optional, tag = "5")]
+    pub configuration_attributes: ::core::option::Option<ConfigurationAttributes>,
+    /// Arbitrary name-value pairs.
+    /// This is implemented as a multi-map. Multiple properties are allowed with
+    /// the same key. Properties will be returned in lexicographical order by key.
+    #[prost(message, repeated, tag = "6")]
+    pub properties: ::prost::alloc::vec::Vec<Property>,
+    /// A human-readable name for Configuration for UIs.
+    /// It is recommended that this name be unique.
+    /// If omitted, UIs should default to configuration_id.
+    #[prost(string, tag = "8")]
+    pub display_name: ::prost::alloc::string::String,
+}
+/// Nested message and enum types in `Configuration`.
+pub mod configuration {
+    /// The resource ID components that identify the Configuration.
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct Id {
+        /// The Invocation ID.
+        #[prost(string, tag = "1")]
+        pub invocation_id: ::prost::alloc::string::String,
+        /// The Configuration ID.
+        #[prost(string, tag = "2")]
+        pub configuration_id: ::prost::alloc::string::String,
+    }
+}
+/// Attributes that apply only to the configuration.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ConfigurationAttributes {
+    /// The type of cpu. (e.g. "x86", "powerpc")
+    #[prost(string, tag = "1")]
+    pub cpu: ::prost::alloc::string::String,
+}
+/// Each ConfiguredTarget represents data for a given configuration of a given
+/// target in a given Invocation.
+/// Every ConfiguredTarget should have at least one Action as a child resource
+/// before the invocation is finalized. Refer to the Action's documentation for
+/// more info on this.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ConfiguredTarget {
+    /// The resource name.  Its format must be:
+    /// invocations/${INVOCATION_ID}/targets/${url_encode(TARGET_ID)}/configuredTargets/${url_encode(CONFIG_ID)}
+    /// where ${CONFIG_ID} must match the ID of an existing Configuration under
+    /// this Invocation.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// The resource ID components that identify the ConfiguredTarget. They must
+    /// match the resource name after proper encoding.
+    #[prost(message, optional, tag = "2")]
+    pub id: ::core::option::Option<configured_target::Id>,
+    /// The aggregate status for this configuration of this target. If testing
+    /// was not requested, set this to the build status (e.g. BUILT or
+    /// FAILED_TO_BUILD).
+    #[prost(message, optional, tag = "3")]
+    pub status_attributes: ::core::option::Option<StatusAttributes>,
+    /// Captures the start time and duration of this configured target.
+    #[prost(message, optional, tag = "4")]
+    pub timing: ::core::option::Option<Timing>,
+    /// Test specific attributes for this ConfiguredTarget.
+    #[prost(message, optional, tag = "6")]
+    pub test_attributes: ::core::option::Option<ConfiguredTestAttributes>,
+    /// Arbitrary name-value pairs.
+    /// This is implemented as a multi-map. Multiple properties are allowed with
+    /// the same key. Properties will be returned in lexicographical order by key.
+    #[prost(message, repeated, tag = "7")]
+    pub properties: ::prost::alloc::vec::Vec<Property>,
+    /// A list of file references for configured target level files.
+    /// The file IDs must be unique within this list. Duplicate file IDs will
+    /// result in an error. Files will be returned in lexicographical order by ID.
+    #[prost(message, repeated, tag = "8")]
+    pub files: ::prost::alloc::vec::Vec<File>,
+}
+/// Nested message and enum types in `ConfiguredTarget`.
+pub mod configured_target {
+    /// The resource ID components that identify the ConfiguredTarget.
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct Id {
+        /// The Invocation ID.
+        #[prost(string, tag = "1")]
+        pub invocation_id: ::prost::alloc::string::String,
+        /// The Target ID.
+        #[prost(string, tag = "2")]
+        pub target_id: ::prost::alloc::string::String,
+        /// The Configuration ID.
+        #[prost(string, tag = "3")]
+        pub configuration_id: ::prost::alloc::string::String,
+    }
+}
+/// Attributes that apply only to test actions under this configured target.
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct ConfiguredTestAttributes {
+    /// Total number of test runs. For example, in bazel this is specified with
+    /// --runs_per_test. Zero if runs_per_test is not used.
+    #[prost(int32, tag = "2")]
+    pub total_run_count: i32,
+    /// Total number of test shards. Zero if shard count was not specified.
+    #[prost(int32, tag = "3")]
+    pub total_shard_count: i32,
+    /// How long test is allowed to run.
+    #[prost(message, optional, tag = "5")]
+    pub timeout_duration: ::core::option::Option<::prost_types::Duration>,
 }
 /// The download metadata for an invocation
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1981,12 +1752,12 @@ impl TargetType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            TargetType::Unspecified => "TARGET_TYPE_UNSPECIFIED",
-            TargetType::Application => "APPLICATION",
-            TargetType::Binary => "BINARY",
-            TargetType::Library => "LIBRARY",
-            TargetType::Package => "PACKAGE",
-            TargetType::Test => "TEST",
+            Self::Unspecified => "TARGET_TYPE_UNSPECIFIED",
+            Self::Application => "APPLICATION",
+            Self::Binary => "BINARY",
+            Self::Library => "LIBRARY",
+            Self::Package => "PACKAGE",
+            Self::Test => "TEST",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2026,12 +1797,12 @@ impl TestSize {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            TestSize::Unspecified => "TEST_SIZE_UNSPECIFIED",
-            TestSize::Small => "SMALL",
-            TestSize::Medium => "MEDIUM",
-            TestSize::Large => "LARGE",
-            TestSize::Enormous => "ENORMOUS",
-            TestSize::OtherSize => "OTHER_SIZE",
+            Self::Unspecified => "TEST_SIZE_UNSPECIFIED",
+            Self::Small => "SMALL",
+            Self::Medium => "MEDIUM",
+            Self::Large => "LARGE",
+            Self::Enormous => "ENORMOUS",
+            Self::OtherSize => "OTHER_SIZE",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -3425,6 +3196,1215 @@ pub mod result_store_download_client {
         }
     }
 }
+/// Generated server implementations.
+pub mod result_store_download_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with ResultStoreDownloadServer.
+    #[async_trait]
+    pub trait ResultStoreDownload: std::marker::Send + std::marker::Sync + 'static {
+        /// Exports the invocation with the given name and its child resources.
+        ///
+        /// The order in which resources are returned is defined as follows,
+        /// invocation; download_metadata; configurations; targets interleaving
+        /// configured_targets and actions; file_sets.
+        ///
+        /// - Invocation
+        /// - DownloadMetadata
+        /// - Configurations
+        /// - Targets
+        ///   └─ ConfiguredTargets
+        ///      └─Actions
+        /// - FileSets
+        ///
+        /// All child resources will be returned before the next parent
+        /// resource is returned. For example, all actions under a configured_target
+        /// will be returned before the next configured_target is returned.
+        /// The order in which results within a given resource type are returned is
+        /// undefined, but stable.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If the invocation is not found.
+        /// - If the given invocation name is badly formatted.
+        /// - If no field mask was given.
+        async fn export_invocation(
+            &self,
+            request: tonic::Request<super::ExportInvocationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ExportInvocationResponse>,
+            tonic::Status,
+        >;
+        /// Retrieves the invocation with the given name.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If the invocation is not found.
+        /// - If the given invocation name is badly formatted.
+        /// - If no field mask was given.
+        async fn get_invocation(
+            &self,
+            request: tonic::Request<super::GetInvocationRequest>,
+        ) -> std::result::Result<tonic::Response<super::Invocation>, tonic::Status>;
+        /// Searches for invocations matching the given query parameters. Results will
+        /// be ordered by timing.start_time with most recent first, but total ordering
+        /// of results is not guaranteed when difference in timestamps is very small.
+        /// Results may be stale. Results may be omitted.
+        ///
+        ///
+        /// An error will be reported in the following cases:
+        /// - If a query string is not provided
+        /// - If no field mask was given.
+        async fn search_invocations(
+            &self,
+            request: tonic::Request<super::SearchInvocationsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SearchInvocationsResponse>,
+            tonic::Status,
+        >;
+        /// Retrieves the metadata for an invocation with the given name.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If the invocation is not found.
+        /// - If the given invocation name is badly formatted.
+        async fn get_invocation_download_metadata(
+            &self,
+            request: tonic::Request<super::GetInvocationDownloadMetadataRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::DownloadMetadata>,
+            tonic::Status,
+        >;
+        /// Retrieves the configuration with the given name.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If the configuration or its parent invocation is not found.
+        /// - If the given configuration name is badly formatted.
+        /// - If no field mask was given.
+        async fn get_configuration(
+            &self,
+            request: tonic::Request<super::GetConfigurationRequest>,
+        ) -> std::result::Result<tonic::Response<super::Configuration>, tonic::Status>;
+        /// Retrieves all configurations for a parent invocation.
+        /// This might be limited by user or server,
+        /// in which case a continuation token is provided.
+        /// The order in which results are returned is undefined, but stable.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If the parent invocation is not found.
+        /// - If the given parent invocation name is badly formatted.
+        /// - If no field mask was given.
+        async fn list_configurations(
+            &self,
+            request: tonic::Request<super::ListConfigurationsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListConfigurationsResponse>,
+            tonic::Status,
+        >;
+        /// Retrieves the target with the given name.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If the target or its parent invocation is not found.
+        /// - If the given target name is badly formatted.
+        /// - If no field mask was given.
+        async fn get_target(
+            &self,
+            request: tonic::Request<super::GetTargetRequest>,
+        ) -> std::result::Result<tonic::Response<super::Target>, tonic::Status>;
+        /// Retrieves all targets for a parent invocation.  This might be limited by
+        /// user or server, in which case a continuation token is provided.
+        /// The order in which results are returned is undefined, but stable.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If the parent is not found.
+        /// - If the given parent name is badly formatted.
+        /// - If no field mask was given.
+        async fn list_targets(
+            &self,
+            request: tonic::Request<super::ListTargetsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListTargetsResponse>,
+            tonic::Status,
+        >;
+        /// Retrieves the configured target with the given name.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If the configured target is not found.
+        /// - If the given name is badly formatted.
+        /// - If no field mask was given.
+        async fn get_configured_target(
+            &self,
+            request: tonic::Request<super::GetConfiguredTargetRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ConfiguredTarget>,
+            tonic::Status,
+        >;
+        /// Retrieves all configured targets for a parent invocation/target.
+        /// This might be limited by user or server, in which case a continuation
+        /// token is provided. Supports '-' for targetId meaning all targets.
+        /// The order in which results are returned is undefined, but stable and
+        /// consistent with ListTargets and ListConfigurations.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If the parent is not found.
+        /// - If the given parent name is badly formatted.
+        /// - If no field mask was given.
+        async fn list_configured_targets(
+            &self,
+            request: tonic::Request<super::ListConfiguredTargetsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListConfiguredTargetsResponse>,
+            tonic::Status,
+        >;
+        /// Searches for ConfiguredTargets matching the given query parameters. Results
+        /// will be ordered by timing.start_time with most recent first, but total
+        /// ordering of results is not guaranteed when difference in timestamps is
+        /// very small. Results may be stale. Results may be omitted.
+        ///
+        ///
+        /// Field masks are supported for only these fields and their subfields:
+        /// - configured_targets.name
+        /// - configured_targets.id
+        /// - configured_targets.status_attributes
+        /// - configured_targets.timing
+        /// - next_page_token
+        ///
+        /// An error will be reported in the following cases:
+        /// - If a query string is not provided
+        /// - If no field mask was given.
+        async fn search_configured_targets(
+            &self,
+            request: tonic::Request<super::SearchConfiguredTargetsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SearchConfiguredTargetsResponse>,
+            tonic::Status,
+        >;
+        /// Retrieves the action with the given name.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If the action is not found.
+        /// - If the given name is badly formatted.
+        /// - If no field mask was given.
+        async fn get_action(
+            &self,
+            request: tonic::Request<super::GetActionRequest>,
+        ) -> std::result::Result<tonic::Response<super::Action>, tonic::Status>;
+        /// Retrieves all actions for a parent invocation/target/configuration.
+        /// This might be limited by user or server, in which case a continuation
+        /// token is provided. Supports '-' for configurationId to mean all
+        /// actions for all configurations for a target, or '-' for targetId and
+        /// configurationId to mean all actions for all configurations and all targets.
+        /// Does not support targetId '-' with a specified configuration.
+        /// The order in which results are returned is undefined, but stable and
+        /// consistent with ListConfiguredTargets.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If the parent is not found.
+        /// - If the given parent name is badly formatted.
+        /// - If no field mask was given.
+        async fn list_actions(
+            &self,
+            request: tonic::Request<super::ListActionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListActionsResponse>,
+            tonic::Status,
+        >;
+        /// Retrieves a list of actions for a parent invocation or multiple parents
+        /// target/configuration. This might be limited by user or server, in which
+        /// case a continuation token is provided. The order in which results are
+        /// returned is undefined, but stable and consistent with
+        /// ListConfiguredTargets.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If the given parent name is badly formatted.
+        /// - If no field mask was given.
+        async fn batch_list_actions(
+            &self,
+            request: tonic::Request<super::BatchListActionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::BatchListActionsResponse>,
+            tonic::Status,
+        >;
+        /// Retrieves the file set with the given name.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If the file set or its parent invocation is not found.
+        /// - If the given file set name is badly formatted.
+        /// - If no field mask was given.
+        async fn get_file_set(
+            &self,
+            request: tonic::Request<super::GetFileSetRequest>,
+        ) -> std::result::Result<tonic::Response<super::FileSet>, tonic::Status>;
+        /// Retrieves all file sets for a parent invocation.
+        /// This might be limited by user or server,
+        /// in which case a continuation token is provided.
+        /// The order in which results are returned is undefined, but stable.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If the parent invocation is not found.
+        /// - If the given parent invocation name is badly formatted.
+        /// - If no field mask was given.
+        async fn list_file_sets(
+            &self,
+            request: tonic::Request<super::ListFileSetsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListFileSetsResponse>,
+            tonic::Status,
+        >;
+        /// Returns the transitive closure of FileSets. This might be limited by user
+        /// or server, in which case a continuation token is provided.
+        /// The order in which results are returned is undefined, and unstable.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If page_token is too large to continue the calculation.
+        /// - If the resource is not found.
+        /// - If the given resource name is badly formatted.
+        /// - If no field mask was given.
+        async fn traverse_file_sets(
+            &self,
+            request: tonic::Request<super::TraverseFileSetsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::TraverseFileSetsResponse>,
+            tonic::Status,
+        >;
+    }
+    /// This is the interface used to download information from the ResultStore
+    /// database.
+    ///
+    /// Clients are encourage to use ExportInvocation for most traffic.
+    ///
+    /// Most APIs require setting a response FieldMask via the 'fields' URL query
+    /// parameter or the X-Goog-FieldMask HTTP/gRPC header.
+    #[derive(Debug)]
+    pub struct ResultStoreDownloadServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> ResultStoreDownloadServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for ResultStoreDownloadServer<T>
+    where
+        T: ResultStoreDownload,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.devtools.resultstore.v2.ResultStoreDownload/ExportInvocation" => {
+                    #[allow(non_camel_case_types)]
+                    struct ExportInvocationSvc<T: ResultStoreDownload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreDownload,
+                    > tonic::server::UnaryService<super::ExportInvocationRequest>
+                    for ExportInvocationSvc<T> {
+                        type Response = super::ExportInvocationResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ExportInvocationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreDownload>::export_invocation(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ExportInvocationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreDownload/GetInvocation" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetInvocationSvc<T: ResultStoreDownload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreDownload,
+                    > tonic::server::UnaryService<super::GetInvocationRequest>
+                    for GetInvocationSvc<T> {
+                        type Response = super::Invocation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetInvocationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreDownload>::get_invocation(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetInvocationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreDownload/SearchInvocations" => {
+                    #[allow(non_camel_case_types)]
+                    struct SearchInvocationsSvc<T: ResultStoreDownload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreDownload,
+                    > tonic::server::UnaryService<super::SearchInvocationsRequest>
+                    for SearchInvocationsSvc<T> {
+                        type Response = super::SearchInvocationsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SearchInvocationsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreDownload>::search_invocations(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SearchInvocationsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreDownload/GetInvocationDownloadMetadata" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetInvocationDownloadMetadataSvc<T: ResultStoreDownload>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: ResultStoreDownload,
+                    > tonic::server::UnaryService<
+                        super::GetInvocationDownloadMetadataRequest,
+                    > for GetInvocationDownloadMetadataSvc<T> {
+                        type Response = super::DownloadMetadata;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetInvocationDownloadMetadataRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreDownload>::get_invocation_download_metadata(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetInvocationDownloadMetadataSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreDownload/GetConfiguration" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetConfigurationSvc<T: ResultStoreDownload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreDownload,
+                    > tonic::server::UnaryService<super::GetConfigurationRequest>
+                    for GetConfigurationSvc<T> {
+                        type Response = super::Configuration;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetConfigurationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreDownload>::get_configuration(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetConfigurationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreDownload/ListConfigurations" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListConfigurationsSvc<T: ResultStoreDownload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreDownload,
+                    > tonic::server::UnaryService<super::ListConfigurationsRequest>
+                    for ListConfigurationsSvc<T> {
+                        type Response = super::ListConfigurationsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListConfigurationsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreDownload>::list_configurations(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListConfigurationsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreDownload/GetTarget" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetTargetSvc<T: ResultStoreDownload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreDownload,
+                    > tonic::server::UnaryService<super::GetTargetRequest>
+                    for GetTargetSvc<T> {
+                        type Response = super::Target;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetTargetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreDownload>::get_target(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetTargetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreDownload/ListTargets" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListTargetsSvc<T: ResultStoreDownload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreDownload,
+                    > tonic::server::UnaryService<super::ListTargetsRequest>
+                    for ListTargetsSvc<T> {
+                        type Response = super::ListTargetsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListTargetsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreDownload>::list_targets(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListTargetsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreDownload/GetConfiguredTarget" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetConfiguredTargetSvc<T: ResultStoreDownload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreDownload,
+                    > tonic::server::UnaryService<super::GetConfiguredTargetRequest>
+                    for GetConfiguredTargetSvc<T> {
+                        type Response = super::ConfiguredTarget;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetConfiguredTargetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreDownload>::get_configured_target(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetConfiguredTargetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreDownload/ListConfiguredTargets" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListConfiguredTargetsSvc<T: ResultStoreDownload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreDownload,
+                    > tonic::server::UnaryService<super::ListConfiguredTargetsRequest>
+                    for ListConfiguredTargetsSvc<T> {
+                        type Response = super::ListConfiguredTargetsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListConfiguredTargetsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreDownload>::list_configured_targets(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListConfiguredTargetsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreDownload/SearchConfiguredTargets" => {
+                    #[allow(non_camel_case_types)]
+                    struct SearchConfiguredTargetsSvc<T: ResultStoreDownload>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: ResultStoreDownload,
+                    > tonic::server::UnaryService<super::SearchConfiguredTargetsRequest>
+                    for SearchConfiguredTargetsSvc<T> {
+                        type Response = super::SearchConfiguredTargetsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::SearchConfiguredTargetsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreDownload>::search_configured_targets(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SearchConfiguredTargetsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreDownload/GetAction" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetActionSvc<T: ResultStoreDownload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreDownload,
+                    > tonic::server::UnaryService<super::GetActionRequest>
+                    for GetActionSvc<T> {
+                        type Response = super::Action;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetActionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreDownload>::get_action(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetActionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreDownload/ListActions" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListActionsSvc<T: ResultStoreDownload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreDownload,
+                    > tonic::server::UnaryService<super::ListActionsRequest>
+                    for ListActionsSvc<T> {
+                        type Response = super::ListActionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListActionsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreDownload>::list_actions(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListActionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreDownload/BatchListActions" => {
+                    #[allow(non_camel_case_types)]
+                    struct BatchListActionsSvc<T: ResultStoreDownload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreDownload,
+                    > tonic::server::UnaryService<super::BatchListActionsRequest>
+                    for BatchListActionsSvc<T> {
+                        type Response = super::BatchListActionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::BatchListActionsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreDownload>::batch_list_actions(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BatchListActionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreDownload/GetFileSet" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetFileSetSvc<T: ResultStoreDownload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreDownload,
+                    > tonic::server::UnaryService<super::GetFileSetRequest>
+                    for GetFileSetSvc<T> {
+                        type Response = super::FileSet;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetFileSetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreDownload>::get_file_set(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetFileSetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreDownload/ListFileSets" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListFileSetsSvc<T: ResultStoreDownload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreDownload,
+                    > tonic::server::UnaryService<super::ListFileSetsRequest>
+                    for ListFileSetsSvc<T> {
+                        type Response = super::ListFileSetsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListFileSetsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreDownload>::list_file_sets(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListFileSetsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreDownload/TraverseFileSets" => {
+                    #[allow(non_camel_case_types)]
+                    struct TraverseFileSetsSvc<T: ResultStoreDownload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreDownload,
+                    > tonic::server::UnaryService<super::TraverseFileSetsRequest>
+                    for TraverseFileSetsSvc<T> {
+                        type Response = super::TraverseFileSetsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::TraverseFileSetsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreDownload>::traverse_file_sets(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = TraverseFileSetsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for ResultStoreDownloadServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.devtools.resultstore.v2.ResultStoreDownload";
+    impl<T> tonic::server::NamedService for ResultStoreDownloadServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}
 /// The upload metadata for an invocation
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct UploadMetadata {
@@ -4169,11 +5149,11 @@ pub mod upload_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                UploadOperation::Unspecified => "UPLOAD_OPERATION_UNSPECIFIED",
-                UploadOperation::Create => "CREATE",
-                UploadOperation::Update => "UPDATE",
-                UploadOperation::Merge => "MERGE",
-                UploadOperation::Finalize => "FINALIZE",
+                Self::Unspecified => "UPLOAD_OPERATION_UNSPECIFIED",
+                Self::Create => "CREATE",
+                Self::Update => "UPDATE",
+                Self::Merge => "MERGE",
+                Self::Finalize => "FINALIZE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -5262,5 +6242,2147 @@ pub mod result_store_upload_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod result_store_upload_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with ResultStoreUploadServer.
+    #[async_trait]
+    pub trait ResultStoreUpload: std::marker::Send + std::marker::Sync + 'static {
+        /// Creates the given invocation.
+        ///
+        /// This is not an implicitly idempotent API, so a request id is required to
+        /// make it idempotent.
+        ///
+        /// Returns an empty Invocation proto with only the name and ID fields
+        /// populated.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If an invocation with the same ID already exists.
+        async fn create_invocation(
+            &self,
+            request: tonic::Request<super::CreateInvocationRequest>,
+        ) -> std::result::Result<tonic::Response<super::Invocation>, tonic::Status>;
+        /// Applies a standard update to the invocation identified by the given proto's
+        /// name.  For all types of fields (primitive, message, or repeated), replaces
+        /// them with the given proto fields if they are under the given field mask
+        /// paths.  Fields that match the mask but aren't populated in the given
+        /// invocation are cleared. This is an implicitly idempotent API.
+        ///
+        /// Returns an empty Invocation proto with only the name and ID fields
+        /// populated.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If the invocation does not exist.
+        /// - If the invocation is finalized.
+        /// - If no field mask was given.
+        async fn update_invocation(
+            &self,
+            request: tonic::Request<super::UpdateInvocationRequest>,
+        ) -> std::result::Result<tonic::Response<super::Invocation>, tonic::Status>;
+        /// Applies a merge update to the invocation identified by the given proto's
+        /// name.  For primitive and message fields, replaces them with the ones in
+        /// the given proto if they are covered under the field mask paths.  For
+        /// repeated fields, merges to them with the given ones if they are covered
+        /// under the field mask paths. This is not an implicitly idempotent API, so a
+        /// request id is required to make it idempotent.
+        ///
+        /// Returns an empty Invocation proto with only the name and ID fields
+        /// populated.
+        ///
+        ///
+        /// An error will be reported in the following cases:
+        /// - If the invocation does not exist.
+        /// - If the invocation is finalized.
+        /// - If no field mask was given.
+        async fn merge_invocation(
+            &self,
+            request: tonic::Request<super::MergeInvocationRequest>,
+        ) -> std::result::Result<tonic::Response<super::Invocation>, tonic::Status>;
+        /// Touches the invocation identified by the given proto's name.
+        ///
+        /// This is useful when you need to notify ResultStore that you haven't
+        /// abandoned the upload, since abandoned uploads will be automatically
+        /// finalized after a set period.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If the invocation does not exist.
+        /// - If the invocation is finalized.
+        async fn touch_invocation(
+            &self,
+            request: tonic::Request<super::TouchInvocationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::TouchInvocationResponse>,
+            tonic::Status,
+        >;
+        /// Declares the invocation with the given name as finalized and immutable by
+        /// the user. It may still be mutated by post-processing. This is an implicitly
+        /// idempotent API.
+        ///
+        /// If an Invocation is not updated for 24 hours, some time after that
+        /// this will be called automatically.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If the invocation does not exist.
+        async fn finalize_invocation(
+            &self,
+            request: tonic::Request<super::FinalizeInvocationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::FinalizeInvocationResponse>,
+            tonic::Status,
+        >;
+        /// Deletes an immutable invocation (permanently)
+        /// Note: this does not delete indirect data, e.g. files stored in other
+        /// services.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If the invocation does not exist.
+        /// - If the invocation is not finalized.  This can be retried until it is.
+        async fn delete_invocation(
+            &self,
+            request: tonic::Request<super::DeleteInvocationRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Creates the given target under the given parent invocation. The given
+        /// target ID is URL encoded, converted to the full resource name, and assigned
+        /// to the target's name field. This is not an implicitly idempotent API, so a
+        /// request id is required to make it idempotent.
+        ///
+        /// Returns an empty Target proto with only the name and ID fields populated.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If no target ID is provided.
+        /// - If the parent invocation does not exist.
+        /// - If the parent invocation is finalized.
+        /// - If a target with the same name already exists.
+        async fn create_target(
+            &self,
+            request: tonic::Request<super::CreateTargetRequest>,
+        ) -> std::result::Result<tonic::Response<super::Target>, tonic::Status>;
+        /// Applies a standard update to the target identified by the given proto's
+        /// name. For all types of fields (primitive, message, or repeated), replaces
+        /// them with the given proto fields if they are under the given field mask
+        /// paths. Fields that match the mask but aren't populated in the given
+        /// target are cleared. This is an implicitly idempotent API.
+        ///
+        /// Returns an empty Target proto with only the name and ID fields populated.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If the target does not exist.
+        /// - If the target or parent invocation is finalized.
+        /// - If no field mask was given.
+        async fn update_target(
+            &self,
+            request: tonic::Request<super::UpdateTargetRequest>,
+        ) -> std::result::Result<tonic::Response<super::Target>, tonic::Status>;
+        /// Applies a merge update to the target identified by the given proto's
+        /// name. For primitive and message fields, replaces them with the ones in the
+        /// given proto if they are covered under the field mask paths.  For repeated
+        /// fields, merges to them with the given ones if they are covered under the
+        /// field mask paths. This is not an implicitly idempotent API, so a request
+        /// id is required to make it idempotent.
+        ///
+        /// Returns an empty Target proto with only the name and ID fields populated.
+        ///
+        ///
+        /// An error will be reported in the following cases:
+        /// - If the target does not exist.
+        /// - If the target or parent invocation is finalized.
+        /// - If no field mask was given.
+        async fn merge_target(
+            &self,
+            request: tonic::Request<super::MergeTargetRequest>,
+        ) -> std::result::Result<tonic::Response<super::Target>, tonic::Status>;
+        /// Declares the target with the given name as finalized and immutable by the
+        /// user. It may still be mutated by post-processing. This is an implicitly
+        /// idempotent API.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If the target does not exist.
+        async fn finalize_target(
+            &self,
+            request: tonic::Request<super::FinalizeTargetRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::FinalizeTargetResponse>,
+            tonic::Status,
+        >;
+        /// Creates the given configured target under the given parent target.
+        /// The given configured target ID is URL encoded, converted to the full
+        /// resource name, and assigned to the configured target's name field.
+        /// This is not an implicitly idempotent API, so a request id is required
+        /// to make it idempotent.
+        ///
+        /// Returns an empty ConfiguredTarget proto with only the name and ID fields
+        /// populated.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If no config ID is provided.
+        /// - If a configured target with the same ID already exists.
+        /// - If the parent target does not exist.
+        /// - If the parent target or invocation is finalized.
+        async fn create_configured_target(
+            &self,
+            request: tonic::Request<super::CreateConfiguredTargetRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ConfiguredTarget>,
+            tonic::Status,
+        >;
+        /// Applies a standard update to the configured target identified by the given
+        /// proto's name. For all types of fields (primitive, message, or repeated),
+        /// replaces them with the given proto fields if they are under the given
+        /// field mask paths. Fields that match the mask but aren't populated in the
+        /// given configured target are cleared. This is an implicitly idempotent API.
+        ///
+        /// Returns an empty ConfiguredTarget proto with only the name and ID fields
+        /// populated.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If the configured target does not exist.
+        /// - If the parent target or invocation is finalized.
+        /// - If no field mask was given.
+        async fn update_configured_target(
+            &self,
+            request: tonic::Request<super::UpdateConfiguredTargetRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ConfiguredTarget>,
+            tonic::Status,
+        >;
+        /// Applies a merge update to the configured target identified by the given
+        /// proto's name. For primitive and message fields, replaces them with the
+        /// ones in the given proto if they are covered under the field mask paths.
+        /// For repeated fields, merges to them with the given ones if they are
+        /// covered under the field mask paths. This is not an implicitly idempotent
+        /// API, so a request id is required to make it idempotent.
+        ///
+        /// Returns an empty ConfiguredTarget proto with only the name and ID fields
+        /// populated.
+        ///
+        ///
+        /// An error will be reported in the following cases:
+        /// - If the configured target does not exist.
+        /// - If the parent target or invocation is finalized.
+        /// - If no field mask was given.
+        async fn merge_configured_target(
+            &self,
+            request: tonic::Request<super::MergeConfiguredTargetRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ConfiguredTarget>,
+            tonic::Status,
+        >;
+        /// Declares the configured target with the given name as finalized and
+        /// immutable by the user. It may still be mutated by post-processing. This is
+        /// an implicitly idempotent API.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If the configured target does not exist.
+        async fn finalize_configured_target(
+            &self,
+            request: tonic::Request<super::FinalizeConfiguredTargetRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::FinalizeConfiguredTargetResponse>,
+            tonic::Status,
+        >;
+        /// Creates the given action under the given configured target. The given
+        /// action ID is URL encoded, converted to the full resource name, and
+        /// assigned to the action's name field. This is not an implicitly
+        /// idempotent API, so a request id is required to make it idempotent.
+        ///
+        /// Returns an empty Action proto with only the name and ID fields populated.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If no action ID provided.
+        /// - If the parent configured target does not exist.
+        /// - If the parent target or invocation is finalized.
+        /// - If an action  with the same name already exists.
+        async fn create_action(
+            &self,
+            request: tonic::Request<super::CreateActionRequest>,
+        ) -> std::result::Result<tonic::Response<super::Action>, tonic::Status>;
+        /// Applies a standard update to the action identified by the given
+        /// proto's name.  For all types of fields (primitive, message, or repeated),
+        /// replaces them with the given proto fields if they are under the given
+        /// field mask paths.  Fields that match the mask but aren't populated in the
+        /// given action are cleared.  This is an implicitly idempotent API.
+        ///
+        /// Returns an empty Action proto with only the name and ID fields populated.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If the action does not exist.
+        /// - If the parent target or invocation is finalized.
+        /// - If no field mask was given.
+        async fn update_action(
+            &self,
+            request: tonic::Request<super::UpdateActionRequest>,
+        ) -> std::result::Result<tonic::Response<super::Action>, tonic::Status>;
+        /// Applies a merge update to the action identified by the given
+        /// proto's name.  For primitive and message fields, replaces them with the
+        /// ones in the given proto if they are covered under the field mask paths.
+        /// For repeated fields, merges to them with the given ones if they are
+        /// covered under the field mask paths. This is not an implicitly idempotent
+        /// API, so a request id is required to make it idempotent.
+        ///
+        /// Returns an empty Action proto with only the name and ID fields populated.
+        ///
+        ///
+        /// An error will be reported in the following cases:
+        /// - If the action does not exist.
+        /// - If the parent target or invocation is finalized.
+        /// - If no field mask was given.
+        async fn merge_action(
+            &self,
+            request: tonic::Request<super::MergeActionRequest>,
+        ) -> std::result::Result<tonic::Response<super::Action>, tonic::Status>;
+        /// Creates the given configuration under the given parent invocation. The
+        /// given configuration ID is URL encoded, converted to the full resource name,
+        /// and assigned to the configuration's name field. The configuration ID of
+        /// "default" should be preferred for the default configuration in a
+        /// single-config invocation. This is not an implicitly idempotent API, so a
+        /// request id is required to make it idempotent.
+        ///
+        /// Returns an empty Configuration proto with only the name and ID fields
+        /// populated.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If no configuration ID is provided.
+        /// - If the parent invocation does not exist.
+        /// - If the parent invocation is finalized.
+        /// - If a configuration with the same name already exists.
+        async fn create_configuration(
+            &self,
+            request: tonic::Request<super::CreateConfigurationRequest>,
+        ) -> std::result::Result<tonic::Response<super::Configuration>, tonic::Status>;
+        /// Applies a standard update to the configuration identified by the given
+        /// proto's name. For all types of fields (primitive, message, or repeated),
+        /// replaces them with the given proto fields if they are under the given field
+        /// mask paths. Fields that match the mask but aren't populated in the given
+        /// configuration are cleared. This is an implicitly idempotent API.
+        ///
+        /// Returns an empty Configuration proto with only the name and ID fields
+        /// populated.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If the configuration does not exist.
+        /// - If the parent invocation is finalized.
+        /// - If no field mask was given.
+        /// - If a given field mask path is not valid.
+        async fn update_configuration(
+            &self,
+            request: tonic::Request<super::UpdateConfigurationRequest>,
+        ) -> std::result::Result<tonic::Response<super::Configuration>, tonic::Status>;
+        /// Creates the given file set under the given parent invocation. The given
+        /// file set ID is URL encoded, converted to the full resource name, and
+        /// assigned to the file set's name field. This is not an implicitly idempotent
+        /// API, so a request id is required to make it idempotent.
+        ///
+        /// Returns an empty FileSet proto with only the name and ID fields populated.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If no file set ID is provided.
+        /// - If a file set with the same name already exists.
+        /// - If the parent invocation does not exist.
+        /// - If the parent invocation is finalized.
+        async fn create_file_set(
+            &self,
+            request: tonic::Request<super::CreateFileSetRequest>,
+        ) -> std::result::Result<tonic::Response<super::FileSet>, tonic::Status>;
+        /// Applies a standard update to the file set identified by the given proto's
+        /// name. For all types of fields (primitive, message, or repeated), replaces
+        /// them with the given proto fields if they are under the given field mask
+        /// paths. Fields that match the mask but aren't populated in the given
+        /// configuration are cleared. This is an implicitly idempotent API.
+        ///
+        /// Returns an empty FileSet proto with only the name and ID fields populated.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If the file set does not exist.
+        /// - If the parent invocation is finalized.
+        /// - If no field mask was given.
+        /// - If a given field mask path is not valid.
+        async fn update_file_set(
+            &self,
+            request: tonic::Request<super::UpdateFileSetRequest>,
+        ) -> std::result::Result<tonic::Response<super::FileSet>, tonic::Status>;
+        /// Applies a merge update to the file set identified by the given proto's
+        /// name. For primitive and message fields, updates them with the ones in the
+        /// given proto if they are covered under the field mask paths. For repeated
+        /// fields, merges to them with the given ones if they are covered under the
+        /// field mask paths. This is not an implicitly idempotent API, so a request
+        /// id is required to make it idempotent.
+        ///
+        /// Returns an empty FileSet proto with only the name and ID fields populated.
+        ///
+        ///
+        /// An error will be reported in the following cases:
+        /// - If the file set does not exist.
+        /// - If the parent invocation is finalized.
+        /// - If a given field mask path is not valid.
+        /// - If no field mask was given.
+        async fn merge_file_set(
+            &self,
+            request: tonic::Request<super::MergeFileSetRequest>,
+        ) -> std::result::Result<tonic::Response<super::FileSet>, tonic::Status>;
+        /// This is the RPC used for batch upload. It supports uploading multiple
+        /// resources for an invocation in a transaction safe manner.
+        ///
+        /// To use this RPC, the CreateInvocationRequest must have been provided a
+        /// resume_token.
+        ///
+        /// Combining batch upload with normal upload on a single Invocation is not
+        /// supported. If an Invocation is created with a resume_token, all further
+        /// calls must be through UploadBatch. If an Invocation is created without
+        /// resume_token normal upload, all further upload calls must be through normal
+        /// upload RPCs.
+        ///
+        /// The recommend total size of UploadBatchRequest is 10 MiB. If
+        /// it is too large, it may be rejected.
+        async fn upload_batch(
+            &self,
+            request: tonic::Request<super::UploadBatchRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::UploadBatchResponse>,
+            tonic::Status,
+        >;
+        /// Provides a way to read the metadata for an invocation.
+        /// The UploadMetadata could still be retrieved by this RPC even the Invocation
+        /// has been finalized.
+        /// This API requires setting a response FieldMask via 'fields' URL query
+        /// parameter or X-Goog-FieldMask HTTP/gRPC header.
+        ///
+        /// An error will be reported in the following case:
+        /// - If the invocation does not exist.
+        /// - If no field mask was given.
+        async fn get_invocation_upload_metadata(
+            &self,
+            request: tonic::Request<super::GetInvocationUploadMetadataRequest>,
+        ) -> std::result::Result<tonic::Response<super::UploadMetadata>, tonic::Status>;
+    }
+    /// This is the interface used to upload information to the ResultStore database,
+    /// to update that information as necessary, and to make it immutable at the end.
+    ///
+    /// This interface intentionally does not support user read-modify-write
+    /// operations. They may corrupt data, and are too expensive. For the same
+    /// reason, all upload RPCs will return no resource fields except name and ID. An
+    /// uploader should hold as little state as possible in memory to avoid running
+    /// out of memory.
+    #[derive(Debug)]
+    pub struct ResultStoreUploadServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> ResultStoreUploadServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for ResultStoreUploadServer<T>
+    where
+        T: ResultStoreUpload,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.devtools.resultstore.v2.ResultStoreUpload/CreateInvocation" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateInvocationSvc<T: ResultStoreUpload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreUpload,
+                    > tonic::server::UnaryService<super::CreateInvocationRequest>
+                    for CreateInvocationSvc<T> {
+                        type Response = super::Invocation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateInvocationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreUpload>::create_invocation(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateInvocationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreUpload/UpdateInvocation" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateInvocationSvc<T: ResultStoreUpload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreUpload,
+                    > tonic::server::UnaryService<super::UpdateInvocationRequest>
+                    for UpdateInvocationSvc<T> {
+                        type Response = super::Invocation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateInvocationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreUpload>::update_invocation(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateInvocationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreUpload/MergeInvocation" => {
+                    #[allow(non_camel_case_types)]
+                    struct MergeInvocationSvc<T: ResultStoreUpload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreUpload,
+                    > tonic::server::UnaryService<super::MergeInvocationRequest>
+                    for MergeInvocationSvc<T> {
+                        type Response = super::Invocation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MergeInvocationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreUpload>::merge_invocation(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = MergeInvocationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreUpload/TouchInvocation" => {
+                    #[allow(non_camel_case_types)]
+                    struct TouchInvocationSvc<T: ResultStoreUpload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreUpload,
+                    > tonic::server::UnaryService<super::TouchInvocationRequest>
+                    for TouchInvocationSvc<T> {
+                        type Response = super::TouchInvocationResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::TouchInvocationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreUpload>::touch_invocation(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = TouchInvocationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreUpload/FinalizeInvocation" => {
+                    #[allow(non_camel_case_types)]
+                    struct FinalizeInvocationSvc<T: ResultStoreUpload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreUpload,
+                    > tonic::server::UnaryService<super::FinalizeInvocationRequest>
+                    for FinalizeInvocationSvc<T> {
+                        type Response = super::FinalizeInvocationResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::FinalizeInvocationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreUpload>::finalize_invocation(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = FinalizeInvocationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreUpload/DeleteInvocation" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteInvocationSvc<T: ResultStoreUpload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreUpload,
+                    > tonic::server::UnaryService<super::DeleteInvocationRequest>
+                    for DeleteInvocationSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteInvocationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreUpload>::delete_invocation(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteInvocationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreUpload/CreateTarget" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateTargetSvc<T: ResultStoreUpload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreUpload,
+                    > tonic::server::UnaryService<super::CreateTargetRequest>
+                    for CreateTargetSvc<T> {
+                        type Response = super::Target;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateTargetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreUpload>::create_target(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateTargetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreUpload/UpdateTarget" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateTargetSvc<T: ResultStoreUpload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreUpload,
+                    > tonic::server::UnaryService<super::UpdateTargetRequest>
+                    for UpdateTargetSvc<T> {
+                        type Response = super::Target;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateTargetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreUpload>::update_target(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateTargetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreUpload/MergeTarget" => {
+                    #[allow(non_camel_case_types)]
+                    struct MergeTargetSvc<T: ResultStoreUpload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreUpload,
+                    > tonic::server::UnaryService<super::MergeTargetRequest>
+                    for MergeTargetSvc<T> {
+                        type Response = super::Target;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MergeTargetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreUpload>::merge_target(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = MergeTargetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreUpload/FinalizeTarget" => {
+                    #[allow(non_camel_case_types)]
+                    struct FinalizeTargetSvc<T: ResultStoreUpload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreUpload,
+                    > tonic::server::UnaryService<super::FinalizeTargetRequest>
+                    for FinalizeTargetSvc<T> {
+                        type Response = super::FinalizeTargetResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::FinalizeTargetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreUpload>::finalize_target(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = FinalizeTargetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreUpload/CreateConfiguredTarget" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateConfiguredTargetSvc<T: ResultStoreUpload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreUpload,
+                    > tonic::server::UnaryService<super::CreateConfiguredTargetRequest>
+                    for CreateConfiguredTargetSvc<T> {
+                        type Response = super::ConfiguredTarget;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateConfiguredTargetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreUpload>::create_configured_target(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateConfiguredTargetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreUpload/UpdateConfiguredTarget" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateConfiguredTargetSvc<T: ResultStoreUpload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreUpload,
+                    > tonic::server::UnaryService<super::UpdateConfiguredTargetRequest>
+                    for UpdateConfiguredTargetSvc<T> {
+                        type Response = super::ConfiguredTarget;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateConfiguredTargetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreUpload>::update_configured_target(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateConfiguredTargetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreUpload/MergeConfiguredTarget" => {
+                    #[allow(non_camel_case_types)]
+                    struct MergeConfiguredTargetSvc<T: ResultStoreUpload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreUpload,
+                    > tonic::server::UnaryService<super::MergeConfiguredTargetRequest>
+                    for MergeConfiguredTargetSvc<T> {
+                        type Response = super::ConfiguredTarget;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MergeConfiguredTargetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreUpload>::merge_configured_target(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = MergeConfiguredTargetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreUpload/FinalizeConfiguredTarget" => {
+                    #[allow(non_camel_case_types)]
+                    struct FinalizeConfiguredTargetSvc<T: ResultStoreUpload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreUpload,
+                    > tonic::server::UnaryService<super::FinalizeConfiguredTargetRequest>
+                    for FinalizeConfiguredTargetSvc<T> {
+                        type Response = super::FinalizeConfiguredTargetResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::FinalizeConfiguredTargetRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreUpload>::finalize_configured_target(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = FinalizeConfiguredTargetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreUpload/CreateAction" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateActionSvc<T: ResultStoreUpload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreUpload,
+                    > tonic::server::UnaryService<super::CreateActionRequest>
+                    for CreateActionSvc<T> {
+                        type Response = super::Action;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateActionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreUpload>::create_action(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateActionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreUpload/UpdateAction" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateActionSvc<T: ResultStoreUpload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreUpload,
+                    > tonic::server::UnaryService<super::UpdateActionRequest>
+                    for UpdateActionSvc<T> {
+                        type Response = super::Action;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateActionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreUpload>::update_action(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateActionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreUpload/MergeAction" => {
+                    #[allow(non_camel_case_types)]
+                    struct MergeActionSvc<T: ResultStoreUpload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreUpload,
+                    > tonic::server::UnaryService<super::MergeActionRequest>
+                    for MergeActionSvc<T> {
+                        type Response = super::Action;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MergeActionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreUpload>::merge_action(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = MergeActionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreUpload/CreateConfiguration" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateConfigurationSvc<T: ResultStoreUpload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreUpload,
+                    > tonic::server::UnaryService<super::CreateConfigurationRequest>
+                    for CreateConfigurationSvc<T> {
+                        type Response = super::Configuration;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateConfigurationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreUpload>::create_configuration(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateConfigurationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreUpload/UpdateConfiguration" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateConfigurationSvc<T: ResultStoreUpload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreUpload,
+                    > tonic::server::UnaryService<super::UpdateConfigurationRequest>
+                    for UpdateConfigurationSvc<T> {
+                        type Response = super::Configuration;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateConfigurationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreUpload>::update_configuration(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateConfigurationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreUpload/CreateFileSet" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateFileSetSvc<T: ResultStoreUpload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreUpload,
+                    > tonic::server::UnaryService<super::CreateFileSetRequest>
+                    for CreateFileSetSvc<T> {
+                        type Response = super::FileSet;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateFileSetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreUpload>::create_file_set(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateFileSetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreUpload/UpdateFileSet" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateFileSetSvc<T: ResultStoreUpload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreUpload,
+                    > tonic::server::UnaryService<super::UpdateFileSetRequest>
+                    for UpdateFileSetSvc<T> {
+                        type Response = super::FileSet;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateFileSetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreUpload>::update_file_set(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateFileSetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreUpload/MergeFileSet" => {
+                    #[allow(non_camel_case_types)]
+                    struct MergeFileSetSvc<T: ResultStoreUpload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreUpload,
+                    > tonic::server::UnaryService<super::MergeFileSetRequest>
+                    for MergeFileSetSvc<T> {
+                        type Response = super::FileSet;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::MergeFileSetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreUpload>::merge_file_set(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = MergeFileSetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreUpload/UploadBatch" => {
+                    #[allow(non_camel_case_types)]
+                    struct UploadBatchSvc<T: ResultStoreUpload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreUpload,
+                    > tonic::server::UnaryService<super::UploadBatchRequest>
+                    for UploadBatchSvc<T> {
+                        type Response = super::UploadBatchResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UploadBatchRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreUpload>::upload_batch(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UploadBatchSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreUpload/GetInvocationUploadMetadata" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetInvocationUploadMetadataSvc<T: ResultStoreUpload>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: ResultStoreUpload,
+                    > tonic::server::UnaryService<
+                        super::GetInvocationUploadMetadataRequest,
+                    > for GetInvocationUploadMetadataSvc<T> {
+                        type Response = super::UploadMetadata;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetInvocationUploadMetadataRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreUpload>::get_invocation_upload_metadata(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetInvocationUploadMetadataSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for ResultStoreUploadServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.devtools.resultstore.v2.ResultStoreUpload";
+    impl<T> tonic::server::NamedService for ResultStoreUploadServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}
+/// Request object for GetFile
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetFileRequest {
+    /// This corresponds to the uri field in the File message: for an obfuscated
+    /// File.uri like
+    /// CglidWlsZC5sb2cSJDI3YmI5ZWQxLTVjYzEtNGFlNi1iMWRkLTVlODY0YWEzYmE2ZQ, the
+    /// value here should be
+    /// files/CglidWlsZC5sb2cSJDI3YmI5ZWQxLTVjYzEtNGFlNi1iMWRkLTVlODY0YWEzYmE2ZQ
+    #[prost(string, tag = "1")]
+    pub uri: ::prost::alloc::string::String,
+    /// The offset for the first byte to return in the read, relative to the start
+    /// of the resource.
+    ///
+    /// A `read_offset` that is negative or greater than the size of the resource
+    /// will cause an `OUT_OF_RANGE` error.
+    #[prost(int64, tag = "2")]
+    pub read_offset: i64,
+    /// The maximum number of `data` bytes the server is allowed to return in the
+    /// sum of all `ReadResponse` messages. A `read_limit` of zero indicates that
+    /// there is no limit, and a negative `read_limit` will cause an error.
+    ///
+    /// If the stream returns fewer bytes than allowed by the `read_limit` and no
+    /// error occurred, the stream includes all data from the `read_offset` to the
+    /// end of the resource.
+    #[prost(int64, tag = "3")]
+    pub read_limit: i64,
+    /// Only applies if the referenced file is a known archive type (ar, jar, zip)
+    /// The above read_offset and read_limit fields are applied to this entry.
+    /// If this file is not an archive, INVALID_ARGUMENT is thrown.
+    #[prost(string, tag = "4")]
+    pub archive_entry: ::prost::alloc::string::String,
+}
+/// Response object for GetFile
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetFileResponse {
+    /// The file data.
+    #[prost(bytes = "bytes", tag = "1")]
+    pub data: ::prost::bytes::Bytes,
+}
+/// Request object for GetFileTail
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetFileTailRequest {
+    /// This corresponds to the uri field in the File message: for an obfuscated
+    /// File.uri like
+    /// CglidWlsZC5sb2cSJDI3YmI5ZWQxLTVjYzEtNGFlNi1iMWRkLTVlODY0YWEzYmE2ZQ, the
+    /// value here should be
+    /// files/CglidWlsZC5sb2cSJDI3YmI5ZWQxLTVjYzEtNGFlNi1iMWRkLTVlODY0YWEzYmE2ZQ
+    #[prost(string, tag = "1")]
+    pub uri: ::prost::alloc::string::String,
+    /// The offset for the first byte to return in the read, relative to the end
+    /// of the resource.
+    ///
+    /// A `read_offset` that is negative or greater than the size of the resource
+    /// will cause an `OUT_OF_RANGE` error.
+    #[prost(int64, tag = "2")]
+    pub read_offset: i64,
+    /// The maximum number of `data` bytes the server is allowed to return. The
+    /// server will return bytes starting from the tail of the file.
+    ///
+    /// A `read_limit` of zero indicates that there is no limit, and a negative
+    /// `read_limit` will cause an error.
+    #[prost(int64, tag = "3")]
+    pub read_limit: i64,
+    /// Only applies if the referenced file is a known archive type (ar, jar, zip)
+    /// The above read_offset and read_limit fields are applied to this entry.
+    /// If this file is not an archive, INVALID_ARGUMENT is thrown.
+    #[prost(string, tag = "4")]
+    pub archive_entry: ::prost::alloc::string::String,
+}
+/// Response object for GetFileTail
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetFileTailResponse {
+    /// The file data, encoded with UTF-8.
+    #[prost(bytes = "bytes", tag = "1")]
+    pub data: ::prost::bytes::Bytes,
+}
+/// Generated client implementations.
+pub mod result_store_file_download_client {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    use tonic::codegen::http::Uri;
+    /// This API allows download of File messages referenced in
+    /// ResultStore resources.
+    #[derive(Debug, Clone)]
+    pub struct ResultStoreFileDownloadClient<T> {
+        inner: tonic::client::Grpc<T>,
+    }
+    impl<T> ResultStoreFileDownloadClient<T>
+    where
+        T: tonic::client::GrpcService<tonic::body::BoxBody>,
+        T::Error: Into<StdError>,
+        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
+    {
+        pub fn new(inner: T) -> Self {
+            let inner = tonic::client::Grpc::new(inner);
+            Self { inner }
+        }
+        pub fn with_origin(inner: T, origin: Uri) -> Self {
+            let inner = tonic::client::Grpc::with_origin(inner, origin);
+            Self { inner }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> ResultStoreFileDownloadClient<InterceptedService<T, F>>
+        where
+            F: tonic::service::Interceptor,
+            T::ResponseBody: Default,
+            T: tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+                Response = http::Response<
+                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
+                >,
+            >,
+            <T as tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+            >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
+        {
+            ResultStoreFileDownloadClient::new(
+                InterceptedService::new(inner, interceptor),
+            )
+        }
+        /// Compress requests with the given encoding.
+        ///
+        /// This requires the server to support it otherwise it might respond with an
+        /// error.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.send_compressed(encoding);
+            self
+        }
+        /// Enable decompressing responses.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.accept_compressed(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
+        /// Retrieves the File with the given uri.
+        /// returns a stream of bytes to be stitched together in order.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If the File is not found.
+        /// - If the given File uri is badly formatted.
+        pub async fn get_file(
+            &mut self,
+            request: impl tonic::IntoRequest<super::GetFileRequest>,
+        ) -> std::result::Result<
+            tonic::Response<tonic::codec::Streaming<super::GetFileResponse>>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.devtools.resultstore.v2.ResultStoreFileDownload/GetFile",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.devtools.resultstore.v2.ResultStoreFileDownload",
+                        "GetFile",
+                    ),
+                );
+            self.inner.server_streaming(req, path, codec).await
+        }
+        /// Retrieves the tail of a File with the given uri.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If the File is not found.
+        /// - If the given File uri is badly formatted.
+        pub async fn get_file_tail(
+            &mut self,
+            request: impl tonic::IntoRequest<super::GetFileTailRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::GetFileTailResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.devtools.resultstore.v2.ResultStoreFileDownload/GetFileTail",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.devtools.resultstore.v2.ResultStoreFileDownload",
+                        "GetFileTail",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+    }
+}
+/// Generated server implementations.
+pub mod result_store_file_download_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with ResultStoreFileDownloadServer.
+    #[async_trait]
+    pub trait ResultStoreFileDownload: std::marker::Send + std::marker::Sync + 'static {
+        /// Server streaming response type for the GetFile method.
+        type GetFileStream: tonic::codegen::tokio_stream::Stream<
+                Item = std::result::Result<super::GetFileResponse, tonic::Status>,
+            >
+            + std::marker::Send
+            + 'static;
+        /// Retrieves the File with the given uri.
+        /// returns a stream of bytes to be stitched together in order.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If the File is not found.
+        /// - If the given File uri is badly formatted.
+        async fn get_file(
+            &self,
+            request: tonic::Request<super::GetFileRequest>,
+        ) -> std::result::Result<tonic::Response<Self::GetFileStream>, tonic::Status>;
+        /// Retrieves the tail of a File with the given uri.
+        ///
+        /// An error will be reported in the following cases:
+        /// - If the File is not found.
+        /// - If the given File uri is badly formatted.
+        async fn get_file_tail(
+            &self,
+            request: tonic::Request<super::GetFileTailRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::GetFileTailResponse>,
+            tonic::Status,
+        >;
+    }
+    /// This API allows download of File messages referenced in
+    /// ResultStore resources.
+    #[derive(Debug)]
+    pub struct ResultStoreFileDownloadServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> ResultStoreFileDownloadServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for ResultStoreFileDownloadServer<T>
+    where
+        T: ResultStoreFileDownload,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.devtools.resultstore.v2.ResultStoreFileDownload/GetFile" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetFileSvc<T: ResultStoreFileDownload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreFileDownload,
+                    > tonic::server::ServerStreamingService<super::GetFileRequest>
+                    for GetFileSvc<T> {
+                        type Response = super::GetFileResponse;
+                        type ResponseStream = T::GetFileStream;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::ResponseStream>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetFileRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreFileDownload>::get_file(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetFileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.server_streaming(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.resultstore.v2.ResultStoreFileDownload/GetFileTail" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetFileTailSvc<T: ResultStoreFileDownload>(pub Arc<T>);
+                    impl<
+                        T: ResultStoreFileDownload,
+                    > tonic::server::UnaryService<super::GetFileTailRequest>
+                    for GetFileTailSvc<T> {
+                        type Response = super::GetFileTailResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetFileTailRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResultStoreFileDownload>::get_file_tail(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetFileTailSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for ResultStoreFileDownloadServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.devtools.resultstore.v2.ResultStoreFileDownload";
+    impl<T> tonic::server::NamedService for ResultStoreFileDownloadServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

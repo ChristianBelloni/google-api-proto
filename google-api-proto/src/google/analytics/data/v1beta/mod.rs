@@ -308,13 +308,13 @@ pub mod filter {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    MatchType::Unspecified => "MATCH_TYPE_UNSPECIFIED",
-                    MatchType::Exact => "EXACT",
-                    MatchType::BeginsWith => "BEGINS_WITH",
-                    MatchType::EndsWith => "ENDS_WITH",
-                    MatchType::Contains => "CONTAINS",
-                    MatchType::FullRegexp => "FULL_REGEXP",
-                    MatchType::PartialRegexp => "PARTIAL_REGEXP",
+                    Self::Unspecified => "MATCH_TYPE_UNSPECIFIED",
+                    Self::Exact => "EXACT",
+                    Self::BeginsWith => "BEGINS_WITH",
+                    Self::EndsWith => "ENDS_WITH",
+                    Self::Contains => "CONTAINS",
+                    Self::FullRegexp => "FULL_REGEXP",
+                    Self::PartialRegexp => "PARTIAL_REGEXP",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -389,12 +389,12 @@ pub mod filter {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    Operation::Unspecified => "OPERATION_UNSPECIFIED",
-                    Operation::Equal => "EQUAL",
-                    Operation::LessThan => "LESS_THAN",
-                    Operation::LessThanOrEqual => "LESS_THAN_OR_EQUAL",
-                    Operation::GreaterThan => "GREATER_THAN",
-                    Operation::GreaterThanOrEqual => "GREATER_THAN_OR_EQUAL",
+                    Self::Unspecified => "OPERATION_UNSPECIFIED",
+                    Self::Equal => "EQUAL",
+                    Self::LessThan => "LESS_THAN",
+                    Self::LessThanOrEqual => "LESS_THAN_OR_EQUAL",
+                    Self::GreaterThan => "GREATER_THAN",
+                    Self::GreaterThanOrEqual => "GREATER_THAN_OR_EQUAL",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -506,12 +506,10 @@ pub mod order_by {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    OrderType::Unspecified => "ORDER_TYPE_UNSPECIFIED",
-                    OrderType::Alphanumeric => "ALPHANUMERIC",
-                    OrderType::CaseInsensitiveAlphanumeric => {
-                        "CASE_INSENSITIVE_ALPHANUMERIC"
-                    }
-                    OrderType::Numeric => "NUMERIC",
+                    Self::Unspecified => "ORDER_TYPE_UNSPECIFIED",
+                    Self::Alphanumeric => "ALPHANUMERIC",
+                    Self::CaseInsensitiveAlphanumeric => "CASE_INSENSITIVE_ALPHANUMERIC",
+                    Self::Numeric => "NUMERIC",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -758,10 +756,10 @@ pub mod cohorts_range {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Granularity::Unspecified => "GRANULARITY_UNSPECIFIED",
-                Granularity::Daily => "DAILY",
-                Granularity::Weekly => "WEEKLY",
-                Granularity::Monthly => "MONTHLY",
+                Self::Unspecified => "GRANULARITY_UNSPECIFIED",
+                Self::Daily => "DAILY",
+                Self::Weekly => "WEEKLY",
+                Self::Monthly => "MONTHLY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1210,9 +1208,9 @@ pub mod metric_metadata {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                BlockedReason::Unspecified => "BLOCKED_REASON_UNSPECIFIED",
-                BlockedReason::NoRevenueMetrics => "NO_REVENUE_METRICS",
-                BlockedReason::NoCostMetrics => "NO_COST_METRICS",
+                Self::Unspecified => "BLOCKED_REASON_UNSPECIFIED",
+                Self::NoRevenueMetrics => "NO_REVENUE_METRICS",
+                Self::NoCostMetrics => "NO_COST_METRICS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1288,11 +1286,11 @@ impl MetricAggregation {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            MetricAggregation::Unspecified => "METRIC_AGGREGATION_UNSPECIFIED",
-            MetricAggregation::Total => "TOTAL",
-            MetricAggregation::Minimum => "MINIMUM",
-            MetricAggregation::Maximum => "MAXIMUM",
-            MetricAggregation::Count => "COUNT",
+            Self::Unspecified => "METRIC_AGGREGATION_UNSPECIFIED",
+            Self::Total => "TOTAL",
+            Self::Minimum => "MINIMUM",
+            Self::Maximum => "MAXIMUM",
+            Self::Count => "COUNT",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1345,19 +1343,19 @@ impl MetricType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            MetricType::Unspecified => "METRIC_TYPE_UNSPECIFIED",
-            MetricType::TypeInteger => "TYPE_INTEGER",
-            MetricType::TypeFloat => "TYPE_FLOAT",
-            MetricType::TypeSeconds => "TYPE_SECONDS",
-            MetricType::TypeMilliseconds => "TYPE_MILLISECONDS",
-            MetricType::TypeMinutes => "TYPE_MINUTES",
-            MetricType::TypeHours => "TYPE_HOURS",
-            MetricType::TypeStandard => "TYPE_STANDARD",
-            MetricType::TypeCurrency => "TYPE_CURRENCY",
-            MetricType::TypeFeet => "TYPE_FEET",
-            MetricType::TypeMiles => "TYPE_MILES",
-            MetricType::TypeMeters => "TYPE_METERS",
-            MetricType::TypeKilometers => "TYPE_KILOMETERS",
+            Self::Unspecified => "METRIC_TYPE_UNSPECIFIED",
+            Self::TypeInteger => "TYPE_INTEGER",
+            Self::TypeFloat => "TYPE_FLOAT",
+            Self::TypeSeconds => "TYPE_SECONDS",
+            Self::TypeMilliseconds => "TYPE_MILLISECONDS",
+            Self::TypeMinutes => "TYPE_MINUTES",
+            Self::TypeHours => "TYPE_HOURS",
+            Self::TypeStandard => "TYPE_STANDARD",
+            Self::TypeCurrency => "TYPE_CURRENCY",
+            Self::TypeFeet => "TYPE_FEET",
+            Self::TypeMiles => "TYPE_MILES",
+            Self::TypeMeters => "TYPE_METERS",
+            Self::TypeKilometers => "TYPE_KILOMETERS",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1399,9 +1397,9 @@ impl RestrictedMetricType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            RestrictedMetricType::Unspecified => "RESTRICTED_METRIC_TYPE_UNSPECIFIED",
-            RestrictedMetricType::CostData => "COST_DATA",
-            RestrictedMetricType::RevenueData => "REVENUE_DATA",
+            Self::Unspecified => "RESTRICTED_METRIC_TYPE_UNSPECIFIED",
+            Self::CostData => "COST_DATA",
+            Self::RevenueData => "REVENUE_DATA",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1434,9 +1432,9 @@ impl Compatibility {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            Compatibility::Unspecified => "COMPATIBILITY_UNSPECIFIED",
-            Compatibility::Compatible => "COMPATIBLE",
-            Compatibility::Incompatible => "INCOMPATIBLE",
+            Self::Unspecified => "COMPATIBILITY_UNSPECIFIED",
+            Self::Compatible => "COMPATIBLE",
+            Self::Incompatible => "INCOMPATIBLE",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2109,10 +2107,10 @@ pub mod audience_export {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Active => "ACTIVE",
-                State::Failed => "FAILED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Active => "ACTIVE",
+                Self::Failed => "FAILED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2738,5 +2736,843 @@ pub mod beta_analytics_data_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod beta_analytics_data_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with BetaAnalyticsDataServer.
+    #[async_trait]
+    pub trait BetaAnalyticsData: std::marker::Send + std::marker::Sync + 'static {
+        /// Returns a customized report of your Google Analytics event data. Reports
+        /// contain statistics derived from data collected by the Google Analytics
+        /// tracking code. The data returned from the API is as a table with columns
+        /// for the requested dimensions and metrics. Metrics are individual
+        /// measurements of user activity on your property, such as active users or
+        /// event count. Dimensions break down metrics across some common criteria,
+        /// such as country or event name.
+        ///
+        /// For a guide to constructing requests & understanding responses, see
+        /// [Creating a
+        /// Report](https://developers.google.com/analytics/devguides/reporting/data/v1/basics).
+        async fn run_report(
+            &self,
+            request: tonic::Request<super::RunReportRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::RunReportResponse>,
+            tonic::Status,
+        >;
+        /// Returns a customized pivot report of your Google Analytics event data.
+        /// Pivot reports are more advanced and expressive formats than regular
+        /// reports. In a pivot report, dimensions are only visible if they are
+        /// included in a pivot. Multiple pivots can be specified to further dissect
+        /// your data.
+        async fn run_pivot_report(
+            &self,
+            request: tonic::Request<super::RunPivotReportRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::RunPivotReportResponse>,
+            tonic::Status,
+        >;
+        /// Returns multiple reports in a batch. All reports must be for the same
+        /// GA4 Property.
+        async fn batch_run_reports(
+            &self,
+            request: tonic::Request<super::BatchRunReportsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::BatchRunReportsResponse>,
+            tonic::Status,
+        >;
+        /// Returns multiple pivot reports in a batch. All reports must be for the same
+        /// GA4 Property.
+        async fn batch_run_pivot_reports(
+            &self,
+            request: tonic::Request<super::BatchRunPivotReportsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::BatchRunPivotReportsResponse>,
+            tonic::Status,
+        >;
+        /// Returns metadata for dimensions and metrics available in reporting methods.
+        /// Used to explore the dimensions and metrics. In this method, a Google
+        /// Analytics GA4 Property Identifier is specified in the request, and
+        /// the metadata response includes Custom dimensions and metrics as well as
+        /// Universal metadata.
+        ///
+        /// For example if a custom metric with parameter name `levels_unlocked` is
+        /// registered to a property, the Metadata response will contain
+        /// `customEvent:levels_unlocked`. Universal metadata are dimensions and
+        /// metrics applicable to any property such as `country` and `totalUsers`.
+        async fn get_metadata(
+            &self,
+            request: tonic::Request<super::GetMetadataRequest>,
+        ) -> std::result::Result<tonic::Response<super::Metadata>, tonic::Status>;
+        /// Returns a customized report of realtime event data for your property.
+        /// Events appear in realtime reports seconds after they have been sent to
+        /// the Google Analytics. Realtime reports show events and usage data for the
+        /// periods of time ranging from the present moment to 30 minutes ago (up to
+        /// 60 minutes for Google Analytics 360 properties).
+        ///
+        /// For a guide to constructing realtime requests & understanding responses,
+        /// see [Creating a Realtime
+        /// Report](https://developers.google.com/analytics/devguides/reporting/data/v1/realtime-basics).
+        async fn run_realtime_report(
+            &self,
+            request: tonic::Request<super::RunRealtimeReportRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::RunRealtimeReportResponse>,
+            tonic::Status,
+        >;
+        /// This compatibility method lists dimensions and metrics that can be added to
+        /// a report request and maintain compatibility. This method fails if the
+        /// request's dimensions and metrics are incompatible.
+        ///
+        /// In Google Analytics, reports fail if they request incompatible dimensions
+        /// and/or metrics; in that case, you will need to remove dimensions and/or
+        /// metrics from the incompatible report until the report is compatible.
+        ///
+        /// The Realtime and Core reports have different compatibility rules. This
+        /// method checks compatibility for Core reports.
+        async fn check_compatibility(
+            &self,
+            request: tonic::Request<super::CheckCompatibilityRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::CheckCompatibilityResponse>,
+            tonic::Status,
+        >;
+        /// Creates an audience export for later retrieval. This method quickly returns
+        /// the audience export's resource name and initiates a long running
+        /// asynchronous request to form an audience export. To export the users in an
+        /// audience export, first create the audience export through this method and
+        /// then send the audience resource name to the `QueryAudienceExport` method.
+        ///
+        /// See [Creating an Audience
+        /// Export](https://developers.google.com/analytics/devguides/reporting/data/v1/audience-list-basics)
+        /// for an introduction to Audience Exports with examples.
+        ///
+        /// An audience export is a snapshot of the users currently in the audience at
+        /// the time of audience export creation. Creating audience exports for one
+        /// audience on different days will return different results as users enter and
+        /// exit the audience.
+        ///
+        /// Audiences in Google Analytics 4 allow you to segment your users in the ways
+        /// that are important to your business. To learn more, see
+        /// https://support.google.com/analytics/answer/9267572. Audience exports
+        /// contain the users in each audience.
+        ///
+        /// Audience Export APIs have some methods at alpha and other methods at beta
+        /// stability. The intention is to advance methods to beta stability after some
+        /// feedback and adoption. To give your feedback on this API, complete the
+        /// [Google Analytics Audience Export API
+        /// Feedback](https://forms.gle/EeA5u5LW6PEggtCEA) form.
+        async fn create_audience_export(
+            &self,
+            request: tonic::Request<super::CreateAudienceExportRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Retrieves an audience export of users. After creating an audience, the
+        /// users are not immediately available for exporting. First, a request to
+        /// `CreateAudienceExport` is necessary to create an audience export of users,
+        /// and then second, this method is used to retrieve the users in the audience
+        /// export.
+        ///
+        /// See [Creating an Audience
+        /// Export](https://developers.google.com/analytics/devguides/reporting/data/v1/audience-list-basics)
+        /// for an introduction to Audience Exports with examples.
+        ///
+        /// Audiences in Google Analytics 4 allow you to segment your users in the ways
+        /// that are important to your business. To learn more, see
+        /// https://support.google.com/analytics/answer/9267572.
+        ///
+        /// Audience Export APIs have some methods at alpha and other methods at beta
+        /// stability. The intention is to advance methods to beta stability after some
+        /// feedback and adoption. To give your feedback on this API, complete the
+        /// [Google Analytics Audience Export API
+        /// Feedback](https://forms.gle/EeA5u5LW6PEggtCEA) form.
+        async fn query_audience_export(
+            &self,
+            request: tonic::Request<super::QueryAudienceExportRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryAudienceExportResponse>,
+            tonic::Status,
+        >;
+        /// Gets configuration metadata about a specific audience export. This method
+        /// can be used to understand an audience export after it has been created.
+        ///
+        /// See [Creating an Audience
+        /// Export](https://developers.google.com/analytics/devguides/reporting/data/v1/audience-list-basics)
+        /// for an introduction to Audience Exports with examples.
+        ///
+        /// Audience Export APIs have some methods at alpha and other methods at beta
+        /// stability. The intention is to advance methods to beta stability after some
+        /// feedback and adoption. To give your feedback on this API, complete the
+        /// [Google Analytics Audience Export API
+        /// Feedback](https://forms.gle/EeA5u5LW6PEggtCEA) form.
+        async fn get_audience_export(
+            &self,
+            request: tonic::Request<super::GetAudienceExportRequest>,
+        ) -> std::result::Result<tonic::Response<super::AudienceExport>, tonic::Status>;
+        /// Lists all audience exports for a property. This method can be used for you
+        /// to find and reuse existing audience exports rather than creating
+        /// unnecessary new audience exports. The same audience can have multiple
+        /// audience exports that represent the export of users that were in an
+        /// audience on different days.
+        ///
+        /// See [Creating an Audience
+        /// Export](https://developers.google.com/analytics/devguides/reporting/data/v1/audience-list-basics)
+        /// for an introduction to Audience Exports with examples.
+        ///
+        /// Audience Export APIs have some methods at alpha and other methods at beta
+        /// stability. The intention is to advance methods to beta stability after some
+        /// feedback and adoption. To give your feedback on this API, complete the
+        /// [Google Analytics Audience Export API
+        /// Feedback](https://forms.gle/EeA5u5LW6PEggtCEA) form.
+        async fn list_audience_exports(
+            &self,
+            request: tonic::Request<super::ListAudienceExportsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAudienceExportsResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Google Analytics reporting data service.
+    #[derive(Debug)]
+    pub struct BetaAnalyticsDataServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> BetaAnalyticsDataServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for BetaAnalyticsDataServer<T>
+    where
+        T: BetaAnalyticsData,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.analytics.data.v1beta.BetaAnalyticsData/RunReport" => {
+                    #[allow(non_camel_case_types)]
+                    struct RunReportSvc<T: BetaAnalyticsData>(pub Arc<T>);
+                    impl<
+                        T: BetaAnalyticsData,
+                    > tonic::server::UnaryService<super::RunReportRequest>
+                    for RunReportSvc<T> {
+                        type Response = super::RunReportResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RunReportRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BetaAnalyticsData>::run_report(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RunReportSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.data.v1beta.BetaAnalyticsData/RunPivotReport" => {
+                    #[allow(non_camel_case_types)]
+                    struct RunPivotReportSvc<T: BetaAnalyticsData>(pub Arc<T>);
+                    impl<
+                        T: BetaAnalyticsData,
+                    > tonic::server::UnaryService<super::RunPivotReportRequest>
+                    for RunPivotReportSvc<T> {
+                        type Response = super::RunPivotReportResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RunPivotReportRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BetaAnalyticsData>::run_pivot_report(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RunPivotReportSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.data.v1beta.BetaAnalyticsData/BatchRunReports" => {
+                    #[allow(non_camel_case_types)]
+                    struct BatchRunReportsSvc<T: BetaAnalyticsData>(pub Arc<T>);
+                    impl<
+                        T: BetaAnalyticsData,
+                    > tonic::server::UnaryService<super::BatchRunReportsRequest>
+                    for BatchRunReportsSvc<T> {
+                        type Response = super::BatchRunReportsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::BatchRunReportsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BetaAnalyticsData>::batch_run_reports(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BatchRunReportsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.data.v1beta.BetaAnalyticsData/BatchRunPivotReports" => {
+                    #[allow(non_camel_case_types)]
+                    struct BatchRunPivotReportsSvc<T: BetaAnalyticsData>(pub Arc<T>);
+                    impl<
+                        T: BetaAnalyticsData,
+                    > tonic::server::UnaryService<super::BatchRunPivotReportsRequest>
+                    for BatchRunPivotReportsSvc<T> {
+                        type Response = super::BatchRunPivotReportsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::BatchRunPivotReportsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BetaAnalyticsData>::batch_run_pivot_reports(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BatchRunPivotReportsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.data.v1beta.BetaAnalyticsData/GetMetadata" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetMetadataSvc<T: BetaAnalyticsData>(pub Arc<T>);
+                    impl<
+                        T: BetaAnalyticsData,
+                    > tonic::server::UnaryService<super::GetMetadataRequest>
+                    for GetMetadataSvc<T> {
+                        type Response = super::Metadata;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetMetadataRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BetaAnalyticsData>::get_metadata(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetMetadataSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.data.v1beta.BetaAnalyticsData/RunRealtimeReport" => {
+                    #[allow(non_camel_case_types)]
+                    struct RunRealtimeReportSvc<T: BetaAnalyticsData>(pub Arc<T>);
+                    impl<
+                        T: BetaAnalyticsData,
+                    > tonic::server::UnaryService<super::RunRealtimeReportRequest>
+                    for RunRealtimeReportSvc<T> {
+                        type Response = super::RunRealtimeReportResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RunRealtimeReportRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BetaAnalyticsData>::run_realtime_report(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RunRealtimeReportSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.data.v1beta.BetaAnalyticsData/CheckCompatibility" => {
+                    #[allow(non_camel_case_types)]
+                    struct CheckCompatibilitySvc<T: BetaAnalyticsData>(pub Arc<T>);
+                    impl<
+                        T: BetaAnalyticsData,
+                    > tonic::server::UnaryService<super::CheckCompatibilityRequest>
+                    for CheckCompatibilitySvc<T> {
+                        type Response = super::CheckCompatibilityResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CheckCompatibilityRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BetaAnalyticsData>::check_compatibility(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CheckCompatibilitySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.data.v1beta.BetaAnalyticsData/CreateAudienceExport" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateAudienceExportSvc<T: BetaAnalyticsData>(pub Arc<T>);
+                    impl<
+                        T: BetaAnalyticsData,
+                    > tonic::server::UnaryService<super::CreateAudienceExportRequest>
+                    for CreateAudienceExportSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateAudienceExportRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BetaAnalyticsData>::create_audience_export(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateAudienceExportSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.data.v1beta.BetaAnalyticsData/QueryAudienceExport" => {
+                    #[allow(non_camel_case_types)]
+                    struct QueryAudienceExportSvc<T: BetaAnalyticsData>(pub Arc<T>);
+                    impl<
+                        T: BetaAnalyticsData,
+                    > tonic::server::UnaryService<super::QueryAudienceExportRequest>
+                    for QueryAudienceExportSvc<T> {
+                        type Response = super::QueryAudienceExportResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QueryAudienceExportRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BetaAnalyticsData>::query_audience_export(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = QueryAudienceExportSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.data.v1beta.BetaAnalyticsData/GetAudienceExport" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAudienceExportSvc<T: BetaAnalyticsData>(pub Arc<T>);
+                    impl<
+                        T: BetaAnalyticsData,
+                    > tonic::server::UnaryService<super::GetAudienceExportRequest>
+                    for GetAudienceExportSvc<T> {
+                        type Response = super::AudienceExport;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAudienceExportRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BetaAnalyticsData>::get_audience_export(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAudienceExportSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.analytics.data.v1beta.BetaAnalyticsData/ListAudienceExports" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAudienceExportsSvc<T: BetaAnalyticsData>(pub Arc<T>);
+                    impl<
+                        T: BetaAnalyticsData,
+                    > tonic::server::UnaryService<super::ListAudienceExportsRequest>
+                    for ListAudienceExportsSvc<T> {
+                        type Response = super::ListAudienceExportsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListAudienceExportsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BetaAnalyticsData>::list_audience_exports(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAudienceExportsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for BetaAnalyticsDataServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.analytics.data.v1beta.BetaAnalyticsData";
+    impl<T> tonic::server::NamedService for BetaAnalyticsDataServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

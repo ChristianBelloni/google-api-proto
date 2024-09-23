@@ -107,11 +107,11 @@ pub mod setting_metadata {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                DataType::Unspecified => "DATA_TYPE_UNSPECIFIED",
-                DataType::Boolean => "BOOLEAN",
-                DataType::String => "STRING",
-                DataType::StringSet => "STRING_SET",
-                DataType::EnumValue => "ENUM_VALUE",
+                Self::Unspecified => "DATA_TYPE_UNSPECIFIED",
+                Self::Boolean => "BOOLEAN",
+                Self::String => "STRING",
+                Self::StringSet => "STRING_SET",
+                Self::EnumValue => "ENUM_VALUE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -251,10 +251,10 @@ impl SettingView {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            SettingView::Unspecified => "SETTING_VIEW_UNSPECIFIED",
-            SettingView::Basic => "SETTING_VIEW_BASIC",
-            SettingView::EffectiveValue => "SETTING_VIEW_EFFECTIVE_VALUE",
-            SettingView::LocalValue => "SETTING_VIEW_LOCAL_VALUE",
+            Self::Unspecified => "SETTING_VIEW_UNSPECIFIED",
+            Self::Basic => "SETTING_VIEW_BASIC",
+            Self::EffectiveValue => "SETTING_VIEW_EFFECTIVE_VALUE",
+            Self::LocalValue => "SETTING_VIEW_LOCAL_VALUE",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -464,5 +464,321 @@ pub mod resource_settings_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod resource_settings_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with ResourceSettingsServiceServer.
+    #[async_trait]
+    pub trait ResourceSettingsService: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists all the settings that are available on the Cloud resource `parent`.
+        async fn list_settings(
+            &self,
+            request: tonic::Request<super::ListSettingsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListSettingsResponse>,
+            tonic::Status,
+        >;
+        /// Gets a setting.
+        ///
+        /// Returns a `google.rpc.Status` with `google.rpc.Code.NOT_FOUND` if the
+        /// setting does not exist.
+        async fn get_setting(
+            &self,
+            request: tonic::Request<super::GetSettingRequest>,
+        ) -> std::result::Result<tonic::Response<super::Setting>, tonic::Status>;
+        /// Updates a setting.
+        ///
+        /// Returns a `google.rpc.Status` with `google.rpc.Code.NOT_FOUND` if the
+        /// setting does not exist.
+        /// Returns a `google.rpc.Status` with `google.rpc.Code.FAILED_PRECONDITION` if
+        /// the setting is flagged as read only.
+        /// Returns a `google.rpc.Status` with `google.rpc.Code.ABORTED` if the etag
+        /// supplied in the request does not match the persisted etag of the setting
+        /// value.
+        ///
+        /// On success, the response will contain only `name`, `local_value` and
+        /// `etag`.  The `metadata` and `effective_value` cannot be updated through
+        /// this API.
+        ///
+        /// Note: the supplied setting will perform a full overwrite of the
+        /// `local_value` field.
+        async fn update_setting(
+            &self,
+            request: tonic::Request<super::UpdateSettingRequest>,
+        ) -> std::result::Result<tonic::Response<super::Setting>, tonic::Status>;
+    }
+    /// An interface to interact with resource settings and setting values throughout
+    /// the resource hierarchy.
+    ///
+    /// Services may surface a number of settings for users to control how their
+    /// resources behave. Values of settings applied on a given Cloud resource are
+    /// evaluated hierarchically and inherited by all descendants of that resource.
+    ///
+    /// For all requests, returns a `google.rpc.Status` with
+    /// `google.rpc.Code.PERMISSION_DENIED` if the IAM check fails or the `parent`
+    /// resource is not in a Cloud Organization.
+    /// For all requests, returns a `google.rpc.Status` with
+    /// `google.rpc.Code.INVALID_ARGUMENT` if the request is malformed.
+    /// (== deprecation_description Resource Settings is deprecated. As of November
+    /// 7, 2023, no organizations will be onboarded for any of the enabled settings,
+    /// and the service will be shut down on October 1, 2024. ==)
+    #[derive(Debug)]
+    pub struct ResourceSettingsServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> ResourceSettingsServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for ResourceSettingsServiceServer<T>
+    where
+        T: ResourceSettingsService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.resourcesettings.v1.ResourceSettingsService/ListSettings" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListSettingsSvc<T: ResourceSettingsService>(pub Arc<T>);
+                    impl<
+                        T: ResourceSettingsService,
+                    > tonic::server::UnaryService<super::ListSettingsRequest>
+                    for ListSettingsSvc<T> {
+                        type Response = super::ListSettingsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListSettingsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResourceSettingsService>::list_settings(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListSettingsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.resourcesettings.v1.ResourceSettingsService/GetSetting" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetSettingSvc<T: ResourceSettingsService>(pub Arc<T>);
+                    impl<
+                        T: ResourceSettingsService,
+                    > tonic::server::UnaryService<super::GetSettingRequest>
+                    for GetSettingSvc<T> {
+                        type Response = super::Setting;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetSettingRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResourceSettingsService>::get_setting(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetSettingSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.resourcesettings.v1.ResourceSettingsService/UpdateSetting" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateSettingSvc<T: ResourceSettingsService>(pub Arc<T>);
+                    impl<
+                        T: ResourceSettingsService,
+                    > tonic::server::UnaryService<super::UpdateSettingRequest>
+                    for UpdateSettingSvc<T> {
+                        type Response = super::Setting;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateSettingRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ResourceSettingsService>::update_setting(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateSettingSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for ResourceSettingsServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.resourcesettings.v1.ResourceSettingsService";
+    impl<T> tonic::server::NamedService for ResourceSettingsServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

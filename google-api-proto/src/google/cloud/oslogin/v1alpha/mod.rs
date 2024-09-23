@@ -349,3 +349,455 @@ pub mod os_login_service_client {
         }
     }
 }
+/// Generated server implementations.
+pub mod os_login_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with OsLoginServiceServer.
+    #[async_trait]
+    pub trait OsLoginService: std::marker::Send + std::marker::Sync + 'static {
+        /// Deletes a POSIX account.
+        async fn delete_posix_account(
+            &self,
+            request: tonic::Request<super::DeletePosixAccountRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Deletes an SSH public key.
+        async fn delete_ssh_public_key(
+            &self,
+            request: tonic::Request<super::DeleteSshPublicKeyRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Retrieves the profile information used for logging in to a virtual machine
+        /// on Google Compute Engine.
+        async fn get_login_profile(
+            &self,
+            request: tonic::Request<super::GetLoginProfileRequest>,
+        ) -> std::result::Result<tonic::Response<super::LoginProfile>, tonic::Status>;
+        /// Retrieves an SSH public key.
+        async fn get_ssh_public_key(
+            &self,
+            request: tonic::Request<super::GetSshPublicKeyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::common::SshPublicKey>,
+            tonic::Status,
+        >;
+        /// Adds an SSH public key and returns the profile information. Default POSIX
+        /// account information is set when no username and UID exist as part of the
+        /// login profile.
+        async fn import_ssh_public_key(
+            &self,
+            request: tonic::Request<super::ImportSshPublicKeyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ImportSshPublicKeyResponse>,
+            tonic::Status,
+        >;
+        /// Updates an SSH public key and returns the profile information. This method
+        /// supports patch semantics.
+        async fn update_ssh_public_key(
+            &self,
+            request: tonic::Request<super::UpdateSshPublicKeyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::common::SshPublicKey>,
+            tonic::Status,
+        >;
+    }
+    /// Cloud OS Login API
+    ///
+    /// The Cloud OS Login API allows you to manage users and their associated SSH
+    /// public keys for logging into virtual machines on Google Cloud Platform.
+    #[derive(Debug)]
+    pub struct OsLoginServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> OsLoginServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for OsLoginServiceServer<T>
+    where
+        T: OsLoginService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.oslogin.v1alpha.OsLoginService/DeletePosixAccount" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeletePosixAccountSvc<T: OsLoginService>(pub Arc<T>);
+                    impl<
+                        T: OsLoginService,
+                    > tonic::server::UnaryService<super::DeletePosixAccountRequest>
+                    for DeletePosixAccountSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeletePosixAccountRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OsLoginService>::delete_posix_account(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeletePosixAccountSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.oslogin.v1alpha.OsLoginService/DeleteSshPublicKey" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteSshPublicKeySvc<T: OsLoginService>(pub Arc<T>);
+                    impl<
+                        T: OsLoginService,
+                    > tonic::server::UnaryService<super::DeleteSshPublicKeyRequest>
+                    for DeleteSshPublicKeySvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteSshPublicKeyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OsLoginService>::delete_ssh_public_key(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteSshPublicKeySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.oslogin.v1alpha.OsLoginService/GetLoginProfile" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetLoginProfileSvc<T: OsLoginService>(pub Arc<T>);
+                    impl<
+                        T: OsLoginService,
+                    > tonic::server::UnaryService<super::GetLoginProfileRequest>
+                    for GetLoginProfileSvc<T> {
+                        type Response = super::LoginProfile;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetLoginProfileRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OsLoginService>::get_login_profile(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetLoginProfileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.oslogin.v1alpha.OsLoginService/GetSshPublicKey" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetSshPublicKeySvc<T: OsLoginService>(pub Arc<T>);
+                    impl<
+                        T: OsLoginService,
+                    > tonic::server::UnaryService<super::GetSshPublicKeyRequest>
+                    for GetSshPublicKeySvc<T> {
+                        type Response = super::super::common::SshPublicKey;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetSshPublicKeyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OsLoginService>::get_ssh_public_key(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetSshPublicKeySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.oslogin.v1alpha.OsLoginService/ImportSshPublicKey" => {
+                    #[allow(non_camel_case_types)]
+                    struct ImportSshPublicKeySvc<T: OsLoginService>(pub Arc<T>);
+                    impl<
+                        T: OsLoginService,
+                    > tonic::server::UnaryService<super::ImportSshPublicKeyRequest>
+                    for ImportSshPublicKeySvc<T> {
+                        type Response = super::ImportSshPublicKeyResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ImportSshPublicKeyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OsLoginService>::import_ssh_public_key(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ImportSshPublicKeySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.oslogin.v1alpha.OsLoginService/UpdateSshPublicKey" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateSshPublicKeySvc<T: OsLoginService>(pub Arc<T>);
+                    impl<
+                        T: OsLoginService,
+                    > tonic::server::UnaryService<super::UpdateSshPublicKeyRequest>
+                    for UpdateSshPublicKeySvc<T> {
+                        type Response = super::super::common::SshPublicKey;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateSshPublicKeyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OsLoginService>::update_ssh_public_key(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateSshPublicKeySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for OsLoginServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.oslogin.v1alpha.OsLoginService";
+    impl<T> tonic::server::NamedService for OsLoginServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}

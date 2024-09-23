@@ -113,12 +113,12 @@ impl OperationState {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            OperationState::Unspecified => "OPERATION_STATE_UNSPECIFIED",
-            OperationState::Running => "OPERATION_STATE_RUNNING",
-            OperationState::Succeeded => "OPERATION_STATE_SUCCEEDED",
-            OperationState::Failed => "OPERATION_STATE_FAILED",
-            OperationState::Cancelling => "OPERATION_STATE_CANCELLING",
-            OperationState::Cancelled => "OPERATION_STATE_CANCELLED",
+            Self::Unspecified => "OPERATION_STATE_UNSPECIFIED",
+            Self::Running => "OPERATION_STATE_RUNNING",
+            Self::Succeeded => "OPERATION_STATE_SUCCEEDED",
+            Self::Failed => "OPERATION_STATE_FAILED",
+            Self::Cancelling => "OPERATION_STATE_CANCELLING",
+            Self::Cancelled => "OPERATION_STATE_CANCELLED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -133,350 +133,6 @@ impl OperationState {
             _ => None,
         }
     }
-}
-/// An Adaptive MT Dataset.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AdaptiveMtDataset {
-    /// Required. The resource name of the dataset, in form of
-    /// `projects/{project-number-or-id}/locations/{location_id}/adaptiveMtDatasets/{dataset_id}`
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// The name of the dataset to show in the interface. The name can be
-    /// up to 32 characters long and can consist only of ASCII Latin letters A-Z
-    /// and a-z, underscores (_), and ASCII digits 0-9.
-    #[prost(string, tag = "2")]
-    pub display_name: ::prost::alloc::string::String,
-    /// The BCP-47 language code of the source language.
-    #[prost(string, tag = "3")]
-    pub source_language_code: ::prost::alloc::string::String,
-    /// The BCP-47 language code of the target language.
-    #[prost(string, tag = "4")]
-    pub target_language_code: ::prost::alloc::string::String,
-    /// The number of examples in the dataset.
-    #[prost(int32, tag = "5")]
-    pub example_count: i32,
-    /// Output only. Timestamp when this dataset was created.
-    #[prost(message, optional, tag = "9")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. Timestamp when this dataset was last updated.
-    #[prost(message, optional, tag = "10")]
-    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
-}
-///  Request message for creating an AdaptiveMtDataset.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CreateAdaptiveMtDatasetRequest {
-    /// Required. Name of the parent project. In form of
-    /// `projects/{project-number-or-id}/locations/{location-id}`
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// Required. The AdaptiveMtDataset to be created.
-    #[prost(message, optional, tag = "2")]
-    pub adaptive_mt_dataset: ::core::option::Option<AdaptiveMtDataset>,
-}
-/// Request message for deleting an AdaptiveMtDataset.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DeleteAdaptiveMtDatasetRequest {
-    /// Required. Name of the dataset. In the form of
-    /// `projects/{project-number-or-id}/locations/{location-id}/adaptiveMtDatasets/{adaptive-mt-dataset-id}`
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// Request message for getting an Adaptive MT dataset.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetAdaptiveMtDatasetRequest {
-    /// Required. Name of the dataset. In the form of
-    /// `projects/{project-number-or-id}/locations/{location-id}/adaptiveMtDatasets/{adaptive-mt-dataset-id}`
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// Request message for listing all Adaptive MT datasets that the requestor has
-/// access to.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListAdaptiveMtDatasetsRequest {
-    /// Required. The resource name of the project from which to list the Adaptive
-    /// MT datasets. `projects/{project-number-or-id}/locations/{location-id}`
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// Optional. Requested page size. The server may return fewer results than
-    /// requested. If unspecified, the server picks an appropriate default.
-    #[prost(int32, tag = "2")]
-    pub page_size: i32,
-    /// Optional. A token identifying a page of results the server should return.
-    /// Typically, this is the value of
-    /// ListAdaptiveMtDatasetsResponse.next_page_token returned from the
-    /// previous call to `ListAdaptiveMtDatasets` method. The first page is
-    /// returned if `page_token`is empty or missing.
-    #[prost(string, tag = "3")]
-    pub page_token: ::prost::alloc::string::String,
-    /// Optional. An expression for filtering the results of the request.
-    /// Filter is not supported yet.
-    #[prost(string, tag = "4")]
-    pub filter: ::prost::alloc::string::String,
-}
-/// A list of AdaptiveMtDatasets.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListAdaptiveMtDatasetsResponse {
-    /// Output only. A list of Adaptive MT datasets.
-    #[prost(message, repeated, tag = "1")]
-    pub adaptive_mt_datasets: ::prost::alloc::vec::Vec<AdaptiveMtDataset>,
-    /// Optional. A token to retrieve a page of results. Pass this value in the
-    /// \[ListAdaptiveMtDatasetsRequest.page_token\] field in the subsequent call to
-    /// `ListAdaptiveMtDatasets` method to retrieve the next page of results.
-    #[prost(string, tag = "2")]
-    pub next_page_token: ::prost::alloc::string::String,
-}
-/// The request for sending an AdaptiveMt translation query.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AdaptiveMtTranslateRequest {
-    /// Required. Location to make a regional call.
-    ///
-    /// Format: `projects/{project-number-or-id}/locations/{location-id}`.
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// Required. The resource name for the dataset to use for adaptive MT.
-    /// `projects/{project}/locations/{location-id}/adaptiveMtDatasets/{dataset}`
-    #[prost(string, tag = "2")]
-    pub dataset: ::prost::alloc::string::String,
-    /// Required. The content of the input in string format.
-    #[prost(string, repeated, tag = "3")]
-    pub content: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-    /// Configuration for caller provided reference sentences.
-    #[prost(message, optional, tag = "6")]
-    pub reference_sentence_config: ::core::option::Option<
-        adaptive_mt_translate_request::ReferenceSentenceConfig,
-    >,
-    /// Optional. Glossary to be applied. The glossary must be
-    /// within the same region (have the same location-id) as the model, otherwise
-    /// an INVALID_ARGUMENT (400) error is returned.
-    #[prost(message, optional, tag = "7")]
-    pub glossary_config: ::core::option::Option<
-        adaptive_mt_translate_request::GlossaryConfig,
-    >,
-}
-/// Nested message and enum types in `AdaptiveMtTranslateRequest`.
-pub mod adaptive_mt_translate_request {
-    /// A pair of sentences used as reference in source and target languages.
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct ReferenceSentencePair {
-        /// Source sentence in the sentence pair.
-        #[prost(string, tag = "1")]
-        pub source_sentence: ::prost::alloc::string::String,
-        /// Target sentence in the sentence pair.
-        #[prost(string, tag = "2")]
-        pub target_sentence: ::prost::alloc::string::String,
-    }
-    /// A list of reference sentence pairs.
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct ReferenceSentencePairList {
-        /// Reference sentence pairs.
-        #[prost(message, repeated, tag = "1")]
-        pub reference_sentence_pairs: ::prost::alloc::vec::Vec<ReferenceSentencePair>,
-    }
-    /// Message of caller-provided reference configuration.
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct ReferenceSentenceConfig {
-        /// Reference sentences pair lists. Each list will be used as the references
-        /// to translate the sentence under "content" field at the corresponding
-        /// index. Length of the list is required to be equal to the length of
-        /// "content" field.
-        #[prost(message, repeated, tag = "1")]
-        pub reference_sentence_pair_lists: ::prost::alloc::vec::Vec<
-            ReferenceSentencePairList,
-        >,
-        /// Source language code.
-        #[prost(string, tag = "2")]
-        pub source_language_code: ::prost::alloc::string::String,
-        /// Target language code.
-        #[prost(string, tag = "3")]
-        pub target_language_code: ::prost::alloc::string::String,
-    }
-    /// Configures which glossary is used for a specific target language and
-    /// defines
-    /// options for applying that glossary.
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct GlossaryConfig {
-        /// Required. The `glossary` to be applied for this translation.
-        ///
-        /// The format depends on the glossary:
-        ///
-        /// - User-provided custom glossary:
-        ///    `projects/{project-number-or-id}/locations/{location-id}/glossaries/{glossary-id}`
-        #[prost(string, tag = "1")]
-        pub glossary: ::prost::alloc::string::String,
-        /// Optional. Indicates match is case insensitive. The default value is
-        /// `false` if missing.
-        #[prost(bool, tag = "2")]
-        pub ignore_case: bool,
-    }
-}
-/// An AdaptiveMt translation.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AdaptiveMtTranslation {
-    /// Output only. The translated text.
-    #[prost(string, tag = "1")]
-    pub translated_text: ::prost::alloc::string::String,
-}
-/// An AdaptiveMtTranslate response.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AdaptiveMtTranslateResponse {
-    /// Output only. The translation.
-    #[prost(message, repeated, tag = "1")]
-    pub translations: ::prost::alloc::vec::Vec<AdaptiveMtTranslation>,
-    /// Output only. The translation's language code.
-    #[prost(string, tag = "2")]
-    pub language_code: ::prost::alloc::string::String,
-    /// Text translation response if a glossary is provided in the request. This
-    /// could be the same as 'translation' above if no terms apply.
-    #[prost(message, repeated, tag = "4")]
-    pub glossary_translations: ::prost::alloc::vec::Vec<AdaptiveMtTranslation>,
-}
-/// An AdaptiveMtFile.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AdaptiveMtFile {
-    /// Required. The resource name of the file, in form of
-    /// `projects/{project-number-or-id}/locations/{location_id}/adaptiveMtDatasets/{dataset}/adaptiveMtFiles/{file}`
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// The file's display name.
-    #[prost(string, tag = "2")]
-    pub display_name: ::prost::alloc::string::String,
-    /// The number of entries that the file contains.
-    #[prost(int32, tag = "3")]
-    pub entry_count: i32,
-    /// Output only. Timestamp when this file was created.
-    #[prost(message, optional, tag = "4")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. Timestamp when this file was last updated.
-    #[prost(message, optional, tag = "5")]
-    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
-}
-/// The request for getting an AdaptiveMtFile.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetAdaptiveMtFileRequest {
-    /// Required. The resource name of the file, in form of
-    /// `projects/{project-number-or-id}/locations/{location_id}/adaptiveMtDatasets/{dataset}/adaptiveMtFiles/{file}`
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// The request for deleting an AdaptiveMt file.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DeleteAdaptiveMtFileRequest {
-    /// Required. The resource name of the file to delete, in form of
-    /// `projects/{project-number-or-id}/locations/{location_id}/adaptiveMtDatasets/{dataset}/adaptiveMtFiles/{file}`
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// The request for importing an AdaptiveMt file along with its sentences.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ImportAdaptiveMtFileRequest {
-    /// Required. The resource name of the file, in form of
-    /// `projects/{project-number-or-id}/locations/{location_id}/adaptiveMtDatasets/{dataset}`
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// The source for the document.
-    #[prost(oneof = "import_adaptive_mt_file_request::Source", tags = "2, 3")]
-    pub source: ::core::option::Option<import_adaptive_mt_file_request::Source>,
-}
-/// Nested message and enum types in `ImportAdaptiveMtFileRequest`.
-pub mod import_adaptive_mt_file_request {
-    /// The source for the document.
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
-    pub enum Source {
-        /// Inline file source.
-        #[prost(message, tag = "2")]
-        FileInputSource(super::FileInputSource),
-        /// Google Cloud Storage file source.
-        #[prost(message, tag = "3")]
-        GcsInputSource(super::GcsInputSource),
-    }
-}
-/// The response for importing an AdaptiveMtFile
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ImportAdaptiveMtFileResponse {
-    /// Output only. The Adaptive MT file that was imported.
-    #[prost(message, optional, tag = "1")]
-    pub adaptive_mt_file: ::core::option::Option<AdaptiveMtFile>,
-}
-/// The request to list all AdaptiveMt files under a given dataset.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListAdaptiveMtFilesRequest {
-    /// Required. The resource name of the project from which to list the Adaptive
-    /// MT files.
-    /// `projects/{project}/locations/{location}/adaptiveMtDatasets/{dataset}`
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// Optional.
-    #[prost(int32, tag = "2")]
-    pub page_size: i32,
-    /// Optional. A token identifying a page of results the server should return.
-    /// Typically, this is the value of
-    /// ListAdaptiveMtFilesResponse.next_page_token returned from the
-    /// previous call to `ListAdaptiveMtFiles` method. The first page is
-    /// returned if `page_token`is empty or missing.
-    #[prost(string, tag = "3")]
-    pub page_token: ::prost::alloc::string::String,
-}
-/// The response for listing all AdaptiveMt files under a given dataset.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListAdaptiveMtFilesResponse {
-    /// Output only. The Adaptive MT files.
-    #[prost(message, repeated, tag = "1")]
-    pub adaptive_mt_files: ::prost::alloc::vec::Vec<AdaptiveMtFile>,
-    /// Optional. A token to retrieve a page of results. Pass this value in the
-    /// ListAdaptiveMtFilesRequest.page_token field in the subsequent call to
-    /// `ListAdaptiveMtFiles` method to retrieve the next page of results.
-    #[prost(string, tag = "3")]
-    pub next_page_token: ::prost::alloc::string::String,
-}
-/// An AdaptiveMt sentence entry.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct AdaptiveMtSentence {
-    /// Required. The resource name of the file, in form of
-    /// `projects/{project-number-or-id}/locations/{location_id}/adaptiveMtDatasets/{dataset}/adaptiveMtFiles/{file}/adaptiveMtSentences/{sentence}`
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// Required. The source sentence.
-    #[prost(string, tag = "2")]
-    pub source_sentence: ::prost::alloc::string::String,
-    /// Required. The target sentence.
-    #[prost(string, tag = "3")]
-    pub target_sentence: ::prost::alloc::string::String,
-    /// Output only. Timestamp when this sentence was created.
-    #[prost(message, optional, tag = "4")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. Timestamp when this sentence was last updated.
-    #[prost(message, optional, tag = "5")]
-    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
-}
-/// The request for listing Adaptive MT sentences from a Dataset/File.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListAdaptiveMtSentencesRequest {
-    /// Required. The resource name of the project from which to list the Adaptive
-    /// MT files. The following format lists all sentences under a file.
-    /// `projects/{project}/locations/{location}/adaptiveMtDatasets/{dataset}/adaptiveMtFiles/{file}`
-    /// The following format lists all sentences within a dataset.
-    /// `projects/{project}/locations/{location}/adaptiveMtDatasets/{dataset}`
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    #[prost(int32, tag = "2")]
-    pub page_size: i32,
-    /// A token identifying a page of results the server should return.
-    /// Typically, this is the value of
-    /// ListAdaptiveMtSentencesRequest.next_page_token returned from the
-    /// previous call to `ListTranslationMemories` method. The first page is
-    /// returned if `page_token` is empty or missing.
-    #[prost(string, tag = "3")]
-    pub page_token: ::prost::alloc::string::String,
-}
-/// List AdaptiveMt sentences response.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListAdaptiveMtSentencesResponse {
-    /// Output only. The list of AdaptiveMtSentences.
-    #[prost(message, repeated, tag = "1")]
-    pub adaptive_mt_sentences: ::prost::alloc::vec::Vec<AdaptiveMtSentence>,
-    /// Optional.
-    #[prost(string, tag = "2")]
-    pub next_page_token: ::prost::alloc::string::String,
 }
 /// Request message for ImportData.
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -914,6 +570,350 @@ pub struct Model {
     /// Output only. Timestamp when this model was last updated.
     #[prost(message, optional, tag = "10")]
     pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+}
+/// An Adaptive MT Dataset.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AdaptiveMtDataset {
+    /// Required. The resource name of the dataset, in form of
+    /// `projects/{project-number-or-id}/locations/{location_id}/adaptiveMtDatasets/{dataset_id}`
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// The name of the dataset to show in the interface. The name can be
+    /// up to 32 characters long and can consist only of ASCII Latin letters A-Z
+    /// and a-z, underscores (_), and ASCII digits 0-9.
+    #[prost(string, tag = "2")]
+    pub display_name: ::prost::alloc::string::String,
+    /// The BCP-47 language code of the source language.
+    #[prost(string, tag = "3")]
+    pub source_language_code: ::prost::alloc::string::String,
+    /// The BCP-47 language code of the target language.
+    #[prost(string, tag = "4")]
+    pub target_language_code: ::prost::alloc::string::String,
+    /// The number of examples in the dataset.
+    #[prost(int32, tag = "5")]
+    pub example_count: i32,
+    /// Output only. Timestamp when this dataset was created.
+    #[prost(message, optional, tag = "9")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. Timestamp when this dataset was last updated.
+    #[prost(message, optional, tag = "10")]
+    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+}
+///  Request message for creating an AdaptiveMtDataset.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateAdaptiveMtDatasetRequest {
+    /// Required. Name of the parent project. In form of
+    /// `projects/{project-number-or-id}/locations/{location-id}`
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// Required. The AdaptiveMtDataset to be created.
+    #[prost(message, optional, tag = "2")]
+    pub adaptive_mt_dataset: ::core::option::Option<AdaptiveMtDataset>,
+}
+/// Request message for deleting an AdaptiveMtDataset.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteAdaptiveMtDatasetRequest {
+    /// Required. Name of the dataset. In the form of
+    /// `projects/{project-number-or-id}/locations/{location-id}/adaptiveMtDatasets/{adaptive-mt-dataset-id}`
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// Request message for getting an Adaptive MT dataset.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetAdaptiveMtDatasetRequest {
+    /// Required. Name of the dataset. In the form of
+    /// `projects/{project-number-or-id}/locations/{location-id}/adaptiveMtDatasets/{adaptive-mt-dataset-id}`
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// Request message for listing all Adaptive MT datasets that the requestor has
+/// access to.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListAdaptiveMtDatasetsRequest {
+    /// Required. The resource name of the project from which to list the Adaptive
+    /// MT datasets. `projects/{project-number-or-id}/locations/{location-id}`
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// Optional. Requested page size. The server may return fewer results than
+    /// requested. If unspecified, the server picks an appropriate default.
+    #[prost(int32, tag = "2")]
+    pub page_size: i32,
+    /// Optional. A token identifying a page of results the server should return.
+    /// Typically, this is the value of
+    /// ListAdaptiveMtDatasetsResponse.next_page_token returned from the
+    /// previous call to `ListAdaptiveMtDatasets` method. The first page is
+    /// returned if `page_token`is empty or missing.
+    #[prost(string, tag = "3")]
+    pub page_token: ::prost::alloc::string::String,
+    /// Optional. An expression for filtering the results of the request.
+    /// Filter is not supported yet.
+    #[prost(string, tag = "4")]
+    pub filter: ::prost::alloc::string::String,
+}
+/// A list of AdaptiveMtDatasets.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListAdaptiveMtDatasetsResponse {
+    /// Output only. A list of Adaptive MT datasets.
+    #[prost(message, repeated, tag = "1")]
+    pub adaptive_mt_datasets: ::prost::alloc::vec::Vec<AdaptiveMtDataset>,
+    /// Optional. A token to retrieve a page of results. Pass this value in the
+    /// \[ListAdaptiveMtDatasetsRequest.page_token\] field in the subsequent call to
+    /// `ListAdaptiveMtDatasets` method to retrieve the next page of results.
+    #[prost(string, tag = "2")]
+    pub next_page_token: ::prost::alloc::string::String,
+}
+/// The request for sending an AdaptiveMt translation query.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AdaptiveMtTranslateRequest {
+    /// Required. Location to make a regional call.
+    ///
+    /// Format: `projects/{project-number-or-id}/locations/{location-id}`.
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// Required. The resource name for the dataset to use for adaptive MT.
+    /// `projects/{project}/locations/{location-id}/adaptiveMtDatasets/{dataset}`
+    #[prost(string, tag = "2")]
+    pub dataset: ::prost::alloc::string::String,
+    /// Required. The content of the input in string format.
+    #[prost(string, repeated, tag = "3")]
+    pub content: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+    /// Configuration for caller provided reference sentences.
+    #[prost(message, optional, tag = "6")]
+    pub reference_sentence_config: ::core::option::Option<
+        adaptive_mt_translate_request::ReferenceSentenceConfig,
+    >,
+    /// Optional. Glossary to be applied. The glossary must be
+    /// within the same region (have the same location-id) as the model, otherwise
+    /// an INVALID_ARGUMENT (400) error is returned.
+    #[prost(message, optional, tag = "7")]
+    pub glossary_config: ::core::option::Option<
+        adaptive_mt_translate_request::GlossaryConfig,
+    >,
+}
+/// Nested message and enum types in `AdaptiveMtTranslateRequest`.
+pub mod adaptive_mt_translate_request {
+    /// A pair of sentences used as reference in source and target languages.
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct ReferenceSentencePair {
+        /// Source sentence in the sentence pair.
+        #[prost(string, tag = "1")]
+        pub source_sentence: ::prost::alloc::string::String,
+        /// Target sentence in the sentence pair.
+        #[prost(string, tag = "2")]
+        pub target_sentence: ::prost::alloc::string::String,
+    }
+    /// A list of reference sentence pairs.
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct ReferenceSentencePairList {
+        /// Reference sentence pairs.
+        #[prost(message, repeated, tag = "1")]
+        pub reference_sentence_pairs: ::prost::alloc::vec::Vec<ReferenceSentencePair>,
+    }
+    /// Message of caller-provided reference configuration.
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct ReferenceSentenceConfig {
+        /// Reference sentences pair lists. Each list will be used as the references
+        /// to translate the sentence under "content" field at the corresponding
+        /// index. Length of the list is required to be equal to the length of
+        /// "content" field.
+        #[prost(message, repeated, tag = "1")]
+        pub reference_sentence_pair_lists: ::prost::alloc::vec::Vec<
+            ReferenceSentencePairList,
+        >,
+        /// Source language code.
+        #[prost(string, tag = "2")]
+        pub source_language_code: ::prost::alloc::string::String,
+        /// Target language code.
+        #[prost(string, tag = "3")]
+        pub target_language_code: ::prost::alloc::string::String,
+    }
+    /// Configures which glossary is used for a specific target language and
+    /// defines
+    /// options for applying that glossary.
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct GlossaryConfig {
+        /// Required. The `glossary` to be applied for this translation.
+        ///
+        /// The format depends on the glossary:
+        ///
+        /// - User-provided custom glossary:
+        ///    `projects/{project-number-or-id}/locations/{location-id}/glossaries/{glossary-id}`
+        #[prost(string, tag = "1")]
+        pub glossary: ::prost::alloc::string::String,
+        /// Optional. Indicates match is case insensitive. The default value is
+        /// `false` if missing.
+        #[prost(bool, tag = "2")]
+        pub ignore_case: bool,
+    }
+}
+/// An AdaptiveMt translation.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AdaptiveMtTranslation {
+    /// Output only. The translated text.
+    #[prost(string, tag = "1")]
+    pub translated_text: ::prost::alloc::string::String,
+}
+/// An AdaptiveMtTranslate response.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AdaptiveMtTranslateResponse {
+    /// Output only. The translation.
+    #[prost(message, repeated, tag = "1")]
+    pub translations: ::prost::alloc::vec::Vec<AdaptiveMtTranslation>,
+    /// Output only. The translation's language code.
+    #[prost(string, tag = "2")]
+    pub language_code: ::prost::alloc::string::String,
+    /// Text translation response if a glossary is provided in the request. This
+    /// could be the same as 'translation' above if no terms apply.
+    #[prost(message, repeated, tag = "4")]
+    pub glossary_translations: ::prost::alloc::vec::Vec<AdaptiveMtTranslation>,
+}
+/// An AdaptiveMtFile.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AdaptiveMtFile {
+    /// Required. The resource name of the file, in form of
+    /// `projects/{project-number-or-id}/locations/{location_id}/adaptiveMtDatasets/{dataset}/adaptiveMtFiles/{file}`
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// The file's display name.
+    #[prost(string, tag = "2")]
+    pub display_name: ::prost::alloc::string::String,
+    /// The number of entries that the file contains.
+    #[prost(int32, tag = "3")]
+    pub entry_count: i32,
+    /// Output only. Timestamp when this file was created.
+    #[prost(message, optional, tag = "4")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. Timestamp when this file was last updated.
+    #[prost(message, optional, tag = "5")]
+    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+}
+/// The request for getting an AdaptiveMtFile.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetAdaptiveMtFileRequest {
+    /// Required. The resource name of the file, in form of
+    /// `projects/{project-number-or-id}/locations/{location_id}/adaptiveMtDatasets/{dataset}/adaptiveMtFiles/{file}`
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// The request for deleting an AdaptiveMt file.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteAdaptiveMtFileRequest {
+    /// Required. The resource name of the file to delete, in form of
+    /// `projects/{project-number-or-id}/locations/{location_id}/adaptiveMtDatasets/{dataset}/adaptiveMtFiles/{file}`
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// The request for importing an AdaptiveMt file along with its sentences.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ImportAdaptiveMtFileRequest {
+    /// Required. The resource name of the file, in form of
+    /// `projects/{project-number-or-id}/locations/{location_id}/adaptiveMtDatasets/{dataset}`
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// The source for the document.
+    #[prost(oneof = "import_adaptive_mt_file_request::Source", tags = "2, 3")]
+    pub source: ::core::option::Option<import_adaptive_mt_file_request::Source>,
+}
+/// Nested message and enum types in `ImportAdaptiveMtFileRequest`.
+pub mod import_adaptive_mt_file_request {
+    /// The source for the document.
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum Source {
+        /// Inline file source.
+        #[prost(message, tag = "2")]
+        FileInputSource(super::FileInputSource),
+        /// Google Cloud Storage file source.
+        #[prost(message, tag = "3")]
+        GcsInputSource(super::GcsInputSource),
+    }
+}
+/// The response for importing an AdaptiveMtFile
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ImportAdaptiveMtFileResponse {
+    /// Output only. The Adaptive MT file that was imported.
+    #[prost(message, optional, tag = "1")]
+    pub adaptive_mt_file: ::core::option::Option<AdaptiveMtFile>,
+}
+/// The request to list all AdaptiveMt files under a given dataset.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListAdaptiveMtFilesRequest {
+    /// Required. The resource name of the project from which to list the Adaptive
+    /// MT files.
+    /// `projects/{project}/locations/{location}/adaptiveMtDatasets/{dataset}`
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// Optional.
+    #[prost(int32, tag = "2")]
+    pub page_size: i32,
+    /// Optional. A token identifying a page of results the server should return.
+    /// Typically, this is the value of
+    /// ListAdaptiveMtFilesResponse.next_page_token returned from the
+    /// previous call to `ListAdaptiveMtFiles` method. The first page is
+    /// returned if `page_token`is empty or missing.
+    #[prost(string, tag = "3")]
+    pub page_token: ::prost::alloc::string::String,
+}
+/// The response for listing all AdaptiveMt files under a given dataset.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListAdaptiveMtFilesResponse {
+    /// Output only. The Adaptive MT files.
+    #[prost(message, repeated, tag = "1")]
+    pub adaptive_mt_files: ::prost::alloc::vec::Vec<AdaptiveMtFile>,
+    /// Optional. A token to retrieve a page of results. Pass this value in the
+    /// ListAdaptiveMtFilesRequest.page_token field in the subsequent call to
+    /// `ListAdaptiveMtFiles` method to retrieve the next page of results.
+    #[prost(string, tag = "3")]
+    pub next_page_token: ::prost::alloc::string::String,
+}
+/// An AdaptiveMt sentence entry.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct AdaptiveMtSentence {
+    /// Required. The resource name of the file, in form of
+    /// `projects/{project-number-or-id}/locations/{location_id}/adaptiveMtDatasets/{dataset}/adaptiveMtFiles/{file}/adaptiveMtSentences/{sentence}`
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// Required. The source sentence.
+    #[prost(string, tag = "2")]
+    pub source_sentence: ::prost::alloc::string::String,
+    /// Required. The target sentence.
+    #[prost(string, tag = "3")]
+    pub target_sentence: ::prost::alloc::string::String,
+    /// Output only. Timestamp when this sentence was created.
+    #[prost(message, optional, tag = "4")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. Timestamp when this sentence was last updated.
+    #[prost(message, optional, tag = "5")]
+    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+}
+/// The request for listing Adaptive MT sentences from a Dataset/File.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListAdaptiveMtSentencesRequest {
+    /// Required. The resource name of the project from which to list the Adaptive
+    /// MT files. The following format lists all sentences under a file.
+    /// `projects/{project}/locations/{location}/adaptiveMtDatasets/{dataset}/adaptiveMtFiles/{file}`
+    /// The following format lists all sentences within a dataset.
+    /// `projects/{project}/locations/{location}/adaptiveMtDatasets/{dataset}`
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    #[prost(int32, tag = "2")]
+    pub page_size: i32,
+    /// A token identifying a page of results the server should return.
+    /// Typically, this is the value of
+    /// ListAdaptiveMtSentencesRequest.next_page_token returned from the
+    /// previous call to `ListTranslationMemories` method. The first page is
+    /// returned if `page_token` is empty or missing.
+    #[prost(string, tag = "3")]
+    pub page_token: ::prost::alloc::string::String,
+}
+/// List AdaptiveMt sentences response.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListAdaptiveMtSentencesResponse {
+    /// Output only. The list of AdaptiveMtSentences.
+    #[prost(message, repeated, tag = "1")]
+    pub adaptive_mt_sentences: ::prost::alloc::vec::Vec<AdaptiveMtSentence>,
+    /// Optional.
+    #[prost(string, tag = "2")]
+    pub next_page_token: ::prost::alloc::string::String,
 }
 /// Configures transliteration feature on top of translation.
 #[derive(Clone, Copy, PartialEq, ::prost::Message)]
@@ -1784,12 +1784,12 @@ pub mod batch_translate_metadata {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Running => "RUNNING",
-                State::Succeeded => "SUCCEEDED",
-                State::Failed => "FAILED",
-                State::Cancelling => "CANCELLING",
-                State::Cancelled => "CANCELLED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Running => "RUNNING",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Failed => "FAILED",
+                Self::Cancelling => "CANCELLING",
+                Self::Cancelled => "CANCELLED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2122,12 +2122,12 @@ pub mod create_glossary_metadata {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Running => "RUNNING",
-                State::Succeeded => "SUCCEEDED",
-                State::Failed => "FAILED",
-                State::Cancelling => "CANCELLING",
-                State::Cancelled => "CANCELLED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Running => "RUNNING",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Failed => "FAILED",
+                Self::Cancelling => "CANCELLING",
+                Self::Cancelled => "CANCELLED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2197,12 +2197,12 @@ pub mod update_glossary_metadata {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Running => "RUNNING",
-                State::Succeeded => "SUCCEEDED",
-                State::Failed => "FAILED",
-                State::Cancelling => "CANCELLING",
-                State::Cancelled => "CANCELLED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Running => "RUNNING",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Failed => "FAILED",
+                Self::Cancelling => "CANCELLING",
+                Self::Cancelled => "CANCELLED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2271,12 +2271,12 @@ pub mod delete_glossary_metadata {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Running => "RUNNING",
-                State::Succeeded => "SUCCEEDED",
-                State::Failed => "FAILED",
-                State::Cancelling => "CANCELLING",
-                State::Cancelled => "CANCELLED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Running => "RUNNING",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Failed => "FAILED",
+                Self::Cancelling => "CANCELLING",
+                Self::Cancelled => "CANCELLED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2625,12 +2625,12 @@ pub mod batch_translate_document_metadata {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Running => "RUNNING",
-                State::Succeeded => "SUCCEEDED",
-                State::Failed => "FAILED",
-                State::Cancelling => "CANCELLING",
-                State::Cancelled => "CANCELLED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Running => "RUNNING",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Failed => "FAILED",
+                Self::Cancelling => "CANCELLING",
+                Self::Cancelled => "CANCELLED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -3907,5 +3907,2230 @@ pub mod translation_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod translation_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with TranslationServiceServer.
+    #[async_trait]
+    pub trait TranslationService: std::marker::Send + std::marker::Sync + 'static {
+        /// Translates input text and returns translated text.
+        async fn translate_text(
+            &self,
+            request: tonic::Request<super::TranslateTextRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::TranslateTextResponse>,
+            tonic::Status,
+        >;
+        /// Romanize input text written in non-Latin scripts to Latin text.
+        async fn romanize_text(
+            &self,
+            request: tonic::Request<super::RomanizeTextRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::RomanizeTextResponse>,
+            tonic::Status,
+        >;
+        /// Detects the language of text within a request.
+        async fn detect_language(
+            &self,
+            request: tonic::Request<super::DetectLanguageRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::DetectLanguageResponse>,
+            tonic::Status,
+        >;
+        /// Returns a list of supported languages for translation.
+        async fn get_supported_languages(
+            &self,
+            request: tonic::Request<super::GetSupportedLanguagesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SupportedLanguages>,
+            tonic::Status,
+        >;
+        /// Translates documents in synchronous mode.
+        async fn translate_document(
+            &self,
+            request: tonic::Request<super::TranslateDocumentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::TranslateDocumentResponse>,
+            tonic::Status,
+        >;
+        /// Translates a large volume of text in asynchronous batch mode.
+        /// This function provides real-time output as the inputs are being processed.
+        /// If caller cancels a request, the partial results (for an input file, it's
+        /// all or nothing) may still be available on the specified output location.
+        ///
+        /// This call returns immediately and you can
+        /// use google.longrunning.Operation.name to poll the status of the call.
+        async fn batch_translate_text(
+            &self,
+            request: tonic::Request<super::BatchTranslateTextRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Translates a large volume of document in asynchronous batch mode.
+        /// This function provides real-time output as the inputs are being processed.
+        /// If caller cancels a request, the partial results (for an input file, it's
+        /// all or nothing) may still be available on the specified output location.
+        ///
+        /// This call returns immediately and you can use
+        /// google.longrunning.Operation.name to poll the status of the call.
+        async fn batch_translate_document(
+            &self,
+            request: tonic::Request<super::BatchTranslateDocumentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Creates a glossary and returns the long-running operation. Returns
+        /// NOT_FOUND, if the project doesn't exist.
+        async fn create_glossary(
+            &self,
+            request: tonic::Request<super::CreateGlossaryRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates a glossary. A LRO is used since the update can be async if the
+        /// glossary's entry file is updated.
+        async fn update_glossary(
+            &self,
+            request: tonic::Request<super::UpdateGlossaryRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists glossaries in a project. Returns NOT_FOUND, if the project doesn't
+        /// exist.
+        async fn list_glossaries(
+            &self,
+            request: tonic::Request<super::ListGlossariesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListGlossariesResponse>,
+            tonic::Status,
+        >;
+        /// Gets a glossary. Returns NOT_FOUND, if the glossary doesn't
+        /// exist.
+        async fn get_glossary(
+            &self,
+            request: tonic::Request<super::GetGlossaryRequest>,
+        ) -> std::result::Result<tonic::Response<super::Glossary>, tonic::Status>;
+        /// Deletes a glossary, or cancels glossary construction
+        /// if the glossary isn't created yet.
+        /// Returns NOT_FOUND, if the glossary doesn't exist.
+        async fn delete_glossary(
+            &self,
+            request: tonic::Request<super::DeleteGlossaryRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Gets a single glossary entry by the given id.
+        async fn get_glossary_entry(
+            &self,
+            request: tonic::Request<super::GetGlossaryEntryRequest>,
+        ) -> std::result::Result<tonic::Response<super::GlossaryEntry>, tonic::Status>;
+        /// List the entries for the glossary.
+        async fn list_glossary_entries(
+            &self,
+            request: tonic::Request<super::ListGlossaryEntriesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListGlossaryEntriesResponse>,
+            tonic::Status,
+        >;
+        /// Creates a glossary entry.
+        async fn create_glossary_entry(
+            &self,
+            request: tonic::Request<super::CreateGlossaryEntryRequest>,
+        ) -> std::result::Result<tonic::Response<super::GlossaryEntry>, tonic::Status>;
+        /// Updates a glossary entry.
+        async fn update_glossary_entry(
+            &self,
+            request: tonic::Request<super::UpdateGlossaryEntryRequest>,
+        ) -> std::result::Result<tonic::Response<super::GlossaryEntry>, tonic::Status>;
+        /// Deletes a single entry from the glossary
+        async fn delete_glossary_entry(
+            &self,
+            request: tonic::Request<super::DeleteGlossaryEntryRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Creates a Dataset.
+        async fn create_dataset(
+            &self,
+            request: tonic::Request<super::CreateDatasetRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Gets a Dataset.
+        async fn get_dataset(
+            &self,
+            request: tonic::Request<super::GetDatasetRequest>,
+        ) -> std::result::Result<tonic::Response<super::Dataset>, tonic::Status>;
+        /// Lists datasets.
+        async fn list_datasets(
+            &self,
+            request: tonic::Request<super::ListDatasetsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDatasetsResponse>,
+            tonic::Status,
+        >;
+        /// Deletes a dataset and all of its contents.
+        async fn delete_dataset(
+            &self,
+            request: tonic::Request<super::DeleteDatasetRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Creates an Adaptive MT dataset.
+        async fn create_adaptive_mt_dataset(
+            &self,
+            request: tonic::Request<super::CreateAdaptiveMtDatasetRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AdaptiveMtDataset>,
+            tonic::Status,
+        >;
+        /// Deletes an Adaptive MT dataset, including all its entries and associated
+        /// metadata.
+        async fn delete_adaptive_mt_dataset(
+            &self,
+            request: tonic::Request<super::DeleteAdaptiveMtDatasetRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Gets the Adaptive MT dataset.
+        async fn get_adaptive_mt_dataset(
+            &self,
+            request: tonic::Request<super::GetAdaptiveMtDatasetRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AdaptiveMtDataset>,
+            tonic::Status,
+        >;
+        /// Lists all Adaptive MT datasets for which the caller has read permission.
+        async fn list_adaptive_mt_datasets(
+            &self,
+            request: tonic::Request<super::ListAdaptiveMtDatasetsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAdaptiveMtDatasetsResponse>,
+            tonic::Status,
+        >;
+        /// Translate text using Adaptive MT.
+        async fn adaptive_mt_translate(
+            &self,
+            request: tonic::Request<super::AdaptiveMtTranslateRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AdaptiveMtTranslateResponse>,
+            tonic::Status,
+        >;
+        /// Gets and AdaptiveMtFile
+        async fn get_adaptive_mt_file(
+            &self,
+            request: tonic::Request<super::GetAdaptiveMtFileRequest>,
+        ) -> std::result::Result<tonic::Response<super::AdaptiveMtFile>, tonic::Status>;
+        /// Deletes an AdaptiveMtFile along with its sentences.
+        async fn delete_adaptive_mt_file(
+            &self,
+            request: tonic::Request<super::DeleteAdaptiveMtFileRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Imports an AdaptiveMtFile and adds all of its sentences into the
+        /// AdaptiveMtDataset.
+        async fn import_adaptive_mt_file(
+            &self,
+            request: tonic::Request<super::ImportAdaptiveMtFileRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ImportAdaptiveMtFileResponse>,
+            tonic::Status,
+        >;
+        /// Lists all AdaptiveMtFiles associated to an AdaptiveMtDataset.
+        async fn list_adaptive_mt_files(
+            &self,
+            request: tonic::Request<super::ListAdaptiveMtFilesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAdaptiveMtFilesResponse>,
+            tonic::Status,
+        >;
+        /// Lists all AdaptiveMtSentences under a given file/dataset.
+        async fn list_adaptive_mt_sentences(
+            &self,
+            request: tonic::Request<super::ListAdaptiveMtSentencesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAdaptiveMtSentencesResponse>,
+            tonic::Status,
+        >;
+        /// Import sentence pairs into translation Dataset.
+        async fn import_data(
+            &self,
+            request: tonic::Request<super::ImportDataRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Exports dataset's data to the provided output location.
+        async fn export_data(
+            &self,
+            request: tonic::Request<super::ExportDataRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists sentence pairs in the dataset.
+        async fn list_examples(
+            &self,
+            request: tonic::Request<super::ListExamplesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListExamplesResponse>,
+            tonic::Status,
+        >;
+        /// Creates a Model.
+        async fn create_model(
+            &self,
+            request: tonic::Request<super::CreateModelRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists models.
+        async fn list_models(
+            &self,
+            request: tonic::Request<super::ListModelsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListModelsResponse>,
+            tonic::Status,
+        >;
+        /// Gets a model.
+        async fn get_model(
+            &self,
+            request: tonic::Request<super::GetModelRequest>,
+        ) -> std::result::Result<tonic::Response<super::Model>, tonic::Status>;
+        /// Deletes a model.
+        async fn delete_model(
+            &self,
+            request: tonic::Request<super::DeleteModelRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// Provides natural language translation operations.
+    #[derive(Debug)]
+    pub struct TranslationServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> TranslationServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for TranslationServiceServer<T>
+    where
+        T: TranslationService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.translation.v3.TranslationService/TranslateText" => {
+                    #[allow(non_camel_case_types)]
+                    struct TranslateTextSvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::TranslateTextRequest>
+                    for TranslateTextSvc<T> {
+                        type Response = super::TranslateTextResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::TranslateTextRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::translate_text(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = TranslateTextSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/RomanizeText" => {
+                    #[allow(non_camel_case_types)]
+                    struct RomanizeTextSvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::RomanizeTextRequest>
+                    for RomanizeTextSvc<T> {
+                        type Response = super::RomanizeTextResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RomanizeTextRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::romanize_text(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RomanizeTextSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/DetectLanguage" => {
+                    #[allow(non_camel_case_types)]
+                    struct DetectLanguageSvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::DetectLanguageRequest>
+                    for DetectLanguageSvc<T> {
+                        type Response = super::DetectLanguageResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DetectLanguageRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::detect_language(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DetectLanguageSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/GetSupportedLanguages" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetSupportedLanguagesSvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::GetSupportedLanguagesRequest>
+                    for GetSupportedLanguagesSvc<T> {
+                        type Response = super::SupportedLanguages;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetSupportedLanguagesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::get_supported_languages(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetSupportedLanguagesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/TranslateDocument" => {
+                    #[allow(non_camel_case_types)]
+                    struct TranslateDocumentSvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::TranslateDocumentRequest>
+                    for TranslateDocumentSvc<T> {
+                        type Response = super::TranslateDocumentResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::TranslateDocumentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::translate_document(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = TranslateDocumentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/BatchTranslateText" => {
+                    #[allow(non_camel_case_types)]
+                    struct BatchTranslateTextSvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::BatchTranslateTextRequest>
+                    for BatchTranslateTextSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::BatchTranslateTextRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::batch_translate_text(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BatchTranslateTextSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/BatchTranslateDocument" => {
+                    #[allow(non_camel_case_types)]
+                    struct BatchTranslateDocumentSvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::BatchTranslateDocumentRequest>
+                    for BatchTranslateDocumentSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::BatchTranslateDocumentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::batch_translate_document(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BatchTranslateDocumentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/CreateGlossary" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateGlossarySvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::CreateGlossaryRequest>
+                    for CreateGlossarySvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateGlossaryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::create_glossary(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateGlossarySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/UpdateGlossary" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateGlossarySvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::UpdateGlossaryRequest>
+                    for UpdateGlossarySvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateGlossaryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::update_glossary(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateGlossarySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/ListGlossaries" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListGlossariesSvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::ListGlossariesRequest>
+                    for ListGlossariesSvc<T> {
+                        type Response = super::ListGlossariesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListGlossariesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::list_glossaries(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListGlossariesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/GetGlossary" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetGlossarySvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::GetGlossaryRequest>
+                    for GetGlossarySvc<T> {
+                        type Response = super::Glossary;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetGlossaryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::get_glossary(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetGlossarySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/DeleteGlossary" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteGlossarySvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::DeleteGlossaryRequest>
+                    for DeleteGlossarySvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteGlossaryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::delete_glossary(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteGlossarySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/GetGlossaryEntry" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetGlossaryEntrySvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::GetGlossaryEntryRequest>
+                    for GetGlossaryEntrySvc<T> {
+                        type Response = super::GlossaryEntry;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetGlossaryEntryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::get_glossary_entry(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetGlossaryEntrySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/ListGlossaryEntries" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListGlossaryEntriesSvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::ListGlossaryEntriesRequest>
+                    for ListGlossaryEntriesSvc<T> {
+                        type Response = super::ListGlossaryEntriesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListGlossaryEntriesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::list_glossary_entries(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListGlossaryEntriesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/CreateGlossaryEntry" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateGlossaryEntrySvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::CreateGlossaryEntryRequest>
+                    for CreateGlossaryEntrySvc<T> {
+                        type Response = super::GlossaryEntry;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateGlossaryEntryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::create_glossary_entry(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateGlossaryEntrySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/UpdateGlossaryEntry" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateGlossaryEntrySvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::UpdateGlossaryEntryRequest>
+                    for UpdateGlossaryEntrySvc<T> {
+                        type Response = super::GlossaryEntry;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateGlossaryEntryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::update_glossary_entry(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateGlossaryEntrySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/DeleteGlossaryEntry" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteGlossaryEntrySvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::DeleteGlossaryEntryRequest>
+                    for DeleteGlossaryEntrySvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteGlossaryEntryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::delete_glossary_entry(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteGlossaryEntrySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/CreateDataset" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateDatasetSvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::CreateDatasetRequest>
+                    for CreateDatasetSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateDatasetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::create_dataset(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateDatasetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/GetDataset" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetDatasetSvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::GetDatasetRequest>
+                    for GetDatasetSvc<T> {
+                        type Response = super::Dataset;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetDatasetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::get_dataset(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetDatasetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/ListDatasets" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDatasetsSvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::ListDatasetsRequest>
+                    for ListDatasetsSvc<T> {
+                        type Response = super::ListDatasetsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListDatasetsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::list_datasets(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDatasetsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/DeleteDataset" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteDatasetSvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::DeleteDatasetRequest>
+                    for DeleteDatasetSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteDatasetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::delete_dataset(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteDatasetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/CreateAdaptiveMtDataset" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateAdaptiveMtDatasetSvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::CreateAdaptiveMtDatasetRequest>
+                    for CreateAdaptiveMtDatasetSvc<T> {
+                        type Response = super::AdaptiveMtDataset;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateAdaptiveMtDatasetRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::create_adaptive_mt_dataset(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateAdaptiveMtDatasetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/DeleteAdaptiveMtDataset" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteAdaptiveMtDatasetSvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::DeleteAdaptiveMtDatasetRequest>
+                    for DeleteAdaptiveMtDatasetSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteAdaptiveMtDatasetRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::delete_adaptive_mt_dataset(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteAdaptiveMtDatasetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/GetAdaptiveMtDataset" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAdaptiveMtDatasetSvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::GetAdaptiveMtDatasetRequest>
+                    for GetAdaptiveMtDatasetSvc<T> {
+                        type Response = super::AdaptiveMtDataset;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAdaptiveMtDatasetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::get_adaptive_mt_dataset(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAdaptiveMtDatasetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/ListAdaptiveMtDatasets" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAdaptiveMtDatasetsSvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::ListAdaptiveMtDatasetsRequest>
+                    for ListAdaptiveMtDatasetsSvc<T> {
+                        type Response = super::ListAdaptiveMtDatasetsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListAdaptiveMtDatasetsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::list_adaptive_mt_datasets(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAdaptiveMtDatasetsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/AdaptiveMtTranslate" => {
+                    #[allow(non_camel_case_types)]
+                    struct AdaptiveMtTranslateSvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::AdaptiveMtTranslateRequest>
+                    for AdaptiveMtTranslateSvc<T> {
+                        type Response = super::AdaptiveMtTranslateResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::AdaptiveMtTranslateRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::adaptive_mt_translate(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = AdaptiveMtTranslateSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/GetAdaptiveMtFile" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAdaptiveMtFileSvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::GetAdaptiveMtFileRequest>
+                    for GetAdaptiveMtFileSvc<T> {
+                        type Response = super::AdaptiveMtFile;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAdaptiveMtFileRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::get_adaptive_mt_file(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAdaptiveMtFileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/DeleteAdaptiveMtFile" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteAdaptiveMtFileSvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::DeleteAdaptiveMtFileRequest>
+                    for DeleteAdaptiveMtFileSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteAdaptiveMtFileRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::delete_adaptive_mt_file(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteAdaptiveMtFileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/ImportAdaptiveMtFile" => {
+                    #[allow(non_camel_case_types)]
+                    struct ImportAdaptiveMtFileSvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::ImportAdaptiveMtFileRequest>
+                    for ImportAdaptiveMtFileSvc<T> {
+                        type Response = super::ImportAdaptiveMtFileResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ImportAdaptiveMtFileRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::import_adaptive_mt_file(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ImportAdaptiveMtFileSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/ListAdaptiveMtFiles" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAdaptiveMtFilesSvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::ListAdaptiveMtFilesRequest>
+                    for ListAdaptiveMtFilesSvc<T> {
+                        type Response = super::ListAdaptiveMtFilesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListAdaptiveMtFilesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::list_adaptive_mt_files(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAdaptiveMtFilesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/ListAdaptiveMtSentences" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAdaptiveMtSentencesSvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::ListAdaptiveMtSentencesRequest>
+                    for ListAdaptiveMtSentencesSvc<T> {
+                        type Response = super::ListAdaptiveMtSentencesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListAdaptiveMtSentencesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::list_adaptive_mt_sentences(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAdaptiveMtSentencesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/ImportData" => {
+                    #[allow(non_camel_case_types)]
+                    struct ImportDataSvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::ImportDataRequest>
+                    for ImportDataSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ImportDataRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::import_data(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ImportDataSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/ExportData" => {
+                    #[allow(non_camel_case_types)]
+                    struct ExportDataSvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::ExportDataRequest>
+                    for ExportDataSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ExportDataRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::export_data(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ExportDataSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/ListExamples" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListExamplesSvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::ListExamplesRequest>
+                    for ListExamplesSvc<T> {
+                        type Response = super::ListExamplesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListExamplesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::list_examples(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListExamplesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/CreateModel" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateModelSvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::CreateModelRequest>
+                    for CreateModelSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateModelRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::create_model(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateModelSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/ListModels" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListModelsSvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::ListModelsRequest>
+                    for ListModelsSvc<T> {
+                        type Response = super::ListModelsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListModelsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::list_models(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListModelsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/GetModel" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetModelSvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::GetModelRequest>
+                    for GetModelSvc<T> {
+                        type Response = super::Model;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetModelRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::get_model(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetModelSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.translation.v3.TranslationService/DeleteModel" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteModelSvc<T: TranslationService>(pub Arc<T>);
+                    impl<
+                        T: TranslationService,
+                    > tonic::server::UnaryService<super::DeleteModelRequest>
+                    for DeleteModelSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteModelRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TranslationService>::delete_model(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteModelSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for TranslationServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.translation.v3.TranslationService";
+    impl<T> tonic::server::NamedService for TranslationServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

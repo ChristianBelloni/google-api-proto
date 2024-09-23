@@ -113,9 +113,9 @@ pub mod membership {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                InfrastructureType::Unspecified => "INFRASTRUCTURE_TYPE_UNSPECIFIED",
-                InfrastructureType::OnPrem => "ON_PREM",
-                InfrastructureType::MultiCloud => "MULTI_CLOUD",
+                Self::Unspecified => "INFRASTRUCTURE_TYPE_UNSPECIFIED",
+                Self::OnPrem => "ON_PREM",
+                Self::MultiCloud => "MULTI_CLOUD",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -324,11 +324,11 @@ pub mod on_prem_cluster {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ClusterType::ClustertypeUnspecified => "CLUSTERTYPE_UNSPECIFIED",
-                ClusterType::Bootstrap => "BOOTSTRAP",
-                ClusterType::Hybrid => "HYBRID",
-                ClusterType::Standalone => "STANDALONE",
-                ClusterType::User => "USER",
+                Self::ClustertypeUnspecified => "CLUSTERTYPE_UNSPECIFIED",
+                Self::Bootstrap => "BOOTSTRAP",
+                Self::Hybrid => "HYBRID",
+                Self::Standalone => "STANDALONE",
+                Self::User => "USER",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -531,12 +531,12 @@ pub mod membership_state {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Code::Unspecified => "CODE_UNSPECIFIED",
-                Code::Creating => "CREATING",
-                Code::Ready => "READY",
-                Code::Deleting => "DELETING",
-                Code::Updating => "UPDATING",
-                Code::ServiceUpdating => "SERVICE_UPDATING",
+                Self::Unspecified => "CODE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Ready => "READY",
+                Self::Deleting => "DELETING",
+                Self::Updating => "UPDATING",
+                Self::ServiceUpdating => "SERVICE_UPDATING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1247,5 +1247,623 @@ pub mod gke_hub_membership_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod gke_hub_membership_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with GkeHubMembershipServiceServer.
+    #[async_trait]
+    pub trait GkeHubMembershipService: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists Memberships in a given project and location.
+        async fn list_memberships(
+            &self,
+            request: tonic::Request<super::ListMembershipsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListMembershipsResponse>,
+            tonic::Status,
+        >;
+        /// Gets the details of a Membership.
+        async fn get_membership(
+            &self,
+            request: tonic::Request<super::GetMembershipRequest>,
+        ) -> std::result::Result<tonic::Response<super::Membership>, tonic::Status>;
+        /// Creates a new Membership.
+        ///
+        /// **This is currently only supported for GKE clusters on Google Cloud**.
+        /// To register other clusters, follow the instructions at
+        /// https://cloud.google.com/anthos/multicluster-management/connect/registering-a-cluster.
+        async fn create_membership(
+            &self,
+            request: tonic::Request<super::CreateMembershipRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Removes a Membership.
+        ///
+        /// **This is currently only supported for GKE clusters on Google Cloud**.
+        /// To unregister other clusters, follow the instructions at
+        /// https://cloud.google.com/anthos/multicluster-management/connect/unregistering-a-cluster.
+        async fn delete_membership(
+            &self,
+            request: tonic::Request<super::DeleteMembershipRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates an existing Membership.
+        async fn update_membership(
+            &self,
+            request: tonic::Request<super::UpdateMembershipRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Generates the manifest for deployment of the GKE connect agent.
+        ///
+        /// **This method is used internally by Google-provided libraries.**
+        /// Most clients should not need to call this method directly.
+        async fn generate_connect_manifest(
+            &self,
+            request: tonic::Request<super::GenerateConnectManifestRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::GenerateConnectManifestResponse>,
+            tonic::Status,
+        >;
+        /// ValidateExclusivity validates the state of exclusivity in the cluster.
+        /// The validation does not depend on an existing Hub membership resource.
+        async fn validate_exclusivity(
+            &self,
+            request: tonic::Request<super::ValidateExclusivityRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ValidateExclusivityResponse>,
+            tonic::Status,
+        >;
+        /// GenerateExclusivityManifest generates the manifests to update the
+        /// exclusivity artifacts in the cluster if needed.
+        ///
+        /// Exclusivity artifacts include the Membership custom resource definition
+        /// (CRD) and the singleton Membership custom resource (CR). Combined with
+        /// ValidateExclusivity, exclusivity artifacts guarantee that a Kubernetes
+        /// cluster is only registered to a single GKE Hub.
+        ///
+        /// The Membership CRD is versioned, and may require conversion when the GKE
+        /// Hub API server begins serving a newer version of the CRD and
+        /// corresponding CR. The response will be the converted CRD and CR if there
+        /// are any differences between the versions.
+        async fn generate_exclusivity_manifest(
+            &self,
+            request: tonic::Request<super::GenerateExclusivityManifestRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::GenerateExclusivityManifestResponse>,
+            tonic::Status,
+        >;
+    }
+    /// The GKE Hub MembershipService handles the registration of many Kubernetes
+    /// clusters to Google Cloud, represented with the
+    /// [Membership][google.cloud.gkehub.v1beta1.Membership] resource.
+    ///
+    /// GKE Hub is currently available in the global region and all regions in
+    /// https://cloud.google.com/compute/docs/regions-zones.
+    ///
+    /// **Membership management may be non-trivial:** it is recommended to use one
+    /// of the Google-provided client libraries or tools where possible when working
+    /// with Membership resources.
+    #[derive(Debug)]
+    pub struct GkeHubMembershipServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> GkeHubMembershipServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for GkeHubMembershipServiceServer<T>
+    where
+        T: GkeHubMembershipService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.gkehub.v1beta1.GkeHubMembershipService/ListMemberships" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListMembershipsSvc<T: GkeHubMembershipService>(pub Arc<T>);
+                    impl<
+                        T: GkeHubMembershipService,
+                    > tonic::server::UnaryService<super::ListMembershipsRequest>
+                    for ListMembershipsSvc<T> {
+                        type Response = super::ListMembershipsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListMembershipsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GkeHubMembershipService>::list_memberships(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListMembershipsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkehub.v1beta1.GkeHubMembershipService/GetMembership" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetMembershipSvc<T: GkeHubMembershipService>(pub Arc<T>);
+                    impl<
+                        T: GkeHubMembershipService,
+                    > tonic::server::UnaryService<super::GetMembershipRequest>
+                    for GetMembershipSvc<T> {
+                        type Response = super::Membership;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetMembershipRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GkeHubMembershipService>::get_membership(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetMembershipSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkehub.v1beta1.GkeHubMembershipService/CreateMembership" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateMembershipSvc<T: GkeHubMembershipService>(pub Arc<T>);
+                    impl<
+                        T: GkeHubMembershipService,
+                    > tonic::server::UnaryService<super::CreateMembershipRequest>
+                    for CreateMembershipSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateMembershipRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GkeHubMembershipService>::create_membership(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateMembershipSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkehub.v1beta1.GkeHubMembershipService/DeleteMembership" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteMembershipSvc<T: GkeHubMembershipService>(pub Arc<T>);
+                    impl<
+                        T: GkeHubMembershipService,
+                    > tonic::server::UnaryService<super::DeleteMembershipRequest>
+                    for DeleteMembershipSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteMembershipRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GkeHubMembershipService>::delete_membership(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteMembershipSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkehub.v1beta1.GkeHubMembershipService/UpdateMembership" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateMembershipSvc<T: GkeHubMembershipService>(pub Arc<T>);
+                    impl<
+                        T: GkeHubMembershipService,
+                    > tonic::server::UnaryService<super::UpdateMembershipRequest>
+                    for UpdateMembershipSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateMembershipRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GkeHubMembershipService>::update_membership(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateMembershipSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkehub.v1beta1.GkeHubMembershipService/GenerateConnectManifest" => {
+                    #[allow(non_camel_case_types)]
+                    struct GenerateConnectManifestSvc<T: GkeHubMembershipService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: GkeHubMembershipService,
+                    > tonic::server::UnaryService<super::GenerateConnectManifestRequest>
+                    for GenerateConnectManifestSvc<T> {
+                        type Response = super::GenerateConnectManifestResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GenerateConnectManifestRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GkeHubMembershipService>::generate_connect_manifest(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GenerateConnectManifestSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkehub.v1beta1.GkeHubMembershipService/ValidateExclusivity" => {
+                    #[allow(non_camel_case_types)]
+                    struct ValidateExclusivitySvc<T: GkeHubMembershipService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: GkeHubMembershipService,
+                    > tonic::server::UnaryService<super::ValidateExclusivityRequest>
+                    for ValidateExclusivitySvc<T> {
+                        type Response = super::ValidateExclusivityResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ValidateExclusivityRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GkeHubMembershipService>::validate_exclusivity(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ValidateExclusivitySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.gkehub.v1beta1.GkeHubMembershipService/GenerateExclusivityManifest" => {
+                    #[allow(non_camel_case_types)]
+                    struct GenerateExclusivityManifestSvc<T: GkeHubMembershipService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: GkeHubMembershipService,
+                    > tonic::server::UnaryService<
+                        super::GenerateExclusivityManifestRequest,
+                    > for GenerateExclusivityManifestSvc<T> {
+                        type Response = super::GenerateExclusivityManifestResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GenerateExclusivityManifestRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GkeHubMembershipService>::generate_exclusivity_manifest(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GenerateExclusivityManifestSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for GkeHubMembershipServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.gkehub.v1beta1.GkeHubMembershipService";
+    impl<T> tonic::server::NamedService for GkeHubMembershipServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

@@ -107,14 +107,14 @@ impl NoteKind {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            NoteKind::Unspecified => "NOTE_KIND_UNSPECIFIED",
-            NoteKind::Vulnerability => "VULNERABILITY",
-            NoteKind::Build => "BUILD",
-            NoteKind::Image => "IMAGE",
-            NoteKind::Package => "PACKAGE",
-            NoteKind::Deployment => "DEPLOYMENT",
-            NoteKind::Discovery => "DISCOVERY",
-            NoteKind::Attestation => "ATTESTATION",
+            Self::Unspecified => "NOTE_KIND_UNSPECIFIED",
+            Self::Vulnerability => "VULNERABILITY",
+            Self::Build => "BUILD",
+            Self::Image => "IMAGE",
+            Self::Package => "PACKAGE",
+            Self::Deployment => "DEPLOYMENT",
+            Self::Discovery => "DISCOVERY",
+            Self::Attestation => "ATTESTATION",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1024,5 +1024,935 @@ pub mod grafeas_v1_beta1_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod grafeas_v1_beta1_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with GrafeasV1Beta1Server.
+    #[async_trait]
+    pub trait GrafeasV1Beta1: std::marker::Send + std::marker::Sync + 'static {
+        /// Gets the specified occurrence.
+        async fn get_occurrence(
+            &self,
+            request: tonic::Request<super::GetOccurrenceRequest>,
+        ) -> std::result::Result<tonic::Response<super::Occurrence>, tonic::Status>;
+        /// Lists occurrences for the specified project.
+        async fn list_occurrences(
+            &self,
+            request: tonic::Request<super::ListOccurrencesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListOccurrencesResponse>,
+            tonic::Status,
+        >;
+        /// Deletes the specified occurrence. For example, use this method to delete an
+        /// occurrence when the occurrence is no longer applicable for the given
+        /// resource.
+        async fn delete_occurrence(
+            &self,
+            request: tonic::Request<super::DeleteOccurrenceRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Creates a new occurrence.
+        async fn create_occurrence(
+            &self,
+            request: tonic::Request<super::CreateOccurrenceRequest>,
+        ) -> std::result::Result<tonic::Response<super::Occurrence>, tonic::Status>;
+        /// Creates new occurrences in batch.
+        async fn batch_create_occurrences(
+            &self,
+            request: tonic::Request<super::BatchCreateOccurrencesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::BatchCreateOccurrencesResponse>,
+            tonic::Status,
+        >;
+        /// Updates the specified occurrence.
+        async fn update_occurrence(
+            &self,
+            request: tonic::Request<super::UpdateOccurrenceRequest>,
+        ) -> std::result::Result<tonic::Response<super::Occurrence>, tonic::Status>;
+        /// Gets the note attached to the specified occurrence. Consumer projects can
+        /// use this method to get a note that belongs to a provider project.
+        async fn get_occurrence_note(
+            &self,
+            request: tonic::Request<super::GetOccurrenceNoteRequest>,
+        ) -> std::result::Result<tonic::Response<super::Note>, tonic::Status>;
+        /// Gets the specified note.
+        async fn get_note(
+            &self,
+            request: tonic::Request<super::GetNoteRequest>,
+        ) -> std::result::Result<tonic::Response<super::Note>, tonic::Status>;
+        /// Lists notes for the specified project.
+        async fn list_notes(
+            &self,
+            request: tonic::Request<super::ListNotesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListNotesResponse>,
+            tonic::Status,
+        >;
+        /// Deletes the specified note.
+        async fn delete_note(
+            &self,
+            request: tonic::Request<super::DeleteNoteRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Creates a new note.
+        async fn create_note(
+            &self,
+            request: tonic::Request<super::CreateNoteRequest>,
+        ) -> std::result::Result<tonic::Response<super::Note>, tonic::Status>;
+        /// Creates new notes in batch.
+        async fn batch_create_notes(
+            &self,
+            request: tonic::Request<super::BatchCreateNotesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::BatchCreateNotesResponse>,
+            tonic::Status,
+        >;
+        /// Updates the specified note.
+        async fn update_note(
+            &self,
+            request: tonic::Request<super::UpdateNoteRequest>,
+        ) -> std::result::Result<tonic::Response<super::Note>, tonic::Status>;
+        /// Lists occurrences referencing the specified note. Provider projects can use
+        /// this method to get all occurrences across consumer projects referencing the
+        /// specified note.
+        async fn list_note_occurrences(
+            &self,
+            request: tonic::Request<super::ListNoteOccurrencesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListNoteOccurrencesResponse>,
+            tonic::Status,
+        >;
+        /// Gets a summary of the number and severity of occurrences.
+        async fn get_vulnerability_occurrences_summary(
+            &self,
+            request: tonic::Request<super::GetVulnerabilityOccurrencesSummaryRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::VulnerabilityOccurrencesSummary>,
+            tonic::Status,
+        >;
+    }
+    /// [Grafeas](grafeas.io) API.
+    ///
+    /// Retrieves analysis results of Cloud components such as Docker container
+    /// images.
+    ///
+    /// Analysis results are stored as a series of occurrences. An `Occurrence`
+    /// contains information about a specific analysis instance on a resource. An
+    /// occurrence refers to a `Note`. A note contains details describing the
+    /// analysis and is generally stored in a separate project, called a `Provider`.
+    /// Multiple occurrences can refer to the same note.
+    ///
+    /// For example, an SSL vulnerability could affect multiple images. In this case,
+    /// there would be one note for the vulnerability and an occurrence for each
+    /// image with the vulnerability referring to that note.
+    #[derive(Debug)]
+    pub struct GrafeasV1Beta1Server<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> GrafeasV1Beta1Server<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for GrafeasV1Beta1Server<T>
+    where
+        T: GrafeasV1Beta1,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/grafeas.v1beta1.GrafeasV1Beta1/GetOccurrence" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetOccurrenceSvc<T: GrafeasV1Beta1>(pub Arc<T>);
+                    impl<
+                        T: GrafeasV1Beta1,
+                    > tonic::server::UnaryService<super::GetOccurrenceRequest>
+                    for GetOccurrenceSvc<T> {
+                        type Response = super::Occurrence;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetOccurrenceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GrafeasV1Beta1>::get_occurrence(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetOccurrenceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/grafeas.v1beta1.GrafeasV1Beta1/ListOccurrences" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListOccurrencesSvc<T: GrafeasV1Beta1>(pub Arc<T>);
+                    impl<
+                        T: GrafeasV1Beta1,
+                    > tonic::server::UnaryService<super::ListOccurrencesRequest>
+                    for ListOccurrencesSvc<T> {
+                        type Response = super::ListOccurrencesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListOccurrencesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GrafeasV1Beta1>::list_occurrences(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListOccurrencesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/grafeas.v1beta1.GrafeasV1Beta1/DeleteOccurrence" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteOccurrenceSvc<T: GrafeasV1Beta1>(pub Arc<T>);
+                    impl<
+                        T: GrafeasV1Beta1,
+                    > tonic::server::UnaryService<super::DeleteOccurrenceRequest>
+                    for DeleteOccurrenceSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteOccurrenceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GrafeasV1Beta1>::delete_occurrence(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteOccurrenceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/grafeas.v1beta1.GrafeasV1Beta1/CreateOccurrence" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateOccurrenceSvc<T: GrafeasV1Beta1>(pub Arc<T>);
+                    impl<
+                        T: GrafeasV1Beta1,
+                    > tonic::server::UnaryService<super::CreateOccurrenceRequest>
+                    for CreateOccurrenceSvc<T> {
+                        type Response = super::Occurrence;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateOccurrenceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GrafeasV1Beta1>::create_occurrence(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateOccurrenceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/grafeas.v1beta1.GrafeasV1Beta1/BatchCreateOccurrences" => {
+                    #[allow(non_camel_case_types)]
+                    struct BatchCreateOccurrencesSvc<T: GrafeasV1Beta1>(pub Arc<T>);
+                    impl<
+                        T: GrafeasV1Beta1,
+                    > tonic::server::UnaryService<super::BatchCreateOccurrencesRequest>
+                    for BatchCreateOccurrencesSvc<T> {
+                        type Response = super::BatchCreateOccurrencesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::BatchCreateOccurrencesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GrafeasV1Beta1>::batch_create_occurrences(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BatchCreateOccurrencesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/grafeas.v1beta1.GrafeasV1Beta1/UpdateOccurrence" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateOccurrenceSvc<T: GrafeasV1Beta1>(pub Arc<T>);
+                    impl<
+                        T: GrafeasV1Beta1,
+                    > tonic::server::UnaryService<super::UpdateOccurrenceRequest>
+                    for UpdateOccurrenceSvc<T> {
+                        type Response = super::Occurrence;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateOccurrenceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GrafeasV1Beta1>::update_occurrence(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateOccurrenceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/grafeas.v1beta1.GrafeasV1Beta1/GetOccurrenceNote" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetOccurrenceNoteSvc<T: GrafeasV1Beta1>(pub Arc<T>);
+                    impl<
+                        T: GrafeasV1Beta1,
+                    > tonic::server::UnaryService<super::GetOccurrenceNoteRequest>
+                    for GetOccurrenceNoteSvc<T> {
+                        type Response = super::Note;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetOccurrenceNoteRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GrafeasV1Beta1>::get_occurrence_note(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetOccurrenceNoteSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/grafeas.v1beta1.GrafeasV1Beta1/GetNote" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetNoteSvc<T: GrafeasV1Beta1>(pub Arc<T>);
+                    impl<
+                        T: GrafeasV1Beta1,
+                    > tonic::server::UnaryService<super::GetNoteRequest>
+                    for GetNoteSvc<T> {
+                        type Response = super::Note;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetNoteRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GrafeasV1Beta1>::get_note(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetNoteSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/grafeas.v1beta1.GrafeasV1Beta1/ListNotes" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListNotesSvc<T: GrafeasV1Beta1>(pub Arc<T>);
+                    impl<
+                        T: GrafeasV1Beta1,
+                    > tonic::server::UnaryService<super::ListNotesRequest>
+                    for ListNotesSvc<T> {
+                        type Response = super::ListNotesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListNotesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GrafeasV1Beta1>::list_notes(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListNotesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/grafeas.v1beta1.GrafeasV1Beta1/DeleteNote" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteNoteSvc<T: GrafeasV1Beta1>(pub Arc<T>);
+                    impl<
+                        T: GrafeasV1Beta1,
+                    > tonic::server::UnaryService<super::DeleteNoteRequest>
+                    for DeleteNoteSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteNoteRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GrafeasV1Beta1>::delete_note(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteNoteSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/grafeas.v1beta1.GrafeasV1Beta1/CreateNote" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateNoteSvc<T: GrafeasV1Beta1>(pub Arc<T>);
+                    impl<
+                        T: GrafeasV1Beta1,
+                    > tonic::server::UnaryService<super::CreateNoteRequest>
+                    for CreateNoteSvc<T> {
+                        type Response = super::Note;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateNoteRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GrafeasV1Beta1>::create_note(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateNoteSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/grafeas.v1beta1.GrafeasV1Beta1/BatchCreateNotes" => {
+                    #[allow(non_camel_case_types)]
+                    struct BatchCreateNotesSvc<T: GrafeasV1Beta1>(pub Arc<T>);
+                    impl<
+                        T: GrafeasV1Beta1,
+                    > tonic::server::UnaryService<super::BatchCreateNotesRequest>
+                    for BatchCreateNotesSvc<T> {
+                        type Response = super::BatchCreateNotesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::BatchCreateNotesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GrafeasV1Beta1>::batch_create_notes(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BatchCreateNotesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/grafeas.v1beta1.GrafeasV1Beta1/UpdateNote" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateNoteSvc<T: GrafeasV1Beta1>(pub Arc<T>);
+                    impl<
+                        T: GrafeasV1Beta1,
+                    > tonic::server::UnaryService<super::UpdateNoteRequest>
+                    for UpdateNoteSvc<T> {
+                        type Response = super::Note;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateNoteRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GrafeasV1Beta1>::update_note(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateNoteSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/grafeas.v1beta1.GrafeasV1Beta1/ListNoteOccurrences" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListNoteOccurrencesSvc<T: GrafeasV1Beta1>(pub Arc<T>);
+                    impl<
+                        T: GrafeasV1Beta1,
+                    > tonic::server::UnaryService<super::ListNoteOccurrencesRequest>
+                    for ListNoteOccurrencesSvc<T> {
+                        type Response = super::ListNoteOccurrencesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListNoteOccurrencesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GrafeasV1Beta1>::list_note_occurrences(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListNoteOccurrencesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/grafeas.v1beta1.GrafeasV1Beta1/GetVulnerabilityOccurrencesSummary" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetVulnerabilityOccurrencesSummarySvc<T: GrafeasV1Beta1>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: GrafeasV1Beta1,
+                    > tonic::server::UnaryService<
+                        super::GetVulnerabilityOccurrencesSummaryRequest,
+                    > for GetVulnerabilityOccurrencesSummarySvc<T> {
+                        type Response = super::VulnerabilityOccurrencesSummary;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetVulnerabilityOccurrencesSummaryRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as GrafeasV1Beta1>::get_vulnerability_occurrences_summary(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetVulnerabilityOccurrencesSummarySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for GrafeasV1Beta1Server<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "grafeas.v1beta1.GrafeasV1Beta1";
+    impl<T> tonic::server::NamedService for GrafeasV1Beta1Server<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

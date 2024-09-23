@@ -225,10 +225,10 @@ pub mod product_catalog_item {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                StockState::Unspecified => "STOCK_STATE_UNSPECIFIED",
-                StockState::OutOfStock => "OUT_OF_STOCK",
-                StockState::Preorder => "PREORDER",
-                StockState::Backorder => "BACKORDER",
+                Self::Unspecified => "STOCK_STATE_UNSPECIFIED",
+                Self::OutOfStock => "OUT_OF_STOCK",
+                Self::Preorder => "PREORDER",
+                Self::Backorder => "BACKORDER",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -366,10 +366,10 @@ pub mod user_event {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                EventSource::Unspecified => "EVENT_SOURCE_UNSPECIFIED",
-                EventSource::Automl => "AUTOML",
-                EventSource::Ecommerce => "ECOMMERCE",
-                EventSource::BatchUpload => "BATCH_UPLOAD",
+                Self::Unspecified => "EVENT_SOURCE_UNSPECIFIED",
+                Self::Automl => "AUTOML",
+                Self::Ecommerce => "ECOMMERCE",
+                Self::BatchUpload => "BATCH_UPLOAD",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1189,6 +1189,957 @@ pub mod user_event_service_client {
         }
     }
 }
+/// Generated server implementations.
+pub mod user_event_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with UserEventServiceServer.
+    #[async_trait]
+    pub trait UserEventService: std::marker::Send + std::marker::Sync + 'static {
+        /// Writes a single user event.
+        async fn write_user_event(
+            &self,
+            request: tonic::Request<super::WriteUserEventRequest>,
+        ) -> std::result::Result<tonic::Response<super::UserEvent>, tonic::Status>;
+        /// Writes a single user event from the browser. This uses a GET request to
+        /// due to browser restriction of POST-ing to a 3rd party domain.
+        ///
+        /// This method is used only by the Recommendations AI JavaScript pixel.
+        /// Users should not call this method directly.
+        async fn collect_user_event(
+            &self,
+            request: tonic::Request<super::CollectUserEventRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::api::HttpBody>,
+            tonic::Status,
+        >;
+        /// Gets a list of user events within a time range, with potential filtering.
+        async fn list_user_events(
+            &self,
+            request: tonic::Request<super::ListUserEventsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListUserEventsResponse>,
+            tonic::Status,
+        >;
+        /// Deletes permanently all user events specified by the filter provided.
+        /// Depending on the number of events specified by the filter, this operation
+        /// could take hours or days to complete. To test a filter, use the list
+        /// command first.
+        async fn purge_user_events(
+            &self,
+            request: tonic::Request<super::PurgeUserEventsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Bulk import of User events. Request processing might be
+        /// synchronous. Events that already exist are skipped.
+        /// Use this method for backfilling historical user events.
+        ///
+        /// Operation.response is of type ImportResponse. Note that it is
+        /// possible for a subset of the items to be successfully inserted.
+        /// Operation.metadata is of type ImportMetadata.
+        async fn import_user_events(
+            &self,
+            request: tonic::Request<super::ImportUserEventsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// Service for ingesting end user actions on the customer website.
+    #[derive(Debug)]
+    pub struct UserEventServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> UserEventServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for UserEventServiceServer<T>
+    where
+        T: UserEventService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.recommendationengine.v1beta1.UserEventService/WriteUserEvent" => {
+                    #[allow(non_camel_case_types)]
+                    struct WriteUserEventSvc<T: UserEventService>(pub Arc<T>);
+                    impl<
+                        T: UserEventService,
+                    > tonic::server::UnaryService<super::WriteUserEventRequest>
+                    for WriteUserEventSvc<T> {
+                        type Response = super::UserEvent;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::WriteUserEventRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as UserEventService>::write_user_event(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = WriteUserEventSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.recommendationengine.v1beta1.UserEventService/CollectUserEvent" => {
+                    #[allow(non_camel_case_types)]
+                    struct CollectUserEventSvc<T: UserEventService>(pub Arc<T>);
+                    impl<
+                        T: UserEventService,
+                    > tonic::server::UnaryService<super::CollectUserEventRequest>
+                    for CollectUserEventSvc<T> {
+                        type Response = super::super::super::super::api::HttpBody;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CollectUserEventRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as UserEventService>::collect_user_event(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CollectUserEventSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.recommendationengine.v1beta1.UserEventService/ListUserEvents" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListUserEventsSvc<T: UserEventService>(pub Arc<T>);
+                    impl<
+                        T: UserEventService,
+                    > tonic::server::UnaryService<super::ListUserEventsRequest>
+                    for ListUserEventsSvc<T> {
+                        type Response = super::ListUserEventsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListUserEventsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as UserEventService>::list_user_events(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListUserEventsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.recommendationengine.v1beta1.UserEventService/PurgeUserEvents" => {
+                    #[allow(non_camel_case_types)]
+                    struct PurgeUserEventsSvc<T: UserEventService>(pub Arc<T>);
+                    impl<
+                        T: UserEventService,
+                    > tonic::server::UnaryService<super::PurgeUserEventsRequest>
+                    for PurgeUserEventsSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::PurgeUserEventsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as UserEventService>::purge_user_events(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = PurgeUserEventsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.recommendationengine.v1beta1.UserEventService/ImportUserEvents" => {
+                    #[allow(non_camel_case_types)]
+                    struct ImportUserEventsSvc<T: UserEventService>(pub Arc<T>);
+                    impl<
+                        T: UserEventService,
+                    > tonic::server::UnaryService<super::ImportUserEventsRequest>
+                    for ImportUserEventsSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ImportUserEventsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as UserEventService>::import_user_events(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ImportUserEventsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for UserEventServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.recommendationengine.v1beta1.UserEventService";
+    impl<T> tonic::server::NamedService for UserEventServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}
+/// Registered Api Key.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct PredictionApiKeyRegistration {
+    /// The API key.
+    #[prost(string, tag = "1")]
+    pub api_key: ::prost::alloc::string::String,
+}
+/// Request message for the `CreatePredictionApiKeyRegistration` method.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreatePredictionApiKeyRegistrationRequest {
+    /// Required. The parent resource path.
+    /// `projects/*/locations/global/catalogs/default_catalog/eventStores/default_event_store`.
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// Required. The prediction API key registration.
+    #[prost(message, optional, tag = "2")]
+    pub prediction_api_key_registration: ::core::option::Option<
+        PredictionApiKeyRegistration,
+    >,
+}
+/// Request message for the `ListPredictionApiKeyRegistrations`.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListPredictionApiKeyRegistrationsRequest {
+    /// Required. The parent placement resource name such as
+    /// `projects/1234/locations/global/catalogs/default_catalog/eventStores/default_event_store`
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// Optional. Maximum number of results to return per page. If unset, the
+    /// service will choose a reasonable default.
+    #[prost(int32, tag = "2")]
+    pub page_size: i32,
+    /// Optional. The previous `ListPredictionApiKeyRegistration.nextPageToken`.
+    #[prost(string, tag = "3")]
+    pub page_token: ::prost::alloc::string::String,
+}
+/// Response message for the `ListPredictionApiKeyRegistrations`.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListPredictionApiKeyRegistrationsResponse {
+    /// The list of registered API keys.
+    #[prost(message, repeated, tag = "1")]
+    pub prediction_api_key_registrations: ::prost::alloc::vec::Vec<
+        PredictionApiKeyRegistration,
+    >,
+    /// If empty, the list is complete. If nonempty, pass the token to the next
+    /// request's `ListPredictionApiKeysRegistrationsRequest.pageToken`.
+    #[prost(string, tag = "2")]
+    pub next_page_token: ::prost::alloc::string::String,
+}
+/// Request message for `DeletePredictionApiKeyRegistration` method.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeletePredictionApiKeyRegistrationRequest {
+    /// Required. The API key to unregister including full resource path.
+    /// `projects/*/locations/global/catalogs/default_catalog/eventStores/default_event_store/predictionApiKeyRegistrations/<YOUR_API_KEY>`
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// Generated client implementations.
+pub mod prediction_api_key_registry_client {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    use tonic::codegen::http::Uri;
+    /// Service for registering API keys for use with the `predict` method. If you
+    /// use an API key to request predictions, you must first register the API key.
+    /// Otherwise, your prediction request is rejected. If you use OAuth to
+    /// authenticate your `predict` method call, you do not need to register an API
+    /// key. You can register up to 20 API keys per project.
+    #[derive(Debug, Clone)]
+    pub struct PredictionApiKeyRegistryClient<T> {
+        inner: tonic::client::Grpc<T>,
+    }
+    impl<T> PredictionApiKeyRegistryClient<T>
+    where
+        T: tonic::client::GrpcService<tonic::body::BoxBody>,
+        T::Error: Into<StdError>,
+        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
+        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
+    {
+        pub fn new(inner: T) -> Self {
+            let inner = tonic::client::Grpc::new(inner);
+            Self { inner }
+        }
+        pub fn with_origin(inner: T, origin: Uri) -> Self {
+            let inner = tonic::client::Grpc::with_origin(inner, origin);
+            Self { inner }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> PredictionApiKeyRegistryClient<InterceptedService<T, F>>
+        where
+            F: tonic::service::Interceptor,
+            T::ResponseBody: Default,
+            T: tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+                Response = http::Response<
+                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
+                >,
+            >,
+            <T as tonic::codegen::Service<
+                http::Request<tonic::body::BoxBody>,
+            >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
+        {
+            PredictionApiKeyRegistryClient::new(
+                InterceptedService::new(inner, interceptor),
+            )
+        }
+        /// Compress requests with the given encoding.
+        ///
+        /// This requires the server to support it otherwise it might respond with an
+        /// error.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.send_compressed(encoding);
+            self
+        }
+        /// Enable decompressing responses.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.inner = self.inner.accept_compressed(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_decoding_message_size(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.inner = self.inner.max_encoding_message_size(limit);
+            self
+        }
+        /// Register an API key for use with predict method.
+        pub async fn create_prediction_api_key_registration(
+            &mut self,
+            request: impl tonic::IntoRequest<
+                super::CreatePredictionApiKeyRegistrationRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::PredictionApiKeyRegistration>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.recommendationengine.v1beta1.PredictionApiKeyRegistry/CreatePredictionApiKeyRegistration",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.recommendationengine.v1beta1.PredictionApiKeyRegistry",
+                        "CreatePredictionApiKeyRegistration",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// List the registered apiKeys for use with predict method.
+        pub async fn list_prediction_api_key_registrations(
+            &mut self,
+            request: impl tonic::IntoRequest<
+                super::ListPredictionApiKeyRegistrationsRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::ListPredictionApiKeyRegistrationsResponse>,
+            tonic::Status,
+        > {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.recommendationengine.v1beta1.PredictionApiKeyRegistry/ListPredictionApiKeyRegistrations",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.recommendationengine.v1beta1.PredictionApiKeyRegistry",
+                        "ListPredictionApiKeyRegistrations",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+        /// Unregister an apiKey from using for predict method.
+        pub async fn delete_prediction_api_key_registration(
+            &mut self,
+            request: impl tonic::IntoRequest<
+                super::DeletePredictionApiKeyRegistrationRequest,
+            >,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
+            self.inner
+                .ready()
+                .await
+                .map_err(|e| {
+                    tonic::Status::new(
+                        tonic::Code::Unknown,
+                        format!("Service was not ready: {}", e.into()),
+                    )
+                })?;
+            let codec = tonic::codec::ProstCodec::default();
+            let path = http::uri::PathAndQuery::from_static(
+                "/google.cloud.recommendationengine.v1beta1.PredictionApiKeyRegistry/DeletePredictionApiKeyRegistration",
+            );
+            let mut req = request.into_request();
+            req.extensions_mut()
+                .insert(
+                    GrpcMethod::new(
+                        "google.cloud.recommendationengine.v1beta1.PredictionApiKeyRegistry",
+                        "DeletePredictionApiKeyRegistration",
+                    ),
+                );
+            self.inner.unary(req, path, codec).await
+        }
+    }
+}
+/// Generated server implementations.
+pub mod prediction_api_key_registry_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with PredictionApiKeyRegistryServer.
+    #[async_trait]
+    pub trait PredictionApiKeyRegistry: std::marker::Send + std::marker::Sync + 'static {
+        /// Register an API key for use with predict method.
+        async fn create_prediction_api_key_registration(
+            &self,
+            request: tonic::Request<super::CreatePredictionApiKeyRegistrationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::PredictionApiKeyRegistration>,
+            tonic::Status,
+        >;
+        /// List the registered apiKeys for use with predict method.
+        async fn list_prediction_api_key_registrations(
+            &self,
+            request: tonic::Request<super::ListPredictionApiKeyRegistrationsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListPredictionApiKeyRegistrationsResponse>,
+            tonic::Status,
+        >;
+        /// Unregister an apiKey from using for predict method.
+        async fn delete_prediction_api_key_registration(
+            &self,
+            request: tonic::Request<super::DeletePredictionApiKeyRegistrationRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+    }
+    /// Service for registering API keys for use with the `predict` method. If you
+    /// use an API key to request predictions, you must first register the API key.
+    /// Otherwise, your prediction request is rejected. If you use OAuth to
+    /// authenticate your `predict` method call, you do not need to register an API
+    /// key. You can register up to 20 API keys per project.
+    #[derive(Debug)]
+    pub struct PredictionApiKeyRegistryServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> PredictionApiKeyRegistryServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for PredictionApiKeyRegistryServer<T>
+    where
+        T: PredictionApiKeyRegistry,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.recommendationengine.v1beta1.PredictionApiKeyRegistry/CreatePredictionApiKeyRegistration" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreatePredictionApiKeyRegistrationSvc<
+                        T: PredictionApiKeyRegistry,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: PredictionApiKeyRegistry,
+                    > tonic::server::UnaryService<
+                        super::CreatePredictionApiKeyRegistrationRequest,
+                    > for CreatePredictionApiKeyRegistrationSvc<T> {
+                        type Response = super::PredictionApiKeyRegistration;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreatePredictionApiKeyRegistrationRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as PredictionApiKeyRegistry>::create_prediction_api_key_registration(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreatePredictionApiKeyRegistrationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.recommendationengine.v1beta1.PredictionApiKeyRegistry/ListPredictionApiKeyRegistrations" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListPredictionApiKeyRegistrationsSvc<
+                        T: PredictionApiKeyRegistry,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: PredictionApiKeyRegistry,
+                    > tonic::server::UnaryService<
+                        super::ListPredictionApiKeyRegistrationsRequest,
+                    > for ListPredictionApiKeyRegistrationsSvc<T> {
+                        type Response = super::ListPredictionApiKeyRegistrationsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListPredictionApiKeyRegistrationsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as PredictionApiKeyRegistry>::list_prediction_api_key_registrations(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListPredictionApiKeyRegistrationsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.recommendationengine.v1beta1.PredictionApiKeyRegistry/DeletePredictionApiKeyRegistration" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeletePredictionApiKeyRegistrationSvc<
+                        T: PredictionApiKeyRegistry,
+                    >(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: PredictionApiKeyRegistry,
+                    > tonic::server::UnaryService<
+                        super::DeletePredictionApiKeyRegistrationRequest,
+                    > for DeletePredictionApiKeyRegistrationSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeletePredictionApiKeyRegistrationRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as PredictionApiKeyRegistry>::delete_prediction_api_key_registration(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeletePredictionApiKeyRegistrationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for PredictionApiKeyRegistryServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.recommendationengine.v1beta1.PredictionApiKeyRegistry";
+    impl<T> tonic::server::NamedService for PredictionApiKeyRegistryServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}
 /// Request message for Predict method.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct PredictRequest {
@@ -1461,125 +2412,63 @@ pub mod prediction_service_client {
         }
     }
 }
-/// Registered Api Key.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct PredictionApiKeyRegistration {
-    /// The API key.
-    #[prost(string, tag = "1")]
-    pub api_key: ::prost::alloc::string::String,
-}
-/// Request message for the `CreatePredictionApiKeyRegistration` method.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CreatePredictionApiKeyRegistrationRequest {
-    /// Required. The parent resource path.
-    /// `projects/*/locations/global/catalogs/default_catalog/eventStores/default_event_store`.
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// Required. The prediction API key registration.
-    #[prost(message, optional, tag = "2")]
-    pub prediction_api_key_registration: ::core::option::Option<
-        PredictionApiKeyRegistration,
-    >,
-}
-/// Request message for the `ListPredictionApiKeyRegistrations`.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListPredictionApiKeyRegistrationsRequest {
-    /// Required. The parent placement resource name such as
-    /// `projects/1234/locations/global/catalogs/default_catalog/eventStores/default_event_store`
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// Optional. Maximum number of results to return per page. If unset, the
-    /// service will choose a reasonable default.
-    #[prost(int32, tag = "2")]
-    pub page_size: i32,
-    /// Optional. The previous `ListPredictionApiKeyRegistration.nextPageToken`.
-    #[prost(string, tag = "3")]
-    pub page_token: ::prost::alloc::string::String,
-}
-/// Response message for the `ListPredictionApiKeyRegistrations`.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListPredictionApiKeyRegistrationsResponse {
-    /// The list of registered API keys.
-    #[prost(message, repeated, tag = "1")]
-    pub prediction_api_key_registrations: ::prost::alloc::vec::Vec<
-        PredictionApiKeyRegistration,
-    >,
-    /// If empty, the list is complete. If nonempty, pass the token to the next
-    /// request's `ListPredictionApiKeysRegistrationsRequest.pageToken`.
-    #[prost(string, tag = "2")]
-    pub next_page_token: ::prost::alloc::string::String,
-}
-/// Request message for `DeletePredictionApiKeyRegistration` method.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DeletePredictionApiKeyRegistrationRequest {
-    /// Required. The API key to unregister including full resource path.
-    /// `projects/*/locations/global/catalogs/default_catalog/eventStores/default_event_store/predictionApiKeyRegistrations/<YOUR_API_KEY>`
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// Generated client implementations.
-pub mod prediction_api_key_registry_client {
+/// Generated server implementations.
+pub mod prediction_service_server {
     #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
     use tonic::codegen::*;
-    use tonic::codegen::http::Uri;
-    /// Service for registering API keys for use with the `predict` method. If you
-    /// use an API key to request predictions, you must first register the API key.
-    /// Otherwise, your prediction request is rejected. If you use OAuth to
-    /// authenticate your `predict` method call, you do not need to register an API
-    /// key. You can register up to 20 API keys per project.
-    #[derive(Debug, Clone)]
-    pub struct PredictionApiKeyRegistryClient<T> {
-        inner: tonic::client::Grpc<T>,
+    /// Generated trait containing gRPC methods that should be implemented for use with PredictionServiceServer.
+    #[async_trait]
+    pub trait PredictionService: std::marker::Send + std::marker::Sync + 'static {
+        /// Makes a recommendation prediction. If using API Key based authentication,
+        /// the API Key must be registered using the
+        /// [PredictionApiKeyRegistry][google.cloud.recommendationengine.v1beta1.PredictionApiKeyRegistry]
+        /// service. [Learn more](/recommendations-ai/docs/setting-up#register-key).
+        async fn predict(
+            &self,
+            request: tonic::Request<super::PredictRequest>,
+        ) -> std::result::Result<tonic::Response<super::PredictResponse>, tonic::Status>;
     }
-    impl<T> PredictionApiKeyRegistryClient<T>
-    where
-        T: tonic::client::GrpcService<tonic::body::BoxBody>,
-        T::Error: Into<StdError>,
-        T::ResponseBody: Body<Data = Bytes> + std::marker::Send + 'static,
-        <T::ResponseBody as Body>::Error: Into<StdError> + std::marker::Send,
-    {
+    /// Service for making recommendation prediction.
+    #[derive(Debug)]
+    pub struct PredictionServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> PredictionServiceServer<T> {
         pub fn new(inner: T) -> Self {
-            let inner = tonic::client::Grpc::new(inner);
-            Self { inner }
+            Self::from_arc(Arc::new(inner))
         }
-        pub fn with_origin(inner: T, origin: Uri) -> Self {
-            let inner = tonic::client::Grpc::with_origin(inner, origin);
-            Self { inner }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
         }
         pub fn with_interceptor<F>(
             inner: T,
             interceptor: F,
-        ) -> PredictionApiKeyRegistryClient<InterceptedService<T, F>>
+        ) -> InterceptedService<Self, F>
         where
             F: tonic::service::Interceptor,
-            T::ResponseBody: Default,
-            T: tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-                Response = http::Response<
-                    <T as tonic::client::GrpcService<tonic::body::BoxBody>>::ResponseBody,
-                >,
-            >,
-            <T as tonic::codegen::Service<
-                http::Request<tonic::body::BoxBody>,
-            >>::Error: Into<StdError> + std::marker::Send + std::marker::Sync,
         {
-            PredictionApiKeyRegistryClient::new(
-                InterceptedService::new(inner, interceptor),
-            )
+            InterceptedService::new(Self::new(inner), interceptor)
         }
-        /// Compress requests with the given encoding.
-        ///
-        /// This requires the server to support it otherwise it might respond with an
-        /// error.
-        #[must_use]
-        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.send_compressed(encoding);
-            self
-        }
-        /// Enable decompressing responses.
+        /// Enable decompressing requests with the given encoding.
         #[must_use]
         pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
-            self.inner = self.inner.accept_compressed(encoding);
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
             self
         }
         /// Limits the maximum size of a decoded message.
@@ -1587,7 +2476,7 @@ pub mod prediction_api_key_registry_client {
         /// Default: `4MB`
         #[must_use]
         pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_decoding_message_size(limit);
+            self.max_decoding_message_size = Some(limit);
             self
         }
         /// Limits the maximum size of an encoded message.
@@ -1595,105 +2484,106 @@ pub mod prediction_api_key_registry_client {
         /// Default: `usize::MAX`
         #[must_use]
         pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
-            self.inner = self.inner.max_encoding_message_size(limit);
+            self.max_encoding_message_size = Some(limit);
             self
         }
-        /// Register an API key for use with predict method.
-        pub async fn create_prediction_api_key_registration(
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for PredictionServiceServer<T>
+    where
+        T: PredictionService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
             &mut self,
-            request: impl tonic::IntoRequest<
-                super::CreatePredictionApiKeyRegistrationRequest,
-            >,
-        ) -> std::result::Result<
-            tonic::Response<super::PredictionApiKeyRegistration>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.recommendationengine.v1beta1.PredictionApiKeyRegistry/CreatePredictionApiKeyRegistration",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.recommendationengine.v1beta1.PredictionApiKeyRegistry",
-                        "CreatePredictionApiKeyRegistration",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
         }
-        /// List the registered apiKeys for use with predict method.
-        pub async fn list_prediction_api_key_registrations(
-            &mut self,
-            request: impl tonic::IntoRequest<
-                super::ListPredictionApiKeyRegistrationsRequest,
-            >,
-        ) -> std::result::Result<
-            tonic::Response<super::ListPredictionApiKeyRegistrationsResponse>,
-            tonic::Status,
-        > {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.recommendationengine.v1beta1.PredictionApiKeyRegistry/ListPredictionApiKeyRegistrations",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.recommendationengine.v1beta1.PredictionApiKeyRegistry",
-                        "ListPredictionApiKeyRegistrations",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.recommendationengine.v1beta1.PredictionService/Predict" => {
+                    #[allow(non_camel_case_types)]
+                    struct PredictSvc<T: PredictionService>(pub Arc<T>);
+                    impl<
+                        T: PredictionService,
+                    > tonic::server::UnaryService<super::PredictRequest>
+                    for PredictSvc<T> {
+                        type Response = super::PredictResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::PredictRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as PredictionService>::predict(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = PredictSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
         }
-        /// Unregister an apiKey from using for predict method.
-        pub async fn delete_prediction_api_key_registration(
-            &mut self,
-            request: impl tonic::IntoRequest<
-                super::DeletePredictionApiKeyRegistrationRequest,
-            >,
-        ) -> std::result::Result<tonic::Response<()>, tonic::Status> {
-            self.inner
-                .ready()
-                .await
-                .map_err(|e| {
-                    tonic::Status::new(
-                        tonic::Code::Unknown,
-                        format!("Service was not ready: {}", e.into()),
-                    )
-                })?;
-            let codec = tonic::codec::ProstCodec::default();
-            let path = http::uri::PathAndQuery::from_static(
-                "/google.cloud.recommendationengine.v1beta1.PredictionApiKeyRegistry/DeletePredictionApiKeyRegistration",
-            );
-            let mut req = request.into_request();
-            req.extensions_mut()
-                .insert(
-                    GrpcMethod::new(
-                        "google.cloud.recommendationengine.v1beta1.PredictionApiKeyRegistry",
-                        "DeletePredictionApiKeyRegistration",
-                    ),
-                );
-            self.inner.unary(req, path, codec).await
+    }
+    impl<T> Clone for PredictionServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
         }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.recommendationengine.v1beta1.PredictionService";
+    impl<T> tonic::server::NamedService for PredictionServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }
 /// Request message for CreateCatalogItem method.
@@ -2023,5 +2913,444 @@ pub mod catalog_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod catalog_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with CatalogServiceServer.
+    #[async_trait]
+    pub trait CatalogService: std::marker::Send + std::marker::Sync + 'static {
+        /// Creates a catalog item.
+        async fn create_catalog_item(
+            &self,
+            request: tonic::Request<super::CreateCatalogItemRequest>,
+        ) -> std::result::Result<tonic::Response<super::CatalogItem>, tonic::Status>;
+        /// Gets a specific catalog item.
+        async fn get_catalog_item(
+            &self,
+            request: tonic::Request<super::GetCatalogItemRequest>,
+        ) -> std::result::Result<tonic::Response<super::CatalogItem>, tonic::Status>;
+        /// Gets a list of catalog items.
+        async fn list_catalog_items(
+            &self,
+            request: tonic::Request<super::ListCatalogItemsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListCatalogItemsResponse>,
+            tonic::Status,
+        >;
+        /// Updates a catalog item. Partial updating is supported. Non-existing
+        /// items will be created.
+        async fn update_catalog_item(
+            &self,
+            request: tonic::Request<super::UpdateCatalogItemRequest>,
+        ) -> std::result::Result<tonic::Response<super::CatalogItem>, tonic::Status>;
+        /// Deletes a catalog item.
+        async fn delete_catalog_item(
+            &self,
+            request: tonic::Request<super::DeleteCatalogItemRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Bulk import of multiple catalog items. Request processing may be
+        /// synchronous. No partial updating supported. Non-existing items will be
+        /// created.
+        ///
+        /// Operation.response is of type ImportResponse. Note that it is
+        /// possible for a subset of the items to be successfully updated.
+        async fn import_catalog_items(
+            &self,
+            request: tonic::Request<super::ImportCatalogItemsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// Service for ingesting catalog information of the customer's website.
+    #[derive(Debug)]
+    pub struct CatalogServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> CatalogServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for CatalogServiceServer<T>
+    where
+        T: CatalogService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.recommendationengine.v1beta1.CatalogService/CreateCatalogItem" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateCatalogItemSvc<T: CatalogService>(pub Arc<T>);
+                    impl<
+                        T: CatalogService,
+                    > tonic::server::UnaryService<super::CreateCatalogItemRequest>
+                    for CreateCatalogItemSvc<T> {
+                        type Response = super::CatalogItem;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateCatalogItemRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CatalogService>::create_catalog_item(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateCatalogItemSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.recommendationengine.v1beta1.CatalogService/GetCatalogItem" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetCatalogItemSvc<T: CatalogService>(pub Arc<T>);
+                    impl<
+                        T: CatalogService,
+                    > tonic::server::UnaryService<super::GetCatalogItemRequest>
+                    for GetCatalogItemSvc<T> {
+                        type Response = super::CatalogItem;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetCatalogItemRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CatalogService>::get_catalog_item(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetCatalogItemSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.recommendationengine.v1beta1.CatalogService/ListCatalogItems" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListCatalogItemsSvc<T: CatalogService>(pub Arc<T>);
+                    impl<
+                        T: CatalogService,
+                    > tonic::server::UnaryService<super::ListCatalogItemsRequest>
+                    for ListCatalogItemsSvc<T> {
+                        type Response = super::ListCatalogItemsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListCatalogItemsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CatalogService>::list_catalog_items(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListCatalogItemsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.recommendationengine.v1beta1.CatalogService/UpdateCatalogItem" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateCatalogItemSvc<T: CatalogService>(pub Arc<T>);
+                    impl<
+                        T: CatalogService,
+                    > tonic::server::UnaryService<super::UpdateCatalogItemRequest>
+                    for UpdateCatalogItemSvc<T> {
+                        type Response = super::CatalogItem;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateCatalogItemRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CatalogService>::update_catalog_item(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateCatalogItemSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.recommendationengine.v1beta1.CatalogService/DeleteCatalogItem" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteCatalogItemSvc<T: CatalogService>(pub Arc<T>);
+                    impl<
+                        T: CatalogService,
+                    > tonic::server::UnaryService<super::DeleteCatalogItemRequest>
+                    for DeleteCatalogItemSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteCatalogItemRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CatalogService>::delete_catalog_item(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteCatalogItemSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.recommendationengine.v1beta1.CatalogService/ImportCatalogItems" => {
+                    #[allow(non_camel_case_types)]
+                    struct ImportCatalogItemsSvc<T: CatalogService>(pub Arc<T>);
+                    impl<
+                        T: CatalogService,
+                    > tonic::server::UnaryService<super::ImportCatalogItemsRequest>
+                    for ImportCatalogItemsSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ImportCatalogItemsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as CatalogService>::import_catalog_items(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ImportCatalogItemsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for CatalogServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.recommendationengine.v1beta1.CatalogService";
+    impl<T> tonic::server::NamedService for CatalogServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

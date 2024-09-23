@@ -352,3 +352,346 @@ pub mod iam_credentials_client {
         }
     }
 }
+/// Generated server implementations.
+pub mod iam_credentials_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with IamCredentialsServer.
+    #[async_trait]
+    pub trait IamCredentials: std::marker::Send + std::marker::Sync + 'static {
+        /// Generates an OAuth 2.0 access token for a service account.
+        async fn generate_access_token(
+            &self,
+            request: tonic::Request<super::GenerateAccessTokenRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::GenerateAccessTokenResponse>,
+            tonic::Status,
+        >;
+        /// Generates an OpenID Connect ID token for a service account.
+        async fn generate_id_token(
+            &self,
+            request: tonic::Request<super::GenerateIdTokenRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::GenerateIdTokenResponse>,
+            tonic::Status,
+        >;
+        /// Signs a blob using a service account's system-managed private key.
+        async fn sign_blob(
+            &self,
+            request: tonic::Request<super::SignBlobRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SignBlobResponse>,
+            tonic::Status,
+        >;
+        /// Signs a JWT using a service account's system-managed private key.
+        async fn sign_jwt(
+            &self,
+            request: tonic::Request<super::SignJwtRequest>,
+        ) -> std::result::Result<tonic::Response<super::SignJwtResponse>, tonic::Status>;
+    }
+    /// A service account is a special type of Google account that belongs to your
+    /// application or a virtual machine (VM), instead of to an individual end user.
+    /// Your application assumes the identity of the service account to call Google
+    /// APIs, so that the users aren't directly involved.
+    ///
+    /// Service account credentials are used to temporarily assume the identity
+    /// of the service account. Supported credential types include OAuth 2.0 access
+    /// tokens, OpenID Connect ID tokens, self-signed JSON Web Tokens (JWTs), and
+    /// more.
+    #[derive(Debug)]
+    pub struct IamCredentialsServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> IamCredentialsServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for IamCredentialsServer<T>
+    where
+        T: IamCredentials,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.iam.credentials.v1.IAMCredentials/GenerateAccessToken" => {
+                    #[allow(non_camel_case_types)]
+                    struct GenerateAccessTokenSvc<T: IamCredentials>(pub Arc<T>);
+                    impl<
+                        T: IamCredentials,
+                    > tonic::server::UnaryService<super::GenerateAccessTokenRequest>
+                    for GenerateAccessTokenSvc<T> {
+                        type Response = super::GenerateAccessTokenResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GenerateAccessTokenRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IamCredentials>::generate_access_token(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GenerateAccessTokenSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.iam.credentials.v1.IAMCredentials/GenerateIdToken" => {
+                    #[allow(non_camel_case_types)]
+                    struct GenerateIdTokenSvc<T: IamCredentials>(pub Arc<T>);
+                    impl<
+                        T: IamCredentials,
+                    > tonic::server::UnaryService<super::GenerateIdTokenRequest>
+                    for GenerateIdTokenSvc<T> {
+                        type Response = super::GenerateIdTokenResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GenerateIdTokenRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IamCredentials>::generate_id_token(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GenerateIdTokenSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.iam.credentials.v1.IAMCredentials/SignBlob" => {
+                    #[allow(non_camel_case_types)]
+                    struct SignBlobSvc<T: IamCredentials>(pub Arc<T>);
+                    impl<
+                        T: IamCredentials,
+                    > tonic::server::UnaryService<super::SignBlobRequest>
+                    for SignBlobSvc<T> {
+                        type Response = super::SignBlobResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SignBlobRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IamCredentials>::sign_blob(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SignBlobSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.iam.credentials.v1.IAMCredentials/SignJwt" => {
+                    #[allow(non_camel_case_types)]
+                    struct SignJwtSvc<T: IamCredentials>(pub Arc<T>);
+                    impl<
+                        T: IamCredentials,
+                    > tonic::server::UnaryService<super::SignJwtRequest>
+                    for SignJwtSvc<T> {
+                        type Response = super::SignJwtResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SignJwtRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as IamCredentials>::sign_jwt(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SignJwtSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for IamCredentialsServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.iam.credentials.v1.IAMCredentials";
+    impl<T> tonic::server::NamedService for IamCredentialsServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}

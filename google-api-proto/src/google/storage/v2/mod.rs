@@ -1256,37 +1256,37 @@ pub mod service_constants {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Values::Unspecified => "VALUES_UNSPECIFIED",
-                Values::MaxReadChunkBytes => "MAX_READ_CHUNK_BYTES",
-                Values::MaxObjectSizeMb => "MAX_OBJECT_SIZE_MB",
-                Values::MaxCustomMetadataFieldNameBytes => {
+                Self::Unspecified => "VALUES_UNSPECIFIED",
+                Self::MaxReadChunkBytes => "MAX_READ_CHUNK_BYTES",
+                Self::MaxObjectSizeMb => "MAX_OBJECT_SIZE_MB",
+                Self::MaxCustomMetadataFieldNameBytes => {
                     "MAX_CUSTOM_METADATA_FIELD_NAME_BYTES"
                 }
-                Values::MaxCustomMetadataFieldValueBytes => {
+                Self::MaxCustomMetadataFieldValueBytes => {
                     "MAX_CUSTOM_METADATA_FIELD_VALUE_BYTES"
                 }
-                Values::MaxCustomMetadataTotalSizeBytes => {
+                Self::MaxCustomMetadataTotalSizeBytes => {
                     "MAX_CUSTOM_METADATA_TOTAL_SIZE_BYTES"
                 }
-                Values::MaxBucketMetadataTotalSizeBytes => {
+                Self::MaxBucketMetadataTotalSizeBytes => {
                     "MAX_BUCKET_METADATA_TOTAL_SIZE_BYTES"
                 }
-                Values::MaxNotificationConfigsPerBucket => {
+                Self::MaxNotificationConfigsPerBucket => {
                     "MAX_NOTIFICATION_CONFIGS_PER_BUCKET"
                 }
-                Values::MaxNotificationCustomAttributes => {
+                Self::MaxNotificationCustomAttributes => {
                     "MAX_NOTIFICATION_CUSTOM_ATTRIBUTES"
                 }
-                Values::MaxNotificationCustomAttributeKeyLength => {
+                Self::MaxNotificationCustomAttributeKeyLength => {
                     "MAX_NOTIFICATION_CUSTOM_ATTRIBUTE_KEY_LENGTH"
                 }
-                Values::MaxLabelsEntriesCount => "MAX_LABELS_ENTRIES_COUNT",
-                Values::MaxLabelsKeyValueLength => "MAX_LABELS_KEY_VALUE_LENGTH",
-                Values::MaxLabelsKeyValueBytes => "MAX_LABELS_KEY_VALUE_BYTES",
-                Values::MaxObjectIdsPerDeleteObjectsRequest => {
+                Self::MaxLabelsEntriesCount => "MAX_LABELS_ENTRIES_COUNT",
+                Self::MaxLabelsKeyValueLength => "MAX_LABELS_KEY_VALUE_LENGTH",
+                Self::MaxLabelsKeyValueBytes => "MAX_LABELS_KEY_VALUE_BYTES",
+                Self::MaxObjectIdsPerDeleteObjectsRequest => {
                     "MAX_OBJECT_IDS_PER_DELETE_OBJECTS_REQUEST"
                 }
-                Values::SplitTokenMaxValidDays => "SPLIT_TOKEN_MAX_VALID_DAYS",
+                Self::SplitTokenMaxValidDays => "SPLIT_TOKEN_MAX_VALID_DAYS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -3253,5 +3253,1946 @@ pub mod storage_client {
                 .insert(GrpcMethod::new("google.storage.v2.Storage", "UpdateHmacKey"));
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod storage_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with StorageServer.
+    #[async_trait]
+    pub trait Storage: std::marker::Send + std::marker::Sync + 'static {
+        /// Permanently deletes an empty bucket.
+        async fn delete_bucket(
+            &self,
+            request: tonic::Request<super::DeleteBucketRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Returns metadata for the specified bucket.
+        async fn get_bucket(
+            &self,
+            request: tonic::Request<super::GetBucketRequest>,
+        ) -> std::result::Result<tonic::Response<super::Bucket>, tonic::Status>;
+        /// Creates a new bucket.
+        async fn create_bucket(
+            &self,
+            request: tonic::Request<super::CreateBucketRequest>,
+        ) -> std::result::Result<tonic::Response<super::Bucket>, tonic::Status>;
+        /// Retrieves a list of buckets for a given project.
+        async fn list_buckets(
+            &self,
+            request: tonic::Request<super::ListBucketsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListBucketsResponse>,
+            tonic::Status,
+        >;
+        /// Locks retention policy on a bucket.
+        async fn lock_bucket_retention_policy(
+            &self,
+            request: tonic::Request<super::LockBucketRetentionPolicyRequest>,
+        ) -> std::result::Result<tonic::Response<super::Bucket>, tonic::Status>;
+        /// Gets the IAM policy for a specified bucket.
+        /// The `resource` field in the request should be
+        /// `projects/_/buckets/{bucket}`.
+        async fn get_iam_policy(
+            &self,
+            request: tonic::Request<super::super::super::iam::v1::GetIamPolicyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::iam::v1::Policy>,
+            tonic::Status,
+        >;
+        /// Updates an IAM policy for the specified bucket.
+        /// The `resource` field in the request should be
+        /// `projects/_/buckets/{bucket}`.
+        async fn set_iam_policy(
+            &self,
+            request: tonic::Request<super::super::super::iam::v1::SetIamPolicyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::iam::v1::Policy>,
+            tonic::Status,
+        >;
+        /// Tests a set of permissions on the given bucket or object to see which, if
+        /// any, are held by the caller.
+        /// The `resource` field in the request should be
+        /// `projects/_/buckets/{bucket}` for a bucket or
+        /// `projects/_/buckets/{bucket}/objects/{object}` for an object.
+        async fn test_iam_permissions(
+            &self,
+            request: tonic::Request<
+                super::super::super::iam::v1::TestIamPermissionsRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::iam::v1::TestIamPermissionsResponse>,
+            tonic::Status,
+        >;
+        /// Updates a bucket. Equivalent to JSON API's storage.buckets.patch method.
+        async fn update_bucket(
+            &self,
+            request: tonic::Request<super::UpdateBucketRequest>,
+        ) -> std::result::Result<tonic::Response<super::Bucket>, tonic::Status>;
+        /// Permanently deletes a NotificationConfig.
+        async fn delete_notification_config(
+            &self,
+            request: tonic::Request<super::DeleteNotificationConfigRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// View a NotificationConfig.
+        async fn get_notification_config(
+            &self,
+            request: tonic::Request<super::GetNotificationConfigRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::NotificationConfig>,
+            tonic::Status,
+        >;
+        /// Creates a NotificationConfig for a given bucket.
+        /// These NotificationConfigs, when triggered, publish messages to the
+        /// specified Pub/Sub topics. See
+        /// https://cloud.google.com/storage/docs/pubsub-notifications.
+        async fn create_notification_config(
+            &self,
+            request: tonic::Request<super::CreateNotificationConfigRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::NotificationConfig>,
+            tonic::Status,
+        >;
+        /// Retrieves a list of NotificationConfigs for a given bucket.
+        async fn list_notification_configs(
+            &self,
+            request: tonic::Request<super::ListNotificationConfigsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListNotificationConfigsResponse>,
+            tonic::Status,
+        >;
+        /// Concatenates a list of existing objects into a new object in the same
+        /// bucket.
+        async fn compose_object(
+            &self,
+            request: tonic::Request<super::ComposeObjectRequest>,
+        ) -> std::result::Result<tonic::Response<super::Object>, tonic::Status>;
+        /// Deletes an object and its metadata.
+        ///
+        /// Deletions are normally permanent when versioning is disabled or whenever
+        /// the generation parameter is used. However, if soft delete is enabled for
+        /// the bucket, deleted objects can be restored using RestoreObject until the
+        /// soft delete retention period has passed.
+        async fn delete_object(
+            &self,
+            request: tonic::Request<super::DeleteObjectRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Restores a soft-deleted object.
+        async fn restore_object(
+            &self,
+            request: tonic::Request<super::RestoreObjectRequest>,
+        ) -> std::result::Result<tonic::Response<super::Object>, tonic::Status>;
+        /// Cancels an in-progress resumable upload.
+        ///
+        /// Any attempts to write to the resumable upload after cancelling the upload
+        /// will fail.
+        ///
+        /// The behavior for currently in progress write operations is not guaranteed -
+        /// they could either complete before the cancellation or fail if the
+        /// cancellation completes first.
+        async fn cancel_resumable_write(
+            &self,
+            request: tonic::Request<super::CancelResumableWriteRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::CancelResumableWriteResponse>,
+            tonic::Status,
+        >;
+        /// Retrieves an object's metadata.
+        async fn get_object(
+            &self,
+            request: tonic::Request<super::GetObjectRequest>,
+        ) -> std::result::Result<tonic::Response<super::Object>, tonic::Status>;
+        /// Server streaming response type for the ReadObject method.
+        type ReadObjectStream: tonic::codegen::tokio_stream::Stream<
+                Item = std::result::Result<super::ReadObjectResponse, tonic::Status>,
+            >
+            + std::marker::Send
+            + 'static;
+        /// Reads an object's data.
+        async fn read_object(
+            &self,
+            request: tonic::Request<super::ReadObjectRequest>,
+        ) -> std::result::Result<tonic::Response<Self::ReadObjectStream>, tonic::Status>;
+        /// Updates an object's metadata.
+        /// Equivalent to JSON API's storage.objects.patch.
+        async fn update_object(
+            &self,
+            request: tonic::Request<super::UpdateObjectRequest>,
+        ) -> std::result::Result<tonic::Response<super::Object>, tonic::Status>;
+        /// Stores a new object and metadata.
+        ///
+        /// An object can be written either in a single message stream or in a
+        /// resumable sequence of message streams. To write using a single stream,
+        /// the client should include in the first message of the stream an
+        /// `WriteObjectSpec` describing the destination bucket, object, and any
+        /// preconditions. Additionally, the final message must set 'finish_write' to
+        /// true, or else it is an error.
+        ///
+        /// For a resumable write, the client should instead call
+        /// `StartResumableWrite()`, populating a `WriteObjectSpec` into that request.
+        /// They should then attach the returned `upload_id` to the first message of
+        /// each following call to `WriteObject`. If the stream is closed before
+        /// finishing the upload (either explicitly by the client or due to a network
+        /// error or an error response from the server), the client should do as
+        /// follows:
+        ///   - Check the result Status of the stream, to determine if writing can be
+        ///     resumed on this stream or must be restarted from scratch (by calling
+        ///     `StartResumableWrite()`). The resumable errors are DEADLINE_EXCEEDED,
+        ///     INTERNAL, and UNAVAILABLE. For each case, the client should use binary
+        ///     exponential backoff before retrying.  Additionally, writes can be
+        ///     resumed after RESOURCE_EXHAUSTED errors, but only after taking
+        ///     appropriate measures, which may include reducing aggregate send rate
+        ///     across clients and/or requesting a quota increase for your project.
+        ///   - If the call to `WriteObject` returns `ABORTED`, that indicates
+        ///     concurrent attempts to update the resumable write, caused either by
+        ///     multiple racing clients or by a single client where the previous
+        ///     request was timed out on the client side but nonetheless reached the
+        ///     server. In this case the client should take steps to prevent further
+        ///     concurrent writes (e.g., increase the timeouts, stop using more than
+        ///     one process to perform the upload, etc.), and then should follow the
+        ///     steps below for resuming the upload.
+        ///   - For resumable errors, the client should call `QueryWriteStatus()` and
+        ///     then continue writing from the returned `persisted_size`. This may be
+        ///     less than the amount of data the client previously sent. Note also that
+        ///     it is acceptable to send data starting at an offset earlier than the
+        ///     returned `persisted_size`; in this case, the service will skip data at
+        ///     offsets that were already persisted (without checking that it matches
+        ///     the previously written data), and write only the data starting from the
+        ///     persisted offset. Even though the data isn't written, it may still
+        ///     incur a performance cost over resuming at the correct write offset.
+        ///     This behavior can make client-side handling simpler in some cases.
+        ///   - Clients must only send data that is a multiple of 256 KiB per message,
+        ///     unless the object is being finished with `finish_write` set to `true`.
+        ///
+        /// The service will not view the object as complete until the client has
+        /// sent a `WriteObjectRequest` with `finish_write` set to `true`. Sending any
+        /// requests on a stream after sending a request with `finish_write` set to
+        /// `true` will cause an error. The client **should** check the response it
+        /// receives to determine how much data the service was able to commit and
+        /// whether the service views the object as complete.
+        ///
+        /// Attempting to resume an already finalized object will result in an OK
+        /// status, with a WriteObjectResponse containing the finalized object's
+        /// metadata.
+        ///
+        /// Alternatively, the BidiWriteObject operation may be used to write an
+        /// object with controls over flushing and the ability to fetch the ability to
+        /// determine the current persisted size.
+        async fn write_object(
+            &self,
+            request: tonic::Request<tonic::Streaming<super::WriteObjectRequest>>,
+        ) -> std::result::Result<
+            tonic::Response<super::WriteObjectResponse>,
+            tonic::Status,
+        >;
+        /// Server streaming response type for the BidiWriteObject method.
+        type BidiWriteObjectStream: tonic::codegen::tokio_stream::Stream<
+                Item = std::result::Result<super::BidiWriteObjectResponse, tonic::Status>,
+            >
+            + std::marker::Send
+            + 'static;
+        /// Stores a new object and metadata.
+        ///
+        /// This is similar to the WriteObject call with the added support for
+        /// manual flushing of persisted state, and the ability to determine current
+        /// persisted size without closing the stream.
+        ///
+        /// The client may specify one or both of the `state_lookup` and `flush` fields
+        /// in each BidiWriteObjectRequest. If `flush` is specified, the data written
+        /// so far will be persisted to storage. If `state_lookup` is specified, the
+        /// service will respond with a BidiWriteObjectResponse that contains the
+        /// persisted size. If both `flush` and `state_lookup` are specified, the flush
+        /// will always occur before a `state_lookup`, so that both may be set in the
+        /// same request and the returned state will be the state of the object
+        /// post-flush. When the stream is closed, a BidiWriteObjectResponse will
+        /// always be sent to the client, regardless of the value of `state_lookup`.
+        async fn bidi_write_object(
+            &self,
+            request: tonic::Request<tonic::Streaming<super::BidiWriteObjectRequest>>,
+        ) -> std::result::Result<
+            tonic::Response<Self::BidiWriteObjectStream>,
+            tonic::Status,
+        >;
+        /// Retrieves a list of objects matching the criteria.
+        async fn list_objects(
+            &self,
+            request: tonic::Request<super::ListObjectsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListObjectsResponse>,
+            tonic::Status,
+        >;
+        /// Rewrites a source object to a destination object. Optionally overrides
+        /// metadata.
+        async fn rewrite_object(
+            &self,
+            request: tonic::Request<super::RewriteObjectRequest>,
+        ) -> std::result::Result<tonic::Response<super::RewriteResponse>, tonic::Status>;
+        /// Starts a resumable write. How long the write operation remains valid, and
+        /// what happens when the write operation becomes invalid, are
+        /// service-dependent.
+        async fn start_resumable_write(
+            &self,
+            request: tonic::Request<super::StartResumableWriteRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::StartResumableWriteResponse>,
+            tonic::Status,
+        >;
+        /// Determines the `persisted_size` for an object that is being written, which
+        /// can then be used as the `write_offset` for the next `Write()` call.
+        ///
+        /// If the object does not exist (i.e., the object has been deleted, or the
+        /// first `Write()` has not yet reached the service), this method returns the
+        /// error `NOT_FOUND`.
+        ///
+        /// The client **may** call `QueryWriteStatus()` at any time to determine how
+        /// much data has been processed for this object. This is useful if the
+        /// client is buffering data and needs to know which data can be safely
+        /// evicted. For any sequence of `QueryWriteStatus()` calls for a given
+        /// object name, the sequence of returned `persisted_size` values will be
+        /// non-decreasing.
+        async fn query_write_status(
+            &self,
+            request: tonic::Request<super::QueryWriteStatusRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::QueryWriteStatusResponse>,
+            tonic::Status,
+        >;
+        /// Retrieves the name of a project's Google Cloud Storage service account.
+        async fn get_service_account(
+            &self,
+            request: tonic::Request<super::GetServiceAccountRequest>,
+        ) -> std::result::Result<tonic::Response<super::ServiceAccount>, tonic::Status>;
+        /// Creates a new HMAC key for the given service account.
+        async fn create_hmac_key(
+            &self,
+            request: tonic::Request<super::CreateHmacKeyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::CreateHmacKeyResponse>,
+            tonic::Status,
+        >;
+        /// Deletes a given HMAC key.  Key must be in an INACTIVE state.
+        async fn delete_hmac_key(
+            &self,
+            request: tonic::Request<super::DeleteHmacKeyRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Gets an existing HMAC key metadata for the given id.
+        async fn get_hmac_key(
+            &self,
+            request: tonic::Request<super::GetHmacKeyRequest>,
+        ) -> std::result::Result<tonic::Response<super::HmacKeyMetadata>, tonic::Status>;
+        /// Lists HMAC keys under a given project with the additional filters provided.
+        async fn list_hmac_keys(
+            &self,
+            request: tonic::Request<super::ListHmacKeysRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListHmacKeysResponse>,
+            tonic::Status,
+        >;
+        /// Updates a given HMAC key state between ACTIVE and INACTIVE.
+        async fn update_hmac_key(
+            &self,
+            request: tonic::Request<super::UpdateHmacKeyRequest>,
+        ) -> std::result::Result<tonic::Response<super::HmacKeyMetadata>, tonic::Status>;
+    }
+    /// ## API Overview and Naming Syntax
+    ///
+    /// The Cloud Storage gRPC API allows applications to read and write data through
+    /// the abstractions of buckets and objects. For a description of these
+    /// abstractions please see https://cloud.google.com/storage/docs.
+    ///
+    /// Resources are named as follows:
+    ///   - Projects are referred to as they are defined by the Resource Manager API,
+    ///     using strings like `projects/123456` or `projects/my-string-id`.
+    ///   - Buckets are named using string names of the form:
+    ///     `projects/{project}/buckets/{bucket}`
+    ///     For globally unique buckets, `_` may be substituted for the project.
+    ///   - Objects are uniquely identified by their name along with the name of the
+    ///     bucket they belong to, as separate strings in this API. For example:
+    ///
+    ///       ReadObjectRequest {
+    ///         bucket: 'projects/_/buckets/my-bucket'
+    ///         object: 'my-object'
+    ///       }
+    ///     Note that object names can contain `/` characters, which are treated as
+    ///     any other character (no special directory semantics).
+    #[derive(Debug)]
+    pub struct StorageServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> StorageServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for StorageServer<T>
+    where
+        T: Storage,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.storage.v2.Storage/DeleteBucket" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteBucketSvc<T: Storage>(pub Arc<T>);
+                    impl<
+                        T: Storage,
+                    > tonic::server::UnaryService<super::DeleteBucketRequest>
+                    for DeleteBucketSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteBucketRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Storage>::delete_bucket(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteBucketSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.v2.Storage/GetBucket" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetBucketSvc<T: Storage>(pub Arc<T>);
+                    impl<T: Storage> tonic::server::UnaryService<super::GetBucketRequest>
+                    for GetBucketSvc<T> {
+                        type Response = super::Bucket;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetBucketRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Storage>::get_bucket(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetBucketSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.v2.Storage/CreateBucket" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateBucketSvc<T: Storage>(pub Arc<T>);
+                    impl<
+                        T: Storage,
+                    > tonic::server::UnaryService<super::CreateBucketRequest>
+                    for CreateBucketSvc<T> {
+                        type Response = super::Bucket;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateBucketRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Storage>::create_bucket(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateBucketSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.v2.Storage/ListBuckets" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListBucketsSvc<T: Storage>(pub Arc<T>);
+                    impl<
+                        T: Storage,
+                    > tonic::server::UnaryService<super::ListBucketsRequest>
+                    for ListBucketsSvc<T> {
+                        type Response = super::ListBucketsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListBucketsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Storage>::list_buckets(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListBucketsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.v2.Storage/LockBucketRetentionPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct LockBucketRetentionPolicySvc<T: Storage>(pub Arc<T>);
+                    impl<
+                        T: Storage,
+                    > tonic::server::UnaryService<
+                        super::LockBucketRetentionPolicyRequest,
+                    > for LockBucketRetentionPolicySvc<T> {
+                        type Response = super::Bucket;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::LockBucketRetentionPolicyRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Storage>::lock_bucket_retention_policy(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = LockBucketRetentionPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.v2.Storage/GetIamPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetIamPolicySvc<T: Storage>(pub Arc<T>);
+                    impl<
+                        T: Storage,
+                    > tonic::server::UnaryService<
+                        super::super::super::iam::v1::GetIamPolicyRequest,
+                    > for GetIamPolicySvc<T> {
+                        type Response = super::super::super::iam::v1::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::iam::v1::GetIamPolicyRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Storage>::get_iam_policy(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetIamPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.v2.Storage/SetIamPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetIamPolicySvc<T: Storage>(pub Arc<T>);
+                    impl<
+                        T: Storage,
+                    > tonic::server::UnaryService<
+                        super::super::super::iam::v1::SetIamPolicyRequest,
+                    > for SetIamPolicySvc<T> {
+                        type Response = super::super::super::iam::v1::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::iam::v1::SetIamPolicyRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Storage>::set_iam_policy(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SetIamPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.v2.Storage/TestIamPermissions" => {
+                    #[allow(non_camel_case_types)]
+                    struct TestIamPermissionsSvc<T: Storage>(pub Arc<T>);
+                    impl<
+                        T: Storage,
+                    > tonic::server::UnaryService<
+                        super::super::super::iam::v1::TestIamPermissionsRequest,
+                    > for TestIamPermissionsSvc<T> {
+                        type Response = super::super::super::iam::v1::TestIamPermissionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::iam::v1::TestIamPermissionsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Storage>::test_iam_permissions(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = TestIamPermissionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.v2.Storage/UpdateBucket" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateBucketSvc<T: Storage>(pub Arc<T>);
+                    impl<
+                        T: Storage,
+                    > tonic::server::UnaryService<super::UpdateBucketRequest>
+                    for UpdateBucketSvc<T> {
+                        type Response = super::Bucket;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateBucketRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Storage>::update_bucket(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateBucketSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.v2.Storage/DeleteNotificationConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteNotificationConfigSvc<T: Storage>(pub Arc<T>);
+                    impl<
+                        T: Storage,
+                    > tonic::server::UnaryService<super::DeleteNotificationConfigRequest>
+                    for DeleteNotificationConfigSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteNotificationConfigRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Storage>::delete_notification_config(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteNotificationConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.v2.Storage/GetNotificationConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetNotificationConfigSvc<T: Storage>(pub Arc<T>);
+                    impl<
+                        T: Storage,
+                    > tonic::server::UnaryService<super::GetNotificationConfigRequest>
+                    for GetNotificationConfigSvc<T> {
+                        type Response = super::NotificationConfig;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetNotificationConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Storage>::get_notification_config(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetNotificationConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.v2.Storage/CreateNotificationConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateNotificationConfigSvc<T: Storage>(pub Arc<T>);
+                    impl<
+                        T: Storage,
+                    > tonic::server::UnaryService<super::CreateNotificationConfigRequest>
+                    for CreateNotificationConfigSvc<T> {
+                        type Response = super::NotificationConfig;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateNotificationConfigRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Storage>::create_notification_config(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateNotificationConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.v2.Storage/ListNotificationConfigs" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListNotificationConfigsSvc<T: Storage>(pub Arc<T>);
+                    impl<
+                        T: Storage,
+                    > tonic::server::UnaryService<super::ListNotificationConfigsRequest>
+                    for ListNotificationConfigsSvc<T> {
+                        type Response = super::ListNotificationConfigsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListNotificationConfigsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Storage>::list_notification_configs(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListNotificationConfigsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.v2.Storage/ComposeObject" => {
+                    #[allow(non_camel_case_types)]
+                    struct ComposeObjectSvc<T: Storage>(pub Arc<T>);
+                    impl<
+                        T: Storage,
+                    > tonic::server::UnaryService<super::ComposeObjectRequest>
+                    for ComposeObjectSvc<T> {
+                        type Response = super::Object;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ComposeObjectRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Storage>::compose_object(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ComposeObjectSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.v2.Storage/DeleteObject" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteObjectSvc<T: Storage>(pub Arc<T>);
+                    impl<
+                        T: Storage,
+                    > tonic::server::UnaryService<super::DeleteObjectRequest>
+                    for DeleteObjectSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteObjectRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Storage>::delete_object(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteObjectSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.v2.Storage/RestoreObject" => {
+                    #[allow(non_camel_case_types)]
+                    struct RestoreObjectSvc<T: Storage>(pub Arc<T>);
+                    impl<
+                        T: Storage,
+                    > tonic::server::UnaryService<super::RestoreObjectRequest>
+                    for RestoreObjectSvc<T> {
+                        type Response = super::Object;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RestoreObjectRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Storage>::restore_object(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RestoreObjectSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.v2.Storage/CancelResumableWrite" => {
+                    #[allow(non_camel_case_types)]
+                    struct CancelResumableWriteSvc<T: Storage>(pub Arc<T>);
+                    impl<
+                        T: Storage,
+                    > tonic::server::UnaryService<super::CancelResumableWriteRequest>
+                    for CancelResumableWriteSvc<T> {
+                        type Response = super::CancelResumableWriteResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CancelResumableWriteRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Storage>::cancel_resumable_write(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CancelResumableWriteSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.v2.Storage/GetObject" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetObjectSvc<T: Storage>(pub Arc<T>);
+                    impl<T: Storage> tonic::server::UnaryService<super::GetObjectRequest>
+                    for GetObjectSvc<T> {
+                        type Response = super::Object;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetObjectRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Storage>::get_object(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetObjectSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.v2.Storage/ReadObject" => {
+                    #[allow(non_camel_case_types)]
+                    struct ReadObjectSvc<T: Storage>(pub Arc<T>);
+                    impl<
+                        T: Storage,
+                    > tonic::server::ServerStreamingService<super::ReadObjectRequest>
+                    for ReadObjectSvc<T> {
+                        type Response = super::ReadObjectResponse;
+                        type ResponseStream = T::ReadObjectStream;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::ResponseStream>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ReadObjectRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Storage>::read_object(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ReadObjectSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.server_streaming(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.v2.Storage/UpdateObject" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateObjectSvc<T: Storage>(pub Arc<T>);
+                    impl<
+                        T: Storage,
+                    > tonic::server::UnaryService<super::UpdateObjectRequest>
+                    for UpdateObjectSvc<T> {
+                        type Response = super::Object;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateObjectRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Storage>::update_object(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateObjectSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.v2.Storage/WriteObject" => {
+                    #[allow(non_camel_case_types)]
+                    struct WriteObjectSvc<T: Storage>(pub Arc<T>);
+                    impl<
+                        T: Storage,
+                    > tonic::server::ClientStreamingService<super::WriteObjectRequest>
+                    for WriteObjectSvc<T> {
+                        type Response = super::WriteObjectResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                tonic::Streaming<super::WriteObjectRequest>,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Storage>::write_object(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = WriteObjectSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.client_streaming(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.v2.Storage/BidiWriteObject" => {
+                    #[allow(non_camel_case_types)]
+                    struct BidiWriteObjectSvc<T: Storage>(pub Arc<T>);
+                    impl<
+                        T: Storage,
+                    > tonic::server::StreamingService<super::BidiWriteObjectRequest>
+                    for BidiWriteObjectSvc<T> {
+                        type Response = super::BidiWriteObjectResponse;
+                        type ResponseStream = T::BidiWriteObjectStream;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::ResponseStream>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                tonic::Streaming<super::BidiWriteObjectRequest>,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Storage>::bidi_write_object(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BidiWriteObjectSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.streaming(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.v2.Storage/ListObjects" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListObjectsSvc<T: Storage>(pub Arc<T>);
+                    impl<
+                        T: Storage,
+                    > tonic::server::UnaryService<super::ListObjectsRequest>
+                    for ListObjectsSvc<T> {
+                        type Response = super::ListObjectsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListObjectsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Storage>::list_objects(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListObjectsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.v2.Storage/RewriteObject" => {
+                    #[allow(non_camel_case_types)]
+                    struct RewriteObjectSvc<T: Storage>(pub Arc<T>);
+                    impl<
+                        T: Storage,
+                    > tonic::server::UnaryService<super::RewriteObjectRequest>
+                    for RewriteObjectSvc<T> {
+                        type Response = super::RewriteResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RewriteObjectRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Storage>::rewrite_object(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RewriteObjectSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.v2.Storage/StartResumableWrite" => {
+                    #[allow(non_camel_case_types)]
+                    struct StartResumableWriteSvc<T: Storage>(pub Arc<T>);
+                    impl<
+                        T: Storage,
+                    > tonic::server::UnaryService<super::StartResumableWriteRequest>
+                    for StartResumableWriteSvc<T> {
+                        type Response = super::StartResumableWriteResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::StartResumableWriteRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Storage>::start_resumable_write(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = StartResumableWriteSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.v2.Storage/QueryWriteStatus" => {
+                    #[allow(non_camel_case_types)]
+                    struct QueryWriteStatusSvc<T: Storage>(pub Arc<T>);
+                    impl<
+                        T: Storage,
+                    > tonic::server::UnaryService<super::QueryWriteStatusRequest>
+                    for QueryWriteStatusSvc<T> {
+                        type Response = super::QueryWriteStatusResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::QueryWriteStatusRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Storage>::query_write_status(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = QueryWriteStatusSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.v2.Storage/GetServiceAccount" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetServiceAccountSvc<T: Storage>(pub Arc<T>);
+                    impl<
+                        T: Storage,
+                    > tonic::server::UnaryService<super::GetServiceAccountRequest>
+                    for GetServiceAccountSvc<T> {
+                        type Response = super::ServiceAccount;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetServiceAccountRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Storage>::get_service_account(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetServiceAccountSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.v2.Storage/CreateHmacKey" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateHmacKeySvc<T: Storage>(pub Arc<T>);
+                    impl<
+                        T: Storage,
+                    > tonic::server::UnaryService<super::CreateHmacKeyRequest>
+                    for CreateHmacKeySvc<T> {
+                        type Response = super::CreateHmacKeyResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateHmacKeyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Storage>::create_hmac_key(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateHmacKeySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.v2.Storage/DeleteHmacKey" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteHmacKeySvc<T: Storage>(pub Arc<T>);
+                    impl<
+                        T: Storage,
+                    > tonic::server::UnaryService<super::DeleteHmacKeyRequest>
+                    for DeleteHmacKeySvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteHmacKeyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Storage>::delete_hmac_key(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteHmacKeySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.v2.Storage/GetHmacKey" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetHmacKeySvc<T: Storage>(pub Arc<T>);
+                    impl<
+                        T: Storage,
+                    > tonic::server::UnaryService<super::GetHmacKeyRequest>
+                    for GetHmacKeySvc<T> {
+                        type Response = super::HmacKeyMetadata;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetHmacKeyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Storage>::get_hmac_key(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetHmacKeySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.v2.Storage/ListHmacKeys" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListHmacKeysSvc<T: Storage>(pub Arc<T>);
+                    impl<
+                        T: Storage,
+                    > tonic::server::UnaryService<super::ListHmacKeysRequest>
+                    for ListHmacKeysSvc<T> {
+                        type Response = super::ListHmacKeysResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListHmacKeysRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Storage>::list_hmac_keys(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListHmacKeysSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.storage.v2.Storage/UpdateHmacKey" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateHmacKeySvc<T: Storage>(pub Arc<T>);
+                    impl<
+                        T: Storage,
+                    > tonic::server::UnaryService<super::UpdateHmacKeyRequest>
+                    for UpdateHmacKeySvc<T> {
+                        type Response = super::HmacKeyMetadata;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateHmacKeyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Storage>::update_hmac_key(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateHmacKeySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for StorageServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.storage.v2.Storage";
+    impl<T> tonic::server::NamedService for StorageServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

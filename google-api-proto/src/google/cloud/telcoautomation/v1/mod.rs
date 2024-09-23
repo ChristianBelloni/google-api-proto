@@ -64,11 +64,11 @@ pub mod orchestration_cluster {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Active => "ACTIVE",
-                State::Deleting => "DELETING",
-                State::Failed => "FAILED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Active => "ACTIVE",
+                Self::Deleting => "DELETING",
+                Self::Failed => "FAILED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -156,11 +156,11 @@ pub mod edge_slm {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Active => "ACTIVE",
-                State::Deleting => "DELETING",
-                State::Failed => "FAILED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Active => "ACTIVE",
+                Self::Deleting => "DELETING",
+                Self::Failed => "FAILED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -204,9 +204,9 @@ pub mod edge_slm {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                WorkloadClusterType::Unspecified => "WORKLOAD_CLUSTER_TYPE_UNSPECIFIED",
-                WorkloadClusterType::Gdce => "GDCE",
-                WorkloadClusterType::Gke => "GKE",
+                Self::Unspecified => "WORKLOAD_CLUSTER_TYPE_UNSPECIFIED",
+                Self::Gdce => "GDCE",
+                Self::Gke => "GKE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -325,10 +325,10 @@ pub mod blueprint {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ApprovalState::Unspecified => "APPROVAL_STATE_UNSPECIFIED",
-                ApprovalState::Draft => "DRAFT",
-                ApprovalState::Proposed => "PROPOSED",
-                ApprovalState::Approved => "APPROVED",
+                Self::Unspecified => "APPROVAL_STATE_UNSPECIFIED",
+                Self::Draft => "DRAFT",
+                Self::Proposed => "PROPOSED",
+                Self::Approved => "APPROVED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -479,10 +479,10 @@ pub mod deployment {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Draft => "DRAFT",
-                State::Applied => "APPLIED",
-                State::Deleting => "DELETING",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Draft => "DRAFT",
+                Self::Applied => "APPLIED",
+                Self::Deleting => "DELETING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -550,9 +550,9 @@ pub mod hydrated_deployment {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Draft => "DRAFT",
-                State::Applied => "APPLIED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Draft => "DRAFT",
+                Self::Applied => "APPLIED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1508,9 +1508,9 @@ impl BlueprintView {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            BlueprintView::Unspecified => "BLUEPRINT_VIEW_UNSPECIFIED",
-            BlueprintView::Basic => "BLUEPRINT_VIEW_BASIC",
-            BlueprintView::Full => "BLUEPRINT_VIEW_FULL",
+            Self::Unspecified => "BLUEPRINT_VIEW_UNSPECIFIED",
+            Self::Basic => "BLUEPRINT_VIEW_BASIC",
+            Self::Full => "BLUEPRINT_VIEW_FULL",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1541,9 +1541,9 @@ impl DeploymentView {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            DeploymentView::Unspecified => "DEPLOYMENT_VIEW_UNSPECIFIED",
-            DeploymentView::Basic => "DEPLOYMENT_VIEW_BASIC",
-            DeploymentView::Full => "DEPLOYMENT_VIEW_FULL",
+            Self::Unspecified => "DEPLOYMENT_VIEW_UNSPECIFIED",
+            Self::Basic => "DEPLOYMENT_VIEW_BASIC",
+            Self::Full => "DEPLOYMENT_VIEW_FULL",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1574,9 +1574,9 @@ impl ResourceType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ResourceType::Unspecified => "RESOURCE_TYPE_UNSPECIFIED",
-            ResourceType::NfDeployResource => "NF_DEPLOY_RESOURCE",
-            ResourceType::DeploymentResource => "DEPLOYMENT_RESOURCE",
+            Self::Unspecified => "RESOURCE_TYPE_UNSPECIFIED",
+            Self::NfDeployResource => "NF_DEPLOY_RESOURCE",
+            Self::DeploymentResource => "DEPLOYMENT_RESOURCE",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1618,14 +1618,14 @@ impl Status {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            Status::Unspecified => "STATUS_UNSPECIFIED",
-            Status::InProgress => "STATUS_IN_PROGRESS",
-            Status::Active => "STATUS_ACTIVE",
-            Status::Failed => "STATUS_FAILED",
-            Status::Deleting => "STATUS_DELETING",
-            Status::Deleted => "STATUS_DELETED",
-            Status::Peering => "STATUS_PEERING",
-            Status::NotApplicable => "STATUS_NOT_APPLICABLE",
+            Self::Unspecified => "STATUS_UNSPECIFIED",
+            Self::InProgress => "STATUS_IN_PROGRESS",
+            Self::Active => "STATUS_ACTIVE",
+            Self::Failed => "STATUS_FAILED",
+            Self::Deleting => "STATUS_DELETING",
+            Self::Deleted => "STATUS_DELETED",
+            Self::Peering => "STATUS_PEERING",
+            Self::NotApplicable => "STATUS_NOT_APPLICABLE",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1679,11 +1679,11 @@ impl DeploymentLevel {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            DeploymentLevel::Unspecified => "DEPLOYMENT_LEVEL_UNSPECIFIED",
-            DeploymentLevel::Hydration => "HYDRATION",
-            DeploymentLevel::SingleDeployment => "SINGLE_DEPLOYMENT",
-            DeploymentLevel::MultiDeployment => "MULTI_DEPLOYMENT",
-            DeploymentLevel::WorkloadClusterDeployment => "WORKLOAD_CLUSTER_DEPLOYMENT",
+            Self::Unspecified => "DEPLOYMENT_LEVEL_UNSPECIFIED",
+            Self::Hydration => "HYDRATION",
+            Self::SingleDeployment => "SINGLE_DEPLOYMENT",
+            Self::MultiDeployment => "MULTI_DEPLOYMENT",
+            Self::WorkloadClusterDeployment => "WORKLOAD_CLUSTER_DEPLOYMENT",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2858,5 +2858,2115 @@ pub mod telco_automation_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod telco_automation_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with TelcoAutomationServer.
+    #[async_trait]
+    pub trait TelcoAutomation: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists OrchestrationClusters in a given project and location.
+        async fn list_orchestration_clusters(
+            &self,
+            request: tonic::Request<super::ListOrchestrationClustersRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListOrchestrationClustersResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single OrchestrationCluster.
+        async fn get_orchestration_cluster(
+            &self,
+            request: tonic::Request<super::GetOrchestrationClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::OrchestrationCluster>,
+            tonic::Status,
+        >;
+        /// Creates a new OrchestrationCluster in a given project and location.
+        async fn create_orchestration_cluster(
+            &self,
+            request: tonic::Request<super::CreateOrchestrationClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single OrchestrationCluster.
+        async fn delete_orchestration_cluster(
+            &self,
+            request: tonic::Request<super::DeleteOrchestrationClusterRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists EdgeSlms in a given project and location.
+        async fn list_edge_slms(
+            &self,
+            request: tonic::Request<super::ListEdgeSlmsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListEdgeSlmsResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single EdgeSlm.
+        async fn get_edge_slm(
+            &self,
+            request: tonic::Request<super::GetEdgeSlmRequest>,
+        ) -> std::result::Result<tonic::Response<super::EdgeSlm>, tonic::Status>;
+        /// Creates a new EdgeSlm in a given project and location.
+        async fn create_edge_slm(
+            &self,
+            request: tonic::Request<super::CreateEdgeSlmRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single EdgeSlm.
+        async fn delete_edge_slm(
+            &self,
+            request: tonic::Request<super::DeleteEdgeSlmRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Creates a blueprint.
+        async fn create_blueprint(
+            &self,
+            request: tonic::Request<super::CreateBlueprintRequest>,
+        ) -> std::result::Result<tonic::Response<super::Blueprint>, tonic::Status>;
+        /// Updates a blueprint.
+        async fn update_blueprint(
+            &self,
+            request: tonic::Request<super::UpdateBlueprintRequest>,
+        ) -> std::result::Result<tonic::Response<super::Blueprint>, tonic::Status>;
+        /// Returns the requested blueprint.
+        async fn get_blueprint(
+            &self,
+            request: tonic::Request<super::GetBlueprintRequest>,
+        ) -> std::result::Result<tonic::Response<super::Blueprint>, tonic::Status>;
+        /// Deletes a blueprint and all its revisions.
+        async fn delete_blueprint(
+            &self,
+            request: tonic::Request<super::DeleteBlueprintRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// List all blueprints.
+        async fn list_blueprints(
+            &self,
+            request: tonic::Request<super::ListBlueprintsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListBlueprintsResponse>,
+            tonic::Status,
+        >;
+        /// Approves a blueprint and commits a new revision.
+        async fn approve_blueprint(
+            &self,
+            request: tonic::Request<super::ApproveBlueprintRequest>,
+        ) -> std::result::Result<tonic::Response<super::Blueprint>, tonic::Status>;
+        /// Proposes a blueprint for approval of changes.
+        async fn propose_blueprint(
+            &self,
+            request: tonic::Request<super::ProposeBlueprintRequest>,
+        ) -> std::result::Result<tonic::Response<super::Blueprint>, tonic::Status>;
+        /// Rejects a blueprint revision proposal and flips it back to Draft state.
+        async fn reject_blueprint(
+            &self,
+            request: tonic::Request<super::RejectBlueprintRequest>,
+        ) -> std::result::Result<tonic::Response<super::Blueprint>, tonic::Status>;
+        /// List blueprint revisions of a given blueprint.
+        async fn list_blueprint_revisions(
+            &self,
+            request: tonic::Request<super::ListBlueprintRevisionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListBlueprintRevisionsResponse>,
+            tonic::Status,
+        >;
+        /// Searches across blueprint revisions.
+        async fn search_blueprint_revisions(
+            &self,
+            request: tonic::Request<super::SearchBlueprintRevisionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SearchBlueprintRevisionsResponse>,
+            tonic::Status,
+        >;
+        /// Searches across deployment revisions.
+        async fn search_deployment_revisions(
+            &self,
+            request: tonic::Request<super::SearchDeploymentRevisionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SearchDeploymentRevisionsResponse>,
+            tonic::Status,
+        >;
+        /// Discards the changes in a blueprint and reverts the blueprint to the last
+        /// approved blueprint revision. No changes take place if a blueprint does not
+        /// have revisions.
+        async fn discard_blueprint_changes(
+            &self,
+            request: tonic::Request<super::DiscardBlueprintChangesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::DiscardBlueprintChangesResponse>,
+            tonic::Status,
+        >;
+        /// Lists the blueprints in TNA's public catalog. Default page size = 20,
+        /// Max Page Size = 100.
+        async fn list_public_blueprints(
+            &self,
+            request: tonic::Request<super::ListPublicBlueprintsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListPublicBlueprintsResponse>,
+            tonic::Status,
+        >;
+        /// Returns the requested public blueprint.
+        async fn get_public_blueprint(
+            &self,
+            request: tonic::Request<super::GetPublicBlueprintRequest>,
+        ) -> std::result::Result<tonic::Response<super::PublicBlueprint>, tonic::Status>;
+        /// Creates a deployment.
+        async fn create_deployment(
+            &self,
+            request: tonic::Request<super::CreateDeploymentRequest>,
+        ) -> std::result::Result<tonic::Response<super::Deployment>, tonic::Status>;
+        /// Updates a deployment.
+        async fn update_deployment(
+            &self,
+            request: tonic::Request<super::UpdateDeploymentRequest>,
+        ) -> std::result::Result<tonic::Response<super::Deployment>, tonic::Status>;
+        /// Returns the requested deployment.
+        async fn get_deployment(
+            &self,
+            request: tonic::Request<super::GetDeploymentRequest>,
+        ) -> std::result::Result<tonic::Response<super::Deployment>, tonic::Status>;
+        /// Removes the deployment by marking it as DELETING. Post which deployment and
+        /// it's revisions gets deleted.
+        async fn remove_deployment(
+            &self,
+            request: tonic::Request<super::RemoveDeploymentRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// List all deployments.
+        async fn list_deployments(
+            &self,
+            request: tonic::Request<super::ListDeploymentsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDeploymentsResponse>,
+            tonic::Status,
+        >;
+        /// List deployment revisions of a given deployment.
+        async fn list_deployment_revisions(
+            &self,
+            request: tonic::Request<super::ListDeploymentRevisionsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDeploymentRevisionsResponse>,
+            tonic::Status,
+        >;
+        /// Discards the changes in a deployment and reverts the deployment to the last
+        /// approved deployment revision. No changes take place if a deployment does
+        /// not have revisions.
+        async fn discard_deployment_changes(
+            &self,
+            request: tonic::Request<super::DiscardDeploymentChangesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::DiscardDeploymentChangesResponse>,
+            tonic::Status,
+        >;
+        /// Applies the deployment's YAML files to the parent orchestration cluster.
+        async fn apply_deployment(
+            &self,
+            request: tonic::Request<super::ApplyDeploymentRequest>,
+        ) -> std::result::Result<tonic::Response<super::Deployment>, tonic::Status>;
+        /// Returns the requested deployment status.
+        async fn compute_deployment_status(
+            &self,
+            request: tonic::Request<super::ComputeDeploymentStatusRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ComputeDeploymentStatusResponse>,
+            tonic::Status,
+        >;
+        /// Rollback the active deployment to the given past approved deployment
+        /// revision.
+        async fn rollback_deployment(
+            &self,
+            request: tonic::Request<super::RollbackDeploymentRequest>,
+        ) -> std::result::Result<tonic::Response<super::Deployment>, tonic::Status>;
+        /// Returns the requested hydrated deployment.
+        async fn get_hydrated_deployment(
+            &self,
+            request: tonic::Request<super::GetHydratedDeploymentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::HydratedDeployment>,
+            tonic::Status,
+        >;
+        /// List all hydrated deployments present under a deployment.
+        async fn list_hydrated_deployments(
+            &self,
+            request: tonic::Request<super::ListHydratedDeploymentsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListHydratedDeploymentsResponse>,
+            tonic::Status,
+        >;
+        /// Updates a hydrated deployment.
+        async fn update_hydrated_deployment(
+            &self,
+            request: tonic::Request<super::UpdateHydratedDeploymentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::HydratedDeployment>,
+            tonic::Status,
+        >;
+        /// Applies a hydrated deployment to a workload cluster.
+        async fn apply_hydrated_deployment(
+            &self,
+            request: tonic::Request<super::ApplyHydratedDeploymentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::HydratedDeployment>,
+            tonic::Status,
+        >;
+    }
+    /// TelcoAutomation Service manages the control plane cluster a.k.a.
+    /// Orchestration Cluster (GKE cluster with config controller) of TNA. It also
+    /// exposes blueprint APIs which manages the lifecycle of blueprints that control
+    /// the infrastructure setup (e.g GDCE clusters) and deployment of network
+    /// functions.
+    #[derive(Debug)]
+    pub struct TelcoAutomationServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> TelcoAutomationServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for TelcoAutomationServer<T>
+    where
+        T: TelcoAutomation,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/ListOrchestrationClusters" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListOrchestrationClustersSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<
+                        super::ListOrchestrationClustersRequest,
+                    > for ListOrchestrationClustersSvc<T> {
+                        type Response = super::ListOrchestrationClustersResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListOrchestrationClustersRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::list_orchestration_clusters(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListOrchestrationClustersSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/GetOrchestrationCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetOrchestrationClusterSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<super::GetOrchestrationClusterRequest>
+                    for GetOrchestrationClusterSvc<T> {
+                        type Response = super::OrchestrationCluster;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetOrchestrationClusterRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::get_orchestration_cluster(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetOrchestrationClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/CreateOrchestrationCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateOrchestrationClusterSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<
+                        super::CreateOrchestrationClusterRequest,
+                    > for CreateOrchestrationClusterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateOrchestrationClusterRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::create_orchestration_cluster(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateOrchestrationClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/DeleteOrchestrationCluster" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteOrchestrationClusterSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<
+                        super::DeleteOrchestrationClusterRequest,
+                    > for DeleteOrchestrationClusterSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteOrchestrationClusterRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::delete_orchestration_cluster(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteOrchestrationClusterSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/ListEdgeSlms" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListEdgeSlmsSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<super::ListEdgeSlmsRequest>
+                    for ListEdgeSlmsSvc<T> {
+                        type Response = super::ListEdgeSlmsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListEdgeSlmsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::list_edge_slms(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListEdgeSlmsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/GetEdgeSlm" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetEdgeSlmSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<super::GetEdgeSlmRequest>
+                    for GetEdgeSlmSvc<T> {
+                        type Response = super::EdgeSlm;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetEdgeSlmRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::get_edge_slm(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetEdgeSlmSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/CreateEdgeSlm" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateEdgeSlmSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<super::CreateEdgeSlmRequest>
+                    for CreateEdgeSlmSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateEdgeSlmRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::create_edge_slm(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateEdgeSlmSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/DeleteEdgeSlm" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteEdgeSlmSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<super::DeleteEdgeSlmRequest>
+                    for DeleteEdgeSlmSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteEdgeSlmRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::delete_edge_slm(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteEdgeSlmSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/CreateBlueprint" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateBlueprintSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<super::CreateBlueprintRequest>
+                    for CreateBlueprintSvc<T> {
+                        type Response = super::Blueprint;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateBlueprintRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::create_blueprint(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateBlueprintSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/UpdateBlueprint" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateBlueprintSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<super::UpdateBlueprintRequest>
+                    for UpdateBlueprintSvc<T> {
+                        type Response = super::Blueprint;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateBlueprintRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::update_blueprint(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateBlueprintSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/GetBlueprint" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetBlueprintSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<super::GetBlueprintRequest>
+                    for GetBlueprintSvc<T> {
+                        type Response = super::Blueprint;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetBlueprintRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::get_blueprint(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetBlueprintSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/DeleteBlueprint" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteBlueprintSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<super::DeleteBlueprintRequest>
+                    for DeleteBlueprintSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteBlueprintRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::delete_blueprint(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteBlueprintSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/ListBlueprints" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListBlueprintsSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<super::ListBlueprintsRequest>
+                    for ListBlueprintsSvc<T> {
+                        type Response = super::ListBlueprintsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListBlueprintsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::list_blueprints(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListBlueprintsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/ApproveBlueprint" => {
+                    #[allow(non_camel_case_types)]
+                    struct ApproveBlueprintSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<super::ApproveBlueprintRequest>
+                    for ApproveBlueprintSvc<T> {
+                        type Response = super::Blueprint;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ApproveBlueprintRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::approve_blueprint(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ApproveBlueprintSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/ProposeBlueprint" => {
+                    #[allow(non_camel_case_types)]
+                    struct ProposeBlueprintSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<super::ProposeBlueprintRequest>
+                    for ProposeBlueprintSvc<T> {
+                        type Response = super::Blueprint;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ProposeBlueprintRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::propose_blueprint(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ProposeBlueprintSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/RejectBlueprint" => {
+                    #[allow(non_camel_case_types)]
+                    struct RejectBlueprintSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<super::RejectBlueprintRequest>
+                    for RejectBlueprintSvc<T> {
+                        type Response = super::Blueprint;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RejectBlueprintRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::reject_blueprint(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RejectBlueprintSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/ListBlueprintRevisions" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListBlueprintRevisionsSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<super::ListBlueprintRevisionsRequest>
+                    for ListBlueprintRevisionsSvc<T> {
+                        type Response = super::ListBlueprintRevisionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListBlueprintRevisionsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::list_blueprint_revisions(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListBlueprintRevisionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/SearchBlueprintRevisions" => {
+                    #[allow(non_camel_case_types)]
+                    struct SearchBlueprintRevisionsSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<super::SearchBlueprintRevisionsRequest>
+                    for SearchBlueprintRevisionsSvc<T> {
+                        type Response = super::SearchBlueprintRevisionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::SearchBlueprintRevisionsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::search_blueprint_revisions(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SearchBlueprintRevisionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/SearchDeploymentRevisions" => {
+                    #[allow(non_camel_case_types)]
+                    struct SearchDeploymentRevisionsSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<
+                        super::SearchDeploymentRevisionsRequest,
+                    > for SearchDeploymentRevisionsSvc<T> {
+                        type Response = super::SearchDeploymentRevisionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::SearchDeploymentRevisionsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::search_deployment_revisions(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SearchDeploymentRevisionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/DiscardBlueprintChanges" => {
+                    #[allow(non_camel_case_types)]
+                    struct DiscardBlueprintChangesSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<super::DiscardBlueprintChangesRequest>
+                    for DiscardBlueprintChangesSvc<T> {
+                        type Response = super::DiscardBlueprintChangesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DiscardBlueprintChangesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::discard_blueprint_changes(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DiscardBlueprintChangesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/ListPublicBlueprints" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListPublicBlueprintsSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<super::ListPublicBlueprintsRequest>
+                    for ListPublicBlueprintsSvc<T> {
+                        type Response = super::ListPublicBlueprintsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListPublicBlueprintsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::list_public_blueprints(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListPublicBlueprintsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/GetPublicBlueprint" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetPublicBlueprintSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<super::GetPublicBlueprintRequest>
+                    for GetPublicBlueprintSvc<T> {
+                        type Response = super::PublicBlueprint;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetPublicBlueprintRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::get_public_blueprint(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetPublicBlueprintSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/CreateDeployment" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateDeploymentSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<super::CreateDeploymentRequest>
+                    for CreateDeploymentSvc<T> {
+                        type Response = super::Deployment;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateDeploymentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::create_deployment(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateDeploymentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/UpdateDeployment" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateDeploymentSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<super::UpdateDeploymentRequest>
+                    for UpdateDeploymentSvc<T> {
+                        type Response = super::Deployment;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateDeploymentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::update_deployment(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateDeploymentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/GetDeployment" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetDeploymentSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<super::GetDeploymentRequest>
+                    for GetDeploymentSvc<T> {
+                        type Response = super::Deployment;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetDeploymentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::get_deployment(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetDeploymentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/RemoveDeployment" => {
+                    #[allow(non_camel_case_types)]
+                    struct RemoveDeploymentSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<super::RemoveDeploymentRequest>
+                    for RemoveDeploymentSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RemoveDeploymentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::remove_deployment(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RemoveDeploymentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/ListDeployments" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDeploymentsSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<super::ListDeploymentsRequest>
+                    for ListDeploymentsSvc<T> {
+                        type Response = super::ListDeploymentsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListDeploymentsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::list_deployments(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDeploymentsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/ListDeploymentRevisions" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDeploymentRevisionsSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<super::ListDeploymentRevisionsRequest>
+                    for ListDeploymentRevisionsSvc<T> {
+                        type Response = super::ListDeploymentRevisionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListDeploymentRevisionsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::list_deployment_revisions(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDeploymentRevisionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/DiscardDeploymentChanges" => {
+                    #[allow(non_camel_case_types)]
+                    struct DiscardDeploymentChangesSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<super::DiscardDeploymentChangesRequest>
+                    for DiscardDeploymentChangesSvc<T> {
+                        type Response = super::DiscardDeploymentChangesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DiscardDeploymentChangesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::discard_deployment_changes(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DiscardDeploymentChangesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/ApplyDeployment" => {
+                    #[allow(non_camel_case_types)]
+                    struct ApplyDeploymentSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<super::ApplyDeploymentRequest>
+                    for ApplyDeploymentSvc<T> {
+                        type Response = super::Deployment;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ApplyDeploymentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::apply_deployment(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ApplyDeploymentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/ComputeDeploymentStatus" => {
+                    #[allow(non_camel_case_types)]
+                    struct ComputeDeploymentStatusSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<super::ComputeDeploymentStatusRequest>
+                    for ComputeDeploymentStatusSvc<T> {
+                        type Response = super::ComputeDeploymentStatusResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ComputeDeploymentStatusRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::compute_deployment_status(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ComputeDeploymentStatusSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/RollbackDeployment" => {
+                    #[allow(non_camel_case_types)]
+                    struct RollbackDeploymentSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<super::RollbackDeploymentRequest>
+                    for RollbackDeploymentSvc<T> {
+                        type Response = super::Deployment;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RollbackDeploymentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::rollback_deployment(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RollbackDeploymentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/GetHydratedDeployment" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetHydratedDeploymentSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<super::GetHydratedDeploymentRequest>
+                    for GetHydratedDeploymentSvc<T> {
+                        type Response = super::HydratedDeployment;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetHydratedDeploymentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::get_hydrated_deployment(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetHydratedDeploymentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/ListHydratedDeployments" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListHydratedDeploymentsSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<super::ListHydratedDeploymentsRequest>
+                    for ListHydratedDeploymentsSvc<T> {
+                        type Response = super::ListHydratedDeploymentsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListHydratedDeploymentsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::list_hydrated_deployments(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListHydratedDeploymentsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/UpdateHydratedDeployment" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateHydratedDeploymentSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<super::UpdateHydratedDeploymentRequest>
+                    for UpdateHydratedDeploymentSvc<T> {
+                        type Response = super::HydratedDeployment;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::UpdateHydratedDeploymentRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::update_hydrated_deployment(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateHydratedDeploymentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.telcoautomation.v1.TelcoAutomation/ApplyHydratedDeployment" => {
+                    #[allow(non_camel_case_types)]
+                    struct ApplyHydratedDeploymentSvc<T: TelcoAutomation>(pub Arc<T>);
+                    impl<
+                        T: TelcoAutomation,
+                    > tonic::server::UnaryService<super::ApplyHydratedDeploymentRequest>
+                    for ApplyHydratedDeploymentSvc<T> {
+                        type Response = super::HydratedDeployment;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ApplyHydratedDeploymentRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as TelcoAutomation>::apply_hydrated_deployment(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ApplyHydratedDeploymentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for TelcoAutomationServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.telcoautomation.v1.TelcoAutomation";
+    impl<T> tonic::server::NamedService for TelcoAutomationServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

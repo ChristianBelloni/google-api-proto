@@ -111,9 +111,9 @@ pub mod compute_threat_list_diff_response {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ResponseType::Unspecified => "RESPONSE_TYPE_UNSPECIFIED",
-                ResponseType::Diff => "DIFF",
-                ResponseType::Reset => "RESET",
+                Self::Unspecified => "RESPONSE_TYPE_UNSPECIFIED",
+                Self::Diff => "DIFF",
+                Self::Reset => "RESET",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -347,10 +347,10 @@ pub mod threat_info {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    ConfidenceLevel::Unspecified => "CONFIDENCE_LEVEL_UNSPECIFIED",
-                    ConfidenceLevel::Low => "LOW",
-                    ConfidenceLevel::Medium => "MEDIUM",
-                    ConfidenceLevel::High => "HIGH",
+                    Self::Unspecified => "CONFIDENCE_LEVEL_UNSPECIFIED",
+                    Self::Low => "LOW",
+                    Self::Medium => "MEDIUM",
+                    Self::High => "HIGH",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -422,10 +422,10 @@ pub mod threat_info {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    JustificationLabel::Unspecified => "JUSTIFICATION_LABEL_UNSPECIFIED",
-                    JustificationLabel::ManualVerification => "MANUAL_VERIFICATION",
-                    JustificationLabel::UserReport => "USER_REPORT",
-                    JustificationLabel::AutomatedReport => "AUTOMATED_REPORT",
+                    Self::Unspecified => "JUSTIFICATION_LABEL_UNSPECIFIED",
+                    Self::ManualVerification => "MANUAL_VERIFICATION",
+                    Self::UserReport => "USER_REPORT",
+                    Self::AutomatedReport => "AUTOMATED_REPORT",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -470,10 +470,10 @@ pub mod threat_info {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                AbuseType::Unspecified => "ABUSE_TYPE_UNSPECIFIED",
-                AbuseType::Malware => "MALWARE",
-                AbuseType::SocialEngineering => "SOCIAL_ENGINEERING",
-                AbuseType::UnwantedSoftware => "UNWANTED_SOFTWARE",
+                Self::Unspecified => "ABUSE_TYPE_UNSPECIFIED",
+                Self::Malware => "MALWARE",
+                Self::SocialEngineering => "SOCIAL_ENGINEERING",
+                Self::UnwantedSoftware => "UNWANTED_SOFTWARE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -533,11 +533,11 @@ pub mod threat_discovery {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Platform::Unspecified => "PLATFORM_UNSPECIFIED",
-                Platform::Android => "ANDROID",
-                Platform::Ios => "IOS",
-                Platform::Macos => "MACOS",
-                Platform::Windows => "WINDOWS",
+                Self::Unspecified => "PLATFORM_UNSPECIFIED",
+                Self::Android => "ANDROID",
+                Self::Ios => "IOS",
+                Self::Macos => "MACOS",
+                Self::Windows => "WINDOWS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -631,12 +631,12 @@ pub mod submit_uri_metadata {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Running => "RUNNING",
-                State::Succeeded => "SUCCEEDED",
-                State::Cancelled => "CANCELLED",
-                State::Failed => "FAILED",
-                State::Closed => "CLOSED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Running => "RUNNING",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Cancelled => "CANCELLED",
+                Self::Failed => "FAILED",
+                Self::Closed => "CLOSED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -677,11 +677,11 @@ impl ThreatType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ThreatType::Unspecified => "THREAT_TYPE_UNSPECIFIED",
-            ThreatType::Malware => "MALWARE",
-            ThreatType::SocialEngineering => "SOCIAL_ENGINEERING",
-            ThreatType::UnwantedSoftware => "UNWANTED_SOFTWARE",
-            ThreatType::SocialEngineeringExtendedCoverage => {
+            Self::Unspecified => "THREAT_TYPE_UNSPECIFIED",
+            Self::Malware => "MALWARE",
+            Self::SocialEngineering => "SOCIAL_ENGINEERING",
+            Self::UnwantedSoftware => "UNWANTED_SOFTWARE",
+            Self::SocialEngineeringExtendedCoverage => {
                 "SOCIAL_ENGINEERING_EXTENDED_COVERAGE"
             }
         }
@@ -718,9 +718,9 @@ impl CompressionType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            CompressionType::Unspecified => "COMPRESSION_TYPE_UNSPECIFIED",
-            CompressionType::Raw => "RAW",
-            CompressionType::Rice => "RICE",
+            Self::Unspecified => "COMPRESSION_TYPE_UNSPECIFIED",
+            Self::Raw => "RAW",
+            Self::Rice => "RICE",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -989,5 +989,422 @@ pub mod web_risk_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod web_risk_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with WebRiskServiceServer.
+    #[async_trait]
+    pub trait WebRiskService: std::marker::Send + std::marker::Sync + 'static {
+        /// Gets the most recent threat list diffs. These diffs should be applied to
+        /// a local database of hashes to keep it up-to-date. If the local database is
+        /// empty or excessively out-of-date, a complete snapshot of the database will
+        /// be returned. This Method only updates a single ThreatList at a time. To
+        /// update multiple ThreatList databases, this method needs to be called once
+        /// for each list.
+        async fn compute_threat_list_diff(
+            &self,
+            request: tonic::Request<super::ComputeThreatListDiffRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ComputeThreatListDiffResponse>,
+            tonic::Status,
+        >;
+        /// This method is used to check whether a URI is on a given threatList.
+        /// Multiple threatLists may be searched in a single query.
+        /// The response will list all requested threatLists the URI was found to
+        /// match. If the URI is not found on any of the requested ThreatList an
+        /// empty response will be returned.
+        async fn search_uris(
+            &self,
+            request: tonic::Request<super::SearchUrisRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SearchUrisResponse>,
+            tonic::Status,
+        >;
+        /// Gets the full hashes that match the requested hash prefix.
+        /// This is used after a hash prefix is looked up in a threatList
+        /// and there is a match. The client side threatList only holds partial hashes
+        /// so the client must query this method to determine if there is a full
+        /// hash match of a threat.
+        async fn search_hashes(
+            &self,
+            request: tonic::Request<super::SearchHashesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SearchHashesResponse>,
+            tonic::Status,
+        >;
+        /// Creates a Submission of a URI suspected of containing phishing content to
+        /// be reviewed. If the result verifies the existence of malicious phishing
+        /// content, the site will be added to the [Google's Social Engineering
+        /// lists](https://support.google.com/webmasters/answer/6350487/) in order to
+        /// protect users that could get exposed to this threat in the future. Only
+        /// allowlisted projects can use this method during Early Access. Please reach
+        /// out to Sales or your customer engineer to obtain access.
+        async fn create_submission(
+            &self,
+            request: tonic::Request<super::CreateSubmissionRequest>,
+        ) -> std::result::Result<tonic::Response<super::Submission>, tonic::Status>;
+        /// Submits a URI suspected of containing malicious content to be reviewed.
+        /// Returns a google.longrunning.Operation which, once the review is complete,
+        /// is updated with its result. You can use the [Pub/Sub API]
+        /// (https://cloud.google.com/pubsub) to receive notifications for the returned
+        /// Operation. If the result verifies the existence of malicious content, the
+        /// site will be added to the [Google's Social Engineering lists]
+        /// (https://support.google.com/webmasters/answer/6350487/) in order to
+        /// protect users that could get exposed to this threat in the future. Only
+        /// allowlisted projects can use this method during Early Access. Please reach
+        /// out to Sales or your customer engineer to obtain access.
+        async fn submit_uri(
+            &self,
+            request: tonic::Request<super::SubmitUriRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// Web Risk API defines an interface to detect malicious URLs on your
+    /// website and in client applications.
+    #[derive(Debug)]
+    pub struct WebRiskServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> WebRiskServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for WebRiskServiceServer<T>
+    where
+        T: WebRiskService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.webrisk.v1.WebRiskService/ComputeThreatListDiff" => {
+                    #[allow(non_camel_case_types)]
+                    struct ComputeThreatListDiffSvc<T: WebRiskService>(pub Arc<T>);
+                    impl<
+                        T: WebRiskService,
+                    > tonic::server::UnaryService<super::ComputeThreatListDiffRequest>
+                    for ComputeThreatListDiffSvc<T> {
+                        type Response = super::ComputeThreatListDiffResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ComputeThreatListDiffRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as WebRiskService>::compute_threat_list_diff(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ComputeThreatListDiffSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.webrisk.v1.WebRiskService/SearchUris" => {
+                    #[allow(non_camel_case_types)]
+                    struct SearchUrisSvc<T: WebRiskService>(pub Arc<T>);
+                    impl<
+                        T: WebRiskService,
+                    > tonic::server::UnaryService<super::SearchUrisRequest>
+                    for SearchUrisSvc<T> {
+                        type Response = super::SearchUrisResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SearchUrisRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as WebRiskService>::search_uris(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SearchUrisSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.webrisk.v1.WebRiskService/SearchHashes" => {
+                    #[allow(non_camel_case_types)]
+                    struct SearchHashesSvc<T: WebRiskService>(pub Arc<T>);
+                    impl<
+                        T: WebRiskService,
+                    > tonic::server::UnaryService<super::SearchHashesRequest>
+                    for SearchHashesSvc<T> {
+                        type Response = super::SearchHashesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SearchHashesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as WebRiskService>::search_hashes(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SearchHashesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.webrisk.v1.WebRiskService/CreateSubmission" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateSubmissionSvc<T: WebRiskService>(pub Arc<T>);
+                    impl<
+                        T: WebRiskService,
+                    > tonic::server::UnaryService<super::CreateSubmissionRequest>
+                    for CreateSubmissionSvc<T> {
+                        type Response = super::Submission;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateSubmissionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as WebRiskService>::create_submission(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateSubmissionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.webrisk.v1.WebRiskService/SubmitUri" => {
+                    #[allow(non_camel_case_types)]
+                    struct SubmitUriSvc<T: WebRiskService>(pub Arc<T>);
+                    impl<
+                        T: WebRiskService,
+                    > tonic::server::UnaryService<super::SubmitUriRequest>
+                    for SubmitUriSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SubmitUriRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as WebRiskService>::submit_uri(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SubmitUriSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for WebRiskServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.webrisk.v1.WebRiskService";
+    impl<T> tonic::server::NamedService for WebRiskServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

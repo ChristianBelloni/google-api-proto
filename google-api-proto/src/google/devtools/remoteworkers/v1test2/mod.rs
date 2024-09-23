@@ -342,11 +342,11 @@ pub mod admin_temp {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Command::Unspecified => "UNSPECIFIED",
-                Command::BotUpdate => "BOT_UPDATE",
-                Command::BotRestart => "BOT_RESTART",
-                Command::BotTerminate => "BOT_TERMINATE",
-                Command::HostRestart => "HOST_RESTART",
+                Self::Unspecified => "UNSPECIFIED",
+                Self::BotUpdate => "BOT_UPDATE",
+                Self::BotRestart => "BOT_RESTART",
+                Self::BotTerminate => "BOT_TERMINATE",
+                Self::HostRestart => "HOST_RESTART",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -422,12 +422,12 @@ impl BotStatus {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            BotStatus::Unspecified => "BOT_STATUS_UNSPECIFIED",
-            BotStatus::Ok => "OK",
-            BotStatus::Unhealthy => "UNHEALTHY",
-            BotStatus::HostRebooting => "HOST_REBOOTING",
-            BotStatus::BotTerminating => "BOT_TERMINATING",
-            BotStatus::Initializing => "INITIALIZING",
+            Self::Unspecified => "BOT_STATUS_UNSPECIFIED",
+            Self::Ok => "OK",
+            Self::Unhealthy => "UNHEALTHY",
+            Self::HostRebooting => "HOST_REBOOTING",
+            Self::BotTerminating => "BOT_TERMINATING",
+            Self::Initializing => "INITIALIZING",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -472,11 +472,11 @@ impl LeaseState {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            LeaseState::Unspecified => "LEASE_STATE_UNSPECIFIED",
-            LeaseState::Pending => "PENDING",
-            LeaseState::Active => "ACTIVE",
-            LeaseState::Completed => "COMPLETED",
-            LeaseState::Cancelled => "CANCELLED",
+            Self::Unspecified => "LEASE_STATE_UNSPECIFIED",
+            Self::Pending => "PENDING",
+            Self::Active => "ACTIVE",
+            Self::Completed => "COMPLETED",
+            Self::Cancelled => "CANCELLED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -652,6 +652,257 @@ pub mod bots_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod bots_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with BotsServer.
+    #[async_trait]
+    pub trait Bots: std::marker::Send + std::marker::Sync + 'static {
+        /// CreateBotSession is called when the bot first joins the farm, and
+        /// establishes a session ID to ensure that multiple machines do not register
+        /// using the same name accidentally.
+        async fn create_bot_session(
+            &self,
+            request: tonic::Request<super::CreateBotSessionRequest>,
+        ) -> std::result::Result<tonic::Response<super::BotSession>, tonic::Status>;
+        /// UpdateBotSession must be called periodically by the bot (on a schedule
+        /// determined by the server) to let the server know about its status, and to
+        /// pick up new lease requests from the server.
+        async fn update_bot_session(
+            &self,
+            request: tonic::Request<super::UpdateBotSessionRequest>,
+        ) -> std::result::Result<tonic::Response<super::BotSession>, tonic::Status>;
+    }
+    /// Design doc: https://goo.gl/oojM5H
+    ///
+    /// Loosely speaking, the Bots interface monitors a collection of workers (think
+    /// of them as "computers" for a moment). This collection is known as a "farm,"
+    /// and its purpose is to perform work on behalf of a client.
+    ///
+    /// Each worker runs a small program known as a "bot" that allows it to be
+    /// controlled by the server. This interface contains only methods that are
+    /// called by the bots themselves; admin functionality is out of scope for this
+    /// interface.
+    ///
+    /// More precisely, we use the term "worker" to refer to the physical "thing"
+    /// running the bot. We use the term "worker," and not "machine" or "computer,"
+    /// since a worker may consist of more than one machine - e.g., a computer with
+    /// multiple attached devices, or even a cluster of computers, with only one of
+    /// them running the bot. Conversely, a single machine may host several bots, in
+    /// which case each bot has a "worker" corresponding to the slice of the machine
+    /// being managed by that bot.
+    ///
+    /// The main resource in the Bots interface is not, surprisingly, a Bot - it is a
+    /// BotSession, which represents a period of time in which a bot is in continuous
+    /// contact with the server (see the BotSession message for more information).
+    /// The parent of a bot session can be thought of as an instance of a farm. That
+    /// is, one endpoint may be able to manage many farms for many users. For
+    /// example, for a farm managed through GCP, the parent resource will typically
+    /// take the form "projects/{project_id}". This is referred to below as "the farm
+    /// resource."
+    #[derive(Debug)]
+    pub struct BotsServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> BotsServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for BotsServer<T>
+    where
+        T: Bots,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.devtools.remoteworkers.v1test2.Bots/CreateBotSession" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateBotSessionSvc<T: Bots>(pub Arc<T>);
+                    impl<
+                        T: Bots,
+                    > tonic::server::UnaryService<super::CreateBotSessionRequest>
+                    for CreateBotSessionSvc<T> {
+                        type Response = super::BotSession;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateBotSessionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Bots>::create_bot_session(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateBotSessionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.remoteworkers.v1test2.Bots/UpdateBotSession" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateBotSessionSvc<T: Bots>(pub Arc<T>);
+                    impl<
+                        T: Bots,
+                    > tonic::server::UnaryService<super::UpdateBotSessionRequest>
+                    for UpdateBotSessionSvc<T> {
+                        type Response = super::BotSession;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateBotSessionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as Bots>::update_bot_session(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateBotSessionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for BotsServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.devtools.remoteworkers.v1test2.Bots";
+    impl<T> tonic::server::NamedService for BotsServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }
 /// Describes a shell-style task to execute, suitable for providing as the Bots

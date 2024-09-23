@@ -62,10 +62,10 @@ pub mod conversion_source {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Active => "ACTIVE",
-                State::Archived => "ARCHIVED",
-                State::Pending => "PENDING",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Active => "ACTIVE",
+                Self::Archived => "ARCHIVED",
+                Self::Pending => "PENDING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -107,9 +107,9 @@ pub mod conversion_source {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Controller::Unspecified => "CONTROLLER_UNSPECIFIED",
-                Controller::Merchant => "MERCHANT",
-                Controller::YoutubeAffiliates => "YOUTUBE_AFFILIATES",
+                Self::Unspecified => "CONTROLLER_UNSPECIFIED",
+                Self::Merchant => "MERCHANT",
+                Self::YoutubeAffiliates => "YOUTUBE_AFFILIATES",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -204,16 +204,14 @@ pub mod attribution_settings {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                AttributionModel::Unspecified => "ATTRIBUTION_MODEL_UNSPECIFIED",
-                AttributionModel::CrossChannelLastClick => "CROSS_CHANNEL_LAST_CLICK",
-                AttributionModel::AdsPreferredLastClick => "ADS_PREFERRED_LAST_CLICK",
-                AttributionModel::CrossChannelDataDriven => "CROSS_CHANNEL_DATA_DRIVEN",
-                AttributionModel::CrossChannelFirstClick => "CROSS_CHANNEL_FIRST_CLICK",
-                AttributionModel::CrossChannelLinear => "CROSS_CHANNEL_LINEAR",
-                AttributionModel::CrossChannelPositionBased => {
-                    "CROSS_CHANNEL_POSITION_BASED"
-                }
-                AttributionModel::CrossChannelTimeDecay => "CROSS_CHANNEL_TIME_DECAY",
+                Self::Unspecified => "ATTRIBUTION_MODEL_UNSPECIFIED",
+                Self::CrossChannelLastClick => "CROSS_CHANNEL_LAST_CLICK",
+                Self::AdsPreferredLastClick => "ADS_PREFERRED_LAST_CLICK",
+                Self::CrossChannelDataDriven => "CROSS_CHANNEL_DATA_DRIVEN",
+                Self::CrossChannelFirstClick => "CROSS_CHANNEL_FIRST_CLICK",
+                Self::CrossChannelLinear => "CROSS_CHANNEL_LINEAR",
+                Self::CrossChannelPositionBased => "CROSS_CHANNEL_POSITION_BASED",
+                Self::CrossChannelTimeDecay => "CROSS_CHANNEL_TIME_DECAY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -614,5 +612,485 @@ pub mod conversion_sources_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod conversion_sources_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with ConversionSourcesServiceServer.
+    #[async_trait]
+    pub trait ConversionSourcesService: std::marker::Send + std::marker::Sync + 'static {
+        /// Creates a new conversion source.
+        async fn create_conversion_source(
+            &self,
+            request: tonic::Request<super::CreateConversionSourceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ConversionSource>,
+            tonic::Status,
+        >;
+        /// Updates information of an existing conversion source. Available only for
+        /// Merchant Center Destination conversion sources.
+        async fn update_conversion_source(
+            &self,
+            request: tonic::Request<super::UpdateConversionSourceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ConversionSource>,
+            tonic::Status,
+        >;
+        /// Archives an existing conversion source. If the conversion source is a
+        /// Merchant Center Destination, it will be recoverable for 30 days. If the
+        /// conversion source is a Google Analytics Link, it will be deleted
+        /// immediately and can be restored by creating a new one.
+        async fn delete_conversion_source(
+            &self,
+            request: tonic::Request<super::DeleteConversionSourceRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Re-enables an archived conversion source. Only Available for Merchant
+        /// Center Destination conversion sources.
+        async fn undelete_conversion_source(
+            &self,
+            request: tonic::Request<super::UndeleteConversionSourceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ConversionSource>,
+            tonic::Status,
+        >;
+        /// Fetches a conversion source.
+        async fn get_conversion_source(
+            &self,
+            request: tonic::Request<super::GetConversionSourceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ConversionSource>,
+            tonic::Status,
+        >;
+        /// Retrieves the list of conversion sources the caller has access to.
+        async fn list_conversion_sources(
+            &self,
+            request: tonic::Request<super::ListConversionSourcesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListConversionSourcesResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Service for managing conversion sources for a merchant account.
+    #[derive(Debug)]
+    pub struct ConversionSourcesServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> ConversionSourcesServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for ConversionSourcesServiceServer<T>
+    where
+        T: ConversionSourcesService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.shopping.merchant.conversions.v1beta.ConversionSourcesService/CreateConversionSource" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateConversionSourceSvc<T: ConversionSourcesService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: ConversionSourcesService,
+                    > tonic::server::UnaryService<super::CreateConversionSourceRequest>
+                    for CreateConversionSourceSvc<T> {
+                        type Response = super::ConversionSource;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateConversionSourceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ConversionSourcesService>::create_conversion_source(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateConversionSourceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.shopping.merchant.conversions.v1beta.ConversionSourcesService/UpdateConversionSource" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateConversionSourceSvc<T: ConversionSourcesService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: ConversionSourcesService,
+                    > tonic::server::UnaryService<super::UpdateConversionSourceRequest>
+                    for UpdateConversionSourceSvc<T> {
+                        type Response = super::ConversionSource;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateConversionSourceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ConversionSourcesService>::update_conversion_source(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateConversionSourceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.shopping.merchant.conversions.v1beta.ConversionSourcesService/DeleteConversionSource" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteConversionSourceSvc<T: ConversionSourcesService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: ConversionSourcesService,
+                    > tonic::server::UnaryService<super::DeleteConversionSourceRequest>
+                    for DeleteConversionSourceSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteConversionSourceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ConversionSourcesService>::delete_conversion_source(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteConversionSourceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.shopping.merchant.conversions.v1beta.ConversionSourcesService/UndeleteConversionSource" => {
+                    #[allow(non_camel_case_types)]
+                    struct UndeleteConversionSourceSvc<T: ConversionSourcesService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: ConversionSourcesService,
+                    > tonic::server::UnaryService<super::UndeleteConversionSourceRequest>
+                    for UndeleteConversionSourceSvc<T> {
+                        type Response = super::ConversionSource;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::UndeleteConversionSourceRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ConversionSourcesService>::undelete_conversion_source(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UndeleteConversionSourceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.shopping.merchant.conversions.v1beta.ConversionSourcesService/GetConversionSource" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetConversionSourceSvc<T: ConversionSourcesService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: ConversionSourcesService,
+                    > tonic::server::UnaryService<super::GetConversionSourceRequest>
+                    for GetConversionSourceSvc<T> {
+                        type Response = super::ConversionSource;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetConversionSourceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ConversionSourcesService>::get_conversion_source(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetConversionSourceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.shopping.merchant.conversions.v1beta.ConversionSourcesService/ListConversionSources" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListConversionSourcesSvc<T: ConversionSourcesService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: ConversionSourcesService,
+                    > tonic::server::UnaryService<super::ListConversionSourcesRequest>
+                    for ListConversionSourcesSvc<T> {
+                        type Response = super::ListConversionSourcesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListConversionSourcesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as ConversionSourcesService>::list_conversion_sources(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListConversionSourcesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for ConversionSourcesServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.shopping.merchant.conversions.v1beta.ConversionSourcesService";
+    impl<T> tonic::server::NamedService for ConversionSourcesServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

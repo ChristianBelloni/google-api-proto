@@ -95,11 +95,9 @@ pub mod policy {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                GlobalPolicyEvaluationMode::Unspecified => {
-                    "GLOBAL_POLICY_EVALUATION_MODE_UNSPECIFIED"
-                }
-                GlobalPolicyEvaluationMode::Enable => "ENABLE",
-                GlobalPolicyEvaluationMode::Disable => "DISABLE",
+                Self::Unspecified => "GLOBAL_POLICY_EVALUATION_MODE_UNSPECIFIED",
+                Self::Enable => "ENABLE",
+                Self::Disable => "DISABLE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -188,10 +186,10 @@ pub mod admission_rule {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                EvaluationMode::Unspecified => "EVALUATION_MODE_UNSPECIFIED",
-                EvaluationMode::AlwaysAllow => "ALWAYS_ALLOW",
-                EvaluationMode::RequireAttestation => "REQUIRE_ATTESTATION",
-                EvaluationMode::AlwaysDeny => "ALWAYS_DENY",
+                Self::Unspecified => "EVALUATION_MODE_UNSPECIFIED",
+                Self::AlwaysAllow => "ALWAYS_ALLOW",
+                Self::RequireAttestation => "REQUIRE_ATTESTATION",
+                Self::AlwaysDeny => "ALWAYS_DENY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -235,11 +233,9 @@ pub mod admission_rule {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                EnforcementMode::Unspecified => "ENFORCEMENT_MODE_UNSPECIFIED",
-                EnforcementMode::EnforcedBlockAndAuditLog => {
-                    "ENFORCED_BLOCK_AND_AUDIT_LOG"
-                }
-                EnforcementMode::DryrunAuditLogOnly => "DRYRUN_AUDIT_LOG_ONLY",
+                Self::Unspecified => "ENFORCEMENT_MODE_UNSPECIFIED",
+                Self::EnforcedBlockAndAuditLog => "ENFORCED_BLOCK_AND_AUDIT_LOG",
+                Self::DryrunAuditLogOnly => "DRYRUN_AUDIT_LOG_ONLY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -398,26 +394,18 @@ pub mod pkix_public_key {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                SignatureAlgorithm::Unspecified => "SIGNATURE_ALGORITHM_UNSPECIFIED",
-                SignatureAlgorithm::RsaPss2048Sha256 => "RSA_PSS_2048_SHA256",
-                SignatureAlgorithm::RsaPss3072Sha256 => "RSA_PSS_3072_SHA256",
-                SignatureAlgorithm::RsaPss4096Sha256 => "RSA_PSS_4096_SHA256",
-                SignatureAlgorithm::RsaPss4096Sha512 => "RSA_PSS_4096_SHA512",
-                SignatureAlgorithm::RsaSignPkcs12048Sha256 => {
-                    "RSA_SIGN_PKCS1_2048_SHA256"
-                }
-                SignatureAlgorithm::RsaSignPkcs13072Sha256 => {
-                    "RSA_SIGN_PKCS1_3072_SHA256"
-                }
-                SignatureAlgorithm::RsaSignPkcs14096Sha256 => {
-                    "RSA_SIGN_PKCS1_4096_SHA256"
-                }
-                SignatureAlgorithm::RsaSignPkcs14096Sha512 => {
-                    "RSA_SIGN_PKCS1_4096_SHA512"
-                }
-                SignatureAlgorithm::EcdsaP256Sha256 => "ECDSA_P256_SHA256",
-                SignatureAlgorithm::EcdsaP384Sha384 => "ECDSA_P384_SHA384",
-                SignatureAlgorithm::EcdsaP521Sha512 => "ECDSA_P521_SHA512",
+                Self::Unspecified => "SIGNATURE_ALGORITHM_UNSPECIFIED",
+                Self::RsaPss2048Sha256 => "RSA_PSS_2048_SHA256",
+                Self::RsaPss3072Sha256 => "RSA_PSS_3072_SHA256",
+                Self::RsaPss4096Sha256 => "RSA_PSS_4096_SHA256",
+                Self::RsaPss4096Sha512 => "RSA_PSS_4096_SHA512",
+                Self::RsaSignPkcs12048Sha256 => "RSA_SIGN_PKCS1_2048_SHA256",
+                Self::RsaSignPkcs13072Sha256 => "RSA_SIGN_PKCS1_3072_SHA256",
+                Self::RsaSignPkcs14096Sha256 => "RSA_SIGN_PKCS1_4096_SHA256",
+                Self::RsaSignPkcs14096Sha512 => "RSA_SIGN_PKCS1_4096_SHA512",
+                Self::EcdsaP256Sha256 => "ECDSA_P256_SHA256",
+                Self::EcdsaP384Sha384 => "ECDSA_P384_SHA384",
+                Self::EcdsaP521Sha512 => "ECDSA_P521_SHA512",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -485,318 +473,6 @@ pub mod attestor_public_key {
         /// encoding of the public key.
         #[prost(message, tag = "5")]
         PkixPublicKey(super::PkixPublicKey),
-    }
-}
-/// Represents an auditing event from Continuous Validation.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ContinuousValidationEvent {
-    /// Type of CV event.
-    #[prost(oneof = "continuous_validation_event::EventType", tags = "1, 4")]
-    pub event_type: ::core::option::Option<continuous_validation_event::EventType>,
-}
-/// Nested message and enum types in `ContinuousValidationEvent`.
-pub mod continuous_validation_event {
-    /// An auditing event for one Pod.
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct ContinuousValidationPodEvent {
-        /// The k8s namespace of the Pod.
-        #[prost(string, tag = "7")]
-        pub pod_namespace: ::prost::alloc::string::String,
-        /// The name of the Pod.
-        #[prost(string, tag = "1")]
-        pub pod: ::prost::alloc::string::String,
-        /// The name of the policy.
-        #[prost(string, tag = "8")]
-        pub policy_name: ::prost::alloc::string::String,
-        /// Deploy time of the Pod from k8s.
-        #[prost(message, optional, tag = "2")]
-        pub deploy_time: ::core::option::Option<::prost_types::Timestamp>,
-        /// Termination time of the Pod from k8s, or nothing if still running.
-        #[prost(message, optional, tag = "3")]
-        pub end_time: ::core::option::Option<::prost_types::Timestamp>,
-        /// Auditing verdict for this Pod.
-        #[prost(
-            enumeration = "continuous_validation_pod_event::PolicyConformanceVerdict",
-            tag = "4"
-        )]
-        pub verdict: i32,
-        /// List of images with auditing details.
-        #[prost(message, repeated, tag = "5")]
-        pub images: ::prost::alloc::vec::Vec<
-            continuous_validation_pod_event::ImageDetails,
-        >,
-    }
-    /// Nested message and enum types in `ContinuousValidationPodEvent`.
-    pub mod continuous_validation_pod_event {
-        /// Container image with auditing details.
-        #[derive(Clone, PartialEq, ::prost::Message)]
-        pub struct ImageDetails {
-            /// The name of the image.
-            #[prost(string, tag = "1")]
-            pub image: ::prost::alloc::string::String,
-            /// The name of the container.
-            #[prost(string, tag = "5")]
-            pub container_name: ::prost::alloc::string::String,
-            /// The container type that this image belongs to.
-            #[prost(enumeration = "image_details::ContainerType", tag = "6")]
-            pub container_type: i32,
-            /// The result of the audit for this image.
-            #[prost(enumeration = "image_details::AuditResult", tag = "2")]
-            pub result: i32,
-            /// Description of the above result.
-            #[prost(string, tag = "3")]
-            pub description: ::prost::alloc::string::String,
-            /// List of check results.
-            #[prost(message, repeated, tag = "4")]
-            pub check_results: ::prost::alloc::vec::Vec<image_details::CheckResult>,
-        }
-        /// Nested message and enum types in `ImageDetails`.
-        pub mod image_details {
-            #[derive(Clone, PartialEq, ::prost::Message)]
-            pub struct CheckResult {
-                /// The index of the check set.
-                #[prost(string, tag = "1")]
-                pub check_set_index: ::prost::alloc::string::String,
-                /// The name of the check set.
-                #[prost(string, tag = "2")]
-                pub check_set_name: ::prost::alloc::string::String,
-                /// The scope of the check set.
-                #[prost(message, optional, tag = "3")]
-                pub check_set_scope: ::core::option::Option<check_result::CheckSetScope>,
-                /// The index of the check.
-                #[prost(string, tag = "4")]
-                pub check_index: ::prost::alloc::string::String,
-                /// The name of the check.
-                #[prost(string, tag = "5")]
-                pub check_name: ::prost::alloc::string::String,
-                /// The type of the check.
-                #[prost(string, tag = "6")]
-                pub check_type: ::prost::alloc::string::String,
-                /// The verdict of this check.
-                #[prost(enumeration = "check_result::CheckVerdict", tag = "7")]
-                pub verdict: i32,
-                /// User-friendly explanation of this check result.
-                #[prost(string, tag = "8")]
-                pub explanation: ::prost::alloc::string::String,
-            }
-            /// Nested message and enum types in `CheckResult`.
-            pub mod check_result {
-                /// A scope specifier for check sets.
-                #[derive(Clone, PartialEq, ::prost::Message)]
-                pub struct CheckSetScope {
-                    #[prost(oneof = "check_set_scope::Scope", tags = "1, 2")]
-                    pub scope: ::core::option::Option<check_set_scope::Scope>,
-                }
-                /// Nested message and enum types in `CheckSetScope`.
-                pub mod check_set_scope {
-                    #[derive(Clone, PartialEq, ::prost::Oneof)]
-                    pub enum Scope {
-                        /// Matches a single Kubernetes service account, e.g.
-                        /// 'my-namespace:my-service-account'.
-                        /// `kubernetes_service_account` scope is always more specific than
-                        /// `kubernetes_namespace` scope for the same namespace.
-                        #[prost(string, tag = "1")]
-                        KubernetesServiceAccount(::prost::alloc::string::String),
-                        /// Matches all Kubernetes service accounts in the provided
-                        /// namespace, unless a more specific `kubernetes_service_account`
-                        /// scope already matched.
-                        #[prost(string, tag = "2")]
-                        KubernetesNamespace(::prost::alloc::string::String),
-                    }
-                }
-                /// Result of evaluating one check.
-                #[derive(
-                    Clone,
-                    Copy,
-                    Debug,
-                    PartialEq,
-                    Eq,
-                    Hash,
-                    PartialOrd,
-                    Ord,
-                    ::prost::Enumeration
-                )]
-                #[repr(i32)]
-                pub enum CheckVerdict {
-                    /// We should always have a verdict. This is an error.
-                    Unspecified = 0,
-                    /// The check was successfully evaluated and the image did not satisfy
-                    /// the check.
-                    NonConformant = 1,
-                }
-                impl CheckVerdict {
-                    /// String value of the enum field names used in the ProtoBuf definition.
-                    ///
-                    /// The values are not transformed in any way and thus are considered stable
-                    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-                    pub fn as_str_name(&self) -> &'static str {
-                        match self {
-                            CheckVerdict::Unspecified => "CHECK_VERDICT_UNSPECIFIED",
-                            CheckVerdict::NonConformant => "NON_CONFORMANT",
-                        }
-                    }
-                    /// Creates an enum from field names used in the ProtoBuf definition.
-                    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-                        match value {
-                            "CHECK_VERDICT_UNSPECIFIED" => Some(Self::Unspecified),
-                            "NON_CONFORMANT" => Some(Self::NonConformant),
-                            _ => None,
-                        }
-                    }
-                }
-            }
-            /// The container type.
-            #[derive(
-                Clone,
-                Copy,
-                Debug,
-                PartialEq,
-                Eq,
-                Hash,
-                PartialOrd,
-                Ord,
-                ::prost::Enumeration
-            )]
-            #[repr(i32)]
-            pub enum ContainerType {
-                /// The container type should always be specified. This is an error.
-                Unspecified = 0,
-                /// A regular deployment.
-                Container = 1,
-                /// Init container defined as specified at
-                /// <https://kubernetes.io/docs/concepts/workloads/pods/init-containers/>
-                InitContainer = 2,
-                /// Ephemeral container defined as specified at
-                /// <https://kubernetes.io/docs/concepts/workloads/pods/ephemeral-containers/>
-                EphemeralContainer = 3,
-            }
-            impl ContainerType {
-                /// String value of the enum field names used in the ProtoBuf definition.
-                ///
-                /// The values are not transformed in any way and thus are considered stable
-                /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-                pub fn as_str_name(&self) -> &'static str {
-                    match self {
-                        ContainerType::Unspecified => "CONTAINER_TYPE_UNSPECIFIED",
-                        ContainerType::Container => "CONTAINER",
-                        ContainerType::InitContainer => "INIT_CONTAINER",
-                        ContainerType::EphemeralContainer => "EPHEMERAL_CONTAINER",
-                    }
-                }
-                /// Creates an enum from field names used in the ProtoBuf definition.
-                pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-                    match value {
-                        "CONTAINER_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
-                        "CONTAINER" => Some(Self::Container),
-                        "INIT_CONTAINER" => Some(Self::InitContainer),
-                        "EPHEMERAL_CONTAINER" => Some(Self::EphemeralContainer),
-                        _ => None,
-                    }
-                }
-            }
-            /// Result of the audit.
-            #[derive(
-                Clone,
-                Copy,
-                Debug,
-                PartialEq,
-                Eq,
-                Hash,
-                PartialOrd,
-                Ord,
-                ::prost::Enumeration
-            )]
-            #[repr(i32)]
-            pub enum AuditResult {
-                /// Unspecified result. This is an error.
-                Unspecified = 0,
-                /// Image is allowed.
-                Allow = 1,
-                /// Image is denied.
-                Deny = 2,
-            }
-            impl AuditResult {
-                /// String value of the enum field names used in the ProtoBuf definition.
-                ///
-                /// The values are not transformed in any way and thus are considered stable
-                /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-                pub fn as_str_name(&self) -> &'static str {
-                    match self {
-                        AuditResult::Unspecified => "AUDIT_RESULT_UNSPECIFIED",
-                        AuditResult::Allow => "ALLOW",
-                        AuditResult::Deny => "DENY",
-                    }
-                }
-                /// Creates an enum from field names used in the ProtoBuf definition.
-                pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-                    match value {
-                        "AUDIT_RESULT_UNSPECIFIED" => Some(Self::Unspecified),
-                        "ALLOW" => Some(Self::Allow),
-                        "DENY" => Some(Self::Deny),
-                        _ => None,
-                    }
-                }
-            }
-        }
-        /// Audit time policy conformance verdict.
-        #[derive(
-            Clone,
-            Copy,
-            Debug,
-            PartialEq,
-            Eq,
-            Hash,
-            PartialOrd,
-            Ord,
-            ::prost::Enumeration
-        )]
-        #[repr(i32)]
-        pub enum PolicyConformanceVerdict {
-            /// We should always have a verdict. This is an error.
-            Unspecified = 0,
-            /// The pod violates the policy.
-            ViolatesPolicy = 1,
-        }
-        impl PolicyConformanceVerdict {
-            /// String value of the enum field names used in the ProtoBuf definition.
-            ///
-            /// The values are not transformed in any way and thus are considered stable
-            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-            pub fn as_str_name(&self) -> &'static str {
-                match self {
-                    PolicyConformanceVerdict::Unspecified => {
-                        "POLICY_CONFORMANCE_VERDICT_UNSPECIFIED"
-                    }
-                    PolicyConformanceVerdict::ViolatesPolicy => "VIOLATES_POLICY",
-                }
-            }
-            /// Creates an enum from field names used in the ProtoBuf definition.
-            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-                match value {
-                    "POLICY_CONFORMANCE_VERDICT_UNSPECIFIED" => Some(Self::Unspecified),
-                    "VIOLATES_POLICY" => Some(Self::ViolatesPolicy),
-                    _ => None,
-                }
-            }
-        }
-    }
-    /// An event describing a user-actionable configuration issue that prevents CV
-    /// from auditing.
-    #[derive(Clone, PartialEq, ::prost::Message)]
-    pub struct ConfigErrorEvent {
-        /// A description of the issue.
-        #[prost(string, tag = "1")]
-        pub description: ::prost::alloc::string::String,
-    }
-    /// Type of CV event.
-    #[derive(Clone, PartialEq, ::prost::Oneof)]
-    pub enum EventType {
-        /// Pod event.
-        #[prost(message, tag = "1")]
-        PodEvent(ContinuousValidationPodEvent),
-        /// Config error event.
-        #[prost(message, tag = "4")]
-        ConfigErrorEvent(ConfigErrorEvent),
     }
 }
 /// Request message for [BinauthzManagementService.GetPolicy][].
@@ -1297,5 +973,1028 @@ pub mod system_policy_v1_beta1_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod binauthz_management_service_v1_beta1_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with BinauthzManagementServiceV1Beta1Server.
+    #[async_trait]
+    pub trait BinauthzManagementServiceV1Beta1: std::marker::Send + std::marker::Sync + 'static {
+        /// A [policy][google.cloud.binaryauthorization.v1beta1.Policy] specifies the [attestors][google.cloud.binaryauthorization.v1beta1.Attestor] that must attest to
+        /// a container image, before the project is allowed to deploy that
+        /// image. There is at most one policy per project. All image admission
+        /// requests are permitted if a project has no policy.
+        ///
+        /// Gets the [policy][google.cloud.binaryauthorization.v1beta1.Policy] for this project. Returns a default
+        /// [policy][google.cloud.binaryauthorization.v1beta1.Policy] if the project does not have one.
+        async fn get_policy(
+            &self,
+            request: tonic::Request<super::GetPolicyRequest>,
+        ) -> std::result::Result<tonic::Response<super::Policy>, tonic::Status>;
+        /// Creates or updates a project's [policy][google.cloud.binaryauthorization.v1beta1.Policy], and returns a copy of the
+        /// new [policy][google.cloud.binaryauthorization.v1beta1.Policy]. A policy is always updated as a whole, to avoid race
+        /// conditions with concurrent policy enforcement (or management!)
+        /// requests. Returns NOT_FOUND if the project does not exist, INVALID_ARGUMENT
+        /// if the request is malformed.
+        async fn update_policy(
+            &self,
+            request: tonic::Request<super::UpdatePolicyRequest>,
+        ) -> std::result::Result<tonic::Response<super::Policy>, tonic::Status>;
+        /// Creates an [attestor][google.cloud.binaryauthorization.v1beta1.Attestor], and returns a copy of the new
+        /// [attestor][google.cloud.binaryauthorization.v1beta1.Attestor]. Returns NOT_FOUND if the project does not exist,
+        /// INVALID_ARGUMENT if the request is malformed, ALREADY_EXISTS if the
+        /// [attestor][google.cloud.binaryauthorization.v1beta1.Attestor] already exists.
+        async fn create_attestor(
+            &self,
+            request: tonic::Request<super::CreateAttestorRequest>,
+        ) -> std::result::Result<tonic::Response<super::Attestor>, tonic::Status>;
+        /// Gets an [attestor][google.cloud.binaryauthorization.v1beta1.Attestor].
+        /// Returns NOT_FOUND if the [attestor][google.cloud.binaryauthorization.v1beta1.Attestor] does not exist.
+        async fn get_attestor(
+            &self,
+            request: tonic::Request<super::GetAttestorRequest>,
+        ) -> std::result::Result<tonic::Response<super::Attestor>, tonic::Status>;
+        /// Updates an [attestor][google.cloud.binaryauthorization.v1beta1.Attestor].
+        /// Returns NOT_FOUND if the [attestor][google.cloud.binaryauthorization.v1beta1.Attestor] does not exist.
+        async fn update_attestor(
+            &self,
+            request: tonic::Request<super::UpdateAttestorRequest>,
+        ) -> std::result::Result<tonic::Response<super::Attestor>, tonic::Status>;
+        /// Lists [attestors][google.cloud.binaryauthorization.v1beta1.Attestor].
+        /// Returns INVALID_ARGUMENT if the project does not exist.
+        async fn list_attestors(
+            &self,
+            request: tonic::Request<super::ListAttestorsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListAttestorsResponse>,
+            tonic::Status,
+        >;
+        /// Deletes an [attestor][google.cloud.binaryauthorization.v1beta1.Attestor]. Returns NOT_FOUND if the
+        /// [attestor][google.cloud.binaryauthorization.v1beta1.Attestor] does not exist.
+        async fn delete_attestor(
+            &self,
+            request: tonic::Request<super::DeleteAttestorRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+    }
+    /// Google Cloud Management Service for Binary Authorization admission policies
+    /// and attestation authorities.
+    ///
+    /// This API implements a REST model with the following objects:
+    ///
+    /// * [Policy][google.cloud.binaryauthorization.v1beta1.Policy]
+    /// * [Attestor][google.cloud.binaryauthorization.v1beta1.Attestor]
+    #[derive(Debug)]
+    pub struct BinauthzManagementServiceV1Beta1Server<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> BinauthzManagementServiceV1Beta1Server<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for BinauthzManagementServiceV1Beta1Server<T>
+    where
+        T: BinauthzManagementServiceV1Beta1,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.binaryauthorization.v1beta1.BinauthzManagementServiceV1Beta1/GetPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetPolicySvc<T: BinauthzManagementServiceV1Beta1>(pub Arc<T>);
+                    impl<
+                        T: BinauthzManagementServiceV1Beta1,
+                    > tonic::server::UnaryService<super::GetPolicyRequest>
+                    for GetPolicySvc<T> {
+                        type Response = super::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetPolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BinauthzManagementServiceV1Beta1>::get_policy(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.binaryauthorization.v1beta1.BinauthzManagementServiceV1Beta1/UpdatePolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdatePolicySvc<T: BinauthzManagementServiceV1Beta1>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: BinauthzManagementServiceV1Beta1,
+                    > tonic::server::UnaryService<super::UpdatePolicyRequest>
+                    for UpdatePolicySvc<T> {
+                        type Response = super::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdatePolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BinauthzManagementServiceV1Beta1>::update_policy(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdatePolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.binaryauthorization.v1beta1.BinauthzManagementServiceV1Beta1/CreateAttestor" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateAttestorSvc<T: BinauthzManagementServiceV1Beta1>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: BinauthzManagementServiceV1Beta1,
+                    > tonic::server::UnaryService<super::CreateAttestorRequest>
+                    for CreateAttestorSvc<T> {
+                        type Response = super::Attestor;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateAttestorRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BinauthzManagementServiceV1Beta1>::create_attestor(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateAttestorSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.binaryauthorization.v1beta1.BinauthzManagementServiceV1Beta1/GetAttestor" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAttestorSvc<T: BinauthzManagementServiceV1Beta1>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: BinauthzManagementServiceV1Beta1,
+                    > tonic::server::UnaryService<super::GetAttestorRequest>
+                    for GetAttestorSvc<T> {
+                        type Response = super::Attestor;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAttestorRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BinauthzManagementServiceV1Beta1>::get_attestor(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAttestorSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.binaryauthorization.v1beta1.BinauthzManagementServiceV1Beta1/UpdateAttestor" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateAttestorSvc<T: BinauthzManagementServiceV1Beta1>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: BinauthzManagementServiceV1Beta1,
+                    > tonic::server::UnaryService<super::UpdateAttestorRequest>
+                    for UpdateAttestorSvc<T> {
+                        type Response = super::Attestor;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateAttestorRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BinauthzManagementServiceV1Beta1>::update_attestor(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateAttestorSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.binaryauthorization.v1beta1.BinauthzManagementServiceV1Beta1/ListAttestors" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListAttestorsSvc<T: BinauthzManagementServiceV1Beta1>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: BinauthzManagementServiceV1Beta1,
+                    > tonic::server::UnaryService<super::ListAttestorsRequest>
+                    for ListAttestorsSvc<T> {
+                        type Response = super::ListAttestorsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListAttestorsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BinauthzManagementServiceV1Beta1>::list_attestors(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListAttestorsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.binaryauthorization.v1beta1.BinauthzManagementServiceV1Beta1/DeleteAttestor" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteAttestorSvc<T: BinauthzManagementServiceV1Beta1>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: BinauthzManagementServiceV1Beta1,
+                    > tonic::server::UnaryService<super::DeleteAttestorRequest>
+                    for DeleteAttestorSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteAttestorRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BinauthzManagementServiceV1Beta1>::delete_attestor(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteAttestorSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for BinauthzManagementServiceV1Beta1Server<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.binaryauthorization.v1beta1.BinauthzManagementServiceV1Beta1";
+    impl<T> tonic::server::NamedService for BinauthzManagementServiceV1Beta1Server<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}
+/// Generated server implementations.
+pub mod system_policy_v1_beta1_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with SystemPolicyV1Beta1Server.
+    #[async_trait]
+    pub trait SystemPolicyV1Beta1: std::marker::Send + std::marker::Sync + 'static {
+        /// Gets the current system policy in the specified location.
+        async fn get_system_policy(
+            &self,
+            request: tonic::Request<super::GetSystemPolicyRequest>,
+        ) -> std::result::Result<tonic::Response<super::Policy>, tonic::Status>;
+    }
+    /// API for working with the system policy.
+    #[derive(Debug)]
+    pub struct SystemPolicyV1Beta1Server<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> SystemPolicyV1Beta1Server<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for SystemPolicyV1Beta1Server<T>
+    where
+        T: SystemPolicyV1Beta1,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.binaryauthorization.v1beta1.SystemPolicyV1Beta1/GetSystemPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetSystemPolicySvc<T: SystemPolicyV1Beta1>(pub Arc<T>);
+                    impl<
+                        T: SystemPolicyV1Beta1,
+                    > tonic::server::UnaryService<super::GetSystemPolicyRequest>
+                    for GetSystemPolicySvc<T> {
+                        type Response = super::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetSystemPolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as SystemPolicyV1Beta1>::get_system_policy(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetSystemPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for SystemPolicyV1Beta1Server<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.binaryauthorization.v1beta1.SystemPolicyV1Beta1";
+    impl<T> tonic::server::NamedService for SystemPolicyV1Beta1Server<T> {
+        const NAME: &'static str = SERVICE_NAME;
+    }
+}
+/// Represents an auditing event from Continuous Validation.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ContinuousValidationEvent {
+    /// Type of CV event.
+    #[prost(oneof = "continuous_validation_event::EventType", tags = "1, 4")]
+    pub event_type: ::core::option::Option<continuous_validation_event::EventType>,
+}
+/// Nested message and enum types in `ContinuousValidationEvent`.
+pub mod continuous_validation_event {
+    /// An auditing event for one Pod.
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct ContinuousValidationPodEvent {
+        /// The k8s namespace of the Pod.
+        #[prost(string, tag = "7")]
+        pub pod_namespace: ::prost::alloc::string::String,
+        /// The name of the Pod.
+        #[prost(string, tag = "1")]
+        pub pod: ::prost::alloc::string::String,
+        /// The name of the policy.
+        #[prost(string, tag = "8")]
+        pub policy_name: ::prost::alloc::string::String,
+        /// Deploy time of the Pod from k8s.
+        #[prost(message, optional, tag = "2")]
+        pub deploy_time: ::core::option::Option<::prost_types::Timestamp>,
+        /// Termination time of the Pod from k8s, or nothing if still running.
+        #[prost(message, optional, tag = "3")]
+        pub end_time: ::core::option::Option<::prost_types::Timestamp>,
+        /// Auditing verdict for this Pod.
+        #[prost(
+            enumeration = "continuous_validation_pod_event::PolicyConformanceVerdict",
+            tag = "4"
+        )]
+        pub verdict: i32,
+        /// List of images with auditing details.
+        #[prost(message, repeated, tag = "5")]
+        pub images: ::prost::alloc::vec::Vec<
+            continuous_validation_pod_event::ImageDetails,
+        >,
+    }
+    /// Nested message and enum types in `ContinuousValidationPodEvent`.
+    pub mod continuous_validation_pod_event {
+        /// Container image with auditing details.
+        #[derive(Clone, PartialEq, ::prost::Message)]
+        pub struct ImageDetails {
+            /// The name of the image.
+            #[prost(string, tag = "1")]
+            pub image: ::prost::alloc::string::String,
+            /// The name of the container.
+            #[prost(string, tag = "5")]
+            pub container_name: ::prost::alloc::string::String,
+            /// The container type that this image belongs to.
+            #[prost(enumeration = "image_details::ContainerType", tag = "6")]
+            pub container_type: i32,
+            /// The result of the audit for this image.
+            #[prost(enumeration = "image_details::AuditResult", tag = "2")]
+            pub result: i32,
+            /// Description of the above result.
+            #[prost(string, tag = "3")]
+            pub description: ::prost::alloc::string::String,
+            /// List of check results.
+            #[prost(message, repeated, tag = "4")]
+            pub check_results: ::prost::alloc::vec::Vec<image_details::CheckResult>,
+        }
+        /// Nested message and enum types in `ImageDetails`.
+        pub mod image_details {
+            #[derive(Clone, PartialEq, ::prost::Message)]
+            pub struct CheckResult {
+                /// The index of the check set.
+                #[prost(string, tag = "1")]
+                pub check_set_index: ::prost::alloc::string::String,
+                /// The name of the check set.
+                #[prost(string, tag = "2")]
+                pub check_set_name: ::prost::alloc::string::String,
+                /// The scope of the check set.
+                #[prost(message, optional, tag = "3")]
+                pub check_set_scope: ::core::option::Option<check_result::CheckSetScope>,
+                /// The index of the check.
+                #[prost(string, tag = "4")]
+                pub check_index: ::prost::alloc::string::String,
+                /// The name of the check.
+                #[prost(string, tag = "5")]
+                pub check_name: ::prost::alloc::string::String,
+                /// The type of the check.
+                #[prost(string, tag = "6")]
+                pub check_type: ::prost::alloc::string::String,
+                /// The verdict of this check.
+                #[prost(enumeration = "check_result::CheckVerdict", tag = "7")]
+                pub verdict: i32,
+                /// User-friendly explanation of this check result.
+                #[prost(string, tag = "8")]
+                pub explanation: ::prost::alloc::string::String,
+            }
+            /// Nested message and enum types in `CheckResult`.
+            pub mod check_result {
+                /// A scope specifier for check sets.
+                #[derive(Clone, PartialEq, ::prost::Message)]
+                pub struct CheckSetScope {
+                    #[prost(oneof = "check_set_scope::Scope", tags = "1, 2")]
+                    pub scope: ::core::option::Option<check_set_scope::Scope>,
+                }
+                /// Nested message and enum types in `CheckSetScope`.
+                pub mod check_set_scope {
+                    #[derive(Clone, PartialEq, ::prost::Oneof)]
+                    pub enum Scope {
+                        /// Matches a single Kubernetes service account, e.g.
+                        /// 'my-namespace:my-service-account'.
+                        /// `kubernetes_service_account` scope is always more specific than
+                        /// `kubernetes_namespace` scope for the same namespace.
+                        #[prost(string, tag = "1")]
+                        KubernetesServiceAccount(::prost::alloc::string::String),
+                        /// Matches all Kubernetes service accounts in the provided
+                        /// namespace, unless a more specific `kubernetes_service_account`
+                        /// scope already matched.
+                        #[prost(string, tag = "2")]
+                        KubernetesNamespace(::prost::alloc::string::String),
+                    }
+                }
+                /// Result of evaluating one check.
+                #[derive(
+                    Clone,
+                    Copy,
+                    Debug,
+                    PartialEq,
+                    Eq,
+                    Hash,
+                    PartialOrd,
+                    Ord,
+                    ::prost::Enumeration
+                )]
+                #[repr(i32)]
+                pub enum CheckVerdict {
+                    /// We should always have a verdict. This is an error.
+                    Unspecified = 0,
+                    /// The check was successfully evaluated and the image did not satisfy
+                    /// the check.
+                    NonConformant = 1,
+                }
+                impl CheckVerdict {
+                    /// String value of the enum field names used in the ProtoBuf definition.
+                    ///
+                    /// The values are not transformed in any way and thus are considered stable
+                    /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+                    pub fn as_str_name(&self) -> &'static str {
+                        match self {
+                            Self::Unspecified => "CHECK_VERDICT_UNSPECIFIED",
+                            Self::NonConformant => "NON_CONFORMANT",
+                        }
+                    }
+                    /// Creates an enum from field names used in the ProtoBuf definition.
+                    pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                        match value {
+                            "CHECK_VERDICT_UNSPECIFIED" => Some(Self::Unspecified),
+                            "NON_CONFORMANT" => Some(Self::NonConformant),
+                            _ => None,
+                        }
+                    }
+                }
+            }
+            /// The container type.
+            #[derive(
+                Clone,
+                Copy,
+                Debug,
+                PartialEq,
+                Eq,
+                Hash,
+                PartialOrd,
+                Ord,
+                ::prost::Enumeration
+            )]
+            #[repr(i32)]
+            pub enum ContainerType {
+                /// The container type should always be specified. This is an error.
+                Unspecified = 0,
+                /// A regular deployment.
+                Container = 1,
+                /// Init container defined as specified at
+                /// <https://kubernetes.io/docs/concepts/workloads/pods/init-containers/>
+                InitContainer = 2,
+                /// Ephemeral container defined as specified at
+                /// <https://kubernetes.io/docs/concepts/workloads/pods/ephemeral-containers/>
+                EphemeralContainer = 3,
+            }
+            impl ContainerType {
+                /// String value of the enum field names used in the ProtoBuf definition.
+                ///
+                /// The values are not transformed in any way and thus are considered stable
+                /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+                pub fn as_str_name(&self) -> &'static str {
+                    match self {
+                        Self::Unspecified => "CONTAINER_TYPE_UNSPECIFIED",
+                        Self::Container => "CONTAINER",
+                        Self::InitContainer => "INIT_CONTAINER",
+                        Self::EphemeralContainer => "EPHEMERAL_CONTAINER",
+                    }
+                }
+                /// Creates an enum from field names used in the ProtoBuf definition.
+                pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                    match value {
+                        "CONTAINER_TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                        "CONTAINER" => Some(Self::Container),
+                        "INIT_CONTAINER" => Some(Self::InitContainer),
+                        "EPHEMERAL_CONTAINER" => Some(Self::EphemeralContainer),
+                        _ => None,
+                    }
+                }
+            }
+            /// Result of the audit.
+            #[derive(
+                Clone,
+                Copy,
+                Debug,
+                PartialEq,
+                Eq,
+                Hash,
+                PartialOrd,
+                Ord,
+                ::prost::Enumeration
+            )]
+            #[repr(i32)]
+            pub enum AuditResult {
+                /// Unspecified result. This is an error.
+                Unspecified = 0,
+                /// Image is allowed.
+                Allow = 1,
+                /// Image is denied.
+                Deny = 2,
+            }
+            impl AuditResult {
+                /// String value of the enum field names used in the ProtoBuf definition.
+                ///
+                /// The values are not transformed in any way and thus are considered stable
+                /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+                pub fn as_str_name(&self) -> &'static str {
+                    match self {
+                        Self::Unspecified => "AUDIT_RESULT_UNSPECIFIED",
+                        Self::Allow => "ALLOW",
+                        Self::Deny => "DENY",
+                    }
+                }
+                /// Creates an enum from field names used in the ProtoBuf definition.
+                pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                    match value {
+                        "AUDIT_RESULT_UNSPECIFIED" => Some(Self::Unspecified),
+                        "ALLOW" => Some(Self::Allow),
+                        "DENY" => Some(Self::Deny),
+                        _ => None,
+                    }
+                }
+            }
+        }
+        /// Audit time policy conformance verdict.
+        #[derive(
+            Clone,
+            Copy,
+            Debug,
+            PartialEq,
+            Eq,
+            Hash,
+            PartialOrd,
+            Ord,
+            ::prost::Enumeration
+        )]
+        #[repr(i32)]
+        pub enum PolicyConformanceVerdict {
+            /// We should always have a verdict. This is an error.
+            Unspecified = 0,
+            /// The pod violates the policy.
+            ViolatesPolicy = 1,
+        }
+        impl PolicyConformanceVerdict {
+            /// String value of the enum field names used in the ProtoBuf definition.
+            ///
+            /// The values are not transformed in any way and thus are considered stable
+            /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+            pub fn as_str_name(&self) -> &'static str {
+                match self {
+                    Self::Unspecified => "POLICY_CONFORMANCE_VERDICT_UNSPECIFIED",
+                    Self::ViolatesPolicy => "VIOLATES_POLICY",
+                }
+            }
+            /// Creates an enum from field names used in the ProtoBuf definition.
+            pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+                match value {
+                    "POLICY_CONFORMANCE_VERDICT_UNSPECIFIED" => Some(Self::Unspecified),
+                    "VIOLATES_POLICY" => Some(Self::ViolatesPolicy),
+                    _ => None,
+                }
+            }
+        }
+    }
+    /// An event describing a user-actionable configuration issue that prevents CV
+    /// from auditing.
+    #[derive(Clone, PartialEq, ::prost::Message)]
+    pub struct ConfigErrorEvent {
+        /// A description of the issue.
+        #[prost(string, tag = "1")]
+        pub description: ::prost::alloc::string::String,
+    }
+    /// Type of CV event.
+    #[derive(Clone, PartialEq, ::prost::Oneof)]
+    pub enum EventType {
+        /// Pod event.
+        #[prost(message, tag = "1")]
+        PodEvent(ContinuousValidationPodEvent),
+        /// Config error event.
+        #[prost(message, tag = "4")]
+        ConfigErrorEvent(ConfigErrorEvent),
     }
 }

@@ -82,10 +82,10 @@ impl TravelMode {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            TravelMode::Unspecified => "TRAVEL_MODE_UNSPECIFIED",
-            TravelMode::Driving => "DRIVING",
-            TravelMode::Cycling => "CYCLING",
-            TravelMode::Walking => "WALKING",
+            Self::Unspecified => "TRAVEL_MODE_UNSPECIFIED",
+            Self::Driving => "DRIVING",
+            Self::Cycling => "CYCLING",
+            Self::Walking => "WALKING",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -237,5 +237,237 @@ pub mod roads_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod roads_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with RoadsServiceServer.
+    #[async_trait]
+    pub trait RoadsService: std::marker::Send + std::marker::Sync + 'static {
+        /// This method takes a sequence of latitude,longitude points and snaps them to
+        /// the most likely road segments. Optionally returns additional points giving
+        /// the full road geometry. Also returns a place ID for each snapped point.
+        async fn snap_to_roads(
+            &self,
+            request: tonic::Request<super::SnapToRoadsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SnapToRoadsResponse>,
+            tonic::Status,
+        >;
+        /// This method takes a list of latitude,longitude points and snaps them each
+        /// to their nearest road. Also returns a place ID for each snapped point.
+        async fn list_nearest_roads(
+            &self,
+            request: tonic::Request<super::ListNearestRoadsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListNearestRoadsResponse>,
+            tonic::Status,
+        >;
+    }
+    /// The Roads API maps one or more GPS coordinates to the geometry of the road
+    /// and determines the speed limit along road segments.
+    #[derive(Debug)]
+    pub struct RoadsServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> RoadsServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for RoadsServiceServer<T>
+    where
+        T: RoadsService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.maps.roads.v1op.RoadsService/SnapToRoads" => {
+                    #[allow(non_camel_case_types)]
+                    struct SnapToRoadsSvc<T: RoadsService>(pub Arc<T>);
+                    impl<
+                        T: RoadsService,
+                    > tonic::server::UnaryService<super::SnapToRoadsRequest>
+                    for SnapToRoadsSvc<T> {
+                        type Response = super::SnapToRoadsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SnapToRoadsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RoadsService>::snap_to_roads(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SnapToRoadsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.maps.roads.v1op.RoadsService/ListNearestRoads" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListNearestRoadsSvc<T: RoadsService>(pub Arc<T>);
+                    impl<
+                        T: RoadsService,
+                    > tonic::server::UnaryService<super::ListNearestRoadsRequest>
+                    for ListNearestRoadsSvc<T> {
+                        type Response = super::ListNearestRoadsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListNearestRoadsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RoadsService>::list_nearest_roads(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListNearestRoadsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for RoadsServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.maps.roads.v1op.RoadsService";
+    impl<T> tonic::server::NamedService for RoadsServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

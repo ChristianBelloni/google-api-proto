@@ -107,9 +107,9 @@ pub mod constraint {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ConstraintDefault::Unspecified => "CONSTRAINT_DEFAULT_UNSPECIFIED",
-                ConstraintDefault::Allow => "ALLOW",
-                ConstraintDefault::Deny => "DENY",
+                Self::Unspecified => "CONSTRAINT_DEFAULT_UNSPECIFIED",
+                Self::Allow => "ALLOW",
+                Self::Deny => "DENY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -226,10 +226,10 @@ pub mod custom_constraint {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                MethodType::Unspecified => "METHOD_TYPE_UNSPECIFIED",
-                MethodType::Create => "CREATE",
-                MethodType::Update => "UPDATE",
-                MethodType::Delete => "DELETE",
+                Self::Unspecified => "METHOD_TYPE_UNSPECIFIED",
+                Self::Create => "CREATE",
+                Self::Update => "UPDATE",
+                Self::Delete => "DELETE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -271,9 +271,9 @@ pub mod custom_constraint {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ActionType::Unspecified => "ACTION_TYPE_UNSPECIFIED",
-                ActionType::Allow => "ALLOW",
-                ActionType::Deny => "DENY",
+                Self::Unspecified => "ACTION_TYPE_UNSPECIFIED",
+                Self::Allow => "ALLOW",
+                Self::Deny => "DENY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1155,5 +1155,812 @@ pub mod org_policy_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod org_policy_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with OrgPolicyServer.
+    #[async_trait]
+    pub trait OrgPolicy: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists constraints that could be applied on the specified resource.
+        async fn list_constraints(
+            &self,
+            request: tonic::Request<super::ListConstraintsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListConstraintsResponse>,
+            tonic::Status,
+        >;
+        /// Retrieves all of the policies that exist on a particular resource.
+        async fn list_policies(
+            &self,
+            request: tonic::Request<super::ListPoliciesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListPoliciesResponse>,
+            tonic::Status,
+        >;
+        /// Gets a policy on a resource.
+        ///
+        /// If no policy is set on the resource, `NOT_FOUND` is returned. The
+        /// `etag` value can be used with `UpdatePolicy()` to update a
+        /// policy during read-modify-write.
+        async fn get_policy(
+            &self,
+            request: tonic::Request<super::GetPolicyRequest>,
+        ) -> std::result::Result<tonic::Response<super::Policy>, tonic::Status>;
+        /// Gets the effective policy on a resource. This is the result of merging
+        /// policies in the resource hierarchy and evaluating conditions. The
+        /// returned policy will not have an `etag` or `condition` set because it is
+        /// an evaluated policy across multiple resources.
+        /// Subtrees of Resource Manager resource hierarchy with 'under:' prefix will
+        /// not be expanded.
+        async fn get_effective_policy(
+            &self,
+            request: tonic::Request<super::GetEffectivePolicyRequest>,
+        ) -> std::result::Result<tonic::Response<super::Policy>, tonic::Status>;
+        /// Creates a policy.
+        ///
+        /// Returns a `google.rpc.Status` with `google.rpc.Code.NOT_FOUND` if the
+        /// constraint does not exist.
+        /// Returns a `google.rpc.Status` with `google.rpc.Code.ALREADY_EXISTS` if the
+        /// policy already exists on the given Google Cloud resource.
+        async fn create_policy(
+            &self,
+            request: tonic::Request<super::CreatePolicyRequest>,
+        ) -> std::result::Result<tonic::Response<super::Policy>, tonic::Status>;
+        /// Updates a policy.
+        ///
+        /// Returns a `google.rpc.Status` with `google.rpc.Code.NOT_FOUND` if the
+        /// constraint or the policy do not exist.
+        /// Returns a `google.rpc.Status` with `google.rpc.Code.ABORTED` if the etag
+        /// supplied in the request does not match the persisted etag of the policy
+        ///
+        /// Note: the supplied policy will perform a full overwrite of all
+        /// fields.
+        async fn update_policy(
+            &self,
+            request: tonic::Request<super::UpdatePolicyRequest>,
+        ) -> std::result::Result<tonic::Response<super::Policy>, tonic::Status>;
+        /// Deletes a policy.
+        ///
+        /// Returns a `google.rpc.Status` with `google.rpc.Code.NOT_FOUND` if the
+        /// constraint or organization policy does not exist.
+        async fn delete_policy(
+            &self,
+            request: tonic::Request<super::DeletePolicyRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Creates a custom constraint.
+        ///
+        /// Returns a `google.rpc.Status` with `google.rpc.Code.NOT_FOUND` if the
+        /// organization does not exist.
+        /// Returns a `google.rpc.Status` with `google.rpc.Code.ALREADY_EXISTS` if the
+        /// constraint already exists on the given organization.
+        async fn create_custom_constraint(
+            &self,
+            request: tonic::Request<super::CreateCustomConstraintRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::CustomConstraint>,
+            tonic::Status,
+        >;
+        /// Updates a custom constraint.
+        ///
+        /// Returns a `google.rpc.Status` with `google.rpc.Code.NOT_FOUND` if the
+        /// constraint does not exist.
+        ///
+        /// Note: the supplied policy will perform a full overwrite of all
+        /// fields.
+        async fn update_custom_constraint(
+            &self,
+            request: tonic::Request<super::UpdateCustomConstraintRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::CustomConstraint>,
+            tonic::Status,
+        >;
+        /// Gets a custom constraint.
+        ///
+        /// Returns a `google.rpc.Status` with `google.rpc.Code.NOT_FOUND` if the
+        /// custom constraint does not exist.
+        async fn get_custom_constraint(
+            &self,
+            request: tonic::Request<super::GetCustomConstraintRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::CustomConstraint>,
+            tonic::Status,
+        >;
+        /// Retrieves all of the custom constraints that exist on a particular
+        /// organization resource.
+        async fn list_custom_constraints(
+            &self,
+            request: tonic::Request<super::ListCustomConstraintsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListCustomConstraintsResponse>,
+            tonic::Status,
+        >;
+        /// Deletes a custom constraint.
+        ///
+        /// Returns a `google.rpc.Status` with `google.rpc.Code.NOT_FOUND` if the
+        /// constraint does not exist.
+        async fn delete_custom_constraint(
+            &self,
+            request: tonic::Request<super::DeleteCustomConstraintRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+    }
+    /// An interface for managing organization policies.
+    ///
+    /// The Organization Policy Service provides a simple mechanism for
+    /// organizations to restrict the allowed configurations across their entire
+    /// resource hierarchy.
+    ///
+    /// You can use a policy to configure restrictions on resources. For
+    /// example, you can enforce a policy that restricts which Google
+    /// Cloud APIs can be activated in a certain part of your resource
+    /// hierarchy, or prevents serial port access to VM instances in a
+    /// particular folder.
+    ///
+    /// Policies are inherited down through the resource hierarchy. A policy
+    /// applied to a parent resource automatically applies to all its child resources
+    /// unless overridden with a policy lower in the hierarchy.
+    ///
+    /// A constraint defines an aspect of a resource's configuration that can be
+    /// controlled by an organization's policy administrator. Policies are a
+    /// collection of constraints that defines their allowable configuration on a
+    /// particular resource and its child resources.
+    #[derive(Debug)]
+    pub struct OrgPolicyServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> OrgPolicyServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for OrgPolicyServer<T>
+    where
+        T: OrgPolicy,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.orgpolicy.v2.OrgPolicy/ListConstraints" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListConstraintsSvc<T: OrgPolicy>(pub Arc<T>);
+                    impl<
+                        T: OrgPolicy,
+                    > tonic::server::UnaryService<super::ListConstraintsRequest>
+                    for ListConstraintsSvc<T> {
+                        type Response = super::ListConstraintsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListConstraintsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OrgPolicy>::list_constraints(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListConstraintsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.orgpolicy.v2.OrgPolicy/ListPolicies" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListPoliciesSvc<T: OrgPolicy>(pub Arc<T>);
+                    impl<
+                        T: OrgPolicy,
+                    > tonic::server::UnaryService<super::ListPoliciesRequest>
+                    for ListPoliciesSvc<T> {
+                        type Response = super::ListPoliciesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListPoliciesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OrgPolicy>::list_policies(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListPoliciesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.orgpolicy.v2.OrgPolicy/GetPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetPolicySvc<T: OrgPolicy>(pub Arc<T>);
+                    impl<
+                        T: OrgPolicy,
+                    > tonic::server::UnaryService<super::GetPolicyRequest>
+                    for GetPolicySvc<T> {
+                        type Response = super::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetPolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OrgPolicy>::get_policy(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.orgpolicy.v2.OrgPolicy/GetEffectivePolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetEffectivePolicySvc<T: OrgPolicy>(pub Arc<T>);
+                    impl<
+                        T: OrgPolicy,
+                    > tonic::server::UnaryService<super::GetEffectivePolicyRequest>
+                    for GetEffectivePolicySvc<T> {
+                        type Response = super::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetEffectivePolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OrgPolicy>::get_effective_policy(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetEffectivePolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.orgpolicy.v2.OrgPolicy/CreatePolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreatePolicySvc<T: OrgPolicy>(pub Arc<T>);
+                    impl<
+                        T: OrgPolicy,
+                    > tonic::server::UnaryService<super::CreatePolicyRequest>
+                    for CreatePolicySvc<T> {
+                        type Response = super::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreatePolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OrgPolicy>::create_policy(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreatePolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.orgpolicy.v2.OrgPolicy/UpdatePolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdatePolicySvc<T: OrgPolicy>(pub Arc<T>);
+                    impl<
+                        T: OrgPolicy,
+                    > tonic::server::UnaryService<super::UpdatePolicyRequest>
+                    for UpdatePolicySvc<T> {
+                        type Response = super::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdatePolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OrgPolicy>::update_policy(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdatePolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.orgpolicy.v2.OrgPolicy/DeletePolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeletePolicySvc<T: OrgPolicy>(pub Arc<T>);
+                    impl<
+                        T: OrgPolicy,
+                    > tonic::server::UnaryService<super::DeletePolicyRequest>
+                    for DeletePolicySvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeletePolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OrgPolicy>::delete_policy(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeletePolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.orgpolicy.v2.OrgPolicy/CreateCustomConstraint" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateCustomConstraintSvc<T: OrgPolicy>(pub Arc<T>);
+                    impl<
+                        T: OrgPolicy,
+                    > tonic::server::UnaryService<super::CreateCustomConstraintRequest>
+                    for CreateCustomConstraintSvc<T> {
+                        type Response = super::CustomConstraint;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateCustomConstraintRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OrgPolicy>::create_custom_constraint(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateCustomConstraintSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.orgpolicy.v2.OrgPolicy/UpdateCustomConstraint" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateCustomConstraintSvc<T: OrgPolicy>(pub Arc<T>);
+                    impl<
+                        T: OrgPolicy,
+                    > tonic::server::UnaryService<super::UpdateCustomConstraintRequest>
+                    for UpdateCustomConstraintSvc<T> {
+                        type Response = super::CustomConstraint;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateCustomConstraintRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OrgPolicy>::update_custom_constraint(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateCustomConstraintSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.orgpolicy.v2.OrgPolicy/GetCustomConstraint" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetCustomConstraintSvc<T: OrgPolicy>(pub Arc<T>);
+                    impl<
+                        T: OrgPolicy,
+                    > tonic::server::UnaryService<super::GetCustomConstraintRequest>
+                    for GetCustomConstraintSvc<T> {
+                        type Response = super::CustomConstraint;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetCustomConstraintRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OrgPolicy>::get_custom_constraint(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetCustomConstraintSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.orgpolicy.v2.OrgPolicy/ListCustomConstraints" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListCustomConstraintsSvc<T: OrgPolicy>(pub Arc<T>);
+                    impl<
+                        T: OrgPolicy,
+                    > tonic::server::UnaryService<super::ListCustomConstraintsRequest>
+                    for ListCustomConstraintsSvc<T> {
+                        type Response = super::ListCustomConstraintsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListCustomConstraintsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OrgPolicy>::list_custom_constraints(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListCustomConstraintsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.orgpolicy.v2.OrgPolicy/DeleteCustomConstraint" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteCustomConstraintSvc<T: OrgPolicy>(pub Arc<T>);
+                    impl<
+                        T: OrgPolicy,
+                    > tonic::server::UnaryService<super::DeleteCustomConstraintRequest>
+                    for DeleteCustomConstraintSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteCustomConstraintRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as OrgPolicy>::delete_custom_constraint(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteCustomConstraintSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for OrgPolicyServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.orgpolicy.v2.OrgPolicy";
+    impl<T> tonic::server::NamedService for OrgPolicyServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

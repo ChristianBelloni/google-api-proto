@@ -40,10 +40,10 @@ impl FileFormat {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            FileFormat::Unspecified => "FILE_FORMAT_UNSPECIFIED",
-            FileFormat::Geojson => "FILE_FORMAT_GEOJSON",
-            FileFormat::Kml => "FILE_FORMAT_KML",
-            FileFormat::Csv => "FILE_FORMAT_CSV",
+            Self::Unspecified => "FILE_FORMAT_UNSPECIFIED",
+            Self::Geojson => "FILE_FORMAT_GEOJSON",
+            Self::Kml => "FILE_FORMAT_KML",
+            Self::Csv => "FILE_FORMAT_CSV",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -175,18 +175,18 @@ pub mod status {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Importing => "STATE_IMPORTING",
-                State::ImportSucceeded => "STATE_IMPORT_SUCCEEDED",
-                State::ImportFailed => "STATE_IMPORT_FAILED",
-                State::Deleting => "STATE_DELETING",
-                State::DeletionFailed => "STATE_DELETION_FAILED",
-                State::Processing => "STATE_PROCESSING",
-                State::ProcessingFailed => "STATE_PROCESSING_FAILED",
-                State::NeedsReview => "STATE_NEEDS_REVIEW",
-                State::Publishing => "STATE_PUBLISHING",
-                State::PublishingFailed => "STATE_PUBLISHING_FAILED",
-                State::Completed => "STATE_COMPLETED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Importing => "STATE_IMPORTING",
+                Self::ImportSucceeded => "STATE_IMPORT_SUCCEEDED",
+                Self::ImportFailed => "STATE_IMPORT_FAILED",
+                Self::Deleting => "STATE_DELETING",
+                Self::DeletionFailed => "STATE_DELETION_FAILED",
+                Self::Processing => "STATE_PROCESSING",
+                Self::ProcessingFailed => "STATE_PROCESSING_FAILED",
+                Self::NeedsReview => "STATE_NEEDS_REVIEW",
+                Self::Publishing => "STATE_PUBLISHING",
+                Self::PublishingFailed => "STATE_PUBLISHING_FAILED",
+                Self::Completed => "STATE_COMPLETED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -226,8 +226,8 @@ impl Usage {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            Usage::Unspecified => "USAGE_UNSPECIFIED",
-            Usage::DataDrivenStyling => "USAGE_DATA_DRIVEN_STYLING",
+            Self::Unspecified => "USAGE_UNSPECIFIED",
+            Self::DataDrivenStyling => "USAGE_DATA_DRIVEN_STYLING",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -606,5 +606,445 @@ pub mod maps_platform_datasets_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod maps_platform_datasets_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with MapsPlatformDatasetsServer.
+    #[async_trait]
+    pub trait MapsPlatformDatasets: std::marker::Send + std::marker::Sync + 'static {
+        /// Creates a new dataset for the specified project.
+        async fn create_dataset(
+            &self,
+            request: tonic::Request<super::CreateDatasetRequest>,
+        ) -> std::result::Result<tonic::Response<super::Dataset>, tonic::Status>;
+        /// Updates the metadata for the dataset.
+        async fn update_dataset_metadata(
+            &self,
+            request: tonic::Request<super::UpdateDatasetMetadataRequest>,
+        ) -> std::result::Result<tonic::Response<super::Dataset>, tonic::Status>;
+        /// Gets the dataset.
+        async fn get_dataset(
+            &self,
+            request: tonic::Request<super::GetDatasetRequest>,
+        ) -> std::result::Result<tonic::Response<super::Dataset>, tonic::Status>;
+        /// Gets all the errors of a dataset.
+        async fn fetch_dataset_errors(
+            &self,
+            request: tonic::Request<super::FetchDatasetErrorsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::FetchDatasetErrorsResponse>,
+            tonic::Status,
+        >;
+        /// Lists all the datasets for the specified project.
+        async fn list_datasets(
+            &self,
+            request: tonic::Request<super::ListDatasetsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDatasetsResponse>,
+            tonic::Status,
+        >;
+        /// Deletes the specified dataset.
+        async fn delete_dataset(
+            &self,
+            request: tonic::Request<super::DeleteDatasetRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+    }
+    /// Service definition for the Maps Platform Datasets API.
+    #[derive(Debug)]
+    pub struct MapsPlatformDatasetsServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> MapsPlatformDatasetsServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for MapsPlatformDatasetsServer<T>
+    where
+        T: MapsPlatformDatasets,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.maps.mapsplatformdatasets.v1.MapsPlatformDatasets/CreateDataset" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateDatasetSvc<T: MapsPlatformDatasets>(pub Arc<T>);
+                    impl<
+                        T: MapsPlatformDatasets,
+                    > tonic::server::UnaryService<super::CreateDatasetRequest>
+                    for CreateDatasetSvc<T> {
+                        type Response = super::Dataset;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateDatasetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MapsPlatformDatasets>::create_dataset(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateDatasetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.maps.mapsplatformdatasets.v1.MapsPlatformDatasets/UpdateDatasetMetadata" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateDatasetMetadataSvc<T: MapsPlatformDatasets>(pub Arc<T>);
+                    impl<
+                        T: MapsPlatformDatasets,
+                    > tonic::server::UnaryService<super::UpdateDatasetMetadataRequest>
+                    for UpdateDatasetMetadataSvc<T> {
+                        type Response = super::Dataset;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateDatasetMetadataRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MapsPlatformDatasets>::update_dataset_metadata(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateDatasetMetadataSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.maps.mapsplatformdatasets.v1.MapsPlatformDatasets/GetDataset" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetDatasetSvc<T: MapsPlatformDatasets>(pub Arc<T>);
+                    impl<
+                        T: MapsPlatformDatasets,
+                    > tonic::server::UnaryService<super::GetDatasetRequest>
+                    for GetDatasetSvc<T> {
+                        type Response = super::Dataset;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetDatasetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MapsPlatformDatasets>::get_dataset(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetDatasetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.maps.mapsplatformdatasets.v1.MapsPlatformDatasets/FetchDatasetErrors" => {
+                    #[allow(non_camel_case_types)]
+                    struct FetchDatasetErrorsSvc<T: MapsPlatformDatasets>(pub Arc<T>);
+                    impl<
+                        T: MapsPlatformDatasets,
+                    > tonic::server::UnaryService<super::FetchDatasetErrorsRequest>
+                    for FetchDatasetErrorsSvc<T> {
+                        type Response = super::FetchDatasetErrorsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::FetchDatasetErrorsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MapsPlatformDatasets>::fetch_dataset_errors(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = FetchDatasetErrorsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.maps.mapsplatformdatasets.v1.MapsPlatformDatasets/ListDatasets" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDatasetsSvc<T: MapsPlatformDatasets>(pub Arc<T>);
+                    impl<
+                        T: MapsPlatformDatasets,
+                    > tonic::server::UnaryService<super::ListDatasetsRequest>
+                    for ListDatasetsSvc<T> {
+                        type Response = super::ListDatasetsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListDatasetsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MapsPlatformDatasets>::list_datasets(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDatasetsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.maps.mapsplatformdatasets.v1.MapsPlatformDatasets/DeleteDataset" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteDatasetSvc<T: MapsPlatformDatasets>(pub Arc<T>);
+                    impl<
+                        T: MapsPlatformDatasets,
+                    > tonic::server::UnaryService<super::DeleteDatasetRequest>
+                    for DeleteDatasetSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteDatasetRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as MapsPlatformDatasets>::delete_dataset(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteDatasetSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for MapsPlatformDatasetsServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.maps.mapsplatformdatasets.v1.MapsPlatformDatasets";
+    impl<T> tonic::server::NamedService for MapsPlatformDatasetsServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

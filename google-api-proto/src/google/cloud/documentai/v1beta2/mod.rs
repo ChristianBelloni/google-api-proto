@@ -419,11 +419,11 @@ pub mod document {
                 /// (if the ProtoBuf definition does not change) and safe for programmatic use.
                 pub fn as_str_name(&self) -> &'static str {
                     match self {
-                        Orientation::Unspecified => "ORIENTATION_UNSPECIFIED",
-                        Orientation::PageUp => "PAGE_UP",
-                        Orientation::PageRight => "PAGE_RIGHT",
-                        Orientation::PageDown => "PAGE_DOWN",
-                        Orientation::PageLeft => "PAGE_LEFT",
+                        Self::Unspecified => "ORIENTATION_UNSPECIFIED",
+                        Self::PageUp => "PAGE_UP",
+                        Self::PageRight => "PAGE_RIGHT",
+                        Self::PageDown => "PAGE_DOWN",
+                        Self::PageLeft => "PAGE_LEFT",
                     }
                 }
                 /// Creates an enum from field names used in the ProtoBuf definition.
@@ -550,10 +550,10 @@ pub mod document {
                     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
                     pub fn as_str_name(&self) -> &'static str {
                         match self {
-                            Type::Unspecified => "TYPE_UNSPECIFIED",
-                            Type::Space => "SPACE",
-                            Type::WideSpace => "WIDE_SPACE",
-                            Type::Hyphen => "HYPHEN",
+                            Self::Unspecified => "TYPE_UNSPECIFIED",
+                            Self::Space => "SPACE",
+                            Self::WideSpace => "WIDE_SPACE",
+                            Self::Hyphen => "HYPHEN",
                         }
                     }
                     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1070,14 +1070,14 @@ pub mod document {
                 /// (if the ProtoBuf definition does not change) and safe for programmatic use.
                 pub fn as_str_name(&self) -> &'static str {
                     match self {
-                        LayoutType::Unspecified => "LAYOUT_TYPE_UNSPECIFIED",
-                        LayoutType::Block => "BLOCK",
-                        LayoutType::Paragraph => "PARAGRAPH",
-                        LayoutType::Line => "LINE",
-                        LayoutType::Token => "TOKEN",
-                        LayoutType::VisualElement => "VISUAL_ELEMENT",
-                        LayoutType::Table => "TABLE",
-                        LayoutType::FormField => "FORM_FIELD",
+                        Self::Unspecified => "LAYOUT_TYPE_UNSPECIFIED",
+                        Self::Block => "BLOCK",
+                        Self::Paragraph => "PARAGRAPH",
+                        Self::Line => "LINE",
+                        Self::Token => "TOKEN",
+                        Self::VisualElement => "VISUAL_ELEMENT",
+                        Self::Table => "TABLE",
+                        Self::FormField => "FORM_FIELD",
                     }
                 }
                 /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1179,14 +1179,14 @@ pub mod document {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    OperationType::Unspecified => "OPERATION_TYPE_UNSPECIFIED",
-                    OperationType::Add => "ADD",
-                    OperationType::Remove => "REMOVE",
-                    OperationType::Update => "UPDATE",
-                    OperationType::Replace => "REPLACE",
-                    OperationType::EvalRequested => "EVAL_REQUESTED",
-                    OperationType::EvalApproved => "EVAL_APPROVED",
-                    OperationType::EvalSkipped => "EVAL_SKIPPED",
+                    Self::Unspecified => "OPERATION_TYPE_UNSPECIFIED",
+                    Self::Add => "ADD",
+                    Self::Remove => "REMOVE",
+                    Self::Update => "UPDATE",
+                    Self::Replace => "REPLACE",
+                    Self::EvalRequested => "EVAL_REQUESTED",
+                    Self::EvalApproved => "EVAL_APPROVED",
+                    Self::EvalSkipped => "EVAL_SKIPPED",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1603,13 +1603,13 @@ pub mod operation_metadata {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Accepted => "ACCEPTED",
-                State::Waiting => "WAITING",
-                State::Running => "RUNNING",
-                State::Succeeded => "SUCCEEDED",
-                State::Cancelled => "CANCELLED",
-                State::Failed => "FAILED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Accepted => "ACCEPTED",
+                Self::Waiting => "WAITING",
+                Self::Running => "RUNNING",
+                Self::Succeeded => "SUCCEEDED",
+                Self::Cancelled => "CANCELLED",
+                Self::Failed => "FAILED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1766,5 +1766,245 @@ pub mod document_understanding_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod document_understanding_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with DocumentUnderstandingServiceServer.
+    #[async_trait]
+    pub trait DocumentUnderstandingService: std::marker::Send + std::marker::Sync + 'static {
+        /// LRO endpoint to batch process many documents. The output is written
+        /// to Cloud Storage as JSON in the [Document] format.
+        async fn batch_process_documents(
+            &self,
+            request: tonic::Request<super::BatchProcessDocumentsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Processes a single document.
+        async fn process_document(
+            &self,
+            request: tonic::Request<super::ProcessDocumentRequest>,
+        ) -> std::result::Result<tonic::Response<super::Document>, tonic::Status>;
+    }
+    /// Service to parse structured information from unstructured or semi-structured
+    /// documents using state-of-the-art Google AI such as natural language,
+    /// computer vision, and translation.
+    #[derive(Debug)]
+    pub struct DocumentUnderstandingServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> DocumentUnderstandingServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for DocumentUnderstandingServiceServer<T>
+    where
+        T: DocumentUnderstandingService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.documentai.v1beta2.DocumentUnderstandingService/BatchProcessDocuments" => {
+                    #[allow(non_camel_case_types)]
+                    struct BatchProcessDocumentsSvc<T: DocumentUnderstandingService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: DocumentUnderstandingService,
+                    > tonic::server::UnaryService<super::BatchProcessDocumentsRequest>
+                    for BatchProcessDocumentsSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::BatchProcessDocumentsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DocumentUnderstandingService>::batch_process_documents(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BatchProcessDocumentsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.documentai.v1beta2.DocumentUnderstandingService/ProcessDocument" => {
+                    #[allow(non_camel_case_types)]
+                    struct ProcessDocumentSvc<T: DocumentUnderstandingService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: DocumentUnderstandingService,
+                    > tonic::server::UnaryService<super::ProcessDocumentRequest>
+                    for ProcessDocumentSvc<T> {
+                        type Response = super::Document;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ProcessDocumentRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DocumentUnderstandingService>::process_document(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ProcessDocumentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for DocumentUnderstandingServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.documentai.v1beta2.DocumentUnderstandingService";
+    impl<T> tonic::server::NamedService for DocumentUnderstandingServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

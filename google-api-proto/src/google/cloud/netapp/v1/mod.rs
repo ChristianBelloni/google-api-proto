@@ -29,11 +29,11 @@ impl ServiceLevel {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ServiceLevel::Unspecified => "SERVICE_LEVEL_UNSPECIFIED",
-            ServiceLevel::Premium => "PREMIUM",
-            ServiceLevel::Extreme => "EXTREME",
-            ServiceLevel::Standard => "STANDARD",
-            ServiceLevel::Flex => "FLEX",
+            Self::Unspecified => "SERVICE_LEVEL_UNSPECIFIED",
+            Self::Premium => "PREMIUM",
+            Self::Extreme => "EXTREME",
+            Self::Standard => "STANDARD",
+            Self::Flex => "FLEX",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -66,9 +66,9 @@ impl EncryptionType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            EncryptionType::Unspecified => "ENCRYPTION_TYPE_UNSPECIFIED",
-            EncryptionType::ServiceManaged => "SERVICE_MANAGED",
-            EncryptionType::CloudKms => "CLOUD_KMS",
+            Self::Unspecified => "ENCRYPTION_TYPE_UNSPECIFIED",
+            Self::ServiceManaged => "SERVICE_MANAGED",
+            Self::CloudKms => "CLOUD_KMS",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -343,14 +343,14 @@ pub mod volume {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Ready => "READY",
-                State::Creating => "CREATING",
-                State::Deleting => "DELETING",
-                State::Updating => "UPDATING",
-                State::Restoring => "RESTORING",
-                State::Disabled => "DISABLED",
-                State::Error => "ERROR",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Ready => "READY",
+                Self::Creating => "CREATING",
+                Self::Deleting => "DELETING",
+                Self::Updating => "UPDATING",
+                Self::Restoring => "RESTORING",
+                Self::Disabled => "DISABLED",
+                Self::Error => "ERROR",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -614,9 +614,9 @@ pub mod tiering_policy {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                TierAction::Unspecified => "TIER_ACTION_UNSPECIFIED",
-                TierAction::Enabled => "ENABLED",
-                TierAction::Paused => "PAUSED",
+                Self::Unspecified => "TIER_ACTION_UNSPECIFIED",
+                Self::Enabled => "ENABLED",
+                Self::Paused => "PAUSED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -650,10 +650,10 @@ impl Protocols {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            Protocols::Unspecified => "PROTOCOLS_UNSPECIFIED",
-            Protocols::Nfsv3 => "NFSV3",
-            Protocols::Nfsv4 => "NFSV4",
-            Protocols::Smb => "SMB",
+            Self::Unspecified => "PROTOCOLS_UNSPECIFIED",
+            Self::Nfsv3 => "NFSV3",
+            Self::Nfsv4 => "NFSV4",
+            Self::Smb => "SMB",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -687,10 +687,10 @@ impl AccessType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            AccessType::Unspecified => "ACCESS_TYPE_UNSPECIFIED",
-            AccessType::ReadOnly => "READ_ONLY",
-            AccessType::ReadWrite => "READ_WRITE",
-            AccessType::ReadNone => "READ_NONE",
+            Self::Unspecified => "ACCESS_TYPE_UNSPECIFIED",
+            Self::ReadOnly => "READ_ONLY",
+            Self::ReadWrite => "READ_WRITE",
+            Self::ReadNone => "READ_NONE",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -737,16 +737,16 @@ impl SmbSettings {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            SmbSettings::Unspecified => "SMB_SETTINGS_UNSPECIFIED",
-            SmbSettings::EncryptData => "ENCRYPT_DATA",
-            SmbSettings::Browsable => "BROWSABLE",
-            SmbSettings::ChangeNotify => "CHANGE_NOTIFY",
-            SmbSettings::NonBrowsable => "NON_BROWSABLE",
-            SmbSettings::Oplocks => "OPLOCKS",
-            SmbSettings::ShowSnapshot => "SHOW_SNAPSHOT",
-            SmbSettings::ShowPreviousVersions => "SHOW_PREVIOUS_VERSIONS",
-            SmbSettings::AccessBasedEnumeration => "ACCESS_BASED_ENUMERATION",
-            SmbSettings::ContinuouslyAvailable => "CONTINUOUSLY_AVAILABLE",
+            Self::Unspecified => "SMB_SETTINGS_UNSPECIFIED",
+            Self::EncryptData => "ENCRYPT_DATA",
+            Self::Browsable => "BROWSABLE",
+            Self::ChangeNotify => "CHANGE_NOTIFY",
+            Self::NonBrowsable => "NON_BROWSABLE",
+            Self::Oplocks => "OPLOCKS",
+            Self::ShowSnapshot => "SHOW_SNAPSHOT",
+            Self::ShowPreviousVersions => "SHOW_PREVIOUS_VERSIONS",
+            Self::AccessBasedEnumeration => "ACCESS_BASED_ENUMERATION",
+            Self::ContinuouslyAvailable => "CONTINUOUSLY_AVAILABLE",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -784,9 +784,9 @@ impl SecurityStyle {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            SecurityStyle::Unspecified => "SECURITY_STYLE_UNSPECIFIED",
-            SecurityStyle::Ntfs => "NTFS",
-            SecurityStyle::Unix => "UNIX",
+            Self::Unspecified => "SECURITY_STYLE_UNSPECIFIED",
+            Self::Ntfs => "NTFS",
+            Self::Unix => "UNIX",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -815,8 +815,8 @@ impl RestrictedAction {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            RestrictedAction::Unspecified => "RESTRICTED_ACTION_UNSPECIFIED",
-            RestrictedAction::Delete => "DELETE",
+            Self::Unspecified => "RESTRICTED_ACTION_UNSPECIFIED",
+            Self::Delete => "DELETE",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -827,6 +827,172 @@ impl RestrictedAction {
             _ => None,
         }
     }
+}
+/// A NetApp BackupVault.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct BackupVault {
+    /// Identifier. The resource name of the backup vault.
+    /// Format:
+    /// `projects/{project_id}/locations/{location}/backupVaults/{backup_vault_id}`.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// Output only. The backup vault state.
+    #[prost(enumeration = "backup_vault::State", tag = "2")]
+    pub state: i32,
+    /// Output only. Create time of the backup vault.
+    #[prost(message, optional, tag = "3")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Description of the backup vault.
+    #[prost(string, tag = "4")]
+    pub description: ::prost::alloc::string::String,
+    /// Resource labels to represent user provided metadata.
+    #[prost(btree_map = "string, string", tag = "5")]
+    pub labels: ::prost::alloc::collections::BTreeMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+}
+/// Nested message and enum types in `BackupVault`.
+pub mod backup_vault {
+    /// The Backup Vault States
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum State {
+        /// State not set.
+        Unspecified = 0,
+        /// BackupVault is being created.
+        Creating = 1,
+        /// BackupVault is available for use.
+        Ready = 2,
+        /// BackupVault is being deleted.
+        Deleting = 3,
+        /// BackupVault is not valid and cannot be used.
+        Error = 4,
+        /// BackupVault is being updated.
+        Updating = 5,
+    }
+    impl State {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Ready => "READY",
+                Self::Deleting => "DELETING",
+                Self::Error => "ERROR",
+                Self::Updating => "UPDATING",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "STATE_UNSPECIFIED" => Some(Self::Unspecified),
+                "CREATING" => Some(Self::Creating),
+                "READY" => Some(Self::Ready),
+                "DELETING" => Some(Self::Deleting),
+                "ERROR" => Some(Self::Error),
+                "UPDATING" => Some(Self::Updating),
+                _ => None,
+            }
+        }
+    }
+}
+/// GetBackupVaultRequest gets the state of a backupVault.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetBackupVaultRequest {
+    /// Required. The backupVault resource name, in the format
+    /// `projects/{project_id}/locations/{location}/backupVaults/{backup_vault_id}`
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// ListBackupVaultsRequest lists backupVaults.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListBackupVaultsRequest {
+    /// Required. The location for which to retrieve backupVault information,
+    /// in the format
+    /// `projects/{project_id}/locations/{location}`.
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// The maximum number of items to return.
+    #[prost(int32, tag = "2")]
+    pub page_size: i32,
+    /// The next_page_token value to use if there are additional
+    /// results to retrieve for this list request.
+    #[prost(string, tag = "3")]
+    pub page_token: ::prost::alloc::string::String,
+    /// Sort results. Supported values are "name", "name desc" or "" (unsorted).
+    #[prost(string, tag = "4")]
+    pub order_by: ::prost::alloc::string::String,
+    /// List filter.
+    #[prost(string, tag = "5")]
+    pub filter: ::prost::alloc::string::String,
+}
+/// ListBackupVaultsResponse is the result of ListBackupVaultsRequest.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListBackupVaultsResponse {
+    /// A list of backupVaults in the project for the specified location.
+    #[prost(message, repeated, tag = "1")]
+    pub backup_vaults: ::prost::alloc::vec::Vec<BackupVault>,
+    /// The token you can use to retrieve the next page of results. Not returned
+    /// if there are no more results in the list.
+    #[prost(string, tag = "2")]
+    pub next_page_token: ::prost::alloc::string::String,
+    /// Locations that could not be reached.
+    #[prost(string, repeated, tag = "3")]
+    pub unreachable: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+/// CreateBackupVaultRequest creates a backup vault.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateBackupVaultRequest {
+    /// Required. The location to create the backup vaults, in the format
+    /// `projects/{project_id}/locations/{location}`
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// Required. The ID to use for the backupVault.
+    /// The ID must be unique within the specified location.
+    /// Must contain only letters, numbers, underscore and hyphen, with the first
+    /// character a letter or underscore, the last a letter or underscore or a
+    /// number, and a 63 character maximum.
+    #[prost(string, tag = "2")]
+    pub backup_vault_id: ::prost::alloc::string::String,
+    /// Required. A backupVault resource
+    #[prost(message, optional, tag = "3")]
+    pub backup_vault: ::core::option::Option<BackupVault>,
+}
+/// DeleteBackupVaultRequest deletes a backupVault.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteBackupVaultRequest {
+    /// Required. The backupVault resource name, in the format
+    /// `projects/{project_id}/locations/{location}/backupVaults/{backup_vault_id}`
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// UpdateBackupVaultRequest updates description and/or labels for a backupVault.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateBackupVaultRequest {
+    /// Required. Field mask is used to specify the fields to be overwritten in the
+    /// Backup resource to be updated.
+    /// The fields specified in the update_mask are relative to the resource, not
+    /// the full request. A field will be overwritten if it is in the mask. If the
+    /// user does not provide a mask then all fields will be overwritten.
+    #[prost(message, optional, tag = "1")]
+    pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
+    /// Required. The backupVault being updated
+    #[prost(message, optional, tag = "2")]
+    pub backup_vault: ::core::option::Option<BackupVault>,
 }
 /// Backup Policy.
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -907,12 +1073,12 @@ pub mod backup_policy {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Ready => "READY",
-                State::Deleting => "DELETING",
-                State::Error => "ERROR",
-                State::Updating => "UPDATING",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Ready => "READY",
+                Self::Deleting => "DELETING",
+                Self::Error => "ERROR",
+                Self::Updating => "UPDATING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1010,158 +1176,58 @@ pub struct DeleteBackupPolicyRequest {
     #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
 }
-/// GetStoragePoolRequest gets a Storage Pool.
+/// A NetApp Backup.
 #[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetStoragePoolRequest {
-    /// Required. Name of the storage pool
+pub struct Backup {
+    /// Identifier. The resource name of the backup.
+    /// Format:
+    /// `projects/{project_id}/locations/{location}/backupVaults/{backup_vault_id}/backups/{backup_id}`.
     #[prost(string, tag = "1")]
     pub name: ::prost::alloc::string::String,
-}
-/// ListStoragePoolsRequest lists Storage Pools.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListStoragePoolsRequest {
-    /// Required. Parent value
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// Optional. The maximum number of items to return.
-    #[prost(int32, tag = "2")]
-    pub page_size: i32,
-    /// Optional. The next_page_token value to use if there are additional
-    /// results to retrieve for this list request.
-    #[prost(string, tag = "3")]
-    pub page_token: ::prost::alloc::string::String,
-    /// Optional. Sort results. Supported values are "name", "name desc" or ""
-    /// (unsorted).
-    #[prost(string, tag = "4")]
-    pub order_by: ::prost::alloc::string::String,
-    /// Optional. List filter.
-    #[prost(string, tag = "5")]
-    pub filter: ::prost::alloc::string::String,
-}
-/// ListStoragePoolsResponse is the response to a ListStoragePoolsRequest.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListStoragePoolsResponse {
-    /// The list of StoragePools
-    #[prost(message, repeated, tag = "1")]
-    pub storage_pools: ::prost::alloc::vec::Vec<StoragePool>,
-    /// A token identifying a page of results the server should return.
-    #[prost(string, tag = "2")]
-    pub next_page_token: ::prost::alloc::string::String,
-    /// Locations that could not be reached.
-    #[prost(string, repeated, tag = "3")]
-    pub unreachable: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-}
-/// CreateStoragePoolRequest creates a Storage Pool.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CreateStoragePoolRequest {
-    /// Required. Value for parent.
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// Required. Id of the requesting storage pool. Must be unique within the
-    /// parent resource. Must contain only letters, numbers, underscore and hyphen,
-    /// with the first character a letter or underscore, the last a letter or
-    /// underscore or a number, and a 63 character maximum.
-    #[prost(string, tag = "2")]
-    pub storage_pool_id: ::prost::alloc::string::String,
-    /// Required. The required parameters to create a new storage pool.
-    #[prost(message, optional, tag = "3")]
-    pub storage_pool: ::core::option::Option<StoragePool>,
-}
-/// UpdateStoragePoolRequest updates a Storage Pool.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UpdateStoragePoolRequest {
-    /// Required. Field mask is used to specify the fields to be overwritten in the
-    /// StoragePool resource by the update.
-    /// The fields specified in the update_mask are relative to the resource, not
-    /// the full request. A field will be overwritten if it is in the mask. If the
-    /// user does not provide a mask then all fields will be overwritten.
-    #[prost(message, optional, tag = "1")]
-    pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
-    /// Required. The pool being updated
-    #[prost(message, optional, tag = "2")]
-    pub storage_pool: ::core::option::Option<StoragePool>,
-}
-/// DeleteStoragePoolRequest deletes a Storage Pool.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DeleteStoragePoolRequest {
-    /// Required. Name of the storage pool
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// StoragePool is a container for volumes with a service level and capacity.
-/// Volumes can be created in a pool of sufficient available capacity.
-/// StoragePool capacity is what you are billed for.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct StoragePool {
-    /// Identifier. Name of the storage pool
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// Required. Service level of the storage pool
-    #[prost(enumeration = "ServiceLevel", tag = "2")]
-    pub service_level: i32,
-    /// Required. Capacity in GIB of the pool
-    #[prost(int64, tag = "3")]
-    pub capacity_gib: i64,
-    /// Output only. Allocated size of all volumes in GIB in the storage pool
-    #[prost(int64, tag = "4")]
-    pub volume_capacity_gib: i64,
-    /// Output only. Volume count of the storage pool
-    #[prost(int32, tag = "5")]
-    pub volume_count: i32,
-    /// Output only. State of the storage pool
-    #[prost(enumeration = "storage_pool::State", tag = "6")]
+    /// Output only. The backup state.
+    #[prost(enumeration = "backup::State", tag = "2")]
     pub state: i32,
-    /// Output only. State details of the storage pool
-    #[prost(string, tag = "7")]
-    pub state_details: ::prost::alloc::string::String,
-    /// Output only. Create time of the storage pool
+    /// A description of the backup with 2048 characters or less.
+    /// Requests with longer descriptions will be rejected.
+    #[prost(string, tag = "3")]
+    pub description: ::prost::alloc::string::String,
+    /// Output only. Size of the file system when the backup was created. When
+    /// creating a new volume from the backup, the volume capacity will have to be
+    /// at least as big.
+    #[prost(int64, tag = "4")]
+    pub volume_usage_bytes: i64,
+    /// Output only. Type of backup, manually created or created by a backup
+    /// policy.
+    #[prost(enumeration = "backup::Type", tag = "5")]
+    pub backup_type: i32,
+    /// Volume full name of this backup belongs to.
+    /// Format:
+    /// `projects/{projects_id}/locations/{location}/volumes/{volume_id}`
+    #[prost(string, tag = "6")]
+    pub source_volume: ::prost::alloc::string::String,
+    /// If specified, backup will be created from the given snapshot.
+    /// If not specified, there will be a new snapshot taken to initiate the backup
+    /// creation. Format:
+    /// `projects/{project_id}/locations/{location}/volumes/{volume_id}/snapshots/{snapshot_id}`
+    #[prost(string, optional, tag = "7")]
+    pub source_snapshot: ::core::option::Option<::prost::alloc::string::String>,
+    /// Output only. The time when the backup was created.
     #[prost(message, optional, tag = "8")]
     pub create_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Optional. Description of the storage pool
-    #[prost(string, tag = "9")]
-    pub description: ::prost::alloc::string::String,
-    /// Optional. Labels as key value pairs
-    #[prost(btree_map = "string, string", tag = "10")]
+    /// Resource labels to represent user provided metadata.
+    #[prost(btree_map = "string, string", tag = "9")]
     pub labels: ::prost::alloc::collections::BTreeMap<
         ::prost::alloc::string::String,
         ::prost::alloc::string::String,
     >,
-    /// Required. VPC Network name.
-    /// Format: projects/{project}/global/networks/{network}
-    #[prost(string, tag = "11")]
-    pub network: ::prost::alloc::string::String,
-    /// Optional. Specifies the Active Directory to be used for creating a SMB
-    /// volume.
-    #[prost(string, tag = "12")]
-    pub active_directory: ::prost::alloc::string::String,
-    /// Optional. Specifies the KMS config to be used for volume encryption.
-    #[prost(string, tag = "13")]
-    pub kms_config: ::prost::alloc::string::String,
-    /// Optional. Flag indicating if the pool is NFS LDAP enabled or not.
-    #[prost(bool, tag = "14")]
-    pub ldap_enabled: bool,
-    /// Optional. This field is not implemented. The values provided in this field
-    /// are ignored.
-    #[prost(string, tag = "15")]
-    pub psa_range: ::prost::alloc::string::String,
-    /// Output only. Specifies the current pool encryption key source.
-    #[prost(enumeration = "EncryptionType", tag = "16")]
-    pub encryption_type: i32,
-    /// Deprecated. Used to allow SO pool to access AD or DNS server from other
-    /// regions.
-    #[deprecated]
-    #[prost(bool, optional, tag = "17")]
-    pub global_access_allowed: ::core::option::Option<bool>,
-    /// Optional. Specifies the replica zone for regional storagePool.
-    #[prost(string, tag = "20")]
-    pub replica_zone: ::prost::alloc::string::String,
-    /// Optional. Specifies the active zone for regional storagePool.
-    #[prost(string, tag = "21")]
-    pub zone: ::prost::alloc::string::String,
+    /// Output only. Total size of all backups in a chain in bytes = baseline
+    /// backup size + sum(incremental backup size)
+    #[prost(int64, tag = "10")]
+    pub chain_storage_bytes: i64,
 }
-/// Nested message and enum types in `StoragePool`.
-pub mod storage_pool {
-    /// The Storage Pool States
+/// Nested message and enum types in `Backup`.
+pub mod backup {
+    /// The Backup States
     #[derive(
         Clone,
         Copy,
@@ -1175,22 +1241,24 @@ pub mod storage_pool {
     )]
     #[repr(i32)]
     pub enum State {
-        /// Unspecified Storage Pool State
+        /// State not set.
         Unspecified = 0,
-        /// Storage Pool State is Ready
-        Ready = 1,
-        /// Storage Pool State is Creating
-        Creating = 2,
-        /// Storage Pool State is Deleting
-        Deleting = 3,
-        /// Storage Pool State is Updating
-        Updating = 4,
-        /// Storage Pool State is Restoring
-        Restoring = 5,
-        /// Storage Pool State is Disabled
-        Disabled = 6,
-        /// Storage Pool State is Error
-        Error = 7,
+        /// Backup is being created. While in this state, the snapshot for the backup
+        /// point-in-time may not have been created yet, and so the point-in-time may
+        /// not have been fixed.
+        Creating = 1,
+        /// Backup is being uploaded. While in this state, none of the writes to the
+        /// volume will be included in the backup.
+        Uploading = 2,
+        /// Backup is available for use.
+        Ready = 3,
+        /// Backup is being deleted.
+        Deleting = 4,
+        /// Backup is not valid and cannot be used for creating new volumes or
+        /// restoring existing volumes.
+        Error = 5,
+        /// Backup is being updated.
+        Updating = 6,
     }
     impl State {
         /// String value of the enum field names used in the ProtoBuf definition.
@@ -1199,14 +1267,374 @@ pub mod storage_pool {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Ready => "READY",
-                State::Creating => "CREATING",
-                State::Deleting => "DELETING",
-                State::Updating => "UPDATING",
-                State::Restoring => "RESTORING",
-                State::Disabled => "DISABLED",
-                State::Error => "ERROR",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Uploading => "UPLOADING",
+                Self::Ready => "READY",
+                Self::Deleting => "DELETING",
+                Self::Error => "ERROR",
+                Self::Updating => "UPDATING",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "STATE_UNSPECIFIED" => Some(Self::Unspecified),
+                "CREATING" => Some(Self::Creating),
+                "UPLOADING" => Some(Self::Uploading),
+                "READY" => Some(Self::Ready),
+                "DELETING" => Some(Self::Deleting),
+                "ERROR" => Some(Self::Error),
+                "UPDATING" => Some(Self::Updating),
+                _ => None,
+            }
+        }
+    }
+    /// Backup types.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum Type {
+        /// Unspecified backup type.
+        Unspecified = 0,
+        /// Manual backup type.
+        Manual = 1,
+        /// Scheduled backup type.
+        Scheduled = 2,
+    }
+    impl Type {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::Manual => "MANUAL",
+                Self::Scheduled => "SCHEDULED",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "MANUAL" => Some(Self::Manual),
+                "SCHEDULED" => Some(Self::Scheduled),
+                _ => None,
+            }
+        }
+    }
+}
+/// ListBackupsRequest lists backups.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListBackupsRequest {
+    /// Required. The backupVault for which to retrieve backup information,
+    /// in the format
+    /// `projects/{project_id}/locations/{location}/backupVaults/{backup_vault_id}`.
+    /// To retrieve backup information for all locations, use "-" for the
+    /// `{location}` value.
+    /// To retrieve backup information for all backupVaults, use "-" for the
+    /// `{backup_vault_id}` value.
+    /// To retrieve backup information for a volume, use "-" for the
+    /// `{backup_vault_id}` value and specify volume full name with the filter.
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// The maximum number of items to return. The service may return fewer
+    /// than this value. The maximum value
+    /// is 1000; values above 1000 will be coerced to 1000.
+    #[prost(int32, tag = "2")]
+    pub page_size: i32,
+    /// The next_page_token value to use if there are additional
+    /// results to retrieve for this list request.
+    #[prost(string, tag = "3")]
+    pub page_token: ::prost::alloc::string::String,
+    /// Sort results. Supported values are "name", "name desc" or "" (unsorted).
+    #[prost(string, tag = "4")]
+    pub order_by: ::prost::alloc::string::String,
+    /// The standard list filter.
+    /// If specified, backups will be returned based on the attribute name that
+    /// matches the filter expression. If empty, then no backups are filtered out.
+    /// See <https://google.aip.dev/160>
+    #[prost(string, tag = "5")]
+    pub filter: ::prost::alloc::string::String,
+}
+/// ListBackupsResponse is the result of ListBackupsRequest.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListBackupsResponse {
+    /// A list of backups in the project.
+    #[prost(message, repeated, tag = "1")]
+    pub backups: ::prost::alloc::vec::Vec<Backup>,
+    /// The token you can use to retrieve the next page of results. Not returned
+    /// if there are no more results in the list.
+    #[prost(string, tag = "2")]
+    pub next_page_token: ::prost::alloc::string::String,
+    /// Locations that could not be reached.
+    #[prost(string, repeated, tag = "3")]
+    pub unreachable: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+/// GetBackupRequest gets the state of a backup.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetBackupRequest {
+    /// Required. The backup resource name, in the format
+    /// `projects/{project_id}/locations/{location}/backupVaults/{backup_vault_id}/backups/{backup_id}`
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// CreateBackupRequest creates a backup.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateBackupRequest {
+    /// Required. The NetApp backupVault to create the backups of, in the format
+    /// `projects/*/locations/*/backupVaults/{backup_vault_id}`
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// Required. The ID to use for the backup.
+    /// The ID must be unique within the specified backupVault.
+    /// Must contain only letters, numbers, underscore and hyphen, with the first
+    /// character a letter or underscore, the last a letter or underscore or a
+    /// number, and a 63 character maximum.
+    #[prost(string, tag = "2")]
+    pub backup_id: ::prost::alloc::string::String,
+    /// Required. A backup resource
+    #[prost(message, optional, tag = "3")]
+    pub backup: ::core::option::Option<Backup>,
+}
+/// DeleteBackupRequest deletes a backup.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteBackupRequest {
+    /// Required. The backup resource name, in the format
+    /// `projects/{project_id}/locations/{location}/backupVaults/{backup_vault_id}/backups/{backup_id}`
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// UpdateBackupRequest updates description and/or labels for a backup.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateBackupRequest {
+    /// Required. Field mask is used to specify the fields to be overwritten in the
+    /// Backup resource to be updated.
+    /// The fields specified in the update_mask are relative to the resource, not
+    /// the full request. A field will be overwritten if it is in the mask. If the
+    /// user does not provide a mask then all fields will be overwritten.
+    #[prost(message, optional, tag = "1")]
+    pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
+    /// Required. The backup being updated
+    #[prost(message, optional, tag = "2")]
+    pub backup: ::core::option::Option<Backup>,
+}
+/// GetKmsConfigRequest gets a KMS Config.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetKmsConfigRequest {
+    /// Required. Name of the KmsConfig
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// ListKmsConfigsRequest lists KMS Configs.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListKmsConfigsRequest {
+    /// Required. Parent value
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// The maximum number of items to return.
+    #[prost(int32, tag = "2")]
+    pub page_size: i32,
+    /// The next_page_token value to use if there are additional
+    /// results to retrieve for this list request.
+    #[prost(string, tag = "3")]
+    pub page_token: ::prost::alloc::string::String,
+    /// Sort results. Supported values are "name", "name desc" or "" (unsorted).
+    #[prost(string, tag = "4")]
+    pub order_by: ::prost::alloc::string::String,
+    /// List filter.
+    #[prost(string, tag = "5")]
+    pub filter: ::prost::alloc::string::String,
+}
+/// ListKmsConfigsResponse is the response to a ListKmsConfigsRequest.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListKmsConfigsResponse {
+    /// The list of KmsConfigs
+    #[prost(message, repeated, tag = "1")]
+    pub kms_configs: ::prost::alloc::vec::Vec<KmsConfig>,
+    /// A token identifying a page of results the server should return.
+    #[prost(string, tag = "2")]
+    pub next_page_token: ::prost::alloc::string::String,
+    /// Locations that could not be reached.
+    #[prost(string, repeated, tag = "3")]
+    pub unreachable: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+/// CreateKmsConfigRequest creates a KMS Config.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateKmsConfigRequest {
+    /// Required. Value for parent.
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// Required. Id of the requesting KmsConfig. Must be unique within the parent
+    /// resource. Must contain only letters, numbers, underscore and hyphen, with
+    /// the first character a letter or underscore, the last a letter or underscore
+    /// or a number, and a 63 character maximum.
+    #[prost(string, tag = "2")]
+    pub kms_config_id: ::prost::alloc::string::String,
+    /// Required. The required parameters to create a new KmsConfig.
+    #[prost(message, optional, tag = "3")]
+    pub kms_config: ::core::option::Option<KmsConfig>,
+}
+/// UpdateKmsConfigRequest updates a KMS Config.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateKmsConfigRequest {
+    /// Required. Field mask is used to specify the fields to be overwritten in the
+    /// KmsConfig resource by the update.
+    /// The fields specified in the update_mask are relative to the resource, not
+    /// the full request. A field will be overwritten if it is in the mask. If the
+    /// user does not provide a mask then all fields will be overwritten.
+    #[prost(message, optional, tag = "1")]
+    pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
+    /// Required. The KmsConfig being updated
+    #[prost(message, optional, tag = "2")]
+    pub kms_config: ::core::option::Option<KmsConfig>,
+}
+/// DeleteKmsConfigRequest deletes a KMS Config.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteKmsConfigRequest {
+    /// Required. Name of the KmsConfig.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// EncryptVolumesRequest specifies the KMS config to encrypt existing volumes.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct EncryptVolumesRequest {
+    /// Required. Name of the KmsConfig.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// VerifyKmsConfigRequest specifies the KMS config to be validated.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct VerifyKmsConfigRequest {
+    /// Required. Name of the KMS Config to be verified.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// VerifyKmsConfigResponse contains the information if the config is correctly
+/// and error message.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct VerifyKmsConfigResponse {
+    /// Output only. If the customer key configured correctly to the encrypt
+    /// volume.
+    #[prost(bool, tag = "1")]
+    pub healthy: bool,
+    /// Output only. Error message if config is not healthy.
+    #[prost(string, tag = "2")]
+    pub health_error: ::prost::alloc::string::String,
+    /// Output only. Instructions for the customers to provide the access to the
+    /// encryption key.
+    #[prost(string, tag = "3")]
+    pub instructions: ::prost::alloc::string::String,
+}
+/// KmsConfig is the customer managed encryption key(CMEK) configuration.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct KmsConfig {
+    /// Identifier. Name of the KmsConfig.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// Required. Customer managed crypto key resource full name. Format:
+    /// projects/{project}/locations/{location}/keyRings/{key_ring}/cryptoKeys/{key}.
+    #[prost(string, tag = "2")]
+    pub crypto_key_name: ::prost::alloc::string::String,
+    /// Output only. State of the KmsConfig.
+    #[prost(enumeration = "kms_config::State", tag = "3")]
+    pub state: i32,
+    /// Output only. State details of the KmsConfig.
+    #[prost(string, tag = "4")]
+    pub state_details: ::prost::alloc::string::String,
+    /// Output only. Create time of the KmsConfig.
+    #[prost(message, optional, tag = "5")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Description of the KmsConfig.
+    #[prost(string, tag = "6")]
+    pub description: ::prost::alloc::string::String,
+    /// Labels as key value pairs
+    #[prost(btree_map = "string, string", tag = "7")]
+    pub labels: ::prost::alloc::collections::BTreeMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+    /// Output only. Instructions to provide the access to the customer provided
+    /// encryption key.
+    #[prost(string, tag = "8")]
+    pub instructions: ::prost::alloc::string::String,
+    /// Output only. The Service account which will have access to the customer
+    /// provided encryption key.
+    #[prost(string, tag = "9")]
+    pub service_account: ::prost::alloc::string::String,
+}
+/// Nested message and enum types in `KmsConfig`.
+pub mod kms_config {
+    /// The KmsConfig States
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum State {
+        /// Unspecified KmsConfig State
+        Unspecified = 0,
+        /// KmsConfig State is Ready
+        Ready = 1,
+        /// KmsConfig State is Creating
+        Creating = 2,
+        /// KmsConfig State is Deleting
+        Deleting = 3,
+        /// KmsConfig State is Updating
+        Updating = 4,
+        /// KmsConfig State is In Use.
+        InUse = 5,
+        /// KmsConfig State is Error
+        Error = 6,
+        /// KmsConfig State is Pending to verify crypto key access.
+        KeyCheckPending = 7,
+        /// KmsConfig State is Not accessbile by the SDE service account to the
+        /// crypto key.
+        KeyNotReachable = 8,
+        /// KmsConfig State is Disabling.
+        Disabling = 9,
+        /// KmsConfig State is Disabled.
+        Disabled = 10,
+        /// KmsConfig State is Migrating.
+        /// The existing volumes are migrating from SMEK to CMEK.
+        Migrating = 11,
+    }
+    impl State {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Ready => "READY",
+                Self::Creating => "CREATING",
+                Self::Deleting => "DELETING",
+                Self::Updating => "UPDATING",
+                Self::InUse => "IN_USE",
+                Self::Error => "ERROR",
+                Self::KeyCheckPending => "KEY_CHECK_PENDING",
+                Self::KeyNotReachable => "KEY_NOT_REACHABLE",
+                Self::Disabling => "DISABLING",
+                Self::Disabled => "DISABLED",
+                Self::Migrating => "MIGRATING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1217,13 +1645,447 @@ pub mod storage_pool {
                 "CREATING" => Some(Self::Creating),
                 "DELETING" => Some(Self::Deleting),
                 "UPDATING" => Some(Self::Updating),
-                "RESTORING" => Some(Self::Restoring),
+                "IN_USE" => Some(Self::InUse),
+                "ERROR" => Some(Self::Error),
+                "KEY_CHECK_PENDING" => Some(Self::KeyCheckPending),
+                "KEY_NOT_REACHABLE" => Some(Self::KeyNotReachable),
+                "DISABLING" => Some(Self::Disabling),
                 "DISABLED" => Some(Self::Disabled),
+                "MIGRATING" => Some(Self::Migrating),
+                _ => None,
+            }
+        }
+    }
+}
+/// TransferStats reports all statistics related to replication transfer.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct TransferStats {
+    /// Cumulative bytes trasferred so far for the replication relatinonship.
+    #[prost(int64, optional, tag = "1")]
+    pub transfer_bytes: ::core::option::Option<i64>,
+    /// Cumulative time taken across all transfers for the replication
+    /// relationship.
+    #[prost(message, optional, tag = "2")]
+    pub total_transfer_duration: ::core::option::Option<::prost_types::Duration>,
+    /// Last transfer size in bytes.
+    #[prost(int64, optional, tag = "3")]
+    pub last_transfer_bytes: ::core::option::Option<i64>,
+    /// Time taken during last transfer.
+    #[prost(message, optional, tag = "4")]
+    pub last_transfer_duration: ::core::option::Option<::prost_types::Duration>,
+    /// Lag duration indicates the duration by which Destination region volume
+    /// content lags behind the primary region volume content.
+    #[prost(message, optional, tag = "5")]
+    pub lag_duration: ::core::option::Option<::prost_types::Duration>,
+    /// Time when progress was updated last.
+    #[prost(message, optional, tag = "6")]
+    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Time when last transfer completed.
+    #[prost(message, optional, tag = "7")]
+    pub last_transfer_end_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// A message describing the cause of the last transfer failure.
+    #[prost(string, optional, tag = "8")]
+    pub last_transfer_error: ::core::option::Option<::prost::alloc::string::String>,
+}
+/// Replication is a nested resource under Volume, that describes a
+/// cross-region replication relationship between 2 volumes in different
+/// regions.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Replication {
+    /// Identifier. The resource name of the Replication.
+    /// Format:
+    /// `projects/{project_id}/locations/{location}/volumes/{volume_id}/replications/{replication_id}`.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// Output only. State of the replication.
+    #[prost(enumeration = "replication::State", tag = "2")]
+    pub state: i32,
+    /// Output only. State details of the replication.
+    #[prost(string, tag = "3")]
+    pub state_details: ::prost::alloc::string::String,
+    /// Output only. Indicates whether this points to source or destination.
+    #[prost(enumeration = "replication::ReplicationRole", tag = "4")]
+    pub role: i32,
+    /// Required. Indicates the schedule for replication.
+    #[prost(enumeration = "replication::ReplicationSchedule", tag = "5")]
+    pub replication_schedule: i32,
+    /// Output only. Indicates the state of mirroring.
+    #[prost(enumeration = "replication::MirrorState", tag = "6")]
+    pub mirror_state: i32,
+    /// Output only. Condition of the relationship. Can be one of the following:
+    /// - true: The replication relationship is healthy. It has not missed the most
+    /// recent scheduled transfer.
+    /// - false: The replication relationship is not healthy. It has missed the
+    /// most recent scheduled transfer.
+    #[prost(bool, optional, tag = "8")]
+    pub healthy: ::core::option::Option<bool>,
+    /// Output only. Replication create time.
+    #[prost(message, optional, tag = "9")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. Full name of destination volume resource.
+    /// Example : "projects/{project}/locations/{location}/volumes/{volume_id}"
+    #[prost(string, tag = "10")]
+    pub destination_volume: ::prost::alloc::string::String,
+    /// Output only. Replication transfer statistics.
+    #[prost(message, optional, tag = "11")]
+    pub transfer_stats: ::core::option::Option<TransferStats>,
+    /// Resource labels to represent user provided metadata.
+    #[prost(btree_map = "string, string", tag = "12")]
+    pub labels: ::prost::alloc::collections::BTreeMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+    /// A description about this replication relationship.
+    #[prost(string, optional, tag = "13")]
+    pub description: ::core::option::Option<::prost::alloc::string::String>,
+    /// Required. Input only. Destination volume parameters
+    #[prost(message, optional, tag = "14")]
+    pub destination_volume_parameters: ::core::option::Option<
+        DestinationVolumeParameters,
+    >,
+    /// Output only. Full name of source volume resource.
+    /// Example : "projects/{project}/locations/{location}/volumes/{volume_id}"
+    #[prost(string, tag = "15")]
+    pub source_volume: ::prost::alloc::string::String,
+}
+/// Nested message and enum types in `Replication`.
+pub mod replication {
+    /// The replication states
+    /// New enum values may be added in future to indicate possible new states.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum State {
+        /// Unspecified replication State
+        Unspecified = 0,
+        /// Replication is creating.
+        Creating = 1,
+        /// Replication is ready.
+        Ready = 2,
+        /// Replication is updating.
+        Updating = 3,
+        /// Replication is deleting.
+        Deleting = 5,
+        /// Replication is in error state.
+        Error = 6,
+    }
+    impl State {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Ready => "READY",
+                Self::Updating => "UPDATING",
+                Self::Deleting => "DELETING",
+                Self::Error => "ERROR",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "STATE_UNSPECIFIED" => Some(Self::Unspecified),
+                "CREATING" => Some(Self::Creating),
+                "READY" => Some(Self::Ready),
+                "UPDATING" => Some(Self::Updating),
+                "DELETING" => Some(Self::Deleting),
                 "ERROR" => Some(Self::Error),
                 _ => None,
             }
         }
     }
+    /// New enum values may be added in future to support different replication
+    /// topology.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum ReplicationRole {
+        /// Unspecified replication role
+        Unspecified = 0,
+        /// Indicates Source volume.
+        Source = 1,
+        /// Indicates Destination volume.
+        Destination = 2,
+    }
+    impl ReplicationRole {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "REPLICATION_ROLE_UNSPECIFIED",
+                Self::Source => "SOURCE",
+                Self::Destination => "DESTINATION",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "REPLICATION_ROLE_UNSPECIFIED" => Some(Self::Unspecified),
+                "SOURCE" => Some(Self::Source),
+                "DESTINATION" => Some(Self::Destination),
+                _ => None,
+            }
+        }
+    }
+    /// Schedule for Replication.
+    /// New enum values may be added in future to support different frequency of
+    /// replication.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum ReplicationSchedule {
+        /// Unspecified ReplicationSchedule
+        Unspecified = 0,
+        /// Replication happens once every 10 minutes.
+        Every10Minutes = 1,
+        /// Replication happens once every hour.
+        Hourly = 2,
+        /// Replication happens once every day.
+        Daily = 3,
+    }
+    impl ReplicationSchedule {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "REPLICATION_SCHEDULE_UNSPECIFIED",
+                Self::Every10Minutes => "EVERY_10_MINUTES",
+                Self::Hourly => "HOURLY",
+                Self::Daily => "DAILY",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "REPLICATION_SCHEDULE_UNSPECIFIED" => Some(Self::Unspecified),
+                "EVERY_10_MINUTES" => Some(Self::Every10Minutes),
+                "HOURLY" => Some(Self::Hourly),
+                "DAILY" => Some(Self::Daily),
+                _ => None,
+            }
+        }
+    }
+    /// Mirroring states.
+    /// No new value is expected to be added in future.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum MirrorState {
+        /// Unspecified MirrorState
+        Unspecified = 0,
+        /// Destination volume is being prepared.
+        Preparing = 1,
+        /// Destination volume has been initialized and is ready to receive
+        /// replication transfers.
+        Mirrored = 2,
+        /// Destination volume is not receiving replication transfers.
+        Stopped = 3,
+        /// Incremental replication is in progress.
+        Transferring = 4,
+    }
+    impl MirrorState {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "MIRROR_STATE_UNSPECIFIED",
+                Self::Preparing => "PREPARING",
+                Self::Mirrored => "MIRRORED",
+                Self::Stopped => "STOPPED",
+                Self::Transferring => "TRANSFERRING",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "MIRROR_STATE_UNSPECIFIED" => Some(Self::Unspecified),
+                "PREPARING" => Some(Self::Preparing),
+                "MIRRORED" => Some(Self::Mirrored),
+                "STOPPED" => Some(Self::Stopped),
+                "TRANSFERRING" => Some(Self::Transferring),
+                _ => None,
+            }
+        }
+    }
+}
+/// ListReplications lists replications.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListReplicationsRequest {
+    /// Required. The volume for which to retrieve replication information,
+    /// in the format
+    /// `projects/{project_id}/locations/{location}/volumes/{volume_id}`.
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// The maximum number of items to return.
+    #[prost(int32, tag = "2")]
+    pub page_size: i32,
+    /// The next_page_token value to use if there are additional
+    /// results to retrieve for this list request.
+    #[prost(string, tag = "3")]
+    pub page_token: ::prost::alloc::string::String,
+    /// Sort results. Supported values are "name", "name desc" or "" (unsorted).
+    #[prost(string, tag = "4")]
+    pub order_by: ::prost::alloc::string::String,
+    /// List filter.
+    #[prost(string, tag = "5")]
+    pub filter: ::prost::alloc::string::String,
+}
+/// ListReplicationsResponse is the result of ListReplicationsRequest.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListReplicationsResponse {
+    /// A list of replications in the project for the specified volume.
+    #[prost(message, repeated, tag = "1")]
+    pub replications: ::prost::alloc::vec::Vec<Replication>,
+    /// The token you can use to retrieve the next page of results. Not returned
+    /// if there are no more results in the list.
+    #[prost(string, tag = "2")]
+    pub next_page_token: ::prost::alloc::string::String,
+    /// Locations that could not be reached.
+    #[prost(string, repeated, tag = "3")]
+    pub unreachable: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+/// GetReplicationRequest gets the state of a replication.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetReplicationRequest {
+    /// Required. The replication resource name, in the format
+    /// `projects/{project_id}/locations/{location}/volumes/{volume_id}/replications/{replication_id}`
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// DestinationVolumeParameters specify input parameters used for creating
+/// destination volume.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DestinationVolumeParameters {
+    /// Required. Existing destination StoragePool name.
+    #[prost(string, tag = "1")]
+    pub storage_pool: ::prost::alloc::string::String,
+    /// Desired destination volume resource id. If not specified, source volume's
+    /// resource id will be used.
+    /// This value must start with a lowercase letter followed by up to 62
+    /// lowercase letters, numbers, or hyphens, and cannot end with a hyphen.
+    #[prost(string, tag = "2")]
+    pub volume_id: ::prost::alloc::string::String,
+    /// Destination volume's share name. If not specified, source volume's share
+    /// name will be used.
+    #[prost(string, tag = "3")]
+    pub share_name: ::prost::alloc::string::String,
+    /// Description for the destination volume.
+    #[prost(string, optional, tag = "4")]
+    pub description: ::core::option::Option<::prost::alloc::string::String>,
+}
+/// CreateReplicationRequest creates a replication.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateReplicationRequest {
+    /// Required. The NetApp volume to create the replications of, in the format
+    /// `projects/{project_id}/locations/{location}/volumes/{volume_id}`
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// Required. A replication resource
+    #[prost(message, optional, tag = "2")]
+    pub replication: ::core::option::Option<Replication>,
+    /// Required. ID of the replication to create. Must be unique within the parent
+    /// resource. Must contain only letters, numbers, underscore and hyphen, with
+    /// the first character a letter or underscore, the last a letter or underscore
+    /// or a number, and a 63 character maximum.
+    #[prost(string, tag = "3")]
+    pub replication_id: ::prost::alloc::string::String,
+}
+/// DeleteReplicationRequest deletes a replication.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteReplicationRequest {
+    /// Required. The replication resource name, in the format
+    /// `projects/*/locations/*/volumes/*/replications/{replication_id}`
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// UpdateReplicationRequest updates description and/or labels for a replication.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateReplicationRequest {
+    /// Required. Mask of fields to update.  At least one path must be supplied in
+    /// this field.
+    #[prost(message, optional, tag = "1")]
+    pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
+    /// Required. A replication resource
+    #[prost(message, optional, tag = "2")]
+    pub replication: ::core::option::Option<Replication>,
+}
+/// StopReplicationRequest stops a replication until resumed.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct StopReplicationRequest {
+    /// Required. The resource name of the replication, in the format of
+    /// projects/{project_id}/locations/{location}/volumes/{volume_id}/replications/{replication_id}.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// Indicates whether to stop replication forcefully while data transfer is in
+    /// progress.
+    /// Warning! if force is true, this will abort any current transfers
+    /// and can lead to data loss due to partial transfer.
+    /// If force is false, stop replication will fail while data transfer is in
+    /// progress and you will need to retry later.
+    #[prost(bool, tag = "2")]
+    pub force: bool,
+}
+/// ResumeReplicationRequest resumes a stopped replication.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ResumeReplicationRequest {
+    /// Required. The resource name of the replication, in the format of
+    /// projects/{project_id}/locations/{location}/volumes/{volume_id}/replications/{replication_id}.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// ReverseReplicationDirectionRequest reverses direction of replication. Source
+/// becomes destination and destination becomes source.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ReverseReplicationDirectionRequest {
+    /// Required. The resource name of the replication, in the format of
+    /// projects/{project_id}/locations/{location}/volumes/{volume_id}/replications/{replication_id}.
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
 }
 /// ListActiveDirectoriesRequest for requesting multiple active directories.
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -1422,13 +2284,13 @@ pub mod active_directory {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Ready => "READY",
-                State::Updating => "UPDATING",
-                State::InUse => "IN_USE",
-                State::Deleting => "DELETING",
-                State::Error => "ERROR",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Ready => "READY",
+                Self::Updating => "UPDATING",
+                Self::InUse => "IN_USE",
+                Self::Deleting => "DELETING",
+                Self::Error => "ERROR",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1445,1083 +2307,6 @@ pub mod active_directory {
             }
         }
     }
-}
-/// GetKmsConfigRequest gets a KMS Config.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetKmsConfigRequest {
-    /// Required. Name of the KmsConfig
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// ListKmsConfigsRequest lists KMS Configs.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListKmsConfigsRequest {
-    /// Required. Parent value
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// The maximum number of items to return.
-    #[prost(int32, tag = "2")]
-    pub page_size: i32,
-    /// The next_page_token value to use if there are additional
-    /// results to retrieve for this list request.
-    #[prost(string, tag = "3")]
-    pub page_token: ::prost::alloc::string::String,
-    /// Sort results. Supported values are "name", "name desc" or "" (unsorted).
-    #[prost(string, tag = "4")]
-    pub order_by: ::prost::alloc::string::String,
-    /// List filter.
-    #[prost(string, tag = "5")]
-    pub filter: ::prost::alloc::string::String,
-}
-/// ListKmsConfigsResponse is the response to a ListKmsConfigsRequest.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListKmsConfigsResponse {
-    /// The list of KmsConfigs
-    #[prost(message, repeated, tag = "1")]
-    pub kms_configs: ::prost::alloc::vec::Vec<KmsConfig>,
-    /// A token identifying a page of results the server should return.
-    #[prost(string, tag = "2")]
-    pub next_page_token: ::prost::alloc::string::String,
-    /// Locations that could not be reached.
-    #[prost(string, repeated, tag = "3")]
-    pub unreachable: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-}
-/// CreateKmsConfigRequest creates a KMS Config.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CreateKmsConfigRequest {
-    /// Required. Value for parent.
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// Required. Id of the requesting KmsConfig. Must be unique within the parent
-    /// resource. Must contain only letters, numbers, underscore and hyphen, with
-    /// the first character a letter or underscore, the last a letter or underscore
-    /// or a number, and a 63 character maximum.
-    #[prost(string, tag = "2")]
-    pub kms_config_id: ::prost::alloc::string::String,
-    /// Required. The required parameters to create a new KmsConfig.
-    #[prost(message, optional, tag = "3")]
-    pub kms_config: ::core::option::Option<KmsConfig>,
-}
-/// UpdateKmsConfigRequest updates a KMS Config.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UpdateKmsConfigRequest {
-    /// Required. Field mask is used to specify the fields to be overwritten in the
-    /// KmsConfig resource by the update.
-    /// The fields specified in the update_mask are relative to the resource, not
-    /// the full request. A field will be overwritten if it is in the mask. If the
-    /// user does not provide a mask then all fields will be overwritten.
-    #[prost(message, optional, tag = "1")]
-    pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
-    /// Required. The KmsConfig being updated
-    #[prost(message, optional, tag = "2")]
-    pub kms_config: ::core::option::Option<KmsConfig>,
-}
-/// DeleteKmsConfigRequest deletes a KMS Config.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DeleteKmsConfigRequest {
-    /// Required. Name of the KmsConfig.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// EncryptVolumesRequest specifies the KMS config to encrypt existing volumes.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct EncryptVolumesRequest {
-    /// Required. Name of the KmsConfig.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// VerifyKmsConfigRequest specifies the KMS config to be validated.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct VerifyKmsConfigRequest {
-    /// Required. Name of the KMS Config to be verified.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// VerifyKmsConfigResponse contains the information if the config is correctly
-/// and error message.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct VerifyKmsConfigResponse {
-    /// Output only. If the customer key configured correctly to the encrypt
-    /// volume.
-    #[prost(bool, tag = "1")]
-    pub healthy: bool,
-    /// Output only. Error message if config is not healthy.
-    #[prost(string, tag = "2")]
-    pub health_error: ::prost::alloc::string::String,
-    /// Output only. Instructions for the customers to provide the access to the
-    /// encryption key.
-    #[prost(string, tag = "3")]
-    pub instructions: ::prost::alloc::string::String,
-}
-/// KmsConfig is the customer managed encryption key(CMEK) configuration.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct KmsConfig {
-    /// Identifier. Name of the KmsConfig.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// Required. Customer managed crypto key resource full name. Format:
-    /// projects/{project}/locations/{location}/keyRings/{key_ring}/cryptoKeys/{key}.
-    #[prost(string, tag = "2")]
-    pub crypto_key_name: ::prost::alloc::string::String,
-    /// Output only. State of the KmsConfig.
-    #[prost(enumeration = "kms_config::State", tag = "3")]
-    pub state: i32,
-    /// Output only. State details of the KmsConfig.
-    #[prost(string, tag = "4")]
-    pub state_details: ::prost::alloc::string::String,
-    /// Output only. Create time of the KmsConfig.
-    #[prost(message, optional, tag = "5")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Description of the KmsConfig.
-    #[prost(string, tag = "6")]
-    pub description: ::prost::alloc::string::String,
-    /// Labels as key value pairs
-    #[prost(btree_map = "string, string", tag = "7")]
-    pub labels: ::prost::alloc::collections::BTreeMap<
-        ::prost::alloc::string::String,
-        ::prost::alloc::string::String,
-    >,
-    /// Output only. Instructions to provide the access to the customer provided
-    /// encryption key.
-    #[prost(string, tag = "8")]
-    pub instructions: ::prost::alloc::string::String,
-    /// Output only. The Service account which will have access to the customer
-    /// provided encryption key.
-    #[prost(string, tag = "9")]
-    pub service_account: ::prost::alloc::string::String,
-}
-/// Nested message and enum types in `KmsConfig`.
-pub mod kms_config {
-    /// The KmsConfig States
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum State {
-        /// Unspecified KmsConfig State
-        Unspecified = 0,
-        /// KmsConfig State is Ready
-        Ready = 1,
-        /// KmsConfig State is Creating
-        Creating = 2,
-        /// KmsConfig State is Deleting
-        Deleting = 3,
-        /// KmsConfig State is Updating
-        Updating = 4,
-        /// KmsConfig State is In Use.
-        InUse = 5,
-        /// KmsConfig State is Error
-        Error = 6,
-        /// KmsConfig State is Pending to verify crypto key access.
-        KeyCheckPending = 7,
-        /// KmsConfig State is Not accessbile by the SDE service account to the
-        /// crypto key.
-        KeyNotReachable = 8,
-        /// KmsConfig State is Disabling.
-        Disabling = 9,
-        /// KmsConfig State is Disabled.
-        Disabled = 10,
-        /// KmsConfig State is Migrating.
-        /// The existing volumes are migrating from SMEK to CMEK.
-        Migrating = 11,
-    }
-    impl State {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Ready => "READY",
-                State::Creating => "CREATING",
-                State::Deleting => "DELETING",
-                State::Updating => "UPDATING",
-                State::InUse => "IN_USE",
-                State::Error => "ERROR",
-                State::KeyCheckPending => "KEY_CHECK_PENDING",
-                State::KeyNotReachable => "KEY_NOT_REACHABLE",
-                State::Disabling => "DISABLING",
-                State::Disabled => "DISABLED",
-                State::Migrating => "MIGRATING",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "STATE_UNSPECIFIED" => Some(Self::Unspecified),
-                "READY" => Some(Self::Ready),
-                "CREATING" => Some(Self::Creating),
-                "DELETING" => Some(Self::Deleting),
-                "UPDATING" => Some(Self::Updating),
-                "IN_USE" => Some(Self::InUse),
-                "ERROR" => Some(Self::Error),
-                "KEY_CHECK_PENDING" => Some(Self::KeyCheckPending),
-                "KEY_NOT_REACHABLE" => Some(Self::KeyNotReachable),
-                "DISABLING" => Some(Self::Disabling),
-                "DISABLED" => Some(Self::Disabled),
-                "MIGRATING" => Some(Self::Migrating),
-                _ => None,
-            }
-        }
-    }
-}
-/// A NetApp Backup.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Backup {
-    /// Identifier. The resource name of the backup.
-    /// Format:
-    /// `projects/{project_id}/locations/{location}/backupVaults/{backup_vault_id}/backups/{backup_id}`.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// Output only. The backup state.
-    #[prost(enumeration = "backup::State", tag = "2")]
-    pub state: i32,
-    /// A description of the backup with 2048 characters or less.
-    /// Requests with longer descriptions will be rejected.
-    #[prost(string, tag = "3")]
-    pub description: ::prost::alloc::string::String,
-    /// Output only. Size of the file system when the backup was created. When
-    /// creating a new volume from the backup, the volume capacity will have to be
-    /// at least as big.
-    #[prost(int64, tag = "4")]
-    pub volume_usage_bytes: i64,
-    /// Output only. Type of backup, manually created or created by a backup
-    /// policy.
-    #[prost(enumeration = "backup::Type", tag = "5")]
-    pub backup_type: i32,
-    /// Volume full name of this backup belongs to.
-    /// Format:
-    /// `projects/{projects_id}/locations/{location}/volumes/{volume_id}`
-    #[prost(string, tag = "6")]
-    pub source_volume: ::prost::alloc::string::String,
-    /// If specified, backup will be created from the given snapshot.
-    /// If not specified, there will be a new snapshot taken to initiate the backup
-    /// creation. Format:
-    /// `projects/{project_id}/locations/{location}/volumes/{volume_id}/snapshots/{snapshot_id}`
-    #[prost(string, optional, tag = "7")]
-    pub source_snapshot: ::core::option::Option<::prost::alloc::string::String>,
-    /// Output only. The time when the backup was created.
-    #[prost(message, optional, tag = "8")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Resource labels to represent user provided metadata.
-    #[prost(btree_map = "string, string", tag = "9")]
-    pub labels: ::prost::alloc::collections::BTreeMap<
-        ::prost::alloc::string::String,
-        ::prost::alloc::string::String,
-    >,
-    /// Output only. Total size of all backups in a chain in bytes = baseline
-    /// backup size + sum(incremental backup size)
-    #[prost(int64, tag = "10")]
-    pub chain_storage_bytes: i64,
-}
-/// Nested message and enum types in `Backup`.
-pub mod backup {
-    /// The Backup States
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum State {
-        /// State not set.
-        Unspecified = 0,
-        /// Backup is being created. While in this state, the snapshot for the backup
-        /// point-in-time may not have been created yet, and so the point-in-time may
-        /// not have been fixed.
-        Creating = 1,
-        /// Backup is being uploaded. While in this state, none of the writes to the
-        /// volume will be included in the backup.
-        Uploading = 2,
-        /// Backup is available for use.
-        Ready = 3,
-        /// Backup is being deleted.
-        Deleting = 4,
-        /// Backup is not valid and cannot be used for creating new volumes or
-        /// restoring existing volumes.
-        Error = 5,
-        /// Backup is being updated.
-        Updating = 6,
-    }
-    impl State {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Uploading => "UPLOADING",
-                State::Ready => "READY",
-                State::Deleting => "DELETING",
-                State::Error => "ERROR",
-                State::Updating => "UPDATING",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "STATE_UNSPECIFIED" => Some(Self::Unspecified),
-                "CREATING" => Some(Self::Creating),
-                "UPLOADING" => Some(Self::Uploading),
-                "READY" => Some(Self::Ready),
-                "DELETING" => Some(Self::Deleting),
-                "ERROR" => Some(Self::Error),
-                "UPDATING" => Some(Self::Updating),
-                _ => None,
-            }
-        }
-    }
-    /// Backup types.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum Type {
-        /// Unspecified backup type.
-        Unspecified = 0,
-        /// Manual backup type.
-        Manual = 1,
-        /// Scheduled backup type.
-        Scheduled = 2,
-    }
-    impl Type {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::Manual => "MANUAL",
-                Type::Scheduled => "SCHEDULED",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "TYPE_UNSPECIFIED" => Some(Self::Unspecified),
-                "MANUAL" => Some(Self::Manual),
-                "SCHEDULED" => Some(Self::Scheduled),
-                _ => None,
-            }
-        }
-    }
-}
-/// ListBackupsRequest lists backups.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListBackupsRequest {
-    /// Required. The backupVault for which to retrieve backup information,
-    /// in the format
-    /// `projects/{project_id}/locations/{location}/backupVaults/{backup_vault_id}`.
-    /// To retrieve backup information for all locations, use "-" for the
-    /// `{location}` value.
-    /// To retrieve backup information for all backupVaults, use "-" for the
-    /// `{backup_vault_id}` value.
-    /// To retrieve backup information for a volume, use "-" for the
-    /// `{backup_vault_id}` value and specify volume full name with the filter.
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// The maximum number of items to return. The service may return fewer
-    /// than this value. The maximum value
-    /// is 1000; values above 1000 will be coerced to 1000.
-    #[prost(int32, tag = "2")]
-    pub page_size: i32,
-    /// The next_page_token value to use if there are additional
-    /// results to retrieve for this list request.
-    #[prost(string, tag = "3")]
-    pub page_token: ::prost::alloc::string::String,
-    /// Sort results. Supported values are "name", "name desc" or "" (unsorted).
-    #[prost(string, tag = "4")]
-    pub order_by: ::prost::alloc::string::String,
-    /// The standard list filter.
-    /// If specified, backups will be returned based on the attribute name that
-    /// matches the filter expression. If empty, then no backups are filtered out.
-    /// See <https://google.aip.dev/160>
-    #[prost(string, tag = "5")]
-    pub filter: ::prost::alloc::string::String,
-}
-/// ListBackupsResponse is the result of ListBackupsRequest.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListBackupsResponse {
-    /// A list of backups in the project.
-    #[prost(message, repeated, tag = "1")]
-    pub backups: ::prost::alloc::vec::Vec<Backup>,
-    /// The token you can use to retrieve the next page of results. Not returned
-    /// if there are no more results in the list.
-    #[prost(string, tag = "2")]
-    pub next_page_token: ::prost::alloc::string::String,
-    /// Locations that could not be reached.
-    #[prost(string, repeated, tag = "3")]
-    pub unreachable: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-}
-/// GetBackupRequest gets the state of a backup.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetBackupRequest {
-    /// Required. The backup resource name, in the format
-    /// `projects/{project_id}/locations/{location}/backupVaults/{backup_vault_id}/backups/{backup_id}`
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// CreateBackupRequest creates a backup.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CreateBackupRequest {
-    /// Required. The NetApp backupVault to create the backups of, in the format
-    /// `projects/*/locations/*/backupVaults/{backup_vault_id}`
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// Required. The ID to use for the backup.
-    /// The ID must be unique within the specified backupVault.
-    /// Must contain only letters, numbers, underscore and hyphen, with the first
-    /// character a letter or underscore, the last a letter or underscore or a
-    /// number, and a 63 character maximum.
-    #[prost(string, tag = "2")]
-    pub backup_id: ::prost::alloc::string::String,
-    /// Required. A backup resource
-    #[prost(message, optional, tag = "3")]
-    pub backup: ::core::option::Option<Backup>,
-}
-/// DeleteBackupRequest deletes a backup.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DeleteBackupRequest {
-    /// Required. The backup resource name, in the format
-    /// `projects/{project_id}/locations/{location}/backupVaults/{backup_vault_id}/backups/{backup_id}`
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// UpdateBackupRequest updates description and/or labels for a backup.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UpdateBackupRequest {
-    /// Required. Field mask is used to specify the fields to be overwritten in the
-    /// Backup resource to be updated.
-    /// The fields specified in the update_mask are relative to the resource, not
-    /// the full request. A field will be overwritten if it is in the mask. If the
-    /// user does not provide a mask then all fields will be overwritten.
-    #[prost(message, optional, tag = "1")]
-    pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
-    /// Required. The backup being updated
-    #[prost(message, optional, tag = "2")]
-    pub backup: ::core::option::Option<Backup>,
-}
-/// A NetApp BackupVault.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct BackupVault {
-    /// Identifier. The resource name of the backup vault.
-    /// Format:
-    /// `projects/{project_id}/locations/{location}/backupVaults/{backup_vault_id}`.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// Output only. The backup vault state.
-    #[prost(enumeration = "backup_vault::State", tag = "2")]
-    pub state: i32,
-    /// Output only. Create time of the backup vault.
-    #[prost(message, optional, tag = "3")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Description of the backup vault.
-    #[prost(string, tag = "4")]
-    pub description: ::prost::alloc::string::String,
-    /// Resource labels to represent user provided metadata.
-    #[prost(btree_map = "string, string", tag = "5")]
-    pub labels: ::prost::alloc::collections::BTreeMap<
-        ::prost::alloc::string::String,
-        ::prost::alloc::string::String,
-    >,
-}
-/// Nested message and enum types in `BackupVault`.
-pub mod backup_vault {
-    /// The Backup Vault States
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum State {
-        /// State not set.
-        Unspecified = 0,
-        /// BackupVault is being created.
-        Creating = 1,
-        /// BackupVault is available for use.
-        Ready = 2,
-        /// BackupVault is being deleted.
-        Deleting = 3,
-        /// BackupVault is not valid and cannot be used.
-        Error = 4,
-        /// BackupVault is being updated.
-        Updating = 5,
-    }
-    impl State {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Ready => "READY",
-                State::Deleting => "DELETING",
-                State::Error => "ERROR",
-                State::Updating => "UPDATING",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "STATE_UNSPECIFIED" => Some(Self::Unspecified),
-                "CREATING" => Some(Self::Creating),
-                "READY" => Some(Self::Ready),
-                "DELETING" => Some(Self::Deleting),
-                "ERROR" => Some(Self::Error),
-                "UPDATING" => Some(Self::Updating),
-                _ => None,
-            }
-        }
-    }
-}
-/// GetBackupVaultRequest gets the state of a backupVault.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetBackupVaultRequest {
-    /// Required. The backupVault resource name, in the format
-    /// `projects/{project_id}/locations/{location}/backupVaults/{backup_vault_id}`
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// ListBackupVaultsRequest lists backupVaults.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListBackupVaultsRequest {
-    /// Required. The location for which to retrieve backupVault information,
-    /// in the format
-    /// `projects/{project_id}/locations/{location}`.
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// The maximum number of items to return.
-    #[prost(int32, tag = "2")]
-    pub page_size: i32,
-    /// The next_page_token value to use if there are additional
-    /// results to retrieve for this list request.
-    #[prost(string, tag = "3")]
-    pub page_token: ::prost::alloc::string::String,
-    /// Sort results. Supported values are "name", "name desc" or "" (unsorted).
-    #[prost(string, tag = "4")]
-    pub order_by: ::prost::alloc::string::String,
-    /// List filter.
-    #[prost(string, tag = "5")]
-    pub filter: ::prost::alloc::string::String,
-}
-/// ListBackupVaultsResponse is the result of ListBackupVaultsRequest.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListBackupVaultsResponse {
-    /// A list of backupVaults in the project for the specified location.
-    #[prost(message, repeated, tag = "1")]
-    pub backup_vaults: ::prost::alloc::vec::Vec<BackupVault>,
-    /// The token you can use to retrieve the next page of results. Not returned
-    /// if there are no more results in the list.
-    #[prost(string, tag = "2")]
-    pub next_page_token: ::prost::alloc::string::String,
-    /// Locations that could not be reached.
-    #[prost(string, repeated, tag = "3")]
-    pub unreachable: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-}
-/// CreateBackupVaultRequest creates a backup vault.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CreateBackupVaultRequest {
-    /// Required. The location to create the backup vaults, in the format
-    /// `projects/{project_id}/locations/{location}`
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// Required. The ID to use for the backupVault.
-    /// The ID must be unique within the specified location.
-    /// Must contain only letters, numbers, underscore and hyphen, with the first
-    /// character a letter or underscore, the last a letter or underscore or a
-    /// number, and a 63 character maximum.
-    #[prost(string, tag = "2")]
-    pub backup_vault_id: ::prost::alloc::string::String,
-    /// Required. A backupVault resource
-    #[prost(message, optional, tag = "3")]
-    pub backup_vault: ::core::option::Option<BackupVault>,
-}
-/// DeleteBackupVaultRequest deletes a backupVault.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DeleteBackupVaultRequest {
-    /// Required. The backupVault resource name, in the format
-    /// `projects/{project_id}/locations/{location}/backupVaults/{backup_vault_id}`
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// UpdateBackupVaultRequest updates description and/or labels for a backupVault.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UpdateBackupVaultRequest {
-    /// Required. Field mask is used to specify the fields to be overwritten in the
-    /// Backup resource to be updated.
-    /// The fields specified in the update_mask are relative to the resource, not
-    /// the full request. A field will be overwritten if it is in the mask. If the
-    /// user does not provide a mask then all fields will be overwritten.
-    #[prost(message, optional, tag = "1")]
-    pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
-    /// Required. The backupVault being updated
-    #[prost(message, optional, tag = "2")]
-    pub backup_vault: ::core::option::Option<BackupVault>,
-}
-/// TransferStats reports all statistics related to replication transfer.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct TransferStats {
-    /// Cumulative bytes trasferred so far for the replication relatinonship.
-    #[prost(int64, optional, tag = "1")]
-    pub transfer_bytes: ::core::option::Option<i64>,
-    /// Cumulative time taken across all transfers for the replication
-    /// relationship.
-    #[prost(message, optional, tag = "2")]
-    pub total_transfer_duration: ::core::option::Option<::prost_types::Duration>,
-    /// Last transfer size in bytes.
-    #[prost(int64, optional, tag = "3")]
-    pub last_transfer_bytes: ::core::option::Option<i64>,
-    /// Time taken during last transfer.
-    #[prost(message, optional, tag = "4")]
-    pub last_transfer_duration: ::core::option::Option<::prost_types::Duration>,
-    /// Lag duration indicates the duration by which Destination region volume
-    /// content lags behind the primary region volume content.
-    #[prost(message, optional, tag = "5")]
-    pub lag_duration: ::core::option::Option<::prost_types::Duration>,
-    /// Time when progress was updated last.
-    #[prost(message, optional, tag = "6")]
-    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Time when last transfer completed.
-    #[prost(message, optional, tag = "7")]
-    pub last_transfer_end_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// A message describing the cause of the last transfer failure.
-    #[prost(string, optional, tag = "8")]
-    pub last_transfer_error: ::core::option::Option<::prost::alloc::string::String>,
-}
-/// Replication is a nested resource under Volume, that describes a
-/// cross-region replication relationship between 2 volumes in different
-/// regions.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Replication {
-    /// Identifier. The resource name of the Replication.
-    /// Format:
-    /// `projects/{project_id}/locations/{location}/volumes/{volume_id}/replications/{replication_id}`.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// Output only. State of the replication.
-    #[prost(enumeration = "replication::State", tag = "2")]
-    pub state: i32,
-    /// Output only. State details of the replication.
-    #[prost(string, tag = "3")]
-    pub state_details: ::prost::alloc::string::String,
-    /// Output only. Indicates whether this points to source or destination.
-    #[prost(enumeration = "replication::ReplicationRole", tag = "4")]
-    pub role: i32,
-    /// Required. Indicates the schedule for replication.
-    #[prost(enumeration = "replication::ReplicationSchedule", tag = "5")]
-    pub replication_schedule: i32,
-    /// Output only. Indicates the state of mirroring.
-    #[prost(enumeration = "replication::MirrorState", tag = "6")]
-    pub mirror_state: i32,
-    /// Output only. Condition of the relationship. Can be one of the following:
-    /// - true: The replication relationship is healthy. It has not missed the most
-    /// recent scheduled transfer.
-    /// - false: The replication relationship is not healthy. It has missed the
-    /// most recent scheduled transfer.
-    #[prost(bool, optional, tag = "8")]
-    pub healthy: ::core::option::Option<bool>,
-    /// Output only. Replication create time.
-    #[prost(message, optional, tag = "9")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. Full name of destination volume resource.
-    /// Example : "projects/{project}/locations/{location}/volumes/{volume_id}"
-    #[prost(string, tag = "10")]
-    pub destination_volume: ::prost::alloc::string::String,
-    /// Output only. Replication transfer statistics.
-    #[prost(message, optional, tag = "11")]
-    pub transfer_stats: ::core::option::Option<TransferStats>,
-    /// Resource labels to represent user provided metadata.
-    #[prost(btree_map = "string, string", tag = "12")]
-    pub labels: ::prost::alloc::collections::BTreeMap<
-        ::prost::alloc::string::String,
-        ::prost::alloc::string::String,
-    >,
-    /// A description about this replication relationship.
-    #[prost(string, optional, tag = "13")]
-    pub description: ::core::option::Option<::prost::alloc::string::String>,
-    /// Required. Input only. Destination volume parameters
-    #[prost(message, optional, tag = "14")]
-    pub destination_volume_parameters: ::core::option::Option<
-        DestinationVolumeParameters,
-    >,
-    /// Output only. Full name of source volume resource.
-    /// Example : "projects/{project}/locations/{location}/volumes/{volume_id}"
-    #[prost(string, tag = "15")]
-    pub source_volume: ::prost::alloc::string::String,
-}
-/// Nested message and enum types in `Replication`.
-pub mod replication {
-    /// The replication states
-    /// New enum values may be added in future to indicate possible new states.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum State {
-        /// Unspecified replication State
-        Unspecified = 0,
-        /// Replication is creating.
-        Creating = 1,
-        /// Replication is ready.
-        Ready = 2,
-        /// Replication is updating.
-        Updating = 3,
-        /// Replication is deleting.
-        Deleting = 5,
-        /// Replication is in error state.
-        Error = 6,
-    }
-    impl State {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Ready => "READY",
-                State::Updating => "UPDATING",
-                State::Deleting => "DELETING",
-                State::Error => "ERROR",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "STATE_UNSPECIFIED" => Some(Self::Unspecified),
-                "CREATING" => Some(Self::Creating),
-                "READY" => Some(Self::Ready),
-                "UPDATING" => Some(Self::Updating),
-                "DELETING" => Some(Self::Deleting),
-                "ERROR" => Some(Self::Error),
-                _ => None,
-            }
-        }
-    }
-    /// New enum values may be added in future to support different replication
-    /// topology.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum ReplicationRole {
-        /// Unspecified replication role
-        Unspecified = 0,
-        /// Indicates Source volume.
-        Source = 1,
-        /// Indicates Destination volume.
-        Destination = 2,
-    }
-    impl ReplicationRole {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                ReplicationRole::Unspecified => "REPLICATION_ROLE_UNSPECIFIED",
-                ReplicationRole::Source => "SOURCE",
-                ReplicationRole::Destination => "DESTINATION",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "REPLICATION_ROLE_UNSPECIFIED" => Some(Self::Unspecified),
-                "SOURCE" => Some(Self::Source),
-                "DESTINATION" => Some(Self::Destination),
-                _ => None,
-            }
-        }
-    }
-    /// Schedule for Replication.
-    /// New enum values may be added in future to support different frequency of
-    /// replication.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum ReplicationSchedule {
-        /// Unspecified ReplicationSchedule
-        Unspecified = 0,
-        /// Replication happens once every 10 minutes.
-        Every10Minutes = 1,
-        /// Replication happens once every hour.
-        Hourly = 2,
-        /// Replication happens once every day.
-        Daily = 3,
-    }
-    impl ReplicationSchedule {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                ReplicationSchedule::Unspecified => "REPLICATION_SCHEDULE_UNSPECIFIED",
-                ReplicationSchedule::Every10Minutes => "EVERY_10_MINUTES",
-                ReplicationSchedule::Hourly => "HOURLY",
-                ReplicationSchedule::Daily => "DAILY",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "REPLICATION_SCHEDULE_UNSPECIFIED" => Some(Self::Unspecified),
-                "EVERY_10_MINUTES" => Some(Self::Every10Minutes),
-                "HOURLY" => Some(Self::Hourly),
-                "DAILY" => Some(Self::Daily),
-                _ => None,
-            }
-        }
-    }
-    /// Mirroring states.
-    /// No new value is expected to be added in future.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum MirrorState {
-        /// Unspecified MirrorState
-        Unspecified = 0,
-        /// Destination volume is being prepared.
-        Preparing = 1,
-        /// Destination volume has been initialized and is ready to receive
-        /// replication transfers.
-        Mirrored = 2,
-        /// Destination volume is not receiving replication transfers.
-        Stopped = 3,
-        /// Incremental replication is in progress.
-        Transferring = 4,
-    }
-    impl MirrorState {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                MirrorState::Unspecified => "MIRROR_STATE_UNSPECIFIED",
-                MirrorState::Preparing => "PREPARING",
-                MirrorState::Mirrored => "MIRRORED",
-                MirrorState::Stopped => "STOPPED",
-                MirrorState::Transferring => "TRANSFERRING",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "MIRROR_STATE_UNSPECIFIED" => Some(Self::Unspecified),
-                "PREPARING" => Some(Self::Preparing),
-                "MIRRORED" => Some(Self::Mirrored),
-                "STOPPED" => Some(Self::Stopped),
-                "TRANSFERRING" => Some(Self::Transferring),
-                _ => None,
-            }
-        }
-    }
-}
-/// ListReplications lists replications.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListReplicationsRequest {
-    /// Required. The volume for which to retrieve replication information,
-    /// in the format
-    /// `projects/{project_id}/locations/{location}/volumes/{volume_id}`.
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// The maximum number of items to return.
-    #[prost(int32, tag = "2")]
-    pub page_size: i32,
-    /// The next_page_token value to use if there are additional
-    /// results to retrieve for this list request.
-    #[prost(string, tag = "3")]
-    pub page_token: ::prost::alloc::string::String,
-    /// Sort results. Supported values are "name", "name desc" or "" (unsorted).
-    #[prost(string, tag = "4")]
-    pub order_by: ::prost::alloc::string::String,
-    /// List filter.
-    #[prost(string, tag = "5")]
-    pub filter: ::prost::alloc::string::String,
-}
-/// ListReplicationsResponse is the result of ListReplicationsRequest.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ListReplicationsResponse {
-    /// A list of replications in the project for the specified volume.
-    #[prost(message, repeated, tag = "1")]
-    pub replications: ::prost::alloc::vec::Vec<Replication>,
-    /// The token you can use to retrieve the next page of results. Not returned
-    /// if there are no more results in the list.
-    #[prost(string, tag = "2")]
-    pub next_page_token: ::prost::alloc::string::String,
-    /// Locations that could not be reached.
-    #[prost(string, repeated, tag = "3")]
-    pub unreachable: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
-}
-/// GetReplicationRequest gets the state of a replication.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct GetReplicationRequest {
-    /// Required. The replication resource name, in the format
-    /// `projects/{project_id}/locations/{location}/volumes/{volume_id}/replications/{replication_id}`
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// DestinationVolumeParameters specify input parameters used for creating
-/// destination volume.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DestinationVolumeParameters {
-    /// Required. Existing destination StoragePool name.
-    #[prost(string, tag = "1")]
-    pub storage_pool: ::prost::alloc::string::String,
-    /// Desired destination volume resource id. If not specified, source volume's
-    /// resource id will be used.
-    /// This value must start with a lowercase letter followed by up to 62
-    /// lowercase letters, numbers, or hyphens, and cannot end with a hyphen.
-    #[prost(string, tag = "2")]
-    pub volume_id: ::prost::alloc::string::String,
-    /// Destination volume's share name. If not specified, source volume's share
-    /// name will be used.
-    #[prost(string, tag = "3")]
-    pub share_name: ::prost::alloc::string::String,
-    /// Description for the destination volume.
-    #[prost(string, optional, tag = "4")]
-    pub description: ::core::option::Option<::prost::alloc::string::String>,
-}
-/// CreateReplicationRequest creates a replication.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct CreateReplicationRequest {
-    /// Required. The NetApp volume to create the replications of, in the format
-    /// `projects/{project_id}/locations/{location}/volumes/{volume_id}`
-    #[prost(string, tag = "1")]
-    pub parent: ::prost::alloc::string::String,
-    /// Required. A replication resource
-    #[prost(message, optional, tag = "2")]
-    pub replication: ::core::option::Option<Replication>,
-    /// Required. ID of the replication to create. Must be unique within the parent
-    /// resource. Must contain only letters, numbers, underscore and hyphen, with
-    /// the first character a letter or underscore, the last a letter or underscore
-    /// or a number, and a 63 character maximum.
-    #[prost(string, tag = "3")]
-    pub replication_id: ::prost::alloc::string::String,
-}
-/// DeleteReplicationRequest deletes a replication.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct DeleteReplicationRequest {
-    /// Required. The replication resource name, in the format
-    /// `projects/*/locations/*/volumes/*/replications/{replication_id}`
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// UpdateReplicationRequest updates description and/or labels for a replication.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct UpdateReplicationRequest {
-    /// Required. Mask of fields to update.  At least one path must be supplied in
-    /// this field.
-    #[prost(message, optional, tag = "1")]
-    pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
-    /// Required. A replication resource
-    #[prost(message, optional, tag = "2")]
-    pub replication: ::core::option::Option<Replication>,
-}
-/// StopReplicationRequest stops a replication until resumed.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct StopReplicationRequest {
-    /// Required. The resource name of the replication, in the format of
-    /// projects/{project_id}/locations/{location}/volumes/{volume_id}/replications/{replication_id}.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// Indicates whether to stop replication forcefully while data transfer is in
-    /// progress.
-    /// Warning! if force is true, this will abort any current transfers
-    /// and can lead to data loss due to partial transfer.
-    /// If force is false, stop replication will fail while data transfer is in
-    /// progress and you will need to retry later.
-    #[prost(bool, tag = "2")]
-    pub force: bool,
-}
-/// ResumeReplicationRequest resumes a stopped replication.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ResumeReplicationRequest {
-    /// Required. The resource name of the replication, in the format of
-    /// projects/{project_id}/locations/{location}/volumes/{volume_id}/replications/{replication_id}.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-}
-/// ReverseReplicationDirectionRequest reverses direction of replication. Source
-/// becomes destination and destination becomes source.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct ReverseReplicationDirectionRequest {
-    /// Required. The resource name of the replication, in the format of
-    /// projects/{project_id}/locations/{location}/volumes/{volume_id}/replications/{replication_id}.
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
 }
 /// ListSnapshotsRequest lists snapshots.
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -2672,13 +2457,13 @@ pub mod snapshot {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Ready => "READY",
-                State::Creating => "CREATING",
-                State::Deleting => "DELETING",
-                State::Updating => "UPDATING",
-                State::Disabled => "DISABLED",
-                State::Error => "ERROR",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Ready => "READY",
+                Self::Creating => "CREATING",
+                Self::Deleting => "DELETING",
+                Self::Updating => "UPDATING",
+                Self::Disabled => "DISABLED",
+                Self::Error => "ERROR",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2689,6 +2474,221 @@ pub mod snapshot {
                 "CREATING" => Some(Self::Creating),
                 "DELETING" => Some(Self::Deleting),
                 "UPDATING" => Some(Self::Updating),
+                "DISABLED" => Some(Self::Disabled),
+                "ERROR" => Some(Self::Error),
+                _ => None,
+            }
+        }
+    }
+}
+/// GetStoragePoolRequest gets a Storage Pool.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct GetStoragePoolRequest {
+    /// Required. Name of the storage pool
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// ListStoragePoolsRequest lists Storage Pools.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListStoragePoolsRequest {
+    /// Required. Parent value
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// Optional. The maximum number of items to return.
+    #[prost(int32, tag = "2")]
+    pub page_size: i32,
+    /// Optional. The next_page_token value to use if there are additional
+    /// results to retrieve for this list request.
+    #[prost(string, tag = "3")]
+    pub page_token: ::prost::alloc::string::String,
+    /// Optional. Sort results. Supported values are "name", "name desc" or ""
+    /// (unsorted).
+    #[prost(string, tag = "4")]
+    pub order_by: ::prost::alloc::string::String,
+    /// Optional. List filter.
+    #[prost(string, tag = "5")]
+    pub filter: ::prost::alloc::string::String,
+}
+/// ListStoragePoolsResponse is the response to a ListStoragePoolsRequest.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct ListStoragePoolsResponse {
+    /// The list of StoragePools
+    #[prost(message, repeated, tag = "1")]
+    pub storage_pools: ::prost::alloc::vec::Vec<StoragePool>,
+    /// A token identifying a page of results the server should return.
+    #[prost(string, tag = "2")]
+    pub next_page_token: ::prost::alloc::string::String,
+    /// Locations that could not be reached.
+    #[prost(string, repeated, tag = "3")]
+    pub unreachable: ::prost::alloc::vec::Vec<::prost::alloc::string::String>,
+}
+/// CreateStoragePoolRequest creates a Storage Pool.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct CreateStoragePoolRequest {
+    /// Required. Value for parent.
+    #[prost(string, tag = "1")]
+    pub parent: ::prost::alloc::string::String,
+    /// Required. Id of the requesting storage pool. Must be unique within the
+    /// parent resource. Must contain only letters, numbers, underscore and hyphen,
+    /// with the first character a letter or underscore, the last a letter or
+    /// underscore or a number, and a 63 character maximum.
+    #[prost(string, tag = "2")]
+    pub storage_pool_id: ::prost::alloc::string::String,
+    /// Required. The required parameters to create a new storage pool.
+    #[prost(message, optional, tag = "3")]
+    pub storage_pool: ::core::option::Option<StoragePool>,
+}
+/// UpdateStoragePoolRequest updates a Storage Pool.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct UpdateStoragePoolRequest {
+    /// Required. Field mask is used to specify the fields to be overwritten in the
+    /// StoragePool resource by the update.
+    /// The fields specified in the update_mask are relative to the resource, not
+    /// the full request. A field will be overwritten if it is in the mask. If the
+    /// user does not provide a mask then all fields will be overwritten.
+    #[prost(message, optional, tag = "1")]
+    pub update_mask: ::core::option::Option<::prost_types::FieldMask>,
+    /// Required. The pool being updated
+    #[prost(message, optional, tag = "2")]
+    pub storage_pool: ::core::option::Option<StoragePool>,
+}
+/// DeleteStoragePoolRequest deletes a Storage Pool.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct DeleteStoragePoolRequest {
+    /// Required. Name of the storage pool
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+}
+/// StoragePool is a container for volumes with a service level and capacity.
+/// Volumes can be created in a pool of sufficient available capacity.
+/// StoragePool capacity is what you are billed for.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct StoragePool {
+    /// Identifier. Name of the storage pool
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// Required. Service level of the storage pool
+    #[prost(enumeration = "ServiceLevel", tag = "2")]
+    pub service_level: i32,
+    /// Required. Capacity in GIB of the pool
+    #[prost(int64, tag = "3")]
+    pub capacity_gib: i64,
+    /// Output only. Allocated size of all volumes in GIB in the storage pool
+    #[prost(int64, tag = "4")]
+    pub volume_capacity_gib: i64,
+    /// Output only. Volume count of the storage pool
+    #[prost(int32, tag = "5")]
+    pub volume_count: i32,
+    /// Output only. State of the storage pool
+    #[prost(enumeration = "storage_pool::State", tag = "6")]
+    pub state: i32,
+    /// Output only. State details of the storage pool
+    #[prost(string, tag = "7")]
+    pub state_details: ::prost::alloc::string::String,
+    /// Output only. Create time of the storage pool
+    #[prost(message, optional, tag = "8")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Optional. Description of the storage pool
+    #[prost(string, tag = "9")]
+    pub description: ::prost::alloc::string::String,
+    /// Optional. Labels as key value pairs
+    #[prost(btree_map = "string, string", tag = "10")]
+    pub labels: ::prost::alloc::collections::BTreeMap<
+        ::prost::alloc::string::String,
+        ::prost::alloc::string::String,
+    >,
+    /// Required. VPC Network name.
+    /// Format: projects/{project}/global/networks/{network}
+    #[prost(string, tag = "11")]
+    pub network: ::prost::alloc::string::String,
+    /// Optional. Specifies the Active Directory to be used for creating a SMB
+    /// volume.
+    #[prost(string, tag = "12")]
+    pub active_directory: ::prost::alloc::string::String,
+    /// Optional. Specifies the KMS config to be used for volume encryption.
+    #[prost(string, tag = "13")]
+    pub kms_config: ::prost::alloc::string::String,
+    /// Optional. Flag indicating if the pool is NFS LDAP enabled or not.
+    #[prost(bool, tag = "14")]
+    pub ldap_enabled: bool,
+    /// Optional. This field is not implemented. The values provided in this field
+    /// are ignored.
+    #[prost(string, tag = "15")]
+    pub psa_range: ::prost::alloc::string::String,
+    /// Output only. Specifies the current pool encryption key source.
+    #[prost(enumeration = "EncryptionType", tag = "16")]
+    pub encryption_type: i32,
+    /// Deprecated. Used to allow SO pool to access AD or DNS server from other
+    /// regions.
+    #[deprecated]
+    #[prost(bool, optional, tag = "17")]
+    pub global_access_allowed: ::core::option::Option<bool>,
+    /// Optional. Specifies the replica zone for regional storagePool.
+    #[prost(string, tag = "20")]
+    pub replica_zone: ::prost::alloc::string::String,
+    /// Optional. Specifies the active zone for regional storagePool.
+    #[prost(string, tag = "21")]
+    pub zone: ::prost::alloc::string::String,
+}
+/// Nested message and enum types in `StoragePool`.
+pub mod storage_pool {
+    /// The Storage Pool States
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum State {
+        /// Unspecified Storage Pool State
+        Unspecified = 0,
+        /// Storage Pool State is Ready
+        Ready = 1,
+        /// Storage Pool State is Creating
+        Creating = 2,
+        /// Storage Pool State is Deleting
+        Deleting = 3,
+        /// Storage Pool State is Updating
+        Updating = 4,
+        /// Storage Pool State is Restoring
+        Restoring = 5,
+        /// Storage Pool State is Disabled
+        Disabled = 6,
+        /// Storage Pool State is Error
+        Error = 7,
+    }
+    impl State {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Ready => "READY",
+                Self::Creating => "CREATING",
+                Self::Deleting => "DELETING",
+                Self::Updating => "UPDATING",
+                Self::Restoring => "RESTORING",
+                Self::Disabled => "DISABLED",
+                Self::Error => "ERROR",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "STATE_UNSPECIFIED" => Some(Self::Unspecified),
+                "READY" => Some(Self::Ready),
+                "CREATING" => Some(Self::Creating),
+                "DELETING" => Some(Self::Deleting),
+                "UPDATING" => Some(Self::Updating),
+                "RESTORING" => Some(Self::Restoring),
                 "DISABLED" => Some(Self::Disabled),
                 "ERROR" => Some(Self::Error),
                 _ => None,
@@ -4232,5 +4232,2817 @@ pub mod net_app_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod net_app_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with NetAppServer.
+    #[async_trait]
+    pub trait NetApp: std::marker::Send + std::marker::Sync + 'static {
+        /// Returns descriptions of all storage pools owned by the caller.
+        async fn list_storage_pools(
+            &self,
+            request: tonic::Request<super::ListStoragePoolsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListStoragePoolsResponse>,
+            tonic::Status,
+        >;
+        /// Creates a new storage pool.
+        async fn create_storage_pool(
+            &self,
+            request: tonic::Request<super::CreateStoragePoolRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Returns the description of the specified storage pool by poolId.
+        async fn get_storage_pool(
+            &self,
+            request: tonic::Request<super::GetStoragePoolRequest>,
+        ) -> std::result::Result<tonic::Response<super::StoragePool>, tonic::Status>;
+        /// Updates the storage pool properties with the full spec
+        async fn update_storage_pool(
+            &self,
+            request: tonic::Request<super::UpdateStoragePoolRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Warning! This operation will permanently delete the storage pool.
+        async fn delete_storage_pool(
+            &self,
+            request: tonic::Request<super::DeleteStoragePoolRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists Volumes in a given project.
+        async fn list_volumes(
+            &self,
+            request: tonic::Request<super::ListVolumesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListVolumesResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single Volume.
+        async fn get_volume(
+            &self,
+            request: tonic::Request<super::GetVolumeRequest>,
+        ) -> std::result::Result<tonic::Response<super::Volume>, tonic::Status>;
+        /// Creates a new Volume in a given project and location.
+        async fn create_volume(
+            &self,
+            request: tonic::Request<super::CreateVolumeRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the parameters of a single Volume.
+        async fn update_volume(
+            &self,
+            request: tonic::Request<super::UpdateVolumeRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single Volume.
+        async fn delete_volume(
+            &self,
+            request: tonic::Request<super::DeleteVolumeRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Revert an existing volume to a specified snapshot.
+        /// Warning! This operation will permanently revert all changes made after the
+        /// snapshot was created.
+        async fn revert_volume(
+            &self,
+            request: tonic::Request<super::RevertVolumeRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Returns descriptions of all snapshots for a volume.
+        async fn list_snapshots(
+            &self,
+            request: tonic::Request<super::ListSnapshotsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListSnapshotsResponse>,
+            tonic::Status,
+        >;
+        /// Describe a snapshot for a volume.
+        async fn get_snapshot(
+            &self,
+            request: tonic::Request<super::GetSnapshotRequest>,
+        ) -> std::result::Result<tonic::Response<super::Snapshot>, tonic::Status>;
+        /// Create a new snapshot for a volume.
+        async fn create_snapshot(
+            &self,
+            request: tonic::Request<super::CreateSnapshotRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a snapshot.
+        async fn delete_snapshot(
+            &self,
+            request: tonic::Request<super::DeleteSnapshotRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the settings of a specific snapshot.
+        async fn update_snapshot(
+            &self,
+            request: tonic::Request<super::UpdateSnapshotRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists active directories.
+        async fn list_active_directories(
+            &self,
+            request: tonic::Request<super::ListActiveDirectoriesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListActiveDirectoriesResponse>,
+            tonic::Status,
+        >;
+        /// Describes a specified active directory.
+        async fn get_active_directory(
+            &self,
+            request: tonic::Request<super::GetActiveDirectoryRequest>,
+        ) -> std::result::Result<tonic::Response<super::ActiveDirectory>, tonic::Status>;
+        /// CreateActiveDirectory
+        /// Creates the active directory specified in the request.
+        async fn create_active_directory(
+            &self,
+            request: tonic::Request<super::CreateActiveDirectoryRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Update the parameters of an active directories.
+        async fn update_active_directory(
+            &self,
+            request: tonic::Request<super::UpdateActiveDirectoryRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Delete the active directory specified in the request.
+        async fn delete_active_directory(
+            &self,
+            request: tonic::Request<super::DeleteActiveDirectoryRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Returns descriptions of all KMS configs owned by the caller.
+        async fn list_kms_configs(
+            &self,
+            request: tonic::Request<super::ListKmsConfigsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListKmsConfigsResponse>,
+            tonic::Status,
+        >;
+        /// Creates a new KMS config.
+        async fn create_kms_config(
+            &self,
+            request: tonic::Request<super::CreateKmsConfigRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Returns the description of the specified KMS config by kms_config_id.
+        async fn get_kms_config(
+            &self,
+            request: tonic::Request<super::GetKmsConfigRequest>,
+        ) -> std::result::Result<tonic::Response<super::KmsConfig>, tonic::Status>;
+        /// Updates the Kms config properties with the full spec
+        async fn update_kms_config(
+            &self,
+            request: tonic::Request<super::UpdateKmsConfigRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Encrypt the existing volumes without CMEK encryption with the desired the
+        /// KMS config for the whole region.
+        async fn encrypt_volumes(
+            &self,
+            request: tonic::Request<super::EncryptVolumesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Verifies KMS config reachability.
+        async fn verify_kms_config(
+            &self,
+            request: tonic::Request<super::VerifyKmsConfigRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::VerifyKmsConfigResponse>,
+            tonic::Status,
+        >;
+        /// Warning! This operation will permanently delete the Kms config.
+        async fn delete_kms_config(
+            &self,
+            request: tonic::Request<super::DeleteKmsConfigRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Returns descriptions of all replications for a volume.
+        async fn list_replications(
+            &self,
+            request: tonic::Request<super::ListReplicationsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListReplicationsResponse>,
+            tonic::Status,
+        >;
+        /// Describe a replication for a volume.
+        async fn get_replication(
+            &self,
+            request: tonic::Request<super::GetReplicationRequest>,
+        ) -> std::result::Result<tonic::Response<super::Replication>, tonic::Status>;
+        /// Create a new replication for a volume.
+        async fn create_replication(
+            &self,
+            request: tonic::Request<super::CreateReplicationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a replication.
+        async fn delete_replication(
+            &self,
+            request: tonic::Request<super::DeleteReplicationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the settings of a specific replication.
+        async fn update_replication(
+            &self,
+            request: tonic::Request<super::UpdateReplicationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Stop Cross Region Replication.
+        async fn stop_replication(
+            &self,
+            request: tonic::Request<super::StopReplicationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Resume Cross Region Replication.
+        async fn resume_replication(
+            &self,
+            request: tonic::Request<super::ResumeReplicationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Reverses direction of replication. Source becomes destination and
+        /// destination becomes source.
+        async fn reverse_replication_direction(
+            &self,
+            request: tonic::Request<super::ReverseReplicationDirectionRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Creates new backup vault
+        async fn create_backup_vault(
+            &self,
+            request: tonic::Request<super::CreateBackupVaultRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Returns the description of the specified backup vault
+        async fn get_backup_vault(
+            &self,
+            request: tonic::Request<super::GetBackupVaultRequest>,
+        ) -> std::result::Result<tonic::Response<super::BackupVault>, tonic::Status>;
+        /// Returns list of all available backup vaults.
+        async fn list_backup_vaults(
+            &self,
+            request: tonic::Request<super::ListBackupVaultsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListBackupVaultsResponse>,
+            tonic::Status,
+        >;
+        /// Updates the settings of a specific backup vault.
+        async fn update_backup_vault(
+            &self,
+            request: tonic::Request<super::UpdateBackupVaultRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Warning! This operation will permanently delete the backup vault.
+        async fn delete_backup_vault(
+            &self,
+            request: tonic::Request<super::DeleteBackupVaultRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Creates a backup from the volume specified in the request
+        /// The backup can be created from the given snapshot if specified in the
+        /// request. If no snapshot specified, there'll be a new snapshot taken to
+        /// initiate the backup creation.
+        async fn create_backup(
+            &self,
+            request: tonic::Request<super::CreateBackupRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Returns the description of the specified backup
+        async fn get_backup(
+            &self,
+            request: tonic::Request<super::GetBackupRequest>,
+        ) -> std::result::Result<tonic::Response<super::Backup>, tonic::Status>;
+        /// Returns descriptions of all backups for a backupVault.
+        async fn list_backups(
+            &self,
+            request: tonic::Request<super::ListBackupsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListBackupsResponse>,
+            tonic::Status,
+        >;
+        /// Warning! This operation will permanently delete the backup.
+        async fn delete_backup(
+            &self,
+            request: tonic::Request<super::DeleteBackupRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Update backup with full spec.
+        async fn update_backup(
+            &self,
+            request: tonic::Request<super::UpdateBackupRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Creates new backup policy
+        async fn create_backup_policy(
+            &self,
+            request: tonic::Request<super::CreateBackupPolicyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Returns the description of the specified backup policy by backup_policy_id.
+        async fn get_backup_policy(
+            &self,
+            request: tonic::Request<super::GetBackupPolicyRequest>,
+        ) -> std::result::Result<tonic::Response<super::BackupPolicy>, tonic::Status>;
+        /// Returns list of all available backup policies.
+        async fn list_backup_policies(
+            &self,
+            request: tonic::Request<super::ListBackupPoliciesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListBackupPoliciesResponse>,
+            tonic::Status,
+        >;
+        /// Updates settings of a specific backup policy.
+        async fn update_backup_policy(
+            &self,
+            request: tonic::Request<super::UpdateBackupPolicyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Warning! This operation will permanently delete the backup policy.
+        async fn delete_backup_policy(
+            &self,
+            request: tonic::Request<super::DeleteBackupPolicyRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// NetApp Files Google Cloud Service
+    #[derive(Debug)]
+    pub struct NetAppServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> NetAppServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for NetAppServer<T>
+    where
+        T: NetApp,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.netapp.v1.NetApp/ListStoragePools" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListStoragePoolsSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::ListStoragePoolsRequest>
+                    for ListStoragePoolsSvc<T> {
+                        type Response = super::ListStoragePoolsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListStoragePoolsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::list_storage_pools(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListStoragePoolsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/CreateStoragePool" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateStoragePoolSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::CreateStoragePoolRequest>
+                    for CreateStoragePoolSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateStoragePoolRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::create_storage_pool(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateStoragePoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/GetStoragePool" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetStoragePoolSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::GetStoragePoolRequest>
+                    for GetStoragePoolSvc<T> {
+                        type Response = super::StoragePool;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetStoragePoolRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::get_storage_pool(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetStoragePoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/UpdateStoragePool" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateStoragePoolSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::UpdateStoragePoolRequest>
+                    for UpdateStoragePoolSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateStoragePoolRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::update_storage_pool(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateStoragePoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/DeleteStoragePool" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteStoragePoolSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::DeleteStoragePoolRequest>
+                    for DeleteStoragePoolSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteStoragePoolRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::delete_storage_pool(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteStoragePoolSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/ListVolumes" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListVolumesSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::ListVolumesRequest>
+                    for ListVolumesSvc<T> {
+                        type Response = super::ListVolumesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListVolumesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::list_volumes(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListVolumesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/GetVolume" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetVolumeSvc<T: NetApp>(pub Arc<T>);
+                    impl<T: NetApp> tonic::server::UnaryService<super::GetVolumeRequest>
+                    for GetVolumeSvc<T> {
+                        type Response = super::Volume;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetVolumeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::get_volume(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetVolumeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/CreateVolume" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateVolumeSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::CreateVolumeRequest>
+                    for CreateVolumeSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateVolumeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::create_volume(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateVolumeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/UpdateVolume" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateVolumeSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::UpdateVolumeRequest>
+                    for UpdateVolumeSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateVolumeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::update_volume(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateVolumeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/DeleteVolume" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteVolumeSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::DeleteVolumeRequest>
+                    for DeleteVolumeSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteVolumeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::delete_volume(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteVolumeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/RevertVolume" => {
+                    #[allow(non_camel_case_types)]
+                    struct RevertVolumeSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::RevertVolumeRequest>
+                    for RevertVolumeSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RevertVolumeRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::revert_volume(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RevertVolumeSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/ListSnapshots" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListSnapshotsSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::ListSnapshotsRequest>
+                    for ListSnapshotsSvc<T> {
+                        type Response = super::ListSnapshotsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListSnapshotsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::list_snapshots(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListSnapshotsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/GetSnapshot" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetSnapshotSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::GetSnapshotRequest>
+                    for GetSnapshotSvc<T> {
+                        type Response = super::Snapshot;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetSnapshotRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::get_snapshot(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetSnapshotSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/CreateSnapshot" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateSnapshotSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::CreateSnapshotRequest>
+                    for CreateSnapshotSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateSnapshotRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::create_snapshot(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateSnapshotSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/DeleteSnapshot" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteSnapshotSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::DeleteSnapshotRequest>
+                    for DeleteSnapshotSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteSnapshotRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::delete_snapshot(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteSnapshotSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/UpdateSnapshot" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateSnapshotSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::UpdateSnapshotRequest>
+                    for UpdateSnapshotSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateSnapshotRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::update_snapshot(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateSnapshotSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/ListActiveDirectories" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListActiveDirectoriesSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::ListActiveDirectoriesRequest>
+                    for ListActiveDirectoriesSvc<T> {
+                        type Response = super::ListActiveDirectoriesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListActiveDirectoriesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::list_active_directories(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListActiveDirectoriesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/GetActiveDirectory" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetActiveDirectorySvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::GetActiveDirectoryRequest>
+                    for GetActiveDirectorySvc<T> {
+                        type Response = super::ActiveDirectory;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetActiveDirectoryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::get_active_directory(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetActiveDirectorySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/CreateActiveDirectory" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateActiveDirectorySvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::CreateActiveDirectoryRequest>
+                    for CreateActiveDirectorySvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateActiveDirectoryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::create_active_directory(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateActiveDirectorySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/UpdateActiveDirectory" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateActiveDirectorySvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::UpdateActiveDirectoryRequest>
+                    for UpdateActiveDirectorySvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateActiveDirectoryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::update_active_directory(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateActiveDirectorySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/DeleteActiveDirectory" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteActiveDirectorySvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::DeleteActiveDirectoryRequest>
+                    for DeleteActiveDirectorySvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteActiveDirectoryRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::delete_active_directory(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteActiveDirectorySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/ListKmsConfigs" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListKmsConfigsSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::ListKmsConfigsRequest>
+                    for ListKmsConfigsSvc<T> {
+                        type Response = super::ListKmsConfigsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListKmsConfigsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::list_kms_configs(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListKmsConfigsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/CreateKmsConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateKmsConfigSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::CreateKmsConfigRequest>
+                    for CreateKmsConfigSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateKmsConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::create_kms_config(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateKmsConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/GetKmsConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetKmsConfigSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::GetKmsConfigRequest>
+                    for GetKmsConfigSvc<T> {
+                        type Response = super::KmsConfig;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetKmsConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::get_kms_config(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetKmsConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/UpdateKmsConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateKmsConfigSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::UpdateKmsConfigRequest>
+                    for UpdateKmsConfigSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateKmsConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::update_kms_config(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateKmsConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/EncryptVolumes" => {
+                    #[allow(non_camel_case_types)]
+                    struct EncryptVolumesSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::EncryptVolumesRequest>
+                    for EncryptVolumesSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::EncryptVolumesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::encrypt_volumes(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = EncryptVolumesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/VerifyKmsConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct VerifyKmsConfigSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::VerifyKmsConfigRequest>
+                    for VerifyKmsConfigSvc<T> {
+                        type Response = super::VerifyKmsConfigResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::VerifyKmsConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::verify_kms_config(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = VerifyKmsConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/DeleteKmsConfig" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteKmsConfigSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::DeleteKmsConfigRequest>
+                    for DeleteKmsConfigSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteKmsConfigRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::delete_kms_config(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteKmsConfigSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/ListReplications" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListReplicationsSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::ListReplicationsRequest>
+                    for ListReplicationsSvc<T> {
+                        type Response = super::ListReplicationsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListReplicationsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::list_replications(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListReplicationsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/GetReplication" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetReplicationSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::GetReplicationRequest>
+                    for GetReplicationSvc<T> {
+                        type Response = super::Replication;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetReplicationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::get_replication(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetReplicationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/CreateReplication" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateReplicationSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::CreateReplicationRequest>
+                    for CreateReplicationSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateReplicationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::create_replication(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateReplicationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/DeleteReplication" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteReplicationSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::DeleteReplicationRequest>
+                    for DeleteReplicationSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteReplicationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::delete_replication(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteReplicationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/UpdateReplication" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateReplicationSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::UpdateReplicationRequest>
+                    for UpdateReplicationSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateReplicationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::update_replication(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateReplicationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/StopReplication" => {
+                    #[allow(non_camel_case_types)]
+                    struct StopReplicationSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::StopReplicationRequest>
+                    for StopReplicationSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::StopReplicationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::stop_replication(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = StopReplicationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/ResumeReplication" => {
+                    #[allow(non_camel_case_types)]
+                    struct ResumeReplicationSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::ResumeReplicationRequest>
+                    for ResumeReplicationSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ResumeReplicationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::resume_replication(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ResumeReplicationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/ReverseReplicationDirection" => {
+                    #[allow(non_camel_case_types)]
+                    struct ReverseReplicationDirectionSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<
+                        super::ReverseReplicationDirectionRequest,
+                    > for ReverseReplicationDirectionSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ReverseReplicationDirectionRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::reverse_replication_direction(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ReverseReplicationDirectionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/CreateBackupVault" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateBackupVaultSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::CreateBackupVaultRequest>
+                    for CreateBackupVaultSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateBackupVaultRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::create_backup_vault(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateBackupVaultSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/GetBackupVault" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetBackupVaultSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::GetBackupVaultRequest>
+                    for GetBackupVaultSvc<T> {
+                        type Response = super::BackupVault;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetBackupVaultRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::get_backup_vault(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetBackupVaultSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/ListBackupVaults" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListBackupVaultsSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::ListBackupVaultsRequest>
+                    for ListBackupVaultsSvc<T> {
+                        type Response = super::ListBackupVaultsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListBackupVaultsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::list_backup_vaults(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListBackupVaultsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/UpdateBackupVault" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateBackupVaultSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::UpdateBackupVaultRequest>
+                    for UpdateBackupVaultSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateBackupVaultRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::update_backup_vault(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateBackupVaultSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/DeleteBackupVault" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteBackupVaultSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::DeleteBackupVaultRequest>
+                    for DeleteBackupVaultSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteBackupVaultRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::delete_backup_vault(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteBackupVaultSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/CreateBackup" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateBackupSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::CreateBackupRequest>
+                    for CreateBackupSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateBackupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::create_backup(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateBackupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/GetBackup" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetBackupSvc<T: NetApp>(pub Arc<T>);
+                    impl<T: NetApp> tonic::server::UnaryService<super::GetBackupRequest>
+                    for GetBackupSvc<T> {
+                        type Response = super::Backup;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetBackupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::get_backup(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetBackupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/ListBackups" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListBackupsSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::ListBackupsRequest>
+                    for ListBackupsSvc<T> {
+                        type Response = super::ListBackupsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListBackupsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::list_backups(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListBackupsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/DeleteBackup" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteBackupSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::DeleteBackupRequest>
+                    for DeleteBackupSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteBackupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::delete_backup(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteBackupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/UpdateBackup" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateBackupSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::UpdateBackupRequest>
+                    for UpdateBackupSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateBackupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::update_backup(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateBackupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/CreateBackupPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateBackupPolicySvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::CreateBackupPolicyRequest>
+                    for CreateBackupPolicySvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateBackupPolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::create_backup_policy(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateBackupPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/GetBackupPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetBackupPolicySvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::GetBackupPolicyRequest>
+                    for GetBackupPolicySvc<T> {
+                        type Response = super::BackupPolicy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetBackupPolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::get_backup_policy(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetBackupPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/ListBackupPolicies" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListBackupPoliciesSvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::ListBackupPoliciesRequest>
+                    for ListBackupPoliciesSvc<T> {
+                        type Response = super::ListBackupPoliciesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListBackupPoliciesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::list_backup_policies(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListBackupPoliciesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/UpdateBackupPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateBackupPolicySvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::UpdateBackupPolicyRequest>
+                    for UpdateBackupPolicySvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateBackupPolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::update_backup_policy(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateBackupPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.netapp.v1.NetApp/DeleteBackupPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteBackupPolicySvc<T: NetApp>(pub Arc<T>);
+                    impl<
+                        T: NetApp,
+                    > tonic::server::UnaryService<super::DeleteBackupPolicyRequest>
+                    for DeleteBackupPolicySvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteBackupPolicyRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as NetApp>::delete_backup_policy(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteBackupPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for NetAppServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.netapp.v1.NetApp";
+    impl<T> tonic::server::NamedService for NetAppServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

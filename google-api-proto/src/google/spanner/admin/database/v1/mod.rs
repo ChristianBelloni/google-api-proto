@@ -93,9 +93,9 @@ pub mod encryption_info {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::GoogleDefaultEncryption => "GOOGLE_DEFAULT_ENCRYPTION",
-                Type::CustomerManagedEncryption => "CUSTOMER_MANAGED_ENCRYPTION",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::GoogleDefaultEncryption => "GOOGLE_DEFAULT_ENCRYPTION",
+                Self::CustomerManagedEncryption => "CUSTOMER_MANAGED_ENCRYPTION",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -128,9 +128,9 @@ impl DatabaseDialect {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            DatabaseDialect::Unspecified => "DATABASE_DIALECT_UNSPECIFIED",
-            DatabaseDialect::GoogleStandardSql => "GOOGLE_STANDARD_SQL",
-            DatabaseDialect::Postgresql => "POSTGRESQL",
+            Self::Unspecified => "DATABASE_DIALECT_UNSPECIFIED",
+            Self::GoogleStandardSql => "GOOGLE_STANDARD_SQL",
+            Self::Postgresql => "POSTGRESQL",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -313,9 +313,9 @@ pub mod backup {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Ready => "READY",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Ready => "READY",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -777,12 +777,10 @@ pub mod create_backup_encryption_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                EncryptionType::Unspecified => "ENCRYPTION_TYPE_UNSPECIFIED",
-                EncryptionType::UseDatabaseEncryption => "USE_DATABASE_ENCRYPTION",
-                EncryptionType::GoogleDefaultEncryption => "GOOGLE_DEFAULT_ENCRYPTION",
-                EncryptionType::CustomerManagedEncryption => {
-                    "CUSTOMER_MANAGED_ENCRYPTION"
-                }
+                Self::Unspecified => "ENCRYPTION_TYPE_UNSPECIFIED",
+                Self::UseDatabaseEncryption => "USE_DATABASE_ENCRYPTION",
+                Self::GoogleDefaultEncryption => "GOOGLE_DEFAULT_ENCRYPTION",
+                Self::CustomerManagedEncryption => "CUSTOMER_MANAGED_ENCRYPTION",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -868,14 +866,12 @@ pub mod copy_backup_encryption_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                EncryptionType::Unspecified => "ENCRYPTION_TYPE_UNSPECIFIED",
-                EncryptionType::UseConfigDefaultOrBackupEncryption => {
+                Self::Unspecified => "ENCRYPTION_TYPE_UNSPECIFIED",
+                Self::UseConfigDefaultOrBackupEncryption => {
                     "USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION"
                 }
-                EncryptionType::GoogleDefaultEncryption => "GOOGLE_DEFAULT_ENCRYPTION",
-                EncryptionType::CustomerManagedEncryption => {
-                    "CUSTOMER_MANAGED_ENCRYPTION"
-                }
+                Self::GoogleDefaultEncryption => "GOOGLE_DEFAULT_ENCRYPTION",
+                Self::CustomerManagedEncryption => "CUSTOMER_MANAGED_ENCRYPTION",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1230,10 +1226,10 @@ pub mod database {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Ready => "READY",
-                State::ReadyOptimizing => "READY_OPTIMIZING",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Ready => "READY",
+                Self::ReadyOptimizing => "READY_OPTIMIZING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1726,14 +1722,12 @@ pub mod restore_database_encryption_config {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                EncryptionType::Unspecified => "ENCRYPTION_TYPE_UNSPECIFIED",
-                EncryptionType::UseConfigDefaultOrBackupEncryption => {
+                Self::Unspecified => "ENCRYPTION_TYPE_UNSPECIFIED",
+                Self::UseConfigDefaultOrBackupEncryption => {
                     "USE_CONFIG_DEFAULT_OR_BACKUP_ENCRYPTION"
                 }
-                EncryptionType::GoogleDefaultEncryption => "GOOGLE_DEFAULT_ENCRYPTION",
-                EncryptionType::CustomerManagedEncryption => {
-                    "CUSTOMER_MANAGED_ENCRYPTION"
-                }
+                Self::GoogleDefaultEncryption => "GOOGLE_DEFAULT_ENCRYPTION",
+                Self::CustomerManagedEncryption => "CUSTOMER_MANAGED_ENCRYPTION",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1881,8 +1875,8 @@ impl RestoreSourceType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            RestoreSourceType::TypeUnspecified => "TYPE_UNSPECIFIED",
-            RestoreSourceType::Backup => "BACKUP",
+            Self::TypeUnspecified => "TYPE_UNSPECIFIED",
+            Self::Backup => "BACKUP",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2868,5 +2862,1611 @@ pub mod database_admin_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod database_admin_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with DatabaseAdminServer.
+    #[async_trait]
+    pub trait DatabaseAdmin: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists Cloud Spanner databases.
+        async fn list_databases(
+            &self,
+            request: tonic::Request<super::ListDatabasesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDatabasesResponse>,
+            tonic::Status,
+        >;
+        /// Creates a new Cloud Spanner database and starts to prepare it for serving.
+        /// The returned [long-running operation][google.longrunning.Operation] will
+        /// have a name of the format `<database_name>/operations/<operation_id>` and
+        /// can be used to track preparation of the database. The
+        /// [metadata][google.longrunning.Operation.metadata] field type is
+        /// [CreateDatabaseMetadata][google.spanner.admin.database.v1.CreateDatabaseMetadata].
+        /// The [response][google.longrunning.Operation.response] field type is
+        /// [Database][google.spanner.admin.database.v1.Database], if successful.
+        async fn create_database(
+            &self,
+            request: tonic::Request<super::CreateDatabaseRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Gets the state of a Cloud Spanner database.
+        async fn get_database(
+            &self,
+            request: tonic::Request<super::GetDatabaseRequest>,
+        ) -> std::result::Result<tonic::Response<super::Database>, tonic::Status>;
+        /// Updates a Cloud Spanner database. The returned
+        /// [long-running operation][google.longrunning.Operation] can be used to track
+        /// the progress of updating the database. If the named database does not
+        /// exist, returns `NOT_FOUND`.
+        ///
+        /// While the operation is pending:
+        ///
+        ///   * The database's
+        ///     [reconciling][google.spanner.admin.database.v1.Database.reconciling]
+        ///     field is set to true.
+        ///   * Cancelling the operation is best-effort. If the cancellation succeeds,
+        ///     the operation metadata's
+        ///     [cancel_time][google.spanner.admin.database.v1.UpdateDatabaseMetadata.cancel_time]
+        ///     is set, the updates are reverted, and the operation terminates with a
+        ///     `CANCELLED` status.
+        ///   * New UpdateDatabase requests will return a `FAILED_PRECONDITION` error
+        ///     until the pending operation is done (returns successfully or with
+        ///     error).
+        ///   * Reading the database via the API continues to give the pre-request
+        ///     values.
+        ///
+        /// Upon completion of the returned operation:
+        ///
+        ///   * The new values are in effect and readable via the API.
+        ///   * The database's
+        ///     [reconciling][google.spanner.admin.database.v1.Database.reconciling]
+        ///     field becomes false.
+        ///
+        /// The returned [long-running operation][google.longrunning.Operation] will
+        /// have a name of the format
+        /// `projects/<project>/instances/<instance>/databases/<database>/operations/<operation_id>`
+        /// and can be used to track the database modification. The
+        /// [metadata][google.longrunning.Operation.metadata] field type is
+        /// [UpdateDatabaseMetadata][google.spanner.admin.database.v1.UpdateDatabaseMetadata].
+        /// The [response][google.longrunning.Operation.response] field type is
+        /// [Database][google.spanner.admin.database.v1.Database], if successful.
+        async fn update_database(
+            &self,
+            request: tonic::Request<super::UpdateDatabaseRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates the schema of a Cloud Spanner database by
+        /// creating/altering/dropping tables, columns, indexes, etc. The returned
+        /// [long-running operation][google.longrunning.Operation] will have a name of
+        /// the format `<database_name>/operations/<operation_id>` and can be used to
+        /// track execution of the schema change(s). The
+        /// [metadata][google.longrunning.Operation.metadata] field type is
+        /// [UpdateDatabaseDdlMetadata][google.spanner.admin.database.v1.UpdateDatabaseDdlMetadata].
+        /// The operation has no response.
+        async fn update_database_ddl(
+            &self,
+            request: tonic::Request<super::UpdateDatabaseDdlRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Drops (aka deletes) a Cloud Spanner database.
+        /// Completed backups for the database will be retained according to their
+        /// `expire_time`.
+        /// Note: Cloud Spanner might continue to accept requests for a few seconds
+        /// after the database has been deleted.
+        async fn drop_database(
+            &self,
+            request: tonic::Request<super::DropDatabaseRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Returns the schema of a Cloud Spanner database as a list of formatted
+        /// DDL statements. This method does not show pending schema updates, those may
+        /// be queried using the [Operations][google.longrunning.Operations] API.
+        async fn get_database_ddl(
+            &self,
+            request: tonic::Request<super::GetDatabaseDdlRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::GetDatabaseDdlResponse>,
+            tonic::Status,
+        >;
+        /// Sets the access control policy on a database or backup resource.
+        /// Replaces any existing policy.
+        ///
+        /// Authorization requires `spanner.databases.setIamPolicy`
+        /// permission on [resource][google.iam.v1.SetIamPolicyRequest.resource].
+        /// For backups, authorization requires `spanner.backups.setIamPolicy`
+        /// permission on [resource][google.iam.v1.SetIamPolicyRequest.resource].
+        async fn set_iam_policy(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::super::iam::v1::SetIamPolicyRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::iam::v1::Policy>,
+            tonic::Status,
+        >;
+        /// Gets the access control policy for a database or backup resource.
+        /// Returns an empty policy if a database or backup exists but does not have a
+        /// policy set.
+        ///
+        /// Authorization requires `spanner.databases.getIamPolicy` permission on
+        /// [resource][google.iam.v1.GetIamPolicyRequest.resource].
+        /// For backups, authorization requires `spanner.backups.getIamPolicy`
+        /// permission on [resource][google.iam.v1.GetIamPolicyRequest.resource].
+        async fn get_iam_policy(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::super::iam::v1::GetIamPolicyRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::iam::v1::Policy>,
+            tonic::Status,
+        >;
+        /// Returns permissions that the caller has on the specified database or backup
+        /// resource.
+        ///
+        /// Attempting this RPC on a non-existent Cloud Spanner database will
+        /// result in a NOT_FOUND error if the user has
+        /// `spanner.databases.list` permission on the containing Cloud
+        /// Spanner instance. Otherwise returns an empty set of permissions.
+        /// Calling this method on a backup that does not exist will
+        /// result in a NOT_FOUND error if the user has
+        /// `spanner.backups.list` permission on the containing instance.
+        async fn test_iam_permissions(
+            &self,
+            request: tonic::Request<
+                super::super::super::super::super::iam::v1::TestIamPermissionsRequest,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<
+                super::super::super::super::super::iam::v1::TestIamPermissionsResponse,
+            >,
+            tonic::Status,
+        >;
+        /// Starts creating a new Cloud Spanner Backup.
+        /// The returned backup [long-running operation][google.longrunning.Operation]
+        /// will have a name of the format
+        /// `projects/<project>/instances/<instance>/backups/<backup>/operations/<operation_id>`
+        /// and can be used to track creation of the backup. The
+        /// [metadata][google.longrunning.Operation.metadata] field type is
+        /// [CreateBackupMetadata][google.spanner.admin.database.v1.CreateBackupMetadata].
+        /// The [response][google.longrunning.Operation.response] field type is
+        /// [Backup][google.spanner.admin.database.v1.Backup], if successful.
+        /// Cancelling the returned operation will stop the creation and delete the
+        /// backup. There can be only one pending backup creation per database. Backup
+        /// creation of different databases can run concurrently.
+        async fn create_backup(
+            &self,
+            request: tonic::Request<super::CreateBackupRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Starts copying a Cloud Spanner Backup.
+        /// The returned backup [long-running operation][google.longrunning.Operation]
+        /// will have a name of the format
+        /// `projects/<project>/instances/<instance>/backups/<backup>/operations/<operation_id>`
+        /// and can be used to track copying of the backup. The operation is associated
+        /// with the destination backup.
+        /// The [metadata][google.longrunning.Operation.metadata] field type is
+        /// [CopyBackupMetadata][google.spanner.admin.database.v1.CopyBackupMetadata].
+        /// The [response][google.longrunning.Operation.response] field type is
+        /// [Backup][google.spanner.admin.database.v1.Backup], if successful.
+        /// Cancelling the returned operation will stop the copying and delete the
+        /// destination backup. Concurrent CopyBackup requests can run on the same
+        /// source backup.
+        async fn copy_backup(
+            &self,
+            request: tonic::Request<super::CopyBackupRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Gets metadata on a pending or completed
+        /// [Backup][google.spanner.admin.database.v1.Backup].
+        async fn get_backup(
+            &self,
+            request: tonic::Request<super::GetBackupRequest>,
+        ) -> std::result::Result<tonic::Response<super::Backup>, tonic::Status>;
+        /// Updates a pending or completed
+        /// [Backup][google.spanner.admin.database.v1.Backup].
+        async fn update_backup(
+            &self,
+            request: tonic::Request<super::UpdateBackupRequest>,
+        ) -> std::result::Result<tonic::Response<super::Backup>, tonic::Status>;
+        /// Deletes a pending or completed
+        /// [Backup][google.spanner.admin.database.v1.Backup].
+        async fn delete_backup(
+            &self,
+            request: tonic::Request<super::DeleteBackupRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Lists completed and pending backups.
+        /// Backups returned are ordered by `create_time` in descending order,
+        /// starting from the most recent `create_time`.
+        async fn list_backups(
+            &self,
+            request: tonic::Request<super::ListBackupsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListBackupsResponse>,
+            tonic::Status,
+        >;
+        /// Create a new database by restoring from a completed backup. The new
+        /// database must be in the same project and in an instance with the same
+        /// instance configuration as the instance containing
+        /// the backup. The returned database [long-running
+        /// operation][google.longrunning.Operation] has a name of the format
+        /// `projects/<project>/instances/<instance>/databases/<database>/operations/<operation_id>`,
+        /// and can be used to track the progress of the operation, and to cancel it.
+        /// The [metadata][google.longrunning.Operation.metadata] field type is
+        /// [RestoreDatabaseMetadata][google.spanner.admin.database.v1.RestoreDatabaseMetadata].
+        /// The [response][google.longrunning.Operation.response] type
+        /// is [Database][google.spanner.admin.database.v1.Database], if
+        /// successful. Cancelling the returned operation will stop the restore and
+        /// delete the database.
+        /// There can be only one database being restored into an instance at a time.
+        /// Once the restore operation completes, a new restore operation can be
+        /// initiated, without waiting for the optimize operation associated with the
+        /// first restore to complete.
+        async fn restore_database(
+            &self,
+            request: tonic::Request<super::RestoreDatabaseRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists database [longrunning-operations][google.longrunning.Operation].
+        /// A database operation has a name of the form
+        /// `projects/<project>/instances/<instance>/databases/<database>/operations/<operation>`.
+        /// The long-running operation
+        /// [metadata][google.longrunning.Operation.metadata] field type
+        /// `metadata.type_url` describes the type of the metadata. Operations returned
+        /// include those that have completed/failed/canceled within the last 7 days,
+        /// and pending operations.
+        async fn list_database_operations(
+            &self,
+            request: tonic::Request<super::ListDatabaseOperationsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDatabaseOperationsResponse>,
+            tonic::Status,
+        >;
+        /// Lists the backup [long-running operations][google.longrunning.Operation] in
+        /// the given instance. A backup operation has a name of the form
+        /// `projects/<project>/instances/<instance>/backups/<backup>/operations/<operation>`.
+        /// The long-running operation
+        /// [metadata][google.longrunning.Operation.metadata] field type
+        /// `metadata.type_url` describes the type of the metadata. Operations returned
+        /// include those that have completed/failed/canceled within the last 7 days,
+        /// and pending operations. Operations returned are ordered by
+        /// `operation.metadata.value.progress.start_time` in descending order starting
+        /// from the most recently started operation.
+        async fn list_backup_operations(
+            &self,
+            request: tonic::Request<super::ListBackupOperationsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListBackupOperationsResponse>,
+            tonic::Status,
+        >;
+        /// Lists Cloud Spanner database roles.
+        async fn list_database_roles(
+            &self,
+            request: tonic::Request<super::ListDatabaseRolesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDatabaseRolesResponse>,
+            tonic::Status,
+        >;
+        /// Creates a new backup schedule.
+        async fn create_backup_schedule(
+            &self,
+            request: tonic::Request<super::CreateBackupScheduleRequest>,
+        ) -> std::result::Result<tonic::Response<super::BackupSchedule>, tonic::Status>;
+        /// Gets backup schedule for the input schedule name.
+        async fn get_backup_schedule(
+            &self,
+            request: tonic::Request<super::GetBackupScheduleRequest>,
+        ) -> std::result::Result<tonic::Response<super::BackupSchedule>, tonic::Status>;
+        /// Updates a backup schedule.
+        async fn update_backup_schedule(
+            &self,
+            request: tonic::Request<super::UpdateBackupScheduleRequest>,
+        ) -> std::result::Result<tonic::Response<super::BackupSchedule>, tonic::Status>;
+        /// Deletes a backup schedule.
+        async fn delete_backup_schedule(
+            &self,
+            request: tonic::Request<super::DeleteBackupScheduleRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Lists all the backup schedules for the database.
+        async fn list_backup_schedules(
+            &self,
+            request: tonic::Request<super::ListBackupSchedulesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListBackupSchedulesResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Cloud Spanner Database Admin API
+    ///
+    /// The Cloud Spanner Database Admin API can be used to:
+    ///   * create, drop, and list databases
+    ///   * update the schema of pre-existing databases
+    ///   * create, delete, copy and list backups for a database
+    ///   * restore a database from an existing backup
+    #[derive(Debug)]
+    pub struct DatabaseAdminServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> DatabaseAdminServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for DatabaseAdminServer<T>
+    where
+        T: DatabaseAdmin,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.spanner.admin.database.v1.DatabaseAdmin/ListDatabases" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDatabasesSvc<T: DatabaseAdmin>(pub Arc<T>);
+                    impl<
+                        T: DatabaseAdmin,
+                    > tonic::server::UnaryService<super::ListDatabasesRequest>
+                    for ListDatabasesSvc<T> {
+                        type Response = super::ListDatabasesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListDatabasesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DatabaseAdmin>::list_databases(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDatabasesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.database.v1.DatabaseAdmin/CreateDatabase" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateDatabaseSvc<T: DatabaseAdmin>(pub Arc<T>);
+                    impl<
+                        T: DatabaseAdmin,
+                    > tonic::server::UnaryService<super::CreateDatabaseRequest>
+                    for CreateDatabaseSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateDatabaseRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DatabaseAdmin>::create_database(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateDatabaseSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.database.v1.DatabaseAdmin/GetDatabase" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetDatabaseSvc<T: DatabaseAdmin>(pub Arc<T>);
+                    impl<
+                        T: DatabaseAdmin,
+                    > tonic::server::UnaryService<super::GetDatabaseRequest>
+                    for GetDatabaseSvc<T> {
+                        type Response = super::Database;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetDatabaseRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DatabaseAdmin>::get_database(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetDatabaseSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.database.v1.DatabaseAdmin/UpdateDatabase" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateDatabaseSvc<T: DatabaseAdmin>(pub Arc<T>);
+                    impl<
+                        T: DatabaseAdmin,
+                    > tonic::server::UnaryService<super::UpdateDatabaseRequest>
+                    for UpdateDatabaseSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateDatabaseRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DatabaseAdmin>::update_database(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateDatabaseSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.database.v1.DatabaseAdmin/UpdateDatabaseDdl" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateDatabaseDdlSvc<T: DatabaseAdmin>(pub Arc<T>);
+                    impl<
+                        T: DatabaseAdmin,
+                    > tonic::server::UnaryService<super::UpdateDatabaseDdlRequest>
+                    for UpdateDatabaseDdlSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateDatabaseDdlRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DatabaseAdmin>::update_database_ddl(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateDatabaseDdlSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.database.v1.DatabaseAdmin/DropDatabase" => {
+                    #[allow(non_camel_case_types)]
+                    struct DropDatabaseSvc<T: DatabaseAdmin>(pub Arc<T>);
+                    impl<
+                        T: DatabaseAdmin,
+                    > tonic::server::UnaryService<super::DropDatabaseRequest>
+                    for DropDatabaseSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DropDatabaseRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DatabaseAdmin>::drop_database(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DropDatabaseSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.database.v1.DatabaseAdmin/GetDatabaseDdl" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetDatabaseDdlSvc<T: DatabaseAdmin>(pub Arc<T>);
+                    impl<
+                        T: DatabaseAdmin,
+                    > tonic::server::UnaryService<super::GetDatabaseDdlRequest>
+                    for GetDatabaseDdlSvc<T> {
+                        type Response = super::GetDatabaseDdlResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetDatabaseDdlRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DatabaseAdmin>::get_database_ddl(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetDatabaseDdlSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.database.v1.DatabaseAdmin/SetIamPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct SetIamPolicySvc<T: DatabaseAdmin>(pub Arc<T>);
+                    impl<
+                        T: DatabaseAdmin,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::super::iam::v1::SetIamPolicyRequest,
+                    > for SetIamPolicySvc<T> {
+                        type Response = super::super::super::super::super::iam::v1::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::super::iam::v1::SetIamPolicyRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DatabaseAdmin>::set_iam_policy(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SetIamPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.database.v1.DatabaseAdmin/GetIamPolicy" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetIamPolicySvc<T: DatabaseAdmin>(pub Arc<T>);
+                    impl<
+                        T: DatabaseAdmin,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::super::iam::v1::GetIamPolicyRequest,
+                    > for GetIamPolicySvc<T> {
+                        type Response = super::super::super::super::super::iam::v1::Policy;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::super::iam::v1::GetIamPolicyRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DatabaseAdmin>::get_iam_policy(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetIamPolicySvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.database.v1.DatabaseAdmin/TestIamPermissions" => {
+                    #[allow(non_camel_case_types)]
+                    struct TestIamPermissionsSvc<T: DatabaseAdmin>(pub Arc<T>);
+                    impl<
+                        T: DatabaseAdmin,
+                    > tonic::server::UnaryService<
+                        super::super::super::super::super::iam::v1::TestIamPermissionsRequest,
+                    > for TestIamPermissionsSvc<T> {
+                        type Response = super::super::super::super::super::iam::v1::TestIamPermissionsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::super::super::super::super::iam::v1::TestIamPermissionsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DatabaseAdmin>::test_iam_permissions(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = TestIamPermissionsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.database.v1.DatabaseAdmin/CreateBackup" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateBackupSvc<T: DatabaseAdmin>(pub Arc<T>);
+                    impl<
+                        T: DatabaseAdmin,
+                    > tonic::server::UnaryService<super::CreateBackupRequest>
+                    for CreateBackupSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateBackupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DatabaseAdmin>::create_backup(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateBackupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.database.v1.DatabaseAdmin/CopyBackup" => {
+                    #[allow(non_camel_case_types)]
+                    struct CopyBackupSvc<T: DatabaseAdmin>(pub Arc<T>);
+                    impl<
+                        T: DatabaseAdmin,
+                    > tonic::server::UnaryService<super::CopyBackupRequest>
+                    for CopyBackupSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CopyBackupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DatabaseAdmin>::copy_backup(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CopyBackupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.database.v1.DatabaseAdmin/GetBackup" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetBackupSvc<T: DatabaseAdmin>(pub Arc<T>);
+                    impl<
+                        T: DatabaseAdmin,
+                    > tonic::server::UnaryService<super::GetBackupRequest>
+                    for GetBackupSvc<T> {
+                        type Response = super::Backup;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetBackupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DatabaseAdmin>::get_backup(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetBackupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.database.v1.DatabaseAdmin/UpdateBackup" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateBackupSvc<T: DatabaseAdmin>(pub Arc<T>);
+                    impl<
+                        T: DatabaseAdmin,
+                    > tonic::server::UnaryService<super::UpdateBackupRequest>
+                    for UpdateBackupSvc<T> {
+                        type Response = super::Backup;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateBackupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DatabaseAdmin>::update_backup(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateBackupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.database.v1.DatabaseAdmin/DeleteBackup" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteBackupSvc<T: DatabaseAdmin>(pub Arc<T>);
+                    impl<
+                        T: DatabaseAdmin,
+                    > tonic::server::UnaryService<super::DeleteBackupRequest>
+                    for DeleteBackupSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteBackupRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DatabaseAdmin>::delete_backup(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteBackupSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.database.v1.DatabaseAdmin/ListBackups" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListBackupsSvc<T: DatabaseAdmin>(pub Arc<T>);
+                    impl<
+                        T: DatabaseAdmin,
+                    > tonic::server::UnaryService<super::ListBackupsRequest>
+                    for ListBackupsSvc<T> {
+                        type Response = super::ListBackupsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListBackupsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DatabaseAdmin>::list_backups(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListBackupsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.database.v1.DatabaseAdmin/RestoreDatabase" => {
+                    #[allow(non_camel_case_types)]
+                    struct RestoreDatabaseSvc<T: DatabaseAdmin>(pub Arc<T>);
+                    impl<
+                        T: DatabaseAdmin,
+                    > tonic::server::UnaryService<super::RestoreDatabaseRequest>
+                    for RestoreDatabaseSvc<T> {
+                        type Response = super::super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RestoreDatabaseRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DatabaseAdmin>::restore_database(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RestoreDatabaseSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.database.v1.DatabaseAdmin/ListDatabaseOperations" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDatabaseOperationsSvc<T: DatabaseAdmin>(pub Arc<T>);
+                    impl<
+                        T: DatabaseAdmin,
+                    > tonic::server::UnaryService<super::ListDatabaseOperationsRequest>
+                    for ListDatabaseOperationsSvc<T> {
+                        type Response = super::ListDatabaseOperationsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListDatabaseOperationsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DatabaseAdmin>::list_database_operations(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDatabaseOperationsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.database.v1.DatabaseAdmin/ListBackupOperations" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListBackupOperationsSvc<T: DatabaseAdmin>(pub Arc<T>);
+                    impl<
+                        T: DatabaseAdmin,
+                    > tonic::server::UnaryService<super::ListBackupOperationsRequest>
+                    for ListBackupOperationsSvc<T> {
+                        type Response = super::ListBackupOperationsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListBackupOperationsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DatabaseAdmin>::list_backup_operations(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListBackupOperationsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.database.v1.DatabaseAdmin/ListDatabaseRoles" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDatabaseRolesSvc<T: DatabaseAdmin>(pub Arc<T>);
+                    impl<
+                        T: DatabaseAdmin,
+                    > tonic::server::UnaryService<super::ListDatabaseRolesRequest>
+                    for ListDatabaseRolesSvc<T> {
+                        type Response = super::ListDatabaseRolesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListDatabaseRolesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DatabaseAdmin>::list_database_roles(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDatabaseRolesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.database.v1.DatabaseAdmin/CreateBackupSchedule" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateBackupScheduleSvc<T: DatabaseAdmin>(pub Arc<T>);
+                    impl<
+                        T: DatabaseAdmin,
+                    > tonic::server::UnaryService<super::CreateBackupScheduleRequest>
+                    for CreateBackupScheduleSvc<T> {
+                        type Response = super::BackupSchedule;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateBackupScheduleRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DatabaseAdmin>::create_backup_schedule(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateBackupScheduleSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.database.v1.DatabaseAdmin/GetBackupSchedule" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetBackupScheduleSvc<T: DatabaseAdmin>(pub Arc<T>);
+                    impl<
+                        T: DatabaseAdmin,
+                    > tonic::server::UnaryService<super::GetBackupScheduleRequest>
+                    for GetBackupScheduleSvc<T> {
+                        type Response = super::BackupSchedule;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetBackupScheduleRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DatabaseAdmin>::get_backup_schedule(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetBackupScheduleSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.database.v1.DatabaseAdmin/UpdateBackupSchedule" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateBackupScheduleSvc<T: DatabaseAdmin>(pub Arc<T>);
+                    impl<
+                        T: DatabaseAdmin,
+                    > tonic::server::UnaryService<super::UpdateBackupScheduleRequest>
+                    for UpdateBackupScheduleSvc<T> {
+                        type Response = super::BackupSchedule;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateBackupScheduleRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DatabaseAdmin>::update_backup_schedule(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateBackupScheduleSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.database.v1.DatabaseAdmin/DeleteBackupSchedule" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteBackupScheduleSvc<T: DatabaseAdmin>(pub Arc<T>);
+                    impl<
+                        T: DatabaseAdmin,
+                    > tonic::server::UnaryService<super::DeleteBackupScheduleRequest>
+                    for DeleteBackupScheduleSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteBackupScheduleRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DatabaseAdmin>::delete_backup_schedule(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteBackupScheduleSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.spanner.admin.database.v1.DatabaseAdmin/ListBackupSchedules" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListBackupSchedulesSvc<T: DatabaseAdmin>(pub Arc<T>);
+                    impl<
+                        T: DatabaseAdmin,
+                    > tonic::server::UnaryService<super::ListBackupSchedulesRequest>
+                    for ListBackupSchedulesSvc<T> {
+                        type Response = super::ListBackupSchedulesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListBackupSchedulesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as DatabaseAdmin>::list_backup_schedules(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListBackupSchedulesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for DatabaseAdminServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.spanner.admin.database.v1.DatabaseAdmin";
+    impl<T> tonic::server::NamedService for DatabaseAdminServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

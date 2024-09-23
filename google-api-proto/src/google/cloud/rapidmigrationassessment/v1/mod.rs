@@ -115,15 +115,15 @@ pub mod collector {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Initializing => "STATE_INITIALIZING",
-                State::ReadyToUse => "STATE_READY_TO_USE",
-                State::Registered => "STATE_REGISTERED",
-                State::Active => "STATE_ACTIVE",
-                State::Paused => "STATE_PAUSED",
-                State::Deleting => "STATE_DELETING",
-                State::Decommissioned => "STATE_DECOMMISSIONED",
-                State::Error => "STATE_ERROR",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Initializing => "STATE_INITIALIZING",
+                Self::ReadyToUse => "STATE_READY_TO_USE",
+                Self::Registered => "STATE_REGISTERED",
+                Self::Active => "STATE_ACTIVE",
+                Self::Paused => "STATE_PAUSED",
+                Self::Deleting => "STATE_DELETING",
+                Self::Decommissioned => "STATE_DECOMMISSIONED",
+                Self::Error => "STATE_ERROR",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -195,9 +195,9 @@ pub mod annotation {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::LegacyExportConsent => "TYPE_LEGACY_EXPORT_CONSENT",
-                Type::Qwiklab => "TYPE_QWIKLAB",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::LegacyExportConsent => "TYPE_LEGACY_EXPORT_CONSENT",
+                Self::Qwiklab => "TYPE_QWIKLAB",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -816,5 +816,693 @@ pub mod rapid_migration_assessment_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod rapid_migration_assessment_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with RapidMigrationAssessmentServer.
+    #[async_trait]
+    pub trait RapidMigrationAssessment: std::marker::Send + std::marker::Sync + 'static {
+        /// Create a Collector to manage the on-prem appliance which collects
+        /// information about Customer assets.
+        async fn create_collector(
+            &self,
+            request: tonic::Request<super::CreateCollectorRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Creates an Annotation
+        async fn create_annotation(
+            &self,
+            request: tonic::Request<super::CreateAnnotationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Gets details of a single Annotation.
+        async fn get_annotation(
+            &self,
+            request: tonic::Request<super::GetAnnotationRequest>,
+        ) -> std::result::Result<tonic::Response<super::Annotation>, tonic::Status>;
+        /// Lists Collectors in a given project and location.
+        async fn list_collectors(
+            &self,
+            request: tonic::Request<super::ListCollectorsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListCollectorsResponse>,
+            tonic::Status,
+        >;
+        /// Gets details of a single Collector.
+        async fn get_collector(
+            &self,
+            request: tonic::Request<super::GetCollectorRequest>,
+        ) -> std::result::Result<tonic::Response<super::Collector>, tonic::Status>;
+        /// Updates the parameters of a single Collector.
+        async fn update_collector(
+            &self,
+            request: tonic::Request<super::UpdateCollectorRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a single Collector - changes state of collector to "Deleting".
+        /// Background jobs does final deletion thorugh producer api.
+        async fn delete_collector(
+            &self,
+            request: tonic::Request<super::DeleteCollectorRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Resumes the given collector.
+        async fn resume_collector(
+            &self,
+            request: tonic::Request<super::ResumeCollectorRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Registers the given collector.
+        async fn register_collector(
+            &self,
+            request: tonic::Request<super::RegisterCollectorRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Pauses the given collector.
+        async fn pause_collector(
+            &self,
+            request: tonic::Request<super::PauseCollectorRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// Service describing handlers for resources.
+    #[derive(Debug)]
+    pub struct RapidMigrationAssessmentServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> RapidMigrationAssessmentServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for RapidMigrationAssessmentServer<T>
+    where
+        T: RapidMigrationAssessment,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.rapidmigrationassessment.v1.RapidMigrationAssessment/CreateCollector" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateCollectorSvc<T: RapidMigrationAssessment>(pub Arc<T>);
+                    impl<
+                        T: RapidMigrationAssessment,
+                    > tonic::server::UnaryService<super::CreateCollectorRequest>
+                    for CreateCollectorSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateCollectorRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RapidMigrationAssessment>::create_collector(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateCollectorSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.rapidmigrationassessment.v1.RapidMigrationAssessment/CreateAnnotation" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateAnnotationSvc<T: RapidMigrationAssessment>(pub Arc<T>);
+                    impl<
+                        T: RapidMigrationAssessment,
+                    > tonic::server::UnaryService<super::CreateAnnotationRequest>
+                    for CreateAnnotationSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateAnnotationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RapidMigrationAssessment>::create_annotation(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateAnnotationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.rapidmigrationassessment.v1.RapidMigrationAssessment/GetAnnotation" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetAnnotationSvc<T: RapidMigrationAssessment>(pub Arc<T>);
+                    impl<
+                        T: RapidMigrationAssessment,
+                    > tonic::server::UnaryService<super::GetAnnotationRequest>
+                    for GetAnnotationSvc<T> {
+                        type Response = super::Annotation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetAnnotationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RapidMigrationAssessment>::get_annotation(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetAnnotationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.rapidmigrationassessment.v1.RapidMigrationAssessment/ListCollectors" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListCollectorsSvc<T: RapidMigrationAssessment>(pub Arc<T>);
+                    impl<
+                        T: RapidMigrationAssessment,
+                    > tonic::server::UnaryService<super::ListCollectorsRequest>
+                    for ListCollectorsSvc<T> {
+                        type Response = super::ListCollectorsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListCollectorsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RapidMigrationAssessment>::list_collectors(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListCollectorsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.rapidmigrationassessment.v1.RapidMigrationAssessment/GetCollector" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetCollectorSvc<T: RapidMigrationAssessment>(pub Arc<T>);
+                    impl<
+                        T: RapidMigrationAssessment,
+                    > tonic::server::UnaryService<super::GetCollectorRequest>
+                    for GetCollectorSvc<T> {
+                        type Response = super::Collector;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetCollectorRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RapidMigrationAssessment>::get_collector(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetCollectorSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.rapidmigrationassessment.v1.RapidMigrationAssessment/UpdateCollector" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateCollectorSvc<T: RapidMigrationAssessment>(pub Arc<T>);
+                    impl<
+                        T: RapidMigrationAssessment,
+                    > tonic::server::UnaryService<super::UpdateCollectorRequest>
+                    for UpdateCollectorSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateCollectorRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RapidMigrationAssessment>::update_collector(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateCollectorSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.rapidmigrationassessment.v1.RapidMigrationAssessment/DeleteCollector" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteCollectorSvc<T: RapidMigrationAssessment>(pub Arc<T>);
+                    impl<
+                        T: RapidMigrationAssessment,
+                    > tonic::server::UnaryService<super::DeleteCollectorRequest>
+                    for DeleteCollectorSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteCollectorRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RapidMigrationAssessment>::delete_collector(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteCollectorSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.rapidmigrationassessment.v1.RapidMigrationAssessment/ResumeCollector" => {
+                    #[allow(non_camel_case_types)]
+                    struct ResumeCollectorSvc<T: RapidMigrationAssessment>(pub Arc<T>);
+                    impl<
+                        T: RapidMigrationAssessment,
+                    > tonic::server::UnaryService<super::ResumeCollectorRequest>
+                    for ResumeCollectorSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ResumeCollectorRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RapidMigrationAssessment>::resume_collector(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ResumeCollectorSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.rapidmigrationassessment.v1.RapidMigrationAssessment/RegisterCollector" => {
+                    #[allow(non_camel_case_types)]
+                    struct RegisterCollectorSvc<T: RapidMigrationAssessment>(pub Arc<T>);
+                    impl<
+                        T: RapidMigrationAssessment,
+                    > tonic::server::UnaryService<super::RegisterCollectorRequest>
+                    for RegisterCollectorSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::RegisterCollectorRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RapidMigrationAssessment>::register_collector(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RegisterCollectorSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.rapidmigrationassessment.v1.RapidMigrationAssessment/PauseCollector" => {
+                    #[allow(non_camel_case_types)]
+                    struct PauseCollectorSvc<T: RapidMigrationAssessment>(pub Arc<T>);
+                    impl<
+                        T: RapidMigrationAssessment,
+                    > tonic::server::UnaryService<super::PauseCollectorRequest>
+                    for PauseCollectorSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::PauseCollectorRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as RapidMigrationAssessment>::pause_collector(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = PauseCollectorSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for RapidMigrationAssessmentServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.rapidmigrationassessment.v1.RapidMigrationAssessment";
+    impl<T> tonic::server::NamedService for RapidMigrationAssessmentServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

@@ -230,11 +230,11 @@ pub mod workload {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    ResourceType::Unspecified => "RESOURCE_TYPE_UNSPECIFIED",
-                    ResourceType::ConsumerProject => "CONSUMER_PROJECT",
-                    ResourceType::ConsumerFolder => "CONSUMER_FOLDER",
-                    ResourceType::EncryptionKeysProject => "ENCRYPTION_KEYS_PROJECT",
-                    ResourceType::Keyring => "KEYRING",
+                    Self::Unspecified => "RESOURCE_TYPE_UNSPECIFIED",
+                    Self::ConsumerProject => "CONSUMER_PROJECT",
+                    Self::ConsumerFolder => "CONSUMER_FOLDER",
+                    Self::EncryptionKeysProject => "ENCRYPTION_KEYS_PROJECT",
+                    Self::Keyring => "KEYRING",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -335,9 +335,9 @@ pub mod workload {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    SetupState::Unspecified => "SETUP_STATE_UNSPECIFIED",
-                    SetupState::StatusPending => "STATUS_PENDING",
-                    SetupState::StatusComplete => "STATUS_COMPLETE",
+                    Self::Unspecified => "SETUP_STATE_UNSPECIFIED",
+                    Self::StatusPending => "STATUS_PENDING",
+                    Self::StatusComplete => "STATUS_COMPLETE",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -385,15 +385,15 @@ pub mod workload {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    SetupError::Unspecified => "SETUP_ERROR_UNSPECIFIED",
-                    SetupError::ErrorInvalidBaseSetup => "ERROR_INVALID_BASE_SETUP",
-                    SetupError::ErrorMissingExternalSigningKey => {
+                    Self::Unspecified => "SETUP_ERROR_UNSPECIFIED",
+                    Self::ErrorInvalidBaseSetup => "ERROR_INVALID_BASE_SETUP",
+                    Self::ErrorMissingExternalSigningKey => {
                         "ERROR_MISSING_EXTERNAL_SIGNING_KEY"
                     }
-                    SetupError::ErrorNotAllServicesEnrolled => {
+                    Self::ErrorNotAllServicesEnrolled => {
                         "ERROR_NOT_ALL_SERVICES_ENROLLED"
                     }
-                    SetupError::ErrorSetupCheckFailed => "ERROR_SETUP_CHECK_FAILED",
+                    Self::ErrorSetupCheckFailed => "ERROR_SETUP_CHECK_FAILED",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -463,21 +463,19 @@ pub mod workload {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ComplianceRegime::Unspecified => "COMPLIANCE_REGIME_UNSPECIFIED",
-                ComplianceRegime::Il4 => "IL4",
-                ComplianceRegime::Cjis => "CJIS",
-                ComplianceRegime::FedrampHigh => "FEDRAMP_HIGH",
-                ComplianceRegime::FedrampModerate => "FEDRAMP_MODERATE",
-                ComplianceRegime::UsRegionalAccess => "US_REGIONAL_ACCESS",
-                ComplianceRegime::Hipaa => "HIPAA",
-                ComplianceRegime::Hitrust => "HITRUST",
-                ComplianceRegime::EuRegionsAndSupport => "EU_REGIONS_AND_SUPPORT",
-                ComplianceRegime::CaRegionsAndSupport => "CA_REGIONS_AND_SUPPORT",
-                ComplianceRegime::Itar => "ITAR",
-                ComplianceRegime::AuRegionsAndUsSupport => "AU_REGIONS_AND_US_SUPPORT",
-                ComplianceRegime::AssuredWorkloadsForPartners => {
-                    "ASSURED_WORKLOADS_FOR_PARTNERS"
-                }
+                Self::Unspecified => "COMPLIANCE_REGIME_UNSPECIFIED",
+                Self::Il4 => "IL4",
+                Self::Cjis => "CJIS",
+                Self::FedrampHigh => "FEDRAMP_HIGH",
+                Self::FedrampModerate => "FEDRAMP_MODERATE",
+                Self::UsRegionalAccess => "US_REGIONAL_ACCESS",
+                Self::Hipaa => "HIPAA",
+                Self::Hitrust => "HITRUST",
+                Self::EuRegionsAndSupport => "EU_REGIONS_AND_SUPPORT",
+                Self::CaRegionsAndSupport => "CA_REGIONS_AND_SUPPORT",
+                Self::Itar => "ITAR",
+                Self::AuRegionsAndUsSupport => "AU_REGIONS_AND_US_SUPPORT",
+                Self::AssuredWorkloadsForPartners => "ASSURED_WORKLOADS_FOR_PARTNERS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -530,9 +528,9 @@ pub mod workload {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                KajEnrollmentState::Unspecified => "KAJ_ENROLLMENT_STATE_UNSPECIFIED",
-                KajEnrollmentState::Pending => "KAJ_ENROLLMENT_STATE_PENDING",
-                KajEnrollmentState::Complete => "KAJ_ENROLLMENT_STATE_COMPLETE",
+                Self::Unspecified => "KAJ_ENROLLMENT_STATE_UNSPECIFIED",
+                Self::Pending => "KAJ_ENROLLMENT_STATE_PENDING",
+                Self::Complete => "KAJ_ENROLLMENT_STATE_COMPLETE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -571,8 +569,8 @@ pub mod workload {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Partner::Unspecified => "PARTNER_UNSPECIFIED",
-                Partner::LocalControlsByS3ns => "LOCAL_CONTROLS_BY_S3NS",
+                Self::Unspecified => "PARTNER_UNSPECIFIED",
+                Self::LocalControlsByS3ns => "LOCAL_CONTROLS_BY_S3NS",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -653,9 +651,9 @@ pub mod restrict_allowed_resources_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                RestrictionType::Unspecified => "RESTRICTION_TYPE_UNSPECIFIED",
-                RestrictionType::AllowAllGcpResources => "ALLOW_ALL_GCP_RESOURCES",
-                RestrictionType::AllowCompliantResources => "ALLOW_COMPLIANT_RESOURCES",
+                Self::Unspecified => "RESTRICTION_TYPE_UNSPECIFIED",
+                Self::AllowAllGcpResources => "ALLOW_ALL_GCP_RESOURCES",
+                Self::AllowCompliantResources => "ALLOW_COMPLIANT_RESOURCES",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -915,17 +913,17 @@ pub mod violation {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    RemediationType::Unspecified => "REMEDIATION_TYPE_UNSPECIFIED",
-                    RemediationType::RemediationBooleanOrgPolicyViolation => {
+                    Self::Unspecified => "REMEDIATION_TYPE_UNSPECIFIED",
+                    Self::RemediationBooleanOrgPolicyViolation => {
                         "REMEDIATION_BOOLEAN_ORG_POLICY_VIOLATION"
                     }
-                    RemediationType::RemediationListAllowedValuesOrgPolicyViolation => {
+                    Self::RemediationListAllowedValuesOrgPolicyViolation => {
                         "REMEDIATION_LIST_ALLOWED_VALUES_ORG_POLICY_VIOLATION"
                     }
-                    RemediationType::RemediationListDeniedValuesOrgPolicyViolation => {
+                    Self::RemediationListDeniedValuesOrgPolicyViolation => {
                         "REMEDIATION_LIST_DENIED_VALUES_ORG_POLICY_VIOLATION"
                     }
-                    RemediationType::RemediationRestrictCmekCryptoKeyProjectsOrgPolicyViolation => {
+                    Self::RemediationRestrictCmekCryptoKeyProjectsOrgPolicyViolation => {
                         "REMEDIATION_RESTRICT_CMEK_CRYPTO_KEY_PROJECTS_ORG_POLICY_VIOLATION"
                     }
                 }
@@ -983,10 +981,10 @@ pub mod violation {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Resolved => "RESOLVED",
-                State::Unresolved => "UNRESOLVED",
-                State::Exception => "EXCEPTION",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Resolved => "RESOLVED",
+                Self::Unresolved => "UNRESOLVED",
+                Self::Exception => "EXCEPTION",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -1362,5 +1360,651 @@ pub mod assured_workloads_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod assured_workloads_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with AssuredWorkloadsServiceServer.
+    #[async_trait]
+    pub trait AssuredWorkloadsService: std::marker::Send + std::marker::Sync + 'static {
+        /// Creates Assured Workload.
+        async fn create_workload(
+            &self,
+            request: tonic::Request<super::CreateWorkloadRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Updates an existing workload.
+        /// Currently allows updating of workload display_name and labels.
+        /// For force updates don't set etag field in the Workload.
+        /// Only one update operation per workload can be in progress.
+        async fn update_workload(
+            &self,
+            request: tonic::Request<super::UpdateWorkloadRequest>,
+        ) -> std::result::Result<tonic::Response<super::Workload>, tonic::Status>;
+        /// Restrict the list of resources allowed in the Workload environment.
+        /// The current list of allowed products can be found at
+        /// https://cloud.google.com/assured-workloads/docs/supported-products
+        /// In addition to assuredworkloads.workload.update permission, the user should
+        /// also have orgpolicy.policy.set permission on the folder resource
+        /// to use this functionality.
+        async fn restrict_allowed_resources(
+            &self,
+            request: tonic::Request<super::RestrictAllowedResourcesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::RestrictAllowedResourcesResponse>,
+            tonic::Status,
+        >;
+        /// Deletes the workload. Make sure that workload's direct children are already
+        /// in a deleted state, otherwise the request will fail with a
+        /// FAILED_PRECONDITION error.
+        async fn delete_workload(
+            &self,
+            request: tonic::Request<super::DeleteWorkloadRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Gets Assured Workload associated with a CRM Node
+        async fn get_workload(
+            &self,
+            request: tonic::Request<super::GetWorkloadRequest>,
+        ) -> std::result::Result<tonic::Response<super::Workload>, tonic::Status>;
+        /// Lists Assured Workloads under a CRM Node.
+        async fn list_workloads(
+            &self,
+            request: tonic::Request<super::ListWorkloadsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListWorkloadsResponse>,
+            tonic::Status,
+        >;
+        /// Lists the Violations in the AssuredWorkload Environment.
+        /// Callers may also choose to read across multiple Workloads as per
+        /// [AIP-159](https://google.aip.dev/159) by using '-' (the hyphen or dash
+        /// character) as a wildcard character instead of workload-id in the parent.
+        /// Format `organizations/{org_id}/locations/{location}/workloads/-`
+        async fn list_violations(
+            &self,
+            request: tonic::Request<super::ListViolationsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListViolationsResponse>,
+            tonic::Status,
+        >;
+        /// Retrieves Assured Workload Violation based on ID.
+        async fn get_violation(
+            &self,
+            request: tonic::Request<super::GetViolationRequest>,
+        ) -> std::result::Result<tonic::Response<super::Violation>, tonic::Status>;
+        /// Acknowledges an existing violation. By acknowledging a violation, users
+        /// acknowledge the existence of a compliance violation in their workload and
+        /// decide to ignore it due to a valid business justification. Acknowledgement
+        /// is a permanent operation and it cannot be reverted.
+        async fn acknowledge_violation(
+            &self,
+            request: tonic::Request<super::AcknowledgeViolationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::AcknowledgeViolationResponse>,
+            tonic::Status,
+        >;
+    }
+    /// Service to manage AssuredWorkloads.
+    #[derive(Debug)]
+    pub struct AssuredWorkloadsServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> AssuredWorkloadsServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for AssuredWorkloadsServiceServer<T>
+    where
+        T: AssuredWorkloadsService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.assuredworkloads.v1.AssuredWorkloadsService/CreateWorkload" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateWorkloadSvc<T: AssuredWorkloadsService>(pub Arc<T>);
+                    impl<
+                        T: AssuredWorkloadsService,
+                    > tonic::server::UnaryService<super::CreateWorkloadRequest>
+                    for CreateWorkloadSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateWorkloadRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AssuredWorkloadsService>::create_workload(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateWorkloadSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.assuredworkloads.v1.AssuredWorkloadsService/UpdateWorkload" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateWorkloadSvc<T: AssuredWorkloadsService>(pub Arc<T>);
+                    impl<
+                        T: AssuredWorkloadsService,
+                    > tonic::server::UnaryService<super::UpdateWorkloadRequest>
+                    for UpdateWorkloadSvc<T> {
+                        type Response = super::Workload;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateWorkloadRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AssuredWorkloadsService>::update_workload(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateWorkloadSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.assuredworkloads.v1.AssuredWorkloadsService/RestrictAllowedResources" => {
+                    #[allow(non_camel_case_types)]
+                    struct RestrictAllowedResourcesSvc<T: AssuredWorkloadsService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AssuredWorkloadsService,
+                    > tonic::server::UnaryService<super::RestrictAllowedResourcesRequest>
+                    for RestrictAllowedResourcesSvc<T> {
+                        type Response = super::RestrictAllowedResourcesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::RestrictAllowedResourcesRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AssuredWorkloadsService>::restrict_allowed_resources(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = RestrictAllowedResourcesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.assuredworkloads.v1.AssuredWorkloadsService/DeleteWorkload" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteWorkloadSvc<T: AssuredWorkloadsService>(pub Arc<T>);
+                    impl<
+                        T: AssuredWorkloadsService,
+                    > tonic::server::UnaryService<super::DeleteWorkloadRequest>
+                    for DeleteWorkloadSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteWorkloadRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AssuredWorkloadsService>::delete_workload(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteWorkloadSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.assuredworkloads.v1.AssuredWorkloadsService/GetWorkload" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetWorkloadSvc<T: AssuredWorkloadsService>(pub Arc<T>);
+                    impl<
+                        T: AssuredWorkloadsService,
+                    > tonic::server::UnaryService<super::GetWorkloadRequest>
+                    for GetWorkloadSvc<T> {
+                        type Response = super::Workload;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetWorkloadRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AssuredWorkloadsService>::get_workload(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetWorkloadSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.assuredworkloads.v1.AssuredWorkloadsService/ListWorkloads" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListWorkloadsSvc<T: AssuredWorkloadsService>(pub Arc<T>);
+                    impl<
+                        T: AssuredWorkloadsService,
+                    > tonic::server::UnaryService<super::ListWorkloadsRequest>
+                    for ListWorkloadsSvc<T> {
+                        type Response = super::ListWorkloadsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListWorkloadsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AssuredWorkloadsService>::list_workloads(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListWorkloadsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.assuredworkloads.v1.AssuredWorkloadsService/ListViolations" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListViolationsSvc<T: AssuredWorkloadsService>(pub Arc<T>);
+                    impl<
+                        T: AssuredWorkloadsService,
+                    > tonic::server::UnaryService<super::ListViolationsRequest>
+                    for ListViolationsSvc<T> {
+                        type Response = super::ListViolationsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListViolationsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AssuredWorkloadsService>::list_violations(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListViolationsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.assuredworkloads.v1.AssuredWorkloadsService/GetViolation" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetViolationSvc<T: AssuredWorkloadsService>(pub Arc<T>);
+                    impl<
+                        T: AssuredWorkloadsService,
+                    > tonic::server::UnaryService<super::GetViolationRequest>
+                    for GetViolationSvc<T> {
+                        type Response = super::Violation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetViolationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AssuredWorkloadsService>::get_violation(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetViolationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.assuredworkloads.v1.AssuredWorkloadsService/AcknowledgeViolation" => {
+                    #[allow(non_camel_case_types)]
+                    struct AcknowledgeViolationSvc<T: AssuredWorkloadsService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AssuredWorkloadsService,
+                    > tonic::server::UnaryService<super::AcknowledgeViolationRequest>
+                    for AcknowledgeViolationSvc<T> {
+                        type Response = super::AcknowledgeViolationResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::AcknowledgeViolationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AssuredWorkloadsService>::acknowledge_violation(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = AcknowledgeViolationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for AssuredWorkloadsServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.assuredworkloads.v1.AssuredWorkloadsService";
+    impl<T> tonic::server::NamedService for AssuredWorkloadsServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

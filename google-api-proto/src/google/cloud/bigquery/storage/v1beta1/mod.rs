@@ -16,6 +16,26 @@ pub struct ArrowRecordBatch {
     #[prost(int64, tag = "2")]
     pub row_count: i64,
 }
+/// Table reference that includes just the 3 strings needed to identify a table.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct TableReference {
+    /// The assigned project ID of the project.
+    #[prost(string, tag = "1")]
+    pub project_id: ::prost::alloc::string::String,
+    /// The ID of the dataset in the above project.
+    #[prost(string, tag = "2")]
+    pub dataset_id: ::prost::alloc::string::String,
+    /// The ID of the table in the above dataset.
+    #[prost(string, tag = "3")]
+    pub table_id: ::prost::alloc::string::String,
+}
+/// All fields in this message optional.
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct TableModifiers {
+    /// The snapshot time of the table. If not set, interpreted as now.
+    #[prost(message, optional, tag = "1")]
+    pub snapshot_time: ::core::option::Option<::prost_types::Timestamp>,
+}
 /// Avro schema.
 #[derive(Clone, PartialEq, ::prost::Message)]
 pub struct AvroSchema {
@@ -98,26 +118,6 @@ pub struct TableReadOptions {
     /// Restricted to a maximum length for 1 MB.
     #[prost(string, tag = "2")]
     pub row_restriction: ::prost::alloc::string::String,
-}
-/// Table reference that includes just the 3 strings needed to identify a table.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct TableReference {
-    /// The assigned project ID of the project.
-    #[prost(string, tag = "1")]
-    pub project_id: ::prost::alloc::string::String,
-    /// The ID of the dataset in the above project.
-    #[prost(string, tag = "2")]
-    pub dataset_id: ::prost::alloc::string::String,
-    /// The ID of the table in the above dataset.
-    #[prost(string, tag = "3")]
-    pub table_id: ::prost::alloc::string::String,
-}
-/// All fields in this message optional.
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
-pub struct TableModifiers {
-    /// The snapshot time of the table. If not set, interpreted as now.
-    #[prost(message, optional, tag = "1")]
-    pub snapshot_time: ::core::option::Option<::prost_types::Timestamp>,
 }
 /// Information about a single data stream within a read session.
 #[derive(Clone, PartialEq, ::prost::Message)]
@@ -415,9 +415,9 @@ impl DataFormat {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            DataFormat::Unspecified => "DATA_FORMAT_UNSPECIFIED",
-            DataFormat::Avro => "AVRO",
-            DataFormat::Arrow => "ARROW",
+            Self::Unspecified => "DATA_FORMAT_UNSPECIFIED",
+            Self::Avro => "AVRO",
+            Self::Arrow => "ARROW",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -456,9 +456,9 @@ impl ShardingStrategy {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ShardingStrategy::Unspecified => "SHARDING_STRATEGY_UNSPECIFIED",
-            ShardingStrategy::Liquid => "LIQUID",
-            ShardingStrategy::Balanced => "BALANCED",
+            Self::Unspecified => "SHARDING_STRATEGY_UNSPECIFIED",
+            Self::Liquid => "LIQUID",
+            Self::Balanced => "BALANCED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -748,5 +748,454 @@ pub mod big_query_storage_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod big_query_storage_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with BigQueryStorageServer.
+    #[async_trait]
+    pub trait BigQueryStorage: std::marker::Send + std::marker::Sync + 'static {
+        /// Creates a new read session. A read session divides the contents of a
+        /// BigQuery table into one or more streams, which can then be used to read
+        /// data from the table. The read session also specifies properties of the
+        /// data to be read, such as a list of columns or a push-down filter describing
+        /// the rows to be returned.
+        ///
+        /// A particular row can be read by at most one stream. When the caller has
+        /// reached the end of each stream in the session, then all the data in the
+        /// table has been read.
+        ///
+        /// Read sessions automatically expire 6 hours after they are created and do
+        /// not require manual clean-up by the caller.
+        async fn create_read_session(
+            &self,
+            request: tonic::Request<super::CreateReadSessionRequest>,
+        ) -> std::result::Result<tonic::Response<super::ReadSession>, tonic::Status>;
+        /// Server streaming response type for the ReadRows method.
+        type ReadRowsStream: tonic::codegen::tokio_stream::Stream<
+                Item = std::result::Result<super::ReadRowsResponse, tonic::Status>,
+            >
+            + std::marker::Send
+            + 'static;
+        /// Reads rows from the table in the format prescribed by the read session.
+        /// Each response contains one or more table rows, up to a maximum of 10 MiB
+        /// per response; read requests which attempt to read individual rows larger
+        /// than this will fail.
+        ///
+        /// Each request also returns a set of stream statistics reflecting the
+        /// estimated total number of rows in the read stream. This number is computed
+        /// based on the total table size and the number of active streams in the read
+        /// session, and may change as other streams continue to read data.
+        async fn read_rows(
+            &self,
+            request: tonic::Request<super::ReadRowsRequest>,
+        ) -> std::result::Result<tonic::Response<Self::ReadRowsStream>, tonic::Status>;
+        /// Creates additional streams for a ReadSession. This API can be used to
+        /// dynamically adjust the parallelism of a batch processing task upwards by
+        /// adding additional workers.
+        async fn batch_create_read_session_streams(
+            &self,
+            request: tonic::Request<super::BatchCreateReadSessionStreamsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::BatchCreateReadSessionStreamsResponse>,
+            tonic::Status,
+        >;
+        /// Causes a single stream in a ReadSession to gracefully stop. This
+        /// API can be used to dynamically adjust the parallelism of a batch processing
+        /// task downwards without losing data.
+        ///
+        /// This API does not delete the stream -- it remains visible in the
+        /// ReadSession, and any data processed by the stream is not released to other
+        /// streams. However, no additional data will be assigned to the stream once
+        /// this call completes. Callers must continue reading data on the stream until
+        /// the end of the stream is reached so that data which has already been
+        /// assigned to the stream will be processed.
+        ///
+        /// This method will return an error if there are no other live streams
+        /// in the Session, or if SplitReadStream() has been called on the given
+        /// Stream.
+        async fn finalize_stream(
+            &self,
+            request: tonic::Request<super::FinalizeStreamRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Splits a given read stream into two Streams. These streams are referred to
+        /// as the primary and the residual of the split. The original stream can still
+        /// be read from in the same manner as before. Both of the returned streams can
+        /// also be read from, and the total rows return by both child streams will be
+        /// the same as the rows read from the original stream.
+        ///
+        /// Moreover, the two child streams will be allocated back to back in the
+        /// original Stream. Concretely, it is guaranteed that for streams Original,
+        /// Primary, and Residual, that Original[0-j] = Primary[0-j] and
+        /// Original[j-n] = Residual[0-m] once the streams have been read to
+        /// completion.
+        ///
+        /// This method is guaranteed to be idempotent.
+        async fn split_read_stream(
+            &self,
+            request: tonic::Request<super::SplitReadStreamRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::SplitReadStreamResponse>,
+            tonic::Status,
+        >;
+    }
+    /// BigQuery storage API.
+    ///
+    /// The BigQuery storage API can be used to read data stored in BigQuery.
+    ///
+    /// The v1beta1 API is not yet officially deprecated, and will go through a full
+    /// deprecation cycle (https://cloud.google.com/products#product-launch-stages)
+    /// before the service is turned down. However, new code should use the v1 API
+    /// going forward.
+    #[derive(Debug)]
+    pub struct BigQueryStorageServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> BigQueryStorageServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for BigQueryStorageServer<T>
+    where
+        T: BigQueryStorage,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.bigquery.storage.v1beta1.BigQueryStorage/CreateReadSession" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateReadSessionSvc<T: BigQueryStorage>(pub Arc<T>);
+                    impl<
+                        T: BigQueryStorage,
+                    > tonic::server::UnaryService<super::CreateReadSessionRequest>
+                    for CreateReadSessionSvc<T> {
+                        type Response = super::ReadSession;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateReadSessionRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigQueryStorage>::create_read_session(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateReadSessionSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.storage.v1beta1.BigQueryStorage/ReadRows" => {
+                    #[allow(non_camel_case_types)]
+                    struct ReadRowsSvc<T: BigQueryStorage>(pub Arc<T>);
+                    impl<
+                        T: BigQueryStorage,
+                    > tonic::server::ServerStreamingService<super::ReadRowsRequest>
+                    for ReadRowsSvc<T> {
+                        type Response = super::ReadRowsResponse;
+                        type ResponseStream = T::ReadRowsStream;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::ResponseStream>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ReadRowsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigQueryStorage>::read_rows(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ReadRowsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.server_streaming(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.storage.v1beta1.BigQueryStorage/BatchCreateReadSessionStreams" => {
+                    #[allow(non_camel_case_types)]
+                    struct BatchCreateReadSessionStreamsSvc<T: BigQueryStorage>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: BigQueryStorage,
+                    > tonic::server::UnaryService<
+                        super::BatchCreateReadSessionStreamsRequest,
+                    > for BatchCreateReadSessionStreamsSvc<T> {
+                        type Response = super::BatchCreateReadSessionStreamsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::BatchCreateReadSessionStreamsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigQueryStorage>::batch_create_read_session_streams(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = BatchCreateReadSessionStreamsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.storage.v1beta1.BigQueryStorage/FinalizeStream" => {
+                    #[allow(non_camel_case_types)]
+                    struct FinalizeStreamSvc<T: BigQueryStorage>(pub Arc<T>);
+                    impl<
+                        T: BigQueryStorage,
+                    > tonic::server::UnaryService<super::FinalizeStreamRequest>
+                    for FinalizeStreamSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::FinalizeStreamRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigQueryStorage>::finalize_stream(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = FinalizeStreamSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.bigquery.storage.v1beta1.BigQueryStorage/SplitReadStream" => {
+                    #[allow(non_camel_case_types)]
+                    struct SplitReadStreamSvc<T: BigQueryStorage>(pub Arc<T>);
+                    impl<
+                        T: BigQueryStorage,
+                    > tonic::server::UnaryService<super::SplitReadStreamRequest>
+                    for SplitReadStreamSvc<T> {
+                        type Response = super::SplitReadStreamResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::SplitReadStreamRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as BigQueryStorage>::split_read_stream(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = SplitReadStreamSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for BigQueryStorageServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.bigquery.storage.v1beta1.BigQueryStorage";
+    impl<T> tonic::server::NamedService for BigQueryStorageServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

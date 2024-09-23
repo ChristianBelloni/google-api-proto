@@ -241,9 +241,9 @@ impl NotificationView {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            NotificationView::Unspecified => "NOTIFICATION_VIEW_UNSPECIFIED",
-            NotificationView::Basic => "BASIC",
-            NotificationView::Full => "FULL",
+            Self::Unspecified => "NOTIFICATION_VIEW_UNSPECIFIED",
+            Self::Basic => "BASIC",
+            Self::Full => "FULL",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -281,10 +281,10 @@ impl LocalizationState {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            LocalizationState::Unspecified => "LOCALIZATION_STATE_UNSPECIFIED",
-            LocalizationState::NotApplicable => "LOCALIZATION_STATE_NOT_APPLICABLE",
-            LocalizationState::Pending => "LOCALIZATION_STATE_PENDING",
-            LocalizationState::Completed => "LOCALIZATION_STATE_COMPLETED",
+            Self::Unspecified => "LOCALIZATION_STATE_UNSPECIFIED",
+            Self::NotApplicable => "LOCALIZATION_STATE_NOT_APPLICABLE",
+            Self::Pending => "LOCALIZATION_STATE_PENDING",
+            Self::Completed => "LOCALIZATION_STATE_COMPLETED",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -320,13 +320,13 @@ impl NotificationType {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            NotificationType::Unspecified => "NOTIFICATION_TYPE_UNSPECIFIED",
-            NotificationType::SecurityPrivacyAdvisory => {
+            Self::Unspecified => "NOTIFICATION_TYPE_UNSPECIFIED",
+            Self::SecurityPrivacyAdvisory => {
                 "NOTIFICATION_TYPE_SECURITY_PRIVACY_ADVISORY"
             }
-            NotificationType::SensitiveActions => "NOTIFICATION_TYPE_SENSITIVE_ACTIONS",
-            NotificationType::SecurityMsa => "NOTIFICATION_TYPE_SECURITY_MSA",
-            NotificationType::ThreatHorizons => "NOTIFICATION_TYPE_THREAT_HORIZONS",
+            Self::SensitiveActions => "NOTIFICATION_TYPE_SENSITIVE_ACTIONS",
+            Self::SecurityMsa => "NOTIFICATION_TYPE_SECURITY_MSA",
+            Self::ThreatHorizons => "NOTIFICATION_TYPE_THREAT_HORIZONS",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -535,5 +535,352 @@ pub mod advisory_notifications_service_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod advisory_notifications_service_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with AdvisoryNotificationsServiceServer.
+    #[async_trait]
+    pub trait AdvisoryNotificationsService: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists notifications under a given parent.
+        async fn list_notifications(
+            &self,
+            request: tonic::Request<super::ListNotificationsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListNotificationsResponse>,
+            tonic::Status,
+        >;
+        /// Gets a notification.
+        async fn get_notification(
+            &self,
+            request: tonic::Request<super::GetNotificationRequest>,
+        ) -> std::result::Result<tonic::Response<super::Notification>, tonic::Status>;
+        /// Get notification settings.
+        async fn get_settings(
+            &self,
+            request: tonic::Request<super::GetSettingsRequest>,
+        ) -> std::result::Result<tonic::Response<super::Settings>, tonic::Status>;
+        /// Update notification settings.
+        async fn update_settings(
+            &self,
+            request: tonic::Request<super::UpdateSettingsRequest>,
+        ) -> std::result::Result<tonic::Response<super::Settings>, tonic::Status>;
+    }
+    /// Service to manage Security and Privacy Notifications.
+    #[derive(Debug)]
+    pub struct AdvisoryNotificationsServiceServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> AdvisoryNotificationsServiceServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>>
+    for AdvisoryNotificationsServiceServer<T>
+    where
+        T: AdvisoryNotificationsService,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.advisorynotifications.v1.AdvisoryNotificationsService/ListNotifications" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListNotificationsSvc<T: AdvisoryNotificationsService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AdvisoryNotificationsService,
+                    > tonic::server::UnaryService<super::ListNotificationsRequest>
+                    for ListNotificationsSvc<T> {
+                        type Response = super::ListNotificationsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListNotificationsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AdvisoryNotificationsService>::list_notifications(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListNotificationsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.advisorynotifications.v1.AdvisoryNotificationsService/GetNotification" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetNotificationSvc<T: AdvisoryNotificationsService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AdvisoryNotificationsService,
+                    > tonic::server::UnaryService<super::GetNotificationRequest>
+                    for GetNotificationSvc<T> {
+                        type Response = super::Notification;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetNotificationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AdvisoryNotificationsService>::get_notification(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetNotificationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.advisorynotifications.v1.AdvisoryNotificationsService/GetSettings" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetSettingsSvc<T: AdvisoryNotificationsService>(pub Arc<T>);
+                    impl<
+                        T: AdvisoryNotificationsService,
+                    > tonic::server::UnaryService<super::GetSettingsRequest>
+                    for GetSettingsSvc<T> {
+                        type Response = super::Settings;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetSettingsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AdvisoryNotificationsService>::get_settings(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetSettingsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.advisorynotifications.v1.AdvisoryNotificationsService/UpdateSettings" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateSettingsSvc<T: AdvisoryNotificationsService>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: AdvisoryNotificationsService,
+                    > tonic::server::UnaryService<super::UpdateSettingsRequest>
+                    for UpdateSettingsSvc<T> {
+                        type Response = super::Settings;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateSettingsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AdvisoryNotificationsService>::update_settings(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateSettingsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for AdvisoryNotificationsServiceServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.advisorynotifications.v1.AdvisoryNotificationsService";
+    impl<T> tonic::server::NamedService for AdvisoryNotificationsServiceServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

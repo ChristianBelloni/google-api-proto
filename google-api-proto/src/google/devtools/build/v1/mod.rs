@@ -62,15 +62,15 @@ pub mod build_status {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Result::UnknownStatus => "UNKNOWN_STATUS",
-                Result::CommandSucceeded => "COMMAND_SUCCEEDED",
-                Result::CommandFailed => "COMMAND_FAILED",
-                Result::UserError => "USER_ERROR",
-                Result::SystemError => "SYSTEM_ERROR",
-                Result::ResourceExhausted => "RESOURCE_EXHAUSTED",
-                Result::InvocationDeadlineExceeded => "INVOCATION_DEADLINE_EXCEEDED",
-                Result::RequestDeadlineExceeded => "REQUEST_DEADLINE_EXCEEDED",
-                Result::Cancelled => "CANCELLED",
+                Self::UnknownStatus => "UNKNOWN_STATUS",
+                Self::CommandSucceeded => "COMMAND_SUCCEEDED",
+                Self::CommandFailed => "COMMAND_FAILED",
+                Self::UserError => "USER_ERROR",
+                Self::SystemError => "SYSTEM_ERROR",
+                Self::ResourceExhausted => "RESOURCE_EXHAUSTED",
+                Self::InvocationDeadlineExceeded => "INVOCATION_DEADLINE_EXCEEDED",
+                Self::RequestDeadlineExceeded => "REQUEST_DEADLINE_EXCEEDED",
+                Self::Cancelled => "CANCELLED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -211,9 +211,9 @@ pub mod build_event {
             /// (if the ProtoBuf definition does not change) and safe for programmatic use.
             pub fn as_str_name(&self) -> &'static str {
                 match self {
-                    FinishType::Unspecified => "FINISH_TYPE_UNSPECIFIED",
-                    FinishType::Finished => "FINISHED",
-                    FinishType::Expired => "EXPIRED",
+                    Self::Unspecified => "FINISH_TYPE_UNSPECIFIED",
+                    Self::Finished => "FINISHED",
+                    Self::Expired => "EXPIRED",
                 }
             }
             /// Creates an enum from field names used in the ProtoBuf definition.
@@ -312,10 +312,10 @@ pub mod stream_id {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                BuildComponent::UnknownComponent => "UNKNOWN_COMPONENT",
-                BuildComponent::Controller => "CONTROLLER",
-                BuildComponent::Worker => "WORKER",
-                BuildComponent::Tool => "TOOL",
+                Self::UnknownComponent => "UNKNOWN_COMPONENT",
+                Self::Controller => "CONTROLLER",
+                Self::Worker => "WORKER",
+                Self::Tool => "TOOL",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -348,9 +348,9 @@ impl ConsoleOutputStream {
     /// (if the ProtoBuf definition does not change) and safe for programmatic use.
     pub fn as_str_name(&self) -> &'static str {
         match self {
-            ConsoleOutputStream::Unknown => "UNKNOWN",
-            ConsoleOutputStream::Stdout => "STDOUT",
-            ConsoleOutputStream::Stderr => "STDERR",
+            Self::Unknown => "UNKNOWN",
+            Self::Stdout => "STDOUT",
+            Self::Stderr => "STDERR",
         }
     }
     /// Creates an enum from field names used in the ProtoBuf definition.
@@ -436,8 +436,8 @@ pub mod publish_lifecycle_event_request {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                ServiceLevel::Noninteractive => "NONINTERACTIVE",
-                ServiceLevel::Interactive => "INTERACTIVE",
+                Self::Noninteractive => "NONINTERACTIVE",
+                Self::Interactive => "INTERACTIVE",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -664,5 +664,278 @@ pub mod publish_build_event_client {
                 );
             self.inner.streaming(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod publish_build_event_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with PublishBuildEventServer.
+    #[async_trait]
+    pub trait PublishBuildEvent: std::marker::Send + std::marker::Sync + 'static {
+        /// Publish a build event stating the new state of a build (typically from the
+        /// build queue). The BuildEnqueued event must be published before all other
+        /// events for the same build ID.
+        ///
+        /// The backend will persist the event and deliver it to registered frontend
+        /// jobs immediately without batching.
+        ///
+        /// The commit status of the request is reported by the RPC's util_status()
+        /// function. The error code is the canonical error code defined in
+        /// //util/task/codes.proto.
+        async fn publish_lifecycle_event(
+            &self,
+            request: tonic::Request<super::PublishLifecycleEventRequest>,
+        ) -> std::result::Result<tonic::Response<()>, tonic::Status>;
+        /// Server streaming response type for the PublishBuildToolEventStream method.
+        type PublishBuildToolEventStreamStream: tonic::codegen::tokio_stream::Stream<
+                Item = std::result::Result<
+                    super::PublishBuildToolEventStreamResponse,
+                    tonic::Status,
+                >,
+            >
+            + std::marker::Send
+            + 'static;
+        /// Publish build tool events belonging to the same stream to a backend job
+        /// using bidirectional streaming.
+        async fn publish_build_tool_event_stream(
+            &self,
+            request: tonic::Request<
+                tonic::Streaming<super::PublishBuildToolEventStreamRequest>,
+            >,
+        ) -> std::result::Result<
+            tonic::Response<Self::PublishBuildToolEventStreamStream>,
+            tonic::Status,
+        >;
+    }
+    /// A service for publishing BuildEvents. BuildEvents are generated by Build
+    /// Systems to record actions taken during a Build. Events occur in streams,
+    /// are identified by a StreamId, and ordered by sequence number in a stream.
+    ///
+    /// A Build may contain several streams of BuildEvents, depending on the systems
+    /// that are involved in the Build. Some BuildEvents are used to declare the
+    /// beginning and end of major portions of a Build; these are called
+    /// LifecycleEvents, and are used (for example) to indicate the beginning or end
+    /// of a Build, and the beginning or end of an Invocation attempt (there can be
+    /// more than 1 Invocation in a Build if, for example, a failure occurs somewhere
+    /// and it needs to be retried).
+    ///
+    /// Other, build-tool events represent actions taken by the Build tool, such as
+    /// target objects produced via compilation, tests run, et cetera. There could be
+    /// more than one build tool stream for an invocation attempt of a build.
+    #[derive(Debug)]
+    pub struct PublishBuildEventServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> PublishBuildEventServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for PublishBuildEventServer<T>
+    where
+        T: PublishBuildEvent,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.devtools.build.v1.PublishBuildEvent/PublishLifecycleEvent" => {
+                    #[allow(non_camel_case_types)]
+                    struct PublishLifecycleEventSvc<T: PublishBuildEvent>(pub Arc<T>);
+                    impl<
+                        T: PublishBuildEvent,
+                    > tonic::server::UnaryService<super::PublishLifecycleEventRequest>
+                    for PublishLifecycleEventSvc<T> {
+                        type Response = ();
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::PublishLifecycleEventRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as PublishBuildEvent>::publish_lifecycle_event(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = PublishLifecycleEventSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.devtools.build.v1.PublishBuildEvent/PublishBuildToolEventStream" => {
+                    #[allow(non_camel_case_types)]
+                    struct PublishBuildToolEventStreamSvc<T: PublishBuildEvent>(
+                        pub Arc<T>,
+                    );
+                    impl<
+                        T: PublishBuildEvent,
+                    > tonic::server::StreamingService<
+                        super::PublishBuildToolEventStreamRequest,
+                    > for PublishBuildToolEventStreamSvc<T> {
+                        type Response = super::PublishBuildToolEventStreamResponse;
+                        type ResponseStream = T::PublishBuildToolEventStreamStream;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::ResponseStream>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                tonic::Streaming<super::PublishBuildToolEventStreamRequest>,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as PublishBuildEvent>::publish_build_tool_event_stream(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = PublishBuildToolEventStreamSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.streaming(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for PublishBuildEventServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.devtools.build.v1.PublishBuildEvent";
+    impl<T> tonic::server::NamedService for PublishBuildEventServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }

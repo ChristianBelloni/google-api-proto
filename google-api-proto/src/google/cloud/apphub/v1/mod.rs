@@ -60,11 +60,11 @@ pub mod criticality {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::MissionCritical => "MISSION_CRITICAL",
-                Type::High => "HIGH",
-                Type::Medium => "MEDIUM",
-                Type::Low => "LOW",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::MissionCritical => "MISSION_CRITICAL",
+                Self::High => "HIGH",
+                Self::Medium => "MEDIUM",
+                Self::Low => "LOW",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -121,11 +121,11 @@ pub mod environment {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::Production => "PRODUCTION",
-                Type::Staging => "STAGING",
-                Type::Test => "TEST",
-                Type::Development => "DEVELOPMENT",
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::Production => "PRODUCTION",
+                Self::Staging => "STAGING",
+                Self::Test => "TEST",
+                Self::Development => "DEVELOPMENT",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -151,6 +151,144 @@ pub struct ContactInfo {
     /// Required. Email address of the contacts.
     #[prost(string, tag = "2")]
     pub email: ::prost::alloc::string::String,
+}
+/// Application defines the governance boundary for App Hub Entities that
+/// perform a logical end-to-end business function.
+/// App Hub supports application level IAM permission to align with governance
+/// requirements.
+#[derive(Clone, PartialEq, ::prost::Message)]
+pub struct Application {
+    /// Identifier. The resource name of an Application. Format:
+    /// "projects/{host-project-id}/locations/{location}/applications/{application-id}"
+    #[prost(string, tag = "1")]
+    pub name: ::prost::alloc::string::String,
+    /// Optional. User-defined name for the Application.
+    /// Can have a maximum length of 63 characters.
+    #[prost(string, tag = "2")]
+    pub display_name: ::prost::alloc::string::String,
+    /// Optional. User-defined description of an Application.
+    /// Can have a maximum length of 2048 characters.
+    #[prost(string, tag = "3")]
+    pub description: ::prost::alloc::string::String,
+    /// Optional. Consumer provided attributes.
+    #[prost(message, optional, tag = "4")]
+    pub attributes: ::core::option::Option<Attributes>,
+    /// Output only. Create time.
+    #[prost(message, optional, tag = "5")]
+    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Output only. Update time.
+    #[prost(message, optional, tag = "6")]
+    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
+    /// Required. Immutable. Defines what data can be included into this
+    /// Application. Limits which Services and Workloads can be registered.
+    #[prost(message, optional, tag = "9")]
+    pub scope: ::core::option::Option<Scope>,
+    /// Output only. A universally unique identifier (in UUID4 format) for the
+    /// `Application`.
+    #[prost(string, tag = "10")]
+    pub uid: ::prost::alloc::string::String,
+    /// Output only. Application state.
+    #[prost(enumeration = "application::State", tag = "11")]
+    pub state: i32,
+}
+/// Nested message and enum types in `Application`.
+pub mod application {
+    /// Application state.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum State {
+        /// Unspecified state.
+        Unspecified = 0,
+        /// The Application is being created.
+        Creating = 1,
+        /// The Application is ready to register Services and Workloads.
+        Active = 2,
+        /// The Application is being deleted.
+        Deleting = 3,
+    }
+    impl State {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Active => "ACTIVE",
+                Self::Deleting => "DELETING",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "STATE_UNSPECIFIED" => Some(Self::Unspecified),
+                "CREATING" => Some(Self::Creating),
+                "ACTIVE" => Some(Self::Active),
+                "DELETING" => Some(Self::Deleting),
+                _ => None,
+            }
+        }
+    }
+}
+/// Scope of an application.
+#[derive(Clone, Copy, PartialEq, ::prost::Message)]
+pub struct Scope {
+    /// Required. Scope Type.
+    #[prost(enumeration = "scope::Type", tag = "1")]
+    pub r#type: i32,
+}
+/// Nested message and enum types in `Scope`.
+pub mod scope {
+    /// Scope Type.
+    #[derive(
+        Clone,
+        Copy,
+        Debug,
+        PartialEq,
+        Eq,
+        Hash,
+        PartialOrd,
+        Ord,
+        ::prost::Enumeration
+    )]
+    #[repr(i32)]
+    pub enum Type {
+        /// Unspecified type.
+        Unspecified = 0,
+        /// Regional type.
+        Regional = 1,
+    }
+    impl Type {
+        /// String value of the enum field names used in the ProtoBuf definition.
+        ///
+        /// The values are not transformed in any way and thus are considered stable
+        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
+        pub fn as_str_name(&self) -> &'static str {
+            match self {
+                Self::Unspecified => "TYPE_UNSPECIFIED",
+                Self::Regional => "REGIONAL",
+            }
+        }
+        /// Creates an enum from field names used in the ProtoBuf definition.
+        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
+            match value {
+                "TYPE_UNSPECIFIED" => Some(Self::Unspecified),
+                "REGIONAL" => Some(Self::Regional),
+                _ => None,
+            }
+        }
+    }
 }
 /// Workload is an App Hub data model that contains a discovered workload, which
 /// represents a binary deployment (such as managed instance groups (MIGs) and
@@ -232,11 +370,11 @@ pub mod workload {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Active => "ACTIVE",
-                State::Deleting => "DELETING",
-                State::Detached => "DETACHED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Active => "ACTIVE",
+                Self::Deleting => "DELETING",
+                Self::Detached => "DETACHED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -293,144 +431,6 @@ pub struct DiscoveredWorkload {
     /// the Workload. These are immutable.
     #[prost(message, optional, tag = "3")]
     pub workload_properties: ::core::option::Option<WorkloadProperties>,
-}
-/// Application defines the governance boundary for App Hub Entities that
-/// perform a logical end-to-end business function.
-/// App Hub supports application level IAM permission to align with governance
-/// requirements.
-#[derive(Clone, PartialEq, ::prost::Message)]
-pub struct Application {
-    /// Identifier. The resource name of an Application. Format:
-    /// "projects/{host-project-id}/locations/{location}/applications/{application-id}"
-    #[prost(string, tag = "1")]
-    pub name: ::prost::alloc::string::String,
-    /// Optional. User-defined name for the Application.
-    /// Can have a maximum length of 63 characters.
-    #[prost(string, tag = "2")]
-    pub display_name: ::prost::alloc::string::String,
-    /// Optional. User-defined description of an Application.
-    /// Can have a maximum length of 2048 characters.
-    #[prost(string, tag = "3")]
-    pub description: ::prost::alloc::string::String,
-    /// Optional. Consumer provided attributes.
-    #[prost(message, optional, tag = "4")]
-    pub attributes: ::core::option::Option<Attributes>,
-    /// Output only. Create time.
-    #[prost(message, optional, tag = "5")]
-    pub create_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Output only. Update time.
-    #[prost(message, optional, tag = "6")]
-    pub update_time: ::core::option::Option<::prost_types::Timestamp>,
-    /// Required. Immutable. Defines what data can be included into this
-    /// Application. Limits which Services and Workloads can be registered.
-    #[prost(message, optional, tag = "9")]
-    pub scope: ::core::option::Option<Scope>,
-    /// Output only. A universally unique identifier (in UUID4 format) for the
-    /// `Application`.
-    #[prost(string, tag = "10")]
-    pub uid: ::prost::alloc::string::String,
-    /// Output only. Application state.
-    #[prost(enumeration = "application::State", tag = "11")]
-    pub state: i32,
-}
-/// Nested message and enum types in `Application`.
-pub mod application {
-    /// Application state.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum State {
-        /// Unspecified state.
-        Unspecified = 0,
-        /// The Application is being created.
-        Creating = 1,
-        /// The Application is ready to register Services and Workloads.
-        Active = 2,
-        /// The Application is being deleted.
-        Deleting = 3,
-    }
-    impl State {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Active => "ACTIVE",
-                State::Deleting => "DELETING",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "STATE_UNSPECIFIED" => Some(Self::Unspecified),
-                "CREATING" => Some(Self::Creating),
-                "ACTIVE" => Some(Self::Active),
-                "DELETING" => Some(Self::Deleting),
-                _ => None,
-            }
-        }
-    }
-}
-/// Scope of an application.
-#[derive(Clone, Copy, PartialEq, ::prost::Message)]
-pub struct Scope {
-    /// Required. Scope Type.
-    #[prost(enumeration = "scope::Type", tag = "1")]
-    pub r#type: i32,
-}
-/// Nested message and enum types in `Scope`.
-pub mod scope {
-    /// Scope Type.
-    #[derive(
-        Clone,
-        Copy,
-        Debug,
-        PartialEq,
-        Eq,
-        Hash,
-        PartialOrd,
-        Ord,
-        ::prost::Enumeration
-    )]
-    #[repr(i32)]
-    pub enum Type {
-        /// Unspecified type.
-        Unspecified = 0,
-        /// Regional type.
-        Regional = 1,
-    }
-    impl Type {
-        /// String value of the enum field names used in the ProtoBuf definition.
-        ///
-        /// The values are not transformed in any way and thus are considered stable
-        /// (if the ProtoBuf definition does not change) and safe for programmatic use.
-        pub fn as_str_name(&self) -> &'static str {
-            match self {
-                Type::Unspecified => "TYPE_UNSPECIFIED",
-                Type::Regional => "REGIONAL",
-            }
-        }
-        /// Creates an enum from field names used in the ProtoBuf definition.
-        pub fn from_str_name(value: &str) -> ::core::option::Option<Self> {
-            match value {
-                "TYPE_UNSPECIFIED" => Some(Self::Unspecified),
-                "REGIONAL" => Some(Self::Regional),
-                _ => None,
-            }
-        }
-    }
 }
 /// Service is an App Hub data model that contains a discovered service, which
 /// represents a network/api interface that exposes some functionality to clients
@@ -511,11 +511,11 @@ pub mod service {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Active => "ACTIVE",
-                State::Deleting => "DELETING",
-                State::Detached => "DETACHED",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Active => "ACTIVE",
+                Self::Deleting => "DELETING",
+                Self::Detached => "DETACHED",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -634,10 +634,10 @@ pub mod service_project_attachment {
         /// (if the ProtoBuf definition does not change) and safe for programmatic use.
         pub fn as_str_name(&self) -> &'static str {
             match self {
-                State::Unspecified => "STATE_UNSPECIFIED",
-                State::Creating => "CREATING",
-                State::Active => "ACTIVE",
-                State::Deleting => "DELETING",
+                Self::Unspecified => "STATE_UNSPECIFIED",
+                Self::Creating => "CREATING",
+                Self::Active => "ACTIVE",
+                Self::Deleting => "DELETING",
             }
         }
         /// Creates an enum from field names used in the ProtoBuf definition.
@@ -2204,5 +2204,1606 @@ pub mod app_hub_client {
                 );
             self.inner.unary(req, path, codec).await
         }
+    }
+}
+/// Generated server implementations.
+pub mod app_hub_server {
+    #![allow(unused_variables, dead_code, missing_docs, clippy::let_unit_value)]
+    use tonic::codegen::*;
+    /// Generated trait containing gRPC methods that should be implemented for use with AppHubServer.
+    #[async_trait]
+    pub trait AppHub: std::marker::Send + std::marker::Sync + 'static {
+        /// Lists a service project attachment for a given service project. You can
+        /// call this API from any project to find if it is attached to a host project.
+        async fn lookup_service_project_attachment(
+            &self,
+            request: tonic::Request<super::LookupServiceProjectAttachmentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::LookupServiceProjectAttachmentResponse>,
+            tonic::Status,
+        >;
+        /// Lists service projects attached to the host project.
+        async fn list_service_project_attachments(
+            &self,
+            request: tonic::Request<super::ListServiceProjectAttachmentsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListServiceProjectAttachmentsResponse>,
+            tonic::Status,
+        >;
+        /// Attaches a service project to the host project.
+        async fn create_service_project_attachment(
+            &self,
+            request: tonic::Request<super::CreateServiceProjectAttachmentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Gets a service project attachment.
+        async fn get_service_project_attachment(
+            &self,
+            request: tonic::Request<super::GetServiceProjectAttachmentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ServiceProjectAttachment>,
+            tonic::Status,
+        >;
+        /// Deletes a service project attachment.
+        async fn delete_service_project_attachment(
+            &self,
+            request: tonic::Request<super::DeleteServiceProjectAttachmentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Detaches a service project from a host project.
+        /// You can call this API from any service project without needing access to
+        /// the host project that it is attached to.
+        async fn detach_service_project_attachment(
+            &self,
+            request: tonic::Request<super::DetachServiceProjectAttachmentRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::DetachServiceProjectAttachmentResponse>,
+            tonic::Status,
+        >;
+        /// Lists Discovered Services that can be added to an Application in a host
+        /// project and location.
+        async fn list_discovered_services(
+            &self,
+            request: tonic::Request<super::ListDiscoveredServicesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDiscoveredServicesResponse>,
+            tonic::Status,
+        >;
+        /// Gets a Discovered Service in a host project and location.
+        async fn get_discovered_service(
+            &self,
+            request: tonic::Request<super::GetDiscoveredServiceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::DiscoveredService>,
+            tonic::Status,
+        >;
+        /// Lists a Discovered Service in a host project and location, with a
+        /// given resource URI.
+        async fn lookup_discovered_service(
+            &self,
+            request: tonic::Request<super::LookupDiscoveredServiceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::LookupDiscoveredServiceResponse>,
+            tonic::Status,
+        >;
+        /// Lists Services in an Application.
+        async fn list_services(
+            &self,
+            request: tonic::Request<super::ListServicesRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListServicesResponse>,
+            tonic::Status,
+        >;
+        /// Creates a Service in an Application.
+        async fn create_service(
+            &self,
+            request: tonic::Request<super::CreateServiceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Gets a Service in an Application.
+        async fn get_service(
+            &self,
+            request: tonic::Request<super::GetServiceRequest>,
+        ) -> std::result::Result<tonic::Response<super::Service>, tonic::Status>;
+        /// Updates a Service in an Application.
+        async fn update_service(
+            &self,
+            request: tonic::Request<super::UpdateServiceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a Service from an Application.
+        async fn delete_service(
+            &self,
+            request: tonic::Request<super::DeleteServiceRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists Discovered Workloads that can be added to an Application in a host
+        /// project and location.
+        async fn list_discovered_workloads(
+            &self,
+            request: tonic::Request<super::ListDiscoveredWorkloadsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListDiscoveredWorkloadsResponse>,
+            tonic::Status,
+        >;
+        /// Gets a Discovered Workload in a host project and location.
+        async fn get_discovered_workload(
+            &self,
+            request: tonic::Request<super::GetDiscoveredWorkloadRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::DiscoveredWorkload>,
+            tonic::Status,
+        >;
+        /// Lists a Discovered Workload in a host project and location, with a
+        /// given resource URI.
+        async fn lookup_discovered_workload(
+            &self,
+            request: tonic::Request<super::LookupDiscoveredWorkloadRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::LookupDiscoveredWorkloadResponse>,
+            tonic::Status,
+        >;
+        /// Lists Workloads in an Application.
+        async fn list_workloads(
+            &self,
+            request: tonic::Request<super::ListWorkloadsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListWorkloadsResponse>,
+            tonic::Status,
+        >;
+        /// Creates a Workload in an Application.
+        async fn create_workload(
+            &self,
+            request: tonic::Request<super::CreateWorkloadRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Gets a Workload in an Application.
+        async fn get_workload(
+            &self,
+            request: tonic::Request<super::GetWorkloadRequest>,
+        ) -> std::result::Result<tonic::Response<super::Workload>, tonic::Status>;
+        /// Updates a Workload in an Application.
+        async fn update_workload(
+            &self,
+            request: tonic::Request<super::UpdateWorkloadRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes a Workload from an Application.
+        async fn delete_workload(
+            &self,
+            request: tonic::Request<super::DeleteWorkloadRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Lists Applications in a host project and location.
+        async fn list_applications(
+            &self,
+            request: tonic::Request<super::ListApplicationsRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::ListApplicationsResponse>,
+            tonic::Status,
+        >;
+        /// Creates an Application in a host project and location.
+        async fn create_application(
+            &self,
+            request: tonic::Request<super::CreateApplicationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Gets an Application in a host project and location.
+        async fn get_application(
+            &self,
+            request: tonic::Request<super::GetApplicationRequest>,
+        ) -> std::result::Result<tonic::Response<super::Application>, tonic::Status>;
+        /// Updates an Application in a host project and location.
+        async fn update_application(
+            &self,
+            request: tonic::Request<super::UpdateApplicationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+        /// Deletes an Application in a host project and location.
+        async fn delete_application(
+            &self,
+            request: tonic::Request<super::DeleteApplicationRequest>,
+        ) -> std::result::Result<
+            tonic::Response<super::super::super::super::longrunning::Operation>,
+            tonic::Status,
+        >;
+    }
+    /// The App Hub API allows you to manage App Hub resources.
+    #[derive(Debug)]
+    pub struct AppHubServer<T> {
+        inner: Arc<T>,
+        accept_compression_encodings: EnabledCompressionEncodings,
+        send_compression_encodings: EnabledCompressionEncodings,
+        max_decoding_message_size: Option<usize>,
+        max_encoding_message_size: Option<usize>,
+    }
+    impl<T> AppHubServer<T> {
+        pub fn new(inner: T) -> Self {
+            Self::from_arc(Arc::new(inner))
+        }
+        pub fn from_arc(inner: Arc<T>) -> Self {
+            Self {
+                inner,
+                accept_compression_encodings: Default::default(),
+                send_compression_encodings: Default::default(),
+                max_decoding_message_size: None,
+                max_encoding_message_size: None,
+            }
+        }
+        pub fn with_interceptor<F>(
+            inner: T,
+            interceptor: F,
+        ) -> InterceptedService<Self, F>
+        where
+            F: tonic::service::Interceptor,
+        {
+            InterceptedService::new(Self::new(inner), interceptor)
+        }
+        /// Enable decompressing requests with the given encoding.
+        #[must_use]
+        pub fn accept_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.accept_compression_encodings.enable(encoding);
+            self
+        }
+        /// Compress responses with the given encoding, if the client supports it.
+        #[must_use]
+        pub fn send_compressed(mut self, encoding: CompressionEncoding) -> Self {
+            self.send_compression_encodings.enable(encoding);
+            self
+        }
+        /// Limits the maximum size of a decoded message.
+        ///
+        /// Default: `4MB`
+        #[must_use]
+        pub fn max_decoding_message_size(mut self, limit: usize) -> Self {
+            self.max_decoding_message_size = Some(limit);
+            self
+        }
+        /// Limits the maximum size of an encoded message.
+        ///
+        /// Default: `usize::MAX`
+        #[must_use]
+        pub fn max_encoding_message_size(mut self, limit: usize) -> Self {
+            self.max_encoding_message_size = Some(limit);
+            self
+        }
+    }
+    impl<T, B> tonic::codegen::Service<http::Request<B>> for AppHubServer<T>
+    where
+        T: AppHub,
+        B: Body + std::marker::Send + 'static,
+        B::Error: Into<StdError> + std::marker::Send + 'static,
+    {
+        type Response = http::Response<tonic::body::BoxBody>;
+        type Error = std::convert::Infallible;
+        type Future = BoxFuture<Self::Response, Self::Error>;
+        fn poll_ready(
+            &mut self,
+            _cx: &mut Context<'_>,
+        ) -> Poll<std::result::Result<(), Self::Error>> {
+            Poll::Ready(Ok(()))
+        }
+        fn call(&mut self, req: http::Request<B>) -> Self::Future {
+            match req.uri().path() {
+                "/google.cloud.apphub.v1.AppHub/LookupServiceProjectAttachment" => {
+                    #[allow(non_camel_case_types)]
+                    struct LookupServiceProjectAttachmentSvc<T: AppHub>(pub Arc<T>);
+                    impl<
+                        T: AppHub,
+                    > tonic::server::UnaryService<
+                        super::LookupServiceProjectAttachmentRequest,
+                    > for LookupServiceProjectAttachmentSvc<T> {
+                        type Response = super::LookupServiceProjectAttachmentResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::LookupServiceProjectAttachmentRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppHub>::lookup_service_project_attachment(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = LookupServiceProjectAttachmentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.apphub.v1.AppHub/ListServiceProjectAttachments" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListServiceProjectAttachmentsSvc<T: AppHub>(pub Arc<T>);
+                    impl<
+                        T: AppHub,
+                    > tonic::server::UnaryService<
+                        super::ListServiceProjectAttachmentsRequest,
+                    > for ListServiceProjectAttachmentsSvc<T> {
+                        type Response = super::ListServiceProjectAttachmentsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListServiceProjectAttachmentsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppHub>::list_service_project_attachments(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListServiceProjectAttachmentsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.apphub.v1.AppHub/CreateServiceProjectAttachment" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateServiceProjectAttachmentSvc<T: AppHub>(pub Arc<T>);
+                    impl<
+                        T: AppHub,
+                    > tonic::server::UnaryService<
+                        super::CreateServiceProjectAttachmentRequest,
+                    > for CreateServiceProjectAttachmentSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::CreateServiceProjectAttachmentRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppHub>::create_service_project_attachment(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateServiceProjectAttachmentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.apphub.v1.AppHub/GetServiceProjectAttachment" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetServiceProjectAttachmentSvc<T: AppHub>(pub Arc<T>);
+                    impl<
+                        T: AppHub,
+                    > tonic::server::UnaryService<
+                        super::GetServiceProjectAttachmentRequest,
+                    > for GetServiceProjectAttachmentSvc<T> {
+                        type Response = super::ServiceProjectAttachment;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::GetServiceProjectAttachmentRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppHub>::get_service_project_attachment(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetServiceProjectAttachmentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.apphub.v1.AppHub/DeleteServiceProjectAttachment" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteServiceProjectAttachmentSvc<T: AppHub>(pub Arc<T>);
+                    impl<
+                        T: AppHub,
+                    > tonic::server::UnaryService<
+                        super::DeleteServiceProjectAttachmentRequest,
+                    > for DeleteServiceProjectAttachmentSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DeleteServiceProjectAttachmentRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppHub>::delete_service_project_attachment(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteServiceProjectAttachmentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.apphub.v1.AppHub/DetachServiceProjectAttachment" => {
+                    #[allow(non_camel_case_types)]
+                    struct DetachServiceProjectAttachmentSvc<T: AppHub>(pub Arc<T>);
+                    impl<
+                        T: AppHub,
+                    > tonic::server::UnaryService<
+                        super::DetachServiceProjectAttachmentRequest,
+                    > for DetachServiceProjectAttachmentSvc<T> {
+                        type Response = super::DetachServiceProjectAttachmentResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::DetachServiceProjectAttachmentRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppHub>::detach_service_project_attachment(
+                                        &inner,
+                                        request,
+                                    )
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DetachServiceProjectAttachmentSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.apphub.v1.AppHub/ListDiscoveredServices" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDiscoveredServicesSvc<T: AppHub>(pub Arc<T>);
+                    impl<
+                        T: AppHub,
+                    > tonic::server::UnaryService<super::ListDiscoveredServicesRequest>
+                    for ListDiscoveredServicesSvc<T> {
+                        type Response = super::ListDiscoveredServicesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListDiscoveredServicesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppHub>::list_discovered_services(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDiscoveredServicesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.apphub.v1.AppHub/GetDiscoveredService" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetDiscoveredServiceSvc<T: AppHub>(pub Arc<T>);
+                    impl<
+                        T: AppHub,
+                    > tonic::server::UnaryService<super::GetDiscoveredServiceRequest>
+                    for GetDiscoveredServiceSvc<T> {
+                        type Response = super::DiscoveredService;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetDiscoveredServiceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppHub>::get_discovered_service(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetDiscoveredServiceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.apphub.v1.AppHub/LookupDiscoveredService" => {
+                    #[allow(non_camel_case_types)]
+                    struct LookupDiscoveredServiceSvc<T: AppHub>(pub Arc<T>);
+                    impl<
+                        T: AppHub,
+                    > tonic::server::UnaryService<super::LookupDiscoveredServiceRequest>
+                    for LookupDiscoveredServiceSvc<T> {
+                        type Response = super::LookupDiscoveredServiceResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::LookupDiscoveredServiceRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppHub>::lookup_discovered_service(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = LookupDiscoveredServiceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.apphub.v1.AppHub/ListServices" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListServicesSvc<T: AppHub>(pub Arc<T>);
+                    impl<
+                        T: AppHub,
+                    > tonic::server::UnaryService<super::ListServicesRequest>
+                    for ListServicesSvc<T> {
+                        type Response = super::ListServicesResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListServicesRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppHub>::list_services(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListServicesSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.apphub.v1.AppHub/CreateService" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateServiceSvc<T: AppHub>(pub Arc<T>);
+                    impl<
+                        T: AppHub,
+                    > tonic::server::UnaryService<super::CreateServiceRequest>
+                    for CreateServiceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateServiceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppHub>::create_service(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateServiceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.apphub.v1.AppHub/GetService" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetServiceSvc<T: AppHub>(pub Arc<T>);
+                    impl<T: AppHub> tonic::server::UnaryService<super::GetServiceRequest>
+                    for GetServiceSvc<T> {
+                        type Response = super::Service;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetServiceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppHub>::get_service(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetServiceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.apphub.v1.AppHub/UpdateService" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateServiceSvc<T: AppHub>(pub Arc<T>);
+                    impl<
+                        T: AppHub,
+                    > tonic::server::UnaryService<super::UpdateServiceRequest>
+                    for UpdateServiceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateServiceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppHub>::update_service(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateServiceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.apphub.v1.AppHub/DeleteService" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteServiceSvc<T: AppHub>(pub Arc<T>);
+                    impl<
+                        T: AppHub,
+                    > tonic::server::UnaryService<super::DeleteServiceRequest>
+                    for DeleteServiceSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteServiceRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppHub>::delete_service(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteServiceSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.apphub.v1.AppHub/ListDiscoveredWorkloads" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListDiscoveredWorkloadsSvc<T: AppHub>(pub Arc<T>);
+                    impl<
+                        T: AppHub,
+                    > tonic::server::UnaryService<super::ListDiscoveredWorkloadsRequest>
+                    for ListDiscoveredWorkloadsSvc<T> {
+                        type Response = super::ListDiscoveredWorkloadsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::ListDiscoveredWorkloadsRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppHub>::list_discovered_workloads(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListDiscoveredWorkloadsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.apphub.v1.AppHub/GetDiscoveredWorkload" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetDiscoveredWorkloadSvc<T: AppHub>(pub Arc<T>);
+                    impl<
+                        T: AppHub,
+                    > tonic::server::UnaryService<super::GetDiscoveredWorkloadRequest>
+                    for GetDiscoveredWorkloadSvc<T> {
+                        type Response = super::DiscoveredWorkload;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetDiscoveredWorkloadRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppHub>::get_discovered_workload(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetDiscoveredWorkloadSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.apphub.v1.AppHub/LookupDiscoveredWorkload" => {
+                    #[allow(non_camel_case_types)]
+                    struct LookupDiscoveredWorkloadSvc<T: AppHub>(pub Arc<T>);
+                    impl<
+                        T: AppHub,
+                    > tonic::server::UnaryService<super::LookupDiscoveredWorkloadRequest>
+                    for LookupDiscoveredWorkloadSvc<T> {
+                        type Response = super::LookupDiscoveredWorkloadResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<
+                                super::LookupDiscoveredWorkloadRequest,
+                            >,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppHub>::lookup_discovered_workload(&inner, request)
+                                    .await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = LookupDiscoveredWorkloadSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.apphub.v1.AppHub/ListWorkloads" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListWorkloadsSvc<T: AppHub>(pub Arc<T>);
+                    impl<
+                        T: AppHub,
+                    > tonic::server::UnaryService<super::ListWorkloadsRequest>
+                    for ListWorkloadsSvc<T> {
+                        type Response = super::ListWorkloadsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListWorkloadsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppHub>::list_workloads(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListWorkloadsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.apphub.v1.AppHub/CreateWorkload" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateWorkloadSvc<T: AppHub>(pub Arc<T>);
+                    impl<
+                        T: AppHub,
+                    > tonic::server::UnaryService<super::CreateWorkloadRequest>
+                    for CreateWorkloadSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateWorkloadRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppHub>::create_workload(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateWorkloadSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.apphub.v1.AppHub/GetWorkload" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetWorkloadSvc<T: AppHub>(pub Arc<T>);
+                    impl<
+                        T: AppHub,
+                    > tonic::server::UnaryService<super::GetWorkloadRequest>
+                    for GetWorkloadSvc<T> {
+                        type Response = super::Workload;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetWorkloadRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppHub>::get_workload(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetWorkloadSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.apphub.v1.AppHub/UpdateWorkload" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateWorkloadSvc<T: AppHub>(pub Arc<T>);
+                    impl<
+                        T: AppHub,
+                    > tonic::server::UnaryService<super::UpdateWorkloadRequest>
+                    for UpdateWorkloadSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateWorkloadRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppHub>::update_workload(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateWorkloadSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.apphub.v1.AppHub/DeleteWorkload" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteWorkloadSvc<T: AppHub>(pub Arc<T>);
+                    impl<
+                        T: AppHub,
+                    > tonic::server::UnaryService<super::DeleteWorkloadRequest>
+                    for DeleteWorkloadSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteWorkloadRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppHub>::delete_workload(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteWorkloadSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.apphub.v1.AppHub/ListApplications" => {
+                    #[allow(non_camel_case_types)]
+                    struct ListApplicationsSvc<T: AppHub>(pub Arc<T>);
+                    impl<
+                        T: AppHub,
+                    > tonic::server::UnaryService<super::ListApplicationsRequest>
+                    for ListApplicationsSvc<T> {
+                        type Response = super::ListApplicationsResponse;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::ListApplicationsRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppHub>::list_applications(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = ListApplicationsSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.apphub.v1.AppHub/CreateApplication" => {
+                    #[allow(non_camel_case_types)]
+                    struct CreateApplicationSvc<T: AppHub>(pub Arc<T>);
+                    impl<
+                        T: AppHub,
+                    > tonic::server::UnaryService<super::CreateApplicationRequest>
+                    for CreateApplicationSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::CreateApplicationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppHub>::create_application(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = CreateApplicationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.apphub.v1.AppHub/GetApplication" => {
+                    #[allow(non_camel_case_types)]
+                    struct GetApplicationSvc<T: AppHub>(pub Arc<T>);
+                    impl<
+                        T: AppHub,
+                    > tonic::server::UnaryService<super::GetApplicationRequest>
+                    for GetApplicationSvc<T> {
+                        type Response = super::Application;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::GetApplicationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppHub>::get_application(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = GetApplicationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.apphub.v1.AppHub/UpdateApplication" => {
+                    #[allow(non_camel_case_types)]
+                    struct UpdateApplicationSvc<T: AppHub>(pub Arc<T>);
+                    impl<
+                        T: AppHub,
+                    > tonic::server::UnaryService<super::UpdateApplicationRequest>
+                    for UpdateApplicationSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::UpdateApplicationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppHub>::update_application(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = UpdateApplicationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                "/google.cloud.apphub.v1.AppHub/DeleteApplication" => {
+                    #[allow(non_camel_case_types)]
+                    struct DeleteApplicationSvc<T: AppHub>(pub Arc<T>);
+                    impl<
+                        T: AppHub,
+                    > tonic::server::UnaryService<super::DeleteApplicationRequest>
+                    for DeleteApplicationSvc<T> {
+                        type Response = super::super::super::super::longrunning::Operation;
+                        type Future = BoxFuture<
+                            tonic::Response<Self::Response>,
+                            tonic::Status,
+                        >;
+                        fn call(
+                            &mut self,
+                            request: tonic::Request<super::DeleteApplicationRequest>,
+                        ) -> Self::Future {
+                            let inner = Arc::clone(&self.0);
+                            let fut = async move {
+                                <T as AppHub>::delete_application(&inner, request).await
+                            };
+                            Box::pin(fut)
+                        }
+                    }
+                    let accept_compression_encodings = self.accept_compression_encodings;
+                    let send_compression_encodings = self.send_compression_encodings;
+                    let max_decoding_message_size = self.max_decoding_message_size;
+                    let max_encoding_message_size = self.max_encoding_message_size;
+                    let inner = self.inner.clone();
+                    let fut = async move {
+                        let method = DeleteApplicationSvc(inner);
+                        let codec = tonic::codec::ProstCodec::default();
+                        let mut grpc = tonic::server::Grpc::new(codec)
+                            .apply_compression_config(
+                                accept_compression_encodings,
+                                send_compression_encodings,
+                            )
+                            .apply_max_message_size_config(
+                                max_decoding_message_size,
+                                max_encoding_message_size,
+                            );
+                        let res = grpc.unary(method, req).await;
+                        Ok(res)
+                    };
+                    Box::pin(fut)
+                }
+                _ => {
+                    Box::pin(async move {
+                        Ok(
+                            http::Response::builder()
+                                .status(200)
+                                .header("grpc-status", tonic::Code::Unimplemented as i32)
+                                .header(
+                                    http::header::CONTENT_TYPE,
+                                    tonic::metadata::GRPC_CONTENT_TYPE,
+                                )
+                                .body(empty_body())
+                                .unwrap(),
+                        )
+                    })
+                }
+            }
+        }
+    }
+    impl<T> Clone for AppHubServer<T> {
+        fn clone(&self) -> Self {
+            let inner = self.inner.clone();
+            Self {
+                inner,
+                accept_compression_encodings: self.accept_compression_encodings,
+                send_compression_encodings: self.send_compression_encodings,
+                max_decoding_message_size: self.max_decoding_message_size,
+                max_encoding_message_size: self.max_encoding_message_size,
+            }
+        }
+    }
+    /// Generated gRPC service name
+    pub const SERVICE_NAME: &str = "google.cloud.apphub.v1.AppHub";
+    impl<T> tonic::server::NamedService for AppHubServer<T> {
+        const NAME: &'static str = SERVICE_NAME;
     }
 }
